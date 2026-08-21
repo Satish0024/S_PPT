@@ -52,14 +52,14 @@ export default function Login() {
         <div className="login-waves" />
         <div className="login-brand-copy">
           <img src="/saturna_logo.png" alt="" />
-          <h1>Plan with confidence.</h1>
+          <h1>Plan With Confidence.</h1>
           <p>Access your 401(k), deferrals, and retirement tools in one secure participant portal.</p>
         </div>
       </aside>
       <main className="login-panel">
         <div className="login-card">
           <img className="login-logo" src="/saturna_logo.png" alt="Saturna Capital" />
-          <h2>Sign in</h2>
+          <h2>Sign In</h2>
           <p className="login-lead">Use your participant email to continue.</p>
 
           <form onSubmit={submit}>
@@ -87,7 +87,7 @@ export default function Login() {
                 <input
                   type={show ? 'text' : 'password'}
                   autoComplete="current-password"
-                  placeholder="Enter password"
+                  placeholder="Enter Password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value)
@@ -95,22 +95,22 @@ export default function Login() {
                   }}
                   required
                 />
-                <button type="button" className="login-eye" onClick={() => setShow((v) => !v)} aria-label={show ? 'Hide password' : 'Show password'}>
+                <button type="button" className="login-eye" onClick={() => setShow((v) => !v)} aria-label={show ? 'Hide Password' : 'Show Password'}>
                   {show ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </span>
             </label>
             {error && <p className="login-error">{error}</p>}
             <button className="login-submit" type="submit">
-              Sign in
+              Sign In
             </button>
           </form>
 
           <p className="login-hint">
-            Demo password: <b>{DEMO_PASSWORD}</b>
+            Demo Password: <b>{DEMO_PASSWORD}</b>
           </p>
           <div className="login-demos" ref={dropRef}>
-            <span>Try a participant</span>
+            <span>Try A Participant</span>
             <button
               type="button"
               className={`lp-toggle${open ? ' open' : ''}`}
@@ -124,7 +124,7 @@ export default function Login() {
                   <small>{picked.scenario}</small>
                 </span>
               ) : (
-                <span className="lp-placeholder">Select a participant</span>
+                <span className="lp-placeholder">Select A Participant</span>
               )}
               <ChevronDown size={16} strokeWidth={2.2} />
             </button>

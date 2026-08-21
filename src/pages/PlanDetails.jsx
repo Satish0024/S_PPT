@@ -1,0 +1,376 @@
+import { useMemo, useState } from 'react'
+import { Link, Navigate, useParams } from 'react-router-dom'
+import { Percent, TrendingUp } from 'lucide-react'
+import { useParticipant } from '../context/ParticipantContext.jsx'
+import {
+  AUTO_INCREASE_KEY,
+  DEFERRAL_KEY,
+  INVESTMENT_KEY,
+  readSession,
+  writeSession
+} from '../data/participants'
+import { DeferralEditor } from './Enrollment.jsx'
+import { InvestmentEditor } from './Investments.jsx'
+import '../styles/enrollment.css'
+
+const CYCLES = {
+  calendar: 'Calendar Year',
+  participant: 'Plan Participant Date',
+  planyear: 'Plan Year'
+}
+const DEFAULT_DEFERRAL = { pre: 6, roth: 2, total: 8, optedOut: false }
+const DEFAULT_AI = {
+  mode: 'do',
+  skipped: false,
+  cycle: 'calendar',
+  incPre: 1,
+  capPre: 10,
+  incRoth: 1,
+  capRoth: 10
+}
+const DEFAULT_FUNDS = [
+  ['Vanguard 500 Index Fund', 30],
+  ['Fidelity 500 Index Fund', 30],
+  ['Vanguard Total Bond Market', 20],
+  ['Fidelity U.S. Bond Index', 20]
+]
+const SALARY = 85000
+const PERIODS = 26
+
+const pct = (n) => Math.round((+n || 0) * 10) / 10 + '%'
+const payFromPct = (rate) => Math.round((SALARY * (+rate || 0)) / 100 / PERIODS)
+const money = (n) =>
+  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
+const fundRows = (alloc) => Object.entries(alloc || {}).filter(([, v]) => +v > 0)
+const planCode = (meta) => String(meta || '').match(/ID\s+(\d+)/i)?.[1] || '—'
+const canDefer = (plan) => /401|deferred/i.test(`${plan.type} ${plan.id}`)
+const isParticipating = (plan) => /enrolled|participating/i.test(`${plan.badge} ${plan.details?.status || ''}`)
+const isEligibleOnly = (plan) => plan.badge === 'Eligible' || plan.badgeClass === 'eligible'
+
+export default function PlanDetails() {
+  const { planId } = useParams()
+  const { participant } = useParticipant()
+  const plan = participant.plans.find((p) => p.id === planId)
+  const [tick, setTick] = useState(0)
+  const savedDeferral = useMemo(() => readSession(DEFERRAL_KEY), [tick])
+  const savedAi = useMemo(() => readSession(AUTO_INCREASE_KEY), [tick])
+  const savedInv = useMemo(() => readSession(INVESTMENT_KEY), [tick])
+  const [optOutOpen, setOptOutOpen] = useState(false)
+  const [optedOut, setOptedOut] = useState(!!savedDeferral?.optedOut)
+  const [tab, setTab] = useState('deferral')
+  const [editing, setEditing] = useState(false)
+
+  if (!plan) return <Navigate to="/" replace />
+
+  const deferCapable = canDefer(plan)
+  const sessionOptOut = deferCapable && optedOut
+  const enrolled = isParticipating(plan) && !sessionOptOut
+  const eligible = isEligibleOnly(plan) && !enrolled && !sessionOptOut
+  const activeTab = deferCapable ? tab : 'investments'
+
+  const deferral = enrolled ? { ...DEFAULT_DEFERRAL, ...(savedDeferral || {}) } : savedDeferral
+  const autoInc = enrolled ? { ...DEFAULT_AI, ...(savedAi || {}) } : savedAi
+  const skippedAi = !autoInc || autoInc.skipped || autoInc.mode !== 'do'
+  const applyAll = savedInv?.applyAll !== false
+  const funds =
+    fundRows(savedInv?.bySource?.pre || savedInv?.alloc).length
+      ? fundRows(applyAll ? savedInv?.bySource?.pre || savedInv?.alloc : null)
+      : DEFAULT_FUNDS
+
+  const refresh = () => {
+    setEditing(false)
+    setTick((n) => n + 1)
+  }
+
+  const confirmOptOut = () => {
+    writeSession(DEFERRAL_KEY, {
+      ...(savedDeferral || DEFAULT_DEFERRAL),
+      mode: 'optout',
+      optedOut: true,
+      pre: 0,
+      roth: 0,
+      total: 0
+    })
+    writeSession(AUTO_INCREASE_KEY, {
+      ...(savedAi || DEFAULT_AI),
+      skipped: true,
+      mode: 'skip'
+    })
+    setOptedOut(true)
+    setEditing(false)
+    setOptOutOpen(false)
+    setTick((n) => n + 1)
+  }
+
+  const switchTab = (next) => {
+    setTab(next)
+    setEditing(false)
+  }
+
+  return (
+    <div className="page-body">
+      <div className="hi-bar">
+        <div>
+          <Link to="/" className="text-link">
+            ‹ My Plans
+          </Link>
+          <h1>{plan.name}</h1>
+          <span className={`plan-badge ${sessionOptOut ? 'opted' : plan.badgeClass || ''}`}>
+            {sessionOptOut ? 'Opted Out' : plan.badge}
+          </span>
+        </div>
+      </div>
+
+      <div className="plan-overview">
+        <div className="plan-overview-left">
+          <div className="plan-fact">
+            Plan Details
+            <b>
+              {plan.type} · ID {planCode(plan.meta)}
+            </b>
+          </div>
+          <div className="plan-fact">
+            Company Name
+            <b>{participant.profile.employer}</b>
+          </div>
+          <div className="plan-fact-row">
+            <div className="plan-fact">
+              Enrollment Status
+              <b>{sessionOptOut ? 'Opted Out' : plan.details?.status || plan.badge}</b>
+            </div>
+            <div className="plan-fact">
+              SSN
+              <b>{participant.profile.ssn}</b>
+            </div>
+          </div>
+        </div>
+        {plan.stats && (
+          <div className="plan-stats">
+            <div className="plan-stat balance">
+              <div className="k">Balance</div>
+              <div className="v">{plan.stats.balance}</div>
+            </div>
+            <div className="plan-stat vested">
+              <div className="k">Vested</div>
+              <div className="v">{plan.stats.vested}</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {sessionOptOut && (
+        <section className="panel">
+          <h3>You Opted Out</h3>
+          <p>Paycheck deferrals are stopped for this plan. You can enroll again at any time.</p>
+          <div className="actions">
+            <Link className="btn btn-primary" to="/enrollment">
+              Enroll Again
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {eligible && (
+        <section className="panel">
+          <h3>Not Enrolled Yet</h3>
+          <p>You are eligible to participate. Set a deferral rate and investments to join this plan.</p>
+          <div className="actions">
+            <Link className="btn btn-primary" to="/enrollment">
+              Enroll
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {enrolled && (
+        <div className="plan-manage">
+          <div className="plan-tabs" role="tablist" aria-label="Plan elections">
+            {deferCapable && (
+              <button
+                type="button"
+                className={`plan-tab${activeTab === 'deferral' ? ' on' : ''}`}
+                role="tab"
+                aria-selected={activeTab === 'deferral'}
+                onClick={() => switchTab('deferral')}
+              >
+                <span className="tab-ico" aria-hidden="true">
+                  <Percent size={16} strokeWidth={2.2} />
+                </span>
+                Deferrals
+              </button>
+            )}
+            <button
+              type="button"
+              className={`plan-tab${activeTab === 'investments' ? ' on' : ''}`}
+              role="tab"
+              aria-selected={activeTab === 'investments'}
+              onClick={() => switchTab('investments')}
+            >
+              <span className="tab-ico" aria-hidden="true">
+                <TrendingUp size={16} strokeWidth={2.2} />
+              </span>
+              Investments
+            </button>
+          </div>
+
+          <div className="plan-tab-body">
+            {activeTab === 'deferral' && deferCapable && (
+              <>
+                <section className="panel">
+                  {editing ? (
+                    <DeferralEditor
+                      embedded
+                      showOptOut={false}
+                      saveLabel="Save Changes"
+                      onCancel={() => setEditing(false)}
+                      onComplete={(didOptOut) => {
+                        if (didOptOut) setOptedOut(true)
+                        refresh()
+                      }}
+                    />
+                  ) : (
+                    <>
+                      <div className="panel-h">
+                        <h3>Deferral & Auto Increase</h3>
+                        <button type="button" className="text-link" onClick={() => setEditing(true)}>
+                          Edit
+                        </button>
+                      </div>
+                      <ul className="detail-rows">
+                        <li>
+                          <span>Pre-Tax</span>
+                          <b>
+                            {pct(deferral.pre)} <small>{money(payFromPct(deferral.pre))} / paycheck</small>
+                          </b>
+                        </li>
+                        <li>
+                          <span>Roth</span>
+                          <b>
+                            {pct(deferral.roth)} <small>{money(payFromPct(deferral.roth))} / paycheck</small>
+                          </b>
+                        </li>
+                      </ul>
+                      <h4 className="src-label">Auto Increase</h4>
+                      {skippedAi ? (
+                        <p>No automatic increase is turned on.</p>
+                      ) : (
+                        <ul className="detail-rows">
+                          <li>
+                            <span>Cycle</span>
+                            <b>{CYCLES[autoInc.cycle] || 'Calendar Year'}</b>
+                          </li>
+                          <li>
+                            <span>Pre-Tax</span>
+                            <b>
+                              +{pct(autoInc.incPre ?? autoInc.inc)} until {pct(autoInc.capPre ?? autoInc.cap)}
+                            </b>
+                          </li>
+                          <li>
+                            <span>Roth</span>
+                            <b>
+                              +{pct(autoInc.incRoth ?? autoInc.inc)} until {pct(autoInc.capRoth ?? autoInc.cap)}
+                            </b>
+                          </li>
+                        </ul>
+                      )}
+                    </>
+                  )}
+                </section>
+                {!editing && (
+                  <div className="plan-optout">
+                    <button type="button" className="text-link danger" onClick={() => setOptOutOpen(true)}>
+                      Opt Out Of Paycheck Deferral
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+
+            {activeTab === 'investments' && (
+              <section className="panel">
+                {editing ? (
+                  <InvestmentEditor
+                    embedded
+                    saveLabel="Save Changes"
+                    onCancel={() => setEditing(false)}
+                    onComplete={refresh}
+                  />
+                ) : (
+                  <>
+                    <div className="panel-h">
+                      <h3>Investments</h3>
+                      <button type="button" className="text-link" onClick={() => setEditing(true)}>
+                        Edit
+                      </button>
+                    </div>
+                    <p className="panel-note">
+                      {savedInv?.mode === 'custom' ? 'Your Selection' : 'Plan Investments'}
+                      {applyAll || !savedInv ? ' · Same For All Sources' : ' · By Source'}
+                    </p>
+                    {applyAll || !savedInv ? (
+                      <FundList rows={funds} />
+                    ) : (
+                      ['pre', 'roth'].map((src) => (
+                        <div key={src}>
+                          <h4 className="src-label">{src === 'pre' ? 'Pre-Tax' : 'Roth'}</h4>
+                          <FundList rows={fundRows(savedInv?.bySource?.[src])} />
+                        </div>
+                      ))
+                    )}
+                  </>
+                )}
+              </section>
+            )}
+          </div>
+        </div>
+      )}
+
+      {!enrolled && !eligible && !sessionOptOut && (
+        <section className="panel">
+          <h3>Enrollment</h3>
+          <p>{plan.notice}</p>
+        </section>
+      )}
+
+      {optOutOpen && (
+        <div className="enroll-modal-bg" role="presentation" onClick={() => setOptOutOpen(false)}>
+          <div
+            className="enroll-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="optout-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h4 id="optout-title">Opt Out Of Paycheck Deferral?</h4>
+            <p>
+              You will not contribute from your paycheck. You can enroll later, but you will miss the chance to grow this
+              savings with each pay period.
+            </p>
+            <div className="enroll-modal-actions">
+              <button type="button" className="btn btn-secondary" onClick={() => setOptOutOpen(false)}>
+                Cancel
+              </button>
+              <button type="button" className="btn btn-primary" onClick={confirmOptOut}>
+                Confirm Opt Out
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function FundList({ rows }) {
+  if (!rows?.length) return <p>No funds selected yet.</p>
+  return (
+    <ul className="detail-rows">
+      {rows.map(([name, share]) => (
+        <li key={name}>
+          <span>{name}</span>
+          <b>{pct(share)}</b>
+        </li>
+      ))}
+    </ul>
+  )
+}
