@@ -30,7 +30,7 @@ export default function Dashboard() {
           <Transactions rows={participant.transactions.slice(0, 5)} />
         </div>
         <aside className="dash-side">
-          {participant.showSimulator && <RetirementGoalSimulator />}
+          <RetirementGoalSimulator />
           <LearningPortal />
         </aside>
       </div>

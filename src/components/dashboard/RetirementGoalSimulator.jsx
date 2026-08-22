@@ -1,40 +1,102 @@
-export default function RetirementGoalSimulator({ variant = 'default' }) {
-  const grey = variant === 'grey'
+import { useEffect, useMemo, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { ArrowRight, Gauge } from 'lucide-react'
+import { useParticipant } from '../../context/ParticipantContext.jsx'
+import {
+  READINESS_KEY,
+  ageFromDob,
+  hydratePrefs,
+  parseMoney,
+  readMap,
+  scoreGoal,
+  statusCopy
+} from '../../lib/retirementGoal'
+import { DisclaimerModal, GoalDonut, ReadinessChart } from './ReadinessVisuals.jsx'
+
+export default function RetirementGoalSimulator() {
+  const { participant } = useParticipant()
+  const location = useLocation()
+  const [started, setStarted] = useState(() => !!(participant.showSimulator || readMap(READINESS_KEY)[participant.id]))
+  const [open, setOpen] = useState(false)
+  const [updated, setUpdated] = useState(false)
+  const [prefs, setPrefs] = useState(() => hydratePrefs(participant))
+
+  useEffect(() => {
+    setStarted(!!(participant.showSimulator || readMap(READINESS_KEY)[participant.id]))
+    setPrefs(hydratePrefs(participant))
+  }, [participant.id, participant.showSimulator])
+
+  useEffect(() => {
+    if (!location.state?.goalSaved) return
+    setStarted(true)
+    setPrefs(hydratePrefs(participant))
+    setUpdated(true)
+    const t = window.setTimeout(() => setUpdated(false), 2400)
+    return () => window.clearTimeout(t)
+  }, [location.state, participant])
+
+  const currentAge = ageFromDob(participant.profile?.dob)
+  const balance = parseMoney(participant.overall?.total)
+  const result = useMemo(
+    () => scoreGoal({ prefs, currentAge, balance }),
+    [prefs, currentAge, balance]
+  )
+  const { score, income, expense, shortfall } = result
+  const status = statusCopy(score)
+  const excellent = score >= 80
+  const tone = excellent ? 'good' : score >= 55 ? 'ok' : 'warn'
+
   return (
-    <section className={`rr-card${grey ? ' grey' : ''}`} aria-label="Retirement Readiness">
+    <section className={`rr-card${started ? '' : ' fresh'}`} aria-label="Retirement Goal Simulator">
       <div className="rr-head">
+        <span className="rr-ico" aria-hidden="true">
+          <Gauge size={18} strokeWidth={2.1} />
+        </span>
         <div className="rr-copy">
+          <span className="rr-tag">Goal Setting</span>
           <h3>Retirement Readiness</h3>
-          <p>See how your inputs affect your savings, income, risk.</p>
-        </div>
-        <svg className="rr-art" viewBox="0 0 88 56" aria-hidden="true">
-          <circle cx="70" cy="12" r="8" fill="#f4c430" />
-          <path d="M8 56c8-18 22-28 40-28 10 0 18 3 24 8v20H8z" fill="#3cbc82" />
-          <path d="M52 36c0-10 8-16 12-16 2 0 4 1 5 3-6 2-10 8-10 16v4h-7v-7z" fill="#4a63c7" />
-          <rect x="63" y="36" width="2" height="16" fill="#1f2268" />
-          <circle cx="44" cy="44" r="4" fill="#1f2268" />
-          <ellipse cx="52" cy="48" rx="6" ry="3.5" fill="#2e3192" />
-        </svg>
-      </div>
-      <div className="rr-body">
-        <div className="rr-donut" aria-hidden="true">
-          <span className="rr-score">83%</span>
-        </div>
-        <div className="rr-facts">
-          <div className="rr-exp">
-            Expected Expense<b>$1,328,857.15</b>
-          </div>
-          <div className="rr-row income">
-            <span className="dot" /> All Income <span className="amt">$1,102,951.43</span>
-          </div>
-          <div className="rr-row short">
-            <span className="dot" /> Shortfall <span className="amt">$225,905.72</span>
-          </div>
         </div>
       </div>
+
+      {started ? (
+        <>
+          <ReadinessChart score={score} expense={expense} income={income} shortfall={shortfall} />
+          <div className={`rr-status ${tone}`}>
+            <div className="rr-status-copy">
+              <b>{status.title}</b>
+              <span>{status.body}</span>
+              {updated && <em>Updated Just Now</em>}
+            </div>
+            <Link className="rr-status-go" to="/retirement-goal">
+              Adjust Your Goal
+            </Link>
+          </div>
+        </>
+      ) : (
+        <div className="rr-visual">
+          <div className="rr-chart">
+            <GoalDonut score={0} empty />
+          </div>
+          <div className="rr-main">
+            <p className="rr-lead">
+              Set a retirement target from deferral, auto increase, age, and location — then see when you may be ready.
+            </p>
+            <Link className="rr-cta" to="/retirement-goal">
+              Get Started
+              <ArrowRight size={15} strokeWidth={2.2} />
+            </Link>
+          </div>
+        </div>
+      )}
+
       <div className="rr-foot">
-        *Not guaranteed results · <a href="#">Read More</a>
+        *Not guaranteed results · It&apos;s a simulation.{' '}
+        <button type="button" className="rr-more" onClick={() => setOpen(true)}>
+          Read More
+        </button>
       </div>
+
+      {open && <DisclaimerModal onClose={() => setOpen(false)} />}
     </section>
   )
 }

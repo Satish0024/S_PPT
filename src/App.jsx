@@ -13,6 +13,7 @@ import Profile from './pages/Profile.jsx'
 import Transactions from './pages/Transactions.jsx'
 import Reports from './pages/Reports.jsx'
 import Login from './pages/Login.jsx'
+import RetirementGoal from './pages/RetirementGoal.jsx'
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
       <Route element={<RequireAuth />}>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/retirement-goal" element={<RetirementGoal />} />
           <Route path="/plans/:planId" element={<PlanDetails />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/profile" element={<Profile />} />
