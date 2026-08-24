@@ -8,7 +8,7 @@ import './styles/login.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ParticipantProvider>
         <App />
       </ParticipantProvider>
