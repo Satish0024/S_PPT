@@ -3,6 +3,23 @@
 All notable changes to the Saturna Participant Portal are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.2.0] - 2026-08-24
+
+Remaining content changes from the "Verbiage changes for prototype" sheet applied across the Investment Portfolio and Enrollment flows (the sheet rows the v1.1.0 pass didn't cover, since it was scoped to the Dashboard).
+
+### Changed
+- **Investment Portfolio**: "Holdings" → "Your investments"; sub-heading updated to "Summary of your retirement investment balances, returns, and gains."; Plan Investments sub-heading updated to "Browse and compare the funds available within your retirement plan."; chart Y-axis renamed to "Rate of return (%)".
+- **Opt-out popup** (Plan Details + Enrollment, both copies): retitled from "Opt Out Of Paycheck Deferral?" to "Are you sure?" with updated body copy about missed employer match.
+- **Deferral Rate step**: intro copy updated to "Choose your own deferral rate or use the plan deferral rate."
+- **Auto Increase**: section copy, both choice labels/descriptions, and the "won't grow as fast" warning card all updated to the sheet's wording ("Keep Your Current Deferral Rate" etc).
+- **Investment Election**: "I'll Choose My Own" → "Select My Own Investments"; both choice descriptions updated.
+- **Enrollment Summary**: review intro, auto-increase note, investment-selection labels ("Own Election"/"Plan default selection" · "Source wise allocation"/"Investment wise allocation"), and footer note all updated.
+- **Enrollment success message** now branches: not-yet-eligible participants see "Your enrollment preferences have been saved and will take effect once you're eligible for the plan."; everyone else keeps the original beneficiary-prompt message.
+- **Enrollment sidebar** step descriptions updated to match sheet wording.
+
+### Notes
+- Confirmed via a full pass of both sheet tabs against the codebase: several sheet rows don't apply because the corresponding screens/features aren't built here (questionnaire/risk-level, loan & distribution, transfer, document center, contribution-election % display, source descriptions, sidebar "Enrollment" rename).
+
 ## [1.1.0] - 2026-08-24
 
 Dashboard content updated per the "Verbiage changes for prototype" sheet.
