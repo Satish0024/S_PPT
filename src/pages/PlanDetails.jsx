@@ -112,7 +112,7 @@ export default function PlanDetails() {
       <div className="hi-bar">
         <div>
           <Link to="/" className="text-link">
-            ‹ My Plans
+            ‹ Your Plans
           </Link>
           <h1>{plan.name}</h1>
           <span className={`plan-badge ${sessionOptOut ? 'opted' : plan.badgeClass || ''}`}>
