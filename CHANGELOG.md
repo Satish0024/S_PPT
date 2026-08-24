@@ -3,6 +3,20 @@
 All notable changes to the Saturna Participant Portal are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.1.0] - 2026-08-24
+
+Dashboard content updated per the "Verbiage changes for prototype" sheet.
+
+### Changed
+- Renamed balance labels on the dashboard from "Overall Account Balance" / "Total Vested Balance" to "Account Balance" / "Vested Balance".
+- Updated the outstanding loan disclaimer to "This loan balance is tracked separately and is not reflected in the account balances shown above."
+- Renamed the "My Plans" dashboard section (and its plan-details breadcrumb) to "Your Plans".
+
+### Notes
+- Plan-card status notices (auto-enrolled, manually enrolled, eligible, not eligible) already matched the sheet's expected copy — no change needed.
+- Several sheet items (questionnaire/risk-level copy, loan & distribution flows, contribution/auto-increase screens, sidebar "Enrollment" rename) don't apply — those screens/flows don't exist in this build, or apply to Enrollment/Portfolio pages rather than the Dashboard.
+- The Retirement Readiness disclaimer text was flagged in the sheet as unclear, but no replacement wording was provided yet — left unchanged pending that follow-up.
+
 ## [1.0.0] - 2026-08-24
 
 Initial release, pushed to `main` on `Satish0024/S_PPT`.
