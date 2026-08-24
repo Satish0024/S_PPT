@@ -125,7 +125,7 @@ export function DeferralEditor({
           <div>
             <h3 className="section-title">{embedded ? 'Edit Deferral' : 'Set Your Deferral Rate'}</h3>
             <p className="section-sub">
-              Choose how much of each paycheck to set aside, or use the plan mix.
+              Choose your own deferral rate or use the plan deferral rate.
             </p>
           </div>
           {showOptOut && (
@@ -183,7 +183,7 @@ export function DeferralEditor({
       <div className="ai-block" id="auto-increase">
           <h3 className="section-title">Auto Increase</h3>
           <p className="section-sub">
-            Each year, your deferral can go up on its own so you save a little more over time.
+            Automatically increase your deferral rate over time to help grow your retirement savings.
           </p>
 
           <div className="choice-list" role="radiogroup" aria-label="Auto increase">
@@ -200,7 +200,7 @@ export function DeferralEditor({
               <span className="choice-dot" aria-hidden="true" />
               <span>
                 <b>Use Auto Increase</b>
-                <small>Raise each source automatically each cycle</small>
+                <small>Set how much your deferral rate will increase automatically each year.</small>
               </span>
             </button>
             <button
@@ -215,8 +215,8 @@ export function DeferralEditor({
             >
               <span className="choice-dot" aria-hidden="true" />
               <span>
-                <b>Don&apos;t Increase My Deferral</b>
-                <small>Keep the same rate each year</small>
+                <b>Don&apos;t Use Auto Increase</b>
+                <small>Keep the same deferral rate in effect each year</small>
               </span>
             </button>
           </div>
@@ -226,10 +226,10 @@ export function DeferralEditor({
               <div className="warn-head">
                 <span className="warn-ico">!</span>
                 <div>
-                  <h4>Your Savings Won&apos;t Grow As Fast</h4>
+                  <h4>Keep Your Current Deferral Rate</h4>
                   <p>
-                    Your deferral stays at <b>{unit === '$' ? `$${payFromPct(total)}` : pct(total)}</b> per paycheck.
-                    Without a yearly step-up, it is easier to fall behind on retirement savings.
+                    This means your elected deferral rate of <b>{unit === '$' ? `$${payFromPct(total)}` : pct(total)}</b>{' '}
+                    will remain the same each year unless you choose to update it in the future.
                   </p>
                 </div>
               </div>
@@ -323,10 +323,10 @@ export function DeferralEditor({
             aria-labelledby="optout-title"
             onClick={(e) => e.stopPropagation()}
           >
-            <h4 id="optout-title">Opt Out Of Paycheck Deferral?</h4>
+            <h4 id="optout-title">Are you sure?</h4>
             <p>
-              You will not contribute from your paycheck. You can enroll later, but you will miss the chance to grow this
-              savings with each pay period.
+              If you opt out, deferrals from your paycheck will stop. You can enroll again later, but you may miss out on
+              potential retirement savings growth and any available employer matching contributions.
             </p>
             <div className="enroll-modal-actions">
               <button type="button" className="btn btn-ghost" onClick={() => setOptOutOpen(false)}>

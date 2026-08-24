@@ -1,24 +1,81 @@
 # Changelog
 
-## 1.1.0 — 2026-08-24
+All notable changes to the Saturna Participant Portal are documented here.
+Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
+
+## [1.3.0] - 2026-08-24
 
 ### Added
-
-- Account Summary with plan-level Sources and Investments views.
-- Detailed profile sections and a guided beneficiary workflow.
-- Retirement Readiness goal simulator with live scoring.
 - Year-to-date rate of return on participating plan cards and plan details.
 
 ### Changed
-
 - Rate of return now appears beside Balance as a compact YTD indicator.
-- Account Summary shows only plans that have a balance.
-- Retirement Readiness is hidden for participants who are not eligible.
-- The readiness score remains hidden until the participant sets a goal.
-- Sidebar order is now Dashboard, Investment Portfolio, Transactions, My Profile, and Reports & Documents.
-- Investment Portfolio supports sorting by YTD return.
+
+### Notes
+- Added user-facing release notes for the Account Summary, profile, readiness, navigation, and rate-of-return updates.
+
+## [1.2.0] - 2026-08-24
+
+Remaining content changes from the "Verbiage changes for prototype" sheet applied across the Investment Portfolio and Enrollment flows (the sheet rows the v1.1.0 pass didn't cover, since it was scoped to the Dashboard).
+
+### Changed
+- **Investment Portfolio**: "Holdings" → "Your investments"; sub-heading updated to "Summary of your retirement investment balances, returns, and gains."; Plan Investments sub-heading updated to "Browse and compare the funds available within your retirement plan."; chart Y-axis renamed to "Rate of return (%)".
+- **Opt-out popup** (Plan Details + Enrollment, both copies): retitled from "Opt Out Of Paycheck Deferral?" to "Are you sure?" with updated body copy about missed employer match.
+- **Deferral Rate step**: intro copy updated to "Choose your own deferral rate or use the plan deferral rate."
+- **Auto Increase**: section copy, both choice labels/descriptions, and the "won't grow as fast" warning card all updated to the sheet's wording ("Keep Your Current Deferral Rate" etc).
+- **Investment Election**: "I'll Choose My Own" → "Select My Own Investments"; both choice descriptions updated.
+- **Enrollment Summary**: review intro, auto-increase note, investment-selection labels ("Own Election"/"Plan default selection" · "Source wise allocation"/"Investment wise allocation"), and footer note all updated.
+- **Enrollment success message** now branches: not-yet-eligible participants see "Your enrollment preferences have been saved and will take effect once you're eligible for the plan."; everyone else keeps the original beneficiary-prompt message.
+- **Enrollment sidebar** step descriptions updated to match sheet wording.
+
+### Notes
+- Confirmed via a full pass of both sheet tabs against the codebase: several sheet rows don't apply because the corresponding screens/features aren't built here (questionnaire/risk-level, loan & distribution, transfer, document center, contribution-election % display, source descriptions, sidebar "Enrollment" rename).
+
+## [1.1.0] - 2026-08-24
+
+Dashboard content updated per the "Verbiage changes for prototype" sheet.
+
+### Changed
+- Renamed balance labels on the dashboard from "Overall Account Balance" / "Total Vested Balance" to "Account Balance" / "Vested Balance".
+- Updated the outstanding loan disclaimer to "This loan balance is tracked separately and is not reflected in the account balances shown above."
+- Renamed the "My Plans" dashboard section (and its plan-details breadcrumb) to "Your Plans".
+
+### Notes
+- Plan-card status notices (auto-enrolled, manually enrolled, eligible, not eligible) already matched the sheet's expected copy — no change needed.
+- Several sheet items (questionnaire/risk-level copy, loan & distribution flows, contribution/auto-increase screens, sidebar "Enrollment" rename) don't apply — those screens/flows don't exist in this build, or apply to Enrollment/Portfolio pages rather than the Dashboard.
+- The Retirement Readiness disclaimer text was flagged in the sheet as unclear, but no replacement wording was provided yet — left unchanged pending that follow-up.
+
+## [1.0.0] - 2026-08-24
+
+Initial release, pushed to `main` on `Satish0024/S_PPT`.
+
+### Added
+- Saturna participant portal app scaffold (Vite + React 18 + React Router + Chart.js + Lucide icons).
+- Login screen with a compact "try a participant" dropdown for demo sign-in.
+- Dashboard: account summary, per-plan cards (401(k), Profit Sharing, Roth 401(k), Deferred Comp), vested/outstanding balances, and profile details.
+- Retirement Readiness widget with a goal-based readiness score.
+- Retirement goal simulator with live scoring and a save confirmation flow.
+- Enrollment and Auto Increase flows.
+- Investment Portfolio page.
+- Enrich learning portal page.
+- Dev server bound to `127.0.0.1` so `npm run dev` reliably serves on localhost.
 
 ### Fixed
+- Local dev server binding issue preventing `localhost` from resolving.
 
-- Improved plan card spacing and account-summary readability.
-- Improved dashboard balance actions and responsive layout.
+---
+
+## How release notes are generated going forward
+
+Each push to `main` should add an entry above, newest on top, summarizing the commits included since the last entry. Suggested flow:
+
+```bash
+git log <last-release-tag>..HEAD --pretty=format:'- %s (%h)'
+```
+
+Paste the output under a new `## [x.y.z] - YYYY-MM-DD` heading, group into Added/Changed/Fixed, then tag the release:
+
+```bash
+git tag -a vX.Y.Z -m "Release X.Y.Z"
+git push origin vX.Y.Z
+```
