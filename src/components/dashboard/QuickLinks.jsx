@@ -6,12 +6,12 @@ export default function QuickLinks() {
     <section>
       <h2 className="section-title">Quick Links</h2>
       <div className="quick-grid">
-        <a className="quick-link" href="#">
+        <Link className="quick-link" to="/profile?section=beneficiary&add=1">
           <span className="q-ico" aria-hidden="true">
             <Users size={18} strokeWidth={2} />
           </span>
           <span className="q-label">Add Beneficiary</span>
-        </a>
+        </Link>
         <Link className="quick-link" to="/reports">
           <span className="q-ico" aria-hidden="true">
             <FileText size={18} strokeWidth={2} />

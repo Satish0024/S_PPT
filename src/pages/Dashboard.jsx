@@ -1,4 +1,5 @@
 import { useParticipant } from '../context/ParticipantContext.jsx'
+import { isNotEligibleUser } from '../data/participants'
 import OverallBalance from '../components/dashboard/OverallBalance.jsx'
 import PlanCard from '../components/dashboard/PlanCard.jsx'
 import QuickLinks from '../components/dashboard/QuickLinks.jsx'
@@ -9,6 +10,7 @@ import LearningPortal from '../components/dashboard/LearningPortal.jsx'
 export default function Dashboard() {
   const { participant } = useParticipant()
   const first = participant.name.split(' ')[0]
+  const showReadiness = !isNotEligibleUser(participant)
 
   return (
     <div className="page-body">
@@ -30,7 +32,7 @@ export default function Dashboard() {
           <Transactions rows={participant.transactions.slice(0, 5)} />
         </div>
         <aside className="dash-side">
-          <RetirementGoalSimulator />
+          {showReadiness && <RetirementGoalSimulator />}
           <LearningPortal />
         </aside>
       </div>

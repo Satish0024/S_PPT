@@ -17,6 +17,13 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 const PERIODS = ['1m', '3m', '6m', 'ytd', '1y', '3y', '5y', '10y', 'si']
 const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1Y', '3y': '3Y', '5y': '5Y', '10y': '10Y', si: 'Since Inception' }
 
+const SERIES = [
+  { key: 'total', label: 'Total Portfolio', color: '#e05a4f' },
+  { key: 'equity', label: 'U.S. Equity', color: '#1a9d63' },
+  { key: 'bond', label: 'U.S. Bond', color: '#2e3192' },
+  { key: 'target', label: 'Target-Date', color: '#d4a017' }
+]
+
 const COLS = {
   name: { key: 'name', type: 'text' },
   asset: { key: 'asset', type: 'text' },
@@ -33,6 +40,8 @@ export default function Portfolio() {
   const [period, setPeriod] = useState('1y')
   const [planId, setPlanId] = useState('saturna-401k')
   const [sort, setSort] = useState({ key: null, dir: 1 })
+  const [ytdDir, setYtdDir] = useState(null)
+  const [visible, setVisible] = useState({ total: true, equity: false, bond: false, target: false })
   const plan = PLAN_STATS[planId]
 
   const holdings = useMemo(() => {
@@ -48,6 +57,13 @@ export default function Portfolio() {
     return rows
   }, [sort])
 
+  const planFunds = useMemo(() => {
+    const rows = [...PLAN_FUNDS]
+    if (!ytdDir) return rows
+    rows.sort((a, b) => (parsePct(a.ytd) - parsePct(b.ytd)) * ytdDir)
+    return rows
+  }, [ytdDir])
+
   const chart = useMemo(() => {
     const ends = ENDS[period]
     const labs = labelsFor(period)
@@ -56,19 +72,28 @@ export default function Portfolio() {
     const bond = cumSeries(n, ends.bond, 4)
     const target = cumSeries(n, ends.target, 7)
     const total = equity.map((e, i) => Math.round((e * 0.64 + bond[i] * 0.23 + target[i] * 0.13) * 100) / 100)
+    const byKey = {
+      total: line('Total Portfolio', total, '#e05a4f', 0),
+      equity: line('U.S. Equity', equity, '#1a9d63'),
+      bond: line('U.S. Bond', bond, '#2e3192'),
+      target: line('Target-Date', target, '#d4a017')
+    }
     return {
       labels: labs,
-      datasets: [
-        line('Total Portfolio', total, '#e05a4f', 0),
-        line('U.S. Equity', equity, '#1a9d63'),
-        line('U.S. Bond', bond, '#2e3192'),
-        line('Target-Date', target, '#d4a017')
-      ]
+      datasets: SERIES.map((s) => ({ ...byKey[s.key], hidden: !visible[s.key] }))
     }
-  }, [period])
+  }, [period, visible])
+
+  const toggleSeries = (key) => {
+    setVisible((v) => ({ ...v, [key]: !v[key] }))
+  }
 
   const toggleSort = (key) => {
     setSort((s) => (s.key === key ? { key, dir: s.dir * -1 } : { key, dir: 1 }))
+  }
+
+  const toggleYtd = () => {
+    setYtdDir((d) => (d === 1 ? -1 : 1))
   }
 
   return (
@@ -130,22 +155,18 @@ export default function Portfolio() {
                 <div className="chart-top">
                   <h2>Asset Class Performance</h2>
                   <div className="legend">
-                    <span>
-                      <i style={{ background: '#e05a4f' }} />
-                      Total Portfolio
-                    </span>
-                    <span>
-                      <i style={{ background: '#1a9d63' }} />
-                      U.S. Equity
-                    </span>
-                    <span>
-                      <i style={{ background: '#2e3192' }} />
-                      U.S. Bond
-                    </span>
-                    <span>
-                      <i style={{ background: '#d4a017' }} />
-                      Target-Date
-                    </span>
+                    {SERIES.map((s) => (
+                      <button
+                        key={s.key}
+                        type="button"
+                        className={visible[s.key] ? 'on' : ''}
+                        aria-pressed={visible[s.key]}
+                        onClick={() => toggleSeries(s.key)}
+                      >
+                        <i style={{ background: s.color }} />
+                        {s.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
                 <div className="period" role="tablist" aria-label="Chart period">
@@ -218,10 +239,16 @@ export default function Portfolio() {
                       <th className="fund-col" rowSpan={2}>
                         Fund Name / Category
                       </th>
-                      <th rowSpan={2}>
-                        Return YTD
-                        <br />
-                        As Of 03/10/2025
+                      <th
+                        rowSpan={2}
+                        className={`sortable${ytdDir === 1 ? ' asc' : ytdDir === -1 ? ' desc' : ''}`}
+                        aria-sort={ytdDir === 1 ? 'ascending' : ytdDir === -1 ? 'descending' : 'none'}
+                      >
+                        <button type="button" onClick={toggleYtd}>
+                          Return YTD
+                          <br />
+                          As Of 03/10/2025
+                        </button>
                       </th>
                       <th className="group-h" colSpan={4}>
                         Average Annual Total Return
@@ -249,14 +276,13 @@ export default function Portfolio() {
                     </tr>
                   </thead>
                   <tbody>
-                    {PLAN_FUNDS.map((f) => (
+                    {planFunds.map((f) => (
                       <Fragment key={f.name}>
                         <tr className="fund-row">
                           <td className="fund-cell">
                             <div className="fund-title">{f.name}</div>
                             <div className="fund-meta">
                               <span className="fund-cat">{f.cat}</span>
-                              <span className={`risk ${f.risk}`}>{f.risk[0].toUpperCase() + f.risk.slice(1)}</span>
                             </div>
                           </td>
                           <td>{f.ytd}</td>
@@ -290,6 +316,11 @@ export default function Portfolio() {
       </div>
     </>
   )
+}
+
+function parsePct(value) {
+  const n = parseFloat(String(value).replace(/[^0-9.-]/g, ''))
+  return Number.isFinite(n) ? n : Number.NEGATIVE_INFINITY
 }
 
 function line(label, data, color, order) {

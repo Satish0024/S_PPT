@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ArrowRight, Gauge } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
+import { isNotEligibleUser } from '../../data/participants'
 import {
   READINESS_KEY,
   ageFromDob,
@@ -11,7 +12,7 @@ import {
   scoreGoal,
   statusCopy
 } from '../../lib/retirementGoal'
-import { DisclaimerModal, GoalDonut, ReadinessChart } from './ReadinessVisuals.jsx'
+import { DisclaimerModal, ReadinessChart } from './ReadinessVisuals.jsx'
 
 export default function RetirementGoalSimulator() {
   const { participant } = useParticipant()
@@ -46,6 +47,8 @@ export default function RetirementGoalSimulator() {
   const excellent = score >= 80
   const tone = excellent ? 'good' : score >= 55 ? 'ok' : 'warn'
 
+  if (isNotEligibleUser(participant)) return null
+
   return (
     <section className={`rr-card${started ? '' : ' fresh'}`} aria-label="Retirement Goal Simulator">
       <div className="rr-head">
@@ -73,19 +76,14 @@ export default function RetirementGoalSimulator() {
           </div>
         </>
       ) : (
-        <div className="rr-visual">
-          <div className="rr-chart">
-            <GoalDonut score={0} empty />
-          </div>
-          <div className="rr-main">
-            <p className="rr-lead">
-              Set a retirement target from deferral, auto increase, age, and location — then see when you may be ready.
-            </p>
-            <Link className="rr-cta" to="/retirement-goal">
-              Get Started
-              <ArrowRight size={15} strokeWidth={2.2} />
-            </Link>
-          </div>
+        <div className="rr-intro">
+          <p className="rr-lead">
+            This estimates how much of your retirement spending your savings may cover, using deferrals, age, and location.
+          </p>
+          <Link className="rr-cta" to="/retirement-goal">
+            Get Started
+            <ArrowRight size={15} strokeWidth={2.2} />
+          </Link>
         </div>
       )}
 

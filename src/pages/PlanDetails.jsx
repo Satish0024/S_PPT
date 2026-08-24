@@ -183,37 +183,37 @@ export default function PlanDetails() {
       )}
 
       {enrolled && (
-        <div className="plan-manage">
-          <div className="plan-tabs" role="tablist" aria-label="Plan elections">
+        <div className="pr-shell">
+          <nav className="pr-nav" role="tablist" aria-label="Plan elections">
             {deferCapable && (
               <button
                 type="button"
-                className={`plan-tab${activeTab === 'deferral' ? ' on' : ''}`}
+                className={activeTab === 'deferral' ? 'on' : ''}
                 role="tab"
                 aria-selected={activeTab === 'deferral'}
                 onClick={() => switchTab('deferral')}
               >
-                <span className="tab-ico" aria-hidden="true">
-                  <Percent size={16} strokeWidth={2.2} />
+                <span className="pr-nav-ico" aria-hidden="true">
+                  <Percent size={16} strokeWidth={2.1} />
                 </span>
                 Deferrals
               </button>
             )}
             <button
               type="button"
-              className={`plan-tab${activeTab === 'investments' ? ' on' : ''}`}
+              className={activeTab === 'investments' ? 'on' : ''}
               role="tab"
               aria-selected={activeTab === 'investments'}
               onClick={() => switchTab('investments')}
             >
-              <span className="tab-ico" aria-hidden="true">
-                <TrendingUp size={16} strokeWidth={2.2} />
+              <span className="pr-nav-ico" aria-hidden="true">
+                <TrendingUp size={16} strokeWidth={2.1} />
               </span>
               Investments
             </button>
-          </div>
+          </nav>
 
-          <div className="plan-tab-body">
+          <div className="pr-main">
             {activeTab === 'deferral' && deferCapable && (
               <>
                 <section className="panel">

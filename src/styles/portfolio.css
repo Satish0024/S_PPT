@@ -36,7 +36,7 @@
   .overview-row .chart-top{margin-bottom:8px;gap:8px}
   .overview-row .chart-top h2{font-size:15px}
   .overview-row .legend{gap:10px}
-  .overview-row .legend span{font-size:11.5px}
+  .overview-row .legend button{font-size:11.5px}
   .overview-row .period{margin-top:2px}
   .overview-row .period button{padding:6px 10px;font-size:12px}
   .overview-row .chart-wrap{flex:1 1 auto;min-height:260px;height:260px;margin-top:10px}
@@ -62,8 +62,12 @@
   .chart-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
   .chart-top h2{font-size:16px;font-weight:700}
   .legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-  .legend span{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--ink-soft)}
-  .legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .legend button{
+    display:inline-flex;align-items:center;gap:7px;border:none;background:transparent;
+    padding:2px 0;font:inherit;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer}
+  .legend button.on{color:var(--ink)}
+  .legend button:not(.on){opacity:.42;text-decoration:line-through}
+  .legend i{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto}
   .chart-wrap{position:relative;height:260px}
   .chart-wrap canvas{width:100%!important;height:100%!important}
 
@@ -97,10 +101,15 @@
   .plan-table .fund-title{font-weight:700;color:var(--ink);font-size:14px}
   .plan-table .fund-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px}
   .plan-table .fund-cat{font-size:12.5px;color:var(--ink-soft);font-weight:500}
-  .plan-table .risk{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700;line-height:1.2}
-  .plan-table .risk.aggressive{background:#fde8e8;color:#c0392b}
-  .plan-table .risk.moderate{background:#fff0e0;color:#c47a12}
-  .plan-table .risk.conservative{background:#e8f0fe;color:#2e3192}
+  .plan-table thead th.sortable{cursor:pointer;user-select:none;position:relative;padding-right:18px}
+  .plan-table thead th.sortable button{
+    all:unset;cursor:pointer;display:block;width:100%;font:inherit;font-weight:700;
+    text-align:center;line-height:1.25;color:inherit}
+  .plan-table thead th.sortable:hover,.plan-table thead th.sortable button:hover{color:var(--brand)}
+  .plan-table thead th.sortable::after{content:"↕";position:absolute;right:6px;top:50%;transform:translateY(-50%);
+    font-size:10px;opacity:.35;font-weight:700}
+  .plan-table thead th.sortable.asc::after{content:"↑";opacity:1;color:var(--brand)}
+  .plan-table thead th.sortable.desc::after{content:"↓";opacity:1;color:var(--brand)}
   .plan-table tr.fund-row td{border-bottom-style:dashed;border-bottom-color:#c8cbd8}
   .plan-table tr.bench-row td{background:#fafbfe;color:var(--ink-soft);border-top:none;font-size:13px}
   .plan-table tr.bench-row .fund-title{font-weight:600;font-size:13px;color:var(--ink-soft)}

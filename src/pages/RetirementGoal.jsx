@@ -15,6 +15,7 @@ import {
   Umbrella
 } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
+import { isNotEligibleUser } from '../data/participants'
 import { DisclaimerModal, ReadinessChart } from '../components/dashboard/ReadinessVisuals.jsx'
 import {
   LOCATION_DEFAULTS,
@@ -183,6 +184,12 @@ export default function RetirementGoal() {
   const prevScore = useRef(null)
 
   useEffect(() => {
+    if (isNotEligibleUser(participant)) {
+      navigate('/', { replace: true })
+    }
+  }, [participant, navigate])
+
+  useEffect(() => {
     const next = hydratePrefs(participant)
     setDraft(next)
     setBaseline(next)
@@ -258,6 +265,8 @@ export default function RetirementGoal() {
   const scoreWas = scoreRow ? parseInt(scoreRow.was, 10) : live.score
   const scoreNow = live.score
   const scoreDelta = scoreNow - scoreWas
+
+  if (isNotEligibleUser(participant)) return null
 
   return (
     <div className="page-body rg-page">

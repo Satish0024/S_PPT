@@ -9,16 +9,17 @@ import {
 
 const ITEMS = [
   { to: '/', label: 'Dashboard', icon: LayoutGrid, end: true },
-  { to: '/profile', label: 'Profile', icon: UserRound },
+  { to: '/portfolio', label: 'Investment Portfolio', icon: Wallet },
   { to: '/transactions', label: 'Transactions', icon: ArrowLeftRight },
-  { to: '/reports', label: 'Reports & Documents', icon: FileText },
-  { to: '/portfolio', label: 'Investment Portfolio', icon: Wallet }
+  { to: '/profile', label: 'My Profile', icon: UserRound },
+  { to: '/reports', label: 'Reports & Documents', icon: FileText }
 ]
 
 export default function Sidebar() {
   const { pathname } = useLocation()
   const onEnrollment = pathname.startsWith('/enrollment')
   const onGoal = pathname.startsWith('/retirement-goal')
+  const onSummary = pathname.startsWith('/account-summary')
 
   return (
     <nav className="nav" aria-label="Primary">
@@ -27,7 +28,7 @@ export default function Sidebar() {
           key={to}
           to={to}
           end={end}
-          className={({ isActive }) => (isActive || (to === '/' && (onEnrollment || onGoal)) ? 'active' : '')}
+          className={({ isActive }) => (isActive || (to === '/' && (onEnrollment || onGoal || onSummary)) ? 'active' : '')}
         >
           <span className="ico" aria-hidden="true">
             <Icon size={23} strokeWidth={1.7} />

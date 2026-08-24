@@ -62,7 +62,18 @@ export const PARTICIPANTS = [
           "Congratulations! You have been enrolled in this plan based on plan's auto enrollment provisions.",
         noticeLink: { label: 'View Details', details: true },
         stats: { balance: '$12,840.00', vested: '$9,620.00' },
-        details: { status: 'Auto Enrolled', balance: '$12,840.00', vested: '$9,620.00' }
+        details: { status: 'Auto Enrolled', balance: '$12,840.00', vested: '$9,620.00' },
+        sources: [
+          { name: 'Pre-Tax', amount: 5778, vested: 5778 },
+          { name: 'Roth', amount: 1926, vested: 1926 },
+          { name: 'Match', amount: 5136, vested: 1916 }
+        ],
+        investments: [
+          { name: 'Vanguard 500 Index Fund', asset: 'U.S. Equity', amount: 3852 },
+          { name: 'Fidelity 500 Index Fund', asset: 'U.S. Equity', amount: 3852 },
+          { name: 'Vanguard Total Bond Market', asset: 'U.S. Bond', amount: 2568 },
+          { name: 'Fidelity U.S. Bond Index', asset: 'U.S. Bond', amount: 2568 }
+        ]
       },
       {
         id: 'psp',
@@ -73,7 +84,11 @@ export const PARTICIPANTS = [
         notice: 'Congratulations! You are enrolled in this plan.',
         noticeLink: { label: 'View Details', details: true },
         stats: { balance: '$4,250.00', vested: '$4,250.00' },
-        details: { status: 'Enrolled', balance: '$4,250.00', vested: '$4,250.00' }
+        details: { status: 'Enrolled', balance: '$4,250.00', vested: '$4,250.00' },
+        sources: [{ name: 'Profit Sharing', amount: 4250, vested: 4250 }],
+        investments: [
+          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 4250 }
+        ]
       },
       {
         id: 'roth',
@@ -247,7 +262,19 @@ export const PARTICIPANTS = [
         notice: 'Congratulations! You are enrolled in this plan.',
         noticeLink: { label: 'View Details', details: true },
         stats: { balance: '$87,166.00', vested: '$79,150.00' },
-        details: { status: 'Enrolled', balance: '$87,166.00', vested: '$79,150.00' }
+        details: { status: 'Enrolled', balance: '$87,166.00', vested: '$79,150.00' },
+        sources: [
+          { name: 'Pre-Tax', amount: 48200, vested: 48200 },
+          { name: 'Roth', amount: 14918, vested: 14918 },
+          { name: 'Match', amount: 24048, vested: 16032 }
+        ],
+        investments: [
+          { name: 'Vanguard 500 Index Fund', asset: 'U.S. Equity', amount: 28705 },
+          { name: 'Fidelity 500 Index Fund', asset: 'U.S. Equity', amount: 20691 },
+          { name: 'Vanguard Total Bond Market', asset: 'U.S. Bond', amount: 15777 },
+          { name: 'Fidelity U.S. Bond Index', asset: 'U.S. Bond', amount: 13159 },
+          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 8834 }
+        ]
       },
       {
         id: 'psp',
@@ -258,7 +285,11 @@ export const PARTICIPANTS = [
         notice: 'Congratulations! You are enrolled in this plan.',
         noticeLink: { label: 'View Details', details: true },
         stats: { balance: '$13,250.00', vested: '$13,250.00' },
-        details: { status: 'Enrolled', balance: '$13,250.00', vested: '$13,250.00' }
+        details: { status: 'Enrolled', balance: '$13,250.00', vested: '$13,250.00' },
+        sources: [{ name: 'Profit Sharing', amount: 13250, vested: 13250 }],
+        investments: [
+          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 13250 }
+        ]
       }
     ],
     transactions: [
@@ -328,4 +359,19 @@ export const PARTICIPANTS = [
 
 export function getParticipant(id) {
   return PARTICIPANTS.find((p) => p.id === id) || PARTICIPANTS[0]
+}
+
+export function isNotEligibleUser(participant) {
+  if (!participant) return true
+  if (participant.scenario === 'Not Eligible') return true
+  const plans = participant.plans || []
+  return (
+    plans.length > 0 &&
+    plans.every(
+      (plan) =>
+        plan.badge === 'Not Eligible' ||
+        plan.badgeClass === 'muted' ||
+        plan.cardClass === 'ineligible'
+    )
+  )
 }
