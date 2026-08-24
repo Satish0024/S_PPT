@@ -486,11 +486,11 @@
   .plan-stat{padding:12px 14px;border-radius:10px;background:#f7f8fc;border:1px solid #eef0f6}
   .plan-stat .k{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
   .plan-stat .v{font-size:18px;font-weight:700;letter-spacing:-.3px;color:var(--ink);font-variant-numeric:tabular-nums}
-  .plan-stat .v-row{display:flex;align-items:baseline;justify-content:space-between;gap:8px 12px;flex-wrap:wrap}
+  .plan-stat .v-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
   .plan-stat.balance .v{color:var(--brand)}
   .plan-stat.vested .v{color:var(--green)}
   .plan-return{
-    display:inline-flex;align-items:center;gap:4px;flex-shrink:0;
+    display:inline-flex;align-items:center;gap:4px;margin:0;flex-shrink:0;
     padding:3px 8px 3px 6px;border-radius:999px;line-height:1;white-space:nowrap}
   .plan-return b{font-size:13px;font-weight:800;letter-spacing:-.2px;font-variant-numeric:tabular-nums}
   .plan-return i{font-size:9px;font-weight:800;font-style:normal;letter-spacing:.4px;text-transform:uppercase;opacity:.8}

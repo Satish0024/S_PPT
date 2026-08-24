@@ -8,18 +8,15 @@ export function formatReturn(value) {
 
 export default function PlanReturn({ value }) {
   const n = Number(value)
-  const label = formatReturn(n)
-  if (!label) return null
+  const pct = formatReturn(n)
+  if (!pct) return null
   const up = n >= 0
   const Icon = up ? TrendingUp : TrendingDown
 
   return (
-    <span
-      className={`plan-return ${up ? 'pos' : 'neg'}`}
-      aria-label={`Year to date rate of return ${label}`}
-    >
+    <span className={`plan-return ${up ? 'pos' : 'neg'}`} title="Rate Of Return" aria-label={`Rate of return ${pct} year to date`}>
       <Icon size={13} strokeWidth={2.4} aria-hidden="true" />
-      <b>{label}</b>
+      <b>{pct}</b>
       <i>YTD</i>
     </span>
   )
