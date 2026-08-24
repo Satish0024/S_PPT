@@ -9,6 +9,7 @@ import {
   readSession,
   writeSession
 } from '../data/participants'
+import { PlanStats } from '../components/dashboard/PlanCard.jsx'
 import { DeferralEditor } from './Enrollment.jsx'
 import { InvestmentEditor } from './Investments.jsx'
 import '../styles/enrollment.css'
@@ -144,18 +145,7 @@ export default function PlanDetails() {
             </div>
           </div>
         </div>
-        {plan.stats && (
-          <div className="plan-stats">
-            <div className="plan-stat balance">
-              <div className="k">Balance</div>
-              <div className="v">{plan.stats.balance}</div>
-            </div>
-            <div className="plan-stat vested">
-              <div className="k">Vested</div>
-              <div className="v">{plan.stats.vested}</div>
-            </div>
-          </div>
-        )}
+        <PlanStats stats={plan.stats} />
       </div>
 
       {sessionOptOut && (

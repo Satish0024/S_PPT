@@ -61,7 +61,7 @@ export const PARTICIPANTS = [
         notice:
           "Congratulations! You have been enrolled in this plan based on plan's auto enrollment provisions.",
         noticeLink: { label: 'View Details', details: true },
-        stats: { balance: '$12,840.00', vested: '$9,620.00' },
+        stats: { balance: '$12,840.00', vested: '$9,620.00', returnPct: 101.2 },
         details: { status: 'Auto Enrolled', balance: '$12,840.00', vested: '$9,620.00' },
         sources: [
           { name: 'Pre-Tax', amount: 5778, vested: 5778 },
@@ -83,7 +83,7 @@ export const PARTICIPANTS = [
         badge: 'Participating',
         notice: 'Congratulations! You are enrolled in this plan.',
         noticeLink: { label: 'View Details', details: true },
-        stats: { balance: '$4,250.00', vested: '$4,250.00' },
+        stats: { balance: '$4,250.00', vested: '$4,250.00', returnPct: 10.42 },
         details: { status: 'Enrolled', balance: '$4,250.00', vested: '$4,250.00' },
         sources: [{ name: 'Profit Sharing', amount: 4250, vested: 4250 }],
         investments: [
@@ -261,7 +261,7 @@ export const PARTICIPANTS = [
         badge: 'Participating',
         notice: 'Congratulations! You are enrolled in this plan.',
         noticeLink: { label: 'View Details', details: true },
-        stats: { balance: '$87,166.00', vested: '$79,150.00' },
+        stats: { balance: '$87,166.00', vested: '$79,150.00', returnPct: 11.22 },
         details: { status: 'Enrolled', balance: '$87,166.00', vested: '$79,150.00' },
         sources: [
           { name: 'Pre-Tax', amount: 48200, vested: 48200 },
@@ -284,7 +284,7 @@ export const PARTICIPANTS = [
         badge: 'Participating',
         notice: 'Congratulations! You are enrolled in this plan.',
         noticeLink: { label: 'View Details', details: true },
-        stats: { balance: '$13,250.00', vested: '$13,250.00' },
+        stats: { balance: '$13,250.00', vested: '$13,250.00', returnPct: 10.42 },
         details: { status: 'Enrolled', balance: '$13,250.00', vested: '$13,250.00' },
         sources: [{ name: 'Profit Sharing', amount: 13250, vested: 13250 }],
         investments: [

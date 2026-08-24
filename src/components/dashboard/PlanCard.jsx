@@ -1,4 +1,25 @@
 import { Link } from 'react-router-dom'
+import PlanReturn from './PlanReturn.jsx'
+
+export function PlanStats({ stats }) {
+  if (!stats) return null
+
+  return (
+    <div className="plan-stats">
+      <div className="plan-stat balance">
+        <div className="k">Balance</div>
+        <div className="v-row">
+          <div className="v">{stats.balance}</div>
+          <PlanReturn value={stats.returnPct} />
+        </div>
+      </div>
+      <div className="plan-stat vested">
+        <div className="k">Vested</div>
+        <div className="v">{stats.vested}</div>
+      </div>
+    </div>
+  )
+}
 
 export default function PlanCard({ plan }) {
   const link = plan.noticeLink
@@ -18,18 +39,7 @@ export default function PlanCard({ plan }) {
         {plan.notice}{' '}
         {to ? <Link to={to}>{link.label}</Link> : null}
       </p>
-      {plan.stats && (
-        <div className="plan-stats">
-          <div className="plan-stat balance">
-            <div className="k">Balance</div>
-            <div className="v">{plan.stats.balance}</div>
-          </div>
-          <div className="plan-stat vested">
-            <div className="k">Vested</div>
-            <div className="v">{plan.stats.vested}</div>
-          </div>
-        </div>
-      )}
+      <PlanStats stats={plan.stats} />
     </article>
   )
 }
