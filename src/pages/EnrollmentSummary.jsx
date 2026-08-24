@@ -5,9 +5,11 @@ import {
   BENEFICIARY_KEY,
   DEFERRAL_KEY,
   INVESTMENT_KEY,
+  isNotEligibleUser,
   readSession,
   writeSession
 } from '../data/participants'
+import { useParticipant } from '../context/ParticipantContext.jsx'
 
 const CYCLES = {
   calendar: { title: 'Calendar Year', next: 'January 1, 2027' },
@@ -28,6 +30,8 @@ const blankBene = () => ({ name: '', relationship: 'Spouse', share: 100 })
 
 export default function EnrollmentSummary() {
   const navigate = useNavigate()
+  const { participant } = useParticipant()
+  const notEligible = isNotEligibleUser(participant)
   const deferral = useMemo(() => readSession(DEFERRAL_KEY), [])
   const autoInc = useMemo(() => readSession(AUTO_INCREASE_KEY), [])
   const investment = useMemo(() => readSession(INVESTMENT_KEY), [])
@@ -49,7 +53,7 @@ export default function EnrollmentSummary() {
     <div className="detail-body enroll-simple">
       <div className="summary-page">
         <h3 className="section-title">Review And Confirm</h3>
-        <p className="section-sub">Check each election, then confirm to finish enrollment.</p>
+        <p className="section-sub">You&apos;re almost done. Review your selections and confirm to enroll.</p>
 
         <article className="review-card">
           <div className="review-h">
@@ -94,7 +98,7 @@ export default function EnrollmentSummary() {
             </button>
           </div>
           {skippedAi ? (
-            <p>Your deferral rate will stay where you set it unless you change it later.</p>
+            <p>Your elected contribution rate will remain unchanged each year.</p>
           ) : (
             <ul className="review-rows">
               <li>
@@ -124,8 +128,8 @@ export default function EnrollmentSummary() {
             <div className="review-title">
               <h4>Investments</h4>
               <small>
-                {usingPlan ? 'Plan Investments' : 'Your Selection'}
-                {applyAll ? ' · Same For All Sources' : ' · By Source'}
+                {usingPlan ? 'Plan default selection' : 'Own Election'}
+                {applyAll ? ' · Investment wise allocation' : ' · Source wise allocation'}
               </small>
             </div>
             <button type="button" className="text-btn" onClick={() => navigate('/enrollment/investments')}>
@@ -146,7 +150,7 @@ export default function EnrollmentSummary() {
           )}
         </article>
 
-        <p className="summary-note">You can change these elections later from your account.</p>
+        <p className="summary-note">Your enrollment selections can be edited later through your account.</p>
         <div className="enroll-nav">
           <button className="btn btn-primary" type="button" onClick={confirm}>
             Confirm Enrollment
@@ -179,7 +183,9 @@ export default function EnrollmentSummary() {
               </div>
               <h3 id="success-title">You&apos;re Enrolled</h3>
               <p className="success-lead">
-                Your 401(k) elections are saved. Add a beneficiary next so your account has a named recipient.
+                {notEligible
+                  ? "Your enrollment preferences have been saved and will take effect once you're eligible for the plan."
+                  : 'Your 401(k) elections are saved. Add a beneficiary next so your account has a named recipient.'}
               </p>
 
               {beneSaved ? (

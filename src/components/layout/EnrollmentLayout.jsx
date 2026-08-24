@@ -4,9 +4,14 @@ import Sidebar from './Sidebar.jsx'
 import '../../styles/enrollment.css'
 
 const STEPS = [
-  { n: 1, title: 'Deferral Rate', body: 'Set how much to defer into the plan', to: '/enrollment' },
-  { n: 2, title: 'Investment Election', body: 'Choose funds and allocation', to: '/enrollment/investments' },
-  { n: 3, title: 'Summary', body: 'Confirm elections before you enroll', to: '/enrollment/summary' }
+  { n: 1, title: 'Deferral Rate', body: 'Specify the amount to contribute to the plan', to: '/enrollment' },
+  {
+    n: 2,
+    title: 'Investment Election',
+    body: 'Choose your investments and select allocation percentages',
+    to: '/enrollment/investments'
+  },
+  { n: 3, title: 'Summary', body: 'Review your elections before enrolling into the plan', to: '/enrollment/summary' }
 ]
 
 function currentStep(pathname) {

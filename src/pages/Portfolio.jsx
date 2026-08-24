@@ -182,8 +182,8 @@ export default function Portfolio() {
               </section>
             </div>
             <section className="section">
-              <h2>Holdings</h2>
-              <p className="sub">Funds you currently hold in your account.</p>
+              <h2>Your investments</h2>
+              <p className="sub">Summary of your retirement investment balances, returns, and gains.</p>
               <div className="table-wrap">
                 <table className="holdings-table">
                   <thead>
@@ -231,7 +231,7 @@ export default function Portfolio() {
           <div className="tab-panel on">
             <section className="section">
               <h2>Plan Investments</h2>
-              <p className="sub">Compare fund performance, expenses, and fees against each fund’s benchmark.</p>
+              <p className="sub">Browse and compare the funds available within your retirement plan.</p>
               <div className="table-wrap">
                 <table className="plan-table">
                   <thead>
@@ -368,7 +368,7 @@ const chartOptions = {
       grace: '8%',
       title: {
         display: true,
-        text: 'Return (%)',
+        text: 'Rate of return (%)',
         color: '#5c6078',
         font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
         padding: { bottom: 6 }

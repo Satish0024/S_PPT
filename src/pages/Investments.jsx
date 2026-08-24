@@ -168,7 +168,7 @@ export function InvestmentEditor({
           <span className="choice-dot" aria-hidden="true" />
           <span>
             <b>Use Plan Investments</b>
-            <small>Keep the stock and bond allocation from this plan</small>
+            <small>Use the plan&apos;s default investment selection.</small>
           </span>
         </button>
         <button
@@ -180,8 +180,8 @@ export function InvestmentEditor({
         >
           <span className="choice-dot" aria-hidden="true" />
           <span>
-            <b>I&apos;ll Choose My Own</b>
-            <small>Set the percent for each fund yourself</small>
+            <b>Select My Own Investments</b>
+            <small>I will choose where to invest my deferrals.</small>
           </span>
         </button>
       </div>

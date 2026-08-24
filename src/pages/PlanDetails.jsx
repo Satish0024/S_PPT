@@ -341,10 +341,10 @@ export default function PlanDetails() {
             aria-labelledby="optout-title"
             onClick={(e) => e.stopPropagation()}
           >
-            <h4 id="optout-title">Opt Out Of Paycheck Deferral?</h4>
+            <h4 id="optout-title">Are you sure?</h4>
             <p>
-              You will not contribute from your paycheck. You can enroll later, but you will miss the chance to grow this
-              savings with each pay period.
+              If you opt out, deferrals from your paycheck will stop. You can enroll again later, but you may miss out on
+              potential retirement savings growth and any available employer matching contributions.
             </p>
             <div className="enroll-modal-actions">
               <button type="button" className="btn btn-secondary" onClick={() => setOptOutOpen(false)}>
