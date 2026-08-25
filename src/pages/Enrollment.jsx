@@ -4,9 +4,11 @@ import { Calendar, Landmark, User } from 'lucide-react'
 import {
   AUTO_INCREASE_KEY,
   DEFERRAL_KEY,
+  isNotEligibleUser,
   readSession,
   writeSession
 } from '../data/participants'
+import { useParticipant } from '../context/ParticipantContext.jsx'
 
 const PLAN_PRE = 6
 const PLAN_ROTH = 2
@@ -36,6 +38,8 @@ export function DeferralEditor({
   onComplete,
   onCancel
 }) {
+  const { participant } = useParticipant()
+  const notEligible = isNotEligibleUser(participant)
   const savedDeferral = useMemo(() => readSession(DEFERRAL_KEY), [])
   const savedAi = useMemo(() => readSession(AUTO_INCREASE_KEY), [])
 
@@ -128,7 +132,7 @@ export function DeferralEditor({
               Choose your own deferral rate or use the plan deferral rate.
             </p>
           </div>
-          {showOptOut && (
+          {showOptOut && !notEligible && (
             <button type="button" className="optout-link" onClick={() => setOptOutOpen(true)}>
               Opt Out
             </button>
@@ -303,7 +307,7 @@ export function DeferralEditor({
         {error && <p className="enroll-error">{error}</p>}
 
         <div className="enroll-nav">
-          {embedded && onCancel && (
+          {onCancel && (
             <button className="btn btn-ghost" type="button" onClick={onCancel}>
               Cancel
             </button>
@@ -408,6 +412,7 @@ export default function Enrollment() {
     <DeferralEditor
       saveLabel={returnTo ? 'Save Changes' : 'Continue'}
       onComplete={() => navigate(returnTo || '/enrollment/investments')}
+      onCancel={() => navigate(returnTo || '/')}
     />
   )
 }

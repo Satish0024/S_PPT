@@ -241,7 +241,7 @@ export function InvestmentEditor({
       {error && <p className="enroll-error">{error}</p>}
 
       <div className="enroll-nav">
-        {embedded && onCancel && (
+        {onCancel && (
           <button className="btn btn-ghost" type="button" onClick={onCancel}>
             Cancel
           </button>
@@ -508,6 +508,7 @@ export default function Investments() {
     <InvestmentEditor
       saveLabel={returnTo ? 'Save Changes' : 'Continue'}
       onComplete={() => navigate(returnTo || '/enrollment/summary')}
+      onCancel={() => navigate(returnTo || '/')}
     />
   )
 }

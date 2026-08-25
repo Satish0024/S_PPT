@@ -3,6 +3,23 @@
 All notable changes to the Saturna Participant Portal are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.4.0] - 2026-08-25
+
+### Added
+- Retirement Goal Simulator: per-plan deferral accordion for participants with multiple deferral-eligible plans, with independent Pre-Tax/Roth sliders and per-plan Auto Increase settings.
+- Cancel option next to Continue/Confirm across the standalone enrollment wizard (Deferral, Investments, Review & Confirm).
+
+### Changed
+- Retirement Goal Simulator sliders now color-code direction (green = raised, amber = lowered vs. saved value).
+- Retirement Readiness panel shows one deferral line per plan for multi-plan participants.
+- Enrollment/Enrollment Summary wording now branches correctly for not-yet-eligible participants (e.g. "Confirm Elections" / "Your Elections Are Saved" instead of enrollment language).
+- Opt Out is hidden for not-yet-eligible participants.
+- "Add Beneficiary" prompt after enrollment now navigates to the Add Beneficiary step in My Profile instead of opening an inline pop-up form.
+- Refreshed the Learning Portal ("Enrich") Dashboard card design.
+
+### Removed
+- "Ways To Improve" section hidden from the Retirement Goal Simulator UI (kept in code) while the goal-tracking sections are reordered.
+
 ## [1.3.0] - 2026-08-24
 
 ### Added

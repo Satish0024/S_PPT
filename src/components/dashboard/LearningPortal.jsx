@@ -1,29 +1,39 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, BookOpen } from 'lucide-react'
+import { ArrowUpRight, BookOpen, DollarSign, TrendingUp } from 'lucide-react'
 
-const TOPICS = ['Plan Basics', 'Taxes', 'Investing']
+const TOPICS = [
+  { label: 'Plan Basics', icon: BookOpen },
+  { label: 'Taxes', icon: DollarSign },
+  { label: 'Investing', icon: TrendingUp }
+]
 
 export default function LearningPortal() {
   return (
-    <Link className="learn-side" to="/enrich">
-      <div className="l-top">
-        <span className="l-ico" aria-hidden="true">
+    <Link className="learn-card" to="/enrich">
+      <span className="learn-card-glow" aria-hidden="true" />
+      <div className="learn-card-top">
+        <span className="learn-card-ico" aria-hidden="true">
           <BookOpen size={18} strokeWidth={2.1} />
         </span>
         <div>
-          <span className="l-tag">Enrich</span>
+          <span className="learn-card-tag">Enrich</span>
           <h4>Learning Portal</h4>
         </div>
       </div>
       <p>Short guides on deferrals, investing, and planning for retirement.</p>
-      <ul className="l-topics">
-        {TOPICS.map((topic) => (
-          <li key={topic}>{topic}</li>
+      <ul className="learn-card-topics">
+        {TOPICS.map(({ label, icon: Icon }) => (
+          <li key={label}>
+            <Icon size={12} strokeWidth={2.4} />
+            {label}
+          </li>
         ))}
       </ul>
-      <span className="l-cta">
+      <span className="learn-card-cta">
         Explore The Library
-        <ArrowRight size={15} strokeWidth={2.2} />
+        <span className="learn-card-cta-ico" aria-hidden="true">
+          <ArrowUpRight size={15} strokeWidth={2.4} />
+        </span>
       </span>
     </Link>
   )

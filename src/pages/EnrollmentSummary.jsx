@@ -1,14 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  AUTO_INCREASE_KEY,
-  BENEFICIARY_KEY,
-  DEFERRAL_KEY,
-  INVESTMENT_KEY,
-  isNotEligibleUser,
-  readSession,
-  writeSession
-} from '../data/participants'
+import { AUTO_INCREASE_KEY, DEFERRAL_KEY, INVESTMENT_KEY, isNotEligibleUser, readSession } from '../data/participants'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 
 const CYCLES = {
@@ -18,7 +10,6 @@ const CYCLES = {
 }
 const SALARY = 85000
 const PERIODS = 26
-const RELATIONS = ['Spouse', 'Child', 'Parent', 'Sibling', 'Trust', 'Other']
 const SOURCE_LABEL = { pre: 'Pre-Tax', roth: 'Roth' }
 
 const pct = (n) => Math.round((+n || 0) * 10) / 10 + '%'
@@ -26,7 +17,6 @@ const payFromPct = (rate) => Math.round((SALARY * (+rate || 0)) / 100 / PERIODS)
 const money = (n) =>
   new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const fundRows = (alloc) => Object.entries(alloc || {}).filter(([, v]) => +v > 0)
-const blankBene = () => ({ name: '', relationship: 'Spouse', share: 100 })
 
 export default function EnrollmentSummary() {
   const navigate = useNavigate()
@@ -37,8 +27,6 @@ export default function EnrollmentSummary() {
   const investment = useMemo(() => readSession(INVESTMENT_KEY), [])
 
   const [done, setDone] = useState(false)
-  const [showBene, setShowBene] = useState(false)
-  const [beneSaved, setBeneSaved] = useState(false)
 
   const optedOut = !!(deferral?.optedOut || deferral?.mode === 'optout')
   const skippedAi = optedOut || autoInc?.skipped || autoInc?.mode !== 'do'
@@ -53,7 +41,11 @@ export default function EnrollmentSummary() {
     <div className="detail-body enroll-simple">
       <div className="summary-page">
         <h3 className="section-title">Review And Confirm</h3>
-        <p className="section-sub">You&apos;re almost done. Review your selections and confirm to enroll.</p>
+        <p className="section-sub">
+          {notEligible
+            ? "You're almost done. Review your elections and confirm to save them."
+            : "You're almost done. Review your selections and confirm to enroll."}
+        </p>
 
         <article className="review-card">
           <div className="review-h">
@@ -150,10 +142,17 @@ export default function EnrollmentSummary() {
           )}
         </article>
 
-        <p className="summary-note">Your enrollment selections can be edited later through your account.</p>
+        <p className="summary-note">
+          {notEligible
+            ? 'Your elections can be edited later through your account.'
+            : 'Your enrollment selections can be edited later through your account.'}
+        </p>
         <div className="enroll-nav">
+          <button type="button" className="btn btn-ghost" onClick={goHome}>
+            Cancel
+          </button>
           <button className="btn btn-primary" type="button" onClick={confirm}>
-            Confirm Enrollment
+            {notEligible ? 'Confirm Elections' : 'Confirm Enrollment'}
           </button>
         </div>
       </div>
@@ -161,7 +160,7 @@ export default function EnrollmentSummary() {
       {done && (
         <div className="enroll-modal-bg success-bg" role="presentation">
           <div
-            className={`enroll-modal success-modal${showBene ? ' wide' : ''}`}
+            className="enroll-modal success-modal"
             role="dialog"
             aria-modal="true"
             aria-labelledby="success-title"
@@ -181,48 +180,31 @@ export default function EnrollmentSummary() {
                   <path className="success-check" d="M15.5 27.2l7.2 7.2 14.6-16" />
                 </svg>
               </div>
-              <h3 id="success-title">You&apos;re Enrolled</h3>
+              <h3 id="success-title">{notEligible ? 'Your Elections Are Saved' : "You're Enrolled"}</h3>
               <p className="success-lead">
                 {notEligible
                   ? "Your enrollment preferences have been saved and will take effect once you're eligible for the plan."
                   : 'Your 401(k) elections are saved. Add a beneficiary next so your account has a named recipient.'}
               </p>
 
-              {beneSaved ? (
-                <div className="success-note">
-                  <b>Beneficiary Saved.</b>
-                  <span>You can update this anytime from Profile.</span>
+              <div className="success-next">
+                <div>
+                  <b>Add A Beneficiary</b>
+                  <span>Recommended so your account can pass to someone you choose.</span>
                 </div>
-              ) : showBene ? (
-                <BeneficiaryForm
-                  onSaved={() => {
-                    setBeneSaved(true)
-                    setShowBene(false)
-                  }}
-                  onCancel={() => setShowBene(false)}
-                />
-              ) : (
-                <div className="success-next">
-                  <div>
-                    <b>Add A Beneficiary</b>
-                    <span>Recommended so your account can pass to someone you choose.</span>
-                  </div>
-                  <button type="button" className="btn btn-primary" onClick={() => setShowBene(true)}>
-                    Add Beneficiary
-                  </button>
-                </div>
-              )}
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => navigate('/profile?section=beneficiary&add=1')}
+                >
+                  Add Beneficiary
+                </button>
+              </div>
 
               <div className="success-actions">
-                {beneSaved ? (
-                  <button type="button" className="btn btn-primary" onClick={goHome}>
-                    Go To Dashboard
-                  </button>
-                ) : showBene ? null : (
-                  <button type="button" className="btn btn-ghost" onClick={goHome}>
-                    I&apos;ll Do This Later
-                  </button>
-                )}
+                <button type="button" className="btn btn-ghost" onClick={goHome}>
+                  I&apos;ll Do This Later
+                </button>
               </div>
             </div>
           </div>
@@ -247,74 +229,3 @@ function FundList({ alloc }) {
   )
 }
 
-function BeneficiaryForm({ onSaved, onCancel }) {
-  const [rows, setRows] = useState([blankBene()])
-  const [error, setError] = useState('')
-  const total = rows.reduce((sum, r) => sum + (+r.share || 0), 0)
-
-  const update = (i, key, val) => {
-    setError('')
-    setRows((prev) => prev.map((row, idx) => (idx === i ? { ...row, [key]: val } : row)))
-  }
-
-  const save = () => {
-    if (rows.some((r) => !r.name.trim())) {
-      setError('Enter a name for each beneficiary.')
-      return
-    }
-    if (total !== 100) {
-      setError('Shares must add up to 100%.')
-      return
-    }
-    writeSession(BENEFICIARY_KEY, { rows, total })
-    onSaved()
-  }
-
-  return (
-    <div className="success-form">
-      {rows.map((row, i) => (
-        <div className="bene-row" key={i}>
-          <label>
-            Full Name
-            <input
-              type="text"
-              value={row.name}
-              onChange={(e) => update(i, 'name', e.target.value)}
-              placeholder="First And Last Name"
-            />
-          </label>
-          <label>
-            Relationship
-            <select value={row.relationship} onChange={(e) => update(i, 'relationship', e.target.value)}>
-              {RELATIONS.map((rel) => (
-                <option key={rel}>{rel}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Share
-            <span className="sval">
-              <input
-                type="number"
-                min={0}
-                max={100}
-                value={row.share}
-                onChange={(e) => update(i, 'share', Math.max(0, Math.min(100, Math.round(+e.target.value || 0))))}
-              />
-              <span className="pct">%</span>
-            </span>
-          </label>
-        </div>
-      ))}
-      {error && <p className="enroll-error">{error}</p>}
-      <div className="success-form-actions">
-        <button type="button" className="btn btn-ghost" onClick={onCancel}>
-          Cancel
-        </button>
-        <button type="button" className="btn btn-primary" onClick={save}>
-          Save Beneficiary
-        </button>
-      </div>
-    </div>
-  )
-}

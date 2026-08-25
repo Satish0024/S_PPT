@@ -133,8 +133,9 @@ function RangeField({ min, max, value, origin, onChange, step = 1 }) {
   const valuePct = ((value - min) / span) * 100
   const originPct = ((origin - min) / span) * 100
   const changed = Number(value) !== Number(origin)
+  const direction = Number(value) > Number(origin) ? 'up' : Number(value) < Number(origin) ? 'down' : 'same'
   return (
-    <div className={`rg-range${changed ? ' changed' : ''}`}>
+    <div className={`rg-range${changed ? ` changed rg-range--${direction}` : ''}`}>
       <span className="rg-range-fill" style={{ width: `${valuePct}%` }} />
       {changed && (
         <span
@@ -147,12 +148,93 @@ function RangeField({ min, max, value, origin, onChange, step = 1 }) {
       {changed && (
         <small className="rg-range-note">
           <em>Current {origin}%</em>
-          <b>New {value}%</b>
+          <b className={`rg-range-new rg-range-new--${direction}`}>New {value}%</b>
         </small>
       )}
     </div>
   )
 }
+
+function AutoIncreaseRow({ label, hint, inc, cap, onInc, onCap }) {
+  const capMin = Math.min(15, Math.max(1, inc + 1))
+  return (
+    <div className="ai-row">
+      <span className="ai-source">
+        <b>{label}</b>
+        <small>{hint}</small>
+      </span>
+      <span className="sval">
+        <input
+          type="number"
+          value={inc}
+          min={1}
+          max={5}
+          onChange={(e) => onInc(Math.min(5, Math.max(1, Math.round(+e.target.value || 1))))}
+        />
+        <span className="pct">%</span>
+      </span>
+      <span className="sval">
+        <input
+          type="number"
+          value={cap}
+          min={capMin}
+          max={15}
+          onChange={(e) => onCap(Math.min(15, Math.max(capMin, Math.round(+e.target.value || capMin))))}
+        />
+        <span className="pct">%</span>
+      </span>
+    </div>
+  )
+}
+
+function AutoIncreaseBlock({ state, onChange }) {
+  const pctPre = Math.max(1, +state.pctPre || 1)
+  const capPre = Math.max(pctPre, +state.capPre || 10)
+  const pctRoth = Math.max(1, +state.pctRoth || pctPre)
+  const capRoth = Math.max(pctRoth, +state.capRoth || capPre)
+  return (
+    <>
+      <label className={`rg-toggle${state.on ? ' on' : ''}`}>
+        <input type="checkbox" checked={!!state.on} onChange={(e) => onChange('on', e.target.checked)} />
+        <span>
+          <b>Auto Increase {state.on ? `· +${pctPre}% / Year` : '· Off'}</b>
+          {state.on
+            ? `Deferral rises ${pctPre}% each year until it reaches ${capPre}%.`
+            : 'Typical plan setting is +1% each year until 10%.'}
+        </span>
+      </label>
+      {state.on && (
+        <div className="rg-auto">
+          <div className="ai-source-table">
+            <div className="ai-row head">
+              <span>Source</span>
+              <span>Increment</span>
+              <span>Max Limit</span>
+            </div>
+            <AutoIncreaseRow
+              label="Pre-Tax"
+              hint="Applies to your Pre-Tax deferral rate."
+              inc={pctPre}
+              cap={capPre}
+              onInc={(v) => onChange('pctPre', clamp(v, 1, 5))}
+              onCap={(v) => onChange('capPre', clamp(v, pctPre + 1, 15))}
+            />
+            <AutoIncreaseRow
+              label="Roth"
+              hint="Applies to your Roth deferral rate."
+              inc={pctRoth}
+              cap={capRoth}
+              onInc={(v) => onChange('pctRoth', clamp(v, 1, 5))}
+              onCap={(v) => onChange('capRoth', clamp(v, pctRoth + 1, 15))}
+            />
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
+const AUTO_FIELD_MAP = { on: 'autoOn', pctPre: 'autoPct', capPre: 'autoCap', pctRoth: 'autoPctRoth', capRoth: 'autoCapRoth' }
 
 function PctInput({ value, onChange, min = 0, max = 15 }) {
   return (
@@ -170,11 +252,74 @@ function PctInput({ value, onChange, min = 0, max = 15 }) {
   )
 }
 
+const canDefer = (plan) => /401\(k\)/i.test(plan.type || '')
+const isParticipatingPlan = (plan) => /enrolled|participating/i.test(`${plan.badge} ${plan.details?.status || ''}`)
+const isEligibleOnlyPlan = (plan) => plan.badge === 'Eligible' || plan.badgeClass === 'eligible'
+
+function deferralPlansFor(participant) {
+  return (participant.plans || []).filter((p) => canDefer(p) && (isParticipatingPlan(p) || isEligibleOnlyPlan(p)))
+}
+
+function initialShares(plans, seedPre, seedRoth) {
+  const shares = {}
+  plans.forEach((p, i) => {
+    shares[p.id] = i === 0 ? { pre: seedPre || 0, roth: seedRoth || 0 } : { pre: 0, roth: 0 }
+  })
+  return shares
+}
+
+function sumShares(shares) {
+  return Object.values(shares).reduce(
+    (acc, s) => ({ pre: acc.pre + (+s.pre || 0), roth: acc.roth + (+s.roth || 0) }),
+    { pre: 0, roth: 0 }
+  )
+}
+
+const blankAuto = () => ({ on: false, pctPre: 1, capPre: 10, pctRoth: 1, capRoth: 10 })
+
+function initialAuto(plans, seed) {
+  const auto = {}
+  plans.forEach((p, i) => {
+    auto[p.id] =
+      i === 0
+        ? {
+            on: !!seed.autoOn,
+            pctPre: Math.max(1, +seed.autoPct || 1),
+            capPre: Math.max(1, +seed.autoCap || 10),
+            pctRoth: Math.max(1, +seed.autoPctRoth || +seed.autoPct || 1),
+            capRoth: Math.max(1, +seed.autoCapRoth || +seed.autoCap || 10)
+          }
+        : blankAuto()
+  })
+  return auto
+}
+
+function aggregateAuto(auto) {
+  const on = Object.values(auto).some((a) => a.on)
+  const enabled = Object.values(auto).filter((a) => a.on)
+  const pick = (key) => (enabled.length ? Math.max(...enabled.map((a) => +a[key] || 0)) : 1)
+  return {
+    autoOn: on,
+    autoPct: pick('pctPre'),
+    autoCap: Math.max(pick('pctPre'), pick('capPre')),
+    autoPctRoth: pick('pctRoth'),
+    autoCapRoth: Math.max(pick('pctRoth'), pick('capRoth'))
+  }
+}
+
 export default function RetirementGoal() {
   const { participant } = useParticipant()
   const navigate = useNavigate()
   const [draft, setDraft] = useState(() => hydratePrefs(participant))
   const [baseline, setBaseline] = useState(() => hydratePrefs(participant))
+  const deferralPlans = useMemo(() => deferralPlansFor(participant), [participant])
+  const multiPlan = deferralPlans.length > 1
+  const [activePlanId, setActivePlanId] = useState(() => deferralPlans[0]?.id)
+  const [expandedPlanId, setExpandedPlanId] = useState(() => deferralPlans[0]?.id)
+  const [planShares, setPlanShares] = useState(() => initialShares(deferralPlans, draft.pre, draft.roth))
+  const [baselineShares, setBaselineShares] = useState(() => initialShares(deferralPlans, draft.pre, draft.roth))
+  const [planAuto, setPlanAuto] = useState(() => initialAuto(deferralPlans, draft))
+  const [baselineAuto, setBaselineAuto] = useState(() => initialAuto(deferralPlans, draft))
   const [open, setOpen] = useState(false)
   const [savedOpen, setSavedOpen] = useState(false)
   const [changes, setChanges] = useState([])
@@ -194,7 +339,34 @@ export default function RetirementGoal() {
     setDraft(next)
     setBaseline(next)
     setApplied([])
+    const plans = deferralPlansFor(participant)
+    const shares = initialShares(plans, next.pre, next.roth)
+    const auto = initialAuto(plans, next)
+    setActivePlanId(plans[0]?.id)
+    setExpandedPlanId(plans[0]?.id)
+    setPlanShares(shares)
+    setBaselineShares(shares)
+    setPlanAuto(auto)
+    setBaselineAuto(auto)
   }, [participant.id])
+
+  const setPlanRate = (planId, key, value) => {
+    const next = Math.max(0, Math.min(12, Math.round(+value || 0)))
+    setPlanShares((prev) => {
+      const updated = { ...prev, [planId]: { ...prev[planId], [key]: next } }
+      const totals = sumShares(updated)
+      setDraft((d) => ({ ...d, pre: totals.pre, roth: totals.roth }))
+      return updated
+    })
+  }
+
+  const setPlanAutoField = (planId, key, value) => {
+    setPlanAuto((prev) => {
+      const updated = { ...prev, [planId]: { ...(prev[planId] || blankAuto()), [key]: value } }
+      setDraft((d) => ({ ...d, ...aggregateAuto(updated) }))
+      return updated
+    })
+  }
 
   const currentAge = ageFromDob(participant.profile?.dob)
   const balance = parseMoney(participant.overall?.total)
@@ -250,12 +422,16 @@ export default function RetirementGoal() {
     writeMap(READINESS_KEY, participant.id, true)
     setChanges(goalDiff(baseline, draft, startScore, live.score))
     setBaseline(draft)
+    setBaselineShares(planShares)
+    setBaselineAuto(planAuto)
     setApplied([])
     setSavedOpen(true)
   }
 
   const autoPct = Math.max(1, +draft.autoPct || 1)
   const autoCap = Math.max(autoPct, +draft.autoCap || 10)
+  const autoPctRoth = Math.max(1, +draft.autoPctRoth || autoPct)
+  const autoCapRoth = Math.max(autoPctRoth, +draft.autoCapRoth || autoCap)
   const spendHint = LOCATION_DEFAULTS[draft.location]?.monthlySpend
   const annualSpend = money((+draft.monthlySpend || 0) * 12)
   const saveTone = live.score >= 80 ? 'good' : live.score >= 55 ? 'ok' : 'warn'
@@ -312,10 +488,22 @@ export default function RetirementGoal() {
               <dt>Years Remaining</dt>
               <dd>{live.years}</dd>
             </div>
-            <div>
-              <dt>Deferrals</dt>
-              <dd>{(draft.pre || 0) + (draft.roth || 0)}% of pay</dd>
-            </div>
+            {multiPlan ? (
+              deferralPlans.map((plan) => {
+                const share = planShares[plan.id] || { pre: 0, roth: 0 }
+                return (
+                  <div key={plan.id}>
+                    <dt>{plan.name} Deferral</dt>
+                    <dd>{(share.pre || 0) + (share.roth || 0)}%</dd>
+                  </div>
+                )
+              })
+            ) : (
+              <div>
+                <dt>Deferrals</dt>
+                <dd>{(draft.pre || 0) + (draft.roth || 0)}% of pay</dd>
+              </div>
+            )}
             <div>
               <dt>Auto Increase</dt>
               <dd>{draft.autoOn ? `+${autoPct}% each year` : 'Off'}</dd>
@@ -330,7 +518,7 @@ export default function RetirementGoal() {
         </aside>
 
         <div className="rg-work">
-          <section className="rg-improve" aria-label="Ways To Improve">
+          <section className="rg-improve rg-hidden" aria-label="Ways To Improve">
             <div className="rg-improve-h">
               <Sparkles size={16} strokeWidth={2.1} />
               <h2>Ways To Improve</h2>
@@ -447,99 +635,101 @@ export default function RetirementGoal() {
 
           <section className="panel rg-inputs">
             <h2>Deferrals</h2>
-            <div className="rg-source">
-              <div className="rg-source-h">
-                <span>
-                  <b>Pre-Tax Deferral</b>
-                  <small>Goes in before taxes and can lower taxable income today.</small>
-                </span>
-                <PctInput value={draft.pre || 0} onChange={(v) => setRate('pre', v)} max={12} />
-              </div>
-              <RangeField
-                min={0}
-                max={12}
-                value={draft.pre || 0}
-                origin={baseline.pre || 0}
-                onChange={(e) => setRate('pre', e.target.value)}
-              />
-            </div>
-            <div className="rg-source">
-              <div className="rg-source-h">
-                <span>
-                  <b>Roth Deferral</b>
-                  <small>Goes in after taxes. Qualified withdrawals can come out tax-free.</small>
-                </span>
-                <PctInput value={draft.roth || 0} onChange={(v) => setRate('roth', v)} max={12} />
-              </div>
-              <RangeField
-                min={0}
-                max={12}
-                value={draft.roth || 0}
-                origin={baseline.roth || 0}
-                onChange={(e) => setRate('roth', e.target.value)}
-              />
-            </div>
-            <label className={`rg-toggle${draft.autoOn ? ' on' : ''}`}>
-              <input
-                type="checkbox"
-                checked={!!draft.autoOn}
-                onChange={(e) => setDraftField('autoOn', e.target.checked)}
-              />
-              <span>
-                <b>Auto Increase {draft.autoOn ? `· +${autoPct}% / Year` : '· Off'}</b>
-                {draft.autoOn
-                  ? `Deferral rises ${autoPct}% each year until it reaches ${autoCap}%.`
-                  : 'Typical plan setting is +1% each year until 10%.'}
-              </span>
-            </label>
-            {draft.autoOn && (
-              <div className="rg-auto">
-                <div className="rg-source">
-                  <div className="rg-source-h">
-                    <span>
-                      <b>Annual Increase</b>
-                      <small>How much the deferral steps up each year.</small>
-                    </span>
-                    <PctInput
-                      value={autoPct}
-                      min={1}
-                      max={3}
-                      onChange={(v) => setDraftField('autoPct', clamp(+v || 1, 1, 3))}
-                    />
-                  </div>
-                  <RangeField
-                    min={1}
-                    max={3}
-                    step={1}
-                    value={autoPct}
-                    origin={Math.max(1, +baseline.autoPct || 1)}
-                    onChange={(e) => setDraftField('autoPct', clamp(+e.target.value || 1, 1, 3))}
-                  />
-                </div>
-                <div className="rg-source">
-                  <div className="rg-source-h">
-                    <span>
-                      <b>Increase Cap</b>
-                      <small>The highest deferral auto increase will reach.</small>
-                    </span>
-                    <PctInput
-                      value={autoCap}
-                      min={6}
-                      max={15}
-                      onChange={(v) => setDraftField('autoCap', clamp(+v || 10, 6, 15))}
-                    />
-                  </div>
-                  <RangeField
-                    min={6}
-                    max={15}
-                    step={1}
-                    value={autoCap}
-                    origin={Math.max(6, +baseline.autoCap || 10)}
-                    onChange={(e) => setDraftField('autoCap', clamp(+e.target.value || 10, 6, 15))}
-                  />
-                </div>
-              </div>
+            {multiPlan && (
+              <p className="rg-plan-note">
+                You have {deferralPlans.length} plans that take deferrals. Tap a plan to edit its rate — the combined
+                total across all plans drives the readiness score.
+              </p>
             )}
+            {deferralPlans.map((plan, i) => {
+              const share = multiPlan ? planShares[plan.id] || { pre: 0, roth: 0 } : { pre: draft.pre || 0, roth: draft.roth || 0 }
+              const baseShare = multiPlan
+                ? baselineShares[plan.id] || { pre: 0, roth: 0 }
+                : { pre: baseline.pre || 0, roth: baseline.roth || 0 }
+              const onPre = (v) => (multiPlan ? setPlanRate(plan.id, 'pre', v) : setRate('pre', v))
+              const onRoth = (v) => (multiPlan ? setPlanRate(plan.id, 'roth', v) : setRate('roth', v))
+              const body = (
+                <>
+                  <div className="rg-source">
+                    <div className="rg-source-h">
+                      <span>
+                        <b>Pre-Tax Deferral</b>
+                        <small>Goes in before taxes and can lower taxable income today.</small>
+                      </span>
+                      <PctInput value={share.pre || 0} onChange={onPre} max={12} />
+                    </div>
+                    <RangeField
+                      min={0}
+                      max={12}
+                      value={share.pre || 0}
+                      origin={baseShare.pre || 0}
+                      onChange={(e) => onPre(e.target.value)}
+                    />
+                  </div>
+                  <div className="rg-source">
+                    <div className="rg-source-h">
+                      <span>
+                        <b>Roth Deferral</b>
+                        <small>Goes in after taxes. Qualified withdrawals can come out tax-free.</small>
+                      </span>
+                      <PctInput value={share.roth || 0} onChange={onRoth} max={12} />
+                    </div>
+                    <RangeField
+                      min={0}
+                      max={12}
+                      value={share.roth || 0}
+                      origin={baseShare.roth || 0}
+                      onChange={(e) => onRoth(e.target.value)}
+                    />
+                  </div>
+                </>
+              )
+              if (!multiPlan) {
+                return (
+                  <div key="single">
+                    {body}
+                    <AutoIncreaseBlock
+                      state={{ on: draft.autoOn, pctPre: autoPct, capPre: autoCap, pctRoth: autoPctRoth, capRoth: autoCapRoth }}
+                      onChange={(key, val) => setDraftField(AUTO_FIELD_MAP[key], val)}
+                    />
+                  </div>
+                )
+              }
+              const total = (+share.pre || 0) + (+share.roth || 0)
+              const expanded = expandedPlanId === plan.id
+              const planAutoState = planAuto[plan.id] || blankAuto()
+              return (
+                <div className={`rg-plan-card${expanded ? ' open' : ''}`} key={plan.id}>
+                  <button
+                    type="button"
+                    className="rg-plan-card-h"
+                    aria-expanded={expanded}
+                    onClick={() => setExpandedPlanId(expanded ? null : plan.id)}
+                  >
+                    <div className="rg-plan-card-name">
+                      <b>{plan.name}</b>
+                      <span className={`plan-badge ${plan.badgeClass || ''}`}>{plan.badge}</span>
+                    </div>
+                    <div className="rg-plan-card-metrics">
+                      <span className="rg-plan-card-total">
+                        Deferral <b>{total}%</b>
+                        <small>
+                          Pre-Tax {share.pre || 0}% · Roth {share.roth || 0}%
+                          {planAutoState.on ? ` · Auto +${planAutoState.pctPre}%/yr` : ''}
+                        </small>
+                      </span>
+                      <span className="rg-plan-card-toggle">{expanded ? 'Done' : 'Edit'}</span>
+                    </div>
+                  </button>
+                  {expanded && (
+                    <div className="rg-plan-card-body">
+                      {body}
+                      <AutoIncreaseBlock state={planAutoState} onChange={(key, val) => setPlanAutoField(plan.id, key, val)} />
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </section>
         </div>
       </div>
