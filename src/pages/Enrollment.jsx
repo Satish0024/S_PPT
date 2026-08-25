@@ -200,7 +200,7 @@ export function DeferralEditor({
               <span className="choice-dot" aria-hidden="true" />
               <span>
                 <b>Use Auto Increase</b>
-                <small>Set how much your deferral rate will increase automatically each year.</small>
+                <small>Set the annual auto deferral rate increase.</small>
               </span>
             </button>
             <button
