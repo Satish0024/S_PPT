@@ -69,10 +69,11 @@ export const PARTICIPANTS = [
           { name: 'Match', amount: 5136, vested: 1916 }
         ],
         investments: [
-          { name: 'Vanguard 500 Index Fund', asset: 'U.S. Equity', amount: 3852 },
-          { name: 'Fidelity 500 Index Fund', asset: 'U.S. Equity', amount: 3852 },
-          { name: 'Vanguard Total Bond Market', asset: 'U.S. Bond', amount: 2568 },
-          { name: 'Fidelity U.S. Bond Index', asset: 'U.S. Bond', amount: 2568 }
+          { name: 'Vanguard 500 Index Fund', asset: 'U.S. Equity', amount: 3467, price: 96.3, units: 36.002 },
+          { name: 'Fidelity 500 Index Fund', asset: 'U.S. Equity', amount: 3467, price: 185.42, units: 18.698 },
+          { name: 'Vanguard Total Bond Market', asset: 'U.S. Bond', amount: 2311, price: 10.12, units: 228.36 },
+          { name: 'Fidelity U.S. Bond Index', asset: 'U.S. Bond', amount: 2311, price: 10.85, units: 212.995 },
+          { name: 'Vanguard Wellington Fund', asset: 'Balanced', amount: 1284, price: 44.8, units: 28.661 }
         ]
       },
       {
@@ -87,7 +88,7 @@ export const PARTICIPANTS = [
         details: { status: 'Enrolled', balance: '$4,250.00', vested: '$4,250.00' },
         sources: [{ name: 'Profit Sharing', amount: 4250, vested: 4250 }],
         investments: [
-          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 4250 }
+          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 4250, price: 45.18, units: 94.068 }
         ]
       },
       {
@@ -269,11 +270,11 @@ export const PARTICIPANTS = [
           { name: 'Match', amount: 24048, vested: 16032 }
         ],
         investments: [
-          { name: 'Vanguard 500 Index Fund', asset: 'U.S. Equity', amount: 28705 },
-          { name: 'Fidelity 500 Index Fund', asset: 'U.S. Equity', amount: 20691 },
-          { name: 'Vanguard Total Bond Market', asset: 'U.S. Bond', amount: 15777 },
-          { name: 'Fidelity U.S. Bond Index', asset: 'U.S. Bond', amount: 13159 },
-          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 8834 }
+          { name: 'Vanguard 500 Index Fund', asset: 'U.S. Equity', amount: 28705, price: 96.3, units: 298.079 },
+          { name: 'Fidelity 500 Index Fund', asset: 'U.S. Equity', amount: 20691, price: 185.42, units: 111.59 },
+          { name: 'Vanguard Total Bond Market', asset: 'U.S. Bond', amount: 15777, price: 10.12, units: 1558.992 },
+          { name: 'Fidelity U.S. Bond Index', asset: 'U.S. Bond', amount: 13159, price: 10.85, units: 1212.811 },
+          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 8834, price: 45.18, units: 195.529 }
         ]
       },
       {
@@ -288,7 +289,7 @@ export const PARTICIPANTS = [
         details: { status: 'Enrolled', balance: '$13,250.00', vested: '$13,250.00' },
         sources: [{ name: 'Profit Sharing', amount: 13250, vested: 13250 }],
         investments: [
-          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 13250 }
+          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 13250, price: 45.18, units: 293.271 }
         ]
       }
     ],

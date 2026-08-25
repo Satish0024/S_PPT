@@ -24,6 +24,11 @@ This update reworks the Retirement Goal Simulator for participants with multiple
 
 - Refreshed the "Enrich" Learning Portal card on the Dashboard with a more modern look — accent border, topic icons, and an updated call-to-action.
 
+## Account Summary
+
+- The Investments table now shows a Units column and expands each row (accordion) to reveal its Asset Class, Category (Stock/Bond), and Price Per Unit.
+- Funds that hold more than one asset type (e.g. a target-date or balanced fund) now display all of their categories together, instead of being forced into a single label.
+
 # Release Notes — August 24, 2026
 
 This update makes plan balances and retirement information easier to understand and adds richer account-management tools.

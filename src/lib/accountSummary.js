@@ -33,6 +33,22 @@ export function isSummaryPlan(plan) {
 
 const COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#2e3192', '#d4a017']
 
+// Some funds hold more than one asset type (e.g. a target-date or balanced
+// fund blends stock and bond), so each asset class maps to an array of the
+// categories it's made up of rather than a single label.
+const ASSET_CATEGORY = {
+  'U.S. Equity': ['Stock'],
+  'International Equity': ['Stock'],
+  'U.S. Bond': ['Bond'],
+  'International Bond': ['Bond'],
+  'Target-Date': ['Stock', 'Bond'],
+  Balanced: ['Stock', 'Bond']
+}
+
+export function assetCategory(asset) {
+  return ASSET_CATEGORY[asset] || ['Other']
+}
+
 function toRows(items, total) {
   if (!items?.length || total <= 0) return []
   return items
@@ -43,6 +59,8 @@ function toRows(items, total) {
       asset: item.asset || '',
       amount: item.amount,
       vested: item.vested ?? 0,
+      price: item.price ?? null,
+      units: item.units ?? null,
       color: COLORS[i % COLORS.length],
       pct: total ? (item.amount / total) * 100 : 0
     }))

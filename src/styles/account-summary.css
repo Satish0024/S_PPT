@@ -100,6 +100,29 @@
   display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:8px;
   vertical-align:middle}
 
+.as-table-accordion tbody tr:not(.as-row-detail){cursor:pointer}
+.as-row-chevron{
+  float:right;color:var(--ink-soft);transition:transform .18s ease;margin-top:1px}
+.as-row-open .as-row-chevron{transform:rotate(180deg);color:var(--brand)}
+.as-row-detail td{background:#f7f8fc;padding:0;border-bottom:1px solid var(--line)}
+.as-row-detail:hover{background:transparent}
+.as-detail-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:14px;padding:14px 16px}
+.as-detail-grid div{display:flex;flex-direction:column;gap:3px}
+.as-detail-grid span{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-soft)}
+.as-detail-grid b{font-size:13.5px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.as-cat-badges{display:flex;flex-wrap:wrap;gap:5px}
+.as-cat-badge{
+  display:inline-flex;align-items:center;border-radius:999px;padding:3px 10px;
+  font-size:11.5px;font-weight:800;width:fit-content}
+.as-cat-badge.is-stock{background:#e9f3fd;color:#2464a8}
+.as-cat-badge.is-bond{background:#eaf7ef;color:#1a7a4c}
+.as-cat-badge.is-other{background:#f1f2f6;color:var(--ink-soft)}
+
+@media(max-width:640px){
+  .as-detail-grid{grid-template-columns:repeat(2,1fr)}
+}
+
 .as-empty{
   display:grid;place-items:center;min-height:220px;padding:24px;text-align:center;
   background:#f7f8fc;border-radius:12px}

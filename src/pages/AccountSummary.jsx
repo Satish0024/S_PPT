@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ArcElement, Chart as ChartJS, Tooltip } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
-import { ArrowLeft, Database, Wallet } from 'lucide-react'
+import { ArrowLeft, ChevronDown, Database, Wallet } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import {
+  assetCategory,
   formatMoney,
   formatPct,
   isSummaryPlan,
@@ -13,6 +14,12 @@ import {
   planVested,
   summaryForPlan
 } from '../lib/accountSummary'
+
+const CATEGORY_CLASS = { Stock: 'is-stock', Bond: 'is-bond', Other: 'is-other' }
+
+function formatUnits(n) {
+  return n.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
+}
 import '../styles/account-summary.css'
 
 ChartJS.register(ArcElement, Tooltip)
@@ -45,6 +52,7 @@ export default function AccountSummary() {
   )
   const [tab, setTab] = useState('sources')
   const [active, setActive] = useState(null)
+  const [expandedRow, setExpandedRow] = useState(null)
 
   const plan = plans.find((p) => p.id === planId) || plans[0]
   const summary = useMemo(() => (plan ? summaryForPlan(plan) : { balance: 0, vested: 0, sources: [], investments: [] }), [plan])
@@ -125,6 +133,7 @@ export default function AccountSummary() {
                 onClick={() => {
                   setPlanId(item.id)
                   setActive(null)
+                  setExpandedRow(null)
                 }}
               >
                 <div className="as-plan-top">
@@ -182,6 +191,7 @@ export default function AccountSummary() {
                   onClick={() => {
                     setTab(item.id)
                     setActive(null)
+                    setExpandedRow(null)
                   }}
                 >
                   <span className="pr-nav-ico" aria-hidden="true">
@@ -235,34 +245,82 @@ export default function AccountSummary() {
               </div>
 
               <div className="as-table-wrap">
-                <table>
+                <table className={tab === 'investments' ? 'as-table-accordion' : ''}>
                   <thead>
                     <tr>
                       <th>{tab === 'sources' ? 'Source' : 'Investment'}</th>
-                      {tab === 'investments' ? <th>Asset Class</th> : null}
+                      {tab === 'investments' ? <th className="num">Units</th> : null}
                       <th className="num">Balance</th>
                       <th className="num">Percent</th>
                       {tab === 'sources' ? <th className="num">Vested</th> : null}
                     </tr>
                   </thead>
                   <tbody>
-                    {rows.map((row, i) => (
-                      <tr
-                        key={row.id}
-                        className={active === i ? 'on' : ''}
-                        onMouseEnter={() => setActive(i)}
-                        onMouseLeave={() => setActive(null)}
-                      >
-                        <td>
-                          <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
-                          {row.name}
-                        </td>
-                        {tab === 'investments' ? <td>{row.asset}</td> : null}
-                        <td className="num">{formatMoney(row.amount)}</td>
-                        <td className="num">{formatPct(row.pct)}</td>
-                        {tab === 'sources' ? <td className="num">{formatMoney(row.vested)}</td> : null}
-                      </tr>
-                    ))}
+                    {rows.map((row, i) => {
+                      const isInvestment = tab === 'investments'
+                      const isOpen = isInvestment && expandedRow === row.id
+                      return (
+                        <Fragment key={row.id}>
+                          <tr
+                            className={`${active === i ? 'on' : ''} ${isOpen ? 'as-row-open' : ''}`.trim()}
+                            onMouseEnter={() => setActive(i)}
+                            onMouseLeave={() => setActive(null)}
+                            onClick={isInvestment ? () => setExpandedRow(isOpen ? null : row.id) : undefined}
+                            role={isInvestment ? 'button' : undefined}
+                            aria-expanded={isInvestment ? isOpen : undefined}
+                          >
+                            <td>
+                              <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
+                              {row.name}
+                              {isInvestment ? (
+                                <ChevronDown
+                                  size={15}
+                                  strokeWidth={2.2}
+                                  className="as-row-chevron"
+                                  aria-hidden="true"
+                                />
+                              ) : null}
+                            </td>
+                            {isInvestment ? (
+                              <td className="num">{row.units != null ? formatUnits(row.units) : '—'}</td>
+                            ) : null}
+                            <td className="num">{formatMoney(row.amount)}</td>
+                            <td className="num">{formatPct(row.pct)}</td>
+                            {tab === 'sources' ? <td className="num">{formatMoney(row.vested)}</td> : null}
+                          </tr>
+                          {isOpen ? (
+                            <tr className="as-row-detail">
+                              <td colSpan={4}>
+                                <div className="as-detail-grid">
+                                  <div>
+                                    <span>Asset Class</span>
+                                    <b>{row.asset || '—'}</b>
+                                  </div>
+                                  <div>
+                                    <span>Category</span>
+                                    <b className="as-cat-badges">
+                                      {assetCategory(row.asset).map((cat) => (
+                                        <span key={cat} className={`as-cat-badge ${CATEGORY_CLASS[cat] || 'is-other'}`}>
+                                          {cat}
+                                        </span>
+                                      ))}
+                                    </b>
+                                  </div>
+                                  <div>
+                                    <span>Price Per Unit</span>
+                                    <b>{row.price != null ? formatMoney(row.price) : '—'}</b>
+                                  </div>
+                                  <div>
+                                    <span>Units Held</span>
+                                    <b>{row.units != null ? formatUnits(row.units) : '—'}</b>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          ) : null}
+                        </Fragment>
+                      )
+                    })}
                   </tbody>
                   <tfoot>
                     <tr>

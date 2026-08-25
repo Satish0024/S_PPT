@@ -3,6 +3,12 @@
 All notable changes to the Saturna Participant Portal are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.5.0] - 2026-08-25
+
+### Added
+- Account Summary Investments table: Units column plus an accordion on each row revealing Asset Class, Category (Stock/Bond), and Price Per Unit.
+- Multi-asset funds (e.g. target-date, balanced) now show every category they're made up of, instead of a single forced label.
+
 ## [1.4.0] - 2026-08-25
 
 ### Added
