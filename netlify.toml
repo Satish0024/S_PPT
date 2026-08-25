@@ -1,0 +1,12 @@
+# Saturna Participant Portal — Vite + React SPA on Netlify
+# Without the SPA rewrite below, deep links (/portfolio, /enrollment, etc.)
+# and browser refresh return 404 because those paths aren't real files.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
