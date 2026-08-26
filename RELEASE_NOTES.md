@@ -1,6 +1,17 @@
 # Release Notes — August 26, 2026
 
-This update is an accessibility pass across the whole portal: color contrast, keyboard operability, and visible focus states were audited against WCAG 2.1 AA and brought into compliance.
+This update is an accessibility pass across the whole portal, plus a second round of verbiage updates from the latest content sheet.
+
+## Verbiage Update (Round 2)
+
+- Dashboard: Account Balance now carries a footnote explaining that any cash balance included is notional.
+- Investment Portfolio: removed the redundant sub-message under "Your investments."
+- Opt-out confirmation now reads "Are you sure you want to opt out?"
+- Enrollment: "Set My Deferral Rate" step, updated Pre-Tax/Roth descriptions, simplified Auto Increase copy, and a reworded "Keep The Current Deferral Rate" panel.
+- Investment Election: renamed "Use Plan-Selected Investments" and "Select My Own Investments" with updated helper text.
+- Enrollment Summary: Deferral Rate and Auto Increase are now one combined card with a single Edit action; Investments card renamed "Investment Election" with the allocation-type sub-label removed; footer note unified into one message for all participants.
+- Enrollment sidebar step descriptions updated to match the new copy.
+- Enrollment success popup wording updated for both the not-yet-eligible and eligible scenarios, now including the beneficiary prompt directly in the message.
 
 ## Accessibility
 

@@ -183,7 +183,6 @@ export default function Portfolio() {
             </div>
             <section className="section">
               <h2>Your investments</h2>
-              <p className="sub">Summary of your retirement investment balances, returns, and gains.</p>
               <div className="table-wrap">
                 <table className="holdings-table">
                   <thead>

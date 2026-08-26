@@ -3,6 +3,11 @@
 All notable changes to the Saturna Participant Portal are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.7.0] - 2026-08-26
+
+### Changed
+- Round 2 verbiage pass from the latest content sheet: Account Balance notional-cash footnote, removed Portfolio sub-message, "Are you sure you want to opt out?", "Set My Deferral Rate" step, updated Pre-Tax/Roth source descriptions, simplified Auto Increase copy, "Keep The Current Deferral Rate" panel, renamed Investment Election choices/helper text, Enrollment Summary Deferral+Auto Increase merged into one card with a single Edit action, Investments card renamed "Investment Election" with allocation-type sub-label removed, unified summary footer note, updated sidebar step descriptions, and reworded the enrollment success popup for both eligibility scenarios.
+
 ## [1.6.0] - 2026-08-26
 
 ### Fixed

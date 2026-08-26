@@ -333,7 +333,7 @@ export default function PlanDetails() {
             aria-labelledby="optout-title"
             onClick={(e) => e.stopPropagation()}
           >
-            <h4 id="optout-title">Are you sure?</h4>
+            <h4 id="optout-title">Are you sure you want to opt out?</h4>
             <p>
               If you opt out, deferrals from your paycheck will stop. You can enroll again later, but you may miss out on
               potential retirement savings growth and any available employer matching contributions.

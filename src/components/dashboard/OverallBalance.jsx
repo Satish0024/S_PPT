@@ -6,7 +6,7 @@ export default function OverallBalance({ total, vested, loan }) {
       <div className="ob-top">
         <div className="ob-metrics">
           <div className="ob-block">
-            <div className="ob-k">Account Balance</div>
+            <div className="ob-k">Account Balance*</div>
             <div className="ob-v">{total}</div>
           </div>
           <div className="ob-block vested">
@@ -27,6 +27,10 @@ export default function OverallBalance({ total, vested, loan }) {
           </span>
         </div>
       )}
+      <p className="ob-footnote">
+        *Account Balance includes any cash balance held in your account. Cash balance amounts are notional — shown
+        for reference only and do not represent a segregated or invested asset.
+      </p>
     </section>
   )
 }

@@ -129,10 +129,7 @@ export function DeferralEditor({
       <div className="enroll-narrow">
         <div className="section-top">
           <div>
-            <h3 className="section-title">{embedded ? 'Edit Deferral' : 'Set Your Deferral Rate'}</h3>
-            <p className="section-sub">
-              Choose your own deferral rate or use the plan deferral rate.
-            </p>
+            <h3 className="section-title">{embedded ? 'Edit Deferral' : 'Set My Deferral Rate'}</h3>
           </div>
           {showOptOut && !notEligible && (
             <button type="button" className="optout-link" onClick={() => setOptOutOpen(true)}>
@@ -162,14 +159,14 @@ export function DeferralEditor({
           </div>
           <SourceRow
             label="Pre-Tax"
-            help="Goes in before taxes, which can lower your taxable income today. You pay income tax when you withdraw in retirement."
+            help="Pre-tax employee deferrals lower current year taxes. The deferrals and earnings on the deferrals are taxable when withdrawn and not taxable when it is rolled over."
             unit={unit}
             value={formatValue(pre, unit)}
             onChange={(v) => setSource('pre', v)}
           />
           <SourceRow
             label="Roth"
-            help="Goes in after taxes. Qualified withdrawals — including growth — come out tax-free in retirement."
+            help="Roth employee deferrals are taxable in the year contributed, but not when withdrawn. Earnings will not be taxable if certain age and holding period requirements are met."
             unit={unit}
             value={formatValue(roth, unit)}
             onChange={(v) => setSource('roth', v)}
@@ -189,7 +186,7 @@ export function DeferralEditor({
       <div className="ai-block" id="auto-increase">
           <h3 className="section-title">Auto Increase</h3>
           <p className="section-sub">
-            Automatically increase your deferral rate over time to help grow your retirement savings.
+            Automatically increase the deferral rate over time to grow the retirement savings.
           </p>
 
           <div className="choice-list" role="radiogroup" aria-label="Auto increase">
@@ -232,10 +229,10 @@ export function DeferralEditor({
               <div className="warn-head">
                 <span className="warn-ico">!</span>
                 <div>
-                  <h4>Keep Your Current Deferral Rate</h4>
+                  <h4>Keep The Current Deferral Rate</h4>
                   <p>
-                    This means your elected deferral rate of <b>{unit === '$' ? `$${payFromPct(total)}` : pct(total)}</b>{' '}
-                    will remain the same each year unless you choose to update it in the future.
+                    This means the elected deferral rate of <b>{unit === '$' ? `$${payFromPct(total)}` : pct(total)}</b>{' '}
+                    will remain the same each year unless edited.
                   </p>
                 </div>
               </div>
@@ -329,7 +326,7 @@ export function DeferralEditor({
             aria-labelledby="optout-title"
             onClick={(e) => e.stopPropagation()}
           >
-            <h4 id="optout-title">Are you sure?</h4>
+            <h4 id="optout-title">Are you sure you want to opt out?</h4>
             <p>
               If you opt out, deferrals from your paycheck will stop. You can enroll again later, but you may miss out on
               potential retirement savings growth and any available employer matching contributions.

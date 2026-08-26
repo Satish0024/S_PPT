@@ -50,7 +50,7 @@ export default function EnrollmentSummary() {
         <article className="review-card">
           <div className="review-h">
             <div className="review-title">
-              <h4>Deferral</h4>
+              <h4>Deferral Rate</h4>
               <small>{optedOut ? 'No Paycheck Deferral' : 'From Each Paycheck'}</small>
             </div>
             <button type="button" className="text-btn" onClick={() => navigate('/enrollment')}>
@@ -60,69 +60,61 @@ export default function EnrollmentSummary() {
           {optedOut ? (
             <p>You opted out of contributing from your paycheck.</p>
           ) : (
-            <ul className="review-rows">
-              <li>
-                <span>Pre-Tax</span>
-                <b>
-                  {pct(deferral?.pre)}
-                  <small>{money(payFromPct(deferral?.pre))}</small>
-                </b>
-              </li>
-              <li>
-                <span>Roth</span>
-                <b>
-                  {pct(deferral?.roth)}
-                  <small>{money(payFromPct(deferral?.roth))}</small>
-                </b>
-              </li>
-            </ul>
+            <>
+              <ul className="review-rows">
+                <li>
+                  <span>Pre-Tax</span>
+                  <b>
+                    {pct(deferral?.pre)}
+                    <small>{money(payFromPct(deferral?.pre))}</small>
+                  </b>
+                </li>
+                <li>
+                  <span>Roth</span>
+                  <b>
+                    {pct(deferral?.roth)}
+                    <small>{money(payFromPct(deferral?.roth))}</small>
+                  </b>
+                </li>
+              </ul>
+              <div className="review-sources review-divider">
+                <div>
+                  <h5>Auto Increase{skippedAi ? '' : ` · ${cycle.title}`}</h5>
+                  {skippedAi ? (
+                    <p>The elected deferral rate will remain the same each year.</p>
+                  ) : (
+                    <ul className="review-rows">
+                      <li>
+                        <span>Next Increase</span>
+                        <b>{cycle.next}</b>
+                      </li>
+                      <li>
+                        <span>Pre-Tax</span>
+                        <b>
+                          +{pct(autoInc?.incPre ?? autoInc?.inc)}
+                          <small>until {pct(autoInc?.capPre ?? autoInc?.cap)}</small>
+                        </b>
+                      </li>
+                      <li>
+                        <span>Roth</span>
+                        <b>
+                          +{pct(autoInc?.incRoth ?? autoInc?.inc)}
+                          <small>until {pct(autoInc?.capRoth ?? autoInc?.cap)}</small>
+                        </b>
+                      </li>
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </>
           )}
         </article>
 
         <article className="review-card">
           <div className="review-h">
             <div className="review-title">
-              <h4>Auto Increase</h4>
-              <small>{skippedAi ? 'Not Turned On' : cycle.title}</small>
-            </div>
-            <button type="button" className="text-btn" onClick={() => navigate('/enrollment')}>
-              Edit
-            </button>
-          </div>
-          {skippedAi ? (
-            <p>Your elected contribution rate will remain unchanged each year.</p>
-          ) : (
-            <ul className="review-rows">
-              <li>
-                <span>Next Increase</span>
-                <b>{cycle.next}</b>
-              </li>
-              <li>
-                <span>Pre-Tax</span>
-                <b>
-                  +{pct(autoInc?.incPre ?? autoInc?.inc)}
-                  <small>until {pct(autoInc?.capPre ?? autoInc?.cap)}</small>
-                </b>
-              </li>
-              <li>
-                <span>Roth</span>
-                <b>
-                  +{pct(autoInc?.incRoth ?? autoInc?.inc)}
-                  <small>until {pct(autoInc?.capRoth ?? autoInc?.cap)}</small>
-                </b>
-              </li>
-            </ul>
-          )}
-        </article>
-
-        <article className="review-card">
-          <div className="review-h">
-            <div className="review-title">
-              <h4>Investments</h4>
-              <small>
-                {usingPlan ? 'Plan default selection' : 'Own Election'}
-                {applyAll ? ' · Investment wise allocation' : ' · Source wise allocation'}
-              </small>
+              <h4>Investment Election</h4>
+              <small>{usingPlan ? 'Plan-Selected Investments' : 'Own Election'}</small>
             </div>
             <button type="button" className="text-btn" onClick={() => navigate('/enrollment/investments')}>
               Edit
@@ -142,11 +134,7 @@ export default function EnrollmentSummary() {
           )}
         </article>
 
-        <p className="summary-note">
-          {notEligible
-            ? 'Your elections can be edited later through your account.'
-            : 'Your enrollment selections can be edited later through your account.'}
-        </p>
+        <p className="summary-note">You can update the enrollment selections any time.</p>
         <div className="enroll-nav">
           <button type="button" className="btn btn-ghost" onClick={goHome}>
             Cancel
@@ -183,8 +171,8 @@ export default function EnrollmentSummary() {
               <h3 id="success-title">{notEligible ? 'Your Elections Are Saved' : "You're Enrolled"}</h3>
               <p className="success-lead">
                 {notEligible
-                  ? "Your enrollment preferences have been saved and will take effect once you're eligible for the plan."
-                  : 'Your 401(k) elections are saved. Add a beneficiary next so your account has a named recipient.'}
+                  ? "The enrollment preferences have been saved and will take effect once you're eligible for the plan. Take a moment to designate a beneficiary and help ensure your savings go to the right person."
+                  : 'Your enrollment preferences are saved. Take a moment to designate a beneficiary and help ensure your savings go to the right person.'}
               </p>
 
               <div className="success-next">
