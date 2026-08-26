@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,400..700;1,400..700&display=swap');
 
   :root{
-    --brand:#2e3192;
-    --brand-dark:#1f2268;
-    --accent:#4a63c7;
-    --link:#2e3192;
+    --brand:#0b6e5f;
+    --brand-dark:#084f45;
+    --accent:#178074;
+    --link:#0b6e5f;
     --ink:#14151f;
     --ink-soft:#4a4d63;
     --muted:#666a83;
@@ -12,7 +12,7 @@
     --bg:#f4f5f9;
     --panel:#ffffff;
     --sidebar:#ffffff;
-    --active-bg:#eef1ff;
+    --active-bg:#e6f3f0;
     --hover-bg:#f4f5f9;
     --green:#147a4c;
     --green-bg:#e7f7ef;
@@ -197,7 +197,7 @@
     flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
     border:none;background:#fff;color:var(--brand);border-radius:9px;text-decoration:none;
     padding:8px 10px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;
-    box-shadow:0 0 0 1px rgba(46,49,146,.14);box-sizing:border-box;width:100%}
+    box-shadow:0 0 0 1px rgba(11,110,95,.14);box-sizing:border-box;width:100%}
   .rr-status-go:hover{background:var(--active-bg);color:var(--brand)}
   .rr-status{
     display:flex;flex-direction:column;align-items:stretch;gap:10px;
@@ -309,10 +309,10 @@
     border:1px solid var(--line);border-radius:10px;background:#fff;min-height:42px;
     transition:border-color .15s,box-shadow .15s}
   .rg-target select:focus-visible,.rg-affix:focus-within,.rg-step:focus-within{
-    border-color:var(--brand);box-shadow:0 0 0 3px rgba(46,49,146,.15);outline:none}
+    border-color:var(--brand);box-shadow:0 0 0 3px rgba(11,110,95,.15);outline:none}
   .rg-target select{
     appearance:none;padding:9px 32px 9px 12px;font:inherit;font-size:14px;font-weight:700;color:var(--ink);
-    min-width:148px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%232e3192' d='M1.2 1.2L6 6l4.8-4.8'/%3E%3C/svg%3E") no-repeat right 12px center}
+    min-width:148px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%230b6e5f' d='M1.2 1.2L6 6l4.8-4.8'/%3E%3C/svg%3E") no-repeat right 12px center}
   .rg-affix{display:inline-flex;align-items:center;overflow:hidden}
   .rg-affix em{
     display:grid;place-items:center;min-width:34px;align-self:stretch;background:#f4f5f9;
@@ -428,10 +428,10 @@
   .rg-burst span{
     position:absolute;width:8px;height:8px;border-radius:50%;
     animation:rg-burst .9s ease-out forwards}
-  .rg-burst span:nth-child(1){background:#2e3192;left:18%;top:18%;animation-delay:.02s}
+  .rg-burst span:nth-child(1){background:#0b6e5f;left:18%;top:18%;animation-delay:.02s}
   .rg-burst span:nth-child(2){background:#1a9d63;left:78%;top:16%;animation-delay:.08s}
   .rg-burst span:nth-child(3){background:#d4a017;left:12%;top:62%;animation-delay:.12s}
-  .rg-burst span:nth-child(4){background:#4a63c7;left:84%;top:58%;animation-delay:.05s}
+  .rg-burst span:nth-child(4){background:#178074;left:84%;top:58%;animation-delay:.05s}
   .rg-burst span:nth-child(5){background:#1a9d63;left:48%;top:6%;animation-delay:.14s}
   .rg-burst span:nth-child(6){background:#c0392b;left:52%;top:86%;animation-delay:.1s}
   @keyframes rg-burst{
@@ -874,7 +874,7 @@
   .tx-filters button.on{background:#fff;color:var(--brand);box-shadow:var(--shadow)}
   .tx-plan-select{appearance:none;border:1px solid var(--line);border-radius:10px;background:#fff;
     padding:9px 36px 9px 12px;font:inherit;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%232e3192' d='M1.2 1.2L6 6l4.8-4.8'/%3E%3C/svg%3E");
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%230b6e5f' d='M1.2 1.2L6 6l4.8-4.8'/%3E%3C/svg%3E");
     background-repeat:no-repeat;background-position:right 12px center}
   .table-wrap{border:1px solid var(--line);border-radius:12px;overflow:auto;background:#fff}
   .tx-table{width:100%;border-collapse:collapse;font-size:13.5px}

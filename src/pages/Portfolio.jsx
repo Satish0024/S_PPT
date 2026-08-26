@@ -20,7 +20,7 @@ const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1
 const SERIES = [
   { key: 'total', label: 'Total portfolio', color: '#e05a4f' },
   { key: 'equity', label: 'U.S. Equity', color: '#1a9d63' },
-  { key: 'bond', label: 'U.S. Bond', color: '#2e3192' },
+  { key: 'bond', label: 'U.S. Bond', color: '#0b6e5f' },
   { key: 'target', label: 'Target-Date', color: '#d4a017' }
 ]
 
@@ -75,7 +75,7 @@ export default function Portfolio() {
     const byKey = {
       total: line('Total portfolio', total, '#e05a4f', 0),
       equity: line('U.S. Equity', equity, '#1a9d63'),
-      bond: line('U.S. Bond', bond, '#2e3192'),
+      bond: line('U.S. Bond', bond, '#0b6e5f'),
       target: line('Target-Date', target, '#d4a017')
     }
     return {
