@@ -54,7 +54,7 @@ export default function Transactions() {
             value={plan}
             onChange={(e) => setPlan(e.target.value)}
           >
-            <option value="all">All Plans</option>
+            <option value="all">All plans</option>
             {plans.map((name) => (
               <option key={name} value={name}>
                 {name}

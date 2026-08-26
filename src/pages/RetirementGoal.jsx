@@ -197,7 +197,7 @@ function AutoIncreaseBlock({ state, onChange }) {
       <label className={`rg-toggle${state.on ? ' on' : ''}`}>
         <input type="checkbox" checked={!!state.on} onChange={(e) => onChange('on', e.target.checked)} />
         <span>
-          <b>Auto Increase {state.on ? `· +${pctPre}% / Year` : '· Off'}</b>
+          <b>Auto increase {state.on ? `· +${pctPre}% / year` : '· Off'}</b>
           {state.on
             ? `Deferral rises ${pctPre}% each year until it reaches ${capPre}%.`
             : 'Typical plan setting is +1% each year until 10%.'}
@@ -209,7 +209,7 @@ function AutoIncreaseBlock({ state, onChange }) {
             <div className="ai-row head">
               <span>Source</span>
               <span>Increment</span>
-              <span>Max Limit</span>
+              <span>Max limit</span>
             </div>
             <AutoIncreaseRow
               label="Pre-Tax"
@@ -450,9 +450,9 @@ export default function RetirementGoal() {
         <div>
           <Link className="text-link rg-back" to="/">
             <ArrowLeft size={16} strokeWidth={2.2} />
-            Back To Dashboard
+            Back to dashboard
           </Link>
-          <h1>Retirement Goal Simulator</h1>
+          <h1>Retirement goal simulator</h1>
           <p className="rg-intro">
             Set the target first, then try a change below. The score updates as you go — enrollment is not changed until
             you save this goal.
@@ -481,11 +481,11 @@ export default function RetirementGoal() {
           </div>
           <dl className="rg-facts">
             <div>
-              <dt>Retirement Age</dt>
+              <dt>Retirement age</dt>
               <dd>{draft.retireAge}</dd>
             </div>
             <div>
-              <dt>Years Remaining</dt>
+              <dt>Years remaining</dt>
               <dd>{live.years}</dd>
             </div>
             {multiPlan ? (
@@ -493,7 +493,7 @@ export default function RetirementGoal() {
                 const share = planShares[plan.id] || { pre: 0, roth: 0 }
                 return (
                   <div key={plan.id}>
-                    <dt>{plan.name} Deferral</dt>
+                    <dt>{plan.name} deferral</dt>
                     <dd>{(share.pre || 0) + (share.roth || 0)}%</dd>
                   </div>
                 )
@@ -505,23 +505,23 @@ export default function RetirementGoal() {
               </div>
             )}
             <div>
-              <dt>Auto Increase</dt>
+              <dt>Auto increase</dt>
               <dd>{draft.autoOn ? `+${autoPct}% each year` : 'Off'}</dd>
             </div>
           </dl>
           <p className="rg-disc">
             *Not guaranteed results · It&apos;s a simulation.{' '}
             <button type="button" className="rr-more" onClick={() => setOpen(true)}>
-              Read More
+              Read more
             </button>
           </p>
         </aside>
 
         <div className="rg-work">
-          <section className="rg-improve rg-hidden" aria-label="Ways To Improve">
+          <section className="rg-improve rg-hidden" aria-label="Ways to improve">
             <div className="rg-improve-h">
               <Sparkles size={16} strokeWidth={2.1} />
-              <h2>Ways To Improve</h2>
+              <h2>Ways to improve</h2>
               <span>Apply a change to see the score move</span>
             </div>
             <div className="rg-tips">
@@ -542,7 +542,7 @@ export default function RetirementGoal() {
                 <div className="rg-tip done">
                   <b className="rg-tip-pts">✓</b>
                   <div>
-                    <strong>Your Goal Looks Funded</strong>
+                    <strong>Your goal looks funded</strong>
                     <p>Stress-test it with a higher spend or an earlier retirement age.</p>
                   </div>
                 </div>
@@ -569,9 +569,9 @@ export default function RetirementGoal() {
           </section>
 
           <section className="panel rg-inputs">
-            <h2>Retirement Target</h2>
+            <h2>Retirement target</h2>
             <div className="rg-targets">
-              <TargetCard icon={MapPin} label="Retirement Location" hint="Used to estimate a typical monthly spend">
+              <TargetCard icon={MapPin} label="Retirement location" hint="Used to estimate a typical monthly spend">
                 <select
                   value={draft.location}
                   onChange={(e) => {
@@ -585,7 +585,7 @@ export default function RetirementGoal() {
                   ))}
                 </select>
               </TargetCard>
-              <TargetCard icon={Umbrella} label="Planned Retirement Age" hint={`About ${live.years} years from now`}>
+              <TargetCard icon={Umbrella} label="Planned retirement age" hint={`About ${live.years} years from now`}>
                 <span className="rg-step">
                   <button
                     type="button"
@@ -612,7 +612,7 @@ export default function RetirementGoal() {
               </TargetCard>
               <TargetCard
                 icon={CalendarDays}
-                label="Monthly Spending"
+                label="Monthly spending"
                 hint={spendHint ? `About ${annualSpend} a year · typical here is ${money(spendHint)}` : `${annualSpend} a year`}
               >
                 <MoneyInput
@@ -620,12 +620,12 @@ export default function RetirementGoal() {
                   onChange={(n) => setDraftField('monthlySpend', Math.max(0, n))}
                 />
               </TargetCard>
-              <TargetCard icon={Banknote} label="Annual Salary" hint="Drives how much each deferral percent saves">
+              <TargetCard icon={Banknote} label="Annual salary" hint="Drives how much each deferral percent saves">
                 <MoneyInput value={draft.salary} onChange={(n) => setDraftField('salary', Math.max(0, n))} />
               </TargetCard>
               <TargetCard
                 icon={CircleDollarSign}
-                label="Savings Outside Your 401(k)"
+                label="Savings outside your 401(k)"
                 hint="Brokerage, IRAs, and cash you expect to use in retirement"
               >
                 <MoneyInput value={draft.outside} onChange={(n) => setDraftField('outside', Math.max(0, n))} />
@@ -653,7 +653,7 @@ export default function RetirementGoal() {
                   <div className="rg-source">
                     <div className="rg-source-h">
                       <span>
-                        <b>Pre-Tax Deferral</b>
+                        <b>Pre-tax deferral</b>
                         <small>Goes in before taxes and can lower taxable income today.</small>
                       </span>
                       <PctInput value={share.pre || 0} onChange={onPre} max={12} />
@@ -669,7 +669,7 @@ export default function RetirementGoal() {
                   <div className="rg-source">
                     <div className="rg-source-h">
                       <span>
-                        <b>Roth Deferral</b>
+                        <b>Roth deferral</b>
                         <small>Goes in after taxes. Qualified withdrawals can come out tax-free.</small>
                       </span>
                       <PctInput value={share.roth || 0} onChange={onRoth} max={12} />
@@ -736,7 +736,7 @@ export default function RetirementGoal() {
 
       <div className="rg-nav">
         <button type="button" className="btn btn-primary" onClick={save}>
-          Save This Goal
+          Save this goal
         </button>
         <Link className="text-link" to="/">
           Cancel
@@ -758,7 +758,7 @@ export default function RetirementGoal() {
               <span className="rg-save-mark" aria-hidden="true">
                 <SaveIcon size={26} strokeWidth={2.1} />
               </span>
-              <h4 id="rg-saved-title">{saveTone === 'warn' ? 'Goal Saved · Needs Attention' : 'Goal Saved'}</h4>
+              <h4 id="rg-saved-title">{saveTone === 'warn' ? 'Goal saved · Needs attention' : 'Goal saved'}</h4>
               <p>{liveStatus.body}</p>
             </div>
             <div
@@ -785,7 +785,7 @@ export default function RetirementGoal() {
             </div>
             {inputChanges.length ? (
               <>
-                <p className="rr-modal-k">What Changed</p>
+                <p className="rr-modal-k">What changed</p>
                 <ul className="rg-changes">
                   {inputChanges.map((row) => (
                     <li key={row.label}>
@@ -802,10 +802,10 @@ export default function RetirementGoal() {
             )}
             <div className="enroll-modal-actions">
               <button type="button" className="btn btn-primary" onClick={() => navigate('/', { state: { goalSaved: true } })}>
-                Save &amp; Go To Dashboard
+                Save &amp; go to dashboard
               </button>
               <button type="button" className="btn btn-secondary" onClick={() => setSavedOpen(false)}>
-                Keep Editing
+                Keep editing
               </button>
             </div>
           </div>

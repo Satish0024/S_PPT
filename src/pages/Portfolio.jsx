@@ -15,10 +15,10 @@ import '../styles/portfolio.css'
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
 
 const PERIODS = ['1m', '3m', '6m', 'ytd', '1y', '3y', '5y', '10y', 'si']
-const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1Y', '3y': '3Y', '5y': '5Y', '10y': '10Y', si: 'Since Inception' }
+const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1Y', '3y': '3Y', '5y': '5Y', '10y': '10Y', si: 'Since inception' }
 
 const SERIES = [
-  { key: 'total', label: 'Total Portfolio', color: '#e05a4f' },
+  { key: 'total', label: 'Total portfolio', color: '#e05a4f' },
   { key: 'equity', label: 'U.S. Equity', color: '#1a9d63' },
   { key: 'bond', label: 'U.S. Bond', color: '#2e3192' },
   { key: 'target', label: 'Target-Date', color: '#d4a017' }
@@ -73,7 +73,7 @@ export default function Portfolio() {
     const target = cumSeries(n, ends.target, 7)
     const total = equity.map((e, i) => Math.round((e * 0.64 + bond[i] * 0.23 + target[i] * 0.13) * 100) / 100)
     const byKey = {
-      total: line('Total Portfolio', total, '#e05a4f', 0),
+      total: line('Total portfolio', total, '#e05a4f', 0),
       equity: line('U.S. Equity', equity, '#1a9d63'),
       bond: line('U.S. Bond', bond, '#2e3192'),
       target: line('Target-Date', target, '#d4a017')
@@ -100,7 +100,7 @@ export default function Portfolio() {
     <>
       <div className="page-head">
         <div className="page-head-row">
-          <h1>Investment Portfolio</h1>
+          <h1>Investment portfolio</h1>
           <div className="plan-select-wrap">
             <select
               className="plan-select"
@@ -119,10 +119,10 @@ export default function Portfolio() {
       </div>
       <div className="tabs" role="tablist" aria-label="Portfolio views">
         <button type="button" className={`tab${tab === 'overview' ? ' on' : ''}`} onClick={() => setTab('overview')}>
-          My Portfolio
+          My portfolio
         </button>
         <button type="button" className={`tab${tab === 'investments' ? ' on' : ''}`} onClick={() => setTab('investments')}>
-          Plan Investments
+          Plan investments
         </button>
       </div>
       <div className="page-body">
@@ -132,20 +132,20 @@ export default function Portfolio() {
               <aside className="overall-card" aria-label="Portfolio summary">
                 <div className="overall-body">
                   <div className="stat-block hero">
-                    <div className="stat-k">Current Balance</div>
+                    <div className="stat-k">Current balance</div>
                     <div className="stat-v">{plan.current}</div>
                   </div>
                   <div className="overall-grid">
                     <div className="stat-block">
-                      <div className="stat-k">Invested Balance</div>
+                      <div className="stat-k">Invested balance</div>
                       <div className="stat-v">{plan.invested}</div>
                     </div>
                     <div className="stat-block">
-                      <div className="stat-k">Gain / Loss</div>
+                      <div className="stat-k">Gain / loss</div>
                       <div className="stat-v pos">{plan.gain}</div>
                     </div>
                     <div className="stat-block">
-                      <div className="stat-k">Fund Return</div>
+                      <div className="stat-k">Fund return</div>
                       <div className="stat-v pos">{plan.ret}</div>
                     </div>
                   </div>
@@ -153,19 +153,18 @@ export default function Portfolio() {
               </aside>
               <section className="chart-panel">
                 <div className="chart-top">
-                  <h2>Asset Class Performance</h2>
+                  <h2>Asset class performance</h2>
                   <div className="legend">
                     {SERIES.map((s) => (
-                      <button
-                        key={s.key}
-                        type="button"
-                        className={visible[s.key] ? 'on' : ''}
-                        aria-pressed={visible[s.key]}
-                        onClick={() => toggleSeries(s.key)}
-                      >
-                        <i style={{ background: s.color }} />
+                      <label key={s.key} className={visible[s.key] ? 'on' : ''}>
+                        <input
+                          type="checkbox"
+                          checked={visible[s.key]}
+                          onChange={() => toggleSeries(s.key)}
+                          style={{ accentColor: s.color }}
+                        />
                         {s.label}
-                      </button>
+                      </label>
                     ))}
                   </div>
                 </div>
@@ -182,20 +181,20 @@ export default function Portfolio() {
               </section>
             </div>
             <section className="section">
-              <h2>Your investments</h2>
+              <h2>Investments</h2>
               <div className="table-wrap">
                 <table className="holdings-table">
                   <thead>
                     <tr>
                       {[
-                        ['name', 'Investment Name', 'text'],
-                        ['asset', 'Asset Class', 'text'],
+                        ['name', 'Investment name', 'text'],
+                        ['asset', 'Asset class', 'text'],
                         ['cusip', 'CUSIP', 'text'],
-                        ['return', 'Fund Return %', 'num'],
-                        ['invested', 'Invested Balance', 'num'],
-                        ['current', 'Current Balance', 'num'],
-                        ['gain', 'Gain/Loss', 'num'],
-                        ['units', 'Unit Balance', 'num']
+                        ['return', 'Fund return %', 'num'],
+                        ['invested', 'Invested balance', 'num'],
+                        ['current', 'Current balance', 'num'],
+                        ['gain', 'Gain/loss', 'num'],
+                        ['units', 'Unit balance', 'num']
                       ].map(([key, label, type]) => (
                         <th
                           key={key}
@@ -229,14 +228,14 @@ export default function Portfolio() {
         {tab === 'investments' && (
           <div className="tab-panel on">
             <section className="section">
-              <h2>Plan Investments</h2>
+              <h2>Plan investments</h2>
               <p className="sub">Browse and compare the funds available within your retirement plan.</p>
               <div className="table-wrap">
                 <table className="plan-table">
                   <thead>
                     <tr>
                       <th className="fund-col" rowSpan={2}>
-                        Fund Name / Category
+                        Fund name / category
                       </th>
                       <th
                         rowSpan={2}
@@ -246,31 +245,31 @@ export default function Portfolio() {
                         <button type="button" onClick={toggleYtd}>
                           Return YTD
                           <br />
-                          As Of 03/10/2025
+                          As of 03/10/2025
                         </button>
                       </th>
                       <th className="group-h" colSpan={4}>
-                        Average Annual Total Return
+                        Average annual total return
                         <br />
-                        As Of 12/31/2024
+                        As of 12/31/2024
                       </th>
                       <th className="group-h" colSpan={2}>
-                        Total Annual Operating Expenses
+                        Total annual operating expenses
                         <br />
-                        As Of 12/31/2024
+                        As of 12/31/2024
                       </th>
                       <th rowSpan={2}>
                         Shareholder-
                         <br />
-                        Type Fees
+                        type fees
                       </th>
                     </tr>
                     <tr>
-                      <th className="sub-h">1 Yr.</th>
-                      <th className="sub-h">5 Yr.</th>
-                      <th className="sub-h">10 Yr.</th>
-                      <th className="sub-h">Since Inception</th>
-                      <th className="sub-h">As A %</th>
+                      <th className="sub-h">1 yr.</th>
+                      <th className="sub-h">5 yr.</th>
+                      <th className="sub-h">10 yr.</th>
+                      <th className="sub-h">Since inception</th>
+                      <th className="sub-h">As a %</th>
                       <th className="sub-h">Per $1,000</th>
                     </tr>
                   </thead>

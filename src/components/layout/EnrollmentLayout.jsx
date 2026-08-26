@@ -4,10 +4,10 @@ import Sidebar from './Sidebar.jsx'
 import '../../styles/enrollment.css'
 
 const STEPS = [
-  { n: 1, title: 'Deferral Rate', body: 'Specify payroll deferral rates and set up auto increase.', to: '/enrollment' },
+  { n: 1, title: 'Deferral rate', body: 'Specify payroll deferral rates and set up auto increase.', to: '/enrollment' },
   {
     n: 2,
-    title: 'Investment Election',
+    title: 'Investment election',
     body: 'Choose the investments and its allocation percentages',
     to: '/enrollment/investments'
   },
@@ -34,9 +34,9 @@ export default function EnrollmentLayout() {
         <Sidebar />
         <aside className="steps">
           <Link to={returnTo || '/'} className="back">
-            ‹ {returnTo ? 'Back To Plan' : 'Back'}
+            ‹ {returnTo ? 'Back to plan' : 'Back'}
           </Link>
-          <h1>{returnTo ? 'Update Elections' : 'Plan Enrollment'}</h1>
+          <h1>{returnTo ? 'Update elections' : 'Plan enrollment'}</h1>
           <div className="divider" />
           {STEPS.map((step) => {
             const complete = step.n < current
@@ -58,7 +58,7 @@ export default function EnrollmentLayout() {
                   <p>{step.body}</p>
                   {isCurrent && (
                     <span className="step-status">
-                      <span className="spinner" /> In Progress
+                      <span className="spinner" /> In progress
                     </span>
                   )}
                 </div>
@@ -68,7 +68,7 @@ export default function EnrollmentLayout() {
         </aside>
         <main className="main">
           <div className="detail-head">
-            <div className="eyebrow">Plan Details</div>
+            <div className="eyebrow">Plan details</div>
             <h2>401(k) Company Plan High Returns</h2>
             <div className="plan-meta">
               <span>

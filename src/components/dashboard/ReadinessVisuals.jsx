@@ -26,7 +26,7 @@ export function GoalDonut({ score, large, empty }) {
       </svg>
       <div className="rr-score">
         <b>{Math.round(funded)}%</b>
-        <span>Goal Reached</span>
+        <span>Goal reached</span>
       </div>
     </div>
   )
@@ -36,10 +36,10 @@ export function Legend({ expense, income, shortfall }) {
   return (
     <ul className="rr-legend">
       <li>
-        Expected Expense<b>{money(expense)}</b>
+        Expected expense<b>{money(expense)}</b>
       </li>
       <li className="income">
-        All Income<b>{money(income)}</b>
+        All income<b>{money(income)}</b>
       </li>
       <li className="short">
         Shortfall<b>{money(shortfall)}</b>

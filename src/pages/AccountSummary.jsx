@@ -111,7 +111,7 @@ export default function AccountSummary() {
             <ArrowLeft size={16} strokeWidth={2.2} />
             Dashboard
           </Link>
-          <h1>Account Summary</h1>
+          <h1>Account summary</h1>
           <p className="pr-intro">View balances by sources or by investments</p>
         </div>
       </div>
@@ -145,11 +145,11 @@ export default function AccountSummary() {
                 </div>
                 <div className="as-plan-stats">
                   <div>
-                    <span>Account Balance</span>
+                    <span>Account balance</span>
                     <b>{formatMoney(bal)}</b>
                   </div>
                   <div>
-                    <span>Vested Balance</span>
+                    <span>Vested balance</span>
                     <b className="vested">{formatMoney(vest)}</b>
                   </div>
                 </div>
@@ -172,7 +172,7 @@ export default function AccountSummary() {
             </div>
             {plan.noticeLink?.details ? (
               <Link to={`/plans/${plan.id}`} className="text-link">
-                View Plan Details
+                View plan details
               </Link>
             ) : null}
           </div>
@@ -213,7 +213,7 @@ export default function AccountSummary() {
                 <div className="as-donut" onMouseLeave={() => setActive(null)}>
                   <Doughnut data={chart} options={options} />
                   <div className="as-donut-center">
-                    <small>{highlight ? highlight.name : 'Account Balance'}</small>
+                    <small>{highlight ? highlight.name : 'Account balance'}</small>
                     <b>{formatMoney(highlight ? highlight.amount : summary.balance)}</b>
                     <em>{highlight ? formatPct(highlight.pct) : '100.00%'}</em>
                   </div>
@@ -303,7 +303,7 @@ export default function AccountSummary() {
                               <td colSpan={4}>
                                 <div className="as-detail-grid">
                                   <div>
-                                    <span>Asset Class</span>
+                                    <span>Asset class</span>
                                     <b>{row.asset || '—'}</b>
                                   </div>
                                   <div>
@@ -317,11 +317,11 @@ export default function AccountSummary() {
                                     </b>
                                   </div>
                                   <div>
-                                    <span>Price Per Unit</span>
+                                    <span>Price per unit</span>
                                     <b>{row.price != null ? formatMoney(row.price) : '—'}</b>
                                   </div>
                                   <div>
-                                    <span>Units Held</span>
+                                    <span>Units held</span>
                                     <b>{row.units != null ? formatUnits(row.units) : '—'}</b>
                                   </div>
                                 </div>

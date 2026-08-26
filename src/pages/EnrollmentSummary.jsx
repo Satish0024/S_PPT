@@ -4,9 +4,9 @@ import { AUTO_INCREASE_KEY, DEFERRAL_KEY, INVESTMENT_KEY, isNotEligibleUser, rea
 import { useParticipant } from '../context/ParticipantContext.jsx'
 
 const CYCLES = {
-  calendar: { title: 'Calendar Year', next: 'January 1, 2027' },
-  participant: { title: 'Plan Participant Date', next: 'August 15, 2027' },
-  planyear: { title: 'Plan Year', next: 'April 1, 2027' }
+  calendar: { title: 'Calendar year', next: 'January 1, 2027' },
+  participant: { title: 'Plan participant date', next: 'August 15, 2027' },
+  planyear: { title: 'Plan year', next: 'April 1, 2027' }
 }
 const SALARY = 85000
 const PERIODS = 26
@@ -40,7 +40,7 @@ export default function EnrollmentSummary() {
   return (
     <div className="detail-body enroll-simple">
       <div className="summary-page">
-        <h3 className="section-title">Review And Confirm</h3>
+        <h3 className="section-title">Review and confirm</h3>
         <p className="section-sub">
           {notEligible
             ? "You're almost done. Review your elections and confirm to save them."
@@ -50,8 +50,8 @@ export default function EnrollmentSummary() {
         <article className="review-card">
           <div className="review-h">
             <div className="review-title">
-              <h4>Deferral Rate</h4>
-              <small>{optedOut ? 'No Paycheck Deferral' : 'From Each Paycheck'}</small>
+              <h4>Deferral rate</h4>
+              <small>{optedOut ? 'No paycheck deferral' : 'From each paycheck'}</small>
             </div>
             <button type="button" className="text-btn" onClick={() => navigate('/enrollment')}>
               Edit
@@ -79,13 +79,13 @@ export default function EnrollmentSummary() {
               </ul>
               <div className="review-sources review-divider">
                 <div>
-                  <h5>Auto Increase{skippedAi ? '' : ` · ${cycle.title}`}</h5>
+                  <h5>Auto increase{skippedAi ? '' : ` · ${cycle.title}`}</h5>
                   {skippedAi ? (
                     <p>The elected deferral rate will remain the same each year.</p>
                   ) : (
                     <ul className="review-rows">
                       <li>
-                        <span>Next Increase</span>
+                        <span>Next increase</span>
                         <b>{cycle.next}</b>
                       </li>
                       <li>
@@ -113,8 +113,8 @@ export default function EnrollmentSummary() {
         <article className="review-card">
           <div className="review-h">
             <div className="review-title">
-              <h4>Investment Election</h4>
-              <small>{usingPlan ? 'Plan-Selected Investments' : 'Own Election'}</small>
+              <h4>Investment election</h4>
+              <small>{usingPlan ? 'Plan-selected investments' : 'Own election'}</small>
             </div>
             <button type="button" className="text-btn" onClick={() => navigate('/enrollment/investments')}>
               Edit
@@ -140,7 +140,7 @@ export default function EnrollmentSummary() {
             Cancel
           </button>
           <button className="btn btn-primary" type="button" onClick={confirm}>
-            {notEligible ? 'Confirm Elections' : 'Confirm Enrollment'}
+            {notEligible ? 'Confirm elections' : 'Confirm enrollment'}
           </button>
         </div>
       </div>

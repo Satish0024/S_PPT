@@ -81,7 +81,7 @@ export default function Header() {
                 <LogOut size={16} strokeWidth={2.2} />
               </span>
               <span className="meta">
-                <span className="name">Sign Out</span>
+                <span className="name">Sign out</span>
               </span>
             </button>
           </div>

@@ -21,7 +21,7 @@ export default function Dashboard() {
         <div className="dash-main">
           <OverallBalance {...participant.overall} />
           <section>
-            <h2 className="section-title">Your Plans</h2>
+            <h2 className="section-title">My plans</h2>
             <div className="plans-grid">
               {participant.plans.map((plan) => (
                 <PlanCard key={plan.id} plan={plan} />

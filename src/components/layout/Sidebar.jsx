@@ -9,10 +9,10 @@ import {
 
 const ITEMS = [
   { to: '/', label: 'Dashboard', icon: LayoutGrid, end: true },
-  { to: '/portfolio', label: 'Investment Portfolio', icon: Wallet },
+  { to: '/portfolio', label: 'Investment portfolio', icon: Wallet },
   { to: '/transactions', label: 'Transactions', icon: ArrowLeftRight },
-  { to: '/profile', label: 'My Profile', icon: UserRound },
-  { to: '/reports', label: 'Reports & Documents', icon: FileText }
+  { to: '/profile', label: 'My profile', icon: UserRound },
+  { to: '/reports', label: 'Reports & documents', icon: FileText }
 ]
 
 export default function Sidebar() {

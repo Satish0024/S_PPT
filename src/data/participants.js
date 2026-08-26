@@ -2,6 +2,7 @@ export const PLAN_401K = 'Saturna 401(k) Plan'
 export const PLAN_PSP = 'Saturna Profit Sharing Plan'
 export const PLAN_ROTH = 'Saturna Roth 401(k) Plan'
 export const PLAN_DC = 'Saturna Deferred Comp Plan'
+export const PLAN_CB = 'Saturna Cash Balance Plan'
 
 export const STORAGE_KEY = 'saturnaParticipant'
 export const AUTH_KEY = 'saturnaAuth'
@@ -60,7 +61,7 @@ export const PARTICIPANTS = [
         badge: 'Participating',
         notice:
           "Congratulations! You have been enrolled in this plan based on plan's auto enrollment provisions.",
-        noticeLink: { label: 'View Details', details: true },
+        noticeLink: { label: 'View details', details: true },
         stats: { balance: '$12,840.00', vested: '$9,620.00', returnPct: 101.2 },
         details: { status: 'Auto Enrolled', balance: '$12,840.00', vested: '$9,620.00' },
         sources: [
@@ -83,7 +84,7 @@ export const PARTICIPANTS = [
         meta: 'Enrolled Jan 12, 2025 · ID 124890',
         badge: 'Participating',
         notice: 'Congratulations! You are enrolled in this plan.',
-        noticeLink: { label: 'View Details', details: true },
+        noticeLink: { label: 'View details', details: true },
         stats: { balance: '$4,250.00', vested: '$4,250.00', returnPct: 10.42 },
         details: { status: 'Enrolled', balance: '$4,250.00', vested: '$4,250.00' },
         sources: [{ name: 'Profit Sharing', amount: 4250, vested: 4250 }],
@@ -101,7 +102,7 @@ export const PARTICIPANTS = [
         cardClass: 'eligible-not',
         notice: 'Congratulations! You are eligible to participate in this plan.',
         noticeClass: 'eligible-notice',
-        noticeLink: { label: 'Enroll Here', to: '/enrollment' },
+        noticeLink: { label: 'Enroll here', to: '/enrollment' },
         details: { status: 'Eligible — Not Enrolled', balance: '—', vested: '—' }
       },
       {
@@ -114,8 +115,16 @@ export const PARTICIPANTS = [
         cardClass: 'ineligible',
         notice: 'You are currently not eligible for this plan since you have not met the age requirement.',
         noticeClass: 'ineligible-notice',
-        noticeLink: { label: 'Provide Elections In Advance', to: '/enrollment' },
+        noticeLink: { label: 'Provide elections in advance', to: '/enrollment' },
         details: { status: 'Not Eligible', balance: '—', vested: '—' }
+      },
+      {
+        id: 'cb',
+        name: PLAN_CB,
+        type: 'Cash Balance',
+        meta: 'ID 125210',
+        badge: 'Participating',
+        cashBenefit: '$18,400.00'
       }
     ],
     transactions: [
@@ -162,7 +171,7 @@ export const PARTICIPANTS = [
         cardClass: 'ineligible',
         notice: 'You are currently not eligible for this plan since you have not met the age requirement.',
         noticeClass: 'ineligible-notice',
-        noticeLink: { label: 'Provide Elections In Advance', to: '/enrollment' },
+        noticeLink: { label: 'Provide elections in advance', to: '/enrollment' },
         details: { status: 'Not Eligible', balance: '$0.00', vested: '$0.00' }
       },
       {
@@ -175,7 +184,7 @@ export const PARTICIPANTS = [
         cardClass: 'ineligible',
         notice: 'You are currently not eligible for this plan since you have not met the service requirement.',
         noticeClass: 'ineligible-notice',
-        noticeLink: { label: 'View Details', details: true },
+        noticeLink: { label: 'View details', details: true },
         details: { status: 'Not Eligible', balance: '$0.00', vested: '$0.00' }
       }
     ],
@@ -212,7 +221,7 @@ export const PARTICIPANTS = [
         cardClass: 'eligible-not',
         notice: 'Congratulations! You are eligible to participate in this plan.',
         noticeClass: 'eligible-notice',
-        noticeLink: { label: 'Enroll Here', to: '/enrollment' },
+        noticeLink: { label: 'Enroll here', to: '/enrollment' },
         details: { status: 'Eligible — Not Enrolled', balance: '$0.00', vested: '$0.00' }
       },
       {
@@ -225,7 +234,7 @@ export const PARTICIPANTS = [
         cardClass: 'eligible-not',
         notice: 'Congratulations! You are eligible to participate in this plan.',
         noticeClass: 'eligible-notice',
-        noticeLink: { label: 'View Details', details: true },
+        noticeLink: { label: 'View details', details: true },
         details: { status: 'Eligible — Not Enrolled', balance: '$0.00', vested: '$0.00' }
       }
     ],
@@ -261,7 +270,7 @@ export const PARTICIPANTS = [
         meta: 'ID 124542',
         badge: 'Participating',
         notice: 'Congratulations! You are enrolled in this plan.',
-        noticeLink: { label: 'View Details', details: true },
+        noticeLink: { label: 'View details', details: true },
         stats: { balance: '$87,166.00', vested: '$79,150.00', returnPct: 11.22 },
         details: { status: 'Enrolled', balance: '$87,166.00', vested: '$79,150.00' },
         sources: [
@@ -284,7 +293,7 @@ export const PARTICIPANTS = [
         meta: 'ID 124890',
         badge: 'Participating',
         notice: 'Congratulations! You are enrolled in this plan.',
-        noticeLink: { label: 'View Details', details: true },
+        noticeLink: { label: 'View details', details: true },
         stats: { balance: '$13,250.00', vested: '$13,250.00', returnPct: 10.42 },
         details: { status: 'Enrolled', balance: '$13,250.00', vested: '$13,250.00' },
         sources: [{ name: 'Profit Sharing', amount: 13250, vested: 13250 }],
@@ -338,7 +347,7 @@ export const PARTICIPANTS = [
         badgeClass: 'opted',
         notice: 'You have chosen to opt out from payroll deductions.',
         noticeClass: 'opted-notice',
-        noticeLink: { label: 'Enroll Here', to: '/enrollment' },
+        noticeLink: { label: 'Enroll here', to: '/enrollment' },
         details: { status: 'Opted Out', balance: '$0.00', vested: '$0.00' }
       },
       {
@@ -350,7 +359,7 @@ export const PARTICIPANTS = [
         badgeClass: 'opted',
         notice: 'You have chosen to opt out from payroll deductions.',
         noticeClass: 'opted-notice',
-        noticeLink: { label: 'View Details', details: true },
+        noticeLink: { label: 'View details', details: true },
         details: { status: 'Opted Out', balance: '$0.00', vested: '$0.00' }
       }
     ],

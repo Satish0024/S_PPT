@@ -306,8 +306,8 @@ function ClassificationView({ data }) {
               <tr>
                 <th>Type</th>
                 <th>Code</th>
-                <th>Start Date</th>
-                <th>End Date</th>
+                <th>Start date</th>
+                <th>End date</th>
               </tr>
             </thead>
             <tbody>
@@ -489,7 +489,7 @@ export default function Profile() {
     <div className="page-body pr-page">
       <div className="hi-bar">
         <div>
-          <h1>Profile Details</h1>
+          <h1>Profile details</h1>
           <p className="pr-intro">Manage personal, employment, bank and beneficiary details</p>
         </div>
       </div>
@@ -582,7 +582,7 @@ export default function Profile() {
       {percentGroup && (
         <div className="enroll-modal-bg" role="presentation" onClick={() => setPercentGroup(null)}>
           <div className="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="pr-pct-title" onClick={(e) => e.stopPropagation()}>
-            <h4 id="pr-pct-title">Set Percentage</h4>
+            <h4 id="pr-pct-title">Set percentage</h4>
             <p>Shares for {percentGroup} beneficiaries must add up to 100%.</p>
             <div className="pr-pct-list">
               {percentDraft.map((row, i) => (

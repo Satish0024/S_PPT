@@ -18,9 +18,9 @@ const DEFAULT_CAP = 10
 const SALARY = 85000
 const PERIODS = 26
 const CYCLES = {
-  calendar: { title: 'Calendar Year', nextLabel: 'January 1, 2027', nextShort: 'Jan 1, 2027' },
-  participant: { title: 'Plan Participant Date', nextLabel: 'August 15, 2027', nextShort: 'Aug 15, 2027' },
-  planyear: { title: 'Plan Year', nextLabel: 'April 1, 2027', nextShort: 'Apr 1, 2027' }
+  calendar: { title: 'Calendar year', nextLabel: 'January 1, 2027', nextShort: 'Jan 1, 2027' },
+  participant: { title: 'Plan participant date', nextLabel: 'August 15, 2027', nextShort: 'Aug 15, 2027' },
+  planyear: { title: 'Plan year', nextLabel: 'April 1, 2027', nextShort: 'Apr 1, 2027' }
 }
 
 const pct = (n) => Math.round((+n || 0) * 10) / 10 + '%'
@@ -129,11 +129,11 @@ export function DeferralEditor({
       <div className="enroll-narrow">
         <div className="section-top">
           <div>
-            <h3 className="section-title">{embedded ? 'Edit Deferral' : 'Set My Deferral Rate'}</h3>
+            <h3 className="section-title">{embedded ? 'Edit deferral' : 'Set my deferral rate'}</h3>
           </div>
           {showOptOut && !notEligible && (
             <button type="button" className="optout-link" onClick={() => setOptOutOpen(true)}>
-              Opt Out
+              Opt out
             </button>
           )}
         </div>
@@ -141,9 +141,9 @@ export function DeferralEditor({
         <div className="enroll-form">
           <div className="enroll-form-head">
             <div className="form-head-left">
-              <span>Deferral By Source</span>
+              <span>Deferral by source</span>
               <button type="button" className={`plan-chip${usingPlan ? ' on' : ''}`} onClick={usePlanRates}>
-                Use Plan Deferral Rate
+                Use plan deferral rate
               </button>
             </div>
             <div className="form-head-actions">
@@ -176,7 +176,7 @@ export function DeferralEditor({
               Reset
             </button>
             <span className="tval-wrap">
-              <span>Total Deferral</span>
+              <span>Total deferral</span>
               <span className="tval">{unit === '$' ? `$${payFromPct(total)}` : pct(total)}</span>
             </span>
           </div>
@@ -184,7 +184,7 @@ export function DeferralEditor({
       </div>
 
       <div className="ai-block" id="auto-increase">
-          <h3 className="section-title">Auto Increase</h3>
+          <h3 className="section-title">Auto increase</h3>
           <p className="section-sub">
             Automatically increase the deferral rate over time to grow the retirement savings.
           </p>
@@ -202,7 +202,7 @@ export function DeferralEditor({
             >
               <span className="choice-dot" aria-hidden="true" />
               <span>
-                <b>Use Auto Increase</b>
+                <b>Use auto increase</b>
                 <small>Set the annual auto deferral rate increase.</small>
               </span>
             </button>
@@ -218,7 +218,7 @@ export function DeferralEditor({
             >
               <span className="choice-dot" aria-hidden="true" />
               <span>
-                <b>Don&apos;t Use Auto Increase</b>
+                <b>Don&apos;t use auto increase</b>
                 <small>Keep the same deferral rate in effect each year</small>
               </span>
             </button>
@@ -229,7 +229,7 @@ export function DeferralEditor({
               <div className="warn-head">
                 <span className="warn-ico">!</span>
                 <div>
-                  <h4>Keep The Current Deferral Rate</h4>
+                  <h4>Keep the current deferral rate</h4>
                   <p>
                     This means the elected deferral rate of <b>{unit === '$' ? `$${payFromPct(total)}` : pct(total)}</b>{' '}
                     will remain the same each year unless edited.
@@ -237,7 +237,7 @@ export function DeferralEditor({
                 </div>
               </div>
               <button type="button" className="warn-switch" onClick={() => setAiMode('do')}>
-                Use Auto Increase Instead
+                Use auto increase instead
               </button>
             </div>
           )}
@@ -245,12 +245,12 @@ export function DeferralEditor({
           {usingAi && (
             <div className="ai-setup">
               <div className="cycle-block">
-                <div className="cycle-h">Increment Cycle</div>
+                <div className="cycle-h">Increment cycle</div>
                 <div className="cycle-cards" role="radiogroup" aria-label="Increment cycle">
                   {[
-                    ['calendar', 'Calendar Year', 'Every January 1', 'Next: Jan 1, 2027', Calendar],
-                    ['participant', 'Plan Participant Date', 'On your enrollment date', 'Next: Aug 15, 2027', User],
-                    ['planyear', 'Plan Year', 'Every April 1', 'Next: Apr 1, 2027', Landmark]
+                    ['calendar', 'Calendar year', 'Every January 1', 'Next: Jan 1, 2027', Calendar],
+                    ['participant', 'Plan participant date', 'On your enrollment date', 'Next: Aug 15, 2027', User],
+                    ['planyear', 'Plan year', 'Every April 1', 'Next: Apr 1, 2027', Landmark]
                   ].map(([value, title, sub, next, Icon]) => (
                     <button
                       key={value}
@@ -275,7 +275,7 @@ export function DeferralEditor({
                 <div className="ai-row head">
                   <span>Source</span>
                   <span>Increment</span>
-                  <span>Max Limit</span>
+                  <span>Max limit</span>
                 </div>
                 <AiSourceRow
                   label="Pre-Tax"
@@ -336,7 +336,7 @@ export function DeferralEditor({
                 Cancel
               </button>
               <button type="button" className="btn btn-primary" onClick={confirmOptOut}>
-                Confirm Opt Out
+                Confirm opt out
               </button>
             </div>
           </div>
@@ -409,7 +409,7 @@ export default function Enrollment() {
   const returnTo = safeReturn(params.get('return'))
   return (
     <DeferralEditor
-      saveLabel={returnTo ? 'Save Changes' : 'Continue'}
+      saveLabel={returnTo ? 'Save changes' : 'Continue'}
       onComplete={() => navigate(returnTo || '/enrollment/investments')}
       onCancel={() => navigate(returnTo || '/')}
     />

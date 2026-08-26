@@ -150,11 +150,11 @@ export function InvestmentEditor({
     <div className={embedded ? 'enroll-embed enroll-simple' : 'detail-body enroll-simple'}>
       <div className="section-top">
         <div>
-          <h3 className="section-title">{embedded ? 'Edit Investments' : 'Investment Election'}</h3>
+          <h3 className="section-title">{embedded ? 'Edit investments' : 'Investment election'}</h3>
           <p className="section-sub">Choose how each contribution source is invested. Each source must total 100%.</p>
         </div>
         <button type="button" className="optout-link" onClick={() => setFundsOpen('view')}>
-          View Plan Investments
+          View plan investments
         </button>
       </div>
 
@@ -168,7 +168,7 @@ export function InvestmentEditor({
         >
           <span className="choice-dot" aria-hidden="true" />
           <span>
-            <b>Use Plan-Selected Investments</b>
+            <b>Use plan-selected investments</b>
             <small>Investments will be made in the plan&apos;s default selection unless preferred investments are selected.</small>
           </span>
         </button>
@@ -181,7 +181,7 @@ export function InvestmentEditor({
         >
           <span className="choice-dot" aria-hidden="true" />
           <span>
-            <b>Select My Own Investments</b>
+            <b>Select my own investments</b>
             <small>Select preferred investments and set the allocation.</small>
           </span>
         </button>
@@ -189,7 +189,7 @@ export function InvestmentEditor({
 
       {usingPlan && (
         <div className="inv-panel">
-          <AllocPanel title="All Sources" funds={PLAN_FUNDS_LIST} alloc={sharedAlloc} locked />
+          <AllocPanel title="All sources" funds={PLAN_FUNDS_LIST} alloc={sharedAlloc} locked />
         </div>
       )}
 
@@ -197,24 +197,24 @@ export function InvestmentEditor({
         <div className="inv-panel">
           <div className="inv-toolbar">
             <button type="button" className="text-btn" onClick={() => setFundsOpen('select')}>
-              {picked.length ? 'Add Or Edit Investments' : 'Add Investments'}
+              {picked.length ? 'Add or edit investments' : 'Add investments'}
             </button>
             <label className={`inv-toggle${applyAll ? ' on' : ''}`}>
               <input type="checkbox" checked={applyAll} onChange={toggleApplyAll} />
               <span className="switch" aria-hidden="true" />
-              Apply To All Sources
+              Apply to all sources
             </label>
           </div>
           {!picked.length ? (
             <div className="inv-empty">
               <p>Select investments, then set each percent so the total is 100%.</p>
               <button type="button" className="btn btn-primary" onClick={() => setFundsOpen('select')}>
-                Select Investments
+                Select investments
               </button>
             </div>
           ) : applyAll ? (
             <AllocPanel
-              title="All Sources"
+              title="All sources"
               funds={customFunds}
               alloc={sharedAlloc}
               showReset
@@ -349,7 +349,7 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="review-h">
-          <h4 id="funds-title">{selectable ? 'Select Investments' : 'Plan Investments'}</h4>
+          <h4 id="funds-title">{selectable ? 'Select investments' : 'Plan investments'}</h4>
           <button type="button" className="text-btn" onClick={onClose}>
             Close
           </button>
@@ -359,15 +359,15 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
             Search
             <input
               type="search"
-              placeholder="Investment Name"
+              placeholder="Investment name"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
           </label>
           <label className="funds-field asset">
-            Asset Class
+            Asset class
             <select value={asset} onChange={(e) => setAsset(e.target.value)}>
-              <option value="all">All Asset Classes</option>
+              <option value="all">All asset classes</option>
               {ASSET_CLASSES.map((cls) => (
                 <option key={cls} value={cls}>
                   {cls}
@@ -390,35 +390,35 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
                   </th>
                 )}
                 <th className="fund-col" rowSpan={2}>
-                  Fund Name / Category
+                  Fund name / category
                 </th>
                 <th rowSpan={2}>
                   Return YTD
                   <br />
-                  As Of 03/10/2025
+                  As of 03/10/2025
                 </th>
                 <th className="group-h" colSpan={4}>
-                  Average Annual Total Return
+                  Average annual total return
                   <br />
-                  As Of 12/31/2024
+                  As of 12/31/2024
                 </th>
                 <th className="group-h" colSpan={2}>
-                  Total Annual Operating Expenses
+                  Total annual operating expenses
                   <br />
-                  As Of 12/31/2024
+                  As of 12/31/2024
                 </th>
                 <th rowSpan={2}>
                   Shareholder-
                   <br />
-                  Type Fees
+                  type fees
                 </th>
               </tr>
               <tr>
-                <th className="sub-h">1 Yr.</th>
-                <th className="sub-h">5 Yr.</th>
-                <th className="sub-h">10 Yr.</th>
-                <th className="sub-h">Since Inception</th>
-                <th className="sub-h">As A %</th>
+                <th className="sub-h">1 yr.</th>
+                <th className="sub-h">5 yr.</th>
+                <th className="sub-h">10 yr.</th>
+                <th className="sub-h">Since inception</th>
+                <th className="sub-h">As a %</th>
                 <th className="sub-h">Per $1,000</th>
               </tr>
             </thead>
@@ -508,7 +508,7 @@ export default function Investments() {
     params.get('return')?.startsWith('/') && !params.get('return')?.startsWith('//') ? params.get('return') : ''
   return (
     <InvestmentEditor
-      saveLabel={returnTo ? 'Save Changes' : 'Continue'}
+      saveLabel={returnTo ? 'Save changes' : 'Continue'}
       onComplete={() => navigate(returnTo || '/enrollment/summary')}
       onCancel={() => navigate(returnTo || '/')}
     />

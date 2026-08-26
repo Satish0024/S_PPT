@@ -16,9 +16,9 @@ import { useEscapeToClose } from '../hooks/useEscapeToClose'
 import '../styles/enrollment.css'
 
 const CYCLES = {
-  calendar: 'Calendar Year',
-  participant: 'Plan Participant Date',
-  planyear: 'Plan Year'
+  calendar: 'Calendar year',
+  participant: 'Plan participant date',
+  planyear: 'Plan year'
 }
 const DEFAULT_DEFERRAL = { pre: 6, roth: 2, total: 8, optedOut: false }
 const DEFAULT_AI = {
@@ -152,11 +152,11 @@ export default function PlanDetails() {
 
       {sessionOptOut && (
         <section className="panel">
-          <h3>You Opted Out</h3>
+          <h3>You opted out</h3>
           <p>Paycheck deferrals are stopped for this plan. You can enroll again at any time.</p>
           <div className="actions">
             <Link className="btn btn-primary" to="/enrollment">
-              Enroll Again
+              Enroll again
             </Link>
           </div>
         </section>
@@ -164,7 +164,7 @@ export default function PlanDetails() {
 
       {eligible && (
         <section className="panel">
-          <h3>Not Enrolled Yet</h3>
+          <h3>Not enrolled yet</h3>
           <p>You are eligible to participate. Set a deferral rate and investments to join this plan.</p>
           <div className="actions">
             <Link className="btn btn-primary" to="/enrollment">
@@ -213,7 +213,7 @@ export default function PlanDetails() {
                     <DeferralEditor
                       embedded
                       showOptOut={false}
-                      saveLabel="Save Changes"
+                      saveLabel="Save changes"
                       onCancel={() => setEditing(false)}
                       onComplete={(didOptOut) => {
                         if (didOptOut) setOptedOut(true)
@@ -223,7 +223,7 @@ export default function PlanDetails() {
                   ) : (
                     <>
                       <div className="panel-h">
-                        <h3>Deferral & Auto Increase</h3>
+                        <h3>Deferral &amp; auto increase</h3>
                         <button type="button" className="text-link" onClick={() => setEditing(true)}>
                           Edit
                         </button>
@@ -242,14 +242,14 @@ export default function PlanDetails() {
                           </b>
                         </li>
                       </ul>
-                      <h4 className="src-label">Auto Increase</h4>
+                      <h4 className="src-label">Auto increase</h4>
                       {skippedAi ? (
                         <p>No automatic increase is turned on.</p>
                       ) : (
                         <ul className="detail-rows">
                           <li>
                             <span>Cycle</span>
-                            <b>{CYCLES[autoInc.cycle] || 'Calendar Year'}</b>
+                            <b>{CYCLES[autoInc.cycle] || 'Calendar year'}</b>
                           </li>
                           <li>
                             <span>Pre-Tax</span>
@@ -271,7 +271,7 @@ export default function PlanDetails() {
                 {!editing && (
                   <div className="plan-optout">
                     <button type="button" className="text-link danger" onClick={() => setOptOutOpen(true)}>
-                      Opt Out Of Paycheck Deferral
+                      Opt out of paycheck deferral
                     </button>
                   </div>
                 )}
@@ -283,7 +283,7 @@ export default function PlanDetails() {
                 {editing ? (
                   <InvestmentEditor
                     embedded
-                    saveLabel="Save Changes"
+                    saveLabel="Save changes"
                     onCancel={() => setEditing(false)}
                     onComplete={refresh}
                   />
@@ -296,8 +296,8 @@ export default function PlanDetails() {
                       </button>
                     </div>
                     <p className="panel-note">
-                      {savedInv?.mode === 'custom' ? 'Your Selection' : 'Plan Investments'}
-                      {applyAll || !savedInv ? ' · Same For All Sources' : ' · By Source'}
+                      {savedInv?.mode === 'custom' ? 'Your selection' : 'Plan investments'}
+                      {applyAll || !savedInv ? ' · Same for all sources' : ' · By source'}
                     </p>
                     {applyAll || !savedInv ? (
                       <FundList rows={funds} />
@@ -343,7 +343,7 @@ export default function PlanDetails() {
                 Cancel
               </button>
               <button type="button" className="btn btn-primary" onClick={confirmOptOut}>
-                Confirm Opt Out
+                Confirm opt out
               </button>
             </div>
           </div>

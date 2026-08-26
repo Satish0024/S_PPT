@@ -30,7 +30,7 @@ export default function LearningPortal() {
         ))}
       </ul>
       <span className="learn-card-cta">
-        Explore The Library
+        Explore the library
         <span className="learn-card-cta-ico" aria-hidden="true">
           <ArrowUpRight size={15} strokeWidth={2.4} />
         </span>

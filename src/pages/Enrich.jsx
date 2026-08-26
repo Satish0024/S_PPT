@@ -29,13 +29,13 @@ export default function Enrich() {
         </div>
         <Link className="back" to="/">
           <ArrowLeft size={16} strokeWidth={2.2} />
-          Back To Dashboard
+          Back to dashboard
         </Link>
       </header>
       <main className="page">
         <div className="page-intro">
           <div className="eyebrow">Enrich</div>
-          <h1>Financial Wellness Library</h1>
+          <h1>Financial wellness library</h1>
           <p>Guides and short lessons to help you make confident decisions about your plan and retirement.</p>
         </div>
         <div className="search-bar">
@@ -52,7 +52,7 @@ export default function Enrich() {
           <div className="f-visual">
             <div className="bg" />
             <div>
-              <div className="label">Featured Path</div>
+              <div className="label">Featured path</div>
               <h2>Getting Started With Your 401(k)</h2>
             </div>
           </div>
@@ -67,12 +67,12 @@ export default function Enrich() {
               </span>
             </div>
             <span className="btn-go">
-              Start Path
+              Start path
               <ArrowRight size={16} strokeWidth={2.2} />
             </span>
           </div>
         </a>
-        <div className="section-label">Browse By Topic</div>
+        <div className="section-label">Browse by topic</div>
         <div className="cats" role="tablist">
           {CATS.map((c) => (
             <button key={c} type="button" className={`cat${cat === c ? ' on' : ''}`} onClick={() => setCat(c)}>

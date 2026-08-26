@@ -4,9 +4,9 @@ export default function Transactions({ rows }) {
   return (
     <section className="section-card tx-compact">
       <div className="section-head">
-        <h3>Recent Transactions</h3>
+        <h3>Recent transactions</h3>
         <Link to="/transactions" className="text-link">
-          View All
+          View all
         </Link>
       </div>
       <div className="tx-list">

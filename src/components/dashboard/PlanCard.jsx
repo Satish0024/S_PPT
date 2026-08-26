@@ -7,14 +7,14 @@ export function PlanStats({ stats }) {
   return (
     <div className="plan-stats">
       <div className="plan-stat balance">
-        <div className="k">Balance</div>
+        <div className="k">Account balance</div>
         <div className="v-row">
           <div className="v">{stats.balance}</div>
           <PlanReturn value={stats.returnPct} />
         </div>
       </div>
       <div className="plan-stat vested">
-        <div className="k">Vested</div>
+        <div className="k">Vested balance</div>
         <div className="v">{stats.vested}</div>
       </div>
     </div>
@@ -24,6 +24,7 @@ export function PlanStats({ stats }) {
 export default function PlanCard({ plan }) {
   const link = plan.noticeLink
   const to = link?.details ? `/plans/${plan.id}` : link?.to
+  const isCashBalance = plan.type === 'Cash Balance'
 
   return (
     <article className={`plan-card ${plan.cardClass || ''}`}>
@@ -35,11 +36,19 @@ export default function PlanCard({ plan }) {
         </div>
         <span className={`plan-badge ${plan.badgeClass || ''}`}>{plan.badge}</span>
       </div>
-      <p className={`plan-notice ${plan.noticeClass || ''}`}>
-        {plan.notice}{' '}
-        {to ? <Link to={to}>{link.label}</Link> : null}
-      </p>
-      <PlanStats stats={plan.stats} />
+      {isCashBalance ? (
+        <p className="plan-cash-note">
+          Cash balance benefit is <b>{plan.cashBenefit}</b>. This is a notional value.
+        </p>
+      ) : (
+        <>
+          <p className={`plan-notice ${plan.noticeClass || ''}`}>
+            {plan.notice}{' '}
+            {to ? <Link to={to}>{link.label}</Link> : null}
+          </p>
+          <PlanStats stats={plan.stats} />
+        </>
+      )}
     </article>
   )
 }

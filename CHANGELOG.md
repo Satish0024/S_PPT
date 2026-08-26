@@ -3,6 +3,17 @@
 All notable changes to the Saturna Participant Portal are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.8.0] - 2026-08-26
+
+### Added
+- Cash Balance plan support: PlanCard shows "Cash balance benefit is $X. This is a notional value." instead of Balance/Vested figures and the View Details/Enroll link, for any plan with `type: 'Cash Balance'`. Added a demo Cash Balance plan to Jordan Hale's data.
+- Real checkboxes on the Investment Portfolio asset-class legend, replacing the toggle-pill buttons.
+
+### Changed
+- App-wide sentence-casing pass: headings, buttons, choice labels, and table column headers converted from Title Case to sentence case across Dashboard, Portfolio, Account Summary, Transactions, Reports, Profile, Enrollment/Investments/Summary, Retirement Goal, Plan Details, Login, and shared layout components. Primary navigation, section-identity tabs/labels, and proper nouns (plan/fund names, "Roth", brand names) were left unchanged.
+- Investment Portfolio: "Your investments" table heading renamed to "Investments".
+- Dashboard: "Your Plans" section renamed to "My Plans"; plan card "Balance"/"Vested" labels renamed to "Account Balance"/"Vested Balance".
+
 ## [1.7.0] - 2026-08-26
 
 ### Changed

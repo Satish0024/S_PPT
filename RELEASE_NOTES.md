@@ -1,6 +1,15 @@
 # Release Notes — August 26, 2026
 
-This update is an accessibility pass across the whole portal, plus a second round of verbiage updates from the latest content sheet.
+This update is an accessibility pass across the whole portal, a second round of verbiage updates, and a sentence-casing pass across the app, plus a new Cash Balance plan card and asset-class checkboxes on Investment Portfolio.
+
+## Verbiage Update (Round 3)
+
+- Switched nearly every heading, label, button, and table column heading across the app from Title Case to sentence case (e.g. "Use plan-selected investments" instead of "Use Plan-Selected Investments"). Primary navigation, section-identity tabs, and proper nouns (plan/fund names, "Roth", brand names) were left as-is.
+- Investment Portfolio → My Portfolio: "Your investments" renamed to "Investments".
+- Investment Portfolio's Asset Class Performance legend now uses real checkboxes instead of toggle pills.
+- Dashboard: a participant with a Cash Balance plan sees a dedicated message — "Cash balance benefit is $X. This is a notional value." — in place of the Balance/Vested figures and the View Details/Enroll link.
+- Dashboard: "Your Plans" renamed to "My Plans" (rendered as "My plans").
+- Plan cards: "Balance" and "Vested" renamed to "Account Balance" and "Vested Balance" (rendered as "Account balance" / "Vested balance").
 
 ## Verbiage Update (Round 2)
 

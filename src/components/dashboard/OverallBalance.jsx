@@ -6,21 +6,21 @@ export default function OverallBalance({ total, vested, loan }) {
       <div className="ob-top">
         <div className="ob-metrics">
           <div className="ob-block">
-            <div className="ob-k">Account Balance*</div>
+            <div className="ob-k">Account balance*</div>
             <div className="ob-v">{total}</div>
           </div>
           <div className="ob-block vested">
-            <div className="ob-k">Vested Balance</div>
+            <div className="ob-k">Vested balance</div>
             <div className="ob-v">{vested}</div>
           </div>
         </div>
         <Link to="/account-summary" className="btn btn-secondary ob-summary">
-          View Summary
+          View summary
         </Link>
       </div>
       {loan && (
         <div className="ob-loan">
-          <span className="loan-k">Outstanding Loan Balance</span>
+          <span className="loan-k">Outstanding loan balance</span>
           <span className="loan-v">{loan}</span>
           <span className="loan-note">
             This loan balance is tracked separately and is not reflected in the account balances shown above.
@@ -28,7 +28,7 @@ export default function OverallBalance({ total, vested, loan }) {
         </div>
       )}
       <p className="ob-footnote">
-        *Account Balance includes any cash balance held in your account. Cash balance amounts are notional — shown
+        *Account balance includes any cash balance held in your account. Cash balance amounts are notional — shown
         for reference only and do not represent a segregated or invested asset.
       </p>
     </section>

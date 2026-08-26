@@ -68,10 +68,10 @@ export default function RetirementGoalSimulator() {
             <div className="rr-status-copy">
               <b>{status.title}</b>
               <span>{status.body}</span>
-              {updated && <em>Updated Just Now</em>}
+              {updated && <em>Updated just now</em>}
             </div>
             <Link className="rr-status-go" to="/retirement-goal">
-              Adjust Your Goal
+              Adjust your goal
             </Link>
           </div>
         </>
@@ -81,7 +81,7 @@ export default function RetirementGoalSimulator() {
             This estimates how much of your retirement spending your savings may cover, using deferrals, age, and location.
           </p>
           <Link className="rr-cta" to="/retirement-goal">
-            Get Started
+            Get started
             <ArrowRight size={15} strokeWidth={2.2} />
           </Link>
         </div>
@@ -90,7 +90,7 @@ export default function RetirementGoalSimulator() {
       <div className="rr-foot">
         *Not guaranteed results · It&apos;s a simulation.{' '}
         <button type="button" className="rr-more" onClick={() => setOpen(true)}>
-          Read More
+          Read more
         </button>
       </div>
 

@@ -5,9 +5,9 @@ import { PhoneField, SelectField, SsnField, TextField } from './ProfileFields.js
 import { useEscapeToClose } from '../../hooks/useEscapeToClose'
 
 const STEPS = [
-  { id: 'basic', title: 'Basic Details', hint: 'Specify the basic details of the beneficiary.' },
-  { id: 'contact', title: 'Contact Details', hint: 'Update the correct contact details to reach beneficiary.' },
-  { id: 'bank', title: 'Bank Details', hint: 'Specify the active bank details of the beneficiary.' }
+  { id: 'basic', title: 'Basic details', hint: 'Specify the basic details of the beneficiary.' },
+  { id: 'contact', title: 'Contact details', hint: 'Update the correct contact details to reach beneficiary.' },
+  { id: 'bank', title: 'Bank details', hint: 'Specify the active bank details of the beneficiary.' }
 ]
 
 export default function AddBeneficiary({ onCancel, onSave }) {
@@ -66,7 +66,7 @@ export default function AddBeneficiary({ onCancel, onSave }) {
             <ArrowLeft size={16} strokeWidth={2.2} />
             Back
           </button>
-          <h1>Add Beneficiary</h1>
+          <h1>Add beneficiary</h1>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export default function AddBeneficiary({ onCancel, onSave }) {
                   <div>
                     <strong>{item.title}</strong>
                     <p>{item.hint}</p>
-                    {done ? <em className="ok">Completed</em> : on ? <em>In-Progress</em> : null}
+                    {done ? <em className="ok">Completed</em> : on ? <em>In progress</em> : null}
                   </div>
                 </button>
               </li>
@@ -94,10 +94,10 @@ export default function AddBeneficiary({ onCancel, onSave }) {
           <section className="panel pr-panel">
             {step === 0 && (
               <>
-                <h3>Basic Details</h3>
+                <h3>Basic details</h3>
                 <div className="pr-form">
                   <div className="pr-field">
-                    <span>Beneficiary Type</span>
+                    <span>Beneficiary type</span>
                     <div className="pr-radios">
                       {['Primary', 'Contingent'].map((opt) => (
                         <label key={opt} className={draft.type === opt ? 'on' : ''}>
@@ -148,7 +148,7 @@ export default function AddBeneficiary({ onCancel, onSave }) {
 
             {step === 1 && (
               <>
-                <h3>Contact Details</h3>
+                <h3>Contact details</h3>
                 <div className="pr-form">
                   <TextField
                     label="Email ID"
@@ -195,7 +195,7 @@ export default function AddBeneficiary({ onCancel, onSave }) {
 
             {step === 2 && (
               <>
-                <h3>Bank Details</h3>
+                <h3>Bank details</h3>
                 <div className="pr-form">
                   <TextField
                     label="Bank Account Number"
