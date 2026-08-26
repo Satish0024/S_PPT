@@ -1,3 +1,15 @@
+# Release Notes — August 26, 2026
+
+This update is an accessibility pass across the whole portal: color contrast, keyboard operability, and visible focus states were audited against WCAG 2.1 AA and brought into compliance.
+
+## Accessibility
+
+- Darkened secondary text, positive (green), and warning (amber) colors so labels, balances, badges, and status text meet the 4.5:1 contrast minimum on every background they appear on.
+- The Account Summary Investments table's expandable rows are now real, focusable buttons — they can be opened and closed with the keyboard, not just a mouse.
+- Added a visible focus ring to inputs that previously had none while tabbing through them (Enrich search, Retirement Goal target fields, Deferral/Auto-Increase percentage fields).
+- All dismissible modals (opt-out, fund picker, beneficiary detail, percent-share, disclaimer, leave-page) can now be closed by pressing Escape.
+- Enlarged the show/hide password toggle's hit area on the Sign In page.
+
 # Release Notes — August 25, 2026
 
 This update reworks the Retirement Goal Simulator for participants with multiple deferral-eligible plans, fixes the Add Beneficiary flow, corrects enrollment verbiage for not-yet-eligible participants, and refreshes the Learning Portal card design.

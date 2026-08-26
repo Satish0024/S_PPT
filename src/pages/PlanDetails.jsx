@@ -12,6 +12,7 @@ import {
 import { PlanStats } from '../components/dashboard/PlanCard.jsx'
 import { DeferralEditor } from './Enrollment.jsx'
 import { InvestmentEditor } from './Investments.jsx'
+import { useEscapeToClose } from '../hooks/useEscapeToClose'
 import '../styles/enrollment.css'
 
 const CYCLES = {
@@ -58,6 +59,7 @@ export default function PlanDetails() {
   const savedInv = useMemo(() => readSession(INVESTMENT_KEY), [tick])
   const [optOutOpen, setOptOutOpen] = useState(false)
   const [optedOut, setOptedOut] = useState(!!savedDeferral?.optedOut)
+  useEscapeToClose(optOutOpen, () => setOptOutOpen(false))
   const [tab, setTab] = useState('deferral')
   const [editing, setEditing] = useState(false)
 

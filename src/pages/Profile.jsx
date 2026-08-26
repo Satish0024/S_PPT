@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import AddBeneficiary from '../components/profile/AddBeneficiary.jsx'
+import { useEscapeToClose } from '../hooks/useEscapeToClose'
 import {
   Flag,
   NameFields,
@@ -390,6 +391,8 @@ export default function Profile() {
   const [percentDraft, setPercentDraft] = useState([])
   const [percentError, setPercentError] = useState('')
   const [selectedBene, setSelectedBene] = useState(null)
+  useEscapeToClose(!!percentGroup, () => setPercentGroup(null))
+  useEscapeToClose(!!selectedBene, () => setSelectedBene(null))
 
   useEffect(() => {
     setRecord(loadProfile(participant))

@@ -2,6 +2,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { INVESTMENT_KEY, readSession, writeSession } from '../data/participants'
 import { PLAN_FUNDS } from '../data/portfolio'
+import { useEscapeToClose } from '../hooks/useEscapeToClose'
 import '../styles/portfolio.css'
 
 const ENROLL_FUNDS = PLAN_FUNDS.filter((f) => f.cat !== 'Target-Date')
@@ -315,6 +316,7 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
   const [asset, setAsset] = useState('all')
   const [picks, setPicks] = useState(() => selected || [])
   const [modalError, setModalError] = useState('')
+  useEscapeToClose(true, onClose)
   const funds = useMemo(() => {
     const q = query.trim().toLowerCase()
     return ENROLL_FUNDS.filter((f) => {

@@ -27,7 +27,9 @@
 
   .search-bar{
     display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fff;
-    border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);margin-bottom:24px}
+    border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);margin-bottom:24px;
+    transition:border-color .15s,box-shadow .15s}
+  .search-bar:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(46,49,146,.15)}
   .search-bar svg{width:18px;height:18px;color:var(--muted);flex-shrink:0}
   .search-bar input{
     flex:1;border:none;outline:none;font:inherit;font-size:14px;color:var(--ink);background:transparent}

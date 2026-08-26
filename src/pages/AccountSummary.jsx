@@ -265,21 +265,31 @@ export default function AccountSummary() {
                             className={`${active === i ? 'on' : ''} ${isOpen ? 'as-row-open' : ''}`.trim()}
                             onMouseEnter={() => setActive(i)}
                             onMouseLeave={() => setActive(null)}
-                            onClick={isInvestment ? () => setExpandedRow(isOpen ? null : row.id) : undefined}
-                            role={isInvestment ? 'button' : undefined}
-                            aria-expanded={isInvestment ? isOpen : undefined}
                           >
                             <td>
-                              <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
-                              {row.name}
                               {isInvestment ? (
-                                <ChevronDown
-                                  size={15}
-                                  strokeWidth={2.2}
-                                  className="as-row-chevron"
-                                  aria-hidden="true"
-                                />
-                              ) : null}
+                                <button
+                                  type="button"
+                                  className="as-row-toggle"
+                                  onClick={() => setExpandedRow(isOpen ? null : row.id)}
+                                  aria-expanded={isOpen}
+                                  aria-controls={`${row.id}-detail`}
+                                >
+                                  <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
+                                  {row.name}
+                                  <ChevronDown
+                                    size={15}
+                                    strokeWidth={2.2}
+                                    className="as-row-chevron"
+                                    aria-hidden="true"
+                                  />
+                                </button>
+                              ) : (
+                                <>
+                                  <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
+                                  {row.name}
+                                </>
+                              )}
                             </td>
                             {isInvestment ? (
                               <td className="num">{row.units != null ? formatUnits(row.units) : '—'}</td>
@@ -289,7 +299,7 @@ export default function AccountSummary() {
                             {tab === 'sources' ? <td className="num">{formatMoney(row.vested)}</td> : null}
                           </tr>
                           {isOpen ? (
-                            <tr className="as-row-detail">
+                            <tr className="as-row-detail" id={`${row.id}-detail`}>
                               <td colSpan={4}>
                                 <div className="as-detail-grid">
                                   <div>

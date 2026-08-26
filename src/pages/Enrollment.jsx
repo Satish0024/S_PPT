@@ -9,6 +9,7 @@ import {
   writeSession
 } from '../data/participants'
 import { useParticipant } from '../context/ParticipantContext.jsx'
+import { useEscapeToClose } from '../hooks/useEscapeToClose'
 
 const PLAN_PRE = 6
 const PLAN_ROTH = 2
@@ -57,6 +58,7 @@ export function DeferralEditor({
   const [cycle, setCycle] = useState(savedAi?.cycle && CYCLES[savedAi.cycle] ? savedAi.cycle : 'calendar')
   const [error, setError] = useState('')
   const [optOutOpen, setOptOutOpen] = useState(false)
+  useEscapeToClose(optOutOpen, () => setOptOutOpen(false))
 
   const setSource = (src, val) => {
     const next = unit === '$' ? pctFromPay(val) : clampPct(val)

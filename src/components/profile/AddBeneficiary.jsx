@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Check, ArrowLeft } from 'lucide-react'
 import { ACCOUNT_TYPES, RELATIONSHIPS, emptyBeneficiary } from '../../lib/profileDetails'
 import { PhoneField, SelectField, SsnField, TextField } from './ProfileFields.jsx'
+import { useEscapeToClose } from '../../hooks/useEscapeToClose'
 
 const STEPS = [
   { id: 'basic', title: 'Basic Details', hint: 'Specify the basic details of the beneficiary.' },
@@ -15,6 +16,7 @@ export default function AddBeneficiary({ onCancel, onSave }) {
   const [showSsn, setShowSsn] = useState(false)
   const [error, setError] = useState('')
   const [leaveOpen, setLeaveOpen] = useState(false)
+  useEscapeToClose(leaveOpen, () => setLeaveOpen(false))
 
   const set = (key, value) => {
     setError('')

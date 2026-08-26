@@ -1,5 +1,6 @@
 import { X } from 'lucide-react'
 import { ASSUMPTIONS, money } from '../../lib/retirementGoal'
+import { useEscapeToClose } from '../../hooks/useEscapeToClose'
 
 const R = 42
 const CIRC = 2 * Math.PI * R
@@ -63,6 +64,7 @@ export function SlimDonut(props) {
 }
 
 export function DisclaimerModal({ onClose }) {
+  useEscapeToClose(true, onClose)
   return (
     <div className="enroll-modal-bg" role="presentation" onClick={onClose}>
       <div

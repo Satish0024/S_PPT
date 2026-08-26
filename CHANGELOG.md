@@ -3,6 +3,15 @@
 All notable changes to the Saturna Participant Portal are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.6.0] - 2026-08-26
+
+### Fixed
+- WCAG 2.1 AA contrast failures: darkened `--muted`, `--green`, and `--amber` design tokens so secondary text, positive/warning status text, and badges meet 4.5:1 against every background they're used on.
+- Account Summary Investments table accordion rows were not keyboard-focusable or operable (`role="button"` on a `<tr>` with no `tabIndex`/key handler); replaced with a real `<button>` per row with `aria-expanded`/`aria-controls`.
+- Missing visible focus indicator on the Enrich search input, Retirement Goal target/step fields, and Deferral/Auto-Increase percentage fields; added a `:focus-within` ring to each wrapper.
+- Modals had no keyboard dismissal path; added a shared `useEscapeToClose` hook and wired it into all seven dismissible modals.
+- Login's show/hide password button had a ~24×24px hit area; enlarged to 36×36px minimum with a visible focus ring.
+
 ## [1.5.0] - 2026-08-25
 
 ### Added
