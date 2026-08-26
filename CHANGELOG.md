@@ -11,6 +11,7 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 - Missing visible focus indicator on the Enrich search input, Retirement Goal target/step fields, and Deferral/Auto-Increase percentage fields; added a `:focus-within` ring to each wrapper.
 - Modals had no keyboard dismissal path; added a shared `useEscapeToClose` hook and wired it into all seven dismissible modals.
 - Login's show/hide password button had a ~24×24px hit area; enlarged to 36×36px minimum with a visible focus ring.
+- Retirement Goal Simulator's Goal Saved popup primary button renamed "Back To Dashboard" → "Save & Go To Dashboard" to reflect that the goal is already saved at that point.
 
 ## [1.5.0] - 2026-08-25
 

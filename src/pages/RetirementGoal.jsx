@@ -802,7 +802,7 @@ export default function RetirementGoal() {
             )}
             <div className="enroll-modal-actions">
               <button type="button" className="btn btn-primary" onClick={() => navigate('/', { state: { goalSaved: true } })}>
-                Back To Dashboard
+                Save &amp; Go To Dashboard
               </button>
               <button type="button" className="btn btn-secondary" onClick={() => setSavedOpen(false)}>
                 Keep Editing

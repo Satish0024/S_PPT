@@ -10,6 +10,10 @@ This update is an accessibility pass across the whole portal: color contrast, ke
 - All dismissible modals (opt-out, fund picker, beneficiary detail, percent-share, disclaimer, leave-page) can now be closed by pressing Escape.
 - Enlarged the show/hide password toggle's hit area on the Sign In page.
 
+## Retirement Goal Simulator
+
+- Renamed the Goal Saved popup's primary button from "Back To Dashboard" to "Save & Go To Dashboard" so it's clear the goal is saved before leaving the page.
+
 # Release Notes — August 25, 2026
 
 This update reworks the Retirement Goal Simulator for participants with multiple deferral-eligible plans, fixes the Add Beneficiary flow, corrects enrollment verbiage for not-yet-eligible participants, and refreshes the Learning Portal card design.
