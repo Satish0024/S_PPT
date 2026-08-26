@@ -1,4 +1,5 @@
 import { BENEFICIARY_KEY, readSession } from '../data/participants'
+import { BRAND } from '../config/brand.js'
 
 function readMap(key) {
   try {
@@ -313,7 +314,7 @@ export function buildProfile(participant) {
       lastName: name.last,
       employeeId: p.employeeId || '',
       ssn: p.ssn || '',
-      company: p.employer || 'Saturna Capital',
+      company: p.employer || BRAND.name,
       status: 'Active',
       gender: extra.gender,
       maritalStatus: extra.maritalStatus,

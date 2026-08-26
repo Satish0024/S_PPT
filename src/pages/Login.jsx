@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { ChevronDown, Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { DEMO_PASSWORD } from '../data/participants'
 import { useParticipant } from '../context/ParticipantContext.jsx'
+import { BRAND } from '../config/brand.js'
 import '../styles/login.css'
 
 export default function Login() {
@@ -51,14 +52,14 @@ export default function Login() {
       <aside className="login-brand" aria-hidden="true">
         <div className="login-waves" />
         <div className="login-brand-copy">
-          <img src="/saturna_logo.png" alt="" />
-          <h1>Plan With Confidence.</h1>
-          <p>Access your 401(k), deferrals, and retirement tools in one secure participant portal.</p>
+          <img src={BRAND.logo} alt="" />
+          <h1>{BRAND.tagline}</h1>
+          <p>{BRAND.taglineBody}</p>
         </div>
       </aside>
       <main className="login-panel">
         <div className="login-card">
-          <img className="login-logo" src="/saturna_logo.png" alt="Saturna Capital" />
+          <img className="login-logo" src={BRAND.logo} alt={BRAND.name} />
           <h2>Sign in</h2>
           <p className="login-lead">Use your participant email to continue.</p>
 

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Check, ChevronDown, LogOut } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
+import { BRAND } from '../../config/brand.js'
 
 export default function Header() {
   const { participant, participants, selectParticipant, logout } = useParticipant()
@@ -27,7 +28,7 @@ export default function Header() {
   return (
     <header className="topbar">
       <div className="brand">
-        <img src="/saturna_logo.png" alt="Saturna Capital" />
+        <img src={BRAND.logo} alt={BRAND.name} />
       </div>
       <div className="top-right">
         <div className="user-menu" ref={menuRef}>
