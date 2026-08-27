@@ -42,19 +42,21 @@ export default function Sidebar() {
         </NavLink>
       ))}
 
-      {showQuestionnaire && (
-        <NavLink
-          to="/risk-check-in"
-          className={({ isActive }) => `nav-cta${isActive ? ' active' : ''}`}
-          title="Risk check-in"
-          aria-label="Risk check-in"
-        >
-          <ClipboardList size={20} strokeWidth={1.9} />
-        </NavLink>
-      )}
+      <div className="nav-bottom">
+        {showQuestionnaire && (
+          <NavLink
+            to="/risk-check-in"
+            className={({ isActive }) => `nav-cta${isActive ? ' active' : ''}`}
+            title="Risk check-in"
+            aria-label="Risk check-in"
+          >
+            <ClipboardList size={20} strokeWidth={1.9} />
+          </NavLink>
+        )}
 
-      <div className="nav-brand" aria-hidden="true">
-        <img src="/core-logo.svg" alt="" />
+        <div className="nav-brand" aria-hidden="true">
+          <img src="/core-logo.svg" alt="" />
+        </div>
       </div>
     </nav>
   )
