@@ -688,12 +688,12 @@
   .risk-tag{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--brand)}
   .risk-head h3{font-size:18px;font-weight:800;margin:0;letter-spacing:-.3px;color:var(--ink)}
 
-  .risk-body{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-  .risk-gauge-wrap{position:relative;width:200px;flex:0 0 auto}
-  .risk-gauge{width:100%;display:block}
+  .risk-body{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap}
+  .risk-gauge-wrap{position:relative;width:200px;height:150px;flex:0 0 auto}
+  .risk-gauge{position:absolute;left:0;top:0;width:100%;display:block}
   .risk-marker{transform-origin:100px 100px;transition:transform .7s cubic-bezier(.34,1.4,.4,1)}
   .risk-center{
-    position:absolute;left:50%;top:64%;transform:translate(-50%,-50%);width:118px;height:118px;
+    position:absolute;left:50%;top:85px;transform:translate(-50%,-50%);width:112px;height:112px;
     border-radius:50%;background:radial-gradient(circle,#fffdf5,#fff8e6);
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
     box-shadow:inset 0 0 0 1px rgba(20,30,60,.05)}
@@ -725,8 +725,8 @@
     .risk-marker,.risk-center-ico,.risk-edit-btn svg{animation:none;transition:none}
   }
   @media(max-width:520px){
-    .risk-body{flex-direction:column;align-items:stretch}
-    .risk-gauge-wrap{width:100%;max-width:260px;margin:0 auto}
+    .risk-body{flex-direction:column;align-items:center}
+    .risk-gauge-wrap{margin:0 auto}
   }
 
   .side-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
