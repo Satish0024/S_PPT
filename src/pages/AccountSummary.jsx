@@ -248,11 +248,11 @@ export default function AccountSummary() {
                 <table className={tab === 'investments' ? 'as-table-accordion' : ''}>
                   <thead>
                     <tr>
-                      <th>{tab === 'sources' ? 'Source' : 'Investment'}</th>
-                      {tab === 'investments' ? <th className="num">Units</th> : null}
-                      <th className="num">Balance</th>
-                      <th className="num">{tab === 'investments' ? 'Election Percentage' : 'Percent'}</th>
-                      {tab === 'sources' ? <th className="num">Vested</th> : null}
+                      <th scope="col">{tab === 'sources' ? 'Source' : 'Investment'}</th>
+                      {tab === 'investments' ? <th scope="col" className="num">Units</th> : null}
+                      <th scope="col" className="num">Balance</th>
+                      <th scope="col" className="num">{tab === 'investments' ? 'Election Percentage' : 'Percent'}</th>
+                      {tab === 'sources' ? <th scope="col" className="num">Vested</th> : null}
                     </tr>
                   </thead>
                   <tbody>

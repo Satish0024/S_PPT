@@ -389,41 +389,41 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
             <thead>
               <tr>
                 {selectable && (
-                  <th className="check-col" rowSpan={2}>
+                  <th scope="col" className="check-col" rowSpan={2}>
                     <span className="sr-only">Select</span>
                   </th>
                 )}
-                <th className="fund-col" rowSpan={2}>
+                <th scope="col" className="fund-col" rowSpan={2}>
                   Fund name / category
                 </th>
-                <th rowSpan={2}>
+                <th scope="col" rowSpan={2}>
                   Return YTD
                   <br />
                   As of 03/10/2025
                 </th>
-                <th className="group-h" colSpan={4}>
+                <th scope="col" className="group-h" colSpan={4}>
                   Average annual total return
                   <br />
                   As of 12/31/2024
                 </th>
-                <th className="group-h" colSpan={2}>
+                <th scope="col" className="group-h" colSpan={2}>
                   Total annual operating expenses
                   <br />
                   As of 12/31/2024
                 </th>
-                <th rowSpan={2}>
+                <th scope="col" rowSpan={2}>
                   Shareholder-
                   <br />
                   type fees
                 </th>
               </tr>
               <tr>
-                <th className="sub-h">1 yr.</th>
-                <th className="sub-h">5 yr.</th>
-                <th className="sub-h">10 yr.</th>
-                <th className="sub-h">Since inception</th>
-                <th className="sub-h">As a %</th>
-                <th className="sub-h">Per $1,000</th>
+                <th scope="col" className="sub-h">1 yr.</th>
+                <th scope="col" className="sub-h">5 yr.</th>
+                <th scope="col" className="sub-h">10 yr.</th>
+                <th scope="col" className="sub-h">Since inception</th>
+                <th scope="col" className="sub-h">As a %</th>
+                <th scope="col" className="sub-h">Per $1,000</th>
               </tr>
             </thead>
             <tbody>

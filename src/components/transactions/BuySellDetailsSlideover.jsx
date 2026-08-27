@@ -65,11 +65,11 @@ export default function BuySellDetailsSlideover({ sourceName, rows, sourceTotal,
         <table className="alloc-table buysell-table">
           <thead>
             <tr>
-              <th>Investment name</th>
-              <th>Transactions</th>
-              <th className="num">Amount</th>
-              <th className="num">NAV</th>
-              <th className="num">Units</th>
+              <th scope="col">Investment name</th>
+              <th scope="col">Transactions</th>
+              <th scope="col" className="num">Amount</th>
+              <th scope="col" className="num">NAV</th>
+              <th scope="col" className="num">Units</th>
             </tr>
           </thead>
           <tbody>

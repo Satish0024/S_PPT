@@ -1068,7 +1068,7 @@
   .doc-row:last-child{border-bottom:none}
   .doc-ico{width:36px;height:36px;border-radius:10px;background:var(--active-bg);color:var(--brand);
     display:grid;place-items:center}
-  .doc-copy h3{font-size:14px;font-weight:700;margin:0 0 2px}
+  .doc-copy .doc-name{font-size:14px;font-weight:700;margin:0 0 2px}
   .doc-copy p{font-size:12px;color:var(--muted);margin:0}
   .doc-date{font-size:12px;font-weight:600;color:var(--ink-soft);white-space:nowrap}
   .doc-dl{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;
@@ -1327,3 +1327,48 @@
   .wd-note{
     display:flex;gap:8px;background:var(--active-bg);border-radius:10px;padding:10px 12px;
     font-size:12.5px;color:var(--ink-soft);margin-top:12px}
+
+/* ---------- Accessibility baseline ---------- */
+/* A single visible focus ring for every interactive element. Browsers only
+   show :focus-visible for keyboard/AT users, so this never fires on mouse
+   clicks — it just guarantees keyboard users can always see where they are. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip link: first thing in the tab order, so keyboard users can jump past
+   the header and sidebar straight to the page content. */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 200;
+  background: var(--brand);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top .15s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

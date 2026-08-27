@@ -87,7 +87,7 @@ function RequestsPanel({ participant }) {
       <div className="req-plan-strip">
         <div>
           <span className="eyebrow">Plan details</span>
-          <h3>{plan.name}</h3>
+          <h2>{plan.name}</h2>
           <p className="plan-meta">
             Plan ID {plan.meta?.match(/ID\s+(\S+)/i)?.[1] || plan.id} · Type {plan.type}
           </p>
@@ -115,11 +115,11 @@ function RequestsPanel({ participant }) {
           <table className="tx-table">
             <thead>
               <tr>
-                <th>Type</th>
-                <th>Plan</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th className="num">Amount</th>
+                <th scope="col">Type</th>
+                <th scope="col">Plan</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col" className="num">Amount</th>
                 <th aria-label="Actions" />
               </tr>
             </thead>
@@ -215,10 +215,10 @@ function HistoryPanel({ participant }) {
           <table className="tx-table">
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Plan</th>
-                <th className="num">Amount</th>
+                <th scope="col">Date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Plan</th>
+                <th scope="col" className="num">Amount</th>
               </tr>
             </thead>
             <tbody>

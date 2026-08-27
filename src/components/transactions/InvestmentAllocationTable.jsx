@@ -15,23 +15,23 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
       <table className="alloc-table">
         <thead>
           <tr className="alloc-group-row">
-            <th rowSpan={2} className="alloc-name-col">
+            <th scope="col" rowSpan={2} className="alloc-name-col">
               Investments
             </th>
-            <th colSpan={3} className="alloc-group">
+            <th scope="col" colSpan={3} className="alloc-group">
               Current holding
             </th>
-            <th colSpan={3} className="alloc-group alloc-after">
+            <th scope="col" colSpan={3} className="alloc-group alloc-after">
               {afterLabel}
             </th>
           </tr>
           <tr>
-            <th className="num">Units</th>
-            <th className="num">Percentage</th>
-            <th className="num">Amount</th>
-            <th className="num alloc-after">Units</th>
-            <th className="num alloc-after">Percentage</th>
-            <th className="num alloc-after">Amount</th>
+            <th scope="col" className="num">Units</th>
+            <th scope="col" className="num">Percentage</th>
+            <th scope="col" className="num">Amount</th>
+            <th scope="col" className="num alloc-after">Units</th>
+            <th scope="col" className="num alloc-after">Percentage</th>
+            <th scope="col" className="num alloc-after">Amount</th>
           </tr>
         </thead>
         <tbody>

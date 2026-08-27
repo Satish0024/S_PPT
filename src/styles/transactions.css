@@ -16,7 +16,7 @@
   border:1px solid var(--line);border-radius:12px;background:#f9fafd}
 .req-plan-strip .btn{width:auto;flex:0 0 auto}
 .req-plan-strip .eyebrow{font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
-.req-plan-strip h3{margin:0;font-size:16px;font-weight:800;color:var(--ink)}
+.req-plan-strip h2{margin:0;font-size:16px;font-weight:800;color:var(--ink)}
 .req-plan-strip .plan-meta{margin:2px 0 0;font-size:12.5px;color:var(--ink-soft);font-weight:600}
 .req-plan-stats{display:flex;gap:24px;margin-left:auto}
 .req-plan-stats div{display:flex;flex-direction:column;gap:2px}
@@ -58,16 +58,20 @@
 .txn-steps .back{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--ink-soft);text-decoration:none;margin-bottom:14px}
 .txn-steps .back:hover{color:var(--ink)}
 .txn-steps h1{font-size:18px;font-weight:800;margin:0 0 16px;letter-spacing:-.2px}
-.txn-step{display:flex;gap:10px;padding:10px 0;cursor:pointer}
-.txn-step:not(.enabled){cursor:default}
+.txn-step-list{list-style:none;margin:0;padding:0}
+.txn-step{
+  display:flex;gap:10px;padding:10px 0;width:100%;background:none;border:none;font:inherit;
+  text-align:left;align-items:center;cursor:pointer}
+.txn-step:disabled{cursor:default}
+.txn-step:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
 .txn-step .num{
-  width:24px;height:24px;border-radius:50%;background:#e8e9f2;color:var(--muted);font-size:12px;font-weight:800;
+  width:24px;height:24px;border-radius:50%;background:#e8e9f2;color:#5b5f7a;font-size:12px;font-weight:800;
   display:grid;place-items:center;flex:0 0 auto}
 .txn-step.complete .num{background:var(--green);color:#fff}
 .txn-step.current .num{background:var(--brand);color:#fff}
-.txn-step h4{margin:0;font-size:13.5px;font-weight:700;color:var(--ink-soft)}
-.txn-step.current h4{color:var(--brand)}
-.txn-step.complete h4{color:var(--ink)}
+.txn-step-title{margin:0;font-size:13.5px;font-weight:700;color:var(--ink-soft)}
+.txn-step.current .txn-step-title{color:var(--brand)}
+.txn-step.complete .txn-step-title{color:var(--ink)}
 
 .txn-main{padding:28px 32px;max-width:760px}
 .txn-main.txn-main-wide{max-width:1120px}
@@ -253,3 +257,13 @@
 @media(max-width:860px){
   .alloc-inv-head{flex-direction:column;gap:10px}
 }
+
+/* Fieldset-based groups need their browser defaults stripped so they sit in
+   the same flex flow as the plain .txn-field divs they replaced. */
+.txn-fieldset{border:none;margin:0;padding:0;min-width:0}
+.txn-fieldset > legend{
+  padding:0;font-size:12.5px;font-weight:700;color:var(--ink-soft);margin-bottom:6px}
+.txn-fieldset > legend i{color:var(--red);font-style:normal;margin-left:2px}
+.txn-radio-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.txn-radio-col{flex-direction:column;align-items:flex-start;gap:8px}
+.txn-radio{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}

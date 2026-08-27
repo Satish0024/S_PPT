@@ -4,6 +4,7 @@ import { AlertTriangle, ArrowLeft, Check, Copy, Info, Printer } from 'lucide-rea
 import Header from '../components/layout/Header.jsx'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import ConfirmDialog from '../components/common/ConfirmDialog.jsx'
+import Field, { FieldGroup } from '../components/common/Field.jsx'
 import EditAllocationSlideover from '../components/transactions/EditAllocationSlideover.jsx'
 import LegalCopySlideover from '../components/transactions/LegalCopySlideover.jsx'
 import AmortizationScheduleSlideover from '../components/transactions/AmortizationScheduleSlideover.jsx'
@@ -181,22 +182,35 @@ export default function TransactionRequest() {
               <ArrowLeft size={15} strokeWidth={2.2} /> Back
             </Link>
             <h1>{wizard.title}</h1>
-            {wizard.steps.map((s, i) => {
-              const complete = i < stepIdx
-              const current = i === stepIdx
-              const enabled = i <= maxReached
-              return (
-                <div
-                  key={s.id}
-                  className={`txn-step${complete ? ' complete' : ''}${current ? ' current' : ''}${enabled ? ' enabled' : ''}`}
-                  onClick={() => goTo(i)}
-                  role={enabled ? 'button' : undefined}
-                >
-                  <span className="num">{complete ? <Check size={13} strokeWidth={3} /> : i + 1}</span>
-                  <h4>{s.title}</h4>
-                </div>
-              )
-            })}
+            {/* An ordered list of buttons rather than clickable divs: steps
+                are navigation, not headings, and they have to be reachable
+                and operable from the keyboard. */}
+            <ol className="txn-step-list">
+              {wizard.steps.map((s, i) => {
+                const complete = i < stepIdx
+                const current = i === stepIdx
+                const enabled = i <= maxReached
+                return (
+                  <li key={s.id}>
+                    <button
+                      type="button"
+                      className={`txn-step${complete ? ' complete' : ''}${current ? ' current' : ''}${enabled ? ' enabled' : ''}`}
+                      disabled={!enabled}
+                      aria-current={current ? 'step' : undefined}
+                      onClick={() => goTo(i)}
+                    >
+                      <span className="num" aria-hidden="true">
+                        {complete ? <Check size={13} strokeWidth={3} /> : i + 1}
+                      </span>
+                      <span className="txn-step-title">{s.title}</span>
+                      <span className="sr-only">
+                        {complete ? ' (completed)' : current ? ' (current step)' : ' (not yet available)'}
+                      </span>
+                    </button>
+                  </li>
+                )
+              })}
+            </ol>
           </aside>
 
           {/* Transfer and rebalance render wide current-vs-target tables, so
@@ -372,10 +386,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
         )}
 
         <div className="txn-row">
-          <div className="txn-field">
-            <label>
-              Select Loan type<i>*</i>
-            </label>
+          <Field label="Select Loan type" required note="The Processing time for your loan is 10 days.">
             <select value={form.loanType} onChange={(e) => set({ loanType: e.target.value })}>
               <option value="">Select</option>
               {LOAN_TYPES.map((l) => (
@@ -384,12 +395,10 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
                 </option>
               ))}
             </select>
-            <span className="note">The Processing time for your loan is 10 days.</span>
-          </div>
-          <div className="txn-field">
-            <label>Reason for loan</label>
+          </Field>
+          <Field label="Reason for loan">
             <input type="text" placeholder="e.g. Educational purpose" value={form.reason} onChange={(e) => set({ reason: e.target.value })} />
-          </div>
+          </Field>
         </div>
 
         <div className="txn-card" style={{ background: '#fafbfe', marginTop: 18, marginBottom: 0 }}>
@@ -399,51 +408,54 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
           </p>
 
           <div className="txn-row">
-            <div className="txn-field">
-              <label>Interest rate</label>
-              <input type="text" disabled value={`${LOAN_INTEREST_RATE}%`} />
-            </div>
+            <Field label="Interest rate">
+              <input type="text" readOnly value={`${LOAN_INTEREST_RATE}%`} />
+            </Field>
           </div>
 
           <div className="txn-row" style={{ marginTop: 14 }}>
-            <div className="txn-field">
-              <label>
-                Take entire loan amount<i>*</i>
-              </label>
-              <div className="txn-tenure-row">
-                <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+            <FieldGroup label="Take entire loan amount" required>
+              <div className="txn-radio-row">
+                <label className="txn-radio">
                   <input
                     type="radio"
+                    name="entire-loan-amount"
                     checked={form.entireAmount === 'yes'}
                     onChange={() => set({ entireAmount: 'yes', amount: String(limits.max) })}
                   />
                   Yes
                 </label>
-                <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
-                  <input type="radio" checked={form.entireAmount === 'no'} onChange={() => set({ entireAmount: 'no' })} />
+                <label className="txn-radio">
+                  <input
+                    type="radio"
+                    name="entire-loan-amount"
+                    checked={form.entireAmount === 'no'}
+                    onChange={() => set({ entireAmount: 'no' })}
+                  />
                   No
                 </label>
               </div>
-            </div>
+            </FieldGroup>
           </div>
 
           <div className="txn-row" style={{ marginTop: 14 }}>
-            <div className="txn-field">
-              <label>
-                Loan amount<i>*</i>
-              </label>
+            <Field
+              label="Loan amount"
+              required
+              noteClass={overLimit ? 'warn' : undefined}
+              note={`You can make a request from ${formatMoney(limits.min)} to ${formatMoney(
+                limits.max
+              )} subjected to plan rules & regulations.`}
+            >
               <input
                 type="number"
                 placeholder="Enter amount"
                 value={form.amount}
                 disabled={form.entireAmount === 'yes'}
+                aria-invalid={overLimit || undefined}
                 onChange={(e) => set({ amount: e.target.value })}
               />
-              <span className={`note${overLimit ? ' warn' : ''}`}>
-                You can make a request from {formatMoney(limits.min)} to {formatMoney(limits.max)} subjected to plan
-                rules &amp; regulations.
-              </span>
-            </div>
+            </Field>
           </div>
 
           <div className="txn-summary-head" style={{ marginTop: 24 }}>
@@ -459,24 +471,22 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
           </div>
 
           <div className="txn-row" style={{ marginTop: 8 }}>
-            <div className="txn-field">
-              <label>
-                Loan repayment method<i>*</i>
-              </label>
-              <div className="txn-tenure-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}>
+            <FieldGroup label="Loan repayment method" required note={repaymentMethod?.hint}>
+              <div className="txn-radio-row txn-radio-col">
                 {LOAN_REPAYMENT_METHODS.map((m) => (
-                  <label key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
-                    <input type="radio" checked={form.repaymentMethod === m.id} onChange={() => set({ repaymentMethod: m.id })} />
+                  <label key={m.id} className="txn-radio">
+                    <input
+                      type="radio"
+                      name="loan-repayment-method"
+                      checked={form.repaymentMethod === m.id}
+                      onChange={() => set({ repaymentMethod: m.id })}
+                    />
                     {m.label}
                   </label>
                 ))}
               </div>
-              {repaymentMethod && <span className="note">{repaymentMethod.hint}</span>}
-            </div>
-            <div className="txn-field">
-              <label>
-                Loan repayment frequency<i>*</i>
-              </label>
+            </FieldGroup>
+            <Field label="Loan repayment frequency" required>
               <select value={form.repaymentFrequency} onChange={(e) => set({ repaymentFrequency: e.target.value })}>
                 {LOAN_REPAYMENT_FREQUENCIES.map((f) => (
                   <option key={f.id} value={f.id}>
@@ -484,71 +494,85 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
                   </option>
                 ))}
               </select>
-            </div>
+            </Field>
           </div>
 
           <div className="txn-row" style={{ marginTop: 18, alignItems: 'flex-end' }}>
-            <div className="txn-field">
-              <label>
-                Length of Loan Term<i>*</i>
-              </label>
+            <FieldGroup
+              label="Length of Loan Term"
+              required
+              note={`Maximum tenure is ${maxTermYears} year(s) 0 month(s)`}
+            >
               <div className="txn-tenure-row">
-                <input type="number" min={0} value={form.years} onChange={(e) => set({ years: Math.max(0, +e.target.value || 0) })} />
+                <input
+                  type="number"
+                  min={0}
+                  aria-label="Loan term years"
+                  value={form.years}
+                  onChange={(e) => set({ years: Math.max(0, +e.target.value || 0) })}
+                />
                 <span className="note">Year(s)</span>
                 <input
                   type="number"
                   min={0}
                   max={11}
+                  aria-label="Loan term months"
                   value={form.months}
                   onChange={(e) => set({ months: Math.max(0, Math.min(11, +e.target.value || 0)) })}
                 />
                 <span className="note">Month(s)</span>
               </div>
-              <span className="note">Maximum tenure is {maxTermYears} year(s) 0 month(s)</span>
-            </div>
-            <div className="txn-field">
-              <label>Periodic Payment</label>
-              <input type="text" disabled value={payment ? formatMoney(payment) : '—'} />
-              <span className="note">Changes to the loan term automatically update the periodic payment.</span>
-            </div>
+            </FieldGroup>
+            <Field label="Periodic Payment" note="Changes to the loan term automatically update the periodic payment.">
+              <input type="text" readOnly value={payment ? formatMoney(payment) : '—'} />
+            </Field>
           </div>
 
           <div className="txn-row" style={{ marginTop: 18 }}>
-            <div className="txn-field">
-              <label>
-                First repayment date<i>*</i>
-              </label>
+            <Field label="First repayment date" required>
               <input
                 type="date"
                 value={form.repaymentStartDate}
                 onChange={(e) => set({ repaymentStartDate: e.target.value })}
               />
-            </div>
+            </Field>
           </div>
         </div>
 
         {/* Scenario 4: married participants need spousal consent — captured
             here so the Documents step can surface the extra required file. */}
         <div className="txn-row" style={{ marginTop: 18 }}>
-          <div className="txn-field">
-            <label>Marital status</label>
-            <div className="txn-tenure-row">
-              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
-                <input type="radio" checked={form.maritalStatus === 'married'} onChange={() => set({ maritalStatus: 'married' })} />
+          <FieldGroup
+            label="Marital status"
+            required
+            noteClass="warn"
+            note={
+              form.maritalStatus === 'married'
+                ? "Spousal consent is required — you'll be asked to upload a signed Spousal Consent Form in the Documents step."
+                : undefined
+            }
+          >
+            <div className="txn-radio-row">
+              <label className="txn-radio">
+                <input
+                  type="radio"
+                  name="marital-status"
+                  checked={form.maritalStatus === 'married'}
+                  onChange={() => set({ maritalStatus: 'married' })}
+                />
                 Married
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
-                <input type="radio" checked={form.maritalStatus === 'single'} onChange={() => set({ maritalStatus: 'single' })} />
+              <label className="txn-radio">
+                <input
+                  type="radio"
+                  name="marital-status"
+                  checked={form.maritalStatus === 'single'}
+                  onChange={() => set({ maritalStatus: 'single' })}
+                />
                 Single
               </label>
             </div>
-            {form.maritalStatus === 'married' && (
-              <span className="note warn">
-                Spousal consent is required — you'll be asked to upload a signed Spousal Consent Form in the Documents
-                step.
-              </span>
-            )}
-          </div>
+          </FieldGroup>
         </div>
 
         <div className="txn-actions">
@@ -590,19 +614,21 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
 
         <h4>Payment details</h4>
         <div className="txn-row">
-          <div className="txn-field">
-            <label>
-              Payment method<i>*</i>
-            </label>
-            <div className="txn-tenure-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}>
+          <FieldGroup label="Payment method" required>
+            <div className="txn-radio-row txn-radio-col">
               {LOAN_PAYMENT_METHODS.map((m) => (
-                <label key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
-                  <input type="radio" checked={form.paymentMethod === m.id} onChange={() => set({ paymentMethod: m.id })} />
+                <label key={m.id} className="txn-radio">
+                  <input
+                    type="radio"
+                    name="loan-payment-method"
+                    checked={form.paymentMethod === m.id}
+                    onChange={() => set({ paymentMethod: m.id })}
+                  />
                   {m.label}
                 </label>
               ))}
             </div>
-          </div>
+          </FieldGroup>
         </div>
 
         {form.paymentMethod === 'eft' && (
@@ -753,20 +779,31 @@ function AddBankDialog({ bank, onCancel, onSave }) {
 
   return (
     <div className="enroll-modal-bg" onClick={onCancel}>
-      <div className="confirm-dialog" onClick={(e) => e.stopPropagation()} style={{ textAlign: 'left' }}>
-        <h3 style={{ marginTop: 0 }}>Add bank account</h3>
-        <div className="txn-field" style={{ marginBottom: 12 }}>
-          <label>Bank name</label>
+      <div
+        className="confirm-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="add-bank-title"
+        onClick={(e) => e.stopPropagation()}
+        style={{ textAlign: 'left' }}
+      >
+        <h3 id="add-bank-title" style={{ marginTop: 0 }}>
+          Add bank account
+        </h3>
+        <Field label="Bank name" required>
           <input type="text" value={bankName} onChange={(e) => setBankName(e.target.value)} />
-        </div>
-        <div className="txn-field" style={{ marginBottom: 12 }}>
-          <label>Account number</label>
-          <input type="text" value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)} placeholder="•••• •••• 1234" />
-        </div>
-        <div className="txn-field" style={{ marginBottom: 12 }}>
-          <label>Routing No</label>
+        </Field>
+        <Field label="Account number" required>
+          <input
+            type="text"
+            value={accountNumber}
+            onChange={(e) => setAccountNumber(e.target.value)}
+            placeholder="•••• •••• 1234"
+          />
+        </Field>
+        <Field label="Routing No" required>
           <input type="text" value={routingNo} onChange={(e) => setRoutingNo(e.target.value)} />
-        </div>
+        </Field>
         <div className="txn-actions">
           <button type="button" className="btn btn-ghost" onClick={onCancel}>
             Cancel
@@ -810,10 +847,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
       <div className="txn-card">
         <h3>Withdrawal Details</h3>
         <div className="txn-row">
-          <div className="txn-field">
-            <label>
-              Select withdrawal type<i>*</i>
-            </label>
+          <Field label="Select withdrawal type" required>
             <select value={form.withdrawalType} onChange={(e) => set({ withdrawalType: e.target.value })}>
               <option value="">Select</option>
               {WITHDRAWAL_TYPES.map((t) => (
@@ -822,48 +856,54 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
                 </option>
               ))}
             </select>
-          </div>
+          </Field>
         </div>
 
         <div className="txn-row" style={{ marginTop: 14 }}>
-          <div className="txn-field">
-            <label>
-              Withdraw<i>*</i>
-            </label>
-            <div className="txn-tenure-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+          <FieldGroup label="Withdraw" required>
+            <div className="txn-radio-row txn-radio-col">
+              <label className="txn-radio">
                 <input
                   type="radio"
+                  name="withdraw-as"
                   checked={form.withdrawAs === 'onetime'}
                   onChange={() => set({ withdrawAs: 'onetime' })}
                 />
                 As one time payment
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+              <label className="txn-radio">
                 <input
                   type="radio"
+                  name="withdraw-as"
                   checked={form.withdrawAs === 'periodic'}
                   onChange={() => set({ withdrawAs: 'periodic' })}
                 />
                 As periodic payment
               </label>
             </div>
-          </div>
-          <div className="txn-field">
-            <label>
-              Withdraw entire balance<i>*</i>
-            </label>
-            <div className="txn-tenure-row">
-              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
-                <input type="radio" checked={form.entireBalance === 'yes'} onChange={() => chooseEntireBalance('yes')} />
+          </FieldGroup>
+          <FieldGroup label="Withdraw entire balance" required>
+            <div className="txn-radio-row">
+              <label className="txn-radio">
+                <input
+                  type="radio"
+                  name="withdraw-entire-balance"
+                  checked={form.entireBalance === 'yes'}
+                  onChange={() => chooseEntireBalance('yes')}
+                />
                 Yes
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
-                <input type="radio" checked={form.entireBalance === 'no'} onChange={() => chooseEntireBalance('no')} />
+              <label className="txn-radio">
+                <input
+                  type="radio"
+                  name="withdraw-entire-balance"
+                  checked={form.entireBalance === 'no'}
+                  onChange={() => chooseEntireBalance('no')}
+                />
                 No
               </label>
             </div>
-          </div>
+          </FieldGroup>
         </div>
 
         {form.entireBalance === 'yes' && loan && (
@@ -911,11 +951,11 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
           <table className="wd-alloc-table">
             <thead>
               <tr>
-                <th>Recipient</th>
-                <th className="num">Tax</th>
-                <th className="num">Fee</th>
-                <th className="num">Penalty</th>
-                <th className="num">Amount</th>
+                <th scope="col">Recipient</th>
+                <th scope="col" className="num">Tax</th>
+                <th scope="col" className="num">Fee</th>
+                <th scope="col" className="num">Penalty</th>
+                <th scope="col" className="num">Amount</th>
                 <th aria-label="Actions" />
               </tr>
             </thead>
@@ -1055,11 +1095,11 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         <table className="wd-alloc-table">
           <thead>
             <tr>
-              <th>Recipient</th>
-              <th className="num">Tax</th>
-              <th className="num">Fee</th>
-              <th className="num">Penalty</th>
-              <th className="num">Amount</th>
+              <th scope="col">Recipient</th>
+              <th scope="col" className="num">Tax</th>
+              <th scope="col" className="num">Fee</th>
+              <th scope="col" className="num">Penalty</th>
+              <th scope="col" className="num">Amount</th>
               <th aria-label="Actions" />
             </tr>
           </thead>
