@@ -7,7 +7,7 @@ import QuickLinks from '../components/dashboard/QuickLinks.jsx'
 import Transactions from '../components/dashboard/Transactions.jsx'
 import RetirementGoalSimulatorV2 from '../components/dashboard/RetirementGoalSimulatorV2.jsx'
 import LearningPortal from '../components/dashboard/LearningPortal.jsx'
-import RiskMeter from '../components/dashboard/RiskMeter.jsx'
+import RiskMeterV2 from '../components/dashboard/RiskMeterV2.jsx'
 
 export default function Dashboard() {
   const { participant } = useParticipant()
@@ -36,7 +36,7 @@ export default function Dashboard() {
         <aside className="dash-side">
           {showReadiness && <RetirementGoalSimulatorV2 />}
           <LearningPortal />
-          <RiskMeter />
+          <RiskMeterV2 />
         </aside>
       </div>
     </div>

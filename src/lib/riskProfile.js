@@ -10,24 +10,48 @@ export const RISK_LEVELS = [
     id: 'conservative',
     label: 'Conservative Investor',
     badge: 'CONSERVATIVE',
+    subtitle: 'Conservative risk',
     score: 15,
     color: '#1a9d63',
-    copy: "This investment style favors stability, leaning on bonds and cash to help protect what you've saved."
+    accent: '#178a4a',
+    copy: "This investment style favors stability, leaning on bonds and cash to help protect what you've saved.",
+    insights: [
+      'Balanced approach that favors stability over growth.',
+      'Typically 60-70% bonds and cash, 30-40% equities.',
+      'Built to smooth out short-term market swings.',
+      'Best suited for a shorter time horizon to retirement.'
+    ]
   },
   {
     id: 'moderate',
     label: 'Moderate Investor',
     badge: 'MODERATE',
+    subtitle: 'Moderate risk',
     score: 50,
     color: '#d4a017',
-    copy: 'We picked this investment style based on how you answered the questionnaire.'
+    accent: '#4338ca',
+    copy: 'We picked this investment style based on how you answered the questionnaire.',
+    insights: [
+      'Balanced approach between growth and stability.',
+      'Typically a 50/50 mix of stocks and bonds.',
+      'Aims for steady growth with manageable ups and downs.',
+      'Fits most mid-career savers with 10+ years to retirement.'
+    ]
   },
   {
     id: 'aggressive',
     label: 'Aggressive Investor',
     badge: 'AGGRESSIVE',
+    subtitle: 'Aggressive risk',
     score: 85,
     color: '#c0392b',
+    accent: '#dc2626',
+    insights: [
+      'Growth-focused approach that leans into equities.',
+      'Typically 80-90% stocks, 10-20% bonds.',
+      'Expect more short-term swings for higher long-term potential.',
+      'Best suited for a longer runway before retirement.'
+    ],
     copy: 'This investment style leans into equities for higher long-term growth potential, with more short-term swings.'
   }
 ]
