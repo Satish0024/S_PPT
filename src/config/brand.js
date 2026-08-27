@@ -4,10 +4,10 @@
 // touch this file (plus its CSS theme tokens in src/styles/index.css and its
 // own /public logo asset) instead of scattered JSX across the app.
 export const BRAND = {
-  name: 'Journey Retirement',
-  shortName: 'Journey',
-  logo: '/journey_logo.svg',
+  name: 'LendGuard',
+  shortName: 'LendGuard',
+  logo: '/logo-lockup-dark.svg',
   tagline: 'Your Path To A Confident Retirement.',
   taglineBody: 'Access your 401(k), deferrals, and retirement tools in one secure participant portal.',
-  supportPlanNoun: 'your Journey Retirement plan'
+  supportPlanNoun: 'your LendGuard plan'
 }

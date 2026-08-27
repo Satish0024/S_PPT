@@ -35,7 +35,7 @@ export function hasAccountSummary(participant) {
   return (participant?.plans || []).some(isSummaryPlan)
 }
 
-const COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#0b6e5f', '#d4a017']
+const COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#0284c7', '#d4a017']
 
 // Some funds hold more than one asset type (e.g. a target-date or balanced
 // fund blends stock and bond), so each asset class maps to an array of the

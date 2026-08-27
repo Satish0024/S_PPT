@@ -1,6 +1,6 @@
 
   :root{
-    --brand:#0b6e5f;--brand-dark:#084f45;--accent:#178074;
+    --brand:#0284c7;--brand-dark:#075985;--accent:#0369a1;
     --ink:#14151f;--ink-soft:#4a4d63;--muted:#8a8da3;
     --line:#e4e5ee;--bg:#f4f5f9;--green:#1a9d63;--green-bg:#e7f7ef;
     --amber:#b7791f;--amber-bg:#fdf3e1;
@@ -29,7 +29,7 @@
     display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fff;
     border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);margin-bottom:24px;
     transition:border-color .15s,box-shadow .15s}
-  .search-bar:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(11,110,95,.15)}
+  .search-bar:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(2,132,199,.15)}
   .search-bar svg{width:18px;height:18px;color:var(--muted);flex-shrink:0}
   .search-bar input{
     flex:1;border:none;outline:none;font:inherit;font-size:14px;color:var(--ink);background:transparent}
@@ -45,9 +45,9 @@
   .featured .f-visual .bg{
     position:absolute;inset:0;
     background:
-      radial-gradient(ellipse 80% 60% at 70% 30%,rgba(26,157,99,.45),transparent),
+      radial-gradient(ellipse 80% 60% at 70% 30%,rgba(56,189,248,.45),transparent),
       radial-gradient(ellipse 50% 50% at 20% 80%,rgba(74,99,199,.4),transparent),
-      linear-gradient(160deg,#0b6e5f,#1c9484)}
+      linear-gradient(160deg,#0284c7,#38bdf8)}
   .featured .f-visual .label{
     position:relative;z-index:1;font-size:11px;font-weight:700;text-transform:uppercase;
     letter-spacing:.4px;color:rgba(255,255,255,.85);margin-bottom:6px}
@@ -82,7 +82,7 @@
   .card:hover{box-shadow:var(--shadow-lg);border-color:#c5c9e0}
   .card .thumb{height:96px;position:relative;overflow:hidden}
   .card .thumb .t-bg{position:absolute;inset:0}
-  .card.t1 .thumb .t-bg{background:linear-gradient(135deg,#e6f3f0 0%,#d5daf0 100%)}
+  .card.t1 .thumb .t-bg{background:linear-gradient(135deg,#e0f2fe 0%,#d5daf0 100%)}
   .card.t2 .thumb .t-bg{background:linear-gradient(135deg,#e7f7ef 0%,#c6e9d6 100%)}
   .card.t3 .thumb .t-bg{background:linear-gradient(135deg,#fdf3e1 0%,#f0dcb0 100%)}
   .card.t4 .thumb .t-bg{background:linear-gradient(135deg,#fdeeee 0%,#f5c6c0 100%)}
