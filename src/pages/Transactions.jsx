@@ -4,6 +4,7 @@ import { Landmark, Shuffle, TrendingDown } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import { TRANSACTION_TYPES, canRequest, requestStatusTone, requestsFor, transactablePlans } from '../data/transactions.js'
+import LoanCalculatorSlideover from '../components/transactions/LoanCalculatorSlideover.jsx'
 import '../styles/documents.css'
 import '../styles/transactions.css'
 
@@ -55,6 +56,7 @@ function RequestsPanel({ participant }) {
   const [planId, setPlanId] = useState(plans[0]?.id)
   const plan = plans.find((p) => p.id === planId) || plans[0]
   const requests = useMemo(() => requestsFor(participant), [participant])
+  const [calcLoan, setCalcLoan] = useState(null)
 
   if (!plans.length) {
     return (
@@ -118,6 +120,7 @@ function RequestsPanel({ participant }) {
                 <th>Date</th>
                 <th>Status</th>
                 <th className="num">Amount</th>
+                <th aria-label="Actions" />
               </tr>
             </thead>
             <tbody>
@@ -130,6 +133,13 @@ function RequestsPanel({ participant }) {
                     <span className={`req-status ${requestStatusTone(r.status)}`}>{r.status}</span>
                   </td>
                   <td className="num">{r.amount}</td>
+                  <td className="num">
+                    {r.type === 'loan' && r.status === 'Approved' && (
+                      <button type="button" className="tx-calc-link" onClick={() => setCalcLoan(r)}>
+                        Calculate
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -137,6 +147,8 @@ function RequestsPanel({ participant }) {
           </div>
         </>
       )}
+
+      {calcLoan && <LoanCalculatorSlideover loan={calcLoan} onClose={() => setCalcLoan(null)} />}
     </>
   )
 }

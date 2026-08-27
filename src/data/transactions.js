@@ -52,6 +52,26 @@ export function loanLimits(plan) {
   return { min: LOAN_FLOOR, max }
 }
 
+// Simple daily-accrual estimate used by the loan calculator slideover — not
+// a real amortization schedule, just enough to show a plausible principal +
+// interest breakdown for a target catch-up or payoff date.
+export function computeLoanPayoff({ balance, targetDate, mode, aprPct = 8.5, missedPayments = 2, monthlyPayment = 0 }) {
+  const today = new Date()
+  const target = targetDate ? new Date(targetDate) : today
+  const days = Math.max(0, Math.round((target - today) / (1000 * 60 * 60 * 24)))
+  const dailyRate = aprPct / 100 / 365
+
+  if (mode === 'catchup') {
+    const principal = Math.round(monthlyPayment * missedPayments * 100) / 100
+    const interest = Math.round(principal * dailyRate * days * 100) / 100
+    return { principal, interest, total: Math.round((principal + interest) * 100) / 100, days }
+  }
+
+  const principal = Math.round((balance || 0) * 100) / 100
+  const interest = Math.round(principal * dailyRate * days * 100) / 100
+  return { principal, interest, total: Math.round((principal + interest) * 100) / 100, days }
+}
+
 export function estimatePeriodicPayment(amount, years, months, aprPct = 8.5) {
   const totalMonths = Math.max(1, (years || 0) * 12 + (months || 0))
   const monthlyRate = aprPct / 100 / 12
@@ -95,7 +115,10 @@ export const TRANSACTION_REQUESTS = {
       plan: 'Saturna 401(k) Plan',
       amount: '$2,500.00',
       date: 'Jan 10, 2026',
-      status: 'Approved'
+      status: 'Approved',
+      // Outstanding-loan fields used by the loan calculator slideover.
+      balance: 1840,
+      monthlyPayment: 214.6
     }
   ]
 }

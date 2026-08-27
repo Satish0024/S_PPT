@@ -1230,3 +1230,53 @@
   @media(max-width:520px){
     .rq-modal{padding:22px 18px 18px;border-radius:16px}
   }
+
+  /* ---------- Slideover (right-side panel) ---------- */
+  .slideover-bg{position:fixed;inset:0;background:rgba(20,21,31,.46);z-index:95;display:flex;justify-content:flex-end}
+  .slideover-panel{
+    width:100%;max-width:420px;height:100%;background:#fff;box-shadow:-8px 0 30px rgba(20,30,60,.12);
+    display:flex;flex-direction:column;animation:slideover-in .28s cubic-bezier(.2,.9,.3,1)}
+  .slideover-panel.slideover-wide{max-width:680px}
+  @keyframes slideover-in{from{transform:translateX(100%)}to{transform:translateX(0)}}
+  .slideover-head{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;
+    border-bottom:1px solid var(--line);flex:0 0 auto}
+  .slideover-head h3{font-size:17px;font-weight:800;letter-spacing:-.2px;margin:0}
+  .slideover-head-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+  .slideover-head-actions .btn{width:auto;flex:0 0 auto}
+  .slideover-close{
+    width:32px;height:32px;border-radius:50%;border:none;background:var(--hover-bg);color:var(--ink-soft);
+    display:grid;place-items:center;cursor:pointer;flex:0 0 auto}
+  .slideover-close:hover{background:var(--line)}
+  .slideover-body{flex:1;overflow-y:auto;padding:22px 24px;background:#fafbfe}
+  @media(max-width:640px){
+    .slideover-panel,.slideover-panel.slideover-wide{max-width:100%}
+  }
+
+  /* ---------- Confirm dialog (centered, distinct from Slideover) ---------- */
+  .confirm-dialog{
+    width:min(360px,100%);background:#fff;border-radius:16px;padding:26px 24px 22px;box-shadow:var(--shadow-lg);
+    text-align:center;display:flex;flex-direction:column;align-items:center;animation:rq-modal-in .22s ease}
+  .confirm-dialog-ico{
+    width:44px;height:44px;border-radius:50%;background:var(--red-bg);color:var(--red);
+    display:grid;place-items:center;margin-bottom:12px}
+  .confirm-dialog h4{font-size:17px;font-weight:800;margin:0 0 8px;letter-spacing:-.2px}
+  .confirm-dialog p{font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin:0}
+  .confirm-dialog-actions{display:flex;gap:10px;margin-top:20px;width:100%}
+  .confirm-dialog-actions .btn{flex:1;width:auto}
+
+  /* ---------- Loan calculator slideover ---------- */
+  .loan-calc{display:flex;flex-direction:column;gap:16px}
+  .loan-calc-lead{font-size:13.5px;line-height:1.5;color:var(--ink-soft);margin:0}
+  .loan-calc .rq-field{margin-bottom:0}
+  .loan-calc .rq-field label{font-size:12.5px;font-weight:700;color:var(--ink-soft);margin-bottom:6px;display:block}
+  .loan-calc .rq-field input{width:100%}
+  .loan-calc .rq-opt{padding:10px 12px;font-size:13.5px}
+  .loan-calc-result{
+    background:var(--active-bg);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+  .loan-calc-result-title{font-size:12px;font-weight:700;color:var(--ink-soft)}
+  .loan-calc-result > b{font-size:24px;font-weight:800;color:var(--brand);letter-spacing:-.3px;margin:2px 0 10px}
+  .loan-calc-breakdown{display:flex;gap:20px;padding-top:10px;border-top:1px solid rgba(20,30,60,.08)}
+  .loan-calc-breakdown div{display:flex;flex-direction:column;gap:2px}
+  .loan-calc-breakdown span{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.2px}
+  .loan-calc-breakdown b{font-size:14px;font-weight:800;color:var(--ink)}
