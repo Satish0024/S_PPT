@@ -4,12 +4,9 @@ import {
   ArrowLeft,
   Banknote,
   CalendarDays,
-  Check,
   CircleCheck,
   CircleDollarSign,
   MapPin,
-  Sparkles,
-  X,
   Trophy,
   AlertTriangle,
   Umbrella
@@ -23,11 +20,8 @@ import {
   PREFS_KEY,
   READINESS_KEY,
   ageFromDob,
-  applyMission,
-  revertMission,
   clamp,
   goalDiff,
-  goalMissions,
   hydratePrefs,
   money,
   parseMoney,
@@ -323,7 +317,6 @@ export default function RetirementGoal() {
   const [open, setOpen] = useState(false)
   const [savedOpen, setSavedOpen] = useState(false)
   const [changes, setChanges] = useState([])
-  const [applied, setApplied] = useState([])
   const [delta, setDelta] = useState(null)
   const [celebrate, setCelebrate] = useState(false)
   const prevScore = useRef(null)
@@ -338,7 +331,6 @@ export default function RetirementGoal() {
     const next = hydratePrefs(participant)
     setDraft(next)
     setBaseline(next)
-    setApplied([])
     const plans = deferralPlansFor(participant)
     const shares = initialShares(plans, next.pre, next.roth)
     const auto = initialAuto(plans, next)
@@ -377,10 +369,6 @@ export default function RetirementGoal() {
   const shownScore = useAnimatedNumber(live.score)
   const liveStatus = statusCopy(live.score)
   const liveExcellent = live.score >= 80
-  const missions = useMemo(
-    () => goalMissions(draft, currentAge, balance),
-    [draft, currentAge, balance]
-  )
 
   useEffect(() => {
     const prev = prevScore.current
@@ -403,14 +391,6 @@ export default function RetirementGoal() {
 
   const setDraftField = (key, value) => setDraft((p) => ({ ...p, [key]: value }))
   const setRate = (key, value) => setDraft((p) => setRateOn(p, key, value))
-  const runMission = (mission) => {
-    setDraft((p) => applyMission(p, mission.kind))
-    setApplied((list) => [...list, { ...mission, key: `${mission.id}-${Date.now()}` }])
-  }
-  const undoMission = (mission) => {
-    setDraft((p) => revertMission(p, mission.kind))
-    setApplied((list) => list.filter((item) => item.key !== mission.key))
-  }
 
   const startScore = useMemo(
     () => scoreGoal({ prefs: baseline, currentAge, balance }).score,
@@ -424,7 +404,6 @@ export default function RetirementGoal() {
     setBaseline(draft)
     setBaselineShares(planShares)
     setBaselineAuto(planAuto)
-    setApplied([])
     setSavedOpen(true)
   }
 
@@ -510,68 +489,18 @@ export default function RetirementGoal() {
             </div>
           </dl>
           <p className="rg-disc">
-            *Not guaranteed results · It&apos;s a simulation.{' '}
-            <button type="button" className="rr-more" onClick={() => setOpen(true)}>
-              Read more
+            <span className="rr-foot-note">*Not guaranteed results · It&apos;s a simulation.</span>
+            <button type="button" className="rr-disclaimer-link" onClick={() => setOpen(true)}>
+              Disclaimer
             </button>
           </p>
         </aside>
 
         <div className="rg-work">
-          <section className="rg-improve rg-hidden" aria-label="Ways to improve">
-            <div className="rg-improve-h">
-              <Sparkles size={16} strokeWidth={2.1} />
-              <h2>Ways to improve</h2>
-              <span>Apply a change to see the score move</span>
-            </div>
-            <div className="rg-tips">
-              {missions.length ? (
-                missions.map((mission) => (
-                  <div className="rg-tip" key={mission.id}>
-                    <b className="rg-tip-pts">+{mission.pts}</b>
-                    <div>
-                      <strong>{mission.title}</strong>
-                      <p>{mission.detail}</p>
-                      <button type="button" className="text-link" onClick={() => runMission(mission)}>
-                        Apply This Change
-                      </button>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="rg-tip done">
-                  <b className="rg-tip-pts">✓</b>
-                  <div>
-                    <strong>Your goal looks funded</strong>
-                    <p>Stress-test it with a higher spend or an earlier retirement age.</p>
-                  </div>
-                </div>
-              )}
-            </div>
-            {applied.length > 0 && (
-              <ul className="rg-applied-list" aria-label="Applied changes">
-                {applied.map((mission) => (
-                  <li key={mission.key}>
-                    <Check size={12} strokeWidth={2.6} />
-                    <strong>{mission.title}</strong>
-                    <button
-                      type="button"
-                      className="rg-applied-x"
-                      aria-label={`Revert ${mission.title}`}
-                      onClick={() => undoMission(mission)}
-                    >
-                      <X size={11} strokeWidth={2.6} />
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-
           <section className="panel rg-inputs">
             <h2>Retirement target</h2>
             <div className="rg-targets">
-              <TargetCard icon={MapPin} label="Retirement location" hint="Used to estimate a typical monthly spend">
+              <TargetCard icon={MapPin} label="Retirement location" hint="This information is used to determine the state tax">
                 <select
                   value={draft.location}
                   onChange={(e) => {

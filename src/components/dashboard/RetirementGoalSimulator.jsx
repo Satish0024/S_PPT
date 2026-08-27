@@ -78,7 +78,7 @@ export default function RetirementGoalSimulator() {
       ) : (
         <div className="rr-intro">
           <p className="rr-lead">
-            This estimates how much of your retirement spending your savings may cover, using deferrals, age, and location.
+            This estimates how much of your retirement spending is covered by your savings, by using deferrals, age, and location.
           </p>
           <Link className="rr-cta" to="/retirement-goal">
             Get started
@@ -88,9 +88,9 @@ export default function RetirementGoalSimulator() {
       )}
 
       <div className="rr-foot">
-        *Not guaranteed results · It&apos;s a simulation.{' '}
-        <button type="button" className="rr-more" onClick={() => setOpen(true)}>
-          Read more
+        <span className="rr-foot-note">*Not guaranteed results · It&apos;s a simulation.</span>
+        <button type="button" className="rr-disclaimer-link" onClick={() => setOpen(true)}>
+          Disclaimer
         </button>
       </div>
 

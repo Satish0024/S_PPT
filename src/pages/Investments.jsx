@@ -270,6 +270,10 @@ function AllocPanel({ title, funds, alloc, locked, showReset, onChange, onReset 
   return (
     <div className="inv-form">
       {title && <h4 className="inv-source-title">{title}</h4>}
+      <div className="fund-list-head inv-col-head">
+        <span>Investment</span>
+        <span>Election Percentage</span>
+      </div>
       <div className={`enroll-form${locked ? ' locked' : ''}`}>
         {funds.map((f) => (
           <div className="source" key={f.name}>

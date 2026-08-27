@@ -251,7 +251,7 @@ export default function AccountSummary() {
                       <th>{tab === 'sources' ? 'Source' : 'Investment'}</th>
                       {tab === 'investments' ? <th className="num">Units</th> : null}
                       <th className="num">Balance</th>
-                      <th className="num">Percent</th>
+                      <th className="num">{tab === 'investments' ? 'Election Percentage' : 'Percent'}</th>
                       {tab === 'sources' ? <th className="num">Vested</th> : null}
                     </tr>
                   </thead>

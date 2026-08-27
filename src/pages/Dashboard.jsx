@@ -1,5 +1,6 @@
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../data/participants'
+import { hasAccountSummary } from '../lib/accountSummary'
 import OverallBalance from '../components/dashboard/OverallBalance.jsx'
 import PlanCard from '../components/dashboard/PlanCard.jsx'
 import QuickLinks from '../components/dashboard/QuickLinks.jsx'
@@ -19,7 +20,7 @@ export default function Dashboard() {
       </div>
       <div className="dash-layout">
         <div className="dash-main">
-          <OverallBalance {...participant.overall} />
+          <OverallBalance {...participant.overall} showSummary={hasAccountSummary(participant)} />
           <section>
             <h2 className="section-title">My plans</h2>
             <div className="plans-grid">
