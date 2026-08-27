@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Rocket, Scale, ShieldCheck, Sparkles } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import { RISK_PROFILE_UPDATED_EVENT, getRiskLevel, getRiskProfileId } from '../../lib/riskProfile'
-import RiskQuestionnaireModal from '../questionnaire/RiskQuestionnaireModal.jsx'
 
 const LEVEL_ICON = { conservative: ShieldCheck, moderate: Scale, aggressive: Rocket }
 
 export default function RiskMeter() {
   const { participant } = useParticipant()
   const [levelId, setLevelId] = useState(() => getRiskProfileId(participant))
-  const [open, setOpen] = useState(false)
 
   // Stay in sync even when the questionnaire is completed elsewhere (e.g.
-  // the sidebar's "Risk check-in" CTA, a separate modal instance).
+  // the sidebar's "Risk check-in" page instead of this widget).
   useEffect(() => {
     const onUpdate = (e) => {
       if (e.detail?.participantId === participant.id) setLevelId(e.detail.levelId)
@@ -70,23 +69,12 @@ export default function RiskMeter() {
         <div className="risk-side">
           <p>{level.copy}</p>
           <p className="risk-hint">Want to change it? Retake the risk check-in questionnaire.</p>
-          <button type="button" className="risk-edit-btn" onClick={() => setOpen(true)}>
+          <Link to="/risk-check-in" className="risk-edit-btn">
             <Sparkles size={15} strokeWidth={2.2} />
             Edit Preferences
-          </button>
+          </Link>
         </div>
       </div>
-
-      {open && (
-        <RiskQuestionnaireModal
-          participant={participant}
-          onClose={() => setOpen(false)}
-          onComplete={(newLevelId) => {
-            setLevelId(newLevelId)
-            setOpen(false)
-          }}
-        />
-      )}
     </section>
   )
 }
