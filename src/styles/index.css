@@ -1120,6 +1120,12 @@
     .nav-cta .nav-label{font-size:10px}
   }
 
+  .nav-brand{margin-top:auto;padding:18px 12px 6px;display:flex;justify-content:center}
+  .nav-brand img{height:22px;width:auto;max-width:100%;object-fit:contain;opacity:.85}
+  @media(max-width:640px){
+    .nav-brand{display:none}
+  }
+
   /* ---------- Risk questionnaire modal ---------- */
   .rq-bg{position:fixed;inset:0;background:rgba(20,21,31,.5);z-index:90;display:grid;place-items:center;padding:20px}
   .rq-modal{

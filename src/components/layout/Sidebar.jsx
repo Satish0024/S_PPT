@@ -61,6 +61,10 @@ export default function Sidebar() {
           onComplete={() => {}}
         />
       )}
+
+      <div className="nav-brand" aria-hidden="true">
+        <img src="/core-logo.svg" alt="" />
+      </div>
     </nav>
   )
 }
