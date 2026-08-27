@@ -1151,9 +1151,10 @@
     .pr-field input:not([type="radio"]):not([type="checkbox"]),.pr-field select,.pr-input-ico,.pr-phone{max-width:none}
   }
 
-  /* ---------- Sidebar secondary CTA (risk questionnaire) ---------- */
+  /* ---------- Sidebar secondary CTA (risk questionnaire) + brand footer ---------- */
+  .nav-bottom{margin-top:auto;display:flex;flex-direction:column;align-items:center}
   .nav-cta{
-    margin-top:auto;margin-bottom:14px;align-self:center;width:44px;height:44px;flex:0 0 auto;
+    margin-bottom:14px;width:44px;height:44px;flex:0 0 auto;
     border:none;border-radius:50%;background:var(--active-bg);color:var(--brand);
     display:grid;place-items:center;cursor:pointer;text-decoration:none;
     transition:background .15s,transform .15s}
@@ -1163,6 +1164,7 @@
   @keyframes nav-cta-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
   @media(prefers-reduced-motion:reduce){.nav-cta svg{animation:none}}
   @media(max-width:640px){
+    .nav-bottom{margin-top:0;flex-direction:row}
     .nav-cta{margin:0;width:36px;height:36px;flex:0 0 auto}
   }
 
