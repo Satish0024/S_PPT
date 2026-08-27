@@ -932,8 +932,8 @@
     .tx-row{grid-template-columns:1fr auto;gap:2px 10px}
     .tx-row .tx-date{grid-column:1 / -1}
     .doc-row{grid-template-columns:40px minmax(0,1fr);gap:8px 12px}
-    .doc-date{grid-column:2}
-    .doc-dl{grid-column:2;justify-self:start}
+    .doc-date,.doc-plan{grid-column:2;white-space:normal}
+    .doc-dl{grid-column:2;justify-self:start;margin-top:4px}
     .rg-shell,.rg-work{grid-template-columns:1fr}
     .rg-shell > .rg-live,.rg-shell > .rg-work{grid-column:auto;grid-row:auto}
     .panel.rg-live{position:static}

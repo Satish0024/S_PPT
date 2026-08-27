@@ -241,8 +241,10 @@ export default function Transactions() {
   return (
     <div className="page-body">
       <div className="hi-bar">
-        <h1>Transactions</h1>
-        <p className="pr-intro">View, edit, and raise transaction requests</p>
+        <div>
+          <h1>Transactions</h1>
+          <p className="pr-intro">View, edit, and raise transaction requests</p>
+        </div>
       </div>
 
       <section className="panel tx-page">
