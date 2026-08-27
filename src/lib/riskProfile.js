@@ -1,4 +1,5 @@
 import { ageFromDob } from './retirementGoal'
+import { LIKERT_QUESTIONS } from '../data/riskQuestionnaire'
 
 export const RISK_PROFILE_KEY = 'lendguardRiskProfile'
 
@@ -52,6 +53,11 @@ export function getRiskProfileId(participant) {
   return 'conservative'
 }
 
+// Fired on window whenever a risk level is saved, so any already-mounted
+// widget (e.g. the dashboard Risk Meter) can refresh even when the
+// questionnaire was opened from somewhere else (like the sidebar CTA).
+export const RISK_PROFILE_UPDATED_EVENT = 'riskProfileUpdated'
+
 export function setRiskProfileId(participantId, levelId) {
   try {
     const overrides = readOverrides()
@@ -60,4 +66,20 @@ export function setRiskProfileId(participantId, levelId) {
   } catch {
     /* ignore */
   }
+  window.dispatchEvent(new CustomEvent(RISK_PROFILE_UPDATED_EVENT, { detail: { participantId, levelId } }))
+}
+
+// Turns { [questionId]: 1-5 } answers into a 0-100 risk-tolerance score and
+// the nearest canonical level. Reverse-scored questions (agreeing means
+// more conservative) get flipped before summing.
+export function scoreQuestionnaire(answers) {
+  const total = LIKERT_QUESTIONS.reduce((sum, q) => {
+    const raw = answers[q.id] || 3
+    return sum + (q.reverse ? 6 - raw : raw)
+  }, 0)
+  const max = LIKERT_QUESTIONS.length * 5
+  const min = LIKERT_QUESTIONS.length * 1
+  const score = Math.round(((total - min) / (max - min)) * 100)
+  const levelId = score < 35 ? 'conservative' : score <= 65 ? 'moderate' : 'aggressive'
+  return { score, levelId }
 }

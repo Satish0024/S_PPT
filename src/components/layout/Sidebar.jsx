@@ -1,11 +1,16 @@
+import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import {
   ArrowLeftRight,
+  ClipboardList,
   FileText,
   LayoutGrid,
   UserRound,
   Wallet
 } from 'lucide-react'
+import { useParticipant } from '../../context/ParticipantContext.jsx'
+import { isNotEligibleUser } from '../../data/participants'
+import RiskQuestionnaireModal from '../questionnaire/RiskQuestionnaireModal.jsx'
 
 const ITEMS = [
   { to: '/', label: 'Dashboard', icon: LayoutGrid, end: true },
@@ -17,9 +22,12 @@ const ITEMS = [
 
 export default function Sidebar() {
   const { pathname } = useLocation()
+  const { participant } = useParticipant()
+  const [questionnaireOpen, setQuestionnaireOpen] = useState(false)
   const onEnrollment = pathname.startsWith('/enrollment')
   const onGoal = pathname.startsWith('/retirement-goal')
   const onSummary = pathname.startsWith('/account-summary')
+  const showQuestionnaire = !isNotEligibleUser(participant)
 
   return (
     <nav className="nav" aria-label="Primary">
@@ -36,6 +44,27 @@ export default function Sidebar() {
           <span className="nav-label">{label}</span>
         </NavLink>
       ))}
+
+      {showQuestionnaire && (
+        <button type="button" className="nav-cta" onClick={() => setQuestionnaireOpen(true)}>
+          <span className="ico" aria-hidden="true">
+            <ClipboardList size={22} strokeWidth={1.9} />
+          </span>
+          <span className="nav-label">Risk check-in</span>
+        </button>
+      )}
+
+      {questionnaireOpen && (
+        <RiskQuestionnaireModal
+          participant={participant}
+          onClose={() => setQuestionnaireOpen(false)}
+          onComplete={() => {}}
+        />
+      )}
+
+      <div className="nav-brand" aria-hidden="true">
+        <img src="/core-logo.svg" alt="" />
+      </div>
     </nav>
   )
 }
