@@ -27,7 +27,7 @@
 .quick-actions-label{
   display:block;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
   color:var(--muted);margin-bottom:10px}
-.quick-actions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.quick-actions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
 .quick-action{
   display:flex;align-items:flex-start;gap:12px;text-align:left;border:1px solid var(--line);
   background:#fff;border-radius:12px;padding:14px 16px;cursor:pointer;font:inherit;transition:.15s}
@@ -70,6 +70,7 @@
 .txn-step.complete h4{color:var(--ink)}
 
 .txn-main{padding:28px 32px;max-width:760px}
+.txn-main.txn-main-wide{max-width:1120px}
 .txn-plan-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line)}
 .txn-plan-head h2{margin:0;font-size:18px;font-weight:800}
 .txn-plan-head .req-plan-stats{margin-left:0}
@@ -153,3 +154,102 @@
 .legal-copy p{margin:0}
 
 .table-scroll{overflow-x:auto}
+
+/* ---------- Transfer / Rebalance allocation ---------- */
+.alloc-sources{margin-bottom:20px}
+.alloc-sources > b{display:block;font-size:14px;font-weight:800;color:var(--ink)}
+.alloc-sources .hint{margin:2px 0 12px}
+.alloc-source-grid{display:flex;flex-wrap:wrap;gap:12px}
+.alloc-source{
+  display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;
+  padding:12px 16px;cursor:pointer;transition:.15s;min-width:170px;background:#fff}
+.alloc-source:hover{border-color:#c5c9e0}
+.alloc-source.on{border-color:var(--brand);background:var(--active-bg)}
+.alloc-source b{display:block;font-size:13.5px;font-weight:700;color:var(--ink)}
+.alloc-source small{display:block;font-size:13px;color:var(--ink-soft);margin-top:2px;font-variant-numeric:tabular-nums}
+
+.alloc-inv-head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.alloc-inv-head > div > b,.alloc-inv-head > b{display:block;font-size:14px;font-weight:800;color:var(--ink)}
+.alloc-inv-head .hint{margin:2px 0 0}
+.alloc-apply-all{
+  display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer}
+.alloc-apply-all input:disabled{cursor:not-allowed}
+.alloc-apply-all input:disabled + span{opacity:.5}
+
+.alloc-panel{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:16px;background:#fff}
+.alloc-panel-head{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.alloc-panel-head b{display:block;font-size:13.5px;font-weight:800;color:var(--ink)}
+.alloc-panel-head span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.alloc-add-btn{width:auto;flex:0 0 auto;min-height:34px;padding:6px 14px;font-size:12.5px}
+.alloc-nav-note{
+  display:flex;align-items:center;gap:6px;margin:0 0 12px;font-size:12px;font-weight:600;color:var(--amber)}
+
+.alloc-table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+.alloc-table th{
+  text-align:left;font-size:11px;font-weight:800;letter-spacing:.2px;text-transform:uppercase;color:var(--muted);
+  padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:bottom;white-space:nowrap}
+.alloc-table th.alloc-group{
+  text-align:left;font-size:12px;text-transform:none;letter-spacing:0;color:var(--ink);font-weight:800}
+.alloc-table td{padding:12px 10px;border-bottom:1px solid var(--line);color:var(--ink-soft);vertical-align:middle}
+.alloc-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.alloc-table .alloc-after{background:#f7f8fc}
+.alloc-name-col{min-width:200px}
+.alloc-name{display:block;font-size:13px;font-weight:700;color:var(--ink);line-height:1.35}
+.alloc-nav{
+  display:inline-block;margin-top:4px;background:#eef0f5;border-radius:5px;padding:2px 7px;
+  font-size:11.5px;color:var(--ink-soft)}
+.alloc-nav b{font-weight:700;color:var(--ink)}
+.alloc-table tr.alloc-total td{border-bottom:none;font-weight:800;color:var(--ink);background:#f7f8fc}
+.alloc-table tr.alloc-total .alloc-name-col{font-size:13px}
+.alloc-off{color:var(--red)}
+.alloc-pct-input{
+  display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
+.alloc-pct-input input{
+  width:52px;border:none;padding:6px 8px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);
+  text-align:right;background:#fff;min-height:0}
+.alloc-pct-input input:focus{outline:none}
+.alloc-pct-input i{
+  font-style:normal;padding:6px 8px;background:#eef0f5;font-size:12.5px;font-weight:700;color:var(--ink-soft);
+  border-left:1px solid var(--line)}
+.alloc-warn{margin:10px 0 0;font-size:12.5px;font-weight:600;color:var(--red)}
+
+/* ---------- Add investments panel ---------- */
+.add-inv-search{
+  display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;
+  padding:8px 12px;margin-bottom:14px;color:var(--muted);background:#fff}
+.add-inv-search input{border:none;flex:1;font:inherit;font-size:13.5px;color:var(--ink);background:transparent}
+.add-inv-search input:focus{outline:none}
+.add-inv-count{margin:0 0 12px;font-size:12.5px;font-weight:700;color:var(--ink-soft)}
+.add-inv-label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.add-inv-list{list-style:none;margin:0;padding:0}
+.add-inv-list li{border-bottom:1px solid var(--line)}
+.add-inv-list label{display:flex;align-items:flex-start;gap:10px;padding:12px 2px;cursor:pointer}
+.add-inv-list li.restricted label{cursor:not-allowed}
+.add-inv-list b{font-size:13.5px;font-weight:700;color:var(--ink)}
+.add-inv-list li.restricted b{color:var(--muted)}
+.add-inv-list small{
+  display:flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;color:var(--amber);margin-top:3px}
+.add-inv-empty{padding:16px 2px;font-size:13px;color:var(--muted);border-bottom:none}
+
+/* ---------- Buy/Sell details panel ---------- */
+.buysell-banner{
+  display:flex;align-items:flex-start;gap:8px;background:var(--amber-bg);border:1px solid #efd4a3;
+  border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:12.5px;font-weight:600;
+  color:var(--amber);line-height:1.5}
+.buysell-summary{
+  display:flex;flex-wrap:wrap;gap:24px;border:1px solid var(--line);border-radius:10px;
+  padding:14px 18px;margin-bottom:16px;background:#fff}
+.buysell-summary div{display:flex;flex-direction:column;gap:3px}
+.buysell-summary span{font-size:12px;font-weight:600;color:var(--ink-soft)}
+.buysell-summary b{font-size:14px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.buysell-summary .buy,.buysell-table .buy{color:var(--brand);font-weight:700}
+.buysell-summary .sell,.buysell-table .sell{color:var(--red);font-weight:700}
+.buysell-table tbody tr:nth-child(even){background:#f7f8fc}
+.buysell-empty{padding:20px 10px;text-align:center;color:var(--muted)}
+
+@media(max-width:860px){
+  .alloc-inv-head{flex-direction:column;gap:10px}
+}

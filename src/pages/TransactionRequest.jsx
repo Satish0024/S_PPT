@@ -1,12 +1,15 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, Check, Copy, Info, Printer } from 'lucide-react'
+import { AlertTriangle, ArrowLeft, Check, Copy, Info, Printer } from 'lucide-react'
 import Header from '../components/layout/Header.jsx'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import ConfirmDialog from '../components/common/ConfirmDialog.jsx'
 import EditAllocationSlideover from '../components/transactions/EditAllocationSlideover.jsx'
 import LegalCopySlideover from '../components/transactions/LegalCopySlideover.jsx'
 import AmortizationScheduleSlideover from '../components/transactions/AmortizationScheduleSlideover.jsx'
+import AddInvestmentSlideover from '../components/transactions/AddInvestmentSlideover.jsx'
+import BuySellDetailsSlideover from '../components/transactions/BuySellDetailsSlideover.jsx'
+import InvestmentAllocationTable from '../components/transactions/InvestmentAllocationTable.jsx'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import {
@@ -19,6 +22,7 @@ import {
   LOAN_REPAYMENT_METHODS,
   LOAN_TERMS_COPY,
   LOAN_TYPES,
+  NAV_DISCLAIMER,
   REQUEST_DOC_REQUIREMENTS,
   SPOUSAL_CONSENT_DOC,
   WITHDRAWAL_TYPES,
@@ -27,7 +31,9 @@ import {
   computeWithdrawalFees,
   estimatePeriodicPayment,
   generateTransactionId,
+  investmentsForSource,
   loanLimits,
+  sourcesFor,
   transactablePlans
 } from '../data/transactions.js'
 import '../styles/transactions.css'
@@ -55,8 +61,15 @@ const WIZARDS = {
   transfer: {
     title: 'New Transfer Request',
     steps: [
-      { id: 'details', title: 'Transfer Details' },
+      { id: 'details', title: 'Source Selection' },
       { id: 'summary', title: 'Transfer Request Summary' }
+    ]
+  },
+  rebalance: {
+    title: 'New Rebalance Request',
+    steps: [
+      { id: 'details', title: 'Source Selection' },
+      { id: 'summary', title: 'Rebalance Request Summary' }
     ]
   }
 }
@@ -97,7 +110,13 @@ function blankForm(type) {
       termsAccepted: false
     }
   }
-  return { fromPct: 100, toPct: 0 }
+  // transfer + rebalance
+  return {
+    selectedSources: [],
+    allocations: {},
+    applySameElection: false,
+    futureElections: false
+  }
 }
 
 export default function TransactionRequest() {
@@ -180,7 +199,9 @@ export default function TransactionRequest() {
             })}
           </aside>
 
-          <main className="txn-main">
+          {/* Transfer and rebalance render wide current-vs-target tables, so
+              they get more room than the form-style loan/withdrawal steps. */}
+          <main className={`txn-main${type === 'transfer' || type === 'rebalance' ? ' txn-main-wide' : ''}`}>
             {done ? (
               <SubmittedPanel type={type} transactionId={transactionId} navigate={navigate} />
             ) : (
@@ -230,8 +251,17 @@ export default function TransactionRequest() {
                     onEdit={goTo}
                   />
                 )}
-                {type === 'transfer' && (
-                  <TransferSteps step={step.id} plan={plan} form={form} set={set} onNext={next} onBack={back} onSubmit={submit} />
+                {(type === 'transfer' || type === 'rebalance') && (
+                  <AllocationSteps
+                    mode={type}
+                    step={step.id}
+                    plan={plan}
+                    form={form}
+                    set={set}
+                    onNext={next}
+                    onBack={back}
+                    onSubmit={submit}
+                  />
                 )}
               </>
             )}
@@ -243,7 +273,7 @@ export default function TransactionRequest() {
 }
 
 function SubmittedPanel({ type, transactionId, navigate }) {
-  const label = type === 'loan' ? 'loan' : type === 'withdrawal' ? 'withdrawal' : 'transfer'
+  const label = { loan: 'loan', withdrawal: 'withdrawal', transfer: 'transfer', rebalance: 'rebalance' }[type] || 'request'
   const headline = type === 'loan' ? 'Your loan request successfully sent!' : 'Your request successfully sent!'
   const [copied, setCopied] = useState(false)
 
@@ -1073,46 +1103,212 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
 
 /* ---------------- Transfer ---------------- */
 
-function TransferSteps({ step, plan, form, set, onNext, onBack, onSubmit }) {
+/* ---------------- Transfer / Rebalance ----------------
+   Both flows are the same two-step shape — pick sources, retarget the
+   investments inside them, review — so they share one implementation and
+   differ only in labels and the per-source side panel. */
+
+function AllocationSteps({ mode, step, plan, form, set, onNext, onBack, onSubmit }) {
+  const [addingTo, setAddingTo] = useState(null)
+  const [buySellFor, setBuySellFor] = useState(null)
+
+  const isRebalance = mode === 'rebalance'
+  const afterLabel = isRebalance ? 'After Rebalance' : 'After Transfer'
+  const sources = sourcesFor(plan)
+  const selectedSources = sources.filter((s) => form.selectedSources.includes(s.id))
+
+  const rowsFor = (source) => form.allocations[source.id] || []
+  const sumPct = (rows) => rows.reduce((sum, r) => sum + (+r.afterPct || 0), 0)
+  const ready =
+    selectedSources.length > 0 && selectedSources.every((s) => Math.round(sumPct(rowsFor(s))) === 100)
+
+  const toggleSource = (source) => {
+    set((f) => {
+      const on = f.selectedSources.includes(source.id)
+      const selected = on
+        ? f.selectedSources.filter((id) => id !== source.id)
+        : [...f.selectedSources, source.id]
+      // Seed a source's rows the first time it's checked, starting the target
+      // percentages at the current holding so the table opens balanced.
+      const allocations = { ...f.allocations }
+      if (!on && !allocations[source.id]) {
+        allocations[source.id] = investmentsForSource(plan, source).map((r) => ({ ...r, afterPct: r.pct }))
+      }
+      return { selectedSources: selected, allocations }
+    })
+  }
+
+  const setPct = (sourceId, rowId, value) => {
+    const pct = Math.max(0, Math.min(100, +value || 0))
+    set((f) => {
+      const allocations = { ...f.allocations }
+      // "Apply same election to all selected sources" mirrors every edit into
+      // each selected source that holds the same fund.
+      const targets = f.applySameElection ? f.selectedSources : [sourceId]
+      targets.forEach((id) => {
+        if (!allocations[id]) return
+        allocations[id] = allocations[id].map((r) => (r.id === rowId ? { ...r, afterPct: pct } : r))
+      })
+      return { allocations }
+    })
+  }
+
+  const addInvestments = (sourceId, picks) => {
+    set((f) => {
+      const allocations = { ...f.allocations }
+      const existing = allocations[sourceId] || []
+      allocations[sourceId] = [
+        ...existing,
+        ...picks.map((p) => ({ id: p.id, name: p.name, nav: p.nav, units: 0, amount: 0, pct: 0, afterPct: 0 }))
+      ]
+      return { allocations }
+    })
+    setAddingTo(null)
+  }
+
+  const sourcePanels = selectedSources.map((source) => {
+    const rows = rowsFor(source)
+    return (
+      <div key={source.id} className="alloc-panel">
+        <div className="alloc-panel-head">
+          <div>
+            <b>{source.name} investments</b>
+            <span>{String(rows.length).padStart(2, '0')} Investment(s)</span>
+          </div>
+          {isRebalance ? (
+            <button type="button" className="txn-summary-edit" onClick={() => setBuySellFor(source)}>
+              View Buy/sell details
+            </button>
+          ) : (
+            step === 'details' && (
+              <button type="button" className="btn btn-secondary alloc-add-btn" onClick={() => setAddingTo(source)}>
+                Add investment
+              </button>
+            )
+          )}
+        </div>
+
+        {isRebalance && (
+          <p className="alloc-nav-note">
+            <AlertTriangle size={13} strokeWidth={2.4} /> {NAV_DISCLAIMER}
+          </p>
+        )}
+
+        <InvestmentAllocationTable
+          rows={rows}
+          sourceTotal={source.amount}
+          afterLabel={afterLabel}
+          editable={step === 'details'}
+          onChangePct={(rowId, value) => setPct(source.id, rowId, value)}
+        />
+      </div>
+    )
+  })
+
   if (step === 'details') {
     return (
       <div className="txn-card">
-        <h3>Transfer Details</h3>
-        <p className="hint">Move a share of your balance from one allocation to another. Investments should total 100%.</p>
-        <div className="txn-row">
-          <div className="txn-field">
-            <label>Current allocation</label>
-            <input type="text" disabled value={`${form.fromPct}%`} />
-          </div>
-          <div className="txn-field">
-            <label>Transfer percentage</label>
-            <input
-              type="number"
-              min={0}
-              max={100}
-              value={form.toPct}
-              onChange={(e) => {
-                const v = Math.max(0, Math.min(100, +e.target.value || 0))
-                set({ toPct: v, fromPct: 100 - v })
-              }}
-            />
+        <h3>Source Selection</h3>
+
+        <div className="alloc-sources">
+          <b>Sources</b>
+          <p className="hint">Select sources need to be {isRebalance ? 'rebalanced' : 'transferred'}</p>
+          <div className="alloc-source-grid">
+            {sources.map((s) => {
+              const on = form.selectedSources.includes(s.id)
+              return (
+                <label key={s.id} className={`alloc-source${on ? ' on' : ''}`}>
+                  <input type="checkbox" checked={on} onChange={() => toggleSource(s)} />
+                  <span>
+                    <b>{s.name}</b>
+                    <small>{formatMoney(s.amount)}</small>
+                  </span>
+                </label>
+              )
+            })}
           </div>
         </div>
+
+        <div className="alloc-inv-head">
+          <div>
+            <b>Investments</b>
+            <p className="hint">Following investments will be {isRebalance ? 'rebalanced' : 'transferred'}</p>
+          </div>
+          {!isRebalance && (
+            <label className="alloc-apply-all">
+              <input
+                type="checkbox"
+                checked={form.applySameElection}
+                disabled={form.selectedSources.length < 2}
+                onChange={(e) => set({ applySameElection: e.target.checked })}
+              />
+              <span>Apply same election to all selected sources</span>
+            </label>
+          )}
+        </div>
+
+        {sourcePanels.length ? (
+          sourcePanels
+        ) : (
+          <div className="wd-note">Select at least one source to choose how it should be allocated.</div>
+        )}
+
         <div className="txn-actions">
           <span />
-          <button type="button" className="btn btn-primary" disabled={!form.toPct} onClick={onNext}>
+          <button type="button" className="btn btn-primary" disabled={!ready} onClick={onNext}>
             Continue
           </button>
         </div>
+
+        {addingTo && (
+          <AddInvestmentSlideover
+            existingIds={rowsFor(addingTo).map((r) => r.id)}
+            onClose={() => setAddingTo(null)}
+            onSave={(picks) => addInvestments(addingTo.id, picks)}
+          />
+        )}
+        {buySellFor && (
+          <BuySellDetailsSlideover
+            sourceName={buySellFor.name}
+            rows={rowsFor(buySellFor)}
+            sourceTotal={buySellFor.amount}
+            onClose={() => setBuySellFor(null)}
+          />
+        )}
       </div>
     )
   }
 
   return (
-    <SummaryStep title="Transfer Request Summary" onBack={onBack} onSubmit={onSubmit}>
-      <SummaryRow label="Plan" value={plan.name} />
-      <SummaryRow label="Transferring" value={`${form.toPct}%`} />
-      <SummaryRow label="Remaining in current allocation" value={`${form.fromPct}%`} />
+    <SummaryStep
+      title={isRebalance ? 'Rebalance Request Summary' : 'Transfer Request Summary'}
+      onBack={onBack}
+      onSubmit={onSubmit}
+    >
+      <div className="alloc-inv-head">
+        <b>Sources &amp; Investments</b>
+        {!isRebalance && (
+          <label className="alloc-apply-all">
+            <input
+              type="checkbox"
+              checked={form.futureElections}
+              onChange={(e) => set({ futureElections: e.target.checked })}
+            />
+            <span>Update same investment elections for future contributions</span>
+          </label>
+        )}
+      </div>
+
+      {sourcePanels}
+
+      {buySellFor && (
+        <BuySellDetailsSlideover
+          sourceName={buySellFor.name}
+          rows={rowsFor(buySellFor)}
+          sourceTotal={buySellFor.amount}
+          onClose={() => setBuySellFor(null)}
+        />
+      )}
     </SummaryStep>
   )
 }

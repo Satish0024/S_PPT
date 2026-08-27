@@ -18,6 +18,12 @@ export const TRANSACTION_TYPES = [
     label: 'Transfer',
     hint: 'Manage money across your investments.',
     to: (planId) => `/transactions/request/transfer?plan=${planId}`
+  },
+  {
+    id: 'rebalance',
+    label: 'Rebalance',
+    hint: 'Reset your investments back to target percentages.',
+    to: (planId) => `/transactions/request/rebalance?plan=${planId}`
   }
 ]
 
@@ -36,6 +42,9 @@ export function transactablePlans(participant) {
 export function canRequest(plan, typeId) {
   if (!isTransactablePlan(plan)) return false
   if (typeId === 'loan' || typeId === 'withdrawal') return planVested(plan) > 0
+  // Transfer and rebalance both reallocate existing holdings, so they need a
+  // real investment lineup to act on rather than just a balance.
+  if (typeId === 'transfer' || typeId === 'rebalance') return (plan.investments || []).length > 0
   return true
 }
 
@@ -288,5 +297,82 @@ export function requestsFor(participant) {
 export function generateTransactionId() {
   return String(Math.floor(10000 + Math.random() * 90000))
 }
+
+// ---------------- Transfer / Rebalance ----------------
+
+// Selectable money sources for a plan (Pre-Tax, Roth, Match, …), shaped for
+// the Source Selection step's checkbox cards.
+export function sourcesFor(plan) {
+  return (plan.sources || []).map((s) => ({
+    id: s.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+    name: s.name,
+    amount: s.amount || 0
+  }))
+}
+
+// The plan's investment lineup scaled into a single source. Real balances are
+// tracked per source; this mock splits the plan-level holdings proportionally
+// so each source shows a plausible, internally consistent set of rows.
+export function investmentsForSource(plan, source) {
+  const investments = plan.investments || []
+  const planTotal = investments.reduce((sum, i) => sum + (i.amount || 0), 0)
+  if (!planTotal) return []
+  const share = (source.amount || 0) / planTotal
+  return investments.map((i) => {
+    const amount = round2((i.amount || 0) * share)
+    return {
+      id: i.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      name: i.name,
+      nav: i.price || 0,
+      units: i.price ? round2(amount / i.price) : 0,
+      amount,
+      pct: round2(((i.amount || 0) / planTotal) * 100)
+    }
+  })
+}
+
+// Lineup a participant can add to a transfer that they don't already hold.
+// `restricted` funds are listed but not selectable.
+export const AVAILABLE_INVESTMENTS = [
+  { id: 'pioneer-core-equity-a', name: 'Pioneer Core Equity A', nav: 104 },
+  { id: 'pioneer-core-equity-b', name: 'Pioneer Core Equity B', nav: 98.4 },
+  { id: 'pioneer-core', name: 'Pioneer Core', nav: 76.2, restricted: true },
+  { id: 'zetex-equity', name: 'Zetex Equity', nav: 51.9 }
+]
+
+// Target percentages are whole-ish numbers, so a row the participant never
+// touched can still differ from its current value by a few cents. Anything
+// under this threshold is rounding noise, not a trade worth placing.
+const DE_MINIMIS_TRADE = 1
+
+// Turns current-vs-target rows into the Buy/Sell ledger shown for a rebalance:
+// anything gaining value is a Buy, anything losing value is a Sell.
+export function computeBuySell(rows) {
+  const trades = rows
+    .map((r) => {
+      const delta = round2((r.afterAmount || 0) - (r.amount || 0))
+      if (Math.abs(delta) < DE_MINIMIS_TRADE) return null
+      return {
+        id: r.id,
+        name: r.name,
+        action: delta > 0 ? 'Buy' : 'Sell',
+        amount: Math.abs(delta),
+        nav: r.nav,
+        units: r.nav ? round2(Math.abs(delta) / r.nav) : 0
+      }
+    })
+    .filter(Boolean)
+
+  return {
+    trades,
+    buyCount: trades.filter((t) => t.action === 'Buy').length,
+    sellCount: trades.filter((t) => t.action === 'Sell').length,
+    totalAmount: round2(trades.reduce((sum, t) => sum + t.amount, 0))
+  }
+}
+
+// NAV-as-of disclaimer shown above rebalance allocation tables.
+export const NAV_DISCLAIMER =
+  'All amounts are calculated based on NAV as of MM/DD/YYYY and may fluctuate due to market conditions.'
 
 export { formatMoney, parseMoney, planBalance, planVested }

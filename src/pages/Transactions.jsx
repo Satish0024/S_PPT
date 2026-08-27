@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Landmark, Shuffle, TrendingDown } from 'lucide-react'
+import { Landmark, Scale, Shuffle, TrendingDown } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import { TRANSACTION_TYPES, canRequest, requestStatusTone, requestsFor, transactablePlans } from '../data/transactions.js'
@@ -15,7 +15,7 @@ const FILTERS = [
   { id: 'other', label: 'Other' }
 ]
 
-const TYPE_ICON = { loan: Landmark, withdrawal: TrendingDown, transfer: Shuffle }
+const TYPE_ICON = { loan: Landmark, withdrawal: TrendingDown, transfer: Shuffle, rebalance: Scale }
 
 function QuickActions({ plan }) {
   const navigate = useNavigate()
