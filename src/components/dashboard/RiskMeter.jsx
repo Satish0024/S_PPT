@@ -1,15 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Rocket, Scale, ShieldCheck, Sparkles } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
-import { RISK_LEVELS, getRiskLevel, getRiskProfileId, setRiskProfileId } from '../../lib/riskProfile'
+import { RISK_PROFILE_UPDATED_EVENT, getRiskLevel, getRiskProfileId } from '../../lib/riskProfile'
+import RiskQuestionnaireModal from '../questionnaire/RiskQuestionnaireModal.jsx'
 
 const LEVEL_ICON = { conservative: ShieldCheck, moderate: Scale, aggressive: Rocket }
 
 export default function RiskMeter() {
   const { participant } = useParticipant()
   const [levelId, setLevelId] = useState(() => getRiskProfileId(participant))
-  const [editing, setEditing] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  // Stay in sync even when the questionnaire is completed elsewhere (e.g.
+  // the sidebar's "Risk check-in" CTA, a separate modal instance).
+  useEffect(() => {
+    const onUpdate = (e) => {
+      if (e.detail?.participantId === participant.id) setLevelId(e.detail.levelId)
+    }
+    window.addEventListener(RISK_PROFILE_UPDATED_EVENT, onUpdate)
+    return () => window.removeEventListener(RISK_PROFILE_UPDATED_EVENT, onUpdate)
+  }, [participant.id])
 
   if (isNotEligibleUser(participant)) return null
 
@@ -19,12 +30,6 @@ export default function RiskMeter() {
   // the marker sits on the arc: 0 = far left (conservative), 100 = far
   // right (aggressive).
   const angle = (level.score / 100) * 180 - 90
-
-  const choose = (id) => {
-    setLevelId(id)
-    setRiskProfileId(participant.id, id)
-    setEditing(false)
-  }
 
   return (
     <section className="risk-card" aria-label="Investment risk profile">
@@ -63,32 +68,25 @@ export default function RiskMeter() {
         </div>
 
         <div className="risk-side">
-          {!editing ? (
-            <>
-              <p>{level.copy}</p>
-              <p className="risk-hint">Want to change it? You can go back and update your answers.</p>
-              <button type="button" className="risk-edit-btn" onClick={() => setEditing(true)}>
-                <Sparkles size={15} strokeWidth={2.2} />
-                Edit Preferences
-              </button>
-            </>
-          ) : (
-            <div className="risk-picker">
-              <span className="risk-picker-label">Choose a risk level</span>
-              {RISK_LEVELS.map((l) => (
-                <button
-                  key={l.id}
-                  type="button"
-                  className={`risk-picker-opt${l.id === level.id ? ' on' : ''}`}
-                  onClick={() => choose(l.id)}
-                >
-                  {l.label}
-                </button>
-              ))}
-            </div>
-          )}
+          <p>{level.copy}</p>
+          <p className="risk-hint">Want to change it? Retake the risk check-in questionnaire.</p>
+          <button type="button" className="risk-edit-btn" onClick={() => setOpen(true)}>
+            <Sparkles size={15} strokeWidth={2.2} />
+            Edit Preferences
+          </button>
         </div>
       </div>
+
+      {open && (
+        <RiskQuestionnaireModal
+          participant={participant}
+          onClose={() => setOpen(false)}
+          onComplete={(newLevelId) => {
+            setLevelId(newLevelId)
+            setOpen(false)
+          }}
+        />
+      )}
     </section>
   )
 }
