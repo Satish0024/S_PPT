@@ -6,7 +6,7 @@ export default function OverallBalance({ total, vested, loan, showSummary = true
       <div className={`ob-top${showSummary ? '' : ' ob-top-single'}`}>
         <div className="ob-metrics">
           <div className="ob-block">
-            <div className="ob-k">Account balance*</div>
+            <div className="ob-k">Account balance</div>
             <div className="ob-v">{total}</div>
           </div>
           <div className="ob-block vested">
@@ -31,10 +31,6 @@ export default function OverallBalance({ total, vested, loan, showSummary = true
           </p>
         </div>
       ) : null}
-      <p className="ob-footnote">
-        *Account balance includes any cash balance held in your account. Cash balance amounts are notional — shown
-        for reference only and do not represent a segregated or invested asset.
-      </p>
     </section>
   )
 }

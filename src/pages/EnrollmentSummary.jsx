@@ -168,7 +168,7 @@ export default function EnrollmentSummary() {
                   <path className="success-check" d="M15.5 27.2l7.2 7.2 14.6-16" />
                 </svg>
               </div>
-              <h3 id="success-title">{notEligible ? 'Your Elections Are Saved' : "You're Enrolled"}</h3>
+              <h3 id="success-title">{notEligible ? 'Your elections are saved' : "You're enrolled"}</h3>
               <p className="success-lead">
                 {notEligible
                   ? "The enrollment preferences have been saved and will take effect once you're eligible for the plan. Take a moment to designate a beneficiary and help ensure your savings go to the right person."
@@ -177,7 +177,7 @@ export default function EnrollmentSummary() {
 
               <div className="success-next">
                 <div>
-                  <b>Add A Beneficiary</b>
+                  <b>Add a beneficiary</b>
                   <span>Recommended so your account can pass to someone you choose.</span>
                 </div>
                 <button
@@ -185,13 +185,13 @@ export default function EnrollmentSummary() {
                   className="btn btn-primary"
                   onClick={() => navigate('/profile?section=beneficiary&add=1')}
                 >
-                  Add Beneficiary
+                  Add beneficiary
                 </button>
               </div>
 
               <div className="success-actions">
                 <button type="button" className="btn btn-ghost" onClick={goHome}>
-                  I&apos;ll Do This Later
+                  I&apos;ll do this later
                 </button>
               </div>
             </div>
