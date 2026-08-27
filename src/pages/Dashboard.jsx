@@ -5,8 +5,9 @@ import OverallBalance from '../components/dashboard/OverallBalance.jsx'
 import PlanCard from '../components/dashboard/PlanCard.jsx'
 import QuickLinks from '../components/dashboard/QuickLinks.jsx'
 import Transactions from '../components/dashboard/Transactions.jsx'
-import RetirementGoalSimulator from '../components/dashboard/RetirementGoalSimulator.jsx'
+import RetirementGoalSimulatorV2 from '../components/dashboard/RetirementGoalSimulatorV2.jsx'
 import LearningPortal from '../components/dashboard/LearningPortal.jsx'
+import RiskMeter from '../components/dashboard/RiskMeter.jsx'
 
 export default function Dashboard() {
   const { participant } = useParticipant()
@@ -33,8 +34,9 @@ export default function Dashboard() {
           <Transactions rows={participant.transactions.slice(0, 5)} />
         </div>
         <aside className="dash-side">
-          {showReadiness && <RetirementGoalSimulator />}
+          {showReadiness && <RetirementGoalSimulatorV2 />}
           <LearningPortal />
+          <RiskMeter />
         </aside>
       </div>
     </div>
