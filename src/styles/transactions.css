@@ -45,6 +45,11 @@
 .req-status.ok{background:var(--amber-bg);color:var(--amber)}
 .req-status.warn{background:var(--red-bg);color:var(--red)}
 
+.tx-calc-link{
+  font:inherit;font-size:12.5px;font-weight:700;color:var(--brand);background:none;border:none;
+  padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+.tx-calc-link:hover{color:var(--brand-dark)}
+
 .tx-toolbar-actions{display:flex;align-items:center;gap:16px}
 
 /* Transaction request wizard */
@@ -71,6 +76,8 @@
 
 .txn-card{border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px;background:#fff}
 .txn-card h3{margin:0 0 4px;font-size:15px;font-weight:800}
+.txn-summary-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.txn-summary-head h3{margin:0}
 .txn-card .hint{margin:0 0 16px;font-size:13px;color:var(--ink-soft)}
 .txn-row{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
 .txn-row + .txn-row{margin-top:14px}

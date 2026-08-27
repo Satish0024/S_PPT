@@ -1,14 +1,23 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, Check, Info } from 'lucide-react'
+import { ArrowLeft, Check, Info, Printer } from 'lucide-react'
 import Header from '../components/layout/Header.jsx'
 import Sidebar from '../components/layout/Sidebar.jsx'
+import ConfirmDialog from '../components/common/ConfirmDialog.jsx'
+import EditAllocationSlideover from '../components/transactions/EditAllocationSlideover.jsx'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import {
   DISTRIBUTION_MODES,
+  LOAN_INTEREST_RATE,
+  LOAN_REPAYMENT_FREQUENCIES,
+  LOAN_REPAYMENT_METHODS,
   LOAN_TYPES,
   REQUEST_DOC_REQUIREMENTS,
+  WITHDRAWAL_TYPES,
+  activeLoanFor,
+  computeGrossLoanAmount,
+  computeWithdrawalFees,
   estimatePeriodicPayment,
   loanLimits,
   transactablePlans
@@ -28,7 +37,9 @@ const WIZARDS = {
   withdrawal: {
     title: 'New Withdrawal Request',
     steps: [
-      { id: 'details', title: 'Distribution Details' },
+      { id: 'details', title: 'Withdrawal Details' },
+      { id: 'allocation', title: 'Withdrawal Allocation' },
+      { id: 'fee', title: 'Fee Details' },
       { id: 'documents', title: 'Upload Documents' },
       { id: 'summary', title: 'Withdrawal Request Summary' }
     ]
@@ -44,10 +55,31 @@ const WIZARDS = {
 
 function blankForm(type) {
   if (type === 'loan') {
-    return { loanType: '', amount: '', years: 1, months: 0, docUploaded: false }
+    return {
+      loanType: '',
+      amount: '',
+      entireAmount: '',
+      repaymentMethod: 'payroll',
+      repaymentFrequency: 'monthly',
+      years: 1,
+      months: 0,
+      docUploaded: false
+    }
   }
   if (type === 'withdrawal') {
-    return { mode: '', amount: '', address: '', addressChanged: false, city: '', country: '', docUploaded: false }
+    return {
+      withdrawalType: '',
+      withdrawAs: 'onetime',
+      entireBalance: '',
+      mode: '',
+      amount: '',
+      address: '',
+      addressChanged: false,
+      city: '',
+      country: '',
+      docUploaded: false,
+      termsAccepted: false
+    }
   }
   return { fromPct: 100, toPct: 0 }
 }
@@ -207,7 +239,10 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
   const amount = +form.amount || 0
   const payment = estimatePeriodicPayment(amount, +form.years, +form.months)
   const loanType = LOAN_TYPES.find((l) => l.id === form.loanType)
+  const repaymentMethod = LOAN_REPAYMENT_METHODS.find((m) => m.id === form.repaymentMethod)
+  const repaymentFrequency = LOAN_REPAYMENT_FREQUENCIES.find((f) => f.id === form.repaymentFrequency)
   const maxTermYears = loanType?.maxYears ?? 5
+  const gross = computeGrossLoanAmount(amount)
 
   if (step === 'details') {
     return (
@@ -235,6 +270,36 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
             {loanType && <span className="note">{loanType.hint}</span>}
           </div>
           <div className="txn-field">
+            <label>Interest rate</label>
+            <input type="text" disabled value={`${LOAN_INTEREST_RATE}%`} />
+          </div>
+        </div>
+
+        <div className="txn-row" style={{ marginTop: 14 }}>
+          <div className="txn-field">
+            <label>
+              Take entire loan amount<i>*</i>
+            </label>
+            <div className="txn-tenure-row">
+              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+                <input
+                  type="radio"
+                  checked={form.entireAmount === 'yes'}
+                  onChange={() => set({ entireAmount: 'yes', amount: String(limits.max) })}
+                />
+                Yes
+              </label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+                <input
+                  type="radio"
+                  checked={form.entireAmount === 'no'}
+                  onChange={() => set({ entireAmount: 'no' })}
+                />
+                No
+              </label>
+            </div>
+          </div>
+          <div className="txn-field">
             <label>
               Loan amount<i>*</i>
             </label>
@@ -242,6 +307,7 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
               type="number"
               placeholder="Enter amount"
               value={form.amount}
+              disabled={form.entireAmount === 'yes'}
               onChange={(e) => set({ amount: e.target.value })}
             />
             <span className={`note${amount > limits.max ? ' warn' : ''}`}>
@@ -249,12 +315,13 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
             </span>
           </div>
         </div>
+
         <div className="txn-actions">
           <span />
           <button
             type="button"
             className="btn btn-primary"
-            disabled={!form.loanType || !amount || amount < limits.min || amount > limits.max}
+            disabled={!form.loanType || !form.entireAmount || !amount || amount < limits.min || amount > limits.max}
             onClick={onNext}
           >
             Continue
@@ -268,13 +335,41 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
     return (
       <div className="txn-card">
         <h3>Payment &amp; Fee Details</h3>
-        <p className="hint">Loan repayment method</p>
-        <div className="txn-choice on locked">
-          <input type="radio" checked readOnly />
-          <span>
-            <b>Payroll deduction</b>
-            <small>Repayments are deducted automatically from your paycheck.</small>
-          </span>
+        <p className="hint">
+          Loan calculator — enter any two of loan amount, periodic payment, and tenure; the third auto-computes.
+        </p>
+
+        <div className="txn-row">
+          <div className="txn-field">
+            <label>
+              Loan repayment method<i>*</i>
+            </label>
+            <div className="txn-tenure-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}>
+              {LOAN_REPAYMENT_METHODS.map((m) => (
+                <label key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+                  <input
+                    type="radio"
+                    checked={form.repaymentMethod === m.id}
+                    onChange={() => set({ repaymentMethod: m.id })}
+                  />
+                  {m.label}
+                </label>
+              ))}
+            </div>
+            {repaymentMethod && <span className="note">{repaymentMethod.hint}</span>}
+          </div>
+          <div className="txn-field">
+            <label>
+              Loan repayment frequency<i>*</i>
+            </label>
+            <select value={form.repaymentFrequency} onChange={(e) => set({ repaymentFrequency: e.target.value })}>
+              {LOAN_REPAYMENT_FREQUENCIES.map((f) => (
+                <option key={f.id} value={f.id}>
+                  {f.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className="txn-row" style={{ marginTop: 18, alignItems: 'flex-end' }}>
@@ -308,6 +403,21 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
           </div>
         </div>
 
+        <div className="wd-fee-card" style={{ marginTop: 18, marginBottom: 0 }}>
+          <div className="wd-fee-row">
+            <span>Requested amount</span>
+            <b>{formatMoney(gross.requested)}</b>
+          </div>
+          <div className="wd-fee-row">
+            <span>Loan origination fee</span>
+            <b>{formatMoney(gross.fee)}</b>
+          </div>
+          <div className="wd-fee-row total">
+            <span>Gross Loan amount</span>
+            <b>{formatMoney(gross.grossAmount)}</b>
+          </div>
+        </div>
+
         <div className="txn-actions">
           <button type="button" className="btn btn-ghost" onClick={onBack}>
             Back
@@ -327,10 +437,14 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
   return (
     <SummaryStep title="Loan Request Summary" onBack={onBack} onSubmit={onSubmit}>
       <SummaryRow label="Loan type" value={loanType?.label || '—'} onEdit={() => onEdit(0)} />
+      <SummaryRow label="Take entire loan amount" value={form.entireAmount === 'yes' ? 'Yes' : 'No'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Loan amount" value={formatMoney(amount)} onEdit={() => onEdit(0)} />
-      <SummaryRow label="Repayment method" value="Payroll deduction" />
+      <SummaryRow label="Interest rate" value={`${LOAN_INTEREST_RATE}%`} />
+      <SummaryRow label="Repayment method" value={repaymentMethod?.label || '—'} onEdit={() => onEdit(1)} />
+      <SummaryRow label="Repayment frequency" value={repaymentFrequency?.label || '—'} onEdit={() => onEdit(1)} />
       <SummaryRow label="Loan term" value={`${form.years || 0} yr ${form.months || 0} mo`} onEdit={() => onEdit(1)} />
       <SummaryRow label="Periodic payment" value={payment ? formatMoney(payment) : '—'} />
+      <SummaryRow label="Gross Loan Amount" value={formatMoney(gross.grossAmount)} />
       <SummaryRow label="Promissory note" value={form.docUploaded ? 'Uploaded' : 'Not uploaded'} onEdit={() => onEdit(2)} />
     </SummaryStep>
   )
@@ -339,96 +453,241 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
 /* ---------------- Withdrawal / Distribution ---------------- */
 
 function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, onSubmit, onEdit }) {
+  const [showLoanDialog, setShowLoanDialog] = useState(false)
+  const [editingAllocation, setEditingAllocation] = useState(false)
+  const withdrawalType = WITHDRAWAL_TYPES.find((t) => t.id === form.withdrawalType)
   const mode = DISTRIBUTION_MODES.find((m) => m.id === form.mode)
   const legalName = participant.name
   const originalAddress = `${participant.profile?.address || ''}, ${participant.profile?.city || ''}`.trim()
+  const fees = computeWithdrawalFees(form.amount, form.withdrawalType)
+  const loan = activeLoanFor(participant, plan)
+
+  const chooseEntireBalance = (value) => {
+    if (value === 'yes' && loan) {
+      setShowLoanDialog(true)
+      return
+    }
+    set({ entireBalance: value })
+  }
 
   if (step === 'details') {
-    const orderedModes = [
-      DISTRIBUTION_MODES.find((m) => m.id === 'direct'),
-      DISTRIBUTION_MODES.find((m) => m.id === 'rollover'),
-      DISTRIBUTION_MODES.find((m) => m.id === 'ira')
-    ]
     return (
       <div className="txn-card">
-        <h3>Distribution Details</h3>
-        <p className="hint">Select distribution mode</p>
-        <div className="txn-choice-list">
-          {orderedModes.map((m) => (
-            <label key={m.id} className={`txn-choice${form.mode === m.id ? ' on' : ''}`}>
-              <input type="radio" checked={form.mode === m.id} onChange={() => set({ mode: m.id })} />
-              <span>
-                <b>{m.label}</b>
-                <small>{m.hint}</small>
-              </span>
-            </label>
-          ))}
-        </div>
-
-        <div className="txn-row" style={{ marginTop: 16 }}>
+        <h3>Withdrawal Details</h3>
+        <div className="txn-row">
           <div className="txn-field">
             <label>
-              Amount<i>*</i>
+              Select withdrawal type<i>*</i>
             </label>
-            <input
-              type="number"
-              placeholder="Enter amount"
-              value={form.amount}
-              onChange={(e) => set({ amount: e.target.value })}
-            />
+            <select value={form.withdrawalType} onChange={(e) => set({ withdrawalType: e.target.value })}>
+              <option value="">Select</option>
+              {WITHDRAWAL_TYPES.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.label}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
-        {form.mode === 'direct' && (
-          <>
-            <div className="txn-row" style={{ marginTop: 8 }}>
-              <div className="txn-field">
-                <label>Mail check payable to</label>
-                <input type="text" disabled value={legalName} />
-                <span className="note">Checks can only be made payable to the name on your account.</span>
-              </div>
-            </div>
-            <div className="txn-row">
-              <div className="txn-field">
-                <label>
-                  Address<i>*</i>
-                </label>
+        <div className="txn-row" style={{ marginTop: 14 }}>
+          <div className="txn-field">
+            <label>
+              Withdraw<i>*</i>
+            </label>
+            <div className="txn-tenure-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
                 <input
-                  type="text"
-                  value={form.address}
-                  placeholder={originalAddress}
-                  onChange={(e) => set({ address: e.target.value, addressChanged: e.target.value.trim().length > 0 })}
+                  type="radio"
+                  checked={form.withdrawAs === 'onetime'}
+                  onChange={() => set({ withdrawAs: 'onetime' })}
                 />
-              </div>
-              <div className="txn-field">
-                <label>
-                  City<i>*</i>
-                </label>
-                <input type="text" value={form.city} onChange={(e) => set({ city: e.target.value })} />
-              </div>
-              <div className="txn-field">
-                <label>
-                  Country<i>*</i>
-                </label>
-                <input type="text" value={form.country} onChange={(e) => set({ country: e.target.value })} />
-              </div>
+                As one time payment
+              </label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+                <input
+                  type="radio"
+                  checked={form.withdrawAs === 'periodic'}
+                  onChange={() => set({ withdrawAs: 'periodic' })}
+                />
+                As periodic payment
+              </label>
             </div>
-            {form.addressChanged && (
-              <div className="address-banner">
-                <Info size={16} strokeWidth={2.2} />
-                <div>
-                  <b>Custom address on this request</b>
-                  This request will be flagged for admin review, noting the address was changed within the last 3
-                  days.
-                </div>
-              </div>
-            )}
-          </>
+          </div>
+          <div className="txn-field">
+            <label>
+              Withdraw entire balance<i>*</i>
+            </label>
+            <div className="txn-tenure-row">
+              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+                <input type="radio" checked={form.entireBalance === 'yes'} onChange={() => chooseEntireBalance('yes')} />
+                Yes
+              </label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+                <input type="radio" checked={form.entireBalance === 'no'} onChange={() => chooseEntireBalance('no')} />
+                No
+              </label>
+            </div>
+          </div>
+        </div>
+
+        {form.entireBalance === 'yes' && loan && (
+          <div className="wd-note">
+            <Info size={15} strokeWidth={2.2} />
+            <span>Active loan amount is detected and will be converted to a default loan.</span>
+          </div>
         )}
 
         <div className="txn-actions">
           <span />
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={!form.withdrawalType || !form.withdrawAs || !form.entireBalance}
+            onClick={onNext}
+          >
+            Continue
+          </button>
+        </div>
+
+        {showLoanDialog && (
+          <ConfirmDialog
+            title="Outstanding loan detected!"
+            body={`For the plan ${plan.name}, an outstanding loan is detected. The system will apply the default loan treatment and distribute the remaining balance to you.`}
+            confirmLabel="Okay"
+            onConfirm={() => {
+              set({ entireBalance: 'yes' })
+              setShowLoanDialog(false)
+            }}
+            onCancel={() => setShowLoanDialog(false)}
+          />
+        )}
+      </div>
+    )
+  }
+
+  if (step === 'allocation') {
+    return (
+      <div className="txn-card">
+        <h3>Withdrawal Allocation</h3>
+        <p className="hint">Review how this withdrawal is allocated, then edit the recipient details if needed.</p>
+
+        <div className="table-wrap">
+          <table className="wd-alloc-table">
+            <thead>
+              <tr>
+                <th>Recipient</th>
+                <th className="num">Tax</th>
+                <th className="num">Fee</th>
+                <th className="num">Penalty</th>
+                <th className="num">Amount</th>
+                <th aria-label="Actions" />
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Self</td>
+                <td className="num">{formatMoney(fees.federalTax)}</td>
+                <td className="num">{formatMoney(fees.withdrawalFee)}</td>
+                <td className="num">{formatMoney(fees.penalty)}</td>
+                <td className="num">{formatMoney(fees.requested)}</td>
+                <td className="num">
+                  <button type="button" className="wd-alloc-edit" onClick={() => setEditingAllocation(true)}>
+                    View details
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="txn-actions">
+          <button type="button" className="btn btn-ghost" onClick={onBack}>
+            Back
+          </button>
           <button type="button" className="btn btn-primary" disabled={!form.mode || !form.amount} onClick={onNext}>
+            Continue
+          </button>
+        </div>
+
+        {editingAllocation && (
+          <EditAllocationSlideover
+            allocation={{
+              mode: form.mode,
+              amount: form.amount,
+              paymentMethod: form.paymentMethod || 'check',
+              addressOption: form.addressOption || 'onfile',
+              customAddress: form.address || '',
+              source: form.source || 'prorata'
+            }}
+            withdrawalTypeId={form.withdrawalType}
+            legalName={legalName}
+            originalAddress={originalAddress}
+            onClose={() => setEditingAllocation(false)}
+            onSave={(draft) => {
+              set({
+                mode: draft.mode,
+                amount: draft.amount,
+                paymentMethod: draft.paymentMethod,
+                addressOption: draft.addressOption,
+                address: draft.customAddress,
+                addressChanged: draft.addressOption === 'custom' && draft.customAddress.trim().length > 0,
+                source: draft.source
+              })
+              setEditingAllocation(false)
+            }}
+          />
+        )}
+      </div>
+    )
+  }
+
+  if (step === 'fee') {
+    return (
+      <div className="txn-card">
+        <h3>Fee Details</h3>
+        <p className="hint">This is what your plan will deduct to cover fees, tax withholding, and any penalty.</p>
+
+        <div className="wd-fee-card">
+          <div className="wd-fee-row">
+            <span>Requested Amount</span>
+            <b>{formatMoney(fees.requested)}</b>
+          </div>
+          <div className="wd-fee-row">
+            <span>Withdrawal fee</span>
+            <b>{formatMoney(fees.withdrawalFee)}</b>
+          </div>
+          <div className="wd-fee-row">
+            <span>Federal tax ({fees.federalTaxPct}%)</span>
+            <b>{formatMoney(fees.federalTax)}</b>
+          </div>
+          {fees.penaltyPct > 0 && (
+            <div className="wd-fee-row">
+              <span>Early withdrawal penalty ({fees.penaltyPct}%)</span>
+              <b>{formatMoney(fees.penalty)}</b>
+            </div>
+          )}
+          <div className="wd-fee-row total">
+            <span>Gross Withdrawal amount</span>
+            <b>{formatMoney(fees.grossAmount)}</b>
+          </div>
+        </div>
+
+        {form.addressChanged && (
+          <div className="address-banner">
+            <Info size={16} strokeWidth={2.2} />
+            <div>
+              <b>Custom address on this request</b>
+              This request will be flagged for admin review, noting the address was changed within the last 3 days.
+            </div>
+          </div>
+        )}
+
+        <div className="txn-actions">
+          <button type="button" className="btn btn-ghost" onClick={onBack}>
+            Back
+          </button>
+          <button type="button" className="btn btn-primary" onClick={onNext}>
             Continue
           </button>
         </div>
@@ -441,12 +700,68 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
   }
 
   return (
-    <SummaryStep title="Withdrawal Request Summary" onBack={onBack} onSubmit={onSubmit}>
-      <SummaryRow label="Distribution mode" value={mode?.label || '—'} onEdit={() => onEdit(0)} />
-      <SummaryRow label="Amount" value={formatMoney(+form.amount || 0)} onEdit={() => onEdit(0)} />
-      {form.mode === 'direct' && <SummaryRow label="Mail check payable to" value={legalName} />}
-      {form.mode === 'direct' && <SummaryRow label="Address" value={form.address || originalAddress} onEdit={() => onEdit(0)} />}
-      <SummaryRow label="Distribution form" value={form.docUploaded ? 'Uploaded' : 'Not uploaded'} onEdit={() => onEdit(1)} />
+    <SummaryStep
+      title="Withdrawal Request Summary"
+      onBack={onBack}
+      onSubmit={onSubmit}
+      submitDisabled={!form.termsAccepted}
+    >
+      <h4 style={{ margin: '0 0 8px', fontSize: 13.5, fontWeight: 800 }}>Withdrawal details</h4>
+      <SummaryRow label="Withdrawal type" value={withdrawalType?.label || '—'} onEdit={() => onEdit(0)} />
+      <SummaryRow label="Withdraw" value={form.withdrawAs === 'periodic' ? 'As periodic payment' : 'As one time payment'} onEdit={() => onEdit(0)} />
+      <SummaryRow label="Withdraw entire balance" value={form.entireBalance === 'yes' ? 'Yes' : 'No'} onEdit={() => onEdit(0)} />
+      <div className="wd-note">
+        <Info size={15} strokeWidth={2.2} />
+        <span>The processing time for your withdrawal is 10 days.</span>
+      </div>
+
+      <h4 style={{ margin: '20px 0 8px', fontSize: 13.5, fontWeight: 800 }}>Withdrawal allocation</h4>
+      <div className="table-wrap">
+        <table className="wd-alloc-table">
+          <thead>
+            <tr>
+              <th>Recipient</th>
+              <th className="num">Tax</th>
+              <th className="num">Fee</th>
+              <th className="num">Penalty</th>
+              <th className="num">Amount</th>
+              <th aria-label="Actions" />
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Self</td>
+              <td className="num">{formatMoney(fees.federalTax)}</td>
+              <td className="num">{formatMoney(fees.withdrawalFee)}</td>
+              <td className="num">{formatMoney(fees.penalty)}</td>
+              <td className="num">{formatMoney(fees.requested)}</td>
+              <td className="num">
+                <button type="button" className="wd-alloc-edit" onClick={() => onEdit(1)}>
+                  View details
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {mode?.id === 'direct' && <SummaryRow label="Mail check payable to" value={legalName} />}
+      {mode?.id === 'direct' && <SummaryRow label="Address" value={form.address || originalAddress} onEdit={() => onEdit(1)} />}
+      <SummaryRow label="Distribution form" value={form.docUploaded ? 'Uploaded' : 'Not uploaded'} onEdit={() => onEdit(3)} />
+
+      <label className="wd-terms">
+        <input
+          type="checkbox"
+          checked={form.termsAccepted}
+          onChange={(e) => set({ termsAccepted: e.target.checked })}
+        />
+        <span>
+          By checking this box, I declare that I have read{' '}
+          <a href="#terms" className="text-link" onClick={(e) => e.preventDefault()}>
+            the terms and conditions
+          </a>
+          .
+        </span>
+      </label>
     </SummaryStep>
   )
 }
@@ -547,16 +862,21 @@ function DocumentsStep({ type, form, set, onNext, onBack }) {
   )
 }
 
-function SummaryStep({ title, children, onBack, onSubmit }) {
+function SummaryStep({ title, children, onBack, onSubmit, submitDisabled }) {
   return (
     <div className="txn-card">
-      <h3>{title}</h3>
+      <div className="txn-summary-head">
+        <h3>{title}</h3>
+        <button type="button" className="icon-btn" title="Print" onClick={() => window.print()}>
+          <Printer size={17} strokeWidth={2} />
+        </button>
+      </div>
       <div>{children}</div>
       <div className="txn-actions">
         <button type="button" className="btn btn-ghost" onClick={onBack}>
           Back
         </button>
-        <button type="button" className="btn btn-primary" onClick={onSubmit}>
+        <button type="button" className="btn btn-primary" disabled={submitDisabled} onClick={onSubmit}>
           Submit Request
         </button>
       </div>
