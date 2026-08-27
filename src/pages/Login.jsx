@@ -52,7 +52,7 @@ export default function Login() {
       <aside className="login-brand" aria-hidden="true">
         <div className="login-waves" />
         <div className="login-brand-copy">
-          <img src={BRAND.logo} alt="" />
+          <img src={BRAND.logoOnDark || BRAND.logo} alt="" />
           <h1>{BRAND.tagline}</h1>
           <p>{BRAND.taglineBody}</p>
         </div>

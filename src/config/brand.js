@@ -6,7 +6,11 @@
 export const BRAND = {
   name: 'LendGuard',
   shortName: 'LendGuard',
-  logo: '/logo-lockup-dark.svg',
+  // Logo on light/white surfaces (topbar, login card) — no background needed.
+  logo: '/logo-lockup-light.svg',
+  // Logo on dark/colored surfaces (the login page's gradient hero panel).
+  // Falls back to `logo` for brands with a single all-purpose mark.
+  logoOnDark: '/logo-lockup-dark.svg',
   tagline: 'Your Path To A Confident Retirement.',
   taglineBody: 'Access your 401(k), deferrals, and retirement tools in one secure participant portal.',
   supportPlanNoun: 'your LendGuard plan'

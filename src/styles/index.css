@@ -37,8 +37,8 @@
     height:var(--header-h);border-bottom:1px solid var(--line);display:flex;align-items:center;
     justify-content:space-between;padding:0 24px 0 10px;position:sticky;top:0;background:#fff;z-index:40;
   }
-  .brand{background:var(--brand);border-radius:9px;padding:8px 12px;display:inline-flex;align-items:center}
-  .brand img{height:26px;max-width:190px;object-fit:contain;display:block;width:auto}
+  .brand{display:inline-flex;align-items:center}
+  .brand img{height:34px;max-width:200px;object-fit:contain;display:block;width:auto}
   .top-right{display:flex;align-items:center;gap:10px}
   .icon-btn{width:36px;height:36px;border-radius:50%;border:none;background:transparent;
     display:grid;place-items:center;cursor:pointer;color:#39415a}
