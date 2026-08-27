@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, BookOpen, DollarSign, TrendingUp } from 'lucide-react'
+import { ArrowRight, BookOpen, DollarSign, TrendingUp } from 'lucide-react'
+import LearningIllustration from './LearningIllustration.jsx'
 
 const TOPICS = [
   { label: 'Plan Basics', icon: BookOpen },
@@ -10,7 +11,7 @@ const TOPICS = [
 export default function LearningPortal() {
   return (
     <Link className="learn-card" to="/enrich">
-      <span className="learn-card-glow" aria-hidden="true" />
+      <LearningIllustration />
       <div className="learn-card-top">
         <span className="learn-card-ico" aria-hidden="true">
           <BookOpen size={18} strokeWidth={2.1} />
@@ -29,12 +30,12 @@ export default function LearningPortal() {
           </li>
         ))}
       </ul>
-      <span className="learn-card-cta">
-        Explore the library
+      <div className="learn-card-foot">
+        <span className="learn-card-cta">Explore the library</span>
         <span className="learn-card-cta-ico" aria-hidden="true">
-          <ArrowUpRight size={15} strokeWidth={2.4} />
+          <ArrowRight size={16} strokeWidth={2.4} />
         </span>
-      </span>
+      </div>
     </Link>
   )
 }
