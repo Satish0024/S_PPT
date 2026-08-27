@@ -16,48 +16,36 @@ const FILTERS = [
 
 const TYPE_ICON = { loan: Landmark, withdrawal: TrendingDown, transfer: Shuffle }
 
-function NewRequestMenu({ plan }) {
+function QuickActions({ plan }) {
   const navigate = useNavigate()
-  const [open, setOpen] = useState(false)
 
   return (
-    <div className="new-request">
-      <button type="button" className="btn btn-primary" onClick={() => setOpen((v) => !v)}>
-        + New Request
-      </button>
-      {open && (
-        <>
-          <div className="new-request-scrim" onClick={() => setOpen(false)} />
-          <div className="new-request-menu" role="menu">
-            {TRANSACTION_TYPES.map((t) => {
-              const Icon = TYPE_ICON[t.id]
-              const enabled = canRequest(plan, t.id)
-              return (
-                <button
-                  key={t.id}
-                  type="button"
-                  role="menuitem"
-                  className="new-request-item"
-                  disabled={!enabled}
-                  title={enabled ? undefined : 'Not available for this plan right now'}
-                  onClick={() => {
-                    setOpen(false)
-                    navigate(t.to(plan.id))
-                  }}
-                >
-                  <span className="new-request-ico" aria-hidden="true">
-                    <Icon size={16} strokeWidth={2.1} />
-                  </span>
-                  <span>
-                    <b>{t.label}</b>
-                    <small>{t.hint}</small>
-                  </span>
-                </button>
-              )
-            })}
-          </div>
-        </>
-      )}
+    <div className="quick-actions">
+      <span className="quick-actions-label">Quick actions</span>
+      <div className="quick-actions-grid" role="group" aria-label="Start a transaction request">
+        {TRANSACTION_TYPES.map((t) => {
+          const Icon = TYPE_ICON[t.id]
+          const enabled = canRequest(plan, t.id)
+          return (
+            <button
+              key={t.id}
+              type="button"
+              className="quick-action"
+              disabled={!enabled}
+              title={enabled ? undefined : 'Not available for this plan right now'}
+              onClick={() => navigate(t.to(plan.id))}
+            >
+              <span className="quick-action-ico" aria-hidden="true">
+                <Icon size={18} strokeWidth={2.1} />
+              </span>
+              <span className="quick-action-copy">
+                <b>{t.label}</b>
+                <small>{t.hint}</small>
+              </span>
+            </button>
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -112,13 +100,16 @@ function RequestsPanel({ participant }) {
             <b>{formatMoney(planVested(plan))}</b>
           </div>
         </div>
-        <NewRequestMenu plan={plan} />
       </div>
+
+      <QuickActions plan={plan} />
 
       {!requests.length ? (
         <div className="tx-empty">No transaction requests yet for this plan.</div>
       ) : (
-        <div className="table-wrap">
+        <>
+          <span className="quick-actions-label">Recent requests</span>
+          <div className="table-wrap">
           <table className="tx-table">
             <thead>
               <tr>
@@ -143,7 +134,8 @@ function RequestsPanel({ participant }) {
               ))}
             </tbody>
           </table>
-        </div>
+          </div>
+        </>
       )}
     </>
   )
