@@ -86,11 +86,91 @@ export const LOAN_TYPES = [
   { id: 'residential', label: 'Residential', hint: 'To buy a primary residence — max term 15 years.', maxYears: 15 }
 ]
 
+export const LOAN_INTEREST_RATE = 8
+
+export const LOAN_REPAYMENT_METHODS = [
+  { id: 'payroll', label: 'Payroll deduction', hint: 'Repayments are deducted automatically from your paycheck.' },
+  { id: 'ach', label: 'ACH bank draft', hint: 'Repayments are drafted from your bank account on file.' },
+  { id: 'check', label: 'Mail a check', hint: 'You mail a check for each repayment.' }
+]
+
+export const LOAN_REPAYMENT_FREQUENCIES = [
+  { id: 'monthly', label: 'Monthly' },
+  { id: 'biweekly', label: 'Bi-weekly' },
+  { id: 'weekly', label: 'Weekly' }
+]
+
+const LOAN_ORIGINATION_FEE = 50
+
+// Loan requests are grossed up by a flat origination fee, same pattern as
+// the withdrawal fee engine — the participant still nets the amount they
+// asked for.
+export function computeGrossLoanAmount(amount) {
+  const requested = +amount || 0
+  const fee = requested > 0 ? LOAN_ORIGINATION_FEE : 0
+  return { requested, fee, grossAmount: requested + fee }
+}
+
 export const DISTRIBUTION_MODES = [
   { id: 'direct', label: 'Direct Distribution', hint: 'A check is mailed or funds are sent to your bank account.' },
   { id: 'rollover', label: 'Rollover', hint: 'Move funds directly into another employer plan.' },
   { id: 'ira', label: 'IRA Account', hint: 'Move funds directly into an IRA account.' }
 ]
+
+// ---------------- Withdrawal wizard ----------------
+
+export const WITHDRAWAL_TYPES = [
+  { id: 'hardship', label: 'Hardship Withdrawal', penaltyPct: 10 },
+  { id: 'separation', label: 'Separation from Service', penaltyPct: 0 },
+  { id: 'in-service', label: 'In-Service Withdrawal', penaltyPct: 10 },
+  { id: 'rmd', label: 'Required Minimum Distribution', penaltyPct: 0 }
+]
+
+export const PAYMENT_METHODS = [
+  { id: 'check', label: 'Mail check to address' },
+  { id: 'eft', label: 'Electronic Fund Transfer (EFT)' }
+]
+
+export const ADDRESS_OPTIONS = [
+  { id: 'onfile', label: 'As in employee records' },
+  { id: 'custom', label: 'Custom address' }
+]
+
+export const SOURCE_OPTIONS = [
+  { id: 'prorata', label: 'Prorata across all sources' },
+  { id: 'choose', label: 'Allow me to choose' },
+  { id: 'optimized', label: 'Optimized for redemption fee' }
+]
+
+const WITHDRAWAL_FEE_FLAT = 25
+const FEDERAL_TAX_PCT = 20
+
+// Grosses a requested (net) withdrawal amount up to what must be pulled from
+// the plan to cover the flat fee, federal tax withholding, and any early-
+// withdrawal penalty tied to the selected withdrawal type — so the
+// participant still nets the amount they asked for.
+export function computeWithdrawalFees(amount, withdrawalTypeId) {
+  const requested = +amount || 0
+  const type = WITHDRAWAL_TYPES.find((t) => t.id === withdrawalTypeId)
+  const penaltyPct = type?.penaltyPct || 0
+  const withdrawalFee = requested > 0 ? WITHDRAWAL_FEE_FLAT : 0
+  const federalTax = round2(requested * (FEDERAL_TAX_PCT / 100))
+  const penalty = round2(requested * (penaltyPct / 100))
+  const grossAmount = round2(requested + withdrawalFee + federalTax + penalty)
+  return { requested, withdrawalFee, federalTaxPct: FEDERAL_TAX_PCT, federalTax, penaltyPct, penalty, grossAmount }
+}
+
+function round2(n) {
+  return Math.round((n || 0) * 100) / 100
+}
+
+// Whether the participant has an active (approved, not fully paid) loan on
+// this plan — drives the "Outstanding loan detected" confirmation when
+// requesting a full-balance withdrawal.
+export function activeLoanFor(participant, plan) {
+  const requests = TRANSACTION_REQUESTS[participant.id] || []
+  return requests.find((r) => r.type === 'loan' && r.status === 'Approved' && r.plan === plan.name && r.balance > 0)
+}
 
 export const REQUEST_DOC_REQUIREMENTS = {
   loan: [{ id: 'promissory', label: 'Promissory Note', required: true }],

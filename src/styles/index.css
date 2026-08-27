@@ -1280,3 +1280,50 @@
   .loan-calc-breakdown div{display:flex;flex-direction:column;gap:2px}
   .loan-calc-breakdown span{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.2px}
   .loan-calc-breakdown b{font-size:14px;font-weight:800;color:var(--ink)}
+
+  /* ---------- Edit Allocation slideover ---------- */
+  .edit-alloc{display:flex;gap:24px;align-items:flex-start}
+  .edit-alloc-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+  .edit-alloc-main h4{font-size:13px;font-weight:800;color:var(--ink);margin:18px 0 10px}
+  .edit-alloc-main h4:first-child{margin-top:0}
+  .edit-alloc-readcard{
+    background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;
+    display:flex;flex-direction:column;gap:2px;margin-bottom:14px}
+  .edit-alloc-readcard b{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .edit-alloc-readcard span{font-size:12.5px;color:var(--ink-soft)}
+  .edit-alloc-fee{
+    flex:0 0 240px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;
+    position:sticky;top:0;display:flex;flex-direction:column;gap:10px}
+  .edit-alloc-fee-title{font-size:12px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--ink-soft)}
+  .edit-alloc-fee-row{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--ink-soft)}
+  .edit-alloc-fee-row b{font-size:13px;font-weight:700;color:var(--ink)}
+  .edit-alloc-fee-row.total{padding-top:10px;border-top:1px solid var(--line)}
+  .edit-alloc-fee-row.total b{font-size:15px;font-weight:800;color:var(--brand)}
+  @media(max-width:760px){
+    .edit-alloc{flex-direction:column}
+    .edit-alloc-fee{flex:1 1 auto;width:100%;position:static}
+  }
+
+  /* ---------- Withdrawal allocation summary table ---------- */
+  .wd-alloc-table{width:100%;border-collapse:collapse;font-size:13px}
+  .wd-alloc-table th{
+    text-align:left;font-size:11px;font-weight:800;letter-spacing:.2px;text-transform:uppercase;color:var(--muted);
+    padding:0 10px 8px;border-bottom:1px solid var(--line)}
+  .wd-alloc-table td{padding:12px 10px;border-bottom:1px solid var(--line);color:var(--ink-soft)}
+  .wd-alloc-table td:first-child{color:var(--ink);font-weight:700}
+  .wd-alloc-table .num{text-align:right;font-variant-numeric:tabular-nums}
+  .wd-alloc-table tr:last-child td{border-bottom:none}
+  .wd-alloc-edit{
+    font:inherit;font-size:12.5px;font-weight:700;color:var(--brand);background:none;border:none;
+    padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+  .wd-fee-card{
+    background:var(--active-bg);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+  .wd-fee-row{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft)}
+  .wd-fee-row b{color:var(--ink);font-weight:700}
+  .wd-fee-row.total{padding-top:8px;border-top:1px solid rgba(20,30,60,.08)}
+  .wd-fee-row.total b{color:var(--brand);font-size:15px;font-weight:800}
+  .wd-terms{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink-soft);margin:16px 0}
+  .wd-terms input{margin-top:3px}
+  .wd-note{
+    display:flex;gap:8px;background:var(--active-bg);border-radius:10px;padding:10px 12px;
+    font-size:12.5px;color:var(--ink-soft);margin-top:12px}
