@@ -1372,3 +1372,352 @@ summary:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   Dashboard side widgets — redesigned for the 240px rail.
+   The previous versions laid an illustration beside the copy, which forced
+   the text into ~120px and truncated every figure. These are stacked
+   full-width instead, so nothing clips at any column width.
+   ========================================================================== */
+
+.rr3,
+.learn2,
+.risk3 {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  display: block;
+}
+
+.rr3-head,
+.risk3-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.rr3-ico,
+.risk3-ico {
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: var(--active-bg);
+  color: var(--brand);
+  flex: 0 0 auto;
+}
+.rr3-tag,
+.risk3-tag,
+.learn2-tag {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.rr3-title,
+.risk3-title,
+.learn2-title {
+  margin: 0 0 14px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -.2px;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+/* ---------- Retirement readiness ---------- */
+.rr3-ring {
+  position: relative;
+  width: 132px;
+  margin: 4px auto 0;
+}
+.rr3-ring svg {
+  width: 100%;
+  height: auto;
+  transform: rotate(-90deg);
+}
+.rr3-ring-track {
+  fill: none;
+  stroke: #eef0f5;
+  stroke-width: 9;
+}
+.rr3-ring-fill {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 9;
+  stroke-linecap: round;
+  transition: stroke-dashoffset .6s ease;
+}
+.rr3.good .rr3-ring-fill { stroke: var(--green); }
+.rr3.ok   .rr3-ring-fill { stroke: var(--amber); }
+.rr3.warn .rr3-ring-fill { stroke: var(--red); }
+.rr3-ring-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1px;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.rr3-ring-value i {
+  font-style: normal;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+.rr3-ring-caption {
+  margin: 6px 0 16px;
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+.rr3-updated {
+  display: block;
+  margin-top: 3px;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.rr3-metrics { margin: 0 0 14px; }
+.rr3-metric {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f1f6;
+}
+.rr3-metric:last-child { border-bottom: none; }
+.rr3-metric dt {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  min-width: 0;
+}
+.rr3-metric dd {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.rr3-metric dd.income { color: var(--green); }
+.rr3-metric dd.shortfall { color: var(--red); }
+.rr3-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.rr3-dot.expense { background: var(--brand); }
+.rr3-dot.income { background: var(--green); }
+.rr3-dot.shortfall { background: var(--red); }
+
+.rr3-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px;
+  border-radius: 11px;
+  text-decoration: none;
+  background: var(--active-bg);
+  color: var(--ink);
+  transition: .15s;
+}
+.rr3.good .rr3-status { background: var(--green-bg); }
+.rr3.ok   .rr3-status { background: var(--amber-bg); }
+.rr3.warn .rr3-status { background: var(--red-bg); }
+.rr3-status:hover { filter: brightness(.97); }
+.rr3-status-copy { flex: 1; min-width: 0; }
+.rr3-status-copy b {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--ink);
+}
+.rr3-status-copy small {
+  display: block;
+  margin-top: 1px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.rr3-intro { text-align: center; }
+.rr3-lead {
+  margin: 10px 0 14px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.rr3-cta,
+.risk3-btn,
+.learn2-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: .15s;
+}
+.rr3-cta {
+  background: var(--brand);
+  color: #fff;
+}
+.rr3-cta:hover { filter: brightness(1.06); }
+
+.rr3-foot {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid #f0f1f6;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.rr3-disclaimer-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 800;
+  color: var(--brand);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ---------- Learning portal ---------- */
+.learn2 {
+  text-decoration: none;
+  transition: .15s;
+}
+.learn2:hover {
+  border-color: var(--brand);
+  box-shadow: var(--shadow);
+}
+.learn2-banner {
+  display: grid;
+  place-items: center;
+  height: 76px;
+  margin: -18px -18px 14px;
+  border-radius: 15px 15px 0 0;
+  background: linear-gradient(135deg, var(--brand) 0%, #4a4fc4 100%);
+  color: #fff;
+}
+.learn2-lead {
+  margin: 0 0 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.learn2-topics {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.learn2-topics li {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--active-bg);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--brand);
+  white-space: nowrap;
+}
+.learn2-cta {
+  background: var(--active-bg);
+  color: var(--brand);
+}
+.learn2:hover .learn2-cta {
+  background: var(--brand);
+  color: #fff;
+}
+
+/* ---------- Risk meter ---------- */
+.risk3-gauge {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 7px;
+}
+.risk3-seg {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: #eef0f5;
+  transition: background .25s ease;
+}
+.risk3-seg.on { background: var(--risk-color, var(--brand)); }
+.risk3-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.risk3-insight {
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  min-height: 58px;
+}
+.risk3-dots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.risk3-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #d9dbe6;
+  cursor: pointer;
+  transition: .15s;
+}
+.risk3-dot.on {
+  background: var(--risk-color, var(--brand));
+  width: 18px;
+  border-radius: 999px;
+}
+.risk3-btn {
+  background: var(--active-bg);
+  color: var(--brand);
+}
+.risk3-btn:hover {
+  background: var(--brand);
+  color: #fff;
+}
+
+@media (max-width: 1080px) {
+  .rr3, .learn2, .risk3 { padding: 16px; }
+  .learn2-banner { margin: -16px -16px 12px; }
+}

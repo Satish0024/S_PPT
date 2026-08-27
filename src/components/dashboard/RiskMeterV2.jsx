@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import { Sparkles, ShieldCheck } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
-import { RISK_PROFILE_UPDATED_EVENT, getRiskLevel, getRiskProfileId } from '../../lib/riskProfile'
-import RiskCairnIllustration from './RiskCairnIllustration.jsx'
+import { RISK_LEVELS, RISK_PROFILE_UPDATED_EVENT, getRiskLevel, getRiskProfileId } from '../../lib/riskProfile'
 
 export default function RiskMeterV2() {
   const { participant } = useParticipant()
@@ -27,54 +26,58 @@ export default function RiskMeterV2() {
   if (isNotEligibleUser(participant)) return null
 
   const level = getRiskLevel(levelId)
+  const activeIndex = RISK_LEVELS.findIndex((l) => l.id === level.id)
 
   return (
-    <section className="risk-card" aria-label="Investment risk profile">
-      <div className="risk-head">
-        <span className="risk-ico" aria-hidden="true">
-          <ShieldCheck size={18} strokeWidth={2.1} />
+    <section className="risk3" aria-label="Investment risk profile" style={{ '--risk-color': level.color }}>
+      <header className="risk3-head">
+        <span className="risk3-ico" aria-hidden="true">
+          <ShieldCheck size={16} strokeWidth={2.2} />
         </span>
-        <div className="risk-copy">
-          <span className="risk-tag">Risk Level</span>
-          <h3>{level.label}</h3>
-        </div>
+        <span className="risk3-tag">Risk level</span>
+      </header>
+
+      <h3 className="risk3-title">{level.label}</h3>
+
+      {/* Segmented gauge: one bar per risk level, filled up to the
+          participant's own. Reads as a scale at a glance and stays legible
+          in a narrow column, unlike the old illustration-beside-text row. */}
+      <div
+        className="risk3-gauge"
+        role="img"
+        aria-label={`${level.subtitle}: level ${activeIndex + 1} of ${RISK_LEVELS.length}`}
+      >
+        {RISK_LEVELS.map((l, i) => (
+          <span key={l.id} className={`risk3-seg${i <= activeIndex ? ' on' : ''}`} />
+        ))}
+      </div>
+      <div className="risk3-scale" aria-hidden="true">
+        <span>Lower risk</span>
+        <span>Higher risk</span>
       </div>
 
-      <div className="risk2-panel">
-        <div className="risk2-top">
-          <RiskCairnIllustration levelId={level.id} color={level.color} />
+      <p className="risk3-insight" key={`${level.id}-${insightIndex}`}>
+        {level.insights[insightIndex]}
+      </p>
 
-          <div className="risk2-info">
-            <b key={level.id} className="risk2-subtitle" style={{ color: level.color }}>
-              {level.subtitle}
-            </b>
-            <p key={`${level.id}-${insightIndex}`} className="risk2-insight">
-              {level.insights[insightIndex]}
-            </p>
-            <div className="risk2-dots" role="tablist" aria-label="More about this risk style">
-              {level.insights.map((insight, i) => (
-                <button
-                  key={insight}
-                  type="button"
-                  role="tab"
-                  aria-selected={i === insightIndex}
-                  aria-label={`Insight ${i + 1}`}
-                  className={`risk2-dot${i === insightIndex ? ' on' : ''}`}
-                  style={i === insightIndex ? { background: level.color } : undefined}
-                  onClick={() => setInsightIndex(i)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <p className="risk2-caption">This style matches your answers and retirement goals.</p>
-
-        <Link to="/risk-check-in" className="risk2-edit-btn">
-          <Sparkles size={15} strokeWidth={2.2} />
-          Edit Preferences
-        </Link>
+      <div className="risk3-dots" role="tablist" aria-label="More about this risk style">
+        {level.insights.map((insight, i) => (
+          <button
+            key={insight}
+            type="button"
+            role="tab"
+            aria-selected={i === insightIndex}
+            aria-label={`Insight ${i + 1} of ${level.insights.length}`}
+            className={`risk3-dot${i === insightIndex ? ' on' : ''}`}
+            onClick={() => setInsightIndex(i)}
+          />
+        ))}
       </div>
+
+      <Link to="/risk-check-in" className="risk3-btn">
+        <Sparkles size={14} strokeWidth={2.2} aria-hidden="true" />
+        Edit preferences
+      </Link>
     </section>
   )
 }
