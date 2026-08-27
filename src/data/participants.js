@@ -11,6 +11,7 @@ export const DEFERRAL_KEY = 'saturnaDeferral'
 export const AUTO_INCREASE_KEY = 'saturnaAutoIncrease'
 export const INVESTMENT_KEY = 'saturnaInvestment'
 export const BENEFICIARY_KEY = 'saturnaBeneficiary'
+export const PLAN_STATUS_KEY = 'saturnaPlanStatus'
 
 export function readSession(key) {
   try {
@@ -26,6 +27,24 @@ export function writeSession(key, value) {
   } catch {
     /* ignore */
   }
+}
+
+export function planEnrollmentStatus(plan) {
+  const overrides = readSession(PLAN_STATUS_KEY) || {}
+  if (overrides[plan?.id]) return overrides[plan.id]
+  return plan?.details?.status || plan?.badge || ''
+}
+
+export function isAutoEnrolledPlan(plan) {
+  if (!plan) return false
+  const overrides = readSession(PLAN_STATUS_KEY) || {}
+  if (overrides[plan.id]) return false
+  return /auto enrolled/i.test(plan.details?.status || '')
+}
+
+export function markPlanManuallyEnrolled(planId) {
+  const overrides = readSession(PLAN_STATUS_KEY) || {}
+  writeSession(PLAN_STATUS_KEY, { ...overrides, [planId]: 'Enrolled' })
 }
 
 export const PARTICIPANTS = [
@@ -260,7 +279,7 @@ export const PARTICIPANTS = [
         { name: 'Chris Sullivan', relationship: 'Spouse', share: '100%' }
       ]
     },
-    overall: { total: '$100,416.00', vested: '$92,400.00' },
+    overall: { total: '$100,416.00', vested: '$92,400.00', loan: '$8,500.00' },
     showSimulator: true,
     plans: [
       {
@@ -303,6 +322,7 @@ export const PARTICIPANTS = [
       }
     ],
     transactions: [
+      { kind: 'loan', date: 'Feb 28, 2026', type: 'Loan Repayment', plan: PLAN_401K, amt: '$212.50' },
       { kind: 'deferral', date: 'Feb 28, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$820.00' },
       { kind: 'employer', date: 'Feb 28, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$410.00' },
       { kind: 'deferral', date: 'Feb 14, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$820.00' },

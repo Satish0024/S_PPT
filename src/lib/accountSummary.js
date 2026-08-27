@@ -31,6 +31,10 @@ export function isSummaryPlan(plan) {
   return planBalance(plan) > 0
 }
 
+export function hasAccountSummary(participant) {
+  return (participant?.plans || []).some(isSummaryPlan)
+}
+
 const COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#2e3192', '#d4a017']
 
 // Some funds hold more than one asset type (e.g. a target-date or balanced

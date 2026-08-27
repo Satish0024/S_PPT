@@ -206,14 +206,20 @@ function FundList({ alloc }) {
   const rows = fundRows(alloc)
   if (!rows.length) return <p>No funds selected yet.</p>
   return (
-    <ul className="review-funds">
-      {rows.map(([name, share]) => (
-        <li key={name}>
-          <span>{name}</span>
-          <b>{pct(share)}</b>
-        </li>
-      ))}
-    </ul>
+    <div className="fund-list">
+      <div className="fund-list-head">
+        <span>Investment</span>
+        <span>Election Percentage</span>
+      </div>
+      <ul className="review-funds">
+        {rows.map(([name, share]) => (
+          <li key={name}>
+            <span>{name}</span>
+            <b>{pct(share)}</b>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
