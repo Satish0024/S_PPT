@@ -6,7 +6,7 @@
 export const BRAND = {
   name: 'Saturna Capital',
   shortName: 'Saturna',
-  logo: '/saturna_logo.png',
+  logo: '/core-logo.svg',
   tagline: 'Plan With Confidence.',
   taglineBody: 'Access your 401(k), deferrals, and retirement tools in one secure participant portal.',
   supportPlanNoun: 'your Saturna plan'
