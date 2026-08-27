@@ -154,8 +154,10 @@ export default function Reports() {
   return (
     <div className="page-body">
       <div className="hi-bar">
-        <h1>Documents</h1>
-        <p className="pr-intro">Access, download, and generate important plan documents and disclosures</p>
+        <div>
+          <h1>Documents</h1>
+          <p className="pr-intro">Access, download, and generate important plan documents and disclosures</p>
+        </div>
       </div>
       <section className="panel doc-page">
         <div className="doc-filters">

@@ -30,6 +30,7 @@
 .multi-select-row small{display:block;color:var(--muted);font-size:11px;font-weight:500}
 
 .doc-results-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.doc-results-head .btn{width:auto;flex:0 0 auto}
 .doc-count{font-size:13px;font-weight:700;color:var(--ink-soft)}
 
 .doc-plan{font-size:12.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap}
@@ -37,5 +38,6 @@
 @media(max-width:760px){
   .doc-filters{flex-direction:column;align-items:stretch}
   .doc-field,.multi-select{min-width:0}
-  .doc-results-head{flex-direction:column;align-items:flex-start}
+  .doc-results-head{flex-direction:column;align-items:stretch}
+  .doc-results-head .btn{width:100%}
 }

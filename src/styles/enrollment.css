@@ -413,8 +413,8 @@
   .btn-primary{background:var(--brand);color:#fff}
   .btn-primary:hover{background:var(--brand-dark)}
   .btn-primary:active{transform:translateY(1px)}
-  .btn-ghost{background:transparent;color:var(--brand);border:1px solid var(--line)}
-  .btn-ghost:hover{background:var(--hover-bg)}
+  .btn.btn-ghost{background:transparent;color:var(--brand);border:1px solid var(--line)}
+  .btn.btn-ghost:hover{background:var(--hover-bg)}
 
   .skip{padding:28px 8px 8px;text-align:left}
   .skip h3{font-size:20px;font-weight:700;margin-bottom:8px}
