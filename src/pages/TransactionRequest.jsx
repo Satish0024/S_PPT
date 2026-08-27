@@ -1,24 +1,32 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, Check, Info, Printer } from 'lucide-react'
+import { ArrowLeft, Check, Copy, Info, Printer } from 'lucide-react'
 import Header from '../components/layout/Header.jsx'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import ConfirmDialog from '../components/common/ConfirmDialog.jsx'
 import EditAllocationSlideover from '../components/transactions/EditAllocationSlideover.jsx'
+import LegalCopySlideover from '../components/transactions/LegalCopySlideover.jsx'
+import AmortizationScheduleSlideover from '../components/transactions/AmortizationScheduleSlideover.jsx'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import {
+  BANK_ON_FILE,
   DISTRIBUTION_MODES,
   LOAN_INTEREST_RATE,
+  LOAN_PAYMENT_METHODS,
+  LOAN_POLICY_COPY,
   LOAN_REPAYMENT_FREQUENCIES,
   LOAN_REPAYMENT_METHODS,
+  LOAN_TERMS_COPY,
   LOAN_TYPES,
   REQUEST_DOC_REQUIREMENTS,
+  SPOUSAL_CONSENT_DOC,
   WITHDRAWAL_TYPES,
   activeLoanFor,
   computeGrossLoanAmount,
   computeWithdrawalFees,
   estimatePeriodicPayment,
+  generateTransactionId,
   loanLimits,
   transactablePlans
 } from '../data/transactions.js'
@@ -57,13 +65,21 @@ function blankForm(type) {
   if (type === 'loan') {
     return {
       loanType: '',
+      reason: '',
       amount: '',
       entireAmount: '',
+      maritalStatus: '',
       repaymentMethod: 'payroll',
       repaymentFrequency: 'monthly',
       years: 1,
       months: 0,
-      docUploaded: false
+      repaymentStartDate: '',
+      paymentMethod: 'eft',
+      hasBankOnFile: true,
+      addedBank: null,
+      docUploaded: false,
+      docs: {},
+      termsAccepted: false
     }
   }
   if (type === 'withdrawal') {
@@ -115,7 +131,11 @@ export default function TransactionRequest() {
     )
   }
 
-  const set = (patch) => setForm((f) => ({ ...f, ...patch }))
+  // Accepts a plain patch object, or an updater function (f) => patch —
+  // the latter reads the *current* form state rather than whatever was in
+  // scope when the callback was created, so back-to-back set() calls in the
+  // same tick (e.g. uploading two documents) don't clobber each other.
+  const set = (patch) => setForm((f) => ({ ...f, ...(typeof patch === 'function' ? patch(f) : patch) }))
   const step = wizard.steps[stepIdx]
 
   const goTo = (i) => {
@@ -128,6 +148,7 @@ export default function TransactionRequest() {
   }
   const back = () => setStepIdx((i) => Math.max(0, i - 1))
 
+  const [transactionId] = useState(generateTransactionId)
   const submit = () => setDone(true)
 
   return (
@@ -161,7 +182,7 @@ export default function TransactionRequest() {
 
           <main className="txn-main">
             {done ? (
-              <SubmittedPanel type={type} navigate={navigate} />
+              <SubmittedPanel type={type} transactionId={transactionId} navigate={navigate} />
             ) : (
               <>
                 <div className="txn-plan-head">
@@ -184,7 +205,17 @@ export default function TransactionRequest() {
                 </div>
 
                 {type === 'loan' && (
-                  <LoanSteps step={step.id} plan={plan} form={form} set={set} onNext={next} onBack={back} onSubmit={submit} onEdit={goTo} />
+                  <LoanSteps
+                    step={step.id}
+                    plan={plan}
+                    participant={participant}
+                    form={form}
+                    set={set}
+                    onNext={next}
+                    onBack={back}
+                    onSubmit={submit}
+                    onEdit={goTo}
+                  />
                 )}
                 {type === 'withdrawal' && (
                   <WithdrawalSteps
@@ -211,8 +242,17 @@ export default function TransactionRequest() {
   )
 }
 
-function SubmittedPanel({ type, navigate }) {
+function SubmittedPanel({ type, transactionId, navigate }) {
   const label = type === 'loan' ? 'loan' : type === 'withdrawal' ? 'withdrawal' : 'transfer'
+  const headline = type === 'loan' ? 'Your loan request successfully sent!' : 'Your request successfully sent!'
+  const [copied, setCopied] = useState(false)
+
+  const copyId = () => {
+    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(transactionId)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1500)
+  }
+
   return (
     <div className="txn-card" style={{ textAlign: 'center', padding: '48px 32px' }}>
       <div className="success-mark" aria-hidden="true" style={{ margin: '0 auto 12px' }}>
@@ -221,8 +261,15 @@ function SubmittedPanel({ type, navigate }) {
           <path className="success-check" d="M15.5 27.2l7.2 7.2 14.6-16" />
         </svg>
       </div>
-      <h3>Your {label} request has been submitted</h3>
-      <p className="hint">You can track its status from the Requests tab on the Transactions page.</p>
+      <h3>{headline}</h3>
+      <p className="hint">Meanwhile use transaction ID to track your {label} status.</p>
+      <div className="txn-success-id">
+        <span>Transaction ID: {transactionId}</span>
+        <button type="button" className="icon-btn" onClick={copyId} aria-label="Copy transaction ID">
+          <Copy size={14} strokeWidth={2.2} />
+        </button>
+        {copied && <span className="txn-success-copied">Copied</span>}
+      </div>
       <div className="txn-actions" style={{ justifyContent: 'center' }}>
         <button type="button" className="btn btn-primary" onClick={() => navigate('/transactions')}>
           Back to Transactions
@@ -234,30 +281,70 @@ function SubmittedPanel({ type, navigate }) {
 
 /* ---------------- Loan ---------------- */
 
-function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) {
-  const limits = loanLimits(plan)
+function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmit, onEdit }) {
+  const [showPolicy, setShowPolicy] = useState(false)
+  const [showTerms, setShowTerms] = useState(false)
+  const [showAmortization, setShowAmortization] = useState(false)
+  const [showAddBank, setShowAddBank] = useState(false)
+
+  // Scenario 2/3: an existing active loan on this plan shrinks the eligible
+  // limit dollar-for-dollar (Loan Policy — "50% of vested or $50,000, minus
+  // outstanding balance").
+  const existingLoan = activeLoanFor(participant, plan)
+  const limits = loanLimits(plan, existingLoan?.balance || 0)
   const amount = +form.amount || 0
+  const overLimit = amount > limits.max
   const payment = estimatePeriodicPayment(amount, +form.years, +form.months)
   const loanType = LOAN_TYPES.find((l) => l.id === form.loanType)
   const repaymentMethod = LOAN_REPAYMENT_METHODS.find((m) => m.id === form.repaymentMethod)
   const repaymentFrequency = LOAN_REPAYMENT_FREQUENCIES.find((f) => f.id === form.repaymentFrequency)
+  const paymentMethod = LOAN_PAYMENT_METHODS.find((m) => m.id === form.paymentMethod)
   const maxTermYears = loanType?.maxYears ?? 5
   const gross = computeGrossLoanAmount(amount)
+  const bank = form.addedBank || (form.hasBankOnFile ? BANK_ON_FILE : null)
+  // Scenario 6: not vested at all — nothing to borrow against, block the
+  // whole wizard before any field entry.
+  const notEligible = limits.max <= 0
+
+  if (notEligible) {
+    return (
+      <div className="txn-card">
+        <h3>Loan Details</h3>
+        <div className="wd-note warn">
+          You're not eligible for a new loan on this plan right now
+          {existingLoan ? ' — your outstanding loan already uses your full eligible limit.' : ' — you have no vested balance to borrow against.'}
+        </div>
+        <div className="txn-actions">
+          <span />
+          <Link to="/transactions" className="btn btn-primary" style={{ width: 'auto', textDecoration: 'none' }}>
+            Back to Transactions
+          </Link>
+        </div>
+      </div>
+    )
+  }
 
   if (step === 'details') {
     return (
       <div className="txn-card">
-        <h3>Loan Details</h3>
-        <p className="hint">
-          Your personal eligible maximum limit is {formatMoney(limits.max)}.{' '}
-          <a href="#policy" className="text-link" onClick={(e) => e.preventDefault()}>
-            Policy and requirements
-          </a>
-        </p>
+        <div className="txn-summary-head">
+          <h3>Loan Details</h3>
+          <button type="button" className="txn-summary-edit" onClick={() => setShowPolicy(true)}>
+            Policy and procedures
+          </button>
+        </div>
+
+        {existingLoan && (
+          <div className="wd-note">
+            You have an outstanding loan with a balance of {formatMoney(existingLoan.balance)}. Your eligible limit
+            below already accounts for it.
+          </div>
+        )}
+
         <div className="txn-row">
           <div className="txn-field">
             <label>
-              Select loan type<i>*</i>
+              Select Loan type<i>*</i>
             </label>
             <select value={form.loanType} onChange={(e) => set({ loanType: e.target.value })}>
               <option value="">Select</option>
@@ -267,52 +354,170 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
                 </option>
               ))}
             </select>
-            {loanType && <span className="note">{loanType.hint}</span>}
+            <span className="note">The Processing time for your loan is 10 days.</span>
           </div>
           <div className="txn-field">
-            <label>Interest rate</label>
-            <input type="text" disabled value={`${LOAN_INTEREST_RATE}%`} />
+            <label>Reason for loan</label>
+            <input type="text" placeholder="e.g. Educational purpose" value={form.reason} onChange={(e) => set({ reason: e.target.value })} />
           </div>
         </div>
 
-        <div className="txn-row" style={{ marginTop: 14 }}>
-          <div className="txn-field">
-            <label>
-              Take entire loan amount<i>*</i>
-            </label>
-            <div className="txn-tenure-row">
-              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
-                <input
-                  type="radio"
-                  checked={form.entireAmount === 'yes'}
-                  onChange={() => set({ entireAmount: 'yes', amount: String(limits.max) })}
-                />
-                Yes
-              </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
-                <input
-                  type="radio"
-                  checked={form.entireAmount === 'no'}
-                  onChange={() => set({ entireAmount: 'no' })}
-                />
-                No
-              </label>
+        <div className="txn-card" style={{ background: '#fafbfe', marginTop: 18, marginBottom: 0 }}>
+          <h4 style={{ margin: '0 0 4px' }}>Loan calculator</h4>
+          <p className="hint" style={{ marginTop: 0 }}>
+            Enter any two of Loan Request Amount, Periodic Payment, Tenure to auto-compute the third value.
+          </p>
+
+          <div className="txn-row">
+            <div className="txn-field">
+              <label>Interest rate</label>
+              <input type="text" disabled value={`${LOAN_INTEREST_RATE}%`} />
             </div>
           </div>
+
+          <div className="txn-row" style={{ marginTop: 14 }}>
+            <div className="txn-field">
+              <label>
+                Take entire loan amount<i>*</i>
+              </label>
+              <div className="txn-tenure-row">
+                <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+                  <input
+                    type="radio"
+                    checked={form.entireAmount === 'yes'}
+                    onChange={() => set({ entireAmount: 'yes', amount: String(limits.max) })}
+                  />
+                  Yes
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+                  <input type="radio" checked={form.entireAmount === 'no'} onChange={() => set({ entireAmount: 'no' })} />
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div className="txn-row" style={{ marginTop: 14 }}>
+            <div className="txn-field">
+              <label>
+                Loan amount<i>*</i>
+              </label>
+              <input
+                type="number"
+                placeholder="Enter amount"
+                value={form.amount}
+                disabled={form.entireAmount === 'yes'}
+                onChange={(e) => set({ amount: e.target.value })}
+              />
+              <span className={`note${overLimit ? ' warn' : ''}`}>
+                You can make a request from {formatMoney(limits.min)} to {formatMoney(limits.max)} subjected to plan
+                rules &amp; regulations.
+              </span>
+            </div>
+          </div>
+
+          <div className="txn-summary-head" style={{ marginTop: 24 }}>
+            <h4 style={{ margin: 0 }}>Repayment details</h4>
+            <button
+              type="button"
+              className="txn-summary-edit"
+              disabled={!amount}
+              onClick={() => setShowAmortization(true)}
+            >
+              View Amortization Schedule
+            </button>
+          </div>
+
+          <div className="txn-row" style={{ marginTop: 8 }}>
+            <div className="txn-field">
+              <label>
+                Loan repayment method<i>*</i>
+              </label>
+              <div className="txn-tenure-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}>
+                {LOAN_REPAYMENT_METHODS.map((m) => (
+                  <label key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+                    <input type="radio" checked={form.repaymentMethod === m.id} onChange={() => set({ repaymentMethod: m.id })} />
+                    {m.label}
+                  </label>
+                ))}
+              </div>
+              {repaymentMethod && <span className="note">{repaymentMethod.hint}</span>}
+            </div>
+            <div className="txn-field">
+              <label>
+                Loan repayment frequency<i>*</i>
+              </label>
+              <select value={form.repaymentFrequency} onChange={(e) => set({ repaymentFrequency: e.target.value })}>
+                {LOAN_REPAYMENT_FREQUENCIES.map((f) => (
+                  <option key={f.id} value={f.id}>
+                    {f.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="txn-row" style={{ marginTop: 18, alignItems: 'flex-end' }}>
+            <div className="txn-field">
+              <label>
+                Length of Loan Term<i>*</i>
+              </label>
+              <div className="txn-tenure-row">
+                <input type="number" min={0} value={form.years} onChange={(e) => set({ years: Math.max(0, +e.target.value || 0) })} />
+                <span className="note">Year(s)</span>
+                <input
+                  type="number"
+                  min={0}
+                  max={11}
+                  value={form.months}
+                  onChange={(e) => set({ months: Math.max(0, Math.min(11, +e.target.value || 0)) })}
+                />
+                <span className="note">Month(s)</span>
+              </div>
+              <span className="note">Maximum tenure is {maxTermYears} year(s) 0 month(s)</span>
+            </div>
+            <div className="txn-field">
+              <label>Periodic Payment</label>
+              <input type="text" disabled value={payment ? formatMoney(payment) : '—'} />
+              <span className="note">Changes to the loan term automatically update the periodic payment.</span>
+            </div>
+          </div>
+
+          <div className="txn-row" style={{ marginTop: 18 }}>
+            <div className="txn-field">
+              <label>
+                First repayment date<i>*</i>
+              </label>
+              <input
+                type="date"
+                value={form.repaymentStartDate}
+                onChange={(e) => set({ repaymentStartDate: e.target.value })}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Scenario 4: married participants need spousal consent — captured
+            here so the Documents step can surface the extra required file. */}
+        <div className="txn-row" style={{ marginTop: 18 }}>
           <div className="txn-field">
-            <label>
-              Loan amount<i>*</i>
-            </label>
-            <input
-              type="number"
-              placeholder="Enter amount"
-              value={form.amount}
-              disabled={form.entireAmount === 'yes'}
-              onChange={(e) => set({ amount: e.target.value })}
-            />
-            <span className={`note${amount > limits.max ? ' warn' : ''}`}>
-              Minimum {formatMoney(limits.min)} · Maximum {formatMoney(limits.max)}
-            </span>
+            <label>Marital status</label>
+            <div className="txn-tenure-row">
+              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+                <input type="radio" checked={form.maritalStatus === 'married'} onChange={() => set({ maritalStatus: 'married' })} />
+                Married
+              </label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
+                <input type="radio" checked={form.maritalStatus === 'single'} onChange={() => set({ maritalStatus: 'single' })} />
+                Single
+              </label>
+            </div>
+            {form.maritalStatus === 'married' && (
+              <span className="note warn">
+                Spousal consent is required — you'll be asked to upload a signed Spousal Consent Form in the Documents
+                step.
+              </span>
+            )}
           </div>
         </div>
 
@@ -321,12 +526,29 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
           <button
             type="button"
             className="btn btn-primary"
-            disabled={!form.loanType || !form.entireAmount || !amount || amount < limits.min || amount > limits.max}
+            disabled={
+              !form.loanType ||
+              !form.entireAmount ||
+              !amount ||
+              amount < limits.min ||
+              overLimit ||
+              !form.repaymentStartDate ||
+              !form.maritalStatus
+            }
             onClick={onNext}
           >
             Continue
           </button>
         </div>
+
+        {showPolicy && <LegalCopySlideover title="Policy and procedures" paragraphs={LOAN_POLICY_COPY} onClose={() => setShowPolicy(false)} />}
+        {showAmortization && (
+          <AmortizationScheduleSlideover
+            principal={amount}
+            termMonths={Math.max(1, (+form.years || 0) * 12 + (+form.months || 0))}
+            onClose={() => setShowAmortization(false)}
+          />
+        )}
       </div>
     )
   }
@@ -335,82 +557,79 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
     return (
       <div className="txn-card">
         <h3>Payment &amp; Fee Details</h3>
-        <p className="hint">
-          Loan calculator — enter any two of loan amount, periodic payment, and tenure; the third auto-computes.
-        </p>
 
+        <h4>Payment details</h4>
         <div className="txn-row">
           <div className="txn-field">
             <label>
-              Loan repayment method<i>*</i>
+              Payment method<i>*</i>
             </label>
             <div className="txn-tenure-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}>
-              {LOAN_REPAYMENT_METHODS.map((m) => (
+              {LOAN_PAYMENT_METHODS.map((m) => (
                 <label key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600 }}>
-                  <input
-                    type="radio"
-                    checked={form.repaymentMethod === m.id}
-                    onChange={() => set({ repaymentMethod: m.id })}
-                  />
+                  <input type="radio" checked={form.paymentMethod === m.id} onChange={() => set({ paymentMethod: m.id })} />
                   {m.label}
                 </label>
               ))}
             </div>
-            {repaymentMethod && <span className="note">{repaymentMethod.hint}</span>}
-          </div>
-          <div className="txn-field">
-            <label>
-              Loan repayment frequency<i>*</i>
-            </label>
-            <select value={form.repaymentFrequency} onChange={(e) => set({ repaymentFrequency: e.target.value })}>
-              {LOAN_REPAYMENT_FREQUENCIES.map((f) => (
-                <option key={f.id} value={f.id}>
-                  {f.label}
-                </option>
-              ))}
-            </select>
           </div>
         </div>
 
-        <div className="txn-row" style={{ marginTop: 18, alignItems: 'flex-end' }}>
-          <div className="txn-field">
-            <label>
-              Length of the loan term<i>*</i>
-            </label>
-            <div className="txn-tenure-row">
-              <input
-                type="number"
-                min={0}
-                value={form.years}
-                onChange={(e) => set({ years: Math.max(0, +e.target.value || 0) })}
-              />
-              <span className="note">Year(s)</span>
-              <input
-                type="number"
-                min={0}
-                max={11}
-                value={form.months}
-                onChange={(e) => set({ months: Math.max(0, Math.min(11, +e.target.value || 0)) })}
-              />
-              <span className="note">Month(s)</span>
-            </div>
-            <span className="note">Max term is {maxTermYears} years 0 months</span>
-          </div>
-          <div className="txn-field">
-            <label>Periodic payment</label>
-            <input type="text" disabled value={payment ? formatMoney(payment) : '—'} />
-            <span className="note">Changes to the loan term automatically update the periodic payment.</span>
-          </div>
-        </div>
+        {form.paymentMethod === 'eft' && (
+          <>
+            <h4>Select bank</h4>
+            {/* Scenario 5: no bank on file — show an empty state with an
+                add-bank action instead of the read-only bank card. */}
+            {bank ? (
+              <div className="edit-alloc-readcard" style={{ display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+                <div>
+                  <b>Bank name</b>
+                  <span>{bank.bankName}</span>
+                </div>
+                <div>
+                  <b>Account number</b>
+                  <span>•••• •••• {bank.last4}</span>
+                </div>
+                <div>
+                  <b>Routing No</b>
+                  <span>{bank.routingNo}</span>
+                </div>
+                <button type="button" className="txn-summary-edit" onClick={() => setShowAddBank(true)}>
+                  Edit
+                </button>
+              </div>
+            ) : (
+              <div className="wd-note">
+                No bank details found.{' '}
+                <button type="button" className="txn-summary-edit" onClick={() => setShowAddBank(true)}>
+                  Add bank account
+                </button>
+              </div>
+            )}
+          </>
+        )}
 
-        <div className="wd-fee-card" style={{ marginTop: 18, marginBottom: 0 }}>
+        <h4>Fee Details</h4>
+        <div className="wd-fee-card" style={{ marginTop: 0, marginBottom: 0 }}>
           <div className="wd-fee-row">
-            <span>Requested amount</span>
+            <span>Net request amount</span>
             <b>{formatMoney(gross.requested)}</b>
           </div>
           <div className="wd-fee-row">
-            <span>Loan origination fee</span>
-            <b>{formatMoney(gross.fee)}</b>
+            <span>Transaction Fee</span>
+            <b>{formatMoney(gross.transactionFee)}</b>
+          </div>
+          <div className="wd-fee-row" style={{ paddingLeft: 16 }}>
+            <span>TPA Fee</span>
+            <b>{formatMoney(gross.tpaFee)}</b>
+          </div>
+          <div className="wd-fee-row" style={{ paddingLeft: 16 }}>
+            <span>EFT Fee</span>
+            <b>{formatMoney(gross.eftFee)}</b>
+          </div>
+          <div className="wd-fee-row">
+            <span>Redemption fee</span>
+            <b>{formatMoney(gross.redemptionFee)}</b>
           </div>
           <div className="wd-fee-row total">
             <span>Gross Loan amount</span>
@@ -422,31 +641,117 @@ function LoanSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) 
           <button type="button" className="btn btn-ghost" onClick={onBack}>
             Back
           </button>
-          <button type="button" className="btn btn-primary" disabled={!form.years && !form.months} onClick={onNext}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={form.paymentMethod === 'eft' && !bank}
+            onClick={onNext}
+          >
             Continue
           </button>
         </div>
+
+        {showAddBank && (
+          <AddBankDialog
+            bank={bank}
+            onCancel={() => setShowAddBank(false)}
+            onSave={(b) => {
+              set({ addedBank: b, hasBankOnFile: true })
+              setShowAddBank(false)
+            }}
+          />
+        )}
       </div>
     )
   }
 
   if (step === 'documents') {
-    return <DocumentsStep type="loan" form={form} set={set} onNext={onNext} onBack={onBack} />
+    const extraDocs = form.maritalStatus === 'married' ? [SPOUSAL_CONSENT_DOC] : []
+    return <DocumentsStep type="loan" extraDocs={extraDocs} form={form} set={set} onNext={onNext} onBack={onBack} />
   }
 
+  const docsUploaded = Object.values(form.docs || {}).filter(Boolean).length
+
   return (
-    <SummaryStep title="Loan Request Summary" onBack={onBack} onSubmit={onSubmit}>
+    <SummaryStep title="Loan Request Summary" onBack={onBack} onSubmit={onSubmit} submitDisabled={!form.termsAccepted}>
+      <div className="wd-terms" style={{ marginBottom: 18 }}>
+        <label>
+          <input type="checkbox" checked={form.termsAccepted} onChange={(e) => set({ termsAccepted: e.target.checked })} />
+          <span>
+            By checking this box, I declare that I have read{' '}
+            <button type="button" className="txn-summary-edit" onClick={() => setShowTerms(true)}>
+              the terms and conditions
+            </button>
+            .
+          </span>
+        </label>
+      </div>
+
       <SummaryRow label="Loan type" value={loanType?.label || '—'} onEdit={() => onEdit(0)} />
+      <SummaryRow label="Reason for loan" value={form.reason || '—'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Take entire loan amount" value={form.entireAmount === 'yes' ? 'Yes' : 'No'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Loan amount" value={formatMoney(amount)} onEdit={() => onEdit(0)} />
       <SummaryRow label="Interest rate" value={`${LOAN_INTEREST_RATE}%`} />
-      <SummaryRow label="Repayment method" value={repaymentMethod?.label || '—'} onEdit={() => onEdit(1)} />
-      <SummaryRow label="Repayment frequency" value={repaymentFrequency?.label || '—'} onEdit={() => onEdit(1)} />
-      <SummaryRow label="Loan term" value={`${form.years || 0} yr ${form.months || 0} mo`} onEdit={() => onEdit(1)} />
+      <SummaryRow label="Repayment method" value={repaymentMethod?.label || '—'} onEdit={() => onEdit(0)} />
+      <SummaryRow label="Repayment frequency" value={repaymentFrequency?.label || '—'} onEdit={() => onEdit(0)} />
+      <SummaryRow label="Loan term" value={`${form.years || 0} yr ${form.months || 0} mo`} onEdit={() => onEdit(0)} />
+      <SummaryRow label="First repayment date" value={form.repaymentStartDate || '—'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Periodic payment" value={payment ? formatMoney(payment) : '—'} />
+      <SummaryRow label="Marital status" value={form.maritalStatus === 'married' ? 'Married' : 'Single'} onEdit={() => onEdit(0)} />
+      <SummaryRow label="Payment method" value={paymentMethod?.label || '—'} onEdit={() => onEdit(1)} />
+      {form.paymentMethod === 'eft' && bank && (
+        <SummaryRow label="Bank" value={`${bank.bankName} •••• ${bank.last4}`} onEdit={() => onEdit(1)} />
+      )}
+      <SummaryRow label="Net request amount" value={formatMoney(gross.requested)} />
+      <SummaryRow label="Fees" value={formatMoney(gross.transactionFee + gross.redemptionFee)} />
       <SummaryRow label="Gross Loan Amount" value={formatMoney(gross.grossAmount)} />
-      <SummaryRow label="Promissory note" value={form.docUploaded ? 'Uploaded' : 'Not uploaded'} onEdit={() => onEdit(2)} />
+      <SummaryRow
+        label="Documents"
+        value={docsUploaded > 0 ? `${String(docsUploaded).padStart(2, '0')} File(s) uploaded` : 'Not uploaded'}
+        onEdit={() => onEdit(2)}
+      />
+
+      {showTerms && <LegalCopySlideover title="Terms and conditions" paragraphs={LOAN_TERMS_COPY} onClose={() => setShowTerms(false)} />}
     </SummaryStep>
+  )
+}
+
+function AddBankDialog({ bank, onCancel, onSave }) {
+  const [bankName, setBankName] = useState(bank?.bankName || '')
+  const [accountNumber, setAccountNumber] = useState('')
+  const [routingNo, setRoutingNo] = useState(bank?.routingNo || '')
+
+  return (
+    <div className="enroll-modal-bg" onClick={onCancel}>
+      <div className="confirm-dialog" onClick={(e) => e.stopPropagation()} style={{ textAlign: 'left' }}>
+        <h3 style={{ marginTop: 0 }}>Add bank account</h3>
+        <div className="txn-field" style={{ marginBottom: 12 }}>
+          <label>Bank name</label>
+          <input type="text" value={bankName} onChange={(e) => setBankName(e.target.value)} />
+        </div>
+        <div className="txn-field" style={{ marginBottom: 12 }}>
+          <label>Account number</label>
+          <input type="text" value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)} placeholder="•••• •••• 1234" />
+        </div>
+        <div className="txn-field" style={{ marginBottom: 12 }}>
+          <label>Routing No</label>
+          <input type="text" value={routingNo} onChange={(e) => setRoutingNo(e.target.value)} />
+        </div>
+        <div className="txn-actions">
+          <button type="button" className="btn btn-ghost" onClick={onCancel}>
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={!bankName || !accountNumber || !routingNo}
+            onClick={() => onSave({ bankName, last4: accountNumber.slice(-4), routingNo })}
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -814,49 +1119,69 @@ function TransferSteps({ step, plan, form, set, onNext, onBack, onSubmit }) {
 
 /* ---------------- Shared steps ---------------- */
 
-function DocumentsStep({ type, form, set, onNext, onBack }) {
-  const [mode, setMode] = useState('manual')
-  const docs = REQUEST_DOC_REQUIREMENTS[type] || []
+function DocumentsStep({ type, extraDocs = [], form, set, onNext, onBack }) {
+  const docs = [...(REQUEST_DOC_REQUIREMENTS[type] || []), ...extraDocs]
+  const docsState = form.docs || {}
+  const setDocUploaded = (id) => {
+    // Functional patch so two uploads triggered in the same tick (e.g. two
+    // required documents) both apply instead of the second clobbering the
+    // first via a stale `docsState` closure.
+    set((f) => {
+      const nextDocs = { ...(f.docs || {}), [id]: true }
+      // `docUploaded` stays in sync as "all required docs uploaded" so single-doc
+      // flows (withdrawal/transfer) and their Summary rows keep working unchanged.
+      const allRequiredDone = docs.filter((d) => d.required).every((d) => nextDocs[d.id])
+      return { docs: nextDocs, docUploaded: allRequiredDone }
+    })
+  }
+  const allRequiredDone = docs.filter((d) => d.required).every((d) => docsState[d.id])
 
   return (
     <div className="txn-card">
       <h3>Upload Documents</h3>
       {docs.map((d) => (
-        <div key={d.id} style={{ marginBottom: 16 }}>
-          <span className="txn-doc-required">{d.required ? 'Required' : 'Not required'}</span>
-          <div className="txn-upload">
-            <div className="tabs2">
-              <button type="button" className={mode === 'manual' ? 'on' : ''} onClick={() => setMode('manual')}>
-                Upload manually
-              </button>
-              <button type="button" className={mode === 'esign' ? 'on' : ''} onClick={() => setMode('esign')}>
-                Use E-signature
-              </button>
-            </div>
-            <p style={{ fontWeight: 700, color: 'var(--ink)' }}>{d.label}</p>
-            {mode === 'manual' ? (
-              <>
-                <button type="button" className="btn btn-secondary" onClick={() => set({ docUploaded: true })}>
-                  {form.docUploaded ? 'Replace file' : 'Browse or drag & drop to upload'}
-                </button>
-                <p>Accepted formats: jpeg, png, jpg, pdf, word · Max file size 5MB</p>
-              </>
-            ) : (
-              <button type="button" className="btn btn-secondary" onClick={() => set({ docUploaded: true })}>
-                Send for e-signature
-              </button>
-            )}
-            {form.docUploaded && <p style={{ color: 'var(--green)', fontWeight: 700 }}>✓ Received</p>}
-          </div>
-        </div>
+        <DocumentUploadBlock key={d.id} doc={d} uploaded={!!docsState[d.id]} onUploaded={() => setDocUploaded(d.id)} />
       ))}
       <div className="txn-actions">
         <button type="button" className="btn btn-ghost" onClick={onBack}>
           Back
         </button>
-        <button type="button" className="btn btn-primary" disabled={docs.some((d) => d.required) && !form.docUploaded} onClick={onNext}>
+        <button type="button" className="btn btn-primary" disabled={docs.some((d) => d.required) && !allRequiredDone} onClick={onNext}>
           Continue
         </button>
+      </div>
+    </div>
+  )
+}
+
+function DocumentUploadBlock({ doc, uploaded, onUploaded }) {
+  const [mode, setMode] = useState('manual')
+  return (
+    <div style={{ marginBottom: 16 }}>
+      <span className="txn-doc-required">{doc.required ? 'Required' : 'Not required'}</span>
+      <div className="txn-upload">
+        <div className="tabs2">
+          <button type="button" className={mode === 'manual' ? 'on' : ''} onClick={() => setMode('manual')}>
+            Upload manually
+          </button>
+          <button type="button" className={mode === 'esign' ? 'on' : ''} onClick={() => setMode('esign')}>
+            Use E-signature
+          </button>
+        </div>
+        <p style={{ fontWeight: 700, color: 'var(--ink)' }}>{doc.label}</p>
+        {mode === 'manual' ? (
+          <>
+            <button type="button" className="btn btn-secondary" onClick={onUploaded}>
+              {uploaded ? 'Replace file' : 'Browse or drag & drop to upload'}
+            </button>
+            <p>Accepted formats: jpeg, png, jpg, pdf, word · Max file size 5MB</p>
+          </>
+        ) : (
+          <button type="button" className="btn btn-secondary" onClick={onUploaded}>
+            Send for e-signature
+          </button>
+        )}
+        {uploaded && <p style={{ color: 'var(--green)', fontWeight: 700 }}>✓ Received</p>}
       </div>
     </div>
   )

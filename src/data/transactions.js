@@ -46,10 +46,15 @@ export function canRequest(plan, typeId) {
 const PLAN_WIDE_LOAN_CAP = 50000
 const LOAN_FLOOR = 300
 
-export function loanLimits(plan) {
+// `outstandingBalance` is any existing active loan balance on this plan —
+// per plan policy, the cap is reduced dollar-for-dollar by what's already
+// borrowed (mirrors the Figma policy copy: "50% of vested balance or
+// $50,000, minus the outstanding loan balance").
+export function loanLimits(plan, outstandingBalance = 0) {
   const vested = planVested(plan)
-  const max = Math.max(LOAN_FLOOR, Math.min(PLAN_WIDE_LOAN_CAP, Math.round(vested * 0.5)))
-  return { min: LOAN_FLOOR, max }
+  const capBeforeOutstanding = Math.min(PLAN_WIDE_LOAN_CAP, Math.round(vested * 0.5))
+  const max = Math.max(0, capBeforeOutstanding - Math.round(outstandingBalance || 0))
+  return { min: max > 0 ? Math.min(LOAN_FLOOR, max) : 0, max }
 }
 
 // Simple daily-accrual estimate used by the loan calculator slideover — not
@@ -82,16 +87,19 @@ export function estimatePeriodicPayment(amount, years, months, aprPct = 8.5) {
 }
 
 export const LOAN_TYPES = [
-  { id: 'general', label: 'General Purpose', hint: 'For any reason — max term 5 years.', maxYears: 5 },
-  { id: 'residential', label: 'Residential', hint: 'To buy a primary residence — max term 15 years.', maxYears: 15 }
+  { id: 'personal', label: 'Personal Loan', hint: 'For any reason — max term 5 years.', maxYears: 5 },
+  { id: 'home', label: 'Home Loan', hint: 'To buy a primary residence — max term 15 years.', maxYears: 15 },
+  { id: 'educational', label: 'Educational Loan', hint: 'For education expenses — max term 10 years.', maxYears: 10 }
 ]
 
 export const LOAN_INTEREST_RATE = 8
 
+// "Loan repayment method" on the Loan Details step — how repayments get
+// collected, not how the loan is disbursed (that's LOAN_PAYMENT_METHODS).
 export const LOAN_REPAYMENT_METHODS = [
   { id: 'payroll', label: 'Payroll deduction', hint: 'Repayments are deducted automatically from your paycheck.' },
-  { id: 'ach', label: 'ACH bank draft', hint: 'Repayments are drafted from your bank account on file.' },
-  { id: 'check', label: 'Mail a check', hint: 'You mail a check for each repayment.' }
+  { id: 'direct', label: 'Direct payment', hint: 'You submit repayments directly, outside of payroll.' },
+  { id: 'both', label: 'Both', hint: 'A mix of payroll deduction and direct payment.' }
 ]
 
 export const LOAN_REPAYMENT_FREQUENCIES = [
@@ -100,16 +108,78 @@ export const LOAN_REPAYMENT_FREQUENCIES = [
   { id: 'weekly', label: 'Weekly' }
 ]
 
-const LOAN_ORIGINATION_FEE = 50
+// "Payment method" on the Payment & Fee Details step — how the loan proceeds
+// are disbursed to the participant. Same option set/ids as withdrawal's
+// PAYMENT_METHODS (defined further below) so both flows share one shape.
+export const LOAN_PAYMENT_METHODS = [
+  { id: 'eft', label: 'Electronic Funds Transfer (EFT)' },
+  { id: 'check', label: 'Mail check to address' }
+]
 
-// Loan requests are grossed up by a flat origination fee, same pattern as
-// the withdrawal fee engine — the participant still nets the amount they
-// asked for.
+// Mock bank-on-file details shown under "Select check" when EFT is chosen —
+// stands in for a real linked-bank-accounts service.
+export const BANK_ON_FILE = { bankName: 'RDSA Bank', last4: '1234', routingNo: '343' }
+
+const LOAN_TPA_FEE = 2
+const LOAN_EFT_FEE = 2
+const LOAN_REDEMPTION_FEE = 2
+
+// Loan requests are grossed up by an itemized set of fees — TPA + EFT
+// (rolled up as "Transaction Fee") plus a redemption fee — so the
+// participant still nets the amount they asked for.
 export function computeGrossLoanAmount(amount) {
   const requested = +amount || 0
-  const fee = requested > 0 ? LOAN_ORIGINATION_FEE : 0
-  return { requested, fee, grossAmount: requested + fee }
+  const tpaFee = requested > 0 ? LOAN_TPA_FEE : 0
+  const eftFee = requested > 0 ? LOAN_EFT_FEE : 0
+  const transactionFee = round2(tpaFee + eftFee)
+  const redemptionFee = requested > 0 ? LOAN_REDEMPTION_FEE : 0
+  const grossAmount = round2(requested + transactionFee + redemptionFee)
+  return { requested, tpaFee, eftFee, transactionFee, redemptionFee, grossAmount }
 }
+
+// Simple straight-line amortization estimate for the "View Amortization
+// Schedule" panel — not a real payoff schedule, just a plausible per-period
+// principal/interest/balance breakdown.
+export function computeAmortizationSchedule(principal, aprPct, termMonths) {
+  const p = Math.max(0, +principal || 0)
+  const months = Math.max(1, Math.round(+termMonths) || 1)
+  const monthlyRate = (aprPct || 0) / 100 / 12
+  const payment = monthlyRate === 0 ? p / months : (p * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months))
+  let balance = p
+  const rows = []
+  for (let period = 1; period <= months; period++) {
+    const interest = round2(balance * monthlyRate)
+    const principalPortion = round2(Math.min(balance, payment - interest))
+    balance = round2(Math.max(0, balance - principalPortion))
+    rows.push({ period, payment: round2(principalPortion + interest), principal: principalPortion, interest, balance })
+  }
+  return rows
+}
+
+// Loan Details step — "Policy and procedures" slideover copy, verbatim from
+// the plan's loan policy disclosures.
+export const LOAN_POLICY_COPY = [
+  'You may complete the request on paper or allow for an electronic request through a website or automated phone system.',
+  'You require spousal consent to be obtained at the time a participant is obtaining a loan. The consent must be in writing and obtained not more than 90 days prior to the loan.',
+  'Your eligibility is determined based on- Is the state of employment active? Do you have any outstanding loans? What is the amount of your vested account balance?',
+  "You may borrow an amount that is the lesser of: 50% of the participant's vested account balance or $50,000 (minus the difference between the highest outstanding loan balance of the previous 12 months and the current outstanding loan balance).",
+  'You must be aware that to prevent the use of refinancing as a means to circumvent the five-year repayment requirement, if additional funds are being borrowed as part of the refinancing transaction, the replaced loan may need to be taken into account to determine whether the five year limit is exceeded or not.',
+  'You are expected to review paystubs and bank accounts to confirm payments are being deducted to satisfy their loan obligation.',
+  'Loan payments can be suspended by the Admin at his/her sole discretion for the below reasons: when you go on an unpaid leave of absence (LOA); when you go on a paid leave of absence, but the pay is less than the expected loan amount; or when you go on a military leave of absence (MLOA), regardless of pay status.',
+  'You may be allowed a cure period by the sponsor if a payment is missed. The regulatory maximum cure period is the last business day of the calendar quarter following the calendar quarter in which the first missed payment occurred.',
+  'Loans are supposed to be paid off by the original maturity date. If the loan is not paid in full by the original maturity date, it will be considered in default unless a cure period applies, in which case the loan can be repaid through the end of the cure period to avoid the default.',
+  'If a participant passes away and has an outstanding loan balance, the loan will generally become immediately due.',
+  'If a participant retires or terminates employment with an outstanding loan, the action taken depends on the plan guidelines.'
+]
+
+// Loan Request Summary step — "Terms and conditions" acknowledgment copy.
+export const LOAN_TERMS_COPY = [
+  'I have read and understood all the rules governing loan requests from my 401k plan.',
+  "I understand that redemption fees may be imposed on certain funds if assets are held less than the period stated in the fund's prospectus or other disclosure documents.",
+  'I understand that it is entirely my responsibility to ensure that this election conforms with all applicable provisions of the Internal Revenue Code.',
+  'I understand that I may be liable for any income tax and/or penalties assessed by the IRS for any elections I have chosen.',
+  'I understand that once my payment has been processed, it cannot be changed.'
+]
 
 export const DISTRIBUTION_MODES = [
   { id: 'direct', label: 'Direct Distribution', hint: 'A check is mailed or funds are sent to your bank account.' },
@@ -178,6 +248,12 @@ export const REQUEST_DOC_REQUIREMENTS = {
   transfer: []
 }
 
+// A married participant must supply a Spousal Consent Form in addition to
+// the Promissory Note (Loan Policy §2). Appended conditionally, not baked
+// into REQUEST_DOC_REQUIREMENTS.loan, since it only applies when
+// form.maritalStatus === 'married'.
+export const SPOUSAL_CONSENT_DOC = { id: 'spousal-consent', label: 'Spousal Consent Form', required: true }
+
 export function requestStatusTone(status) {
   if (status === 'Approved' || status === 'Completed') return 'good'
   if (status === 'Pending' || status === 'In Review') return 'ok'
@@ -205,6 +281,12 @@ export const TRANSACTION_REQUESTS = {
 
 export function requestsFor(participant) {
   return TRANSACTION_REQUESTS[participant.id] || []
+}
+
+// Mock transaction id shown on the wizard's success screen and used to track
+// the request from the Requests tab.
+export function generateTransactionId() {
+  return String(Math.floor(10000 + Math.random() * 90000))
 }
 
 export { formatMoney, parseMoney, planBalance, planVested }
