@@ -168,7 +168,7 @@ export default function EnrollmentSummary() {
                   <path className="success-check" d="M15.5 27.2l7.2 7.2 14.6-16" />
                 </svg>
               </div>
-              <h3 id="success-title">{notEligible ? 'Your elections are saved' : "You're enrolled"}</h3>
+              <h3 id="success-title">{notEligible ? 'Your Elections Are Saved' : "You're Enrolled"}</h3>
               <p className="success-lead">
                 {notEligible
                   ? "The enrollment preferences have been saved and will take effect once you're eligible for the plan. Take a moment to designate a beneficiary and help ensure your savings go to the right person."
