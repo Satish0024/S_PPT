@@ -694,7 +694,13 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 .review-divider{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
 .review-divider p{margin-top:6px}
 .review-divider .review-rows{margin-top:6px}
-.review-funds{list-style:none;display:flex;flex-direction:column;gap:0}
+.review-funds{list-style:none;display:flex;flex-direction:column;gap:0;margin:0;padding:0}
+.fund-list{display:flex;flex-direction:column;gap:0}
+.fund-list-head{
+  display:flex;justify-content:space-between;gap:12px;align-items:baseline;
+  padding:0 0 8px;border-bottom:1px solid var(--line);font-size:12px;font-weight:700;color:var(--muted)}
+.fund-list-head span:last-child{text-align:right;flex:0 0 auto}
+.inv-col-head{margin-bottom:10px}
 .review-funds li{
   display:flex;justify-content:space-between;gap:12px;align-items:baseline;
   padding:6px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-soft)

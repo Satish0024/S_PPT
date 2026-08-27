@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { Percent, TrendingUp } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
@@ -6,6 +6,9 @@ import {
   AUTO_INCREASE_KEY,
   DEFERRAL_KEY,
   INVESTMENT_KEY,
+  isAutoEnrolledPlan,
+  markPlanManuallyEnrolled,
+  planEnrollmentStatus,
   readSession,
   writeSession
 } from '../data/participants'
@@ -48,6 +51,11 @@ const planCode = (meta) => String(meta || '').match(/ID\s+(\d+)/i)?.[1] || '—'
 const canDefer = (plan) => /401|deferred/i.test(`${plan.type} ${plan.id}`)
 const isParticipating = (plan) => /enrolled|participating/i.test(`${plan.badge} ${plan.details?.status || ''}`)
 const isEligibleOnly = (plan) => plan.badge === 'Eligible' || plan.badgeClass === 'eligible'
+const electionSnapshot = () => ({
+  deferral: readSession(DEFERRAL_KEY),
+  autoInc: readSession(AUTO_INCREASE_KEY),
+  inv: readSession(INVESTMENT_KEY)
+})
 
 export default function PlanDetails() {
   const { planId } = useParams()
@@ -58,10 +66,13 @@ export default function PlanDetails() {
   const savedAi = useMemo(() => readSession(AUTO_INCREASE_KEY), [tick])
   const savedInv = useMemo(() => readSession(INVESTMENT_KEY), [tick])
   const [optOutOpen, setOptOutOpen] = useState(false)
+  const [autoEnrollOpen, setAutoEnrollOpen] = useState(false)
   const [optedOut, setOptedOut] = useState(!!savedDeferral?.optedOut)
   useEscapeToClose(optOutOpen, () => setOptOutOpen(false))
+  useEscapeToClose(autoEnrollOpen, () => setAutoEnrollOpen(false))
   const [tab, setTab] = useState('deferral')
   const [editing, setEditing] = useState(false)
+  const editSnapshot = useRef(null)
 
   if (!plan) return <Navigate to="/" replace />
 
@@ -81,8 +92,36 @@ export default function PlanDetails() {
       : DEFAULT_FUNDS
 
   const refresh = () => {
+    const before = editSnapshot.current
+    if (before && isAutoEnrolledPlan(plan)) {
+      const after = electionSnapshot()
+      if (JSON.stringify(before) !== JSON.stringify(after)) {
+        markPlanManuallyEnrolled(plan.id)
+      }
+    }
+    editSnapshot.current = null
     setEditing(false)
     setTick((n) => n + 1)
+  }
+
+  const beginEdit = () => {
+    if (isAutoEnrolledPlan(plan)) {
+      setAutoEnrollOpen(true)
+      return
+    }
+    editSnapshot.current = electionSnapshot()
+    setEditing(true)
+  }
+
+  const confirmAutoEnrollEdit = () => {
+    editSnapshot.current = electionSnapshot()
+    setAutoEnrollOpen(false)
+    setEditing(true)
+  }
+
+  const cancelEdit = () => {
+    editSnapshot.current = null
+    setEditing(false)
   }
 
   const confirmOptOut = () => {
@@ -139,7 +178,7 @@ export default function PlanDetails() {
           <div className="plan-fact-row">
             <div className="plan-fact">
               Enrollment Status
-              <b>{sessionOptOut ? 'Opted Out' : plan.details?.status || plan.badge}</b>
+              <b>{sessionOptOut ? 'Opted Out' : planEnrollmentStatus(plan)}</b>
             </div>
             <div className="plan-fact">
               SSN
@@ -214,7 +253,7 @@ export default function PlanDetails() {
                       embedded
                       showOptOut={false}
                       saveLabel="Save changes"
-                      onCancel={() => setEditing(false)}
+                      onCancel={cancelEdit}
                       onComplete={(didOptOut) => {
                         if (didOptOut) setOptedOut(true)
                         refresh()
@@ -224,7 +263,7 @@ export default function PlanDetails() {
                     <>
                       <div className="panel-h">
                         <h3>Deferral &amp; auto increase</h3>
-                        <button type="button" className="text-link" onClick={() => setEditing(true)}>
+                        <button type="button" className="text-link" onClick={beginEdit}>
                           Edit
                         </button>
                       </div>
@@ -284,14 +323,14 @@ export default function PlanDetails() {
                   <InvestmentEditor
                     embedded
                     saveLabel="Save changes"
-                    onCancel={() => setEditing(false)}
+                    onCancel={cancelEdit}
                     onComplete={refresh}
                   />
                 ) : (
                   <>
                     <div className="panel-h">
                       <h3>Investments</h3>
-                      <button type="button" className="text-link" onClick={() => setEditing(true)}>
+                      <button type="button" className="text-link" onClick={beginEdit}>
                         Edit
                       </button>
                     </div>
@@ -349,6 +388,32 @@ export default function PlanDetails() {
           </div>
         </div>
       )}
+
+      {autoEnrollOpen && (
+        <div className="enroll-modal-bg" role="presentation" onClick={() => setAutoEnrollOpen(false)}>
+          <div
+            className="enroll-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="auto-enroll-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h4 id="auto-enroll-title">You are moving out of auto enrollment</h4>
+            <p>
+              This plan was set up through auto enrollment. If you edit your elections and save changes, your enrollment
+              status will change from <strong>Auto Enrolled</strong> to <strong>Enrolled</strong>.
+            </p>
+            <div className="enroll-modal-actions">
+              <button type="button" className="btn btn-secondary" onClick={() => setAutoEnrollOpen(false)}>
+                Cancel
+              </button>
+              <button type="button" className="btn btn-primary" onClick={confirmAutoEnrollEdit}>
+                Continue to edit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -356,13 +421,19 @@ export default function PlanDetails() {
 function FundList({ rows }) {
   if (!rows?.length) return <p>No funds selected yet.</p>
   return (
-    <ul className="detail-rows">
-      {rows.map(([name, share]) => (
-        <li key={name}>
-          <span>{name}</span>
-          <b>{pct(share)}</b>
-        </li>
-      ))}
-    </ul>
+    <div className="fund-list">
+      <div className="fund-list-head">
+        <span>Investment</span>
+        <span>Election Percentage</span>
+      </div>
+      <ul className="detail-rows">
+        {rows.map(([name, share]) => (
+          <li key={name}>
+            <span>{name}</span>
+            <b>{pct(share)}</b>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }

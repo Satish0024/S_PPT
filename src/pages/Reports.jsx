@@ -1,44 +1,212 @@
-import { useMemo, useState } from 'react'
-import { Download, FileText } from 'lucide-react'
+import { useMemo, useRef, useState } from 'react'
+import { ChevronDown, Download, FileText } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
-import { PLAN_DOCS, STATEMENTS } from '../data/documents.js'
+import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
+import '../styles/documents.css'
 
-const FILTERS = ['All', 'Statements', 'Plan Documents', 'Tax Documents', 'Notices']
+const STATEMENT_PERIODS = [
+  { id: '1m', label: 'Last month' },
+  { id: '3m', label: 'Last 3 months' },
+  { id: '6m', label: 'Last 6 months' },
+  { id: '12m', label: 'Last 12 months' }
+]
 
-function category(type) {
-  if (type === 'Statement' || type === 'Loan Document') return 'Statements'
-  if (type === 'Plan Document') return 'Plan Documents'
-  if (type === 'Tax Document') return 'Tax Documents'
-  return 'Notices'
+function toDateInput(d) {
+  return d.toISOString().slice(0, 10)
+}
+
+function useOutsideClose(onClose) {
+  const ref = useRef(null)
+  const handler = (e) => {
+    if (ref.current && !ref.current.contains(e.target)) onClose()
+  }
+  return { ref, handler }
+}
+
+function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, getSub, getKey = (o) => o }) {
+  const [open, setOpen] = useState(false)
+  const { ref, handler } = useOutsideClose(() => setOpen(false))
+
+  const allChecked = options.length > 0 && selected.length === options.length
+  const summary = selected.length === 0 || allChecked ? 'All' : selected.length === 1 ? getLabel(selected[0]) : `${selected.length} selected`
+
+  const toggle = (key) => {
+    onChange(selected.some((s) => getKey(s) === key) ? selected.filter((s) => getKey(s) !== key) : [...selected, options.find((o) => getKey(o) === key)])
+  }
+  const toggleAll = () => onChange(allChecked ? [] : [...options])
+
+  return (
+    <div className="multi-select" ref={ref} onBlur={(e) => !ref.current?.contains(e.relatedTarget) && setOpen(false)}>
+      <span className="field-label">{label}</span>
+      <button type="button" className="multi-select-btn" onClick={() => setOpen((v) => !v)} onFocus={() => document.addEventListener('click', handler, { once: true })}>
+        {summary}
+        <ChevronDown size={15} strokeWidth={2.2} />
+      </button>
+      {open && (
+        <div className="multi-select-menu" role="listbox">
+          <label className="multi-select-row all">
+            <input type="checkbox" checked={allChecked} onChange={toggleAll} />
+            Select All
+          </label>
+          {options.map((opt) => {
+            const key = getKey(opt)
+            return (
+              <label className="multi-select-row" key={key}>
+                <input type="checkbox" checked={selected.some((s) => getKey(s) === key)} onChange={() => toggle(key)} />
+                <span>
+                  <b>{getLabel(opt)}</b>
+                  {getSub ? <small>{getSub(opt)}</small> : null}
+                </span>
+              </label>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function StatementModal({ plans, onClose }) {
+  const [planId, setPlanId] = useState('')
+  const [period, setPeriod] = useState('3m')
+
+  return (
+    <div className="enroll-modal-bg" role="presentation" onClick={onClose}>
+      <div className="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="stmt-title" onClick={(e) => e.stopPropagation()}>
+        <h4 id="stmt-title">Generate Statement</h4>
+        <div className="pr-form">
+          <div className="pr-field">
+            <span>
+              Plan Name/ID<i>*</i>
+            </span>
+            <select value={planId} onChange={(e) => setPlanId(e.target.value)}>
+              <option value="">Select</option>
+              {plans.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="pr-field">
+            <span>Statement Period</span>
+            <select value={period} onChange={(e) => setPeriod(e.target.value)}>
+              {STATEMENT_PERIODS.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="enroll-modal-actions">
+          <button type="button" className="btn btn-ghost" onClick={onClose}>
+            Cancel
+          </button>
+          <button type="button" className="btn btn-primary" disabled={!planId} onClick={onClose}>
+            Generate &amp; Download
+          </button>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default function Reports() {
   const { participant } = useParticipant()
-  const [filter, setFilter] = useState('All')
-  const docs = useMemo(() => {
+  const [search, setSearch] = useState('')
+  const [planFilter, setPlanFilter] = useState([])
+  const [typeFilter, setTypeFilter] = useState([])
+  const [from, setFrom] = useState(() => {
+    const d = new Date()
+    d.setMonth(d.getMonth() - 6)
+    return toDateInput(d)
+  })
+  const [to, setTo] = useState(() => toDateInput(new Date()))
+  const [statementOpen, setStatementOpen] = useState(false)
+
+  const allDocs = useMemo(() => {
     const personal = STATEMENTS[participant.id] || []
-    const all = [...personal, ...PLAN_DOCS]
-    if (filter === 'All') return all
-    return all.filter((d) => category(d.type) === filter)
-  }, [participant, filter])
+    return [...personal, ...PLAN_DOCS]
+  }, [participant])
+
+  const docs = useMemo(() => {
+    return allDocs.filter((d) => {
+      const nameOk = !search.trim() || d.name.toLowerCase().includes(search.trim().toLowerCase())
+      const planOk = !planFilter.length || planFilter.some((p) => p.name === d.plan)
+      const typeOk = !typeFilter.length || typeFilter.includes(d.type)
+      const docDate = new Date(d.date)
+      const dateOk = (!from || docDate >= new Date(from)) && (!to || docDate <= new Date(to))
+      return nameOk && planOk && typeOk && dateOk
+    })
+  }, [allDocs, search, planFilter, typeFilter, from, to])
+
+  const reset = () => {
+    setSearch('')
+    setPlanFilter([])
+    setTypeFilter([])
+    const d = new Date()
+    d.setMonth(d.getMonth() - 6)
+    setFrom(toDateInput(d))
+    setTo(toDateInput(new Date()))
+  }
 
   return (
     <div className="page-body">
       <div className="hi-bar">
-        <h1>Reports & Documents</h1>
+        <h1>Documents</h1>
+        <p className="pr-intro">Access, download, and generate important plan documents and disclosures</p>
       </div>
-      <section className="panel tx-page">
-        <div className="tx-toolbar">
-          <div className="tx-filters" role="tablist" aria-label="Document type">
-            {FILTERS.map((f) => (
-              <button key={f} type="button" className={filter === f ? 'on' : ''} onClick={() => setFilter(f)}>
-                {f}
-              </button>
-            ))}
+      <section className="panel doc-page">
+        <div className="doc-filters">
+          <div className="doc-field">
+            <span className="field-label">Search</span>
+            <input
+              type="text"
+              placeholder="Document name"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
+          <MultiSelect
+            label="Plan Name/ID"
+            options={participant.plans}
+            selected={planFilter}
+            onChange={setPlanFilter}
+            getKey={(p) => p.id}
+            getLabel={(p) => p.name}
+            getSub={(p) => p.meta}
+          />
+          <MultiSelect
+            label="Document Type"
+            options={DOCUMENT_TYPES}
+            selected={typeFilter}
+            onChange={setTypeFilter}
+          />
+          <div className="doc-field">
+            <span className="field-label">Documented from</span>
+            <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} />
+          </div>
+          <div className="doc-field">
+            <span className="field-label">Documented to</span>
+            <input type="date" value={to} onChange={(e) => setTo(e.target.value)} />
+          </div>
+          <button type="button" className="text-btn doc-reset" onClick={reset}>
+            Reset
+          </button>
         </div>
+
+        <div className="doc-results-head">
+          <span className="doc-count">
+            {docs.length.toString().padStart(2, '0')} - Record{docs.length === 1 ? '' : 's'} found
+          </span>
+          <button type="button" className="btn btn-secondary" onClick={() => setStatementOpen(true)}>
+            Generate Statement
+          </button>
+        </div>
+
         {!docs.length ? (
-          <div className="tx-empty">No documents in this category.</div>
+          <div className="tx-empty">No documents match these filters.</div>
         ) : (
           <div className="doc-list">
             {docs.map((d) => (
@@ -49,10 +217,10 @@ export default function Reports() {
                 <div className="doc-copy">
                   <h3>{d.name}</h3>
                   <p>
-                    {d.type} · {d.plan}
+                    {d.type} · {d.date}
                   </p>
                 </div>
-                <span className="doc-date">{d.date}</span>
+                <span className="doc-plan">{d.plan}</span>
                 <button type="button" className="doc-dl">
                   <Download size={16} strokeWidth={2.2} />
                   Download
@@ -62,6 +230,8 @@ export default function Reports() {
           </div>
         )}
       </section>
+
+      {statementOpen && <StatementModal plans={participant.plans} onClose={() => setStatementOpen(false)} />}
     </div>
   )
 }

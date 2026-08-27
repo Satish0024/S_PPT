@@ -11,6 +11,7 @@ import Portfolio from './pages/Portfolio.jsx'
 import Enrich from './pages/Enrich.jsx'
 import Profile from './pages/Profile.jsx'
 import Transactions from './pages/Transactions.jsx'
+import TransactionRequest from './pages/TransactionRequest.jsx'
 import Reports from './pages/Reports.jsx'
 import Login from './pages/Login.jsx'
 import RetirementGoal from './pages/RetirementGoal.jsx'
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="/reports" element={<Reports />} />
           <Route path="/accounts" element={<Navigate to="/reports" replace />} />
         </Route>
+        <Route path="/transactions/request/:type" element={<TransactionRequest />} />
         <Route element={<EnrollmentLayout />}>
           <Route path="/enrollment" element={<Enrollment />} />
           <Route path="/enrollment/auto-increase" element={<Navigate to="/enrollment" replace />} />
