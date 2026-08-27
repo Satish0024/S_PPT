@@ -19,8 +19,8 @@ function writeMap(key, id, value) {
   }
 }
 
-export const PROFILE_KEY = 'saturnaProfile'
-export const PROFILE_BENE_KEY = 'saturnaProfileBeneficiaries'
+export const PROFILE_KEY = 'lendguardProfile'
+export const PROFILE_BENE_KEY = 'lendguardProfileBeneficiaries'
 
 export const PROFILE_SECTIONS = [
   { id: 'personal', label: 'Personal Details' },

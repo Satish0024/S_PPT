@@ -1,7 +1,7 @@
 import { AUTO_INCREASE_KEY, DEFERRAL_KEY, readSession } from '../data/participants'
 
-export const READINESS_KEY = 'saturnaReadiness'
-export const PREFS_KEY = 'saturnaReadinessPrefs'
+export const READINESS_KEY = 'lendguardReadiness'
+export const PREFS_KEY = 'lendguardReadinessPrefs'
 
 export const ASSUMPTIONS = [
   'Calculations are performed at the individual plan level and then aggregated.',

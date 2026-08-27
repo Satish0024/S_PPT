@@ -1,13 +1,13 @@
 export const PLAN_STATS = {
-  'saturna-401k': {
-    label: 'Saturna 401(k) Plan',
+  'lendguard-401k': {
+    label: 'LendGuard 401(k) Plan',
     current: '$100,416.00',
     invested: '$90,500.00',
     gain: '+$9,916.00',
     ret: '8.00%'
   },
-  'saturna-profit-sharing': {
-    label: 'Saturna Profit Sharing Plan',
+  'lendguard-profit-sharing': {
+    label: 'LendGuard Profit Sharing Plan',
     current: '$42,180.00',
     invested: '$38,750.00',
     gain: '+$3,430.00',
