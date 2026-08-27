@@ -5,7 +5,7 @@ import { useParticipant } from '../context/ParticipantContext.jsx'
 import { LIKERT_OPTIONS, LIKERT_QUESTIONS, QUESTIONNAIRE_STEP_COUNT } from '../data/riskQuestionnaire'
 import { LOCATIONS, PREFS_KEY, hydratePrefs, writeMap } from '../lib/retirementGoal'
 import { getRiskLevel, scoreQuestionnaire, setRiskProfileId } from '../lib/riskProfile'
-import ReadinessSceneV2 from '../components/dashboard/ReadinessSceneV2.jsx'
+import RiskJourneyScene from '../components/questionnaire/RiskJourneyScene.jsx'
 import '../styles/riskQuestionnaire.css'
 
 const LEVEL_ICON = { conservative: ShieldCheck, moderate: Scale, aggressive: Rocket }
@@ -76,7 +76,7 @@ export default function RiskQuestionnaire() {
           <h1>See how ready you are for retirement</h1>
           <p>A few honest answers help us shape an investment style that actually fits how you feel about risk.</p>
         </div>
-        <ReadinessSceneV2 />
+        <RiskJourneyScene />
       </aside>
 
       <main className="rqp-main">
