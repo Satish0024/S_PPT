@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import {
   ArrowLeftRight,
@@ -10,7 +9,6 @@ import {
 } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
-import RiskQuestionnaireModal from '../questionnaire/RiskQuestionnaireModal.jsx'
 
 const ITEMS = [
   { to: '/', label: 'Dashboard', icon: LayoutGrid, end: true },
@@ -23,7 +21,6 @@ const ITEMS = [
 export default function Sidebar() {
   const { pathname } = useLocation()
   const { participant } = useParticipant()
-  const [questionnaireOpen, setQuestionnaireOpen] = useState(false)
   const onEnrollment = pathname.startsWith('/enrollment')
   const onGoal = pathname.startsWith('/retirement-goal')
   const onSummary = pathname.startsWith('/account-summary')
@@ -46,20 +43,12 @@ export default function Sidebar() {
       ))}
 
       {showQuestionnaire && (
-        <button type="button" className="nav-cta" onClick={() => setQuestionnaireOpen(true)}>
+        <NavLink to="/risk-check-in" className={({ isActive }) => `nav-cta${isActive ? ' active' : ''}`}>
           <span className="ico" aria-hidden="true">
             <ClipboardList size={22} strokeWidth={1.9} />
           </span>
           <span className="nav-label">Risk check-in</span>
-        </button>
-      )}
-
-      {questionnaireOpen && (
-        <RiskQuestionnaireModal
-          participant={participant}
-          onClose={() => setQuestionnaireOpen(false)}
-          onComplete={() => {}}
-        />
+        </NavLink>
       )}
 
       <div className="nav-brand" aria-hidden="true">

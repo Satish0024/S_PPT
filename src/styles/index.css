@@ -709,7 +709,7 @@
     display:inline-flex;align-items:center;gap:8px;width:fit-content;
     background:var(--active-bg);color:var(--brand);border:1px solid transparent;border-radius:10px;
     padding:10px 16px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;margin-top:4px;
-    transition:background .15s}
+    text-decoration:none;transition:background .15s}
   .risk-edit-btn:hover{background:#e4e8ff}
   .risk-edit-btn svg{animation:risk-sparkle-spin 3.5s ease-in-out infinite}
   @keyframes risk-sparkle-spin{0%,100%{transform:rotate(0) scale(1)}50%{transform:rotate(18deg) scale(1.15)}}
@@ -1109,8 +1109,10 @@
   .nav-cta{
     margin:10px 8px 0;border:none;border-radius:12px;background:var(--active-bg);color:var(--brand);
     display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;cursor:pointer;
-    font:inherit;font-size:12px;font-weight:700;text-align:center;transition:background .15s,transform .15s}
+    font:inherit;font-size:12px;font-weight:700;text-align:center;text-decoration:none;
+    transition:background .15s,transform .15s}
   .nav-cta:hover{background:#e4e8ff}
+  .nav-cta.active{background:var(--brand);color:#fff}
   .nav-cta .ico{display:grid;place-items:center;position:relative}
   .nav-cta .ico svg{animation:nav-cta-pulse 2.6s ease-in-out infinite}
   @keyframes nav-cta-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
