@@ -1,4 +1,5 @@
-import { useId, useMemo, useRef, useState } from 'react'
+import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { ChevronDown, Download, FileText } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
@@ -126,6 +127,7 @@ function StatementModal({ plans, onClose }) {
 
 export default function Reports() {
   const { participant } = useParticipant()
+  const location = useLocation()
   const [search, setSearch] = useState('')
   const [planFilter, setPlanFilter] = useState([])
   const [typeFilter, setTypeFilter] = useState([])
@@ -135,7 +137,14 @@ export default function Reports() {
     return toDateInput(d)
   })
   const [to, setTo] = useState(() => toDateInput(new Date()))
-  const [statementOpen, setStatementOpen] = useState(false)
+  // "Generate Statement" elsewhere in the app (e.g. the Transactions page)
+  // navigates here with this flag set, so the modal is already open on
+  // arrival instead of landing on a plain Documents page.
+  const [statementOpen, setStatementOpen] = useState(() => !!location.state?.openStatement)
+
+  useEffect(() => {
+    if (location.state?.openStatement) setStatementOpen(true)
+  }, [location.state])
 
   const allDocs = useMemo(() => {
     const personal = STATEMENTS[participant.id] || []

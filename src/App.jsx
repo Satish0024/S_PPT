@@ -14,7 +14,6 @@ import Transactions from './pages/Transactions.jsx'
 import TransactionRequest from './pages/TransactionRequest.jsx'
 import Reports from './pages/Reports.jsx'
 import Login from './pages/Login.jsx'
-import RetirementGoal from './pages/RetirementGoal.jsx'
 import AccountSummary from './pages/AccountSummary.jsx'
 import RiskQuestionnaire from './pages/RiskQuestionnaire.jsx'
 
@@ -28,7 +27,6 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/account-summary" element={<AccountSummary />} />
-          <Route path="/retirement-goal" element={<RetirementGoal />} />
           <Route path="/plans/:planId" element={<PlanDetails />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/profile" element={<Profile />} />

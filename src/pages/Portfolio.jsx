@@ -9,9 +9,34 @@ import {
   Tooltip
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
+import { Download } from 'lucide-react'
 import { HOLDINGS, PLAN_FUNDS, PLAN_STATS, cumSeries, labelsFor, ENDS, money } from '../data/portfolio'
 import { useTheme } from '../context/ThemeContext.jsx'
+import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
 import '../styles/portfolio.css'
+
+// Builds a CSV from an array of {label, value} column defs and one row per
+// item, then triggers a browser download — no server round trip needed
+// since everything here is already loaded client-side.
+function exportCsv(filename, columns, rows) {
+  const escape = (v) => {
+    const s = String(v ?? '')
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s
+  }
+  const lines = [
+    columns.map((c) => escape(c.label)).join(','),
+    ...rows.map((row) => columns.map((c) => escape(c.value(row))).join(','))
+  ]
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  URL.revokeObjectURL(url)
+}
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
 
@@ -39,6 +64,7 @@ const COLS = {
 export default function Portfolio() {
   const { theme } = useTheme()
   const [tab, setTab] = useState('overview')
+  const [openFund, setOpenFund] = useState(null)
   const [period, setPeriod] = useState('1y')
   const [planId, setPlanId] = useState('saturna-401k')
   const [sort, setSort] = useState({ key: null, dir: 1 })
@@ -196,7 +222,32 @@ export default function Portfolio() {
               </section>
             </div>
             <section className="section">
-              <h2>Investments</h2>
+              <div className="section-head">
+                <h2>Investments</h2>
+                <button
+                  type="button"
+                  className="export-btn"
+                  onClick={() =>
+                    exportCsv(
+                      `${plan.label.replace(/\s+/g, '-').toLowerCase()}-my-portfolio.csv`,
+                      [
+                        { label: 'Investment name', value: (h) => h.name },
+                        { label: 'Asset class', value: (h) => h.asset },
+                        { label: 'CUSIP', value: (h) => h.cusip },
+                        { label: 'Fund return %', value: (h) => h.returnPct.toFixed(2) },
+                        { label: 'Invested balance', value: (h) => money(h.invested) },
+                        { label: 'Current balance', value: (h) => money(h.current) },
+                        { label: 'Gain/loss', value: (h) => money(h.gain) },
+                        { label: 'Unit balance', value: (h) => h.units.toFixed(2) }
+                      ],
+                      holdings
+                    )
+                  }
+                >
+                  <Download size={15} strokeWidth={2.2} />
+                  Export
+                </button>
+              </div>
               <div className="table-wrap">
                 <table className="holdings-table">
                   <thead>
@@ -224,7 +275,11 @@ export default function Portfolio() {
                   <tbody>
                     {holdings.map((h) => (
                       <tr key={h.cusip}>
-                        <td className="name">{h.name}</td>
+                        <td className="name">
+                          <button type="button" className="fund-link" onClick={() => setOpenFund(h)}>
+                            {h.name}
+                          </button>
+                        </td>
                         <td>{h.asset}</td>
                         <td className="muted">{h.cusip}</td>
                         <td className="num pos">{h.returnPct.toFixed(2)}%</td>
@@ -243,7 +298,34 @@ export default function Portfolio() {
         {tab === 'investments' && (
           <div className="tab-panel on">
             <section className="section">
-              <h2>Plan investments</h2>
+              <div className="section-head">
+                <h2>Plan investments</h2>
+                <button
+                  type="button"
+                  className="export-btn"
+                  onClick={() =>
+                    exportCsv(
+                      `${plan.label.replace(/\s+/g, '-').toLowerCase()}-plan-investments.csv`,
+                      [
+                        { label: 'Fund name', value: (f) => f.name },
+                        { label: 'Category', value: (f) => f.cat },
+                        { label: 'Return YTD', value: (f) => f.ytd },
+                        { label: '1 yr.', value: (f) => f.y1 },
+                        { label: '5 yr.', value: (f) => f.y5 },
+                        { label: '10 yr.', value: (f) => f.y10 },
+                        { label: 'Since inception', value: (f) => f.si },
+                        { label: 'Total annual operating expenses %', value: (f) => f.exp },
+                        { label: 'Total annual operating expenses per $1,000', value: (f) => f.perK },
+                        { label: 'Shareholder-type fees', value: (f) => f.fees }
+                      ],
+                      planFunds
+                    )
+                  }
+                >
+                  <Download size={15} strokeWidth={2.2} />
+                  Export
+                </button>
+              </div>
               <p className="sub">Browse and compare the funds available within your retirement plan.</p>
               <div className="table-wrap">
                 <table className="plan-table">
@@ -293,7 +375,9 @@ export default function Portfolio() {
                       <Fragment key={f.name}>
                         <tr className="fund-row">
                           <td className="fund-cell">
-                            <div className="fund-title">{f.name}</div>
+                            <button type="button" className="fund-link fund-title" onClick={() => setOpenFund(f)}>
+                              {f.name}
+                            </button>
                             <div className="fund-meta">
                               <span className="fund-cat">{f.cat}</span>
                             </div>
@@ -327,6 +411,24 @@ export default function Portfolio() {
           </div>
         )}
       </div>
+
+      {openFund && (
+        <FundDetailDialog
+          name={openFund.name}
+          onClose={() => setOpenFund(null)}
+          fields={[
+            { label: 'Asset class / category', value: openFund.asset || openFund.cat },
+            { label: 'CUSIP', value: openFund.cusip },
+            { label: 'Fund return %', value: openFund.returnPct != null ? `${openFund.returnPct.toFixed(2)}%` : openFund.ytd },
+            { label: 'Current balance', value: openFund.current != null ? money(openFund.current) : undefined },
+            { label: 'Unit balance', value: openFund.units != null ? openFund.units.toFixed(2) : undefined },
+            { label: '1 yr. return', value: openFund.y1 },
+            { label: '5 yr. return', value: openFund.y5 },
+            { label: '10 yr. return', value: openFund.y10 },
+            { label: 'Total annual operating expenses', value: openFund.exp }
+          ]}
+        />
+      )}
     </>
   )
 }

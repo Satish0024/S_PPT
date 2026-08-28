@@ -202,7 +202,11 @@ function HistoryPanel({ participant }) {
               </option>
             ))}
           </select>
-          <button type="button" className="text-link" onClick={() => navigate('/reports')}>
+          <button
+            type="button"
+            className="text-link"
+            onClick={() => navigate('/reports', { state: { openStatement: true } })}
+          >
             Generate Statement
           </button>
         </div>

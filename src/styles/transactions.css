@@ -203,6 +203,8 @@
 .alloc-table .alloc-after{background:var(--surface-2)}
 .alloc-name-col{min-width:200px}
 .alloc-name{display:block;font-size:13px;font-weight:700;color:var(--ink);line-height:1.35}
+.fund-link.alloc-name{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
+.fund-link.alloc-name:hover{color:var(--brand-dark)}
 .alloc-nav{
   display:inline-block;margin-top:4px;background:var(--surface-3);border-radius:5px;padding:2px 7px;
   font-size:11.5px;color:var(--ink-soft)}

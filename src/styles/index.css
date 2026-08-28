@@ -1821,3 +1821,18 @@ summary:focus-visible {
   .rr3, .learn2, .risk3 { padding: 16px; }
   .learn2-banner { margin: -16px -16px 12px; }
 }
+
+/* ---------- Fund detail dialog (hyperlinked investment names) ---------- */
+.fund-detail-dialog{
+  width:min(360px,100%);background:var(--panel);border-radius:16px;padding:24px 22px;
+  box-shadow:var(--shadow-lg);animation:rq-modal-in .22s ease}
+.fund-detail-dialog h4{margin:0 0 14px;font-size:16px;font-weight:800;letter-spacing:-.2px}
+.fund-detail-list{margin:0 0 18px;display:flex;flex-direction:column;gap:10px}
+.fund-detail-list div{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.fund-detail-list div:last-child{border-bottom:none}
+.fund-detail-list dt{margin:0;font-size:12.5px;font-weight:600;color:var(--ink-soft)}
+.fund-detail-list dd{margin:0;font-size:13.5px;font-weight:700;color:var(--ink);text-align:right}
+.fund-link{
+  background:none;border:none;padding:0;font:inherit;font-weight:700;color:var(--brand);cursor:pointer;
+  text-decoration:underline;text-underline-offset:2px;text-align:left}
+.fund-link:hover{color:var(--brand-dark)}

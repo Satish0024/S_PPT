@@ -1,11 +1,13 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { AlertOctagon } from 'lucide-react'
 import { competingFundsFor, formatMoney } from '../../data/transactions.js'
+import FundDetailDialog from '../common/FundDetailDialog.jsx'
 
 // Current-holding vs after-transfer/after-rebalance grid used by both the
 // Transfer and Rebalance wizards. `editable` drives whether the target
 // percentage is an input (Source Selection) or plain text (Summary).
 export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabel, editable, onChangePct }) {
+  const [openFund, setOpenFund] = useState(null)
   const currentPctTotal = rows.reduce((sum, r) => sum + (r.pct || 0), 0)
   const currentAmountTotal = rows.reduce((sum, r) => sum + (r.amount || 0), 0)
   const afterPctTotal = rows.reduce((sum, r) => sum + (+r.afterPct || 0), 0)
@@ -53,7 +55,9 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
               <Fragment key={r.id}>
                 <tr>
                   <td className="alloc-name-col">
-                    <span className="alloc-name">{r.name}</span>
+                    <button type="button" className="fund-link alloc-name" onClick={() => setOpenFund(r)}>
+                      {r.name}
+                    </button>
                     <span className="alloc-nav">
                       Nav <b>{formatMoney(r.nav)}</b>
                     </span>
@@ -106,6 +110,18 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
       </table>
       {editable && !totalsMatch && (
         <p className="alloc-warn">Target percentages must add up to 100%. Currently {Math.round(afterPctTotal)}%.</p>
+      )}
+      {openFund && (
+        <FundDetailDialog
+          name={openFund.name}
+          onClose={() => setOpenFund(null)}
+          fields={[
+            { label: 'Nav', value: formatMoney(openFund.nav) },
+            { label: 'Current units', value: openFund.units?.toFixed(2) },
+            { label: 'Current percentage', value: `${openFund.pct} %` },
+            { label: 'Current amount', value: formatMoney(openFund.amount) }
+          ]}
+        />
       )}
     </div>
   )

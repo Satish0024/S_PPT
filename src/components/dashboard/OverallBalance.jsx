@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-export default function OverallBalance({ total, vested, loan, showSummary = true }) {
+export default function OverallBalance({ total, vested, loan, cashBalance, showSummary = true }) {
   return (
     <section className="overall-balance" aria-label="Overall account balance">
       <div className={`ob-top${showSummary ? '' : ' ob-top-single'}`}>
@@ -28,6 +28,17 @@ export default function OverallBalance({ total, vested, loan, showSummary = true
           </div>
           <p className="loan-note">
             This loan balance is tracked separately and is not reflected in the account balances shown above.
+          </p>
+        </div>
+      ) : null}
+      {cashBalance ? (
+        <div className="ob-loan">
+          <div className="ob-loan-row">
+            <span className="loan-k">Cash balance benefit</span>
+            <span className="loan-v">{cashBalance}</span>
+          </div>
+          <p className="loan-note">
+            This is a notional value, tracked separately, and is removed from the account balances shown above.
           </p>
         </div>
       ) : null}

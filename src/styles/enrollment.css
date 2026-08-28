@@ -812,3 +812,6 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
   .ai-row,.bene-row{grid-template-columns:1fr}
   .enroll-modal-actions{grid-template-columns:1fr}
 }
+
+.fund-link.sname{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
+.fund-link.sname:hover{color:var(--brand-dark)}
