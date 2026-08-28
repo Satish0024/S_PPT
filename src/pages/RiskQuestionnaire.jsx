@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Check, Rocket, Scale, ShieldCheck, X } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { LIKERT_OPTIONS, LIKERT_QUESTIONS, QUESTIONNAIRE_STEP_COUNT } from '../data/riskQuestionnaire'
@@ -13,6 +13,13 @@ const LEVEL_ICON = { conservative: ShieldCheck, moderate: Scale, aggressive: Roc
 export default function RiskQuestionnaire() {
   const { participant } = useParticipant()
   const navigate = useNavigate()
+  const [params] = useSearchParams()
+  // Lets a caller (e.g. the enrollment Investment Election step) send the
+  // participant here and get them back to a specific place afterward,
+  // instead of always landing on the dashboard.
+  const returnTo =
+    params.get('return')?.startsWith('/') && !params.get('return')?.startsWith('//') ? params.get('return') : ''
+  const goReturn = (extra) => navigate(returnTo ? `${returnTo}${extra || ''}` : '/')
   const [step, setStep] = useState(0) // 0..4 = likert questions, 5 = profile, 6 = results
   const [answers, setAnswers] = useState({})
   const [profile, setProfile] = useState(() => {
@@ -26,7 +33,7 @@ export default function RiskQuestionnaire() {
     }
   })
 
-  const leave = () => navigate(-1)
+  const leave = () => (returnTo ? goReturn() : navigate(-1))
 
   const isProfileStep = step === LIKERT_QUESTIONS.length
   const isResultsStep = step === LIKERT_QUESTIONS.length + 1
@@ -52,7 +59,10 @@ export default function RiskQuestionnaire() {
 
   const goNext = () => {
     if (isResultsStep) {
-      navigate('/')
+      // ?riskDone=1 tells a caller like Investments.jsx that a level was
+      // just measured, so it can read it back via getRiskProfileId and
+      // apply a matching allocation instead of landing on a blank step.
+      goReturn(returnTo ? (returnTo.includes('?') ? '&riskDone=1' : '?riskDone=1') : '')
       return
     }
     if (isProfileStep) {

@@ -815,3 +815,10 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 
 .fund-link.sname{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
 .fund-link.sname:hover{color:var(--brand-dark)}
+
+.inv-risk-badge{
+  display:flex;align-items:center;gap:8px;margin:0 0 14px;padding:9px 14px;border-radius:10px;
+  background:color-mix(in srgb, var(--risk-color, var(--brand)) 14%, var(--panel));
+  color:var(--risk-color, var(--brand));font-size:13px;font-weight:800}
+.inv-risk-badge span{flex:1;color:var(--ink)}
+.inv-risk-badge .text-btn{font-size:12.5px}
