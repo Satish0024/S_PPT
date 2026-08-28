@@ -38,8 +38,10 @@ function ProgressRing({ score }) {
         />
       </svg>
       <b className="rr3-ring-value">
-        {pct}
-        <i>%</i>
+        <span>
+          {pct}
+          <i>%</i>
+        </span>
       </b>
     </div>
   )

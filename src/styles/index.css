@@ -1538,22 +1538,33 @@ summary:focus-visible {
 .rr3.ok   .rr3-ring-fill { stroke: var(--amber); }
 .rr3.warn .rr3-ring-fill { stroke: var(--red); }
 .rr3-ring-value {
+  /* Centered as a whole block first (align-items: center on the outer
+     box), with the "%" aligned to the number's own baseline via the inner
+     span — baseline alignment directly on the outer flex box left the
+     whole "76%" sitting off-center in the ring, looking like it was
+     floating rather than anchored inside it. */
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.rr3-ring-value span {
+  display: inline-flex;
+  align-items: baseline;
   gap: 1px;
   font-size: 30px;
   font-weight: 800;
   letter-spacing: -1px;
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
+  line-height: 1;
 }
 .rr3-ring-value i {
   font-style: normal;
   font-size: 16px;
   font-weight: 700;
+  line-height: 1;
   color: var(--ink-soft);
 }
 .rr3-ring-caption {
@@ -1617,15 +1628,21 @@ summary:focus-visible {
   gap: 8px;
   padding: 11px 12px;
   border-radius: 11px;
+  border-left: 3px solid var(--brand);
   text-decoration: none;
   background: var(--active-bg);
   color: var(--ink);
   transition: .15s;
 }
-.rr3.good .rr3-status { background: var(--green-bg); }
-.rr3.ok   .rr3-status { background: var(--amber-bg); }
-.rr3.warn .rr3-status { background: var(--red-bg); }
-.rr3-status:hover { filter: brightness(.97); }
+/* color-mix rather than the flat --amber-bg/--green-bg/--red-bg tokens:
+   those were tuned for full-width page banners and go muddy/near-invisible
+   against the dark theme's already-dark card panel. Mixing the tone color
+   straight into --panel keeps the same vividness relative to its
+   background in both themes. */
+.rr3.good .rr3-status { background: color-mix(in srgb, var(--green) 16%, var(--panel)); border-left-color: var(--green); }
+.rr3.ok   .rr3-status { background: color-mix(in srgb, var(--amber) 18%, var(--panel)); border-left-color: var(--amber); }
+.rr3.warn .rr3-status { background: color-mix(in srgb, var(--red) 16%, var(--panel)); border-left-color: var(--red); }
+.rr3-status:hover { filter: brightness(1.08); }
 .rr3-status-copy { flex: 1; min-width: 0; }
 .rr3-status-copy b {
   display: block;
