@@ -64,26 +64,20 @@
   .legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
   .legend label{
     display:inline-flex;align-items:center;gap:7px;
-    font:inherit;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer}
-  .legend label.on{color:var(--ink);font-weight:800}
-  /* No longer dimmed to 55% opacity when unchecked — that read as disabled
-     rather than "available to toggle on" (Prototype review #4). Full-
-     opacity muted text keeps it legible and clearly interactive either way;
-     each checkbox already gets its series color via inline accent-color. */
-  .legend input[type="checkbox"]{width:15px;height:15px;flex:0 0 auto;margin:0;cursor:pointer}
+    font:inherit;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer}
+  .legend label.on{font-weight:800}
+  .legend input[type="checkbox"]{
+    width:15px;height:15px;flex:0 0 auto;margin:0;cursor:pointer;
+    border:1.5px solid var(--series-color, var(--ink-soft));border-radius:3px;
+    appearance:none;background:var(--panel);color:var(--series-color, var(--brand))}
+  .legend input[type="checkbox"]:checked{
+    background:currentColor;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M6.5 11.2 3.8 8.5l1.1-1.1 1.6 1.6 4.7-4.7 1.1 1.1z'/%3E%3C/svg%3E");
+    background-size:12px;background-position:center;background-repeat:no-repeat}
   .chart-wrap{position:relative;height:260px}
   .chart-wrap canvas{width:100%!important;height:100%!important}
 
   .section h2{font-size:18px;font-weight:700;margin-bottom:4px;letter-spacing:-.2px}
   .section .sub{color:var(--ink-soft);font-size:14px;margin-bottom:14px;line-height:1.45}
-  .section-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .section-head h2{margin-bottom:0}
-  .export-btn{
-    display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:9px;
-    background:var(--panel);color:var(--brand);font:inherit;font-size:13px;font-weight:700;
-    padding:8px 14px;cursor:pointer;transition:.15s;flex:0 0 auto}
-  .export-btn:hover{border-color:var(--brand);background:var(--active-bg)}
-
   .table-wrap{border:1px solid var(--line);border-radius:14px;overflow:auto;background:var(--panel);box-shadow:var(--shadow);
     -webkit-overflow-scrolling:touch}
   table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
