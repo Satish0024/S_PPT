@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Landmark, Scale, Shuffle, TrendingDown } from 'lucide-react'
+import { Landmark, Plus, Scale, Shuffle, TrendingDown } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import { TRANSACTION_TYPES, canRequest, requestStatusTone, requestsFor, transactablePlans } from '../data/transactions.js'
@@ -16,6 +16,74 @@ const FILTERS = [
 ]
 
 const TYPE_ICON = { loan: Landmark, withdrawal: TrendingDown, transfer: Shuffle, rebalance: Scale }
+
+function NewRequestMenu({ plan, disabled }) {
+  const navigate = useNavigate()
+  const [open, setOpen] = useState(false)
+  const wrapRef = useRef(null)
+
+  useEffect(() => {
+    if (!open) return
+    const onPointer = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false)
+    }
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('mousedown', onPointer)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onPointer)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  return (
+    <div className="tx-new-request" ref={wrapRef}>
+      <button
+        type="button"
+        className="btn btn-primary"
+        disabled={disabled || !plan}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <Plus size={16} strokeWidth={2.4} aria-hidden="true" />
+        New request
+      </button>
+      {open && plan && (
+        <div className="tx-new-request-menu" role="menu" aria-label="Request type">
+          {TRANSACTION_TYPES.map((t) => {
+            const Icon = TYPE_ICON[t.id]
+            const enabled = canRequest(plan, t.id)
+            return (
+              <button
+                key={t.id}
+                type="button"
+                role="menuitem"
+                className="tx-new-request-item"
+                disabled={!enabled}
+                title={enabled ? undefined : 'Not available for this plan right now'}
+                onClick={() => {
+                  setOpen(false)
+                  navigate(t.to(plan.id))
+                }}
+              >
+                <span className="quick-action-ico" aria-hidden="true">
+                  <Icon size={16} strokeWidth={2.1} />
+                </span>
+                <span>
+                  <b>{t.label}</b>
+                  <small>{t.hint}</small>
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
 
 function QuickActions({ plan }) {
   const navigate = useNavigate()
@@ -51,9 +119,8 @@ function QuickActions({ plan }) {
   )
 }
 
-function RequestsPanel({ participant }) {
+function RequestsPanel({ participant, planId, onPlanChange }) {
   const plans = useMemo(() => transactablePlans(participant), [participant])
-  const [planId, setPlanId] = useState(plans[0]?.id)
   const plan = plans.find((p) => p.id === planId) || plans[0]
   const requests = useMemo(() => requestsFor(participant), [participant])
   const [calcLoan, setCalcLoan] = useState(null)
@@ -76,7 +143,7 @@ function RequestsPanel({ participant }) {
             className={p.id === plan.id ? 'on' : ''}
             role="tab"
             aria-selected={p.id === plan.id}
-            onClick={() => setPlanId(p.id)}
+            onClick={() => onPlanChange(p.id)}
           >
             <span className="req-plan-badge">Plan ID {p.meta?.match(/ID\s+(\S+)/i)?.[1] || p.id}</span>
             {p.name}
@@ -244,7 +311,15 @@ function HistoryPanel({ participant }) {
 
 export default function Transactions() {
   const { participant } = useParticipant()
+  const plans = useMemo(() => transactablePlans(participant), [participant])
   const [tab, setTab] = useState('requests')
+  const [planId, setPlanId] = useState(plans[0]?.id)
+  const plan = plans.find((p) => p.id === planId) || plans[0]
+
+  useEffect(() => {
+    if (!plans.length) return
+    if (!plans.some((p) => p.id === planId)) setPlanId(plans[0].id)
+  }, [plans, planId])
 
   return (
     <div className="page-body">
@@ -252,6 +327,9 @@ export default function Transactions() {
         <div>
           <h1>Transactions</h1>
           <p className="pr-intro">View, edit, and raise transaction requests</p>
+        </div>
+        <div className="hi-actions">
+          <NewRequestMenu plan={plan} disabled={!plans.length} />
         </div>
       </div>
 
@@ -265,7 +343,11 @@ export default function Transactions() {
           </button>
         </div>
 
-        {tab === 'requests' ? <RequestsPanel participant={participant} /> : <HistoryPanel participant={participant} />}
+        {tab === 'requests' ? (
+          <RequestsPanel participant={participant} planId={plan?.id} onPlanChange={setPlanId} />
+        ) : (
+          <HistoryPanel participant={participant} />
+        )}
       </section>
     </div>
   )
