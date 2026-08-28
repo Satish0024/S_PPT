@@ -1957,34 +1957,85 @@ summary:focus-visible {
 }
 
 /* ---------- Risk meter ---------- */
-.risk3-gauge {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 7px;
+.risk3-tag {
+  color: var(--risk-color, var(--brand));
 }
-.risk3-seg {
-  flex: 1;
-  height: 8px;
+.risk3-title {
+  margin: 2px 0 10px;
+  font-size: 24px;
+  color: var(--risk-color, var(--brand));
+}
+.risk3-gauge {
+  position: relative;
+  height: 6px;
   border-radius: 999px;
   background: var(--surface-3);
-  transition: background .25s ease;
+  margin-bottom: 12px;
+  overflow: hidden;
 }
-.risk3-seg.on { background: var(--risk-color, var(--brand)); }
-.risk3-scale {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10.5px;
-  font-weight: 700;
-  color: var(--muted);
+.risk3-gauge-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--risk-color, var(--brand)) 0%, var(--brand-dark) 140%);
+  transition: width .3s ease;
+}
+.risk3-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  align-self: flex-start;
+  padding: 7px 13px;
   margin-bottom: 14px;
+  border-radius: 999px;
+  background: var(--active-bg);
+  color: var(--risk-color, var(--brand));
+  font-size: 12px;
+  font-weight: 800;
+}
+.risk3-stones {
+  display: block;
+  width: 92px;
+  height: auto;
+  margin: 0 auto 12px;
+}
+.risk3-outlook {
+  margin: 0 0 14px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.risk3-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+.risk3-foot-ico {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--panel);
+  color: var(--risk-color, var(--brand));
+}
+.risk3-foot-copy {
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--ink-soft);
 }
 .risk3-btn {
-  background: var(--active-bg);
-  color: var(--brand);
+  background: var(--risk-color, var(--brand));
+  color: #fff;
 }
 .risk3-btn:hover {
-  background: var(--brand-fill);
-  color: #fff;
+  filter: brightness(0.92);
 }
 
 @media (max-width: 1080px) {
