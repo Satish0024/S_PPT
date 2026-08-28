@@ -37,11 +37,11 @@ export default function Dashboard() {
               ))}
             </div>
           </section>
-          <ReadinessScoreCard />
           <QuickLinks />
           <Transactions rows={participant.transactions.slice(0, 5)} />
         </div>
         <aside className="dash-side">
+          <ReadinessScoreCard />
           <LearningPortal />
           <RiskMeterV2 />
         </aside>
