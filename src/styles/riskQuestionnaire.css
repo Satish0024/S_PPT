@@ -1,18 +1,12 @@
 .rqp-page{display:grid;grid-template-columns:3fr 7fr;min-height:100vh;background:var(--panel)}
 
 .rqp-side{
-  position:relative;overflow:hidden;background:var(--scene-sky);
-  color:var(--ink);padding:44px 36px;display:flex;flex-direction:column;justify-content:flex-start;gap:24px}
-.rqp-side-copy{position:relative;z-index:1;max-width:34ch}
-.rqp-side-tag{display:block;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
-.rqp-side-copy h1{font-size:26px;font-weight:800;line-height:1.25;letter-spacing:-.3px;margin:0 0 12px;color:var(--brand-dark)}
-.rqp-side-copy p{font-size:14px;line-height:1.6;color:var(--ink-soft);margin:0}
+  position:relative;overflow:hidden;background:var(--scene-sky);min-height:100vh}
 
-/* Static reference image, reused unchanged across every questionnaire step —
-   only the copy above it changes per step. Shown in full (object-fit:
-   contain, not cropped) so nothing in the picture is clipped. */
-.rqj-scene{position:relative;width:100%;height:auto;flex:1;min-height:0;
-  object-fit:contain;display:block;border-radius:14px}
+/* Static reference image, reused unchanged across every questionnaire step.
+   Fills the entire side panel edge to edge — the image already carries its
+   own heading/copy, so the panel has no separate text overlay. */
+.rqj-scene{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 
 .rqp-main{display:flex;flex-direction:column;padding:36px 48px;max-width:760px;width:100%;margin:0 auto}
 .rqp-main-head{display:flex;align-items:center;gap:16px;margin-bottom:34px}
@@ -25,7 +19,6 @@
 
 @media(max-width:900px){
   .rqp-page{grid-template-columns:1fr}
-  .rqp-side{padding:32px 28px;min-height:220px}
-  .rqj-scene{display:none}
+  .rqp-side{display:none}
   .rqp-main{padding:28px 22px}
 }
