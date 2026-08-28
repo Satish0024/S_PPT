@@ -286,104 +286,111 @@
   .rr-modal{width:min(520px,100%);max-height:min(86vh,720px);overflow:auto}
 
   /* ---------- Retirement Goal Simulator score card ----------
-     Compact sidebar-scale variant (matches the original rr-card sizing),
-     stacked vertically to fit the dash-side column instead of the wide
-     two-column reference layout. */
+     Reproduces the reference design 1:1 (gauge + star badge, wallet/income/
+     shortfall breakdown with a dashed connector, gradient trophy + confetti,
+     stacked tip banner, single-line disclaimer footer), scaled down evenly
+     to fit the dashboard sidebar column instead of the wide reference card. */
   .rsc-card{
-    background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
-    padding:18px 18px 16px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
-  .rsc-head{display:flex;align-items:flex-start;gap:10px;position:relative}
+    background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+    padding:24px 22px 20px;display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden}
+  .rsc-head{display:flex;align-items:flex-start;gap:12px;position:relative}
   .rsc-head-ico{
-    width:32px;height:32px;border-radius:9px;flex:0 0 auto;
+    width:40px;height:40px;border-radius:12px;flex:0 0 auto;
     background:var(--active-bg);color:var(--brand);display:grid;place-items:center}
-  .rsc-head h3{margin:0 0 2px;font-size:14.5px;font-weight:800;letter-spacing:-.2px;color:var(--ink)}
-  .rsc-head p{margin:0;font-size:11.5px;line-height:1.4;color:var(--ink-soft)}
-  .rsc-summit{position:absolute;top:-6px;right:-6px;width:70px;height:auto;pointer-events:none}
+  .rsc-head h3{margin:0 0 3px;font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--ink);line-height:1.25}
+  .rsc-head p{margin:0;font-size:12px;line-height:1.4;color:var(--ink-soft)}
+  .rsc-summit{position:absolute;top:-16px;right:-14px;width:120px;height:auto;pointer-events:none;opacity:.9}
 
   .rsc-gauge-panel{
-    background:var(--surface-2);border-radius:12px;padding:16px 14px;display:flex;flex-direction:column;
-    align-items:center;text-align:center;gap:8px;text-decoration:none;color:inherit}
+    background:var(--surface-2);border-radius:16px;padding:26px 18px 20px;display:flex;flex-direction:column;
+    align-items:center;text-align:center;gap:10px;text-decoration:none;color:inherit}
   .rsc-gauge-panel:hover{background:var(--surface-3)}
-  .rsc-gauge{position:relative;width:104px;height:104px}
+  .rsc-gauge{position:relative;width:150px;height:150px}
   .rsc-gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
   .rsc-gauge-track{fill:none;stroke:var(--surface-3)}
   .rsc-gauge-fill{fill:none;stroke:var(--green);stroke-linecap:round;transition:stroke-dasharray .55s ease}
   .rsc-gauge-mid{
-    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
   .rsc-gauge-star{
-    width:20px;height:20px;border-radius:50%;display:grid;place-items:center;
-    background:var(--green-bg);color:var(--green);margin-bottom:1px}
-  .rsc-gauge-mid b{font-size:24px;font-weight:800;letter-spacing:-.6px;color:var(--ink);font-variant-numeric:tabular-nums}
-  .rsc-gauge-caption{font-size:8.5px;font-weight:700;color:var(--ink-soft);max-width:60px;line-height:1.2}
+    width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+    background:var(--green-bg);color:var(--green);margin-bottom:2px}
+  .rsc-gauge-mid b{font-size:38px;font-weight:800;letter-spacing:-1px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .rsc-gauge-caption{font-size:11px;font-weight:700;color:var(--ink-soft);max-width:80px;line-height:1.2}
   .rsc-badge{
-    display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;
-    font-size:11px;font-weight:800;background:var(--green-bg);color:var(--green)}
+    display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;
+    font-size:13px;font-weight:800;background:var(--green-bg);color:var(--green)}
   .rsc-badge.ok{background:var(--amber-bg);color:var(--amber)}
   .rsc-badge.warn{background:var(--red-bg);color:var(--red)}
-  .rsc-gauge-note{margin:0;font-size:11.5px;line-height:1.4;color:var(--ink-soft)}
+  .rsc-gauge-note{margin:2px 0 0;font-size:12.5px;line-height:1.45;color:var(--ink-soft);max-width:22ch}
 
   .rsc-right{
-    background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:2px 14px}
-  .rsc-row{display:flex;align-items:center;gap:8px;padding:11px 0;border-bottom:1px solid var(--line);position:relative}
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:4px 18px}
+  .rsc-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);position:relative}
   .rsc-row:last-child{border-bottom:none}
-  .rsc-row.plain{padding:12px 0}
+  .rsc-row.plain{padding:15px 0}
   .rsc-row-ico{
-    width:26px;height:26px;border-radius:8px;flex:0 0 auto;display:grid;place-items:center;
+    width:32px;height:32px;border-radius:9px;flex:0 0 auto;display:grid;place-items:center;
     background:var(--active-bg);color:var(--brand)}
   .rsc-row-ico.income{background:var(--green-bg);color:var(--green)}
   .rsc-row-ico.shortfall{background:var(--red-bg);color:var(--red)}
   /* Dashed connector linking the income icon down to the shortfall icon,
      matching the reference image's vertical dotted line. */
   .rsc-row.connector .rsc-row-ico::after{
-    content:"";position:absolute;left:12px;top:26px;width:1px;height:22px;
+    content:"";position:absolute;left:15px;top:32px;width:1px;height:26px;
     border-left:1.5px dashed var(--line-strong)}
   .rsc-row-label{
-    display:flex;flex-direction:column;gap:1px;font-size:12.5px;font-weight:700;color:var(--ink)}
-  .rsc-row-label small{font-size:10px;font-weight:600;color:var(--muted)}
+    display:flex;flex-direction:column;gap:1px;font-size:13.5px;font-weight:700;color:var(--ink)}
+  .rsc-row-label small{font-size:10.5px;font-weight:600;color:var(--muted)}
   .rsc-row b{
-    margin-left:auto;font-size:14.5px;font-weight:800;color:var(--ink);letter-spacing:-.1px;
+    margin-left:auto;font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.2px;
     font-variant-numeric:tabular-nums}
   .rsc-row b.income{color:var(--green)}
   .rsc-row b.shortfall{color:var(--red)}
 
-  .rsc-tips{display:flex;flex-direction:column;border-radius:12px;padding:0 14px;background:var(--green-bg)}
-  .rsc-tips.ok{background:var(--amber-bg)}
-  .rsc-tips.warn{background:var(--red-bg)}
-  .rsc-tip{display:flex;align-items:flex-start;gap:10px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .rsc-tips{
+    display:flex;flex-direction:column;border-radius:16px;padding:0 18px;
+    background:linear-gradient(135deg,var(--green-bg),var(--amber-bg))}
+  .rsc-tips.ok{background:linear-gradient(135deg,var(--amber-bg),var(--amber-bg))}
+  .rsc-tips.warn{background:linear-gradient(135deg,var(--red-bg),var(--amber-bg))}
+  .rsc-tip{display:flex;align-items:flex-start;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
   .rsc-tip:last-child{border-bottom:none}
-  .rsc-tip > div{display:flex;flex-direction:column;gap:2px;min-width:0}
-  .rsc-tip b{font-size:12.5px;font-weight:800;color:var(--ink)}
-  .rsc-tip span{font-size:11px;line-height:1.4;color:var(--ink-soft)}
+  .rsc-tip > div{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .rsc-tip b{font-size:14px;font-weight:800;color:var(--green)}
+  .rsc-tips.ok .rsc-tip b,.rsc-tips.warn .rsc-tip b{color:var(--ink)}
+  .rsc-tips.ok .rsc-tip:first-child b{color:var(--amber)}
+  .rsc-tips.warn .rsc-tip:first-child b{color:var(--red)}
+  .rsc-tip:last-child b{color:var(--brand)}
+  .rsc-tip span{font-size:12px;line-height:1.45;color:var(--ink-soft)}
   .rsc-tip-ico{
-    position:relative;width:32px;height:32px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;
-    background:radial-gradient(circle at 35% 30%,var(--green),var(--brand-dark));color:#fff}
-  .rsc-tips.ok .rsc-tip-ico{background:radial-gradient(circle at 35% 30%,var(--amber),var(--brand-dark))}
-  .rsc-tips.warn .rsc-tip-ico{background:radial-gradient(circle at 35% 30%,var(--red),var(--brand-dark))}
+    position:relative;width:42px;height:42px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;
+    background:radial-gradient(circle at 32% 28%,var(--green),var(--brand-dark));color:#fff}
+  .rsc-tips.ok .rsc-tip-ico{background:radial-gradient(circle at 32% 28%,var(--amber),var(--brand-dark))}
+  .rsc-tips.warn .rsc-tip-ico{background:radial-gradient(circle at 32% 28%,var(--red),var(--brand-dark))}
   .rsc-tip-ico.bulb{
-    width:26px;height:26px;background:var(--panel);color:var(--brand);margin-top:3px}
-  /* Confetti flecks around the trophy circle, echoing the reference image. */
-  .rsc-confetti{position:absolute;inset:-9px;pointer-events:none}
-  .rsc-confetti::before,.rsc-confetti::after{
-    content:"";position:absolute;width:4px;height:4px;border-radius:1px;background:var(--amber)}
-  .rsc-confetti::before{top:-2px;left:-4px;transform:rotate(20deg)}
-  .rsc-confetti::after{bottom:-1px;right:-5px;background:var(--brand);transform:rotate(-15deg)}
+    width:30px;height:30px;background:var(--panel);color:var(--brand);margin-top:6px}
+  /* Confetti flecks scattered around the trophy circle, echoing the
+     reference image's celebration graphic. */
+  .rsc-tip-ico.trophy::before,.rsc-tip-ico.trophy::after{
+    content:"";position:absolute;width:4px;height:4px;border-radius:1px}
+  .rsc-tip-ico.trophy::before{top:-10px;right:6px;background:var(--green);transform:rotate(30deg)}
+  .rsc-tip-ico.trophy::after{bottom:-9px;left:2px;background:var(--amber);transform:rotate(-25deg)}
 
-  .rsc-intro{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+  .rsc-intro{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
   .rsc-intro p{margin:0;font-size:12.5px;line-height:1.5;color:var(--ink-soft)}
   .rsc-cta{
     align-self:stretch;display:inline-flex;align-items:center;justify-content:center;gap:6px;
-    background:var(--brand-fill);color:#fff;border:none;border-radius:10px;padding:9px 12px;
-    font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;text-decoration:none;box-sizing:border-box}
+    background:var(--brand-fill);color:#fff;border:none;border-radius:10px;padding:10px 14px;
+    font:inherit;font-size:13px;font-weight:800;cursor:pointer;text-decoration:none;box-sizing:border-box}
   .rsc-cta:hover{background:var(--brand-dark)}
 
   .rsc-foot{
-    display:flex;align-items:flex-start;gap:6px;margin:0;padding-top:12px;
-    border-top:1px solid var(--line);font-size:11px;line-height:1.4;color:var(--ink-soft)}
-  .rsc-foot svg{color:var(--brand);flex:0 0 auto;margin-top:1px}
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin:0;padding-top:14px;
+    border-top:1px solid var(--line);font-size:12px;line-height:1.4;color:var(--ink-soft)}
+  .rsc-foot svg{color:var(--brand);flex:0 0 auto;align-self:flex-start;margin-top:2px}
   .rsc-foot b{font-weight:800;color:var(--ink)}
-  .rsc-foot span{flex:1;min-width:0}
+  .rsc-foot span{flex:1 1 auto;min-width:0}
   .rsc-foot-link{
-    display:inline-flex;align-items:center;gap:3px;font:inherit;font-size:11px;font-weight:800;
+    display:inline-flex;align-items:center;gap:4px;font:inherit;font-size:12px;font-weight:800;
     color:var(--brand);background:none;border:none;padding:0;cursor:pointer;flex:0 0 auto}
   .rsc-foot-link:hover{color:var(--brand-dark)}
 

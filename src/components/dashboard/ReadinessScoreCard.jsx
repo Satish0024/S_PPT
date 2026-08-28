@@ -90,7 +90,7 @@ export default function ReadinessScoreCard() {
     <section className="rsc-card" aria-label="Retirement Goal Simulator">
       <header className="rsc-head">
         <span className="rsc-head-ico" aria-hidden="true">
-          <TrendingUp size={16} strokeWidth={2.2} />
+          <TrendingUp size={19} strokeWidth={2.2} />
         </span>
         <div>
           <h3>Retirement Goal Simulator</h3>
@@ -143,8 +143,7 @@ export default function ReadinessScoreCard() {
           <div className={`rsc-tips ${tone}`}>
             <div className="rsc-tip">
               <span className="rsc-tip-ico trophy" aria-hidden="true">
-                <i className="rsc-confetti" />
-                <Trophy size={16} strokeWidth={2} />
+                <Trophy size={18} strokeWidth={2} />
               </span>
               <div>
                 <b>{status.title}</b>
