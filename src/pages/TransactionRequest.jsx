@@ -29,6 +29,7 @@ import {
   SPOUSAL_CONSENT_DOC,
   WITHDRAWAL_TYPES,
   activeLoanFor,
+  blankWithdrawalAllocation,
   computeGrossLoanAmount,
   computeWithdrawalFees,
   estimatePeriodicPayment,
@@ -106,19 +107,7 @@ function blankForm(type) {
       entireBalance: '',
       // One allocation per recipient — starts with the participant's own
       // ("Self"); "Add allocation" appends more (e.g. a beneficiary).
-      allocations: [
-        {
-          id: 'self',
-          recipientType: 'self',
-          name: 'Self',
-          mode: '',
-          amount: '',
-          paymentMethod: 'check',
-          addressOption: 'onfile',
-          customAddress: '',
-          source: 'prorata'
-        }
-      ],
+      allocations: [blankWithdrawalAllocation()],
       addressChanged: false,
       docUploaded: false,
       termsAccepted: false
@@ -1019,6 +1008,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
             withdrawalTypeId={form.withdrawalType}
             legalName={editingAllocation.recipientType === 'self' ? legalName : editingAllocation.name}
             originalAddress={originalAddress}
+            plan={plan}
             onClose={() => setEditingAllocationId(null)}
             onSave={(draft) => {
               patchAllocation(editingAllocation.id, {
@@ -1032,20 +1022,15 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         {addingAllocation && (
           <EditAllocationSlideover
             isNew
-            allocation={{
+            allocation={blankWithdrawalAllocation({
               id: `beneficiary-${Date.now()}`,
               recipientType: 'beneficiary',
-              name: '',
-              mode: '',
-              amount: '',
-              paymentMethod: 'check',
-              addressOption: 'onfile',
-              customAddress: '',
-              source: 'prorata'
-            }}
+              name: ''
+            })}
             withdrawalTypeId={form.withdrawalType}
             legalName=""
             originalAddress={originalAddress}
+            plan={plan}
             onClose={() => setAddingAllocation(false)}
             onSave={(draft) => {
               set((f) => ({ allocations: [...f.allocations, draft] }))
@@ -1114,13 +1099,41 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
 
       {allocations.map((a) => {
         const m = DISTRIBUTION_MODES.find((d) => d.id === a.mode)
-        if (m?.id !== 'direct' || a.paymentMethod !== 'check') return null
-        return (
-          <div key={a.id}>
-            <SummaryRow label={`Mail check payable to (${a.name})`} value={a.recipientType === 'self' ? legalName : a.name} />
-            <SummaryRow label="Address" value={a.customAddress || originalAddress} onEdit={() => onEdit(1)} />
-          </div>
-        )
+        if (m?.id !== 'direct') return null
+        if (a.paymentMethod === 'check') {
+          return (
+            <div key={a.id}>
+              <SummaryRow
+                label={`Mail check payable to (${a.name})`}
+                value={a.recipientType === 'self' ? legalName : a.name}
+              />
+              <SummaryRow label="Address" value={a.customAddress || originalAddress} onEdit={() => onEdit(1)} />
+            </div>
+          )
+        }
+        if (a.paymentMethod === 'eft') {
+          const bank =
+            a.bankOption === 'custom'
+              ? {
+                  accountHolder: a.accountHolder || (a.recipientType === 'self' ? legalName : a.name),
+                  bankName: a.bankName,
+                  routingNo: a.routingNo,
+                  accountNumber: a.accountNumber
+                }
+              : {
+                  ...BANK_ON_FILE,
+                  accountHolder: a.recipientType === 'self' ? legalName : a.name || BANK_ON_FILE.accountHolder
+                }
+          return (
+            <div key={a.id}>
+              <SummaryRow label={`EFT bank (${a.name})`} value={bank.bankName || '—'} onEdit={() => onEdit(1)} />
+              <SummaryRow label="Account holder" value={bank.accountHolder || '—'} />
+              <SummaryRow label="Routing number" value={bank.routingNo || '—'} />
+              <SummaryRow label="Account number" value={bank.accountNumber || `•••• ${bank.last4 || ''}`} />
+            </div>
+          )
+        }
+        return null
       })}
 
       <div className="wd-fee-card" style={{ marginTop: 20 }}>

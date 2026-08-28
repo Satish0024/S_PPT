@@ -125,9 +125,17 @@ export const LOAN_PAYMENT_METHODS = [
   { id: 'check', label: 'Mail check to address' }
 ]
 
-// Mock bank-on-file details shown under "Select check" when EFT is chosen —
-// stands in for a real linked-bank-accounts service.
-export const BANK_ON_FILE = { bankName: 'RDSA Bank', last4: '1234', routingNo: '343' }
+// Mock bank-on-file details shown under "Select Bank details" when EFT is
+// chosen — stands in for a real linked-bank-accounts service. Shape matches
+// the Figma on-file card (Account holder / Bank name / Routing / Account #).
+export const BANK_ON_FILE = {
+  accountHolder: 'Margot Robbie',
+  bankName: 'Bank of america',
+  routingNo: 'XXXXXXXXXXX',
+  accountNumber: 'XXX-XXX-876',
+  last4: '876',
+  accountType: 'checking'
+}
 
 const LOAN_TPA_FEE = 2
 const LOAN_EFT_FEE = 2
@@ -212,14 +220,55 @@ export const PAYMENT_METHODS = [
 
 export const ADDRESS_OPTIONS = [
   { id: 'onfile', label: 'As in employee records' },
-  { id: 'custom', label: 'Custom address' }
+  { id: 'custom', label: 'Custom' }
+]
+
+// Bank-on-file vs custom — same labels as Address details in Figma's EFT branch.
+export const BANK_OPTIONS = [
+  { id: 'onfile', label: 'As in employee records' },
+  { id: 'custom', label: 'Custom' }
+]
+
+export const ACCOUNT_TYPES = [
+  { id: 'savings', label: 'Savings account' },
+  { id: 'checking', label: 'Checking account' }
 ]
 
 export const SOURCE_OPTIONS = [
-  { id: 'prorata', label: 'Prorata across all sources' },
+  { id: 'prorata', label: 'Prorata' },
   { id: 'choose', label: 'Allow me to choose' },
   { id: 'optimized', label: 'Optimized for redemption fee' }
 ]
+
+// Shown under "Allow me to choose from" when source === 'choose' (Figma).
+export const CHOOSE_FROM_OPTIONS = [
+  { id: 'source', label: 'Source' },
+  { id: 'investments', label: 'Investments' }
+]
+
+// Default allocation draft fields shared by blankForm + "Add allocation".
+export function blankWithdrawalAllocation(overrides = {}) {
+  return {
+    id: 'self',
+    recipientType: 'self',
+    name: 'Self',
+    mode: '',
+    amount: '',
+    paymentMethod: 'check',
+    addressOption: 'onfile',
+    customAddress: '',
+    bankOption: 'onfile',
+    bankName: '',
+    accountHolder: '',
+    accountType: 'checking',
+    accountNumber: '',
+    routingNo: '',
+    source: 'prorata',
+    chooseFrom: 'source',
+    sourceAmounts: {},
+    ...overrides
+  }
+}
 
 const WITHDRAWAL_FEE_FLAT = 1
 const CHECK_FEE_FLAT = 1
@@ -243,16 +292,24 @@ export function computeWithdrawalFees(amount, withdrawalTypeId, paymentMethodId)
   const redemptionFee = requested > 0 ? REDEMPTION_FEE_FLAT : 0
   const penalty = round2(requested * (penaltyPct / 100))
   const grossAmount = round2(requested + feeAndTax + redemptionFee + penalty)
+  // netDistribution is what the participant receives (the requested amount).
+  // taxDeduction rolls withdrawal + check + federal tax — Figma's "Tax Deduction"
+  // tree. Early-withdrawal penalty sits in its own "Penalty" tree.
+  const netDistribution = requested
+  const taxDeduction = feeAndTax
   return {
     requested,
+    netDistribution,
     withdrawalFee,
     checkFee,
     federalTaxPct: FEDERAL_TAX_PCT,
     federalTax,
     feeAndTax,
+    taxDeduction,
     redemptionFee,
     penaltyPct,
     penalty,
+    earlyWithdrawalPenalty: penalty,
     grossAmount
   }
 }
@@ -268,16 +325,22 @@ export function sumWithdrawalFees(allocations, withdrawalTypeId) {
   const rows = allocations.map((a) => computeWithdrawalFees(a.amount, withdrawalTypeId, a.paymentMethod))
   const sum = (key) => round2(rows.reduce((s, r) => s + r[key], 0))
   const type = WITHDRAWAL_TYPES.find((t) => t.id === withdrawalTypeId)
+  const penaltyPct = type?.penaltyPct || 0
+  const feeAndTax = sum('feeAndTax')
+  const penalty = sum('penalty')
   return {
     requested: sum('requested'),
+    netDistribution: sum('netDistribution'),
     withdrawalFee: sum('withdrawalFee'),
     checkFee: sum('checkFee'),
     federalTaxPct: FEDERAL_TAX_PCT,
     federalTax: sum('federalTax'),
-    feeAndTax: sum('feeAndTax'),
+    feeAndTax,
+    taxDeduction: feeAndTax,
     redemptionFee: sum('redemptionFee'),
-    penaltyPct: type?.penaltyPct || 0,
-    penalty: sum('penalty'),
+    penaltyPct,
+    penalty,
+    earlyWithdrawalPenalty: penalty,
     grossAmount: sum('grossAmount')
   }
 }
