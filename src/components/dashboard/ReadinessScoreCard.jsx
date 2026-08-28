@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ArrowRight, ArrowUpRight, CircleCheck, DollarSign, Info, Lightbulb, TrendingDown, TrendingUp, Trophy } from 'lucide-react'
+import { ArrowRight, CircleCheck, DollarSign, Info, Lightbulb, Star, TrendingDown, TrendingUp, Trophy, Wallet } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import {
@@ -28,18 +28,35 @@ function ScoreGauge({ score }) {
         <circle className="rsc-gauge-fill" cx="50" cy="50" r={R} strokeWidth="8" strokeDasharray={`${dash} ${CIRC}`} />
       </svg>
       <div className="rsc-gauge-mid">
+        <span className="rsc-gauge-star" aria-hidden="true">
+          <Star size={13} strokeWidth={2.2} />
+        </span>
         <b>{Math.round(pct)}</b>
-        <span>Readiness Score</span>
+        <span className="rsc-gauge-caption">Readiness Score</span>
       </div>
     </div>
   )
 }
 
-// Retirement Goal Simulator sidebar widget — compact card sized to match the
-// original rr-card readiness widget, laid out per the reference design:
-// a shaded gauge panel with a status pill, an itemized expense/income/
-// shortfall breakdown, and a two-line status/tip banner, stacked to fit the
-// dashboard sidebar column instead of the wide two-column reference layout.
+// Decorative summit-and-flag graphic in the card header, matching the
+// reference design. Purely ornamental (aria-hidden) and themed off the
+// brand token so it re-colors with the app instead of needing an asset.
+function SummitMark() {
+  return (
+    <svg className="rsc-summit" viewBox="0 0 120 90" aria-hidden="true">
+      <path d="M0 90 40 30 60 55 78 20 120 90Z" fill="var(--brand)" opacity="0.1" />
+      <path d="M40 30 60 55 78 20 96 46" fill="none" stroke="var(--brand)" strokeWidth="1.4" strokeDasharray="2 3" opacity="0.5" />
+      <circle cx="40" cy="30" r="2.6" fill="var(--brand)" opacity="0.6" />
+      <line x1="78" y1="20" x2="78" y2="4" stroke="var(--brand)" strokeWidth="1.6" />
+      <path d="M78 4h13l-13 8Z" fill="var(--brand)" />
+    </svg>
+  )
+}
+
+// Retirement Goal Simulator sidebar widget — reproduces the reference
+// design's gauge (with star badge), itemized income/shortfall breakdown
+// with dot-connector rows, and stacked trophy/bulb tip banner, scaled to
+// the dashboard sidebar column.
 export default function ReadinessScoreCard() {
   const { participant } = useParticipant()
   const location = useLocation()
@@ -79,25 +96,29 @@ export default function ReadinessScoreCard() {
           <h3>Retirement Goal Simulator</h3>
           <p>See how your inputs affect your savings, income, risk.</p>
         </div>
+        <SummitMark />
       </header>
 
       {started ? (
         <>
-          <div className="rsc-gauge-panel">
+          <Link className="rsc-gauge-panel" to="/retirement-goal" aria-label="Adjust your retirement goal">
             <ScoreGauge score={score} />
             <span className={`rsc-badge ${tone}`}>
               <CircleCheck size={12} strokeWidth={2.4} />
               {status.title}
             </span>
             <p className="rsc-gauge-note">{status.body}</p>
-          </div>
+          </Link>
 
           <div className="rsc-right">
             <div className="rsc-row plain">
+              <span className="rsc-row-ico expense" aria-hidden="true">
+                <Wallet size={13} strokeWidth={2.2} />
+              </span>
               <span className="rsc-row-label">Expected expense</span>
               <b>{money(expense)}</b>
             </div>
-            <div className="rsc-row">
+            <div className="rsc-row connector">
               <span className="rsc-row-ico income" aria-hidden="true">
                 <DollarSign size={13} strokeWidth={2.4} />
               </span>
@@ -112,7 +133,7 @@ export default function ReadinessScoreCard() {
                 <TrendingDown size={13} strokeWidth={2.4} />
               </span>
               <span className="rsc-row-label">
-                Shortfall
+                Short fall
                 <small>Monthly</small>
               </span>
               <b className="shortfall">{money(shortfall)}</b>
@@ -122,6 +143,7 @@ export default function ReadinessScoreCard() {
           <div className={`rsc-tips ${tone}`}>
             <div className="rsc-tip">
               <span className="rsc-tip-ico trophy" aria-hidden="true">
+                <i className="rsc-confetti" />
                 <Trophy size={16} strokeWidth={2} />
               </span>
               <div>
@@ -139,11 +161,6 @@ export default function ReadinessScoreCard() {
               </div>
             </div>
           </div>
-
-          <Link className="rsc-cta" to="/retirement-goal">
-            Adjust your goal
-            <ArrowUpRight size={14} strokeWidth={2.2} aria-hidden="true" />
-          </Link>
         </>
       ) : (
         <div className="rsc-intro">
@@ -160,8 +177,9 @@ export default function ReadinessScoreCard() {
 
       <p className="rsc-foot">
         <Info size={13} strokeWidth={2.2} aria-hidden="true" />
-        <b>*Not guaranteed results</b>
-        <span>It&apos;s a simulation.</span>
+        <span>
+          <b>*Not guaranteed results</b> It&apos;s a simulation. For more details
+        </span>
         <button type="button" className="rsc-foot-link" onClick={() => setOpen(true)}>
           Read more
           <ArrowRight size={12} strokeWidth={2.4} />
