@@ -292,106 +292,106 @@
      stacked tip banner, single-line disclaimer footer), scaled down evenly
      to fit the dashboard sidebar column instead of the wide reference card. */
   .rsc-card{
-    background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
-    padding:24px 22px 20px;display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden}
-  .rsc-head{display:flex;align-items:flex-start;gap:12px;position:relative}
+    background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
+    padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+  .rsc-head{display:flex;align-items:flex-start;gap:10px;position:relative}
   .rsc-head-ico{
-    width:40px;height:40px;border-radius:12px;flex:0 0 auto;
+    width:34px;height:34px;border-radius:10px;flex:0 0 auto;
     background:var(--active-bg);color:var(--brand);display:grid;place-items:center}
-  .rsc-head h3{margin:0 0 3px;font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--ink);line-height:1.25}
-  .rsc-head p{margin:0;font-size:12px;line-height:1.4;color:var(--ink-soft)}
-  .rsc-summit{position:absolute;top:-16px;right:-14px;width:120px;height:auto;pointer-events:none;opacity:.9}
+  .rsc-head h3{margin:0 0 2px;font-size:14.5px;font-weight:800;letter-spacing:-.2px;color:var(--ink);line-height:1.25}
+  .rsc-head p{margin:0;font-size:11px;line-height:1.35;color:var(--ink-soft)}
+  .rsc-summit{position:absolute;top:-10px;right:-10px;width:80px;height:auto;pointer-events:none;opacity:.9}
 
   .rsc-gauge-panel{
-    background:var(--surface-2);border-radius:16px;padding:26px 18px 20px;display:flex;flex-direction:column;
-    align-items:center;text-align:center;gap:10px;text-decoration:none;color:inherit}
+    background:var(--surface-2);border-radius:13px;padding:16px 14px 14px;display:flex;flex-direction:column;
+    align-items:center;text-align:center;gap:7px;text-decoration:none;color:inherit}
   .rsc-gauge-panel:hover{background:var(--surface-3)}
-  .rsc-gauge{position:relative;width:150px;height:150px}
+  .rsc-gauge{position:relative;width:112px;height:112px}
   .rsc-gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
   .rsc-gauge-track{fill:none;stroke:var(--surface-3)}
   .rsc-gauge-fill{fill:none;stroke:var(--green);stroke-linecap:round;transition:stroke-dasharray .55s ease}
   .rsc-gauge-mid{
-    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
   .rsc-gauge-star{
-    width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
-    background:var(--green-bg);color:var(--green);margin-bottom:2px}
-  .rsc-gauge-mid b{font-size:38px;font-weight:800;letter-spacing:-1px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
-  .rsc-gauge-caption{font-size:11px;font-weight:700;color:var(--ink-soft);max-width:80px;line-height:1.2}
+    width:20px;height:20px;border-radius:50%;display:grid;place-items:center;
+    background:var(--green-bg);color:var(--green);margin-bottom:1px}
+  .rsc-gauge-mid b{font-size:26px;font-weight:800;letter-spacing:-.7px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
+  .rsc-gauge-caption{font-size:9px;font-weight:700;color:var(--ink-soft);max-width:64px;line-height:1.2}
   .rsc-badge{
-    display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;
-    font-size:13px;font-weight:800;background:var(--green-bg);color:var(--green)}
+    display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;
+    font-size:11px;font-weight:800;background:var(--green-bg);color:var(--green)}
   .rsc-badge.ok{background:var(--amber-bg);color:var(--amber)}
   .rsc-badge.warn{background:var(--red-bg);color:var(--red)}
-  .rsc-gauge-note{margin:2px 0 0;font-size:12.5px;line-height:1.45;color:var(--ink-soft);max-width:22ch}
+  .rsc-gauge-note{margin:1px 0 0;font-size:11px;line-height:1.4;color:var(--ink-soft);max-width:22ch}
 
   .rsc-right{
-    background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:4px 18px}
-  .rsc-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);position:relative}
+    background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:2px 14px}
+  .rsc-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);position:relative}
   .rsc-row:last-child{border-bottom:none}
-  .rsc-row.plain{padding:15px 0}
+  .rsc-row.plain{padding:11px 0}
   .rsc-row-ico{
-    width:32px;height:32px;border-radius:9px;flex:0 0 auto;display:grid;place-items:center;
+    width:26px;height:26px;border-radius:8px;flex:0 0 auto;display:grid;place-items:center;
     background:var(--active-bg);color:var(--brand)}
   .rsc-row-ico.income{background:var(--green-bg);color:var(--green)}
   .rsc-row-ico.shortfall{background:var(--red-bg);color:var(--red)}
   /* Dashed connector linking the income icon down to the shortfall icon,
      matching the reference image's vertical dotted line. */
   .rsc-row.connector .rsc-row-ico::after{
-    content:"";position:absolute;left:15px;top:32px;width:1px;height:26px;
+    content:"";position:absolute;left:12px;top:26px;width:1px;height:18px;
     border-left:1.5px dashed var(--line-strong)}
   .rsc-row-label{
-    display:flex;flex-direction:column;gap:1px;font-size:13.5px;font-weight:700;color:var(--ink)}
-  .rsc-row-label small{font-size:10.5px;font-weight:600;color:var(--muted)}
+    display:flex;flex-direction:column;gap:1px;font-size:12px;font-weight:700;color:var(--ink)}
+  .rsc-row-label small{font-size:9.5px;font-weight:600;color:var(--muted)}
   .rsc-row b{
-    margin-left:auto;font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.2px;
+    margin-left:auto;font-size:14.5px;font-weight:800;color:var(--ink);letter-spacing:-.1px;
     font-variant-numeric:tabular-nums}
   .rsc-row b.income{color:var(--green)}
   .rsc-row b.shortfall{color:var(--red)}
 
   .rsc-tips{
-    display:flex;flex-direction:column;border-radius:16px;padding:0 18px;
+    display:flex;flex-direction:column;border-radius:13px;padding:0 14px;
     background:linear-gradient(135deg,var(--green-bg),var(--amber-bg))}
   .rsc-tips.ok{background:linear-gradient(135deg,var(--amber-bg),var(--amber-bg))}
   .rsc-tips.warn{background:linear-gradient(135deg,var(--red-bg),var(--amber-bg))}
-  .rsc-tip{display:flex;align-items:flex-start;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .rsc-tip{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
   .rsc-tip:last-child{border-bottom:none}
-  .rsc-tip > div{display:flex;flex-direction:column;gap:3px;min-width:0}
-  .rsc-tip b{font-size:14px;font-weight:800;color:var(--green)}
+  .rsc-tip > div{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .rsc-tip b{font-size:12px;font-weight:800;color:var(--green)}
   .rsc-tips.ok .rsc-tip b,.rsc-tips.warn .rsc-tip b{color:var(--ink)}
   .rsc-tips.ok .rsc-tip:first-child b{color:var(--amber)}
   .rsc-tips.warn .rsc-tip:first-child b{color:var(--red)}
   .rsc-tip:last-child b{color:var(--brand)}
-  .rsc-tip span{font-size:12px;line-height:1.45;color:var(--ink-soft)}
+  .rsc-tip span{font-size:10.5px;line-height:1.4;color:var(--ink-soft)}
   .rsc-tip-ico{
-    position:relative;width:42px;height:42px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;
+    position:relative;width:32px;height:32px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;
     background:radial-gradient(circle at 32% 28%,var(--green),var(--brand-dark));color:#fff}
   .rsc-tips.ok .rsc-tip-ico{background:radial-gradient(circle at 32% 28%,var(--amber),var(--brand-dark))}
   .rsc-tips.warn .rsc-tip-ico{background:radial-gradient(circle at 32% 28%,var(--red),var(--brand-dark))}
   .rsc-tip-ico.bulb{
-    width:30px;height:30px;background:var(--panel);color:var(--brand);margin-top:6px}
+    width:24px;height:24px;background:var(--panel);color:var(--brand);margin-top:4px}
   /* Confetti flecks scattered around the trophy circle, echoing the
      reference image's celebration graphic. */
   .rsc-tip-ico.trophy::before,.rsc-tip-ico.trophy::after{
-    content:"";position:absolute;width:4px;height:4px;border-radius:1px}
-  .rsc-tip-ico.trophy::before{top:-10px;right:6px;background:var(--green);transform:rotate(30deg)}
-  .rsc-tip-ico.trophy::after{bottom:-9px;left:2px;background:var(--amber);transform:rotate(-25deg)}
+    content:"";position:absolute;width:3.5px;height:3.5px;border-radius:1px}
+  .rsc-tip-ico.trophy::before{top:-8px;right:5px;background:var(--green);transform:rotate(30deg)}
+  .rsc-tip-ico.trophy::after{bottom:-7px;left:1px;background:var(--amber);transform:rotate(-25deg)}
 
-  .rsc-intro{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
-  .rsc-intro p{margin:0;font-size:12.5px;line-height:1.5;color:var(--ink-soft)}
+  .rsc-intro{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+  .rsc-intro p{margin:0;font-size:12px;line-height:1.5;color:var(--ink-soft)}
   .rsc-cta{
     align-self:stretch;display:inline-flex;align-items:center;justify-content:center;gap:6px;
-    background:var(--brand-fill);color:#fff;border:none;border-radius:10px;padding:10px 14px;
-    font:inherit;font-size:13px;font-weight:800;cursor:pointer;text-decoration:none;box-sizing:border-box}
+    background:var(--brand-fill);color:#fff;border:none;border-radius:10px;padding:9px 12px;
+    font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;text-decoration:none;box-sizing:border-box}
   .rsc-cta:hover{background:var(--brand-dark)}
 
   .rsc-foot{
-    display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin:0;padding-top:14px;
-    border-top:1px solid var(--line);font-size:12px;line-height:1.4;color:var(--ink-soft)}
-  .rsc-foot svg{color:var(--brand);flex:0 0 auto;align-self:flex-start;margin-top:2px}
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 6px;margin:0;padding-top:11px;
+    border-top:1px solid var(--line);font-size:10.5px;line-height:1.35;color:var(--ink-soft)}
+  .rsc-foot svg{color:var(--brand);flex:0 0 auto;align-self:flex-start;margin-top:1px}
   .rsc-foot b{font-weight:800;color:var(--ink)}
   .rsc-foot span{flex:1 1 auto;min-width:0}
   .rsc-foot-link{
-    display:inline-flex;align-items:center;gap:4px;font:inherit;font-size:12px;font-weight:800;
+    display:inline-flex;align-items:center;gap:3px;font:inherit;font-size:10.5px;font-weight:800;
     color:var(--brand);background:none;border:none;padding:0;cursor:pointer;flex:0 0 auto}
   .rsc-foot-link:hover{color:var(--brand-dark)}
 
@@ -1837,56 +1837,123 @@ summary:focus-visible {
 }
 
 /* ---------- Learning portal ---------- */
-.learn2 {
-  text-decoration: none;
-  transition: .15s;
-}
-.learn2:hover {
-  border-color: var(--brand);
-  box-shadow: var(--shadow);
-}
-.learn2-banner {
+.learn2-icon {
   display: grid;
   place-items: center;
-  height: 76px;
-  margin: -18px -18px 14px;
-  border-radius: 15px 15px 0 0;
-  background: linear-gradient(135deg, var(--brand) 0%, #4a4fc4 100%);
-  color: #fff;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: var(--active-bg);
+  color: var(--brand);
+}
+.learn2-tag {
+  color: var(--brand);
+}
+.learn2-title {
+  margin-bottom: 6px;
 }
 .learn2-lead {
-  margin: 0 0 12px;
+  margin: 0 0 16px;
   font-size: 12.5px;
   line-height: 1.5;
   color: var(--ink-soft);
 }
+.learn2-sub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--ink);
+}
+.learn2-sub::before {
+  content: "";
+  width: 3px;
+  height: 13px;
+  border-radius: 2px;
+  background: var(--brand);
+}
 .learn2-topics {
   list-style: none;
-  margin: 0 0 14px;
+  margin: 0 0 18px;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
 }
 .learn2-topics li {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 5px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: var(--active-bg);
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--brand);
-  white-space: nowrap;
+  gap: 8px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--ink);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--line);
 }
+.learn2-topics li.brand { border-bottom-color: var(--brand); }
+.learn2-topics li.green { border-bottom-color: var(--green); }
+.learn2-topics li.blue { border-bottom-color: var(--accent); }
+.learn2-topic-ico {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--active-bg);
+  color: var(--brand);
+}
+.learn2-topics li.green .learn2-topic-ico { background: var(--green-bg); color: var(--green); }
+.learn2-topics li.blue .learn2-topic-ico { background: var(--active-bg); color: var(--accent); }
 .learn2-cta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
   background: var(--active-bg);
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: .15s;
+}
+.learn2-cta:hover {
+  background: var(--brand-fill);
+}
+.learn2-cta-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+.learn2-cta-copy b {
+  font-size: 13px;
+  font-weight: 800;
   color: var(--brand);
 }
-.learn2:hover .learn2-cta {
-  background: var(--brand-fill);
+.learn2-cta-copy small {
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+.learn2-cta:hover .learn2-cta-copy b,
+.learn2-cta:hover .learn2-cta-copy small {
   color: #fff;
+}
+.learn2-cta-go {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--panel);
+  color: var(--brand);
 }
 
 /* ---------- Risk meter ---------- */
@@ -1922,7 +1989,6 @@ summary:focus-visible {
 
 @media (max-width: 1080px) {
   .rr3, .learn2, .risk3 { padding: 16px; }
-  .learn2-banner { margin: -16px -16px 12px; }
 }
 
 /* ---------- Fund detail dialog (hyperlinked investment names) ---------- */
