@@ -30,7 +30,7 @@ export default function Header() {
   return (
     <header className="topbar">
       <div className="brand">
-        <img src={BRAND.logo} alt={BRAND.name} />
+        <img src={theme === 'dark' ? BRAND.logoOnDark || BRAND.logo : BRAND.logo} alt={BRAND.name} />
       </div>
       <div className="top-right">
         <button
