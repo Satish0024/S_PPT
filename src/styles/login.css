@@ -15,7 +15,7 @@
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 200' preserveAspectRatio='none'%3E%3Cpath fill='none' stroke='rgba(255,255,255,.28)' stroke-width='3' d='M0 140C120 80 180 40 320 70c140 30 160 90 280 70 120-20 140-90 200-70'/%3E%3Cpath fill='none' stroke='rgba(255,255,255,.18)' stroke-width='3' d='M0 160C140 110 200 80 340 100c150 22 170 80 280 60 130-24 140-80 180-70'/%3E%3C/svg%3E")
     no-repeat center bottom / 100% 100%}
 .login-brand-copy{position:relative;z-index:1;max-width:420px}
-.login-brand-copy img{height:42px;background:var(--panel);border-radius:10px;padding:8px 12px;margin-bottom:28px}
+.login-brand-copy img{height:42px;display:block;margin-bottom:28px}
 .login-brand-copy h1{font-size:36px;font-weight:700;letter-spacing:-.6px;line-height:1.15;margin:0 0 12px}
 .login-brand-copy p{font-size:16px;line-height:1.55;opacity:.9;margin:0;max-width:36ch}
 .login-panel{display:flex;align-items:center;justify-content:center;padding:40px 28px;background:var(--bg)}

@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { ChevronDown, Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { DEMO_PASSWORD } from '../data/participants'
 import { useParticipant } from '../context/ParticipantContext.jsx'
+import { useTheme } from '../context/ThemeContext.jsx'
 import { BRAND } from '../config/brand.js'
 import '../styles/login.css'
 
 export default function Login() {
   const { login, participants } = useParticipant()
+  const { theme } = useTheme()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -52,14 +54,14 @@ export default function Login() {
       <aside className="login-brand" aria-hidden="true">
         <div className="login-waves" />
         <div className="login-brand-copy">
-          <img src={BRAND.logo} alt="" />
+          <img src={BRAND.logoOnDark || BRAND.logo} alt="" />
           <h1>{BRAND.tagline}</h1>
           <p>{BRAND.taglineBody}</p>
         </div>
       </aside>
       <main className="login-panel">
         <div className="login-card">
-          <img className="login-logo" src={BRAND.logo} alt={BRAND.name} />
+          <img className="login-logo" src={theme === 'dark' ? BRAND.logoOnDark || BRAND.logo : BRAND.logo} alt={BRAND.name} />
           <h2>Sign in</h2>
           <p className="login-lead">Use your participant email to continue.</p>
 

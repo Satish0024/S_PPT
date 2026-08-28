@@ -8,6 +8,8 @@ import {
   Wallet
 } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
+import { useTheme } from '../../context/ThemeContext.jsx'
+import { BRAND } from '../../config/brand.js'
 import { isNotEligibleUser } from '../../data/participants'
 
 const ITEMS = [
@@ -21,6 +23,7 @@ const ITEMS = [
 export default function Sidebar() {
   const { pathname } = useLocation()
   const { participant } = useParticipant()
+  const { theme } = useTheme()
   const onEnrollment = pathname.startsWith('/enrollment')
   const onGoal = pathname.startsWith('/retirement-goal')
   const onSummary = pathname.startsWith('/account-summary')
@@ -55,7 +58,7 @@ export default function Sidebar() {
         )}
 
         <div className="nav-brand" aria-hidden="true">
-          <img src="/core-logo.svg" alt="" />
+          <img src={theme === 'dark' ? BRAND.logoOnDark || BRAND.logo : BRAND.logo} alt="" />
         </div>
       </div>
     </nav>

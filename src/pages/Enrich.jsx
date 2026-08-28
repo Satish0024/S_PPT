@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, BookOpen, Clock, DollarSign, Search, TrendingUp } from 'lucide-react'
 import { BRAND } from '../config/brand.js'
+import { useTheme } from '../context/ThemeContext.jsx'
 import '../styles/enrich.css'
 
 const ARTICLES = [
@@ -16,6 +17,7 @@ const CATS = ['All Topics', 'Plan Basics', 'Taxes', 'Investing', 'Retirement']
 export default function Enrich() {
   const [cat, setCat] = useState('All Topics')
   const [q, setQ] = useState('')
+  const { theme } = useTheme()
   const items = useMemo(
     () =>
       ARTICLES.filter((a) => (cat === 'All Topics' || a.tag === cat) && `${a.title} ${a.body} ${a.tag}`.toLowerCase().includes(q.toLowerCase())),
@@ -26,7 +28,7 @@ export default function Enrich() {
     <>
       <header className="topbar">
         <div className="brand">
-          <img src={BRAND.logo} alt={BRAND.name} />
+          <img src={theme === 'dark' ? BRAND.logoOnDark || BRAND.logo : BRAND.logo} alt={BRAND.name} />
         </div>
         <Link className="back" to="/">
           <ArrowLeft size={16} strokeWidth={2.2} />
