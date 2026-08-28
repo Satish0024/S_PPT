@@ -15,6 +15,7 @@ export const RISK_LEVELS = [
     color: '#1a9d63',
     accent: '#178a4a',
     copy: "This investment style favors stability, leaning on bonds and cash to help protect what you've saved.",
+    outlook: "You'd rather protect what you've saved than chase extra growth.",
     insights: [
       'Balanced approach that favors stability over growth.',
       'Typically 60-70% bonds and cash, 30-40% equities.',
@@ -31,6 +32,7 @@ export const RISK_LEVELS = [
     color: '#d4a017',
     accent: '#4338ca',
     copy: 'We picked this investment style based on how you answered the questionnaire.',
+    outlook: "You're comfortable with some ups and downs for potential long-term growth.",
     insights: [
       'Balanced approach between growth and stability.',
       'Typically a 50/50 mix of stocks and bonds.',
@@ -46,6 +48,7 @@ export const RISK_LEVELS = [
     score: 85,
     color: '#c0392b',
     accent: '#dc2626',
+    outlook: "You're comfortable with larger swings in pursuit of higher long-term growth.",
     insights: [
       'Growth-focused approach that leans into equities.',
       'Typically 80-90% stocks, 10-20% bonds.',
