@@ -8,8 +8,9 @@ export const BRAND = {
   shortName: 'Saturna',
   // Logo on light/white surfaces (topbar, login card) — navy #292670 + red #BA141A, no background.
   logo: '/core-logo.svg',
-  // Logo on dark surfaces (dark theme, login hero gradient). White wordmark + red accent.
-  // Falls back to `logo` for brands with a single all-purpose mark.
+  // Logo on dark surfaces (dark theme, login hero gradient). Same blue family as light
+  // (#292670 → #868df0, matching dark --brand) + red #BA141A — not white, so it stays on-brand
+  // and readable on dark panels without a background chip.
   logoOnDark: '/core-logo-dark.svg',
   tagline: 'Plan With Confidence.',
   taglineBody: 'Access your 401(k), deferrals, and retirement tools in one secure participant portal.',
