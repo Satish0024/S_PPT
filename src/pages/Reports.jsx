@@ -3,14 +3,8 @@ import { useLocation } from 'react-router-dom'
 import { ChevronDown, Download, FileText } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
+import StatementModal from '../components/common/StatementModal.jsx'
 import '../styles/documents.css'
-
-const STATEMENT_PERIODS = [
-  { id: '1m', label: 'Last month' },
-  { id: '3m', label: 'Last 3 months' },
-  { id: '6m', label: 'Last 6 months' },
-  { id: '12m', label: 'Last 12 months' }
-]
 
 function toDateInput(d) {
   return d.toISOString().slice(0, 10)
@@ -78,53 +72,6 @@ function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, 
   )
 }
 
-function StatementModal({ plans, onClose }) {
-  const [planId, setPlanId] = useState('')
-  const [period, setPeriod] = useState('3m')
-
-  return (
-    <div className="enroll-modal-bg" role="presentation" onClick={onClose}>
-      <div className="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="stmt-title" onClick={(e) => e.stopPropagation()}>
-        <h4 id="stmt-title">Generate Statement</h4>
-        <div className="pr-form">
-          <div className="pr-field">
-            <label htmlFor="stmt-plan">
-              Plan Name/ID<i aria-hidden="true">*</i>
-              <span className="sr-only"> (required)</span>
-            </label>
-            <select id="stmt-plan" required value={planId} onChange={(e) => setPlanId(e.target.value)}>
-              <option value="">Select</option>
-              {plans.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="pr-field">
-            <label htmlFor="stmt-period">Statement Period</label>
-            <select id="stmt-period" value={period} onChange={(e) => setPeriod(e.target.value)}>
-              {STATEMENT_PERIODS.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.label}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="enroll-modal-actions">
-          <button type="button" className="btn btn-ghost" onClick={onClose}>
-            Cancel
-          </button>
-          <button type="button" className="btn btn-primary" disabled={!planId} onClick={onClose}>
-            Generate &amp; Download
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function Reports() {
   const { participant } = useParticipant()
   const location = useLocation()
@@ -171,6 +118,8 @@ export default function Reports() {
     setFrom(toDateInput(d))
     setTo(toDateInput(new Date()))
   }
+
+  const closeStatement = () => setStatementOpen(false)
 
   return (
     <div className="page-body">
@@ -261,7 +210,9 @@ export default function Reports() {
         )}
       </section>
 
-      {statementOpen && <StatementModal plans={participant.plans} onClose={() => setStatementOpen(false)} />}
+      {statementOpen ? (
+        <StatementModal plans={participant.plans} onCancel={closeStatement} onGenerate={closeStatement} />
+      ) : null}
     </div>
   )
 }

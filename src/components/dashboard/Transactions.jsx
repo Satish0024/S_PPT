@@ -1,13 +1,20 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useParticipant } from '../../context/ParticipantContext.jsx'
+import StatementModal from '../common/StatementModal.jsx'
 
 export default function Transactions({ rows }) {
+  const navigate = useNavigate()
+  const { participant } = useParticipant()
+  const [statementOpen, setStatementOpen] = useState(false)
+
   return (
     <section className="section-card tx-compact">
       <div className="section-head">
         <h3>Recent transactions</h3>
-        <Link to="/reports" className="text-link">
+        <button type="button" className="text-link" onClick={() => setStatementOpen(true)}>
           Generate statement
-        </Link>
+        </button>
       </div>
       <div className="tx-list">
         {!rows?.length ? (
@@ -25,6 +32,17 @@ export default function Transactions({ rows }) {
           ))
         )}
       </div>
+
+      {statementOpen ? (
+        <StatementModal
+          plans={participant.plans}
+          onCancel={() => setStatementOpen(false)}
+          onGenerate={() => {
+            setStatementOpen(false)
+            navigate('/reports')
+          }}
+        />
+      ) : null}
     </section>
   )
 }
