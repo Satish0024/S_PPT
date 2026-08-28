@@ -6,11 +6,8 @@ import QuickLinks from '../components/dashboard/QuickLinks.jsx'
 import Transactions from '../components/dashboard/Transactions.jsx'
 import LearningPortal from '../components/dashboard/LearningPortal.jsx'
 import RiskMeterV2 from '../components/dashboard/RiskMeterV2.jsx'
+import ReadinessScoreCard from '../components/dashboard/ReadinessScoreCard.jsx'
 
-// Retirement Readiness (score ring + "Adjust your goal" page) is removed
-// for Saturna per prototype review #2 — it stays available on other
-// branded builds via RetirementGoalSimulatorV2 / the /retirement-goal
-// route, just not wired up here.
 export default function Dashboard() {
   const { participant } = useParticipant()
   const first = participant.name.split(' ')[0]
@@ -40,6 +37,7 @@ export default function Dashboard() {
               ))}
             </div>
           </section>
+          <ReadinessScoreCard />
           <QuickLinks />
           <Transactions rows={participant.transactions.slice(0, 5)} />
         </div>
