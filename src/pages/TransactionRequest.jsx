@@ -32,6 +32,7 @@ import {
   computeWithdrawalFees,
   estimatePeriodicPayment,
   generateTransactionId,
+  hasRestrictedTransfer,
   investmentsForSource,
   loanLimits,
   sourcesFor,
@@ -1133,7 +1134,8 @@ function AllocationSteps({ mode, step, plan, form, set, onNext, onBack, onSubmit
   const rowsFor = (source) => form.allocations[source.id] || []
   const sumPct = (rows) => rows.reduce((sum, r) => sum + (+r.afterPct || 0), 0)
   const ready =
-    selectedSources.length > 0 && selectedSources.every((s) => Math.round(sumPct(rowsFor(s))) === 100)
+    selectedSources.length > 0 &&
+    selectedSources.every((s) => Math.round(sumPct(rowsFor(s))) === 100 && !hasRestrictedTransfer(rowsFor(s)))
 
   const toggleSource = (source) => {
     set((f) => {

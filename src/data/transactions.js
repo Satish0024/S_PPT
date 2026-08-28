@@ -379,6 +379,31 @@ export const AVAILABLE_INVESTMENTS = [
   { id: 'zetex-equity', name: 'Zetex Equity', nav: 51.9 }
 ]
 
+// Funds a fund's prospectus treats as duplicative — increasing an allocation
+// into one while the participant also holds another in the same group is
+// blocked, mirroring the "Transfer in is restricted as it is a competing
+// fund of..." banner in the Figma Source Selection step.
+const COMPETING_FUND_GROUPS = [
+  ['Vanguard 500 Index Fund', 'Fidelity 500 Index Fund'],
+  ['Vanguard Total Bond Market', 'Fidelity U.S. Bond Index']
+]
+
+export function competingFundsFor(name) {
+  const group = COMPETING_FUND_GROUPS.find((g) => g.includes(name))
+  return group ? group.filter((n) => n !== name) : []
+}
+
+// Whether any row in this source is trying to increase into a fund that
+// competes with another fund the participant already holds — used to keep
+// Continue disabled while the restriction banner is showing.
+export function hasRestrictedTransfer(rows) {
+  return rows.some(
+    (r) =>
+      +r.afterPct > +r.pct &&
+      competingFundsFor(r.name).some((name) => rows.some((other) => other.name === name && other.pct > 0))
+  )
+}
+
 // Target percentages are whole-ish numbers, so a row the participant never
 // touched can still differ from its current value by a few cents. Anything
 // under this threshold is rounding noise, not a trade worth placing.

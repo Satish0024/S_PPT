@@ -1,4 +1,6 @@
-import { formatMoney } from '../../data/transactions.js'
+import { Fragment } from 'react'
+import { AlertOctagon } from 'lucide-react'
+import { competingFundsFor, formatMoney } from '../../data/transactions.js'
 
 // Current-holding vs after-transfer/after-rebalance grid used by both the
 // Transfer and Rebalance wizards. `editable` drives whether the target
@@ -38,37 +40,57 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
           {rows.map((r) => {
             const afterAmount = afterAmountOf(r, sourceTotal)
             const afterUnits = r.nav ? afterAmount / r.nav : 0
+            // A transfer-in is restricted when it would raise a fund's
+            // allocation while the participant also holds a fund from the
+            // same competing group — the prospectus treats them as
+            // duplicative, so money can't move into one at the expense of
+            // reducing exposure that's meant to stay diversified.
+            const heldCompetitors =
+              editable && +r.afterPct > +r.pct
+                ? competingFundsFor(r.name).filter((name) => rows.some((other) => other.name === name && other.pct > 0))
+                : []
             return (
-              <tr key={r.id}>
-                <td className="alloc-name-col">
-                  <span className="alloc-name">{r.name}</span>
-                  <span className="alloc-nav">
-                    Nav <b>{formatMoney(r.nav)}</b>
-                  </span>
-                </td>
-                <td className="num">{r.units.toFixed(2)}</td>
-                <td className="num">{r.pct} %</td>
-                <td className="num">{formatMoney(r.amount)}</td>
-                <td className="num alloc-after">{afterUnits.toFixed(2)}</td>
-                <td className="num alloc-after">
-                  {editable ? (
-                    <span className="alloc-pct-input">
-                      <input
-                        type="number"
-                        min={0}
-                        max={100}
-                        aria-label={`${afterLabel} percentage for ${r.name}`}
-                        value={r.afterPct}
-                        onChange={(e) => onChangePct(r.id, e.target.value)}
-                      />
-                      <i>%</i>
+              <Fragment key={r.id}>
+                <tr>
+                  <td className="alloc-name-col">
+                    <span className="alloc-name">{r.name}</span>
+                    <span className="alloc-nav">
+                      Nav <b>{formatMoney(r.nav)}</b>
                     </span>
-                  ) : (
-                    `${r.afterPct} %`
-                  )}
-                </td>
-                <td className="num alloc-after">{formatMoney(afterAmount)}</td>
-              </tr>
+                  </td>
+                  <td className="num">{r.units.toFixed(2)}</td>
+                  <td className="num">{r.pct} %</td>
+                  <td className="num">{formatMoney(r.amount)}</td>
+                  <td className="num alloc-after">{afterUnits.toFixed(2)}</td>
+                  <td className="num alloc-after">
+                    {editable ? (
+                      <span className="alloc-pct-input">
+                        <input
+                          type="number"
+                          min={0}
+                          max={100}
+                          aria-label={`${afterLabel} percentage for ${r.name}`}
+                          aria-invalid={heldCompetitors.length > 0 || undefined}
+                          value={r.afterPct}
+                          onChange={(e) => onChangePct(r.id, e.target.value)}
+                        />
+                        <i>%</i>
+                      </span>
+                    ) : (
+                      `${r.afterPct} %`
+                    )}
+                  </td>
+                  <td className="num alloc-after">{formatMoney(afterAmount)}</td>
+                </tr>
+                {heldCompetitors.length > 0 && (
+                  <tr className="alloc-restricted-row">
+                    <td colSpan={7}>
+                      <AlertOctagon size={13} strokeWidth={2.4} aria-hidden="true" />
+                      Transfer in is restricted as it is a competing fund of Investment(s) - {heldCompetitors.join(', ')}
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
             )
           })}
           <tr className="alloc-total">
