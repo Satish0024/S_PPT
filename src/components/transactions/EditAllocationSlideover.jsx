@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Minus, Plus } from 'lucide-react'
 import Slideover from '../common/Slideover.jsx'
 import {
   ADDRESS_OPTIONS,
@@ -9,17 +10,86 @@ import {
   formatMoney
 } from '../../data/transactions.js'
 
+// The "Fee Details" panel — Requested Amount, a collapsible "Fee & Tax
+// details" rollup (withdrawal fee + check fee + federal tax), Redemption
+// fee, Penalty, and Gross Withdrawal amount. Shared between the per-
+// allocation editor and the wizard's own Fee Details step, since both show
+// the identical breakdown at different scopes (one recipient vs. the total).
+export function FeeAndTaxPanel({ fees, title = 'Fee Details' }) {
+  const [expanded, setExpanded] = useState(true)
+
+  return (
+    <>
+      <span className="edit-alloc-fee-title">{title}</span>
+      <div className="edit-alloc-fee-row">
+        <span>Requested Amount</span>
+        <b>{formatMoney(fees.requested)}</b>
+      </div>
+
+      <button type="button" className="wd-fee-expand" onClick={() => setExpanded((v) => !v)} aria-expanded={expanded}>
+        {expanded ? <Minus size={13} strokeWidth={2.4} /> : <Plus size={13} strokeWidth={2.4} />}
+        <span>Fee &amp; Tax details</span>
+        <b>{formatMoney(fees.feeAndTax)}</b>
+      </button>
+      {expanded && (
+        <div className="wd-fee-subrows">
+          <div className="edit-alloc-fee-row sub">
+            <span>Withdrawal fee</span>
+            <b>{formatMoney(fees.withdrawalFee)}</b>
+          </div>
+          {fees.checkFee > 0 && (
+            <div className="edit-alloc-fee-row sub">
+              <span>Check fee</span>
+              <b>{formatMoney(fees.checkFee)}</b>
+            </div>
+          )}
+          <div className="edit-alloc-fee-row sub">
+            <span>Federal tax ({fees.federalTaxPct}%)</span>
+            <b>{formatMoney(fees.federalTax)}</b>
+          </div>
+        </div>
+      )}
+
+      <div className="edit-alloc-fee-row">
+        <span>Redemption fee</span>
+        <b>{formatMoney(fees.redemptionFee)}</b>
+      </div>
+      {fees.penaltyPct > 0 && (
+        <div className="edit-alloc-fee-row">
+          <span>Penalty ({fees.penaltyPct}%)</span>
+          <b>{formatMoney(fees.penalty)}</b>
+        </div>
+      )}
+      <div className="edit-alloc-fee-row total">
+        <span>Gross Withdrawal amount</span>
+        <b>{formatMoney(fees.grossAmount)}</b>
+      </div>
+    </>
+  )
+}
+
 // Wide slideover for editing a single withdrawal recipient's allocation —
-// distribution mode, payment method, address, and source selection, with a
-// live fee/tax preview that updates as the amount or withdrawal type change.
-export default function EditAllocationSlideover({ allocation, withdrawalTypeId, legalName, originalAddress, onClose, onSave }) {
+// recipient, distribution mode, payment method, address, and source
+// selection, with a live fee/tax preview that updates as the amount,
+// payment method, or withdrawal type change. Also used to add a new
+// recipient (e.g. a beneficiary) alongside the participant's own ("Self")
+// allocation — Figma's Withdrawal Allocation step supports more than one row.
+export default function EditAllocationSlideover({
+  allocation,
+  withdrawalTypeId,
+  legalName,
+  originalAddress,
+  isNew,
+  onClose,
+  onSave
+}) {
   const [draft, setDraft] = useState(allocation)
   const patch = (p) => setDraft((d) => ({ ...d, ...p }))
-  const fees = computeWithdrawalFees(draft.amount, withdrawalTypeId)
+  const fees = computeWithdrawalFees(draft.amount, withdrawalTypeId, draft.paymentMethod)
 
   return (
     <Slideover
-      title="Edit Allocation"
+      title={isNew ? 'Add Allocation' : 'Edit Allocation'}
       width="wide"
       onClose={onClose}
       actions={
@@ -27,7 +97,12 @@ export default function EditAllocationSlideover({ allocation, withdrawalTypeId, 
           <button type="button" className="btn btn-ghost" onClick={onClose}>
             Cancel
           </button>
-          <button type="button" className="btn btn-primary" onClick={() => onSave(draft)}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={!draft.mode || !draft.amount}
+            onClick={() => onSave(draft)}
+          >
             Save
           </button>
         </>
@@ -35,6 +110,23 @@ export default function EditAllocationSlideover({ allocation, withdrawalTypeId, 
     >
       <div className="edit-alloc">
         <div className="edit-alloc-main">
+          {isNew && (
+            <>
+              <h4>Recipient</h4>
+              <div className="txn-row">
+                <div className="txn-field">
+                  <label>Recipient name</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Taylor Hale"
+                    value={draft.name}
+                    onChange={(e) => patch({ name: e.target.value })}
+                  />
+                </div>
+              </div>
+            </>
+          )}
+
           <h4>Withdrawal details</h4>
           <div className="txn-row">
             <div className="txn-field">
@@ -121,29 +213,7 @@ export default function EditAllocationSlideover({ allocation, withdrawalTypeId, 
         </div>
 
         <aside className="edit-alloc-fee">
-          <span className="edit-alloc-fee-title">Fee Details</span>
-          <div className="edit-alloc-fee-row">
-            <span>Requested Amount</span>
-            <b>{formatMoney(fees.requested)}</b>
-          </div>
-          <div className="edit-alloc-fee-row">
-            <span>Withdrawal fee</span>
-            <b>{formatMoney(fees.withdrawalFee)}</b>
-          </div>
-          <div className="edit-alloc-fee-row">
-            <span>Federal tax ({fees.federalTaxPct}%)</span>
-            <b>{formatMoney(fees.federalTax)}</b>
-          </div>
-          {fees.penaltyPct > 0 && (
-            <div className="edit-alloc-fee-row">
-              <span>Early withdrawal penalty ({fees.penaltyPct}%)</span>
-              <b>{formatMoney(fees.penalty)}</b>
-            </div>
-          )}
-          <div className="edit-alloc-fee-row total">
-            <span>Gross Withdrawal amount</span>
-            <b>{formatMoney(fees.grossAmount)}</b>
-          </div>
+          <FeeAndTaxPanel fees={fees} />
         </aside>
       </div>
     </Slideover>

@@ -221,26 +221,65 @@ export const SOURCE_OPTIONS = [
   { id: 'optimized', label: 'Optimized for redemption fee' }
 ]
 
-const WITHDRAWAL_FEE_FLAT = 25
+const WITHDRAWAL_FEE_FLAT = 1
+const CHECK_FEE_FLAT = 1
 const FEDERAL_TAX_PCT = 20
+const REDEMPTION_FEE_FLAT = 2.6
 
 // Grosses a requested (net) withdrawal amount up to what must be pulled from
-// the plan to cover the flat fee, federal tax withholding, and any early-
-// withdrawal penalty tied to the selected withdrawal type — so the
-// participant still nets the amount they asked for.
-export function computeWithdrawalFees(amount, withdrawalTypeId) {
+// the plan to cover fees, withholding, and any early-withdrawal penalty tied
+// to the selected withdrawal type — so the participant still nets the amount
+// they asked for. Matches the Figma Fee Details breakdown: Withdrawal fee +
+// Check fee + Federal tax roll up into "Fee & Tax details"; Redemption fee
+// and Penalty are each broken out on their own line.
+export function computeWithdrawalFees(amount, withdrawalTypeId, paymentMethodId) {
   const requested = +amount || 0
   const type = WITHDRAWAL_TYPES.find((t) => t.id === withdrawalTypeId)
   const penaltyPct = type?.penaltyPct || 0
   const withdrawalFee = requested > 0 ? WITHDRAWAL_FEE_FLAT : 0
+  const checkFee = requested > 0 && paymentMethodId === 'check' ? CHECK_FEE_FLAT : 0
   const federalTax = round2(requested * (FEDERAL_TAX_PCT / 100))
+  const feeAndTax = round2(withdrawalFee + checkFee + federalTax)
+  const redemptionFee = requested > 0 ? REDEMPTION_FEE_FLAT : 0
   const penalty = round2(requested * (penaltyPct / 100))
-  const grossAmount = round2(requested + withdrawalFee + federalTax + penalty)
-  return { requested, withdrawalFee, federalTaxPct: FEDERAL_TAX_PCT, federalTax, penaltyPct, penalty, grossAmount }
+  const grossAmount = round2(requested + feeAndTax + redemptionFee + penalty)
+  return {
+    requested,
+    withdrawalFee,
+    checkFee,
+    federalTaxPct: FEDERAL_TAX_PCT,
+    federalTax,
+    feeAndTax,
+    redemptionFee,
+    penaltyPct,
+    penalty,
+    grossAmount
+  }
 }
 
 function round2(n) {
   return Math.round((n || 0) * 100) / 100
+}
+
+// Totals computeWithdrawalFees across every recipient allocation — the wizard's
+// Fee Details step and Summary show the request-wide total, not just one
+// recipient's row.
+export function sumWithdrawalFees(allocations, withdrawalTypeId) {
+  const rows = allocations.map((a) => computeWithdrawalFees(a.amount, withdrawalTypeId, a.paymentMethod))
+  const sum = (key) => round2(rows.reduce((s, r) => s + r[key], 0))
+  const type = WITHDRAWAL_TYPES.find((t) => t.id === withdrawalTypeId)
+  return {
+    requested: sum('requested'),
+    withdrawalFee: sum('withdrawalFee'),
+    checkFee: sum('checkFee'),
+    federalTaxPct: FEDERAL_TAX_PCT,
+    federalTax: sum('federalTax'),
+    feeAndTax: sum('feeAndTax'),
+    redemptionFee: sum('redemptionFee'),
+    penaltyPct: type?.penaltyPct || 0,
+    penalty: sum('penalty'),
+    grossAmount: sum('grossAmount')
+  }
 }
 
 // Whether the participant has an active (approved, not fully paid) loan on

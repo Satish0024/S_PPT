@@ -5,7 +5,7 @@ import Header from '../components/layout/Header.jsx'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import ConfirmDialog from '../components/common/ConfirmDialog.jsx'
 import Field, { FieldGroup } from '../components/common/Field.jsx'
-import EditAllocationSlideover from '../components/transactions/EditAllocationSlideover.jsx'
+import EditAllocationSlideover, { FeeAndTaxPanel } from '../components/transactions/EditAllocationSlideover.jsx'
 import LegalCopySlideover from '../components/transactions/LegalCopySlideover.jsx'
 import AmortizationScheduleSlideover from '../components/transactions/AmortizationScheduleSlideover.jsx'
 import AddInvestmentSlideover from '../components/transactions/AddInvestmentSlideover.jsx'
@@ -35,6 +35,7 @@ import {
   investmentsForSource,
   loanLimits,
   sourcesFor,
+  sumWithdrawalFees,
   transactablePlans
 } from '../data/transactions.js'
 import '../styles/transactions.css'
@@ -101,12 +102,22 @@ function blankForm(type) {
       withdrawalType: '',
       withdrawAs: 'onetime',
       entireBalance: '',
-      mode: '',
-      amount: '',
-      address: '',
+      // One allocation per recipient — starts with the participant's own
+      // ("Self"); "Add allocation" appends more (e.g. a beneficiary).
+      allocations: [
+        {
+          id: 'self',
+          recipientType: 'self',
+          name: 'Self',
+          mode: '',
+          amount: '',
+          paymentMethod: 'check',
+          addressOption: 'onfile',
+          customAddress: '',
+          source: 'prorata'
+        }
+      ],
       addressChanged: false,
-      city: '',
-      country: '',
       docUploaded: false,
       termsAccepted: false
     }
@@ -826,13 +837,19 @@ function AddBankDialog({ bank, onCancel, onSave }) {
 
 function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, onSubmit, onEdit }) {
   const [showLoanDialog, setShowLoanDialog] = useState(false)
-  const [editingAllocation, setEditingAllocation] = useState(false)
+  const [editingAllocationId, setEditingAllocationId] = useState(null)
+  const [addingAllocation, setAddingAllocation] = useState(false)
   const withdrawalType = WITHDRAWAL_TYPES.find((t) => t.id === form.withdrawalType)
-  const mode = DISTRIBUTION_MODES.find((m) => m.id === form.mode)
   const legalName = participant.name
   const originalAddress = `${participant.profile?.address || ''}, ${participant.profile?.city || ''}`.trim()
-  const fees = computeWithdrawalFees(form.amount, form.withdrawalType)
+  const allocations = form.allocations
+  const fees = sumWithdrawalFees(allocations, form.withdrawalType)
   const loan = activeLoanFor(participant, plan)
+  const allocationsReady = allocations.length > 0 && allocations.every((a) => a.mode && a.amount)
+  const editingAllocation = editingAllocationId ? allocations.find((a) => a.id === editingAllocationId) : null
+
+  const patchAllocation = (id, patch) =>
+    set((f) => ({ allocations: f.allocations.map((a) => (a.id === id ? { ...a, ...patch } : a)) }))
 
   const chooseEntireBalance = (value) => {
     if (value === 'yes' && loan) {
@@ -944,72 +961,62 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
   if (step === 'allocation') {
     return (
       <div className="txn-card">
-        <h3>Withdrawal Allocation</h3>
+        <div className="txn-summary-head">
+          <h3>Withdrawal Allocation</h3>
+          <button type="button" className="btn btn-secondary alloc-add-btn" onClick={() => setAddingAllocation(true)}>
+            Add allocation
+          </button>
+        </div>
         <p className="hint">Review how this withdrawal is allocated, then edit the recipient details if needed.</p>
 
-        <div className="table-wrap">
-          <table className="wd-alloc-table">
-            <thead>
-              <tr>
-                <th scope="col">Recipient</th>
-                <th scope="col" className="num">Tax</th>
-                <th scope="col" className="num">Fee</th>
-                <th scope="col" className="num">Penalty</th>
-                <th scope="col" className="num">Amount</th>
-                <th aria-label="Actions" />
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Self</td>
-                <td className="num">{formatMoney(fees.federalTax)}</td>
-                <td className="num">{formatMoney(fees.withdrawalFee)}</td>
-                <td className="num">{formatMoney(fees.penalty)}</td>
-                <td className="num">{formatMoney(fees.requested)}</td>
-                <td className="num">
-                  <button type="button" className="wd-alloc-edit" onClick={() => setEditingAllocation(true)}>
-                    View details
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <AllocationTable allocations={allocations} withdrawalTypeId={form.withdrawalType} onEdit={setEditingAllocationId} />
 
         <div className="txn-actions">
           <button type="button" className="btn btn-ghost" onClick={onBack}>
             Back
           </button>
-          <button type="button" className="btn btn-primary" disabled={!form.mode || !form.amount} onClick={onNext}>
+          <button type="button" className="btn btn-primary" disabled={!allocationsReady} onClick={onNext}>
             Continue
           </button>
         </div>
 
         {editingAllocation && (
           <EditAllocationSlideover
+            allocation={editingAllocation}
+            withdrawalTypeId={form.withdrawalType}
+            legalName={editingAllocation.recipientType === 'self' ? legalName : editingAllocation.name}
+            originalAddress={originalAddress}
+            onClose={() => setEditingAllocationId(null)}
+            onSave={(draft) => {
+              patchAllocation(editingAllocation.id, {
+                ...draft,
+                addressChanged: draft.addressOption === 'custom' && draft.customAddress.trim().length > 0
+              })
+              setEditingAllocationId(null)
+            }}
+          />
+        )}
+        {addingAllocation && (
+          <EditAllocationSlideover
+            isNew
             allocation={{
-              mode: form.mode,
-              amount: form.amount,
-              paymentMethod: form.paymentMethod || 'check',
-              addressOption: form.addressOption || 'onfile',
-              customAddress: form.address || '',
-              source: form.source || 'prorata'
+              id: `beneficiary-${Date.now()}`,
+              recipientType: 'beneficiary',
+              name: '',
+              mode: '',
+              amount: '',
+              paymentMethod: 'check',
+              addressOption: 'onfile',
+              customAddress: '',
+              source: 'prorata'
             }}
             withdrawalTypeId={form.withdrawalType}
-            legalName={legalName}
+            legalName=""
             originalAddress={originalAddress}
-            onClose={() => setEditingAllocation(false)}
+            onClose={() => setAddingAllocation(false)}
             onSave={(draft) => {
-              set({
-                mode: draft.mode,
-                amount: draft.amount,
-                paymentMethod: draft.paymentMethod,
-                addressOption: draft.addressOption,
-                address: draft.customAddress,
-                addressChanged: draft.addressOption === 'custom' && draft.customAddress.trim().length > 0,
-                source: draft.source
-              })
-              setEditingAllocation(false)
+              set((f) => ({ allocations: [...f.allocations, draft] }))
+              setAddingAllocation(false)
             }}
           />
         )}
@@ -1024,31 +1031,10 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         <p className="hint">This is what your plan will deduct to cover fees, tax withholding, and any penalty.</p>
 
         <div className="wd-fee-card">
-          <div className="wd-fee-row">
-            <span>Requested Amount</span>
-            <b>{formatMoney(fees.requested)}</b>
-          </div>
-          <div className="wd-fee-row">
-            <span>Withdrawal fee</span>
-            <b>{formatMoney(fees.withdrawalFee)}</b>
-          </div>
-          <div className="wd-fee-row">
-            <span>Federal tax ({fees.federalTaxPct}%)</span>
-            <b>{formatMoney(fees.federalTax)}</b>
-          </div>
-          {fees.penaltyPct > 0 && (
-            <div className="wd-fee-row">
-              <span>Early withdrawal penalty ({fees.penaltyPct}%)</span>
-              <b>{formatMoney(fees.penalty)}</b>
-            </div>
-          )}
-          <div className="wd-fee-row total">
-            <span>Gross Withdrawal amount</span>
-            <b>{formatMoney(fees.grossAmount)}</b>
-          </div>
+          <FeeAndTaxPanel fees={fees} title="" />
         </div>
 
-        {form.addressChanged && (
+        {allocations.some((a) => a.addressChanged) && (
           <div className="address-banner">
             <Info size={16} strokeWidth={2.2} />
             <div>
@@ -1091,36 +1077,23 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
       </div>
 
       <h4 style={{ margin: '20px 0 8px', fontSize: 13.5, fontWeight: 800 }}>Withdrawal allocation</h4>
-      <div className="table-wrap">
-        <table className="wd-alloc-table">
-          <thead>
-            <tr>
-              <th scope="col">Recipient</th>
-              <th scope="col" className="num">Tax</th>
-              <th scope="col" className="num">Fee</th>
-              <th scope="col" className="num">Penalty</th>
-              <th scope="col" className="num">Amount</th>
-              <th aria-label="Actions" />
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Self</td>
-              <td className="num">{formatMoney(fees.federalTax)}</td>
-              <td className="num">{formatMoney(fees.withdrawalFee)}</td>
-              <td className="num">{formatMoney(fees.penalty)}</td>
-              <td className="num">{formatMoney(fees.requested)}</td>
-              <td className="num">
-                <button type="button" className="wd-alloc-edit" onClick={() => onEdit(1)}>
-                  View details
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <AllocationTable allocations={allocations} withdrawalTypeId={form.withdrawalType} onEdit={() => onEdit(1)} />
+
+      {allocations.map((a) => {
+        const m = DISTRIBUTION_MODES.find((d) => d.id === a.mode)
+        if (m?.id !== 'direct' || a.paymentMethod !== 'check') return null
+        return (
+          <div key={a.id}>
+            <SummaryRow label={`Mail check payable to (${a.name})`} value={a.recipientType === 'self' ? legalName : a.name} />
+            <SummaryRow label="Address" value={a.customAddress || originalAddress} onEdit={() => onEdit(1)} />
+          </div>
+        )
+      })}
+
+      <div className="wd-fee-card" style={{ marginTop: 20 }}>
+        <FeeAndTaxPanel fees={fees} title="Fee Details" />
       </div>
-      {mode?.id === 'direct' && <SummaryRow label="Mail check payable to" value={legalName} />}
-      {mode?.id === 'direct' && <SummaryRow label="Address" value={form.address || originalAddress} onEdit={() => onEdit(1)} />}
+
       <SummaryRow label="Distribution form" value={form.docUploaded ? 'Uploaded' : 'Not uploaded'} onEdit={() => onEdit(3)} />
 
       <label className="wd-terms">
@@ -1441,6 +1414,47 @@ function SummaryStep({ title, children, onBack, onSubmit, submitDisabled }) {
           Submit Request
         </button>
       </div>
+    </div>
+  )
+}
+
+// Recipient/Tax/Fee/Penalty/Amount table used by both the Withdrawal
+// Allocation step and the Summary step — one row per allocation (Self plus
+// any added beneficiaries), each with its own "View details" edit link.
+function AllocationTable({ allocations, withdrawalTypeId, onEdit }) {
+  return (
+    <div className="table-wrap">
+      <table className="wd-alloc-table">
+        <thead>
+          <tr>
+            <th scope="col">Recipient</th>
+            <th scope="col" className="num">Tax</th>
+            <th scope="col" className="num">Fee</th>
+            <th scope="col" className="num">Penalty</th>
+            <th scope="col" className="num">Amount</th>
+            <th aria-label="Actions" />
+          </tr>
+        </thead>
+        <tbody>
+          {allocations.map((a) => {
+            const rowFees = computeWithdrawalFees(a.amount, withdrawalTypeId, a.paymentMethod)
+            return (
+              <tr key={a.id}>
+                <td>{a.name || (a.recipientType === 'self' ? 'Self' : 'Beneficiary')}</td>
+                <td className="num">{formatMoney(rowFees.federalTax)}</td>
+                <td className="num">{formatMoney(rowFees.feeAndTax - rowFees.federalTax)}</td>
+                <td className="num">{formatMoney(rowFees.penalty)}</td>
+                <td className="num">{formatMoney(rowFees.requested)}</td>
+                <td className="num">
+                  <button type="button" className="wd-alloc-edit" onClick={() => onEdit(a.id)}>
+                    View details
+                  </button>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </div>
   )
 }
