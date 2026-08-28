@@ -3,11 +3,17 @@
 .rqp-side{
   position:relative;overflow:hidden;background:var(--scene-sky);min-height:100vh}
 
-/* Static reference image, reused unchanged across every questionnaire step.
-   object-fit:contain so the full picture (including its own baked-in
-   heading text) always stays inside the panel instead of being cropped —
-   cover was cutting the left-edge text off at narrower panel widths. */
-.rqj-scene{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+/* Static reference image (no text baked in), reused unchanged across every
+   questionnaire step — fills the panel edge to edge behind the copy below. */
+.rqj-scene{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+/* App-owned copy overlaid on top of the image — this is what actually
+   varies per step; the image itself never changes. */
+.rqp-side-copy{
+  position:relative;z-index:1;max-width:34ch;padding:44px 40px 0}
+.rqp-side-tag{display:block;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.rqp-side-copy h1{font-size:26px;font-weight:800;line-height:1.25;letter-spacing:-.3px;margin:0 0 12px;color:var(--brand-dark)}
+.rqp-side-copy p{font-size:14px;line-height:1.6;color:var(--ink-soft);margin:0}
 
 .rqp-main{display:flex;flex-direction:column;padding:36px 48px;max-width:760px;width:100%;margin:0 auto}
 .rqp-main-head{display:flex;align-items:center;gap:16px;margin-bottom:34px}
