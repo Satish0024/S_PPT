@@ -91,7 +91,7 @@
     height:var(--header-h);border-bottom:1px solid var(--line);display:flex;align-items:center;
     justify-content:space-between;padding:0 24px 0 10px;position:sticky;top:0;background:var(--panel);z-index:40;
   }
-  .brand img{height:38px;max-width:210px;object-fit:contain;display:block;width:auto}
+  .brand img{height:26px;max-width:150px;object-fit:contain;display:block;width:auto}
   .top-right{display:flex;align-items:center;gap:10px}
   .icon-btn{width:36px;height:36px;border-radius:50%;border:none;background:transparent;
     display:grid;place-items:center;cursor:pointer;color:#39415a}
