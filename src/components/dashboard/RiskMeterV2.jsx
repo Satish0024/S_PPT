@@ -8,7 +8,6 @@ import { RISK_LEVELS, RISK_PROFILE_UPDATED_EVENT, getRiskLevel, getRiskProfileId
 export default function RiskMeterV2() {
   const { participant } = useParticipant()
   const [levelId, setLevelId] = useState(() => getRiskProfileId(participant))
-  const [insightIndex, setInsightIndex] = useState(0)
 
   // Stay in sync even when the questionnaire is completed elsewhere (e.g.
   // the sidebar's "Risk check-in" page).
@@ -16,7 +15,6 @@ export default function RiskMeterV2() {
     const onUpdate = (e) => {
       if (e.detail?.participantId === participant.id) {
         setLevelId(e.detail.levelId)
-        setInsightIndex(0)
       }
     }
     window.addEventListener(RISK_PROFILE_UPDATED_EVENT, onUpdate)
@@ -54,24 +52,6 @@ export default function RiskMeterV2() {
       <div className="risk3-scale" aria-hidden="true">
         <span>Lower risk</span>
         <span>Higher risk</span>
-      </div>
-
-      <p className="risk3-insight" key={`${level.id}-${insightIndex}`}>
-        {level.insights[insightIndex]}
-      </p>
-
-      <div className="risk3-dots" role="tablist" aria-label="More about this risk style">
-        {level.insights.map((insight, i) => (
-          <button
-            key={insight}
-            type="button"
-            role="tab"
-            aria-selected={i === insightIndex}
-            aria-label={`Insight ${i + 1} of ${level.insights.length}`}
-            className={`risk3-dot${i === insightIndex ? ' on' : ''}`}
-            onClick={() => setInsightIndex(i)}
-          />
-        ))}
       </div>
 
       <Link to="/risk-check-in" className="risk3-btn">
