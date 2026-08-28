@@ -82,6 +82,11 @@ export default function RiskQuestionnaire() {
     <div className="rqp-page">
       <aside className="rqp-side" aria-hidden="true">
         <RiskJourneyScene />
+        <div className="rqp-side-copy">
+          <span className="rqp-side-tag">Quick Setup · Smarter Insights</span>
+          <h1>See how ready you are for retirement</h1>
+          <p>A few honest answers help us shape an investment style that actually fits how you feel about risk.</p>
+        </div>
       </aside>
 
       <main className="rqp-main">
