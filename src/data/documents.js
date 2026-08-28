@@ -23,13 +23,6 @@ export const PLAN_DOCS = [
     plan: 'Saturna 401(k) Plan'
   },
   {
-    id: 'psp-spd',
-    name: 'Profit Sharing Plan Document',
-    type: 'Plan Document',
-    date: 'Jan 1, 2026',
-    plan: 'Saturna Profit Sharing Plan'
-  },
-  {
     id: 'qdia',
     name: 'QDIA Notice',
     type: 'Investment & Fee Change Notice',

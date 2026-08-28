@@ -5,13 +5,6 @@ export const PLAN_STATS = {
     invested: '$90,500.00',
     gain: '+$9,916.00',
     ret: '8.00%'
-  },
-  'saturna-profit-sharing': {
-    label: 'Saturna Profit Sharing Plan',
-    current: '$42,180.00',
-    invested: '$38,750.00',
-    gain: '+$3,430.00',
-    ret: '6.45%'
   }
 }
 

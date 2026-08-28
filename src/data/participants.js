@@ -1,5 +1,4 @@
 export const PLAN_401K = 'Saturna 401(k) Plan'
-export const PLAN_PSP = 'Saturna Profit Sharing Plan'
 export const PLAN_ROTH = 'Saturna Roth 401(k) Plan'
 export const PLAN_DC = 'Saturna Deferred Comp Plan'
 export const PLAN_CB = 'Saturna Cash Balance Plan'
@@ -69,7 +68,7 @@ export const PARTICIPANTS = [
         { name: 'Riley Hale', relationship: 'Child', share: '30%' }
       ]
     },
-    overall: { total: '$14,590.00', vested: '$13,870.00', loan: '$2,500.00' },
+    overall: { total: '$12,840.00', vested: '$9,620.00', loan: '$2,500.00' },
     showSimulator: true,
     plans: [
       {
@@ -94,21 +93,6 @@ export const PARTICIPANTS = [
           { name: 'Vanguard Total Bond Market', asset: 'U.S. Bond', amount: 2311, price: 10.12, units: 228.36 },
           { name: 'Fidelity U.S. Bond Index', asset: 'U.S. Bond', amount: 2311, price: 10.85, units: 212.995 },
           { name: 'Vanguard Wellington Fund', asset: 'Balanced', amount: 1284, price: 44.8, units: 28.661 }
-        ]
-      },
-      {
-        id: 'psp',
-        name: PLAN_PSP,
-        type: 'Profit Sharing',
-        meta: 'Enrolled Jan 12, 2025 · ID 124890',
-        badge: 'Participating',
-        notice: 'Congratulations! You are enrolled in this plan.',
-        noticeLink: { label: 'View details', details: true },
-        stats: { balance: '$4,250.00', vested: '$4,250.00', returnPct: 10.42 },
-        details: { status: 'Enrolled', balance: '$4,250.00', vested: '$4,250.00' },
-        sources: [{ name: 'Profit Sharing', amount: 4250, vested: 4250 }],
-        investments: [
-          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 4250, price: 45.18, units: 94.068 }
         ]
       },
       {
@@ -151,7 +135,6 @@ export const PARTICIPANTS = [
       { kind: 'employer', date: 'Feb 28, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$208.00' },
       { kind: 'deferral', date: 'Feb 14, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$312.00' },
       { kind: 'employer', date: 'Feb 14, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$208.00' },
-      { kind: 'employer', date: 'Jan 31, 2026', type: 'Employer Contribution', plan: 'Saturna Profit Sharing', amt: '$450.00' },
       { kind: 'deferral', date: 'Jan 31, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$312.00' },
       { kind: 'employer', date: 'Jan 31, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$208.00' },
       { kind: 'loan', date: 'Jan 15, 2026', type: 'Loan Repayment', plan: PLAN_401K, amt: '$125.00' },
@@ -192,19 +175,6 @@ export const PARTICIPANTS = [
         noticeClass: 'ineligible-notice',
         noticeLink: { label: 'Provide elections in advance', to: '/enrollment' },
         details: { status: 'Not Eligible', balance: '$0.00', vested: '$0.00' }
-      },
-      {
-        id: 'psp',
-        name: PLAN_PSP,
-        type: 'Profit Sharing',
-        meta: 'ID 124890',
-        badge: 'Not Eligible',
-        badgeClass: 'muted',
-        cardClass: 'ineligible',
-        notice: 'You are currently not eligible for this plan since you have not met the service requirement.',
-        noticeClass: 'ineligible-notice',
-        noticeLink: { label: 'View details', details: true },
-        details: { status: 'Not Eligible', balance: '$0.00', vested: '$0.00' }
       }
     ],
     transactions: []
@@ -242,19 +212,6 @@ export const PARTICIPANTS = [
         noticeClass: 'eligible-notice',
         noticeLink: { label: 'Enroll here', to: '/enrollment' },
         details: { status: 'Eligible — Not Enrolled', balance: '$0.00', vested: '$0.00' }
-      },
-      {
-        id: 'psp',
-        name: PLAN_PSP,
-        type: 'Profit Sharing',
-        meta: 'ID 124890',
-        badge: 'Eligible',
-        badgeClass: 'eligible',
-        cardClass: 'eligible-not',
-        notice: 'Congratulations! You are eligible to participate in this plan.',
-        noticeClass: 'eligible-notice',
-        noticeLink: { label: 'View details', details: true },
-        details: { status: 'Eligible — Not Enrolled', balance: '$0.00', vested: '$0.00' }
       }
     ],
     transactions: []
@@ -279,7 +236,7 @@ export const PARTICIPANTS = [
         { name: 'Chris Sullivan', relationship: 'Spouse', share: '100%' }
       ]
     },
-    overall: { total: '$100,416.00', vested: '$92,400.00', loan: '$8,500.00' },
+    overall: { total: '$87,166.00', vested: '$79,150.00', loan: '$8,500.00' },
     showSimulator: true,
     plans: [
       {
@@ -304,21 +261,6 @@ export const PARTICIPANTS = [
           { name: 'Fidelity U.S. Bond Index', asset: 'U.S. Bond', amount: 13159, price: 10.85, units: 1212.811 },
           { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 8834, price: 45.18, units: 195.529 }
         ]
-      },
-      {
-        id: 'psp',
-        name: PLAN_PSP,
-        type: 'Profit Sharing',
-        meta: 'ID 124890',
-        badge: 'Participating',
-        notice: 'Congratulations! You are enrolled in this plan.',
-        noticeLink: { label: 'View details', details: true },
-        stats: { balance: '$13,250.00', vested: '$13,250.00', returnPct: 10.42 },
-        details: { status: 'Enrolled', balance: '$13,250.00', vested: '$13,250.00' },
-        sources: [{ name: 'Profit Sharing', amount: 13250, vested: 13250 }],
-        investments: [
-          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 13250, price: 45.18, units: 293.271 }
-        ]
       }
     ],
     transactions: [
@@ -327,7 +269,6 @@ export const PARTICIPANTS = [
       { kind: 'employer', date: 'Feb 28, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$410.00' },
       { kind: 'deferral', date: 'Feb 14, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$820.00' },
       { kind: 'employer', date: 'Feb 14, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$410.00' },
-      { kind: 'employer', date: 'Jan 31, 2026', type: 'Employer Contribution', plan: 'Saturna Profit Sharing', amt: '$1,200.00' },
       { kind: 'deferral', date: 'Jan 31, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$820.00' },
       { kind: 'employer', date: 'Jan 31, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$410.00' },
       { kind: 'deferral', date: 'Jan 17, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$820.00' },
@@ -368,18 +309,6 @@ export const PARTICIPANTS = [
         notice: 'You have chosen to opt out from payroll deductions.',
         noticeClass: 'opted-notice',
         noticeLink: { label: 'Enroll here', to: '/enrollment' },
-        details: { status: 'Opted Out', balance: '$0.00', vested: '$0.00' }
-      },
-      {
-        id: 'psp',
-        name: PLAN_PSP,
-        type: 'Profit Sharing',
-        meta: 'ID 124890',
-        badge: 'Opted Out',
-        badgeClass: 'opted',
-        notice: 'You have chosen to opt out from payroll deductions.',
-        noticeClass: 'opted-notice',
-        noticeLink: { label: 'View details', details: true },
         details: { status: 'Opted Out', balance: '$0.00', vested: '$0.00' }
       }
     ],
