@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useId, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { AlertTriangle, ArrowLeft, Check, Copy, Info, Printer } from 'lucide-react'
+import { useFocusTrap } from '../hooks/useFocusTrap'
 import Header from '../components/layout/Header.jsx'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import ConfirmDialog from '../components/common/ConfirmDialog.jsx'
@@ -228,80 +229,85 @@ export default function TransactionRequest() {
           {/* Transfer and rebalance render wide current-vs-target tables, so
               they get more room than the form-style loan/withdrawal steps. */}
           <main className={`txn-main${type === 'transfer' || type === 'rebalance' ? ' txn-main-wide' : ''}`}>
-            {done ? (
-              <SubmittedPanel type={type} transactionId={transactionId} navigate={navigate} />
-            ) : (
-              <>
-                <div className="txn-plan-head">
-                  <div>
-                    <h2>{plan.name}</h2>
-                    <p className="plan-meta">
-                      Plan ID {plan.meta?.match(/ID\s+(\S+)/i)?.[1] || plan.id} · Type {plan.type}
-                    </p>
-                  </div>
-                  <div className="req-plan-stats">
-                    <div>
-                      <span>Plan balance</span>
-                      <b>{formatMoney(planBalance(plan))}</b>
-                    </div>
-                    <div>
-                      <span>Vested balance</span>
-                      <b>{formatMoney(planVested(plan))}</b>
-                    </div>
-                  </div>
+            <div className="txn-plan-head">
+              <div>
+                <h2>{plan.name}</h2>
+                <p className="plan-meta">
+                  Plan ID {plan.meta?.match(/ID\s+(\S+)/i)?.[1] || plan.id} · Type {plan.type}
+                </p>
+              </div>
+              <div className="req-plan-stats">
+                <div>
+                  <span>Plan balance</span>
+                  <b>{formatMoney(planBalance(plan))}</b>
                 </div>
+                <div>
+                  <span>Vested balance</span>
+                  <b>{formatMoney(planVested(plan))}</b>
+                </div>
+              </div>
+            </div>
 
-                {type === 'loan' && (
-                  <LoanSteps
-                    step={step.id}
-                    plan={plan}
-                    participant={participant}
-                    form={form}
-                    set={set}
-                    onNext={next}
-                    onBack={back}
-                    onSubmit={submit}
-                    onEdit={goTo}
-                  />
-                )}
-                {type === 'withdrawal' && (
-                  <WithdrawalSteps
-                    step={step.id}
-                    plan={plan}
-                    participant={participant}
-                    form={form}
-                    set={set}
-                    onNext={next}
-                    onBack={back}
-                    onSubmit={submit}
-                    onEdit={goTo}
-                  />
-                )}
-                {(type === 'transfer' || type === 'rebalance') && (
-                  <AllocationSteps
-                    mode={type}
-                    step={step.id}
-                    plan={plan}
-                    form={form}
-                    set={set}
-                    onNext={next}
-                    onBack={back}
-                    onSubmit={submit}
-                  />
-                )}
-              </>
+            {type === 'loan' && (
+              <LoanSteps
+                step={step.id}
+                plan={plan}
+                participant={participant}
+                form={form}
+                set={set}
+                onNext={next}
+                onBack={back}
+                onSubmit={submit}
+                onEdit={goTo}
+              />
+            )}
+            {type === 'withdrawal' && (
+              <WithdrawalSteps
+                step={step.id}
+                plan={plan}
+                participant={participant}
+                form={form}
+                set={set}
+                onNext={next}
+                onBack={back}
+                onSubmit={submit}
+                onEdit={goTo}
+              />
+            )}
+            {(type === 'transfer' || type === 'rebalance') && (
+              <AllocationSteps
+                mode={type}
+                step={step.id}
+                plan={plan}
+                form={form}
+                set={set}
+                onNext={next}
+                onBack={back}
+                onSubmit={submit}
+              />
             )}
           </main>
         </div>
       </div>
+
+      {/* Pops up over the final summary step rather than replacing the page,
+          so "Back to Transactions" reads as dismissing a confirmation, not
+          navigating away from content that's already gone. */}
+      {done && <SubmittedPanel type={type} transactionId={transactionId} navigate={navigate} />}
     </>
   )
 }
 
+// Success confirmation as a modal popup over the finished wizard, rather
+// than swapping the page content out — the last summary screen stays
+// visible (dimmed) behind it, so "submitted" reads as a confirmation of
+// what's on screen instead of a navigation away from it.
 function SubmittedPanel({ type, transactionId, navigate }) {
   const label = { loan: 'loan', withdrawal: 'withdrawal', transfer: 'transfer', rebalance: 'rebalance' }[type] || 'request'
   const headline = type === 'loan' ? 'Your loan request successfully sent!' : 'Your request successfully sent!'
   const [copied, setCopied] = useState(false)
+  const trapRef = useFocusTrap(true)
+  const titleId = useId()
 
   const copyId = () => {
     if (navigator.clipboard?.writeText) navigator.clipboard.writeText(transactionId)
@@ -310,26 +316,35 @@ function SubmittedPanel({ type, transactionId, navigate }) {
   }
 
   return (
-    <div className="txn-card" style={{ textAlign: 'center', padding: '48px 32px' }}>
-      <div className="success-mark" aria-hidden="true" style={{ margin: '0 auto 12px' }}>
-        <svg viewBox="0 0 52 52" width="52" height="52">
-          <circle className="success-ring" cx="26" cy="26" r="24" />
-          <path className="success-check" d="M15.5 27.2l7.2 7.2 14.6-16" />
-        </svg>
-      </div>
-      <h3>{headline}</h3>
-      <p className="hint">Meanwhile use transaction ID to track your {label} status.</p>
-      <div className="txn-success-id">
-        <span>Transaction ID: {transactionId}</span>
-        <button type="button" className="icon-btn" onClick={copyId} aria-label="Copy transaction ID">
-          <Copy size={14} strokeWidth={2.2} />
-        </button>
-        {copied && <span className="txn-success-copied">Copied</span>}
-      </div>
-      <div className="txn-actions" style={{ justifyContent: 'center' }}>
-        <button type="button" className="btn btn-primary" onClick={() => navigate('/transactions')}>
-          Back to Transactions
-        </button>
+    <div className="enroll-modal-bg" role="presentation">
+      <div
+        ref={trapRef}
+        className="txn-success-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
+      >
+        <div className="success-mark" aria-hidden="true" style={{ margin: '0 auto 12px' }}>
+          <svg viewBox="0 0 52 52" width="52" height="52">
+            <circle className="success-ring" cx="26" cy="26" r="24" />
+            <path className="success-check" d="M15.5 27.2l7.2 7.2 14.6-16" />
+          </svg>
+        </div>
+        <h3 id={titleId}>{headline}</h3>
+        <p className="hint">Meanwhile use transaction ID to track your {label} status.</p>
+        <div className="txn-success-id">
+          <span>Transaction ID: {transactionId}</span>
+          <button type="button" className="icon-btn" onClick={copyId} aria-label="Copy transaction ID">
+            <Copy size={14} strokeWidth={2.2} />
+          </button>
+          {copied && <span className="txn-success-copied">Copied</span>}
+        </div>
+        <div className="txn-actions" style={{ justifyContent: 'center' }}>
+          <button type="button" className="btn btn-primary" onClick={() => navigate('/transactions')}>
+            Back to Transactions
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -970,7 +985,24 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         </div>
         <p className="hint">Review how this withdrawal is allocated, then edit the recipient details if needed.</p>
 
-        <AllocationTable allocations={allocations} withdrawalTypeId={form.withdrawalType} onEdit={setEditingAllocationId} />
+        <AllocationTable
+          allocations={allocations}
+          withdrawalTypeId={form.withdrawalType}
+          onEdit={setEditingAllocationId}
+          onRemove={
+            allocations.length > 1
+              ? (id) => set((f) => ({ allocations: f.allocations.filter((a) => a.id !== id) }))
+              : undefined
+          }
+        />
+
+        {!allocationsReady && (
+          <p className="wd-alloc-incomplete-hint">
+            <Info size={14} strokeWidth={2.2} />
+            Every recipient needs a distribution mode and amount before you can continue — open "View details" on any
+            row still marked Incomplete.
+          </p>
+        )}
 
         <div className="txn-actions">
           <button type="button" className="btn btn-ghost" onClick={onBack}>
@@ -1423,7 +1455,9 @@ function SummaryStep({ title, children, onBack, onSubmit, submitDisabled }) {
 // Recipient/Tax/Fee/Penalty/Amount table used by both the Withdrawal
 // Allocation step and the Summary step — one row per allocation (Self plus
 // any added beneficiaries), each with its own "View details" edit link.
-function AllocationTable({ allocations, withdrawalTypeId, onEdit }) {
+// `onRemove`, when given, adds a "Remove" action (never offered for the
+// last remaining allocation — there must always be at least one recipient).
+function AllocationTable({ allocations, withdrawalTypeId, onEdit, onRemove }) {
   return (
     <div className="table-wrap">
       <table className="wd-alloc-table">
@@ -1439,18 +1473,32 @@ function AllocationTable({ allocations, withdrawalTypeId, onEdit }) {
         </thead>
         <tbody>
           {allocations.map((a) => {
+            const incomplete = !a.mode || !a.amount
             const rowFees = computeWithdrawalFees(a.amount, withdrawalTypeId, a.paymentMethod)
             return (
-              <tr key={a.id}>
+              <tr key={a.id} className={incomplete ? 'wd-alloc-incomplete' : undefined}>
                 <td>{a.name || (a.recipientType === 'self' ? 'Self' : 'Beneficiary')}</td>
-                <td className="num">{formatMoney(rowFees.federalTax)}</td>
-                <td className="num">{formatMoney(rowFees.feeAndTax - rowFees.federalTax)}</td>
-                <td className="num">{formatMoney(rowFees.penalty)}</td>
-                <td className="num">{formatMoney(rowFees.requested)}</td>
-                <td className="num">
+                {incomplete ? (
+                  <td className="num wd-alloc-incomplete-cell" colSpan={4}>
+                    Incomplete — add distribution mode and amount
+                  </td>
+                ) : (
+                  <>
+                    <td className="num">{formatMoney(rowFees.federalTax)}</td>
+                    <td className="num">{formatMoney(rowFees.feeAndTax - rowFees.federalTax)}</td>
+                    <td className="num">{formatMoney(rowFees.penalty)}</td>
+                    <td className="num">{formatMoney(rowFees.requested)}</td>
+                  </>
+                )}
+                <td className="num wd-alloc-actions">
                   <button type="button" className="wd-alloc-edit" onClick={() => onEdit(a.id)}>
                     View details
                   </button>
+                  {onRemove && (
+                    <button type="button" className="wd-alloc-remove" onClick={() => onRemove(a.id)}>
+                      Remove
+                    </button>
+                  )}
                 </td>
               </tr>
             )

@@ -1319,6 +1319,13 @@
   .confirm-dialog-actions{display:flex;gap:10px;margin-top:20px;width:100%}
   .confirm-dialog-actions .btn{flex:1;width:auto}
 
+  /* ---------- Transaction success modal ---------- */
+  .txn-success-modal{
+    width:min(420px,100%);background:var(--panel);border-radius:16px;padding:40px 32px 32px;
+    box-shadow:var(--shadow-lg);text-align:center;animation:rq-modal-in .22s ease}
+  .txn-success-modal h3{margin:0 0 6px;font-size:18px;font-weight:800;letter-spacing:-.2px}
+  .txn-success-modal .hint{margin:0 0 4px}
+
   /* ---------- Loan calculator slideover ---------- */
   .loan-calc{display:flex;flex-direction:column;gap:16px}
   .loan-calc-lead{font-size:13.5px;line-height:1.5;color:var(--ink-soft);margin:0}
@@ -1378,6 +1385,16 @@
   .wd-alloc-edit{
     font:inherit;font-size:12.5px;font-weight:700;color:var(--brand);background:none;border:none;
     padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+  .wd-alloc-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px}
+  .wd-alloc-remove{
+    font:inherit;font-size:12.5px;font-weight:700;color:var(--red);background:none;border:none;
+    padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+  .wd-alloc-incomplete td{background:var(--amber-bg)}
+  .wd-alloc-incomplete-cell{color:var(--amber);font-weight:700;text-align:left!important}
+  .wd-alloc-incomplete-hint{
+    display:flex;align-items:flex-start;gap:6px;margin:12px 0 0;font-size:12.5px;font-weight:600;
+    color:var(--amber);line-height:1.5}
+  .wd-alloc-incomplete-hint svg{flex:0 0 auto;margin-top:2px}
   .wd-fee-card{
     background:var(--active-bg);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
   .wd-fee-row{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft)}
