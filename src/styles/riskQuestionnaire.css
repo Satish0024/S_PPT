@@ -8,9 +8,11 @@
 .rqp-side-copy h1{font-size:26px;font-weight:800;line-height:1.25;letter-spacing:-.3px;margin:0 0 12px;color:var(--brand-dark)}
 .rqp-side-copy p{font-size:14px;line-height:1.6;color:var(--ink-soft);margin:0}
 
-/* Static illustration, reused unchanged across every questionnaire step —
-   only the copy above it changes per step. No motion, per design review. */
-.rqj-scene{position:relative;width:100%;flex:1;min-height:280px;display:block}
+/* Static reference image, reused unchanged across every questionnaire step —
+   only the copy above it changes per step. Shown in full (object-fit:
+   contain, not cropped) so nothing in the picture is clipped. */
+.rqj-scene{position:relative;width:100%;height:auto;flex:1;min-height:0;
+  object-fit:contain;display:block;border-radius:14px}
 
 .rqp-main{display:flex;flex-direction:column;padding:36px 48px;max-width:760px;width:100%;margin:0 auto}
 .rqp-main-head{display:flex;align-items:center;gap:16px;margin-bottom:34px}
