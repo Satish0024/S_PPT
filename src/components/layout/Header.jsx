@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Check, ChevronDown, LogOut } from 'lucide-react'
+import { Check, ChevronDown, LogOut, Moon, Sun } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
+import { useTheme } from '../../context/ThemeContext.jsx'
 import { BRAND } from '../../config/brand.js'
 
 export default function Header() {
   const { participant, participants, selectParticipant, logout } = useParticipant()
+  const { theme, toggle } = useTheme()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const menuRef = useRef(null)
@@ -31,6 +33,16 @@ export default function Header() {
         <img src={BRAND.logo} alt={BRAND.name} />
       </div>
       <div className="top-right">
+        <button
+          type="button"
+          className="icon-btn theme-toggle"
+          onClick={toggle}
+          aria-pressed={theme === 'dark'}
+          aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+        >
+          {theme === 'dark' ? <Sun size={19} strokeWidth={2.1} /> : <Moon size={19} strokeWidth={2.1} />}
+        </button>
         <div className="user-menu" ref={menuRef}>
           <button
             type="button"

@@ -9,8 +9,34 @@ import {
   Tooltip
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
+import { Download } from 'lucide-react'
 import { HOLDINGS, PLAN_FUNDS, PLAN_STATS, cumSeries, labelsFor, ENDS, money } from '../data/portfolio'
+import { useTheme } from '../context/ThemeContext.jsx'
+import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
 import '../styles/portfolio.css'
+
+// Builds a CSV from an array of {label, value} column defs and one row per
+// item, then triggers a browser download — no server round trip needed
+// since everything here is already loaded client-side.
+function exportCsv(filename, columns, rows) {
+  const escape = (v) => {
+    const s = String(v ?? '')
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s
+  }
+  const lines = [
+    columns.map((c) => escape(c.label)).join(','),
+    ...rows.map((row) => columns.map((c) => escape(c.value(row))).join(','))
+  ]
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  URL.revokeObjectURL(url)
+}
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
 
@@ -36,13 +62,28 @@ const COLS = {
 }
 
 export default function Portfolio() {
+  const { theme } = useTheme()
   const [tab, setTab] = useState('overview')
+  const [openFund, setOpenFund] = useState(null)
   const [period, setPeriod] = useState('1y')
   const [planId, setPlanId] = useState('lendguard-401k')
   const [sort, setSort] = useState({ key: null, dir: 1 })
   const [ytdDir, setYtdDir] = useState(null)
   const [visible, setVisible] = useState({ total: true, equity: false, bond: false, target: false })
   const plan = PLAN_STATS[planId]
+
+  // Re-read the resolved CSS variables whenever the theme flips so the grid
+  // lines and axis labels stay legible instead of the old hardcoded
+  // light-mode-only palette.
+  const chartOptions = useMemo(() => {
+    const css = getComputedStyle(document.documentElement)
+    return buildChartOptions({
+      axisTitle: css.getPropertyValue('--ink-soft').trim() || '#5c6078',
+      gridLine: css.getPropertyValue('--line').trim() || '#e8eaf2',
+      tick: css.getPropertyValue('--muted').trim() || '#8a8da3'
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [theme])
 
   const holdings = useMemo(() => {
     const rows = [...HOLDINGS]
@@ -181,7 +222,32 @@ export default function Portfolio() {
               </section>
             </div>
             <section className="section">
-              <h2>Investments</h2>
+              <div className="section-head">
+                <h2>Investments</h2>
+                <button
+                  type="button"
+                  className="export-btn"
+                  onClick={() =>
+                    exportCsv(
+                      `${plan.label.replace(/\s+/g, '-').toLowerCase()}-my-portfolio.csv`,
+                      [
+                        { label: 'Investment name', value: (h) => h.name },
+                        { label: 'Asset class', value: (h) => h.asset },
+                        { label: 'CUSIP', value: (h) => h.cusip },
+                        { label: 'Fund return %', value: (h) => h.returnPct.toFixed(2) },
+                        { label: 'Invested balance', value: (h) => money(h.invested) },
+                        { label: 'Current balance', value: (h) => money(h.current) },
+                        { label: 'Gain/loss', value: (h) => money(h.gain) },
+                        { label: 'Unit balance', value: (h) => h.units.toFixed(2) }
+                      ],
+                      holdings
+                    )
+                  }
+                >
+                  <Download size={15} strokeWidth={2.2} />
+                  Export
+                </button>
+              </div>
               <div className="table-wrap">
                 <table className="holdings-table">
                   <thead>
@@ -196,7 +262,7 @@ export default function Portfolio() {
                         ['gain', 'Gain/loss', 'num'],
                         ['units', 'Unit balance', 'num']
                       ].map(([key, label, type]) => (
-                        <th
+                        <th scope="col"
                           key={key}
                           className={`sortable${type === 'num' ? ' num' : ''}${sort.key === key ? (sort.dir === 1 ? ' asc' : ' desc') : ''}`}
                           onClick={() => toggleSort(key)}
@@ -209,7 +275,11 @@ export default function Portfolio() {
                   <tbody>
                     {holdings.map((h) => (
                       <tr key={h.cusip}>
-                        <td className="name">{h.name}</td>
+                        <td className="name">
+                          <button type="button" className="fund-link" onClick={() => setOpenFund(h)}>
+                            {h.name}
+                          </button>
+                        </td>
                         <td>{h.asset}</td>
                         <td className="muted">{h.cusip}</td>
                         <td className="num pos">{h.returnPct.toFixed(2)}%</td>
@@ -228,16 +298,43 @@ export default function Portfolio() {
         {tab === 'investments' && (
           <div className="tab-panel on">
             <section className="section">
-              <h2>Plan investments</h2>
+              <div className="section-head">
+                <h2>Plan investments</h2>
+                <button
+                  type="button"
+                  className="export-btn"
+                  onClick={() =>
+                    exportCsv(
+                      `${plan.label.replace(/\s+/g, '-').toLowerCase()}-plan-investments.csv`,
+                      [
+                        { label: 'Fund name', value: (f) => f.name },
+                        { label: 'Category', value: (f) => f.cat },
+                        { label: 'Return YTD', value: (f) => f.ytd },
+                        { label: '1 yr.', value: (f) => f.y1 },
+                        { label: '5 yr.', value: (f) => f.y5 },
+                        { label: '10 yr.', value: (f) => f.y10 },
+                        { label: 'Since inception', value: (f) => f.si },
+                        { label: 'Total annual operating expenses %', value: (f) => f.exp },
+                        { label: 'Total annual operating expenses per $1,000', value: (f) => f.perK },
+                        { label: 'Shareholder-type fees', value: (f) => f.fees }
+                      ],
+                      planFunds
+                    )
+                  }
+                >
+                  <Download size={15} strokeWidth={2.2} />
+                  Export
+                </button>
+              </div>
               <p className="sub">Browse and compare the funds available within your retirement plan.</p>
               <div className="table-wrap">
                 <table className="plan-table">
                   <thead>
                     <tr>
-                      <th className="fund-col" rowSpan={2}>
+                      <th scope="col" className="fund-col" rowSpan={2}>
                         Fund name / category
                       </th>
-                      <th
+                      <th scope="col"
                         rowSpan={2}
                         className={`sortable${ytdDir === 1 ? ' asc' : ytdDir === -1 ? ' desc' : ''}`}
                         aria-sort={ytdDir === 1 ? 'ascending' : ytdDir === -1 ? 'descending' : 'none'}
@@ -248,29 +345,29 @@ export default function Portfolio() {
                           As of 03/10/2025
                         </button>
                       </th>
-                      <th className="group-h" colSpan={4}>
+                      <th scope="col" className="group-h" colSpan={4}>
                         Average annual total return
                         <br />
                         As of 12/31/2024
                       </th>
-                      <th className="group-h" colSpan={2}>
+                      <th scope="col" className="group-h" colSpan={2}>
                         Total annual operating expenses
                         <br />
                         As of 12/31/2024
                       </th>
-                      <th rowSpan={2}>
+                      <th scope="col" rowSpan={2}>
                         Shareholder-
                         <br />
                         type fees
                       </th>
                     </tr>
                     <tr>
-                      <th className="sub-h">1 yr.</th>
-                      <th className="sub-h">5 yr.</th>
-                      <th className="sub-h">10 yr.</th>
-                      <th className="sub-h">Since inception</th>
-                      <th className="sub-h">As a %</th>
-                      <th className="sub-h">Per $1,000</th>
+                      <th scope="col" className="sub-h">1 yr.</th>
+                      <th scope="col" className="sub-h">5 yr.</th>
+                      <th scope="col" className="sub-h">10 yr.</th>
+                      <th scope="col" className="sub-h">Since inception</th>
+                      <th scope="col" className="sub-h">As a %</th>
+                      <th scope="col" className="sub-h">Per $1,000</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -278,7 +375,9 @@ export default function Portfolio() {
                       <Fragment key={f.name}>
                         <tr className="fund-row">
                           <td className="fund-cell">
-                            <div className="fund-title">{f.name}</div>
+                            <button type="button" className="fund-link fund-title" onClick={() => setOpenFund(f)}>
+                              {f.name}
+                            </button>
                             <div className="fund-meta">
                               <span className="fund-cat">{f.cat}</span>
                             </div>
@@ -312,6 +411,24 @@ export default function Portfolio() {
           </div>
         )}
       </div>
+
+      {openFund && (
+        <FundDetailDialog
+          name={openFund.name}
+          onClose={() => setOpenFund(null)}
+          fields={[
+            { label: 'Asset class / category', value: openFund.asset || openFund.cat },
+            { label: 'CUSIP', value: openFund.cusip },
+            { label: 'Fund return %', value: openFund.returnPct != null ? `${openFund.returnPct.toFixed(2)}%` : openFund.ytd },
+            { label: 'Current balance', value: openFund.current != null ? money(openFund.current) : undefined },
+            { label: 'Unit balance', value: openFund.units != null ? openFund.units.toFixed(2) : undefined },
+            { label: '1 yr. return', value: openFund.y1 },
+            { label: '5 yr. return', value: openFund.y5 },
+            { label: '10 yr. return', value: openFund.y10 },
+            { label: 'Total annual operating expenses', value: openFund.exp }
+          ]}
+        />
+      )}
     </>
   )
 }
@@ -338,42 +455,48 @@ function line(label, data, color, order) {
   }
 }
 
-const chartOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  clip: false,
-  interaction: { mode: 'index', intersect: false },
-  layout: { padding: { top: 8, right: 8 } },
-  plugins: {
-    legend: { display: false },
-    tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${c.parsed.y.toFixed(2)}%` } }
-  },
-  scales: {
-    x: {
-      title: {
-        display: true,
-        text: 'Time Period',
-        color: '#5c6078',
-        font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
-        padding: { top: 8 }
-      },
-      grid: { display: true, color: '#e8eaf2', borderDash: [4, 4], drawTicks: false },
-      border: { display: false },
-      ticks: { color: '#8a8da3', maxRotation: 0, autoSkip: true, maxTicksLimit: 12 }
+// Chart.js reads plain color strings, not CSS variables, so its palette has
+// to be rebuilt whenever the theme flips rather than defined once at import
+// time — this factory is called from the component with each render's
+// resolved --ink-soft/--line/--muted values.
+function buildChartOptions({ axisTitle, gridLine, tick }) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    clip: false,
+    interaction: { mode: 'index', intersect: false },
+    layout: { padding: { top: 8, right: 8 } },
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${c.parsed.y.toFixed(2)}%` } }
     },
-    y: {
-      min: 0,
-      grace: '8%',
-      title: {
-        display: true,
-        text: 'Rate of return (%)',
-        color: '#5c6078',
-        font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
-        padding: { bottom: 6 }
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Time Period',
+          color: axisTitle,
+          font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
+          padding: { top: 8 }
+        },
+        grid: { display: true, color: gridLine, borderDash: [4, 4], drawTicks: false },
+        border: { display: false },
+        ticks: { color: tick, maxRotation: 0, autoSkip: true, maxTicksLimit: 12 }
       },
-      grid: { color: '#eef0f6', borderDash: [4, 4] },
-      border: { display: false },
-      ticks: { color: '#8a8da3', stepSize: 5, callback: (v) => v + '%' }
+      y: {
+        min: 0,
+        grace: '8%',
+        title: {
+          display: true,
+          text: 'Rate of return (%)',
+          color: axisTitle,
+          font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
+          padding: { bottom: 6 }
+        },
+        grid: { color: gridLine, borderDash: [4, 4] },
+        border: { display: false },
+        ticks: { color: tick, stepSize: 5, callback: (v) => v + '%' }
+      }
     }
   }
 }

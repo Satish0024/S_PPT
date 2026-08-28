@@ -1,41 +1,38 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, BookOpen, DollarSign, TrendingUp } from 'lucide-react'
-import LearningIllustration from './LearningIllustration.jsx'
+import { ArrowRight, BookOpen, DollarSign, GraduationCap, TrendingUp } from 'lucide-react'
 
 const TOPICS = [
-  { label: 'Plan Basics', icon: BookOpen },
+  { label: 'Plan basics', icon: BookOpen },
   { label: 'Taxes', icon: DollarSign },
   { label: 'Investing', icon: TrendingUp }
 ]
 
 export default function LearningPortal() {
   return (
-    <Link className="learn-card" to="/enrich">
-      <LearningIllustration />
-      <div className="learn-card-top">
-        <span className="learn-card-ico" aria-hidden="true">
-          <BookOpen size={18} strokeWidth={2.1} />
-        </span>
-        <div>
-          <span className="learn-card-tag">Enrich</span>
-          <h4>Learning Portal</h4>
-        </div>
-      </div>
-      <p>Short guides on deferrals, investing, and planning for retirement.</p>
-      <ul className="learn-card-topics">
+    <Link className="learn2" to="/enrich">
+      {/* A flat gradient banner rather than the old absolutely-positioned
+          illustration, which overlapped the title in a narrow column. */}
+      <span className="learn2-banner" aria-hidden="true">
+        <GraduationCap size={30} strokeWidth={1.7} />
+      </span>
+
+      <span className="learn2-tag">Enrich</span>
+      <h3 className="learn2-title">Learning Portal</h3>
+      <p className="learn2-lead">Short guides on deferrals, investing, and planning for retirement.</p>
+
+      <ul className="learn2-topics">
         {TOPICS.map(({ label, icon: Icon }) => (
           <li key={label}>
-            <Icon size={12} strokeWidth={2.4} />
+            <Icon size={13} strokeWidth={2.3} aria-hidden="true" />
             {label}
           </li>
         ))}
       </ul>
-      <div className="learn-card-foot">
-        <span className="learn-card-cta">Explore the library</span>
-        <span className="learn-card-cta-ico" aria-hidden="true">
-          <ArrowRight size={16} strokeWidth={2.4} />
-        </span>
-      </div>
+
+      <span className="learn2-cta">
+        Explore the library
+        <ArrowRight size={15} strokeWidth={2.4} aria-hidden="true" />
+      </span>
     </Link>
   )
 }

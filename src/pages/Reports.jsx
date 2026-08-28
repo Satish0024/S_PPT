@@ -1,4 +1,5 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { ChevronDown, Download, FileText } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
@@ -25,6 +26,7 @@ function useOutsideClose(onClose) {
 
 function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, getSub, getKey = (o) => o }) {
   const [open, setOpen] = useState(false)
+  const labelId = useId()
   const { ref, handler } = useOutsideClose(() => setOpen(false))
 
   const allChecked = options.length > 0 && selected.length === options.length
@@ -37,13 +39,23 @@ function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, 
 
   return (
     <div className="multi-select" ref={ref} onBlur={(e) => !ref.current?.contains(e.relatedTarget) && setOpen(false)}>
-      <span className="field-label">{label}</span>
-      <button type="button" className="multi-select-btn" onClick={() => setOpen((v) => !v)} onFocus={() => document.addEventListener('click', handler, { once: true })}>
-        {summary}
-        <ChevronDown size={15} strokeWidth={2.2} />
+      <span className="field-label" id={labelId}>
+        {label}
+      </span>
+      <button
+        type="button"
+        className="multi-select-btn"
+        aria-labelledby={`${labelId} ${labelId}-value`}
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        onClick={() => setOpen((v) => !v)}
+        onFocus={() => document.addEventListener('click', handler, { once: true })}
+      >
+        <span id={`${labelId}-value`}>{summary}</span>
+        <ChevronDown size={15} strokeWidth={2.2} aria-hidden="true" />
       </button>
       {open && (
-        <div className="multi-select-menu" role="listbox">
+        <div className="multi-select-menu" role="listbox" aria-labelledby={labelId}>
           <label className="multi-select-row all">
             <input type="checkbox" checked={allChecked} onChange={toggleAll} />
             Select All
@@ -76,10 +88,11 @@ function StatementModal({ plans, onClose }) {
         <h4 id="stmt-title">Generate Statement</h4>
         <div className="pr-form">
           <div className="pr-field">
-            <span>
-              Plan Name/ID<i>*</i>
-            </span>
-            <select value={planId} onChange={(e) => setPlanId(e.target.value)}>
+            <label htmlFor="stmt-plan">
+              Plan Name/ID<i aria-hidden="true">*</i>
+              <span className="sr-only"> (required)</span>
+            </label>
+            <select id="stmt-plan" required value={planId} onChange={(e) => setPlanId(e.target.value)}>
               <option value="">Select</option>
               {plans.map((p) => (
                 <option key={p.id} value={p.id}>
@@ -89,8 +102,8 @@ function StatementModal({ plans, onClose }) {
             </select>
           </div>
           <div className="pr-field">
-            <span>Statement Period</span>
-            <select value={period} onChange={(e) => setPeriod(e.target.value)}>
+            <label htmlFor="stmt-period">Statement Period</label>
+            <select id="stmt-period" value={period} onChange={(e) => setPeriod(e.target.value)}>
               {STATEMENT_PERIODS.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.label}
@@ -114,6 +127,7 @@ function StatementModal({ plans, onClose }) {
 
 export default function Reports() {
   const { participant } = useParticipant()
+  const location = useLocation()
   const [search, setSearch] = useState('')
   const [planFilter, setPlanFilter] = useState([])
   const [typeFilter, setTypeFilter] = useState([])
@@ -123,7 +137,14 @@ export default function Reports() {
     return toDateInput(d)
   })
   const [to, setTo] = useState(() => toDateInput(new Date()))
-  const [statementOpen, setStatementOpen] = useState(false)
+  // "Generate Statement" elsewhere in the app (e.g. the Transactions page)
+  // navigates here with this flag set, so the modal is already open on
+  // arrival instead of landing on a plain Documents page.
+  const [statementOpen, setStatementOpen] = useState(() => !!location.state?.openStatement)
+
+  useEffect(() => {
+    if (location.state?.openStatement) setStatementOpen(true)
+  }, [location.state])
 
   const allDocs = useMemo(() => {
     const personal = STATEMENTS[participant.id] || []
@@ -162,8 +183,11 @@ export default function Reports() {
       <section className="panel doc-page">
         <div className="doc-filters">
           <div className="doc-field">
-            <span className="field-label">Search</span>
+            <label className="field-label" htmlFor="doc-search">
+              Search
+            </label>
             <input
+              id="doc-search"
               type="text"
               placeholder="Document name"
               value={search}
@@ -186,12 +210,16 @@ export default function Reports() {
             onChange={setTypeFilter}
           />
           <div className="doc-field">
-            <span className="field-label">Documented from</span>
-            <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} />
+            <label className="field-label" htmlFor="doc-from">
+              Documented from
+            </label>
+            <input id="doc-from" type="date" value={from} onChange={(e) => setFrom(e.target.value)} />
           </div>
           <div className="doc-field">
-            <span className="field-label">Documented to</span>
-            <input type="date" value={to} onChange={(e) => setTo(e.target.value)} />
+            <label className="field-label" htmlFor="doc-to">
+              Documented to
+            </label>
+            <input id="doc-to" type="date" value={to} onChange={(e) => setTo(e.target.value)} />
           </div>
           <button type="button" className="text-btn doc-reset" onClick={reset}>
             Reset
@@ -217,7 +245,7 @@ export default function Reports() {
                   <FileText size={18} strokeWidth={2} />
                 </span>
                 <div className="doc-copy">
-                  <h3>{d.name}</h3>
+                  <h2 className="doc-name">{d.name}</h2>
                   <p>
                     {d.type} · {d.date}
                   </p>

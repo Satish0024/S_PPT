@@ -16,6 +16,37 @@ import {
 import { DisclaimerModal } from './ReadinessVisuals.jsx'
 import ReadinessSceneV2 from './ReadinessSceneV2.jsx'
 
+// Circular score gauge. The dash array is the full circumference so the
+// offset maps 1:1 to "percent remaining", and the whole thing is one
+// aria-labelled image rather than a pile of unreadable SVG nodes.
+function ProgressRing({ score }) {
+  const pct = Math.max(0, Math.min(100, Math.round(score)))
+  const radius = 46
+  const circumference = 2 * Math.PI * radius
+
+  return (
+    <div className="rr3-ring" role="img" aria-label={`${pct}% of your retirement goal reached`}>
+      <svg viewBox="0 0 110 110">
+        <circle className="rr3-ring-track" cx="55" cy="55" r={radius} />
+        <circle
+          className="rr3-ring-fill"
+          cx="55"
+          cy="55"
+          r={radius}
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference * (1 - pct / 100)}
+        />
+      </svg>
+      <b className="rr3-ring-value">
+        <span>
+          {pct}
+          <i>%</i>
+        </span>
+      </b>
+    </div>
+  )
+}
+
 // Version 2 of the Retirement Readiness dashboard widget — same data and
 // CTAs as the original (src/components/dashboard/RetirementGoalSimulator.jsx),
 // laid out per the updated design (hero % + animated scene, horizontal
@@ -55,96 +86,80 @@ export default function RetirementGoalSimulatorV2() {
   if (isNotEligibleUser(participant)) return null
 
   return (
-    <section className="rr2-card" aria-label="Retirement Goal Simulator">
-      <div className="rr2-head">
-        <span className="rr2-ico" aria-hidden="true">
-          <Bookmark size={20} strokeWidth={2.1} />
+    <section className={`rr3 ${tone}`} aria-label="Retirement Goal Simulator">
+      <header className="rr3-head">
+        <span className="rr3-ico" aria-hidden="true">
+          <Bookmark size={16} strokeWidth={2.2} />
         </span>
-        <div className="rr2-copy">
-          <span className="rr2-tag">Goal Setting</span>
-          <h3>Retirement Readiness</h3>
-        </div>
-      </div>
+        <span className="rr3-tag">Goal setting</span>
+      </header>
+      <h3 className="rr3-title">Retirement Readiness</h3>
 
       {started ? (
         <>
-          <div className="rr2-hero">
-            <div className="rr2-hero-copy">
-              <b>{Math.round(score)}%</b>
-              <span>Goal reached</span>
-              {updated && <em>Updated just now</em>}
-            </div>
-            <ReadinessSceneV2 />
-          </div>
+          {/* A progress ring reads the score at a glance and, unlike the old
+              hero-percentage-beside-illustration row, stays whole in a
+              narrow column. */}
+          <ProgressRing score={score} />
+          <p className="rr3-ring-caption">
+            Goal reached
+            {updated && <em className="rr3-updated">Updated just now</em>}
+          </p>
 
-          <div className="rr2-metrics">
-            <div className="rr2-metric">
-              <span className="rr2-metric-ico expense" aria-hidden="true">
-                <TrendingUp size={12} strokeWidth={2.4} />
-              </span>
-              <span className="rr2-metric-copy">
-                <small>Expected expense</small>
-                <b>{money(expense)}</b>
-              </span>
+          {/* Full-width rows: the previous three-across metric strip truncated
+              every figure to "$55…" at this width. */}
+          <dl className="rr3-metrics">
+            <div className="rr3-metric">
+              <dt>
+                <span className="rr3-dot expense" aria-hidden="true" />
+                Expected expense
+              </dt>
+              <dd>{money(expense)}</dd>
             </div>
-            <span className="rr2-metric-div" aria-hidden="true" />
-            <div className="rr2-metric">
-              <span className="rr2-metric-ico income" aria-hidden="true">
-                <Plus size={12} strokeWidth={2.4} />
-              </span>
-              <span className="rr2-metric-copy">
-                <small>All income</small>
-                <b className="income">{money(income)}</b>
-              </span>
+            <div className="rr3-metric">
+              <dt>
+                <span className="rr3-dot income" aria-hidden="true" />
+                All income
+              </dt>
+              <dd className="income">{money(income)}</dd>
             </div>
-            <span className="rr2-metric-div" aria-hidden="true" />
-            <div className="rr2-metric">
-              <span className="rr2-metric-ico shortfall" aria-hidden="true">
-                <AlertTriangle size={12} strokeWidth={2.4} />
-              </span>
-              <span className="rr2-metric-copy">
-                <small>Shortfall</small>
-                <b className="shortfall">{money(shortfall)}</b>
-              </span>
+            <div className="rr3-metric">
+              <dt>
+                <span className="rr3-dot shortfall" aria-hidden="true" />
+                Shortfall
+              </dt>
+              <dd className="shortfall">{money(shortfall)}</dd>
             </div>
-          </div>
+          </dl>
 
-          <Link className={`rr2-status ${tone}`} to="/retirement-goal">
-            <span className="rr2-status-check" aria-hidden="true">
-              <svg viewBox="0 0 10 8" fill="none">
-                <path d="M1 4l2.5 2.5L9 1" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+          <Link className="rr3-status" to="/retirement-goal">
+            <span className="rr3-status-copy">
+              <b>{status.title}</b>
+              <small>{status.body}</small>
             </span>
-            <span className="rr2-status-copy">
-              <b>{status.title}</b> {status.body}
-            </span>
-            <ChevronRight size={16} strokeWidth={2.2} className="rr2-status-go" />
+            <ChevronRight size={16} strokeWidth={2.2} aria-hidden="true" />
           </Link>
         </>
       ) : (
-        <>
-          <div className="rr2-hero rr2-hero-intro">
-            <div className="rr2-hero-copy">
-              <p className="rr2-lead">
-                This estimates how much of your retirement spending is covered by your savings, by using deferrals, age,
-                and location.
-              </p>
-              <Link className="rr2-cta" to="/retirement-goal">
-                Get started
-                <ArrowRight size={15} strokeWidth={2.2} />
-              </Link>
-            </div>
-            <ReadinessSceneV2 idle />
-          </div>
-        </>
+        <div className="rr3-intro">
+          <ReadinessSceneV2 idle />
+          <p className="rr3-lead">
+            This estimates how much of your retirement spending is covered by your savings, by using deferrals, age, and
+            location.
+          </p>
+          <Link className="rr3-cta" to="/retirement-goal">
+            Get started
+            <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
+          </Link>
+        </div>
       )}
 
-      <div className="rr2-foot">
+      <p className="rr3-foot">
         <span>*Not guaranteed results · It&apos;s a simulation.</span>{' '}
-        <button type="button" className="rr2-disclaimer-link" onClick={() => setOpen(true)}>
+        <button type="button" className="rr3-disclaimer-link" onClick={() => setOpen(true)}>
           Disclaimer
         </button>
-      </div>
+      </p>
 
       {open && <DisclaimerModal onClose={() => setOpen(false)} />}
     </section>

@@ -304,10 +304,10 @@ function ClassificationView({ data }) {
           <table>
             <thead>
               <tr>
-                <th>Type</th>
-                <th>Code</th>
-                <th>Start date</th>
-                <th>End date</th>
+                <th scope="col">Type</th>
+                <th scope="col">Code</th>
+                <th scope="col">Start date</th>
+                <th scope="col">End date</th>
               </tr>
             </thead>
             <tbody>
@@ -340,11 +340,11 @@ function BeneficiaryTable({ primary, contingent, onPercent, onSelect }) {
       <table>
         <thead>
           <tr>
-            <th>Type</th>
-            <th>Name</th>
-            <th>Relationship</th>
-            <th className="num">Share</th>
-            <th>Action</th>
+            <th scope="col">Type</th>
+            <th scope="col">Name</th>
+            <th scope="col">Relationship</th>
+            <th scope="col" className="num">Share</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>

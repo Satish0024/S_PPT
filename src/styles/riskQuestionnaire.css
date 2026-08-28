@@ -1,4 +1,4 @@
-.rqp-page{display:grid;grid-template-columns:3fr 7fr;min-height:100vh;background:#fff}
+.rqp-page{display:grid;grid-template-columns:3fr 7fr;min-height:100vh;background:var(--panel)}
 
 .rqp-side{
   position:relative;overflow:hidden;background:linear-gradient(160deg,var(--brand-dark) 0%,var(--brand) 100%);

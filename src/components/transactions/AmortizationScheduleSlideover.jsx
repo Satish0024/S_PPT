@@ -15,11 +15,11 @@ export default function AmortizationScheduleSlideover({ principal, termMonths, o
         <table className="wd-alloc-table">
           <thead>
             <tr>
-              <th>Period</th>
-              <th className="num">Payment</th>
-              <th className="num">Principal</th>
-              <th className="num">Interest</th>
-              <th className="num">Balance</th>
+              <th scope="col">Period</th>
+              <th scope="col" className="num">Payment</th>
+              <th scope="col" className="num">Principal</th>
+              <th scope="col" className="num">Interest</th>
+              <th scope="col" className="num">Balance</th>
             </tr>
           </thead>
           <tbody>

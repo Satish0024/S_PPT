@@ -18,6 +18,12 @@ export const TRANSACTION_TYPES = [
     label: 'Transfer',
     hint: 'Manage money across your investments.',
     to: (planId) => `/transactions/request/transfer?plan=${planId}`
+  },
+  {
+    id: 'rebalance',
+    label: 'Rebalance',
+    hint: 'Reset your investments back to target percentages.',
+    to: (planId) => `/transactions/request/rebalance?plan=${planId}`
   }
 ]
 
@@ -36,6 +42,9 @@ export function transactablePlans(participant) {
 export function canRequest(plan, typeId) {
   if (!isTransactablePlan(plan)) return false
   if (typeId === 'loan' || typeId === 'withdrawal') return planVested(plan) > 0
+  // Transfer and rebalance both reallocate existing holdings, so they need a
+  // real investment lineup to act on rather than just a balance.
+  if (typeId === 'transfer' || typeId === 'rebalance') return (plan.investments || []).length > 0
   return true
 }
 
@@ -212,26 +221,65 @@ export const SOURCE_OPTIONS = [
   { id: 'optimized', label: 'Optimized for redemption fee' }
 ]
 
-const WITHDRAWAL_FEE_FLAT = 25
+const WITHDRAWAL_FEE_FLAT = 1
+const CHECK_FEE_FLAT = 1
 const FEDERAL_TAX_PCT = 20
+const REDEMPTION_FEE_FLAT = 2.6
 
 // Grosses a requested (net) withdrawal amount up to what must be pulled from
-// the plan to cover the flat fee, federal tax withholding, and any early-
-// withdrawal penalty tied to the selected withdrawal type — so the
-// participant still nets the amount they asked for.
-export function computeWithdrawalFees(amount, withdrawalTypeId) {
+// the plan to cover fees, withholding, and any early-withdrawal penalty tied
+// to the selected withdrawal type — so the participant still nets the amount
+// they asked for. Matches the Figma Fee Details breakdown: Withdrawal fee +
+// Check fee + Federal tax roll up into "Fee & Tax details"; Redemption fee
+// and Penalty are each broken out on their own line.
+export function computeWithdrawalFees(amount, withdrawalTypeId, paymentMethodId) {
   const requested = +amount || 0
   const type = WITHDRAWAL_TYPES.find((t) => t.id === withdrawalTypeId)
   const penaltyPct = type?.penaltyPct || 0
   const withdrawalFee = requested > 0 ? WITHDRAWAL_FEE_FLAT : 0
+  const checkFee = requested > 0 && paymentMethodId === 'check' ? CHECK_FEE_FLAT : 0
   const federalTax = round2(requested * (FEDERAL_TAX_PCT / 100))
+  const feeAndTax = round2(withdrawalFee + checkFee + federalTax)
+  const redemptionFee = requested > 0 ? REDEMPTION_FEE_FLAT : 0
   const penalty = round2(requested * (penaltyPct / 100))
-  const grossAmount = round2(requested + withdrawalFee + federalTax + penalty)
-  return { requested, withdrawalFee, federalTaxPct: FEDERAL_TAX_PCT, federalTax, penaltyPct, penalty, grossAmount }
+  const grossAmount = round2(requested + feeAndTax + redemptionFee + penalty)
+  return {
+    requested,
+    withdrawalFee,
+    checkFee,
+    federalTaxPct: FEDERAL_TAX_PCT,
+    federalTax,
+    feeAndTax,
+    redemptionFee,
+    penaltyPct,
+    penalty,
+    grossAmount
+  }
 }
 
 function round2(n) {
   return Math.round((n || 0) * 100) / 100
+}
+
+// Totals computeWithdrawalFees across every recipient allocation — the wizard's
+// Fee Details step and Summary show the request-wide total, not just one
+// recipient's row.
+export function sumWithdrawalFees(allocations, withdrawalTypeId) {
+  const rows = allocations.map((a) => computeWithdrawalFees(a.amount, withdrawalTypeId, a.paymentMethod))
+  const sum = (key) => round2(rows.reduce((s, r) => s + r[key], 0))
+  const type = WITHDRAWAL_TYPES.find((t) => t.id === withdrawalTypeId)
+  return {
+    requested: sum('requested'),
+    withdrawalFee: sum('withdrawalFee'),
+    checkFee: sum('checkFee'),
+    federalTaxPct: FEDERAL_TAX_PCT,
+    federalTax: sum('federalTax'),
+    feeAndTax: sum('feeAndTax'),
+    redemptionFee: sum('redemptionFee'),
+    penaltyPct: type?.penaltyPct || 0,
+    penalty: sum('penalty'),
+    grossAmount: sum('grossAmount')
+  }
 }
 
 // Whether the participant has an active (approved, not fully paid) loan on
@@ -288,5 +336,107 @@ export function requestsFor(participant) {
 export function generateTransactionId() {
   return String(Math.floor(10000 + Math.random() * 90000))
 }
+
+// ---------------- Transfer / Rebalance ----------------
+
+// Selectable money sources for a plan (Pre-Tax, Roth, Match, …), shaped for
+// the Source Selection step's checkbox cards.
+export function sourcesFor(plan) {
+  return (plan.sources || []).map((s) => ({
+    id: s.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+    name: s.name,
+    amount: s.amount || 0
+  }))
+}
+
+// The plan's investment lineup scaled into a single source. Real balances are
+// tracked per source; this mock splits the plan-level holdings proportionally
+// so each source shows a plausible, internally consistent set of rows.
+export function investmentsForSource(plan, source) {
+  const investments = plan.investments || []
+  const planTotal = investments.reduce((sum, i) => sum + (i.amount || 0), 0)
+  if (!planTotal) return []
+  const share = (source.amount || 0) / planTotal
+  return investments.map((i) => {
+    const amount = round2((i.amount || 0) * share)
+    return {
+      id: i.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      name: i.name,
+      nav: i.price || 0,
+      units: i.price ? round2(amount / i.price) : 0,
+      amount,
+      pct: round2(((i.amount || 0) / planTotal) * 100)
+    }
+  })
+}
+
+// Lineup a participant can add to a transfer that they don't already hold.
+// `restricted` funds are listed but not selectable.
+export const AVAILABLE_INVESTMENTS = [
+  { id: 'pioneer-core-equity-a', name: 'Pioneer Core Equity A', nav: 104 },
+  { id: 'pioneer-core-equity-b', name: 'Pioneer Core Equity B', nav: 98.4 },
+  { id: 'pioneer-core', name: 'Pioneer Core', nav: 76.2, restricted: true },
+  { id: 'zetex-equity', name: 'Zetex Equity', nav: 51.9 }
+]
+
+// Funds a fund's prospectus treats as duplicative — increasing an allocation
+// into one while the participant also holds another in the same group is
+// blocked, mirroring the "Transfer in is restricted as it is a competing
+// fund of..." banner in the Figma Source Selection step.
+const COMPETING_FUND_GROUPS = [
+  ['Vanguard 500 Index Fund', 'Fidelity 500 Index Fund'],
+  ['Vanguard Total Bond Market', 'Fidelity U.S. Bond Index']
+]
+
+export function competingFundsFor(name) {
+  const group = COMPETING_FUND_GROUPS.find((g) => g.includes(name))
+  return group ? group.filter((n) => n !== name) : []
+}
+
+// Whether any row in this source is trying to increase into a fund that
+// competes with another fund the participant already holds — used to keep
+// Continue disabled while the restriction banner is showing.
+export function hasRestrictedTransfer(rows) {
+  return rows.some(
+    (r) =>
+      +r.afterPct > +r.pct &&
+      competingFundsFor(r.name).some((name) => rows.some((other) => other.name === name && other.pct > 0))
+  )
+}
+
+// Target percentages are whole-ish numbers, so a row the participant never
+// touched can still differ from its current value by a few cents. Anything
+// under this threshold is rounding noise, not a trade worth placing.
+const DE_MINIMIS_TRADE = 1
+
+// Turns current-vs-target rows into the Buy/Sell ledger shown for a rebalance:
+// anything gaining value is a Buy, anything losing value is a Sell.
+export function computeBuySell(rows) {
+  const trades = rows
+    .map((r) => {
+      const delta = round2((r.afterAmount || 0) - (r.amount || 0))
+      if (Math.abs(delta) < DE_MINIMIS_TRADE) return null
+      return {
+        id: r.id,
+        name: r.name,
+        action: delta > 0 ? 'Buy' : 'Sell',
+        amount: Math.abs(delta),
+        nav: r.nav,
+        units: r.nav ? round2(Math.abs(delta) / r.nav) : 0
+      }
+    })
+    .filter(Boolean)
+
+  return {
+    trades,
+    buyCount: trades.filter((t) => t.action === 'Buy').length,
+    sellCount: trades.filter((t) => t.action === 'Sell').length,
+    totalAmount: round2(trades.reduce((sum, t) => sum + t.amount, 0))
+  }
+}
+
+// NAV-as-of disclaimer shown above rebalance allocation tables.
+export const NAV_DISCLAIMER =
+  'All amounts are calculated based on NAV as of MM/DD/YYYY and may fluctuate due to market conditions.'
 
 export { formatMoney, parseMoney, planBalance, planVested }

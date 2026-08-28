@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { INVESTMENT_KEY, readSession, writeSession } from '../data/participants'
 import { PLAN_FUNDS } from '../data/portfolio'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
+import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
 import '../styles/portfolio.css'
 
 const ENROLL_FUNDS = PLAN_FUNDS.filter((f) => f.cat !== 'Target-Date')
@@ -267,6 +268,7 @@ export function InvestmentEditor({
 function AllocPanel({ title, funds, alloc, locked, showReset, onChange, onReset }) {
   const names = funds.map((f) => f.name)
   const total = sumAlloc(alloc, names)
+  const [openFund, setOpenFund] = useState(null)
   return (
     <div className="inv-form">
       {title && <h4 className="inv-source-title">{title}</h4>}
@@ -279,7 +281,9 @@ function AllocPanel({ title, funds, alloc, locked, showReset, onChange, onReset 
           <div className="source" key={f.name}>
             <div className="srow">
               <span className="smeta">
-                <span className="sname">{f.name}</span>
+                <button type="button" className="fund-link sname" onClick={() => setOpenFund(f)}>
+                  {f.name}
+                </button>
                 <span className="shelp">{f.cat}</span>
               </span>
               <span className="sval">
@@ -311,6 +315,20 @@ function AllocPanel({ title, funds, alloc, locked, showReset, onChange, onReset 
           </span>
         </div>
       </div>
+      {openFund && (
+        <FundDetailDialog
+          name={openFund.name}
+          onClose={() => setOpenFund(null)}
+          fields={[
+            { label: 'Category', value: openFund.cat },
+            { label: 'Return YTD', value: openFund.ytd },
+            { label: '1 yr. return', value: openFund.y1 },
+            { label: '5 yr. return', value: openFund.y5 },
+            { label: '10 yr. return', value: openFund.y10 },
+            { label: 'Total annual operating expenses', value: openFund.exp }
+          ]}
+        />
+      )}
     </div>
   )
 }
@@ -389,41 +407,41 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
             <thead>
               <tr>
                 {selectable && (
-                  <th className="check-col" rowSpan={2}>
+                  <th scope="col" className="check-col" rowSpan={2}>
                     <span className="sr-only">Select</span>
                   </th>
                 )}
-                <th className="fund-col" rowSpan={2}>
+                <th scope="col" className="fund-col" rowSpan={2}>
                   Fund name / category
                 </th>
-                <th rowSpan={2}>
+                <th scope="col" rowSpan={2}>
                   Return YTD
                   <br />
                   As of 03/10/2025
                 </th>
-                <th className="group-h" colSpan={4}>
+                <th scope="col" className="group-h" colSpan={4}>
                   Average annual total return
                   <br />
                   As of 12/31/2024
                 </th>
-                <th className="group-h" colSpan={2}>
+                <th scope="col" className="group-h" colSpan={2}>
                   Total annual operating expenses
                   <br />
                   As of 12/31/2024
                 </th>
-                <th rowSpan={2}>
+                <th scope="col" rowSpan={2}>
                   Shareholder-
                   <br />
                   type fees
                 </th>
               </tr>
               <tr>
-                <th className="sub-h">1 yr.</th>
-                <th className="sub-h">5 yr.</th>
-                <th className="sub-h">10 yr.</th>
-                <th className="sub-h">Since inception</th>
-                <th className="sub-h">As a %</th>
-                <th className="sub-h">Per $1,000</th>
+                <th scope="col" className="sub-h">1 yr.</th>
+                <th scope="col" className="sub-h">5 yr.</th>
+                <th scope="col" className="sub-h">10 yr.</th>
+                <th scope="col" className="sub-h">Since inception</th>
+                <th scope="col" className="sub-h">As a %</th>
+                <th scope="col" className="sub-h">Per $1,000</th>
               </tr>
             </thead>
             <tbody>
