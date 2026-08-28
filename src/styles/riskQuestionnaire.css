@@ -4,9 +4,10 @@
   position:relative;overflow:hidden;background:var(--scene-sky);min-height:100vh}
 
 /* Static reference image, reused unchanged across every questionnaire step.
-   Fills the entire side panel edge to edge — the image already carries its
-   own heading/copy, so the panel has no separate text overlay. */
-.rqj-scene{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+   object-fit:contain so the full picture (including its own baked-in
+   heading text) always stays inside the panel instead of being cropped —
+   cover was cutting the left-edge text off at narrower panel widths. */
+.rqj-scene{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
 
 .rqp-main{display:flex;flex-direction:column;padding:36px 48px;max-width:760px;width:100%;margin:0 auto}
 .rqp-main-head{display:flex;align-items:center;gap:16px;margin-bottom:34px}
