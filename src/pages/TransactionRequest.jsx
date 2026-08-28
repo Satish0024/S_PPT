@@ -401,7 +401,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
           </Field>
         </div>
 
-        <div className="txn-card" style={{ background: '#fafbfe', marginTop: 18, marginBottom: 0 }}>
+        <div className="txn-card txn-card-nested" style={{ marginTop: 18, marginBottom: 0 }}>
           <h4 style={{ margin: '0 0 4px' }}>Loan calculator</h4>
           <p className="hint" style={{ marginTop: 0 }}>
             Enter any two of Loan Request Amount, Periodic Payment, Tenure to auto-compute the third value.

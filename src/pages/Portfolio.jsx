@@ -10,6 +10,7 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import { HOLDINGS, PLAN_FUNDS, PLAN_STATS, cumSeries, labelsFor, ENDS, money } from '../data/portfolio'
+import { useTheme } from '../context/ThemeContext.jsx'
 import '../styles/portfolio.css'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
@@ -36,6 +37,7 @@ const COLS = {
 }
 
 export default function Portfolio() {
+  const { theme } = useTheme()
   const [tab, setTab] = useState('overview')
   const [period, setPeriod] = useState('1y')
   const [planId, setPlanId] = useState('saturna-401k')
@@ -43,6 +45,19 @@ export default function Portfolio() {
   const [ytdDir, setYtdDir] = useState(null)
   const [visible, setVisible] = useState({ total: true, equity: false, bond: false, target: false })
   const plan = PLAN_STATS[planId]
+
+  // Re-read the resolved CSS variables whenever the theme flips so the grid
+  // lines and axis labels stay legible instead of the old hardcoded
+  // light-mode-only palette.
+  const chartOptions = useMemo(() => {
+    const css = getComputedStyle(document.documentElement)
+    return buildChartOptions({
+      axisTitle: css.getPropertyValue('--ink-soft').trim() || '#5c6078',
+      gridLine: css.getPropertyValue('--line').trim() || '#e8eaf2',
+      tick: css.getPropertyValue('--muted').trim() || '#8a8da3'
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [theme])
 
   const holdings = useMemo(() => {
     const rows = [...HOLDINGS]
@@ -338,42 +353,48 @@ function line(label, data, color, order) {
   }
 }
 
-const chartOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  clip: false,
-  interaction: { mode: 'index', intersect: false },
-  layout: { padding: { top: 8, right: 8 } },
-  plugins: {
-    legend: { display: false },
-    tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${c.parsed.y.toFixed(2)}%` } }
-  },
-  scales: {
-    x: {
-      title: {
-        display: true,
-        text: 'Time Period',
-        color: '#5c6078',
-        font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
-        padding: { top: 8 }
-      },
-      grid: { display: true, color: '#e8eaf2', borderDash: [4, 4], drawTicks: false },
-      border: { display: false },
-      ticks: { color: '#8a8da3', maxRotation: 0, autoSkip: true, maxTicksLimit: 12 }
+// Chart.js reads plain color strings, not CSS variables, so its palette has
+// to be rebuilt whenever the theme flips rather than defined once at import
+// time — this factory is called from the component with each render's
+// resolved --ink-soft/--line/--muted values.
+function buildChartOptions({ axisTitle, gridLine, tick }) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    clip: false,
+    interaction: { mode: 'index', intersect: false },
+    layout: { padding: { top: 8, right: 8 } },
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${c.parsed.y.toFixed(2)}%` } }
     },
-    y: {
-      min: 0,
-      grace: '8%',
-      title: {
-        display: true,
-        text: 'Rate of return (%)',
-        color: '#5c6078',
-        font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
-        padding: { bottom: 6 }
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Time Period',
+          color: axisTitle,
+          font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
+          padding: { top: 8 }
+        },
+        grid: { display: true, color: gridLine, borderDash: [4, 4], drawTicks: false },
+        border: { display: false },
+        ticks: { color: tick, maxRotation: 0, autoSkip: true, maxTicksLimit: 12 }
       },
-      grid: { color: '#eef0f6', borderDash: [4, 4] },
-      border: { display: false },
-      ticks: { color: '#8a8da3', stepSize: 5, callback: (v) => v + '%' }
+      y: {
+        min: 0,
+        grace: '8%',
+        title: {
+          display: true,
+          text: 'Rate of return (%)',
+          color: axisTitle,
+          font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
+          padding: { bottom: 6 }
+        },
+        grid: { color: gridLine, borderDash: [4, 4] },
+        border: { display: false },
+        ticks: { color: tick, stepSize: 5, callback: (v) => v + '%' }
+      }
     }
   }
 }
