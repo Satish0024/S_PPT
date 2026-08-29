@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { hasAdvanceElections } from '../../data/participants'
-import PlanReturn from './PlanReturn.jsx'
 
 export function PlanStats({ stats }) {
   if (!stats) return null
@@ -12,7 +11,6 @@ export function PlanStats({ stats }) {
         <div className="k">Account balance</div>
         <div className="v-row">
           <div className="v">{stats.balance}</div>
-          <PlanReturn value={stats.returnPct} />
         </div>
       </div>
       <div className="plan-stat vested">

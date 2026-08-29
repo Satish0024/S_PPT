@@ -206,7 +206,21 @@ export default function Portfolio() {
                         ['name', 'Investment name', 'text'],
                         ['asset', 'Asset class', 'text'],
                         ['cusip', 'CUSIP', 'text'],
-                        ['return', 'Fund return % (YTD)', 'num'],
+                        ['return', 'Fund return %', 'num']
+                      ].map(([key, label, type]) => (
+                        <th scope="col"
+                          key={key}
+                          className={`sortable${type === 'num' ? ' num' : ''}${sort.key === key ? (sort.dir === 1 ? ' asc' : ' desc') : ''}`}
+                          onClick={() => toggleSort(key)}
+                        >
+                          {label}
+                        </th>
+                      ))}
+                      {/* Not sortable — every fund's return here is YTD, so this
+                          just calls that out per-row instead of leaving the
+                          timeframe implicit in the "Fund return %" header. */}
+                      <th scope="col">Period</th>
+                      {[
                         ['invested', 'Invested balance', 'num'],
                         ['current', 'Current balance', 'num'],
                         ['gain', 'Gain/loss', 'num'],
@@ -233,6 +247,7 @@ export default function Portfolio() {
                         <td>{h.asset}</td>
                         <td className="muted">{h.cusip}</td>
                         <td className="num pos">{h.returnPct.toFixed(2)}%</td>
+                        <td className="muted">YTD</td>
                         <td className="num">{money(h.invested)}</td>
                         <td className="num">{money(h.current)}</td>
                         <td className="num pos">+{money(h.gain).slice(1)}</td>
