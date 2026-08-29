@@ -5,12 +5,12 @@ import PlanCard from '../components/dashboard/PlanCard.jsx'
 import QuickLinks from '../components/dashboard/QuickLinks.jsx'
 import Transactions from '../components/dashboard/Transactions.jsx'
 import LearningPortal from '../components/dashboard/LearningPortal.jsx'
-import RiskMeterV2 from '../components/dashboard/RiskMeterV2.jsx'
 
-// Retirement Readiness (score ring + "Adjust your goal" page) is removed
-// for Saturna per prototype review #2 — it stays available on other
-// branded builds via RetirementGoalSimulatorV2 / the /retirement-goal
-// route, just not wired up here.
+// Retirement Readiness (score ring + "Adjust your goal" page) and the risk
+// widget/questionnaire are removed for Saturna per prototype review #2 —
+// they stay available on other branded builds via RetirementGoalSimulatorV2
+// / RiskMeterV2 / the /retirement-goal and /risk-check-in routes, just not
+// wired up here.
 export default function Dashboard() {
   const { participant } = useParticipant()
   const first = participant.name.split(' ')[0]
@@ -47,7 +47,6 @@ export default function Dashboard() {
         </div>
         <aside className="dash-side">
           <LearningPortal />
-          <RiskMeterV2 />
         </aside>
       </div>
     </div>

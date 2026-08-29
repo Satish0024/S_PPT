@@ -66,10 +66,8 @@ export default function PlanDetails() {
   const savedAi = useMemo(() => readSession(AUTO_INCREASE_KEY), [tick])
   const savedInv = useMemo(() => readSession(INVESTMENT_KEY), [tick])
   const [optOutOpen, setOptOutOpen] = useState(false)
-  const [autoEnrollOpen, setAutoEnrollOpen] = useState(false)
   const [optedOut, setOptedOut] = useState(!!savedDeferral?.optedOut)
   useEscapeToClose(optOutOpen, () => setOptOutOpen(false))
-  useEscapeToClose(autoEnrollOpen, () => setAutoEnrollOpen(false))
   const [tab, setTab] = useState('deferral')
   const [editing, setEditing] = useState(false)
   const editSnapshot = useRef(null)
@@ -104,18 +102,11 @@ export default function PlanDetails() {
     setTick((n) => n + 1)
   }
 
+  // No confirmation prompt when an auto-enrolled participant moves to a
+  // manual deferral rate or investment election change — go straight to
+  // editing; refresh() below still tracks the status change on save.
   const beginEdit = () => {
-    if (isAutoEnrolledPlan(plan)) {
-      setAutoEnrollOpen(true)
-      return
-    }
     editSnapshot.current = electionSnapshot()
-    setEditing(true)
-  }
-
-  const confirmAutoEnrollEdit = () => {
-    editSnapshot.current = electionSnapshot()
-    setAutoEnrollOpen(false)
     setEditing(true)
   }
 
@@ -389,31 +380,6 @@ export default function PlanDetails() {
         </div>
       )}
 
-      {autoEnrollOpen && (
-        <div className="enroll-modal-bg" role="presentation" onClick={() => setAutoEnrollOpen(false)}>
-          <div
-            className="enroll-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="auto-enroll-title"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h4 id="auto-enroll-title">You are moving out of auto enrollment</h4>
-            <p>
-              This plan was set up through auto enrollment. If you edit your elections and save changes, your enrollment
-              status will change from <strong>Auto Enrolled</strong> to <strong>Enrolled</strong>.
-            </p>
-            <div className="enroll-modal-actions">
-              <button type="button" className="btn btn-secondary" onClick={() => setAutoEnrollOpen(false)}>
-                Cancel
-              </button>
-              <button type="button" className="btn btn-primary" onClick={confirmAutoEnrollEdit}>
-                Continue to edit
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

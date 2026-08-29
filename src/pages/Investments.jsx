@@ -1,11 +1,8 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { Rocket, Scale, ShieldCheck } from 'lucide-react'
+import { Fragment, useMemo, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { INVESTMENT_KEY, readSession, writeSession } from '../data/participants'
 import { PLAN_FUNDS } from '../data/portfolio'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
-import { useParticipant } from '../context/ParticipantContext.jsx'
-import { RISK_LEVELS, getRiskLevel, getRiskProfileId } from '../lib/riskProfile'
 import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
 import '../styles/portfolio.css'
 
@@ -19,31 +16,6 @@ const PLAN_ALLOC = {
   'Fidelity U.S. Bond Index': 20
 }
 const PLAN_FUNDS_LIST = ENROLL_FUNDS.filter((f) => PLAN_ALLOC[f.name])
-// One preset fund mix per measured risk level — same four-fund lineup as
-// PLAN_ALLOC, just weighted toward bonds or equities to match the level's
-// stated split (see RISK_LEVELS' insights copy in lib/riskProfile.js).
-const RISK_ALLOC = {
-  conservative: {
-    'Vanguard 500 Index Fund': 15,
-    'Fidelity 500 Index Fund': 15,
-    'Vanguard Total Bond Market': 35,
-    'Fidelity U.S. Bond Index': 35
-  },
-  moderate: {
-    'Vanguard 500 Index Fund': 25,
-    'Fidelity 500 Index Fund': 25,
-    'Vanguard Total Bond Market': 25,
-    'Fidelity U.S. Bond Index': 25
-  },
-  aggressive: {
-    'Vanguard 500 Index Fund': 45,
-    'Fidelity 500 Index Fund': 45,
-    'Vanguard Total Bond Market': 5,
-    'Fidelity U.S. Bond Index': 5
-  }
-}
-const RISK_LEVEL_ICON = { conservative: ShieldCheck, moderate: Scale, aggressive: Rocket }
-const riskAlloc = (levelId) => ({ ...emptyAlloc(), ...RISK_ALLOC[levelId] })
 const planAlloc = () => ({ ...emptyAlloc(), ...PLAN_ALLOC })
 const sumAlloc = (alloc, names = FUNDS) => names.reduce((sum, name) => sum + (+alloc?.[name] || 0), 0)
 const SOURCES = [
@@ -67,20 +39,10 @@ const pruneAlloc = (alloc, names) => {
   return next
 }
 
-export function InvestmentEditor({
-  embedded = false,
-  saveLabel = 'Continue',
-  riskReturnPath = '/enrollment/investments',
-  onComplete,
-  onCancel
-}) {
-  const { participant } = useParticipant()
+export function InvestmentEditor({ embedded = false, saveLabel = 'Continue', onComplete, onCancel }) {
   const navigate = useNavigate()
-  const location = useLocation()
-  const [params] = useSearchParams()
   const saved = useMemo(() => readSession(INVESTMENT_KEY), [])
   const [mode, setMode] = useState(() => (embedded ? saved?.mode || 'plan' : ''))
-  const [riskLevelId, setRiskLevelId] = useState(() => saved?.riskLevelId || '')
   const [applyAll, setApplyAll] = useState(saved?.applyAll !== false)
   const [bySource, setBySource] = useState(() => ({
     ...blankBySource(),
@@ -92,25 +54,8 @@ export function InvestmentEditor({
 
   const usingCustom = mode === 'custom'
   const usingPlan = mode === 'plan'
-  const usingRisk = mode === 'risk'
   const sharedAlloc = bySource[SOURCES[0].id] || emptyAlloc()
   const customFunds = fundsFromNames(picked)
-  const measuredLevel = riskLevelId ? getRiskLevel(riskLevelId) : null
-
-  // Returning from the risk questionnaire (?riskDone=1): read back the level
-  // it just measured and apply that level's fund mix, then strip the query
-  // param so refreshing this page doesn't re-trigger it.
-  useEffect(() => {
-    if (params.get('riskDone') !== '1') return
-    const levelId = getRiskProfileId(participant)
-    setMode('risk')
-    setRiskLevelId(levelId)
-    setApplyAll(true)
-    setBySource(fillBySource(riskAlloc(levelId)))
-    setError('')
-    navigate(location.pathname, { replace: true })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params])
 
   const setPct = (src, name, val) => {
     const next = Math.max(0, Math.min(100, Math.round(+val || 0)))
@@ -138,11 +83,6 @@ export function InvestmentEditor({
     setMode('custom')
     setFundsOpen('select')
     setError('')
-  }
-
-  const chooseRisk = () => {
-    const here = `${location.pathname}${location.search}`
-    navigate(`/risk-check-in?return=${encodeURIComponent(riskReturnPath || here)}`)
   }
 
   const toggleApplyAll = () => {
@@ -182,7 +122,7 @@ export function InvestmentEditor({
       return
     }
     const names = usingCustom ? picked : FUNDS
-    if (usingPlan || usingRisk || applyAll) {
+    if (usingPlan || applyAll) {
       if (sumAlloc(sharedAlloc, names) !== 100) {
         setError('Allocations must add up to 100% before you continue.')
         return
@@ -191,12 +131,11 @@ export function InvestmentEditor({
       setError('Each source must add up to 100% before you continue.')
       return
     }
-    const savedSources = usingPlan || usingRisk || applyAll ? fillBySource(sharedAlloc) : bySource
+    const savedSources = usingPlan || applyAll ? fillBySource(sharedAlloc) : bySource
     writeSession(INVESTMENT_KEY, {
       mode,
-      riskLevelId: usingRisk ? riskLevelId : '',
-      applyAll: usingPlan || usingRisk ? true : applyAll,
-      picked: usingCustom ? picked : FUNDS.filter((name) => (usingRisk ? RISK_ALLOC[riskLevelId]?.[name] : PLAN_ALLOC[name])),
+      applyAll: usingPlan ? true : applyAll,
+      picked: usingCustom ? picked : FUNDS.filter((name) => PLAN_ALLOC[name]),
       alloc: savedSources[SOURCES[0].id],
       bySource: savedSources,
       total: 100
@@ -243,49 +182,11 @@ export function InvestmentEditor({
             <small>Select preferred investments and set the allocation.</small>
           </span>
         </button>
-        <button
-          type="button"
-          className={`choice${usingRisk ? ' on' : ''}`}
-          role="radio"
-          aria-checked={usingRisk}
-          onClick={chooseRisk}
-        >
-          <span className="choice-dot" aria-hidden="true" />
-          <span>
-            <b>Not sure? Take our risk questionnaire</b>
-            <small>
-              {measuredLevel
-                ? `Matched to ${measuredLevel.label} — retake to change it.`
-                : "A few quick questions match you to a Conservative, Moderate, or Aggressive mix."}
-            </small>
-          </span>
-        </button>
       </div>
 
       {usingPlan && (
         <div className="inv-panel">
           <AllocPanel title="All sources" funds={PLAN_FUNDS_LIST} alloc={sharedAlloc} locked />
-        </div>
-      )}
-
-      {usingRisk && measuredLevel && (
-        <div className="inv-panel">
-          <div className="inv-risk-badge" style={{ '--risk-color': measuredLevel.color }}>
-            {(() => {
-              const Icon = RISK_LEVEL_ICON[measuredLevel.id]
-              return <Icon size={16} strokeWidth={2.2} />
-            })()}
-            <span>{measuredLevel.label}</span>
-            <button type="button" className="text-btn" onClick={chooseRisk}>
-              Retake questionnaire
-            </button>
-          </div>
-          <AllocPanel
-            title="All sources"
-            funds={fundsFromNames(FUNDS.filter((name) => RISK_ALLOC[measuredLevel.id]?.[name] > 0))}
-            alloc={sharedAlloc}
-            locked
-          />
         </div>
       )}
 

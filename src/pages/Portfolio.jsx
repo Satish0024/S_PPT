@@ -206,7 +206,7 @@ export default function Portfolio() {
                         ['name', 'Investment name', 'text'],
                         ['asset', 'Asset class', 'text'],
                         ['cusip', 'CUSIP', 'text'],
-                        ['return', 'Fund return %', 'num'],
+                        ['return', 'Fund return % (YTD)', 'num'],
                         ['invested', 'Invested balance', 'num'],
                         ['current', 'Current balance', 'num'],
                         ['gain', 'Gain/loss', 'num'],

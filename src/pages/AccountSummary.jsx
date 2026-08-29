@@ -165,21 +165,15 @@ export default function AccountSummary() {
 
         {plan ? (
           <section className="panel as-main">
-          <div className="as-main-h">
-            <div>
-              <h2>{plan.name}</h2>
-              <p>
-                Account {formatMoney(summary.balance)}
-                <span aria-hidden="true"> · </span>
-                Vested {formatMoney(summary.vested)}
-              </p>
-            </div>
-            {plan.noticeLink?.details ? (
+          {/* Plan name, account balance, and vested balance are dropped here —
+              they're already shown for this plan in the left-side panel. */}
+          {plan.noticeLink?.details ? (
+            <div className="as-main-h">
               <Link to={`/plans/${plan.id}`} className="text-link">
                 View plan details
               </Link>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
 
           <div className="as-tabs" role="tablist" aria-label="Balance view">
             {TABS.map((item) => {
@@ -325,10 +319,6 @@ export default function AccountSummary() {
                                   <div>
                                     <span>Price per unit</span>
                                     <b>{row.price != null ? formatMoney(row.price) : '—'}</b>
-                                  </div>
-                                  <div>
-                                    <span>Units held</span>
-                                    <b>{row.units != null ? formatUnits(row.units) : '—'}</b>
                                   </div>
                                 </div>
                               </td>
