@@ -86,7 +86,7 @@ export default function RetirementGoalSimulatorV2() {
   if (isNotEligibleUser(participant)) return null
 
   return (
-    <section className={`rr3 ${tone}`} aria-label="Retirement Goal Simulator">
+    <section className={`rr3 ${tone}`} aria-label="Retirement Readiness">
       <header className="rr3-head">
         <span className="rr3-ico" aria-hidden="true">
           <Bookmark size={16} strokeWidth={2.2} />

@@ -87,13 +87,13 @@ export default function ReadinessScoreCard() {
   if (isNotEligibleUser(participant)) return null
 
   return (
-    <section className="rsc-card" aria-label="Retirement Goal Simulator">
+    <section className="rsc-card" aria-label="Retirement Readiness">
       <header className="rsc-head">
         <span className="rsc-head-ico" aria-hidden="true">
           <TrendingUp size={19} strokeWidth={2.2} />
         </span>
         <div>
-          <h3>Retirement Goal Simulator</h3>
+          <h3>Retirement Readiness</h3>
           <p>See how your inputs affect your savings, income, risk.</p>
         </div>
         <SummitMark />

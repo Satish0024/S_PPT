@@ -57,12 +57,14 @@ function useAnimatedNumber(value) {
 function TargetCard({ icon: Icon, label, hint, children }) {
   return (
     <div className="rg-target">
-      <span className="rg-target-ico" aria-hidden="true">
-        <Icon size={18} strokeWidth={2} />
-      </span>
-      <div className="rg-target-copy">
-        <span>{label}</span>
-        {hint && <small>{hint}</small>}
+      <div className="rg-target-head">
+        <span className="rg-target-ico" aria-hidden="true">
+          <Icon size={16} strokeWidth={2} />
+        </span>
+        <div className="rg-target-copy">
+          <span>{label}</span>
+          {hint && <small>{hint}</small>}
+        </div>
       </div>
       <div className="rg-target-ctrl">{children}</div>
     </div>
@@ -75,7 +77,7 @@ function MoneyInput({ value, onChange }) {
       <em>$</em>
       <input
         inputMode="numeric"
-        value={value ? Number(value).toLocaleString('en-US') : ''}
+        value={value ? Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ''}
         onChange={(e) => onChange(parseMoney(e.target.value))}
       />
     </span>
@@ -316,6 +318,7 @@ export default function RetirementGoal() {
   const [baselineAuto, setBaselineAuto] = useState(() => initialAuto(deferralPlans, draft))
   const [open, setOpen] = useState(false)
   const [savedOpen, setSavedOpen] = useState(false)
+  const [confirmSaveOpen, setConfirmSaveOpen] = useState(false)
   const [changes, setChanges] = useState([])
   const [delta, setDelta] = useState(null)
   const [celebrate, setCelebrate] = useState(false)
@@ -407,6 +410,15 @@ export default function RetirementGoal() {
     setSavedOpen(true)
   }
 
+  // Deferral rate / auto-increase edits affect the participant's actual
+  // paycheck deductions, so "Save this goal" confirms before committing
+  // instead of saving immediately.
+  const requestSave = () => setConfirmSaveOpen(true)
+  const confirmSave = () => {
+    setConfirmSaveOpen(false)
+    save()
+  }
+
   const autoPct = Math.max(1, +draft.autoPct || 1)
   const autoCap = Math.max(autoPct, +draft.autoCap || 10)
   const autoPctRoth = Math.max(1, +draft.autoPctRoth || autoPct)
@@ -431,12 +443,15 @@ export default function RetirementGoal() {
             <ArrowLeft size={16} strokeWidth={2.2} />
             Back to dashboard
           </Link>
-          <h1>Retirement goal simulator</h1>
+          <h1>Retirement readiness</h1>
           <p className="rg-intro">
             Set the target first, then try a change below. The score updates as you go — enrollment is not changed until
             you save this goal.
           </p>
         </div>
+        <button type="button" className="rr-disclaimer-link rg-disc-top" onClick={() => setOpen(true)}>
+          Disclaimer
+        </button>
       </div>
 
       <div className="rg-shell">
@@ -490,9 +505,6 @@ export default function RetirementGoal() {
           </dl>
           <p className="rg-disc">
             <span className="rr-foot-note">*Not guaranteed results · It&apos;s a simulation.</span>
-            <button type="button" className="rr-disclaimer-link" onClick={() => setOpen(true)}>
-              Disclaimer
-            </button>
           </p>
         </aside>
 
@@ -564,12 +576,21 @@ export default function RetirementGoal() {
 
           <section className="panel rg-inputs">
             <h2>Deferrals</h2>
-            {multiPlan && (
+            {multiPlan ? (
               <p className="rg-plan-note">
-                You have {deferralPlans.length} plans that take deferrals. Tap a plan to edit its rate — the combined
-                total across all plans drives the readiness score.
+                Select a plan to update its deferral rate. Changes will affect your paycheck deductions.
               </p>
-            )}
+            ) : deferralPlans[0] ? (
+              // Single-plan case still names the plan so it's clear which
+              // plan these fields belong to, instead of a bare "Deferrals"
+              // heading with no plan context.
+              <label className="rg-plan-single">
+                <span>Plan</span>
+                <select value={deferralPlans[0].id} disabled aria-label="Plan">
+                  <option value={deferralPlans[0].id}>{deferralPlans[0].name}</option>
+                </select>
+              </label>
+            ) : null}
             {deferralPlans.map((plan, i) => {
               const share = multiPlan ? planShares[plan.id] || { pre: 0, roth: 0 } : { pre: draft.pre || 0, roth: draft.roth || 0 }
               const baseShare = multiPlan
@@ -647,7 +668,7 @@ export default function RetirementGoal() {
                           {planAutoState.on ? ` · Auto +${planAutoState.pctPre}%/yr` : ''}
                         </small>
                       </span>
-                      <span className="rg-plan-card-toggle">{expanded ? 'Done' : 'Edit'}</span>
+                      <span className="rg-plan-card-toggle">{expanded ? 'Save changes' : 'Edit'}</span>
                     </div>
                   </button>
                   {expanded && (
@@ -664,7 +685,7 @@ export default function RetirementGoal() {
       </div>
 
       <div className="rg-nav">
-        <button type="button" className="btn btn-primary" onClick={save}>
+        <button type="button" className="btn btn-primary" onClick={requestSave}>
           Save this goal
         </button>
         <Link className="text-link" to="/">
@@ -673,6 +694,31 @@ export default function RetirementGoal() {
       </div>
 
       {open && <DisclaimerModal onClose={() => setOpen(false)} />}
+
+      {confirmSaveOpen && (
+        <div className="enroll-modal-bg" role="presentation" onClick={() => setConfirmSaveOpen(false)}>
+          <div
+            className="enroll-modal rr-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="rg-confirm-save-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="rr-modal-h">
+              <h4 id="rg-confirm-save-title">Confirm your changes</h4>
+            </div>
+            <p>Your changes impact your paycheck deduction. Do you agree to move forward?</p>
+            <div className="enroll-modal-actions">
+              <button type="button" className="btn btn-primary" onClick={confirmSave}>
+                Yes
+              </button>
+              <button type="button" className="btn btn-secondary" onClick={() => setConfirmSaveOpen(false)}>
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {savedOpen && (
         <div className="enroll-modal-bg rg-save-bg" role="presentation">

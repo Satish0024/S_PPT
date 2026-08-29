@@ -492,6 +492,7 @@
   .rr-modal .enroll-modal-actions{grid-template-columns:1fr}
   .rg-page{max-width:none;width:100%}
   .rg-page .hi-bar{align-items:flex-start}
+  .rg-disc-top{flex:0 0 auto;white-space:nowrap;margin-top:4px}
   .rg-back{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px}
   .rg-intro{margin:8px 0 0;max-width:640px;font-size:14.5px;line-height:1.5;color:var(--ink-soft);font-weight:500}
   .rg-shell{display:grid;grid-template-columns:7fr 3fr;gap:24px;align-items:start;width:100%}
@@ -500,6 +501,11 @@
   .rg-work{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start;min-width:0}
   .rg-plan-tabs{margin-bottom:10px}
   .rg-plan-note{margin:0 0 14px;font-size:12.5px;font-weight:500;color:var(--ink-soft);line-height:1.4}
+  .rg-plan-single{display:flex;flex-direction:column;gap:5px;margin:0 0 16px;max-width:320px}
+  .rg-plan-single span{font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--muted)}
+  .rg-plan-single select{
+    border:1px solid var(--line);border-radius:10px;padding:9px 12px;font:inherit;font-weight:700;
+    color:var(--ink);background:var(--panel);appearance:none}
   .rg-plan-card{border:1px solid var(--line);border-radius:12px;background:var(--surface-2);margin:0 0 12px;overflow:hidden}
   .rg-plan-card.open{background:var(--panel);border-color:var(--line-strong)}
   .rg-plan-card-h{
@@ -523,16 +529,21 @@
   }
   .rg-inputs{padding:22px 22px 20px}
   .rg-inputs h2{font-size:15px;font-weight:800;letter-spacing:-.2px;margin:0 0 16px;color:var(--ink)}
-  .rg-targets{display:flex;flex-direction:column;gap:10px;margin:0}
+  .rg-targets{display:flex;flex-direction:column;gap:8px;margin:0}
+  /* Icon sits top-left above a full-width label/hint column instead of
+     centered beside it — the old 3-column row let a long hint wrap to
+     several lines next to a vertically-centered icon, inflating card
+     height enough that the 5-card list needed two scrolls to get through. */
   .rg-target{
-    display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:12px;
-    border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--surface-2)}
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 12px;
+    border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface-2)}
+  .rg-target-head{display:flex;align-items:flex-start;gap:10px;min-width:0;flex:1 1 220px}
   .rg-target-ico{
-    width:44px;height:44px;border-radius:12px;background:var(--active-bg);color:var(--brand);
-    display:grid;place-items:center}
+    width:30px;height:30px;border-radius:9px;background:var(--active-bg);color:var(--brand);
+    display:grid;place-items:center;flex:0 0 auto;margin-top:1px}
   .rg-target-copy{min-width:0}
-  .rg-target-copy span{display:block;font-size:13.5px;font-weight:800;color:var(--ink)}
-  .rg-target-copy small{display:block;margin-top:2px;font-size:12px;font-weight:500;color:var(--ink-soft);line-height:1.35}
+  .rg-target-copy span{display:block;font-size:13px;font-weight:800;color:var(--ink)}
+  .rg-target-copy small{display:block;margin-top:1px;font-size:11.5px;font-weight:500;color:var(--ink-soft);line-height:1.3}
   .rg-target-ctrl{flex:0 0 auto}
   .rg-target select,.rg-affix,.rg-step{
     border:1px solid var(--line);border-radius:10px;background:var(--panel);min-height:42px;
@@ -1287,8 +1298,11 @@
     .panel.rg-live{position:static}
     .rg-live-visual{flex-direction:column;align-items:center}
     .rg-auto{grid-template-columns:1fr}
-    .rg-target{grid-template-columns:44px minmax(0,1fr)}
-    .rg-target-ctrl{grid-column:2;justify-self:start}
+    .rg-target{flex-direction:column;align-items:stretch;justify-content:flex-start}
+    /* flex-basis:220px from the desktop rule would otherwise apply to
+       height once flex-direction switches to column, ballooning the card. */
+    .rg-target-head{flex:1 1 auto}
+    .rg-target-ctrl{align-self:flex-start}
   }
   @media(max-width:640px){
     .layout{display:block;padding-bottom:calc(72px + env(safe-area-inset-bottom))}
@@ -1658,15 +1672,14 @@ summary:focus-visible {
   stroke-width: 9;
 }
 .rr3-ring-fill {
+  /* One consistent color regardless of score/tone, per feedback — was
+     switching between green/amber/red like a status indicator. */
   fill: none;
-  stroke: var(--brand);
+  stroke: var(--green);
   stroke-width: 9;
   stroke-linecap: round;
   transition: stroke-dashoffset .6s ease;
 }
-.rr3.good .rr3-ring-fill { stroke: var(--green); }
-.rr3.ok   .rr3-ring-fill { stroke: var(--amber); }
-.rr3.warn .rr3-ring-fill { stroke: var(--red); }
 .rr3-ring-value {
   /* Centered as a whole block first (align-items: center on the outer
      box), with the "%" aligned to the number's own baseline via the inner

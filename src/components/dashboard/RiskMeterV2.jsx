@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { RefreshCw, Sparkles, User } from 'lucide-react'
+import { RefreshCw, User } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import { RISK_LEVELS, RISK_PROFILE_UPDATED_EVENT, getRiskLevel, getRiskProfileId } from '../../lib/riskProfile'
@@ -26,8 +25,8 @@ function StonesMark() {
 // Risk profile sidebar widget — reproduces the reference design: a risk
 // level headline with a single gradient progress bar, an "X Investor" pill,
 // a decorative stones-and-leaf graphic, a short outlook line, and a footer
-// bar (refresh icon + note + Edit preferences), scaled to the dashboard
-// sidebar column instead of the wide reference layout.
+// note, scaled to the dashboard sidebar column instead of the wide
+// reference layout. No "Edit preferences" CTA, per feedback.
 export default function RiskMeterV2() {
   const { participant } = useParticipant()
   const [levelId, setLevelId] = useState(() => getRiskProfileId(participant))
@@ -76,11 +75,6 @@ export default function RiskMeterV2() {
         </span>
         <span className="risk3-foot-copy">We picked this investment style based on your questionnaire.</span>
       </div>
-
-      <Link to="/risk-check-in" className="risk3-btn">
-        <Sparkles size={14} strokeWidth={2.2} aria-hidden="true" />
-        Edit preferences
-      </Link>
     </section>
   )
 }
