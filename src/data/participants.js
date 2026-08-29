@@ -12,6 +12,7 @@ export const AUTO_INCREASE_KEY = 'lendguardAutoIncrease'
 export const INVESTMENT_KEY = 'lendguardInvestment'
 export const BENEFICIARY_KEY = 'lendguardBeneficiary'
 export const PLAN_STATUS_KEY = 'lendguardPlanStatus'
+export const ADVANCE_ELECTIONS_KEY = 'lendguardAdvanceElections'
 
 export function readSession(key) {
   try {
@@ -45,6 +46,20 @@ export function isAutoEnrolledPlan(plan) {
 export function markPlanManuallyEnrolled(planId) {
   const overrides = readSession(PLAN_STATUS_KEY) || {}
   writeSession(PLAN_STATUS_KEY, { ...overrides, [planId]: 'Enrolled' })
+}
+
+// A not-yet-eligible participant can still "provide elections in advance"
+// via the same enrollment flow. Once they've confirmed that summary, the
+// dashboard plan card should offer to view what was saved instead of
+// prompting them to provide elections again.
+export function markAdvanceElections(participantId) {
+  const overrides = readSession(ADVANCE_ELECTIONS_KEY) || {}
+  writeSession(ADVANCE_ELECTIONS_KEY, { ...overrides, [participantId]: true })
+}
+
+export function hasAdvanceElections(participantId) {
+  const overrides = readSession(ADVANCE_ELECTIONS_KEY) || {}
+  return !!overrides[participantId]
 }
 
 export const PARTICIPANTS = [
