@@ -1,17 +1,9 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, BookOpen, Clock, DollarSign, Search, TrendingUp } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, Clock, Search } from 'lucide-react'
 import { BRAND } from '../config/brand.js'
+import { ARTICLES, CATS } from '../data/learning.js'
 import '../styles/enrich.css'
-
-const ARTICLES = [
-  { id: 1, tag: 'Plan Basics', tone: 't1', title: 'Understanding Your 401(k)', body: `How deferrals, employer match, and vesting work together in ${BRAND.supportPlanNoun}.`, time: '5 Min Read', icon: BookOpen },
-  { id: 2, tag: 'Taxes', tone: 't2', title: 'Pre-Tax Vs Roth Deferrals', body: 'Compare contribution sources and when each option may make sense for you.', time: '4 Min Read', icon: DollarSign },
-  { id: 3, tag: 'Investing', tone: 't3', title: 'Investment Basics', body: 'Asset classes, target-date funds, and why diversification matters.', time: '6 Min Read', icon: TrendingUp },
-  { id: 4, tag: 'Retirement', tone: 't4', title: 'Planning For Retirement', body: 'Estimate savings needs and set realistic goals for your timeline.', time: '7 Min Read', icon: Clock }
-]
-
-const CATS = ['All Topics', 'Plan Basics', 'Taxes', 'Investing', 'Retirement']
 
 export default function Enrich() {
   const [cat, setCat] = useState('All Topics')
