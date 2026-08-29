@@ -89,6 +89,7 @@ export function InvestmentEditor({
   const [picked, setPicked] = useState(() => saved?.picked || [])
   const [error, setError] = useState('')
   const [fundsOpen, setFundsOpen] = useState(false)
+  const [riskConsentOpen, setRiskConsentOpen] = useState(false)
 
   const usingCustom = mode === 'custom'
   const usingPlan = mode === 'plan'
@@ -140,7 +141,12 @@ export function InvestmentEditor({
     setError('')
   }
 
-  const chooseRisk = () => {
+  // Clicking "Not sure? Take our risk questionnaire" (or "Retake
+  // questionnaire") asks for confirmation first — only navigates to the
+  // questionnaire once the participant agrees to proceed.
+  const chooseRisk = () => setRiskConsentOpen(true)
+  const confirmChooseRisk = () => {
+    setRiskConsentOpen(false)
     const here = `${location.pathname}${location.search}`
     navigate(`/risk-check-in?return=${encodeURIComponent(riskReturnPath || here)}`)
   }
@@ -355,6 +361,32 @@ export function InvestmentEditor({
           onApply={applyPicks}
           onClose={() => setFundsOpen(false)}
         />
+      )}
+
+      {riskConsentOpen && (
+        <div className="enroll-modal-bg" role="presentation" onClick={() => setRiskConsentOpen(false)}>
+          <div
+            className="enroll-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="risk-consent-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h4 id="risk-consent-title">Take the risk questionnaire?</h4>
+            <p>
+              A few quick questions will match you to a Conservative, Moderate, or Aggressive investment style, and
+              set your election to that mix. Do you want to continue?
+            </p>
+            <div className="enroll-modal-actions">
+              <button type="button" className="btn btn-secondary" onClick={() => setRiskConsentOpen(false)}>
+                Cancel
+              </button>
+              <button type="button" className="btn btn-primary" onClick={confirmChooseRisk}>
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )
