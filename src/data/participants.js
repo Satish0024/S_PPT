@@ -91,7 +91,7 @@ export const PARTICIPANTS = [
         id: '401k',
         name: PLAN_401K,
         type: '401(k)',
-        meta: 'Auto Enrolled Mar 1, 2026 · ID 124542',
+        meta: 'ID 124542',
         badge: 'Participating',
         notice:
           "Congratulations! You have been enrolled in this plan based on plan's auto enrollment provisions.",
