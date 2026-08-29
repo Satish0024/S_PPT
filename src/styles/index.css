@@ -285,114 +285,88 @@
   .rr-disclaimer-link:hover,.rr-more:hover{color:var(--brand-dark)}
   .rr-modal{width:min(520px,100%);max-height:min(86vh,720px);overflow:auto}
 
-  /* ---------- Retirement Goal Simulator score card ----------
-     Reproduces the reference design 1:1 (gauge + star badge, wallet/income/
-     shortfall breakdown with a dashed connector, gradient trophy + confetti,
-     stacked tip banner, single-line disclaimer footer), scaled down evenly
-     to fit the dashboard sidebar column instead of the wide reference card. */
-  .rsc-card{
-    background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
-    padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
-  .rsc-head{display:flex;align-items:flex-start;gap:10px;position:relative}
+  /* ---------- Retirement Readiness score card ----------
+     Sidebar widget: prominent ring gauge + status panel, then the money
+     rows grouped in one bordered container. Flat surfaces only — no glass,
+     blur, or artwork — so the figures stay the loudest thing on the card. */
+  .rsc{
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+    display:flex;flex-direction:column;overflow:hidden}
+  .rsc-body{padding:20px;display:flex;flex-direction:column;gap:20px}
+  .rsc-head{display:flex;align-items:flex-start;gap:12px}
   .rsc-head-ico{
-    width:34px;height:34px;border-radius:10px;flex:0 0 auto;
-    background:var(--active-bg);color:var(--brand);display:grid;place-items:center}
-  .rsc-head h3{margin:0 0 2px;font-size:14.5px;font-weight:800;letter-spacing:-.2px;color:var(--ink);line-height:1.25}
-  .rsc-head p{margin:0;font-size:11px;line-height:1.35;color:var(--ink-soft)}
-  .rsc-summit{position:absolute;top:-10px;right:-10px;width:80px;height:auto;pointer-events:none;opacity:.9}
+    width:40px;height:40px;border-radius:12px;flex:0 0 auto;display:grid;place-items:center;
+    background:var(--active-bg);color:var(--brand)}
+  .rsc-head-copy{min-width:0;flex:1}
+  .rsc-head-copy h3{margin:0;font-size:16px;font-weight:700;letter-spacing:-.2px;color:var(--ink);line-height:1.25}
+  .rsc-head-copy p{margin:4px 0 0;font-size:12.5px;line-height:1.4;color:var(--muted)}
+  .rsc-head-act{
+    width:36px;height:36px;border-radius:10px;flex:0 0 auto;display:grid;place-items:center;
+    background:var(--active-bg);color:var(--brand);border:none;transition:.15s}
+  .rsc-head-act:hover{background:var(--brand-fill);color:#fff}
+  .rsc-head-act:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 
-  .rsc-gauge-panel{
-    background:var(--surface-2);border-radius:13px;padding:16px 14px 14px;display:flex;flex-direction:column;
-    align-items:center;text-align:center;gap:7px;text-decoration:none;color:inherit}
-  .rsc-gauge-panel:hover{background:var(--surface-3)}
-  .rsc-gauge{position:relative;width:112px;height:112px}
+  .rsc-score{display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .rsc-gauge{position:relative;width:132px;height:132px;flex:0 0 auto}
   .rsc-gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
   .rsc-gauge-track{fill:none;stroke:var(--surface-3)}
-  .rsc-gauge-fill{fill:none;stroke:var(--green);stroke-linecap:round;transition:stroke-dasharray .55s ease}
+  .rsc-gauge-fill{
+    fill:none;stroke-linecap:round;stroke:var(--brand);
+    transition:stroke-dasharray .45s cubic-bezier(.4,0,.2,1)}
+  .rsc-gauge.good .rsc-gauge-fill{stroke:var(--green)}
+  .rsc-gauge.warn .rsc-gauge-fill{stroke:var(--amber)}
   .rsc-gauge-mid{
-    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
-  .rsc-gauge-star{
-    width:20px;height:20px;border-radius:50%;display:grid;place-items:center;
-    background:var(--green-bg);color:var(--green);margin-bottom:1px}
-  .rsc-gauge-mid b{font-size:26px;font-weight:800;letter-spacing:-.7px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
-  .rsc-gauge-caption{font-size:9px;font-weight:700;color:var(--ink-soft);max-width:64px;line-height:1.2}
-  .rsc-badge{
-    display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;
-    font-size:11px;font-weight:800;background:var(--green-bg);color:var(--green)}
-  .rsc-badge.ok{background:var(--amber-bg);color:var(--amber)}
-  .rsc-badge.warn{background:var(--red-bg);color:var(--red)}
-  .rsc-gauge-note{margin:1px 0 0;font-size:11px;line-height:1.4;color:var(--ink-soft);max-width:22ch}
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .rsc-gauge-mid b{
+    font-size:42px;font-weight:700;letter-spacing:-2px;line-height:1;color:var(--brand);
+    font-variant-numeric:tabular-nums}
+  .rsc-gauge.good .rsc-gauge-mid b{color:var(--green)}
+  .rsc-gauge.warn .rsc-gauge-mid b{color:var(--amber)}
+  .rsc-gauge-mid span{margin-top:3px;font-size:10px;font-weight:600;color:var(--muted)}
 
-  .rsc-right{
-    background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:2px 14px}
-  .rsc-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);position:relative}
+  .rsc-status{flex:1;min-width:0;padding:14px;border-radius:14px;background:var(--active-bg)}
+  .rsc-status-pill{
+    display:flex;align-items:center;gap:6px;margin-bottom:4px;
+    font-size:14px;font-weight:700;color:var(--brand)}
+  .rsc-status.good .rsc-status-pill{color:var(--green)}
+  .rsc-status.warn .rsc-status-pill{color:var(--amber)}
+  .rsc-status p{margin:0;font-size:12.5px;line-height:1.45;color:var(--ink-soft)}
+
+  .rsc-rows{
+    margin:0;border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+  .rsc-row{display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid var(--line)}
   .rsc-row:last-child{border-bottom:none}
-  .rsc-row.plain{padding:11px 0}
   .rsc-row-ico{
-    width:26px;height:26px;border-radius:8px;flex:0 0 auto;display:grid;place-items:center;
+    width:36px;height:36px;border-radius:10px;flex:0 0 auto;display:grid;place-items:center;
     background:var(--active-bg);color:var(--brand)}
   .rsc-row-ico.income{background:var(--green-bg);color:var(--green)}
   .rsc-row-ico.shortfall{background:var(--red-bg);color:var(--red)}
-  /* Dashed connector linking the income icon down to the shortfall icon,
-     matching the reference image's vertical dotted line. */
-  .rsc-row.connector .rsc-row-ico::after{
-    content:"";position:absolute;left:12px;top:26px;width:1px;height:18px;
-    border-left:1.5px dashed var(--line-strong)}
-  .rsc-row-label{
-    display:flex;flex-direction:column;gap:1px;font-size:12px;font-weight:700;color:var(--ink)}
-  .rsc-row-label small{font-size:9.5px;font-weight:600;color:var(--muted)}
-  .rsc-row b{
-    margin-left:auto;font-size:14.5px;font-weight:800;color:var(--ink);letter-spacing:-.1px;
-    font-variant-numeric:tabular-nums}
-  .rsc-row b.income{color:var(--green)}
-  .rsc-row b.shortfall{color:var(--red)}
+  .rsc-row dt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;font-size:13px;font-weight:600;color:var(--ink)}
+  .rsc-row dt small{font-size:11px;font-weight:500;color:var(--muted)}
+  .rsc-row dd{
+    margin:0;font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.3px;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  .rsc-row dd.income{color:var(--green)}
+  .rsc-row dd.shortfall{color:var(--red)}
 
-  .rsc-tips{
-    display:flex;flex-direction:column;border-radius:13px;padding:0 14px;
-    background:linear-gradient(135deg,var(--green-bg),var(--amber-bg))}
-  .rsc-tips.ok{background:linear-gradient(135deg,var(--amber-bg),var(--amber-bg))}
-  .rsc-tips.warn{background:linear-gradient(135deg,var(--red-bg),var(--amber-bg))}
-  .rsc-tip{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
-  .rsc-tip:last-child{border-bottom:none}
-  .rsc-tip > div{display:flex;flex-direction:column;gap:2px;min-width:0}
-  .rsc-tip b{font-size:12px;font-weight:800;color:var(--green)}
-  .rsc-tips.ok .rsc-tip b,.rsc-tips.warn .rsc-tip b{color:var(--ink)}
-  .rsc-tips.ok .rsc-tip:first-child b{color:var(--amber)}
-  .rsc-tips.warn .rsc-tip:first-child b{color:var(--red)}
-  .rsc-tip:last-child b{color:var(--brand)}
-  .rsc-tip span{font-size:10.5px;line-height:1.4;color:var(--ink-soft)}
-  .rsc-tip-ico{
-    position:relative;width:32px;height:32px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;
-    background:radial-gradient(circle at 32% 28%,var(--green),var(--brand-dark));color:#fff}
-  .rsc-tips.ok .rsc-tip-ico{background:radial-gradient(circle at 32% 28%,var(--amber),var(--brand-dark))}
-  .rsc-tips.warn .rsc-tip-ico{background:radial-gradient(circle at 32% 28%,var(--red),var(--brand-dark))}
-  .rsc-tip-ico.bulb{
-    width:24px;height:24px;background:var(--panel);color:var(--brand);margin-top:4px}
-  /* Confetti flecks scattered around the trophy circle, echoing the
-     reference image's celebration graphic. */
-  .rsc-tip-ico.trophy::before,.rsc-tip-ico.trophy::after{
-    content:"";position:absolute;width:3.5px;height:3.5px;border-radius:1px}
-  .rsc-tip-ico.trophy::before{top:-8px;right:5px;background:var(--green);transform:rotate(30deg)}
-  .rsc-tip-ico.trophy::after{bottom:-7px;left:1px;background:var(--amber);transform:rotate(-25deg)}
-
-  .rsc-intro{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
-  .rsc-intro p{margin:0;font-size:12px;line-height:1.5;color:var(--ink-soft)}
+  .rsc-intro{padding:0 20px 20px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+  .rsc-intro p{margin:0;font-size:12.5px;line-height:1.55;color:var(--ink-soft)}
   .rsc-cta{
     align-self:stretch;display:inline-flex;align-items:center;justify-content:center;gap:6px;
-    background:var(--brand-fill);color:#fff;border:none;border-radius:10px;padding:9px 12px;
-    font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;text-decoration:none;box-sizing:border-box}
+    background:var(--brand-fill);color:#fff;border:none;border-radius:12px;padding:11px 14px;
+    font:inherit;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;box-sizing:border-box}
   .rsc-cta:hover{background:var(--brand-dark)}
 
   .rsc-foot{
-    display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 6px;margin:0;padding-top:11px;
-    border-top:1px solid var(--line);font-size:10.5px;line-height:1.35;color:var(--ink-soft)}
-  .rsc-foot svg{color:var(--brand);flex:0 0 auto;align-self:flex-start;margin-top:1px}
-  .rsc-foot b{font-weight:800;color:var(--ink)}
-  .rsc-foot span{flex:1 1 auto;min-width:0}
+    display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0;
+    padding:12px 20px;border-top:1px solid var(--line);font-size:11px}
+  .rsc-foot-note{display:flex;align-items:center;gap:6px;min-width:0;color:var(--muted);line-height:1.4}
+  .rsc-foot-note svg{flex:0 0 auto}
   .rsc-foot-link{
-    display:inline-flex;align-items:center;gap:3px;font:inherit;font-size:10.5px;font-weight:800;
-    color:var(--brand);background:none;border:none;padding:0;cursor:pointer;flex:0 0 auto}
-  .rsc-foot-link:hover{color:var(--brand-dark)}
+    display:inline-flex;align-items:center;gap:4px;font:inherit;font-size:11px;font-weight:700;
+    color:var(--link);background:none;border:none;padding:0;cursor:pointer;flex:0 0 auto;white-space:nowrap}
+  .rsc-foot-link:hover{text-decoration:underline}
+  .rsc-foot-link:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:3px}
 
   /* ---------- Retirement Readiness widget v2 ---------- */
   .rr2-card{
@@ -1619,6 +1593,7 @@ summary:focus-visible {
   border-radius: 16px;
   padding: 18px;
   display: block;
+  box-shadow: var(--shadow);
 }
 
 .rr3-head,
@@ -1639,8 +1614,10 @@ summary:focus-visible {
   color: var(--brand);
   flex: 0 0 auto;
 }
+/* .risk3-tag / .risk3-title are deliberately absent from these shared
+   groups — the risk card uses a sentence-case heading and a large
+   level-coloured headline, and styles both itself further down. */
 .rr3-tag,
-.risk3-tag,
 .learn2-tag {
   font-size: 10.5px;
   font-weight: 800;
@@ -1649,7 +1626,6 @@ summary:focus-visible {
   color: var(--muted);
 }
 .rr3-title,
-.risk3-title,
 .learn2-title {
   margin: 0 0 14px;
   font-size: 16px;
@@ -1813,8 +1789,7 @@ summary:focus-visible {
   color: var(--ink-soft);
 }
 .rr3-cta,
-.risk3-btn,
-.learn2-cta {
+.risk3-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1853,207 +1828,232 @@ summary:focus-visible {
   text-underline-offset: 2px;
 }
 
-/* ---------- Learning portal ---------- */
-.learn2-icon {
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  margin-bottom: 14px;
-  border-radius: 50%;
-  background: var(--active-bg);
-  color: var(--brand);
-}
-.learn2-tag {
-  color: var(--brand);
-}
-.learn2-title {
-  margin-bottom: 6px;
-}
-.learn2-lead {
-  margin: 0 0 16px;
-  font-size: 12.5px;
-  line-height: 1.5;
-  color: var(--ink-soft);
-}
-.learn2-sub {
+/* ---------- Learning portal ----------
+   A compact list of real guides rather than decorative topic chips: each
+   row carries its topic, read time, and title, and is a link in its own
+   right. Flat surfaces and hairline dividers only. */
+.learn2-head {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 12px;
-  font-size: 11.5px;
-  font-weight: 800;
-  color: var(--ink);
-}
-.learn2-sub::before {
-  content: "";
-  width: 3px;
-  height: 13px;
-  border-radius: 2px;
-  background: var(--brand);
-}
-.learn2-topics {
-  list-style: none;
-  margin: 0 0 18px;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-.learn2-topics li {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-align: center;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--ink);
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--line);
-}
-.learn2-topics li.brand { border-bottom-color: var(--brand); }
-.learn2-topics li.green { border-bottom-color: var(--green); }
-.learn2-topics li.blue { border-bottom-color: var(--accent); }
-.learn2-topic-ico {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: var(--active-bg);
-  color: var(--brand);
-}
-.learn2-topics li.green .learn2-topic-ico { background: var(--green-bg); color: var(--green); }
-.learn2-topics li.blue .learn2-topic-ico { background: var(--active-bg); color: var(--accent); }
-.learn2-cta {
-  display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
-  width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  background: var(--active-bg);
-  text-decoration: none;
-  box-sizing: border-box;
-  transition: .15s;
+  margin-bottom: 14px;
 }
-.learn2-cta:hover {
-  background: var(--brand-fill);
-}
-.learn2-cta-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-  flex: 1;
-}
-.learn2-cta-copy b {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--brand);
-}
-.learn2-cta-copy small {
-  font-size: 11px;
-  line-height: 1.35;
-  color: var(--ink-soft);
-}
-.learn2-cta:hover .learn2-cta-copy b,
-.learn2-cta:hover .learn2-cta-copy small {
-  color: #fff;
-}
-.learn2-cta-go {
+.learn2-head-ico {
   display: grid;
   place-items: center;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
   flex: 0 0 auto;
-  background: var(--panel);
+  border-radius: 9px;
+  background: var(--active-bg);
   color: var(--brand);
 }
-
-/* ---------- Risk meter ---------- */
-.risk3-tag {
-  color: var(--risk-color, var(--brand));
+.learn2-head-copy {
+  min-width: 0;
+  flex: 1;
 }
-.risk3-title {
-  margin: 2px 0 10px;
-  font-size: 24px;
-  color: var(--risk-color, var(--brand));
+.learn2-tag {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  color: var(--muted);
 }
-.risk3-gauge {
-  position: relative;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--surface-3);
-  margin-bottom: 12px;
-  overflow: hidden;
+.learn2-title {
+  margin: 1px 0 0;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -.2px;
+  color: var(--ink);
+  line-height: 1.3;
 }
-.risk3-gauge-fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--risk-color, var(--brand)) 0%, var(--brand-dark) 140%);
-  transition: width .3s ease;
-}
-.risk3-pill {
+.learn2-all {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  align-self: flex-start;
-  padding: 7px 13px;
-  margin-bottom: 14px;
-  border-radius: 999px;
-  background: var(--active-bg);
-  color: var(--risk-color, var(--brand));
-  font-size: 12px;
-  font-weight: 800;
+  gap: 4px;
+  flex: 0 0 auto;
+  margin-top: 2px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--brand);
+  text-decoration: none;
+  white-space: nowrap;
 }
-.risk3-stones {
-  display: block;
-  width: 92px;
-  height: auto;
-  margin: 0 auto 12px;
+.learn2-all:hover { color: var(--brand-dark); text-decoration: underline; }
+.learn2-all:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 4px; }
+
+.learn2-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
-.risk3-outlook {
-  margin: 0 0 14px;
-  font-size: 12.5px;
-  line-height: 1.55;
-  color: var(--ink-soft);
-  text-align: center;
-}
-.risk3-foot {
+.learn2-list li + li { border-top: 1px solid var(--line); }
+.learn2-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 12px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  background: var(--surface-2);
+  padding: 11px 10px;
+  margin: 0 -10px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background .15s;
 }
-.risk3-foot-ico {
+.learn2-item:hover { background: var(--surface-2); }
+.learn2-item:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
+.learn2-item-copy {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.learn2-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+.learn2-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  background: var(--surface-3);
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.learn2-chip.t1 { background: var(--active-bg); color: var(--brand); }
+.learn2-chip.t2 { background: var(--green-bg); color: var(--green); }
+.learn2-chip.t3 { background: var(--amber-bg); color: var(--amber); }
+.learn2-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.learn2-item-copy b {
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.learn2-item:hover .learn2-item-copy b { color: var(--brand); }
+.learn2-item-go {
+  flex: 0 0 auto;
+  color: var(--muted);
+  transition: transform .15s, color .15s;
+}
+.learn2-item:hover .learn2-item-go { color: var(--brand); transform: translateX(2px); }
+
+/* ---------- Risk meter ----------
+   Level is conveyed by the headline, a named badge, and a checked step on a
+   labelled scale — never by color alone. */
+.risk3-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.risk3-head-ico {
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
   flex: 0 0 auto;
-  background: var(--panel);
-  color: var(--risk-color, var(--brand));
+  color: var(--brand);
 }
-.risk3-foot-copy {
+.risk3-tag {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -.1px;
+  color: var(--ink);
+}
+.risk3-badge {
+  flex: 0 0 auto;
+  padding: 4px 10px;
+  border-radius: 999px;
   font-size: 11.5px;
-  line-height: 1.4;
+  font-weight: 700;
+  background: var(--risk-bg, var(--surface-2));
+  color: var(--risk-color, var(--ink));
+  white-space: nowrap;
+}
+.risk3-title {
+  margin: 0 0 12px;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.05;
+  color: var(--risk-color, var(--ink));
+}
+
+.risk3-scale {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+.risk3-step { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.risk3-step-bar { height: 6px; border-radius: 999px; background: var(--surface-3); }
+.risk3-step.done .risk3-step-bar,
+.risk3-step.on .risk3-step-bar { background: var(--risk-color, var(--brand)); }
+.risk3-step.done .risk3-step-bar { opacity: .4; }
+.risk3-step-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--muted);
+}
+.risk3-step.on .risk3-step-label { font-weight: 700; color: var(--ink); }
+
+.risk3-outlook {
+  margin: 0 0 16px;
+  font-size: 13px;
+  line-height: 1.55;
   color: var(--ink-soft);
 }
+.risk3-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.risk3-foot p { margin: 0; font-size: 12px; line-height: 1.5; color: var(--muted); }
 .risk3-btn {
-  background: var(--risk-color, var(--brand));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 12px;
+  border: none;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--brand-fill);
   color: #fff;
 }
-.risk3-btn:hover {
-  filter: brightness(0.92);
-}
+.risk3-btn:hover { background: var(--brand-dark); }
+.risk3-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
 @media (max-width: 1080px) {
   .rr3, .learn2, .risk3 { padding: 16px; }

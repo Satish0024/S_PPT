@@ -1,6 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ArrowRight, CircleCheck, DollarSign, Info, Lightbulb, Star, TrendingDown, TrendingUp, Trophy, Wallet } from 'lucide-react'
+import {
+  ArrowRight,
+  CircleAlert,
+  CircleCheck,
+  Info,
+  Landmark,
+  SlidersHorizontal,
+  TrendingDown,
+  TrendingUp,
+  Wallet
+} from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import {
@@ -17,46 +27,37 @@ import { DisclaimerModal } from './ReadinessVisuals.jsx'
 
 const R = 42
 const CIRC = 2 * Math.PI * R
+// The status icon changes with the tone as well as the color, so the state
+// is never communicated by color alone (a11y requirement).
+const TONE_ICON = { good: CircleCheck, ok: CircleCheck, warn: CircleAlert }
 
-function ScoreGauge({ score }) {
+function ScoreGauge({ score, tone }) {
   const pct = Math.max(0, Math.min(100, score))
   const dash = (pct / 100) * CIRC
   return (
-    <div className="rsc-gauge" role="img" aria-label={`Readiness score ${Math.round(pct)} out of 100`}>
-      <svg viewBox="0 0 100 100">
-        <circle className="rsc-gauge-track" cx="50" cy="50" r={R} strokeWidth="8" />
-        <circle className="rsc-gauge-fill" cx="50" cy="50" r={R} strokeWidth="8" strokeDasharray={`${dash} ${CIRC}`} />
+    <div className={`rsc-gauge ${tone}`} role="img" aria-label={`Readiness score ${Math.round(pct)} out of 100`}>
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle className="rsc-gauge-track" cx="50" cy="50" r={R} strokeWidth="14" />
+        <circle
+          className="rsc-gauge-fill"
+          cx="50"
+          cy="50"
+          r={R}
+          strokeWidth="14"
+          strokeDasharray={`${dash} ${CIRC}`}
+        />
       </svg>
       <div className="rsc-gauge-mid">
-        <span className="rsc-gauge-star" aria-hidden="true">
-          <Star size={13} strokeWidth={2.2} />
-        </span>
         <b>{Math.round(pct)}</b>
-        <span className="rsc-gauge-caption">Readiness Score</span>
+        <span>out of 100</span>
       </div>
     </div>
   )
 }
 
-// Decorative summit-and-flag graphic in the card header, matching the
-// reference design. Purely ornamental (aria-hidden) and themed off the
-// brand token so it re-colors with the app instead of needing an asset.
-function SummitMark() {
-  return (
-    <svg className="rsc-summit" viewBox="0 0 120 90" aria-hidden="true">
-      <path d="M0 90 40 30 60 55 78 20 120 90Z" fill="var(--brand)" opacity="0.1" />
-      <path d="M40 30 60 55 78 20 96 46" fill="none" stroke="var(--brand)" strokeWidth="1.4" strokeDasharray="2 3" opacity="0.5" />
-      <circle cx="40" cy="30" r="2.6" fill="var(--brand)" opacity="0.6" />
-      <line x1="78" y1="20" x2="78" y2="4" stroke="var(--brand)" strokeWidth="1.6" />
-      <path d="M78 4h13l-13 8Z" fill="var(--brand)" />
-    </svg>
-  )
-}
-
-// Retirement Goal Simulator sidebar widget — reproduces the reference
-// design's gauge (with star badge), itemized income/shortfall breakdown
-// with dot-connector rows, and stacked trophy/bulb tip banner, scaled to
-// the dashboard sidebar column.
+// Retirement Readiness sidebar widget: a prominent ring gauge paired with a
+// status panel, then the three money figures grouped in one bordered list.
+// No decorative artwork — nothing competes with the numbers.
 export default function ReadinessScoreCard() {
   const { participant } = useParticipant()
   const location = useLocation()
@@ -83,89 +84,82 @@ export default function ReadinessScoreCard() {
   )
   const status = statusCopy(score)
   const tone = score >= 80 ? 'good' : score >= 55 ? 'ok' : 'warn'
+  const StatusIcon = TONE_ICON[tone]
 
   if (isNotEligibleUser(participant)) return null
 
   return (
-    <section className="rsc-card" aria-label="Retirement Readiness">
-      <header className="rsc-head">
-        <span className="rsc-head-ico" aria-hidden="true">
-          <TrendingUp size={19} strokeWidth={2.2} />
-        </span>
-        <div>
-          <h3>Retirement Readiness</h3>
-          <p>See how your inputs affect your savings, income, risk.</p>
-        </div>
-        <SummitMark />
-      </header>
-
-      {started ? (
-        <>
-          <Link className="rsc-gauge-panel" to="/retirement-goal" aria-label="Adjust your retirement goal">
-            <ScoreGauge score={score} />
-            <span className={`rsc-badge ${tone}`}>
-              <CircleCheck size={12} strokeWidth={2.4} />
-              {status.title}
-            </span>
-            <p className="rsc-gauge-note">{status.body}</p>
+    <section className="rsc" aria-label="Retirement Readiness">
+      <div className="rsc-body">
+        <header className="rsc-head">
+          <span className="rsc-head-ico" aria-hidden="true">
+            <TrendingUp size={20} strokeWidth={2.2} />
+          </span>
+          <div className="rsc-head-copy">
+            <h3>Retirement Readiness</h3>
+            <p>See how your inputs affect your savings, income, risk.</p>
+          </div>
+          <Link className="rsc-head-act" to="/retirement-goal" aria-label="Adjust your retirement goal">
+            <SlidersHorizontal size={16} strokeWidth={2.2} aria-hidden="true" />
           </Link>
+        </header>
 
-          <div className="rsc-right">
-            <div className="rsc-row plain">
-              <span className="rsc-row-ico expense" aria-hidden="true">
-                <Wallet size={13} strokeWidth={2.2} />
-              </span>
-              <span className="rsc-row-label">Expected expense</span>
-              <b>{money(expense)}</b>
-            </div>
-            <div className="rsc-row connector">
-              <span className="rsc-row-ico income" aria-hidden="true">
-                <DollarSign size={13} strokeWidth={2.4} />
-              </span>
-              <span className="rsc-row-label">
-                All income
-                <small>Monthly</small>
-              </span>
-              <b className="income">{money(income)}</b>
-            </div>
-            <div className="rsc-row">
-              <span className="rsc-row-ico shortfall" aria-hidden="true">
-                <TrendingDown size={13} strokeWidth={2.4} />
-              </span>
-              <span className="rsc-row-label">
-                Short fall
-                <small>Monthly</small>
-              </span>
-              <b className="shortfall">{money(shortfall)}</b>
-            </div>
-          </div>
-
-          <div className={`rsc-tips ${tone}`}>
-            <div className="rsc-tip">
-              <span className="rsc-tip-ico trophy" aria-hidden="true">
-                <Trophy size={18} strokeWidth={2} />
-              </span>
-              <div>
-                <b>{status.title}</b>
-                <span>{status.body}</span>
+        {started ? (
+          <>
+            <div className="rsc-score">
+              <ScoreGauge score={score} tone={tone} />
+              <div className={`rsc-status ${tone}`}>
+                <span className="rsc-status-pill">
+                  <StatusIcon size={16} strokeWidth={2.3} aria-hidden="true" />
+                  {status.title}
+                </span>
+                <p>{status.body}</p>
               </div>
             </div>
-            <div className="rsc-tip">
-              <span className="rsc-tip-ico bulb" aria-hidden="true">
-                <Lightbulb size={15} strokeWidth={2} />
-              </span>
-              <div>
-                <b>Keep it up!</b>
-                <span>Review your plan periodically and adjust it to stay on track.</span>
+
+            {/* Annual figures — scoreGoal returns yearly income/expense, so
+                these are labelled per year rather than monthly. */}
+            <dl className="rsc-rows">
+              <div className="rsc-row">
+                <span className="rsc-row-ico" aria-hidden="true">
+                  <Wallet size={16} strokeWidth={2.2} />
+                </span>
+                <dt>
+                  Expected expense
+                  <small>Per year in retirement</small>
+                </dt>
+                <dd>{money(expense)}</dd>
               </div>
-            </div>
-          </div>
-        </>
-      ) : (
+              <div className="rsc-row">
+                <span className="rsc-row-ico income" aria-hidden="true">
+                  <Landmark size={16} strokeWidth={2.2} />
+                </span>
+                <dt>
+                  All income
+                  <small>Per year</small>
+                </dt>
+                <dd className="income">{money(income)}</dd>
+              </div>
+              <div className="rsc-row">
+                <span className="rsc-row-ico shortfall" aria-hidden="true">
+                  <TrendingDown size={16} strokeWidth={2.2} />
+                </span>
+                <dt>
+                  Shortfall
+                  <small>Per year</small>
+                </dt>
+                <dd className="shortfall">{money(shortfall)}</dd>
+              </div>
+            </dl>
+          </>
+        ) : null}
+      </div>
+
+      {!started && (
         <div className="rsc-intro">
           <p>
-            This estimates how much of your retirement spending is covered by your savings, by using deferrals, age,
-            and location.
+            This estimates how much of your retirement spending is covered by your savings, using your deferrals,
+            age, and location.
           </p>
           <Link className="rsc-cta" to="/retirement-goal">
             Get started
@@ -175,13 +169,13 @@ export default function ReadinessScoreCard() {
       )}
 
       <p className="rsc-foot">
-        <Info size={13} strokeWidth={2.2} aria-hidden="true" />
-        <span>
-          <b>*Not guaranteed results</b> It&apos;s a simulation. For more details
+        <span className="rsc-foot-note">
+          <Info size={13} strokeWidth={2.2} aria-hidden="true" />
+          Not guaranteed results. It&apos;s a simulation.
         </span>
         <button type="button" className="rsc-foot-link" onClick={() => setOpen(true)}>
           Read more
-          <ArrowRight size={12} strokeWidth={2.4} />
+          <ArrowRight size={12} strokeWidth={2.4} aria-hidden="true" />
         </button>
       </p>
 
