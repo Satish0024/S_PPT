@@ -972,11 +972,10 @@
   .tx-row .tx-type{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.2}
   .tx-row .tx-plan{font-size:11px;color:var(--muted);margin-top:0;display:inline;font-weight:500}
   .tx-row .tx-plan::before{content:" · "}
-  .tx-row .tx-amt{font-size:13px;font-weight:700;letter-spacing:-.2px;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
-  .tx-row.deferral .tx-amt{color:var(--brand)}
-  .tx-row.employer .tx-amt{color:var(--green)}
-  .tx-row.loan .tx-amt,.tx-amt.loan{color:var(--amber)}
-  .tx-row.dividend .tx-amt,.tx-amt.dividend{color:var(--ink)}
+  /* One consistent color for every transaction amount, regardless of kind
+     (deferral/employer/loan/dividend) — per feedback, the per-kind color
+     coding wasn't wanted. */
+  .tx-row .tx-amt{font-size:13px;font-weight:700;letter-spacing:-.2px;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;color:var(--ink)}
   .tx-empty{padding:16px 12px;font-size:13px;color:var(--ink-soft);text-align:center;line-height:1.45}
 
   /* Quick links */
@@ -1224,9 +1223,6 @@
   .tx-table td{padding:12px 14px;border-bottom:1px solid var(--line)}
   .tx-table tr:last-child td{border-bottom:none}
   .tx-table .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
-  .tx-table .tx-amt.deferral{color:var(--brand)}
-  .tx-table .tx-amt.employer{color:var(--green)}
-  .tx-table .tx-amt.loan{color:var(--amber)}
 
   .doc-list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;overflow:hidden}
   .doc-row{display:grid;grid-template-columns:40px minmax(0,1fr) auto auto;gap:12px;align-items:center;
