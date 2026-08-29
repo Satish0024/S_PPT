@@ -16,6 +16,7 @@ import Reports from './pages/Reports.jsx'
 import Login from './pages/Login.jsx'
 import AccountSummary from './pages/AccountSummary.jsx'
 import RiskQuestionnaire from './pages/RiskQuestionnaire.jsx'
+import RetirementGoal from './pages/RetirementGoal.jsx'
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
         </Route>
         <Route path="/transactions/request/:type" element={<TransactionRequest />} />
         <Route path="/risk-check-in" element={<RiskQuestionnaire />} />
+        <Route path="/retirement-goal" element={<RetirementGoal />} />
         <Route element={<EnrollmentLayout />}>
           <Route path="/enrollment" element={<Enrollment />} />
           <Route path="/enrollment/auto-increase" element={<Navigate to="/enrollment" replace />} />
