@@ -1,6 +1,13 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AUTO_INCREASE_KEY, DEFERRAL_KEY, INVESTMENT_KEY, isNotEligibleUser, readSession } from '../data/participants'
+import {
+  AUTO_INCREASE_KEY,
+  DEFERRAL_KEY,
+  INVESTMENT_KEY,
+  isNotEligibleUser,
+  markAdvanceElections,
+  readSession
+} from '../data/participants'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 
 const CYCLES = {
@@ -34,7 +41,13 @@ export default function EnrollmentSummary() {
   const cycle = CYCLES[autoInc?.cycle] || CYCLES.calendar
   const usingPlan = investment?.mode === 'plan'
 
-  const confirm = () => setDone(true)
+  const confirm = () => {
+    // A not-yet-eligible participant is "providing elections in advance"
+    // rather than enrolling — flag it so the dashboard plan card offers to
+    // view what was saved instead of prompting for advance elections again.
+    if (notEligible) markAdvanceElections(participant.id)
+    setDone(true)
+  }
   const goHome = () => navigate('/', { replace: true })
 
   return (

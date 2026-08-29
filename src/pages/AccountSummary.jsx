@@ -2,7 +2,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ArcElement, Chart as ChartJS, Tooltip } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
-import { ArrowLeft, ChevronDown, Database, Wallet } from 'lucide-react'
+import { ArrowLeft, ChevronDown, Database, PieChart, Wallet } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import {
   assetCategory,
@@ -26,7 +26,8 @@ ChartJS.register(ArcElement, Tooltip)
 
 const TABS = [
   { id: 'sources', label: 'Sources', icon: Database },
-  { id: 'investments', label: 'Investments', icon: Wallet }
+  { id: 'investments', label: 'Investments', icon: Wallet },
+  { id: 'assetclass', label: 'Asset class', icon: PieChart }
 ]
 
 function fade(hex, on) {
@@ -55,8 +56,11 @@ export default function AccountSummary() {
   const [expandedRow, setExpandedRow] = useState(null)
 
   const plan = plans.find((p) => p.id === planId) || plans[0]
-  const summary = useMemo(() => (plan ? summaryForPlan(plan) : { balance: 0, vested: 0, sources: [], investments: [] }), [plan])
-  const rows = tab === 'sources' ? summary.sources : summary.investments
+  const summary = useMemo(
+    () => (plan ? summaryForPlan(plan) : { balance: 0, vested: 0, sources: [], investments: [], assetClasses: [] }),
+    [plan]
+  )
+  const rows = tab === 'sources' ? summary.sources : tab === 'investments' ? summary.investments : summary.assetClasses
   const highlight = rows[active] || null
 
   const chart = useMemo(() => {
@@ -245,10 +249,10 @@ export default function AccountSummary() {
               </div>
 
               <div className="as-table-wrap">
-                <table className={tab === 'investments' ? 'as-table-accordion' : ''}>
+                <table className={tab === 'investments' || tab === 'assetclass' ? 'as-table-accordion' : ''}>
                   <thead>
                     <tr>
-                      <th scope="col">{tab === 'sources' ? 'Source' : 'Investment'}</th>
+                      <th scope="col">{tab === 'sources' ? 'Source' : tab === 'assetclass' ? 'Asset class' : 'Investment'}</th>
                       {tab === 'investments' ? <th scope="col" className="num">Units</th> : null}
                       <th scope="col" className="num">Balance</th>
                       <th scope="col" className="num">{tab === 'investments' ? 'Election Percentage' : 'Percent'}</th>
@@ -258,7 +262,9 @@ export default function AccountSummary() {
                   <tbody>
                     {rows.map((row, i) => {
                       const isInvestment = tab === 'investments'
-                      const isOpen = isInvestment && expandedRow === row.id
+                      const isAssetClass = tab === 'assetclass'
+                      const isExpandable = isInvestment || isAssetClass
+                      const isOpen = isExpandable && expandedRow === row.id
                       return (
                         <Fragment key={row.id}>
                           <tr
@@ -267,7 +273,7 @@ export default function AccountSummary() {
                             onMouseLeave={() => setActive(null)}
                           >
                             <td>
-                              {isInvestment ? (
+                              {isExpandable ? (
                                 <button
                                   type="button"
                                   className="as-row-toggle"
@@ -298,7 +304,7 @@ export default function AccountSummary() {
                             <td className="num">{formatPct(row.pct)}</td>
                             {tab === 'sources' ? <td className="num">{formatMoney(row.vested)}</td> : null}
                           </tr>
-                          {isOpen ? (
+                          {isOpen && isInvestment ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
                               <td colSpan={4}>
                                 <div className="as-detail-grid">
@@ -325,6 +331,24 @@ export default function AccountSummary() {
                                     <b>{row.units != null ? formatUnits(row.units) : '—'}</b>
                                   </div>
                                 </div>
+                              </td>
+                            </tr>
+                          ) : null}
+                          {isOpen && isAssetClass ? (
+                            <tr className="as-row-detail" id={`${row.id}-detail`}>
+                              <td colSpan={3}>
+                                <ul className="as-class-members">
+                                  {row.members.map((m) => (
+                                    <li key={m.id}>
+                                      <span className="as-swatch" style={{ background: m.color }} aria-hidden="true" />
+                                      <span className="as-class-member-name">{m.name}</span>
+                                      <span className="as-class-member-units">
+                                        {m.units != null ? `${formatUnits(m.units)} units` : ''}
+                                      </span>
+                                      <b>{formatMoney(m.amount)}</b>
+                                    </li>
+                                  ))}
+                                </ul>
                               </td>
                             </tr>
                           ) : null}

@@ -70,6 +70,33 @@ function toRows(items, total) {
     }))
 }
 
+// Groups investment rows by their asset class (e.g. "U.S. Equity") into one
+// row per class, each carrying its member investments so the summary table
+// can expand a class row to show the underlying holdings — same accordion
+// pattern as the Investments tab, just grouped a level up.
+function toAssetClassRows(investments, total) {
+  const rows = toRows(investments, total)
+  if (!rows.length) return []
+  const byClass = new Map()
+  rows.forEach((row) => {
+    const key = row.asset || 'Other'
+    if (!byClass.has(key)) byClass.set(key, [])
+    byClass.get(key).push(row)
+  })
+  return Array.from(byClass.entries()).map(([asset, members], i) => {
+    const amount = members.reduce((sum, m) => sum + m.amount, 0)
+    return {
+      id: `class-${asset}-${i}`,
+      name: asset,
+      asset,
+      amount,
+      color: COLORS[i % COLORS.length],
+      pct: total ? (amount / total) * 100 : 0,
+      members
+    }
+  })
+}
+
 export function summaryForPlan(plan) {
   const balance = planBalance(plan)
   const vested = planVested(plan)
@@ -77,6 +104,7 @@ export function summaryForPlan(plan) {
     balance,
     vested,
     sources: toRows(plan.sources, balance),
-    investments: toRows(plan.investments, balance)
+    investments: toRows(plan.investments, balance),
+    assetClasses: toAssetClassRows(plan.investments, balance)
   }
 }

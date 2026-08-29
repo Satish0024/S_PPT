@@ -12,9 +12,11 @@ export default function Transactions({ rows }) {
     <section className="section-card tx-compact">
       <div className="section-head">
         <h3>Recent transactions</h3>
-        <button type="button" className="text-link" onClick={() => setStatementOpen(true)}>
-          Generate statement
-        </button>
+        {!!rows?.length && (
+          <button type="button" className="text-link" onClick={() => setStatementOpen(true)}>
+            Generate statement
+          </button>
+        )}
       </div>
       <div className="tx-list">
         {!rows?.length ? (
