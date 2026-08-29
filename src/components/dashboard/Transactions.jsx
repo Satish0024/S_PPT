@@ -5,9 +5,11 @@ export default function Transactions({ rows }) {
     <section className="section-card tx-compact">
       <div className="section-head">
         <h3>Recent transactions</h3>
-        <Link to="/reports" className="text-link">
-          Generate statement
-        </Link>
+        {!!rows?.length && (
+          <Link to="/reports" className="text-link">
+            Generate statement
+          </Link>
+        )}
       </div>
       <div className="tx-list">
         {!rows?.length ? (

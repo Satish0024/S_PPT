@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom'
+import { useParticipant } from '../../context/ParticipantContext.jsx'
+import { hasAdvanceElections } from '../../data/participants'
 import PlanReturn from './PlanReturn.jsx'
 
 export function PlanStats({ stats }) {
@@ -22,7 +24,12 @@ export function PlanStats({ stats }) {
 }
 
 export default function PlanCard({ plan }) {
-  const link = plan.noticeLink
+  const { participant } = useParticipant()
+  // Once a not-yet-eligible participant has provided elections in advance
+  // for this plan, offer to view what was saved instead of prompting them
+  // through the same "provide elections" link again.
+  const advanceSaved = plan.noticeLink?.label === 'Provide elections in advance' && hasAdvanceElections(participant.id)
+  const link = advanceSaved ? { label: 'View saved details', details: true } : plan.noticeLink
   const to = link?.details ? `/plans/${plan.id}` : link?.to
   const isCashBalance = plan.type === 'Cash Balance'
 

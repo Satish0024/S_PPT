@@ -17,7 +17,7 @@ const ITEMS = [
   { to: '/portfolio', label: 'Investment portfolio', icon: Wallet },
   { to: '/transactions', label: 'Transactions', icon: ArrowLeftRight },
   { to: '/profile', label: 'My profile', icon: UserRound },
-  { to: '/reports', label: 'Reports & documents', icon: FileText }
+  { to: '/reports', label: 'Document Center', icon: FileText }
 ]
 
 export default function Sidebar() {
