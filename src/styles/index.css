@@ -2231,20 +2231,22 @@ summary:focus-visible {
 }
 .risk3-field {
   position: absolute;
-  top: 50%;
   right: -4%;
+  bottom: -2%;
   width: 54%;
   min-width: 160px;
   max-width: 220px;
   height: auto;
   object-fit: contain;
   pointer-events: none;
-  transform: translateY(-50%);
   animation: risk3-float 6s ease-in-out infinite;
 }
+/* The line-art illustration's strokes are a fairly dim blue, so on the
+   dark card surface they read as almost invisible unless boosted. */
+:root[data-theme="dark"] .risk3-field { filter: brightness(1.75) saturate(1.2); }
 @keyframes risk3-float {
-  0%, 100% { transform: translateY(-50%); }
-  50% { transform: translateY(calc(-50% - 4px)); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 .risk3-body { position: relative; z-index: 1; max-width: 60%; min-width: 0; }
 .risk3-head {
