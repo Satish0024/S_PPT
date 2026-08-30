@@ -105,8 +105,8 @@ export default function ReadinessScoreCard() {
       <div className="rgs-body">
         <header className="rgs-head">
           <div className="rgs-head-copy">
-            <span className="rgs-eyebrow">Retirement Goal Simulator</span>
-            <h3>See how your inputs affect your savings, income, risk.</h3>
+            <h3 className="rgs-eyebrow">Retirement Goal Simulator</h3>
+            <p className="rgs-headline">See how your inputs affect your savings, income, risk.</p>
           </div>
           <Link className="rgs-head-act" to="/retirement-goal" aria-label="Adjust your retirement goal">
             <MoreHorizontal size={16} strokeWidth={2.4} aria-hidden="true" />

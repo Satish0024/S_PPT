@@ -124,7 +124,7 @@
     /* Investment Style — light: pale mint → blue-grey. */
     --inv-surface-1:#f6fbf9; --inv-surface-2:#eef5f8;
     --inv-ink:#17332e; --inv-desc:#3f5854;
-    --inv-accent:#0f7f6c; --inv-accent-bg:rgba(15,127,108,.12);
+    --inv-accent:#0a6656; --inv-accent-bg:rgba(15,127,108,.12);
     --inv-pattern:rgba(15,127,108,.4); --inv-node:#1c9c85;
     --inv-border:rgba(30,140,130,.16);
   }
@@ -1879,20 +1879,13 @@ summary:focus-visible {
   color: var(--rgs-muted);
   margin-bottom: 6px;
 }
-.rgs-head-copy h3 {
+.rgs-headline {
   margin: 0;
   font-size: 17px;
   font-weight: 700;
   letter-spacing: -.3px;
   color: var(--rgs-ink);
   line-height: 1.25;
-}
-.rgs-head-copy p {
-  margin: 5px 0 0;
-  font-size: 12.5px;
-  line-height: 1.45;
-  color: var(--rgs-ink-soft);
-  max-width: 34ch;
 }
 .rgs-head-act {
   width: 36px;
@@ -2047,6 +2040,7 @@ summary:focus-visible {
   text-decoration: none; cursor: pointer;
 }
 .rgs-cta:hover { filter: brightness(1.1); }
+.rgs-cta:focus-visible { outline: 2px solid #8fa0ff; outline-offset: 2px; }
 
 .rgs-foot {
   display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
@@ -2055,8 +2049,11 @@ summary:focus-visible {
 .rgs-foot-note { display: flex; align-items: center; gap: 6px; min-width: 0; color: var(--rgs-muted); line-height: 1.4; }
 .rgs-foot-note svg { flex: 0 0 auto; }
 .rgs-foot-link {
+  /* Padding + a matching negative margin bring the click target to the
+     WCAG 2.5.8 24px minimum without shifting the visible text. */
   display: inline-flex; align-items: center; gap: 4px; font: inherit; font-size: 11px; font-weight: 700;
-  color: var(--rgs-ink); background: none; border: none; padding: 0; cursor: pointer; flex: 0 0 auto; white-space: nowrap;
+  color: var(--rgs-ink); background: none; border: none; cursor: pointer; flex: 0 0 auto; white-space: nowrap;
+  padding: 6px 4px; margin: -6px -4px; border-radius: 6px;
 }
 .rgs-foot-link:hover { text-decoration: underline; }
 .rgs-foot-link:focus-visible { outline: 2px solid #8fa0ff; outline-offset: 2px; border-radius: 3px; }
@@ -2132,6 +2129,9 @@ summary:focus-visible {
   color: var(--learn-desc);
 }
 .learn2-cta {
+  /* Padding + a matching negative margin bring the click target to the
+     WCAG 2.5.8 24px minimum without shifting the visible text or the
+     card's layout. */
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -2142,7 +2142,9 @@ summary:focus-visible {
   color: var(--learn-accent);
   background: none;
   border: none;
-  padding: 0;
+  padding: 6px 4px;
+  margin: -6px -4px;
+  border-radius: 6px;
   cursor: pointer;
   text-decoration: none;
 }
