@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ArrowRight, CircleAlert, CircleCheck, Info, MoreHorizontal } from 'lucide-react'
+import { ArrowRight, CircleAlert, CircleCheck, Info, SlidersHorizontal } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import {
@@ -116,18 +116,16 @@ export default function ReadinessScoreCard() {
 
   return (
     <section className="rgs" aria-label="Retirement Readiness">
+      <header className="rgs-banner">
+        <div className="rgs-banner-copy">
+          <h3 className="rgs-eyebrow">Retirement Readiness</h3>
+          <p className="rgs-headline">See how your inputs affect your savings, income, risk.</p>
+        </div>
+        <img className="rgs-banner-art" src="/readiness-banner.png" alt="" aria-hidden="true" />
+      </header>
+
       <DecorLayers />
       <div className="rgs-body">
-        <header className="rgs-head">
-          <div className="rgs-head-copy">
-            <h3 className="rgs-eyebrow">Retirement Readiness</h3>
-            <p className="rgs-headline">See how your inputs affect your savings, income, risk.</p>
-          </div>
-          <Link className="rgs-head-act" to="/retirement-goal" aria-label="Adjust your retirement goal">
-            <MoreHorizontal size={16} strokeWidth={2.4} aria-hidden="true" />
-          </Link>
-        </header>
-
         {started ? (
           <>
             <div className="rgs-main">
@@ -191,16 +189,22 @@ export default function ReadinessScoreCard() {
           </div>
         )}
 
-        <p className="rgs-foot">
+        <div className="rgs-foot">
           <span className="rgs-foot-note">
             <Info size={13} strokeWidth={2.2} aria-hidden="true" />
             Not guaranteed results. It&apos;s a simulation.
           </span>
-          <button type="button" className="rgs-foot-link" onClick={() => setOpen(true)}>
-            Disclaimer
-            <ArrowRight size={12} strokeWidth={2.4} aria-hidden="true" />
-          </button>
-        </p>
+          <span className="rgs-foot-actions">
+            <Link className="rgs-foot-link" to="/retirement-goal">
+              <SlidersHorizontal size={12} strokeWidth={2.4} aria-hidden="true" />
+              Adjust goal
+            </Link>
+            <button type="button" className="rgs-foot-link" onClick={() => setOpen(true)}>
+              Disclaimer
+              <ArrowRight size={12} strokeWidth={2.4} aria-hidden="true" />
+            </button>
+          </span>
+        </div>
       </div>
 
       {open && <DisclaimerModal onClose={() => setOpen(false)} />}
