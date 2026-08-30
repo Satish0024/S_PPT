@@ -78,6 +78,70 @@
     --scene-ground:#1e2338;
     color-scheme:dark;
   }
+
+  /* Semantic tokens for the three widget-system cards below (.rgs / .learn2
+     / .risk3). White-label: nothing here assumes the brand color is blue —
+     each widget reads its surfaces/patterns through these, and gets a
+     distinct dark-mode identity rather than a plain inversion. */
+  :root{
+    --surface-page: var(--bg);
+    --surface-card: var(--panel);
+    --surface-glass: rgba(255,255,255,.55);
+    --text-primary: var(--ink);
+    --text-secondary: var(--ink-soft);
+    --text-muted: var(--muted);
+    --text-inverse: #ffffff;
+    --border-subtle: var(--line);
+    --border-glass: rgba(255,255,255,.16);
+    --accent-primary: var(--brand);
+    --accent-secondary: var(--accent);
+    --success: var(--green);
+    --warning: var(--amber);
+    --danger: var(--red);
+    --shadow-card: var(--shadow-lg);
+
+    /* Retirement — a fixed dark identity in both themes, so it always reads
+       as the most confident/precise surface on the page. */
+    --rgs-base-1:#161a34; --rgs-base-2:#10122a; --rgs-base-3:#0a0c1e;
+    --rgs-glow-primary: 99,124,255; --rgs-glow-secondary: 64,214,196;
+    --rgs-border: rgba(255,255,255,.1); --rgs-glass: rgba(255,255,255,.06);
+    --rgs-glass-border: rgba(255,255,255,.12);
+    --rgs-ink:#f3f4fc; --rgs-ink-soft:rgba(214,217,242,.78); --rgs-muted:rgba(197,205,255,.68);
+    --rgs-success:#7be6c8; --rgs-danger:#ff9d90; --rgs-success-bg:rgba(123,230,200,.16); --rgs-warn-bg:rgba(232,197,122,.16); --rgs-danger-bg:rgba(255,157,144,.16);
+
+    /* Financial Wellness — light: warm-white → pale lavender wash. */
+    --learn-surface-1:#fdfcff; --learn-surface-2:#f2effc;
+    --learn-ink:#201c3d; --learn-desc:#645f86;
+    --learn-accent:#6e56d6; --learn-accent-bg:rgba(110,86,214,.1);
+    --learn-pattern:rgba(110,86,214,.5); --learn-pattern-soft:rgba(110,86,214,.22);
+    --learn-border:rgba(120,100,210,.14);
+
+    /* Investment Style — light: pale mint → blue-grey. */
+    --inv-surface-1:#f6fbf9; --inv-surface-2:#eef5f8;
+    --inv-ink:#17332e; --inv-desc:#3f5854;
+    --inv-accent:#0f7f6c; --inv-accent-bg:rgba(15,127,108,.12);
+    --inv-pattern:rgba(15,127,108,.4); --inv-node:#1c9c85;
+    --inv-border:rgba(30,140,130,.16);
+  }
+
+  :root[data-theme="dark"]{
+    --surface-glass: rgba(24,27,43,.55);
+    --border-glass: rgba(255,255,255,.1);
+
+    /* Financial Wellness — dark: charcoal with a faint lavender cast. */
+    --learn-surface-1:#1c1e30; --learn-surface-2:#211f38;
+    --learn-ink:#eeeaff; --learn-desc:#b7b2d8;
+    --learn-accent:#b0a0ff; --learn-accent-bg:rgba(176,160,255,.14);
+    --learn-pattern:rgba(176,160,255,.45); --learn-pattern-soft:rgba(176,160,255,.16);
+    --learn-border:rgba(176,160,255,.16);
+
+    /* Investment Style — dark: graphite with mint/teal contour lines. */
+    --inv-surface-1:#161c1e; --inv-surface-2:#131a1c;
+    --inv-ink:#e7f5f1; --inv-desc:#9fb8b2;
+    --inv-accent:#5fe3c4; --inv-accent-bg:rgba(95,227,196,.14);
+    --inv-pattern:rgba(95,227,196,.32); --inv-node:#5fe3c4;
+    --inv-border:rgba(95,227,196,.16);
+  }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body,#root{min-height:100vh}
   body{
@@ -1755,23 +1819,26 @@ summary:focus-visible {
 }
 
 /* ---------- Retirement Goal Simulator ----------
-   Premium dark glass panel. The 80% figure is set in real text at 56px, not
-   drawn by a chart, so it stays legible with every decorative layer removed
-   (prefers-reduced-motion, or just a broken gradient). Layers behind it are
-   purely atmospheric: a navy base, two soft radial glows, a dotted field,
-   and a thin flowing line — all pointer-events:none and clipped by
-   overflow:hidden so nothing escapes the card. */
+   A fixed dark-glass identity in both themes — orbital/signal/precision
+   language: real text for 80%, decorated only by faint dotted rings, thin
+   orbital arcs and particles (none of it is a progress indicator — every
+   ring is the same static decoration regardless of the score). Layered
+   atmosphere behind it (radial glows, a dotted field, flowing lines) is
+   pointer-events:none and clipped by overflow:hidden. */
 .rgs {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   border-radius: var(--widget-radius);
   padding: 22px 22px 20px;
-  color: #eef0fb;
+  color: var(--rgs-ink);
   background:
-    radial-gradient(120% 90% at 88% -10%, rgba(93, 120, 255, .35), transparent 60%),
-    radial-gradient(70% 60% at 8% 105%, rgba(56, 214, 200, .16), transparent 65%),
-    linear-gradient(165deg, #171b3d 0%, #11142e 55%, #0b0d22 100%);
-  border: 1px solid rgba(255, 255, 255, .09);
+    radial-gradient(120% 90% at 88% -10%, rgba(var(--rgs-glow-primary), .32), transparent 60%),
+    radial-gradient(70% 60% at 6% 100%, rgba(var(--rgs-glow-secondary), .15), transparent 65%),
+    linear-gradient(165deg, var(--rgs-base-1) 0%, var(--rgs-base-2) 55%, var(--rgs-base-3) 100%);
+  border: 1px solid var(--rgs-border);
   box-shadow: var(--widget-shadow);
 }
 .rgs-noise {
@@ -1791,7 +1858,7 @@ summary:focus-visible {
   pointer-events: none;
   opacity: .5;
 }
-.rgs-body { position: relative; z-index: 1; }
+.rgs-body { position: relative; z-index: 1; min-width: 0; }
 
 .rgs-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
 .rgs-head-copy { min-width: 0; flex: 1; }
@@ -1801,7 +1868,7 @@ summary:focus-visible {
   font-weight: 700;
   letter-spacing: .6px;
   text-transform: uppercase;
-  color: rgba(197, 205, 255, .75);
+  color: var(--rgs-muted);
   margin-bottom: 6px;
 }
 .rgs-head-copy h3 {
@@ -1809,26 +1876,26 @@ summary:focus-visible {
   font-size: 17px;
   font-weight: 700;
   letter-spacing: -.3px;
-  color: #fff;
+  color: var(--text-inverse);
   line-height: 1.25;
 }
 .rgs-head-copy p {
   margin: 5px 0 0;
   font-size: 12.5px;
   line-height: 1.45;
-  color: rgba(210, 214, 240, .78);
-  max-width: 30ch;
+  color: var(--rgs-ink-soft);
+  max-width: 34ch;
 }
 .rgs-head-act {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   flex: 0 0 auto;
   border-radius: 10px;
   display: grid;
   place-items: center;
-  background: rgba(255, 255, 255, .08);
-  border: 1px solid rgba(255, 255, 255, .12);
-  color: #fff;
+  background: var(--rgs-glass);
+  border: 1px solid var(--rgs-glass-border);
+  color: var(--text-inverse);
   transition: background .15s;
 }
 .rgs-head-act:hover { background: rgba(255, 255, 255, .16); }
@@ -1836,14 +1903,16 @@ summary:focus-visible {
 
 .rgs-main {
   display: flex;
+  flex-wrap: wrap;
   align-items: stretch;
   gap: 16px;
   margin-bottom: 16px;
 }
 
-/* Orbital progress: no chart/arc drives the number — it's plain text,
-   decorated by a couple of very faint concentric rings and floating dots
-   behind it, all aria-hidden. */
+/* Orbital signal: no chart/arc drives the number — it's plain text,
+   decorated by faint concentric dotted rings, two short static arc
+   fragments and a few particles behind it, all aria-hidden. Nothing here
+   encodes the 80% value; the rings are identical at any score. */
 .rgs-orbit {
   position: relative;
   flex: 0 0 auto;
@@ -1854,6 +1923,8 @@ summary:focus-visible {
   justify-content: center;
 }
 .rgs-orbit-rings { position: absolute; inset: 0; }
+.rgs-orbit-rings .rgs-spin { transform-origin: 50% 50%; animation: rgs-orbit-spin 40s linear infinite; }
+@keyframes rgs-orbit-spin { to { transform: rotate(360deg); } }
 .rgs-orbit-value {
   position: relative;
   z-index: 1;
@@ -1862,11 +1933,11 @@ summary:focus-visible {
   align-items: center;
 }
 .rgs-orbit-value b {
-  font-size: 52px;
+  font-size: clamp(38px, 6vw, 52px);
   font-weight: 700;
   letter-spacing: -2.5px;
   line-height: 1;
-  color: #fff;
+  color: var(--text-inverse);
   font-variant-numeric: tabular-nums;
 }
 .rgs-orbit-value span {
@@ -1874,12 +1945,12 @@ summary:focus-visible {
   font-size: 10.5px;
   font-weight: 600;
   letter-spacing: .3px;
-  color: rgba(197, 205, 255, .7);
+  color: var(--rgs-muted);
   white-space: nowrap;
 }
 
 .rgs-snap {
-  flex: 1;
+  flex: 1 1 200px;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -1887,9 +1958,10 @@ summary:focus-visible {
   gap: 10px;
   padding: 14px 16px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, .055);
-  border: 1px solid rgba(255, 255, 255, .1);
+  background: var(--rgs-glass);
+  border: 1px solid var(--rgs-glass-border);
   backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
 }
 .rgs-snap-row {
   display: flex;
@@ -1905,10 +1977,10 @@ summary:focus-visible {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: .2px;
-  color: rgba(219, 222, 245, .82);
+  color: var(--rgs-ink-soft);
   white-space: nowrap;
 }
-.rgs-snap-row.expense .rgs-snap-label { text-transform: uppercase; letter-spacing: .5px; font-size: 10px; color: rgba(197, 205, 255, .68); }
+.rgs-snap-row.expense .rgs-snap-label { text-transform: uppercase; letter-spacing: .5px; font-size: 10px; color: var(--rgs-muted); }
 .rgs-dot {
   width: 7px;
   height: 7px;
@@ -1916,19 +1988,19 @@ summary:focus-visible {
   flex: 0 0 auto;
   background: currentColor;
 }
-.rgs-snap-row.income .rgs-snap-label { color: #7be6c8; }
-.rgs-snap-row.shortfall .rgs-snap-label { color: #ff9d90; }
+.rgs-snap-row.income .rgs-snap-label { color: var(--rgs-success); }
+.rgs-snap-row.shortfall .rgs-snap-label { color: var(--rgs-danger); }
 .rgs-snap-row b {
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -.3px;
-  color: #fff;
+  color: var(--text-inverse);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.rgs-snap-row.income b { color: #7be6c8; }
-.rgs-snap-row.shortfall b { color: #ff9d90; }
-.rgs-snap-div { height: 1px; background: rgba(255, 255, 255, .1); }
+.rgs-snap-row.income b { color: var(--rgs-success); }
+.rgs-snap-row.shortfall b { color: var(--rgs-danger); }
+.rgs-snap-div { height: 1px; background: var(--rgs-glass-border); }
 
 .rgs-status {
   display: flex;
@@ -1936,8 +2008,8 @@ summary:focus-visible {
   gap: 12px;
   padding: 14px 16px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, .06);
-  border: 1px solid rgba(255, 255, 255, .1);
+  background: var(--rgs-success-bg);
+  border: 1px solid var(--rgs-glass-border);
 }
 .rgs-status-ico {
   width: 34px;
@@ -1947,53 +2019,59 @@ summary:focus-visible {
   display: grid;
   place-items: center;
   background: rgba(123, 230, 200, .18);
-  color: #7be6c8;
+  color: var(--rgs-success);
 }
+.rgs-status.ok { background: var(--rgs-warn-bg); }
+.rgs-status.warn { background: var(--rgs-danger-bg); }
 .rgs-status.ok .rgs-status-ico { background: rgba(232, 197, 122, .18); color: #f0c876; }
-.rgs-status.warn .rgs-status-ico { background: rgba(255, 157, 144, .18); color: #ff9d90; }
-.rgs-status-copy b { display: block; font-size: 13.5px; font-weight: 700; color: #fff; }
+.rgs-status.warn .rgs-status-ico { background: rgba(255, 157, 144, .18); color: var(--rgs-danger); }
+.rgs-status-copy b { display: block; font-size: 13.5px; font-weight: 700; color: var(--rgs-success); }
 .rgs-status.ok .rgs-status-copy b { color: #f0c876; }
-.rgs-status.warn .rgs-status-copy b { color: #ff9d90; }
-.rgs-status-copy span { display: block; margin-top: 2px; font-size: 11.5px; line-height: 1.4; color: rgba(210, 214, 240, .78); }
+.rgs-status.warn .rgs-status-copy b { color: var(--rgs-danger); }
+.rgs-status-copy span { display: block; margin-top: 2px; font-size: 11.5px; line-height: 1.4; color: var(--rgs-ink-soft); }
 
 .rgs-intro { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
-.rgs-intro p { margin: 0; font-size: 12.5px; line-height: 1.55; color: rgba(214, 218, 245, .82); }
+.rgs-intro p { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--rgs-ink-soft); }
 .rgs-cta {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 10px 16px; border-radius: 11px; border: none;
-  background: #fff; color: #171b3d; font: inherit; font-size: 13px; font-weight: 700;
+  background: #fff; color: var(--rgs-base-2); font: inherit; font-size: 13px; font-weight: 700;
   text-decoration: none; cursor: pointer;
 }
 .rgs-cta:hover { background: #e3e6ff; }
 
 .rgs-foot {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  margin: 0; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .1); font-size: 11px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  margin: 0; padding-top: 14px; border-top: 1px solid var(--rgs-glass-border); font-size: 11px;
 }
-.rgs-foot-note { display: flex; align-items: center; gap: 6px; min-width: 0; color: rgba(197, 205, 255, .68); line-height: 1.4; }
+.rgs-foot-note { display: flex; align-items: center; gap: 6px; min-width: 0; color: var(--rgs-muted); line-height: 1.4; }
 .rgs-foot-note svg { flex: 0 0 auto; }
 .rgs-foot-link {
   display: inline-flex; align-items: center; gap: 4px; font: inherit; font-size: 11px; font-weight: 700;
-  color: #fff; background: none; border: none; padding: 0; cursor: pointer; flex: 0 0 auto; white-space: nowrap;
+  color: var(--text-inverse); background: none; border: none; padding: 0; cursor: pointer; flex: 0 0 auto; white-space: nowrap;
 }
 .rgs-foot-link:hover { text-decoration: underline; }
 .rgs-foot-link:focus-visible { outline: 2px solid #8fa0ff; outline-offset: 2px; border-radius: 3px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .rgs-orbit-rings circle, .rgs-orbit-rings .rgs-arc { animation: none !important; }
+  .rgs-orbit-rings .rgs-spin { animation: none; }
 }
 
-/* ---------- Financial Wellness (learning) ----------
-   Light, airy "knowledge field" card: pale lavender wash with a faint
-   contour/dot pattern kept to the right, typography carrying the
-   hierarchy, and a compact secondary CTA rather than a button. */
+/* ---------- Financial Wellness ----------
+   Organic / botanical / editorial: a light warm-white → pale-tint wash with
+   thin-outline abstract leaf shapes kept to the right, faded into the
+   background, typography carrying the hierarchy, and a small text-link CTA
+   rather than a button. */
 .learn2 {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   border-radius: var(--widget-radius);
   padding: 22px;
-  background: linear-gradient(120deg, #fdfcff 0%, #f3f1ff 60%, #ece8fd 100%);
-  border: 1px solid rgba(120, 100, 210, .14);
+  background: linear-gradient(120deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 45%, var(--learn-surface-2) 100%);
+  border: 1px solid var(--learn-border);
   box-shadow: var(--widget-shadow);
   min-height: 170px;
   display: flex;
@@ -2002,11 +2080,22 @@ summary:focus-visible {
 }
 .learn2-field {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 55%;
+  min-width: 160px;
   pointer-events: none;
-  opacity: .8;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 26%);
+  mask-image: linear-gradient(to right, transparent, #000 26%);
 }
-.learn2-body { position: relative; z-index: 1; max-width: 64%; }
+.learn2-field .learn2-leaf-drift { animation: learn2-drift 14s ease-in-out infinite; transform-origin: 50% 50%; }
+.learn2-field .learn2-leaf-drift.d2 { animation-duration: 18s; animation-delay: -4s; }
+@keyframes learn2-drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(.6deg); }
+}
+.learn2-body { position: relative; z-index: 1; max-width: 62%; min-width: 0; }
 .learn2-tag {
   display: inline-flex;
   align-items: center;
@@ -2016,8 +2105,8 @@ summary:focus-visible {
   font-weight: 700;
   letter-spacing: .5px;
   text-transform: uppercase;
-  color: #6e56d6;
-  background: rgba(110, 86, 214, .1);
+  color: var(--learn-accent);
+  background: var(--learn-accent-bg);
   margin-bottom: 12px;
 }
 .learn2-title {
@@ -2025,14 +2114,14 @@ summary:focus-visible {
   font-size: 22px;
   font-weight: 700;
   letter-spacing: -.5px;
-  color: #201c3d;
+  color: var(--learn-ink);
   line-height: 1.15;
 }
 .learn2-desc {
   margin: 0 0 16px;
   font-size: 13px;
   line-height: 1.55;
-  color: #625d84;
+  color: var(--learn-desc);
 }
 .learn2-cta {
   display: inline-flex;
@@ -2042,7 +2131,7 @@ summary:focus-visible {
   font: inherit;
   font-size: 12.5px;
   font-weight: 700;
-  color: #4e3fc4;
+  color: var(--learn-accent);
   background: none;
   border: none;
   padding: 0;
@@ -2050,19 +2139,23 @@ summary:focus-visible {
   text-decoration: none;
 }
 .learn2-cta:hover { text-decoration: underline; }
-.learn2-cta:focus-visible { outline: 2px solid #6e56d6; outline-offset: 3px; border-radius: 4px; }
+.learn2-cta:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; border-radius: 4px; }
 
 /* ---------- Investment Style ----------
-   Typography + pattern based risk-profile card — no gauge, chart, or
-   progress bar. The level name itself is the dominant visual; a field of
-   dots to the right stands in for a data visualization without being one. */
+   Topographic / generative / analytical: no gauge, chart, or progress bar.
+   A large display-type level name is the dominant visual; an abstract
+   contour field with a few generative nodes sits only in the right margin,
+   standing in for a data visualization without being one. */
 .risk3 {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   border-radius: var(--widget-radius);
   padding: 22px;
-  background: linear-gradient(150deg, #f4fbf8 0%, #eaf6f5 55%, #e6f1fb 100%);
-  border: 1px solid rgba(30, 140, 130, .14);
+  background: linear-gradient(150deg, var(--inv-surface-1) 0%, var(--inv-surface-1) 55%, var(--inv-surface-2) 100%);
+  border: 1px solid var(--inv-border);
   box-shadow: var(--widget-shadow);
 }
 .risk3-field {
@@ -2070,12 +2163,18 @@ summary:focus-visible {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 42%;
+  width: 48%;
+  min-width: 170px;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 30%);
-  mask-image: linear-gradient(to right, transparent, #000 30%);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 24%);
+  mask-image: linear-gradient(to right, transparent, #000 24%);
 }
-.risk3-body { position: relative; z-index: 1; max-width: 60%; }
+.risk3-field .risk3-node { animation: risk3-pulse 6s ease-in-out infinite; }
+@keyframes risk3-pulse {
+  0%, 100% { opacity: var(--node-op, .6); }
+  50% { opacity: calc(var(--node-op, .6) * .55); }
+}
+.risk3-body { position: relative; z-index: 1; max-width: 58%; min-width: 0; }
 .risk3-head {
   display: flex;
   align-items: center;
@@ -2088,7 +2187,7 @@ summary:focus-visible {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: -.1px;
-  color: #1c3934;
+  color: var(--inv-ink);
 }
 .risk3-badge {
   flex: 0 0 auto;
@@ -2097,23 +2196,23 @@ summary:focus-visible {
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: .2px;
-  background: rgba(19, 148, 130, .14);
-  color: #0f7f6c;
+  background: var(--inv-accent-bg);
+  color: var(--inv-accent);
   white-space: nowrap;
 }
 .risk3-title {
   margin: 0 0 4px;
-  font-size: 38px;
+  font-size: clamp(28px, 4vw, 38px);
   font-weight: 700;
   letter-spacing: -1.5px;
   line-height: 1;
-  color: #0f7f6c;
+  color: var(--inv-accent);
 }
 .risk3-desc {
   margin: 12px 0 0;
   font-size: 12px;
   line-height: 1.55;
-  color: #3f5854;
+  color: var(--inv-desc);
 }
 .risk3-desc + .risk3-desc { margin-top: 8px; }
 .risk3-btn {
@@ -2123,23 +2222,33 @@ summary:focus-visible {
   margin-top: 16px;
   padding: 9px 15px;
   border-radius: 10px;
-  border: 1px solid rgba(15, 127, 108, .3);
+  border: 1px solid var(--inv-accent);
   box-sizing: border-box;
   font: inherit;
   font-size: 12.5px;
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
-  background: rgba(255, 255, 255, .5);
-  color: #0f7f6c;
+  background: transparent;
+  color: var(--inv-accent);
   transition: background .15s;
 }
-.risk3-btn:hover { background: #fff; }
-.risk3-btn:focus-visible { outline: 2px solid #0f7f6c; outline-offset: 2px; }
+.risk3-btn:hover { background: var(--inv-accent-bg); }
+.risk3-btn:focus-visible { outline: 2px solid var(--inv-accent); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .learn2-field .learn2-leaf-drift { animation: none; }
+  .risk3-field .risk3-node { animation: none; }
+}
 
 @media (max-width: 1080px) {
   .rr3, .learn2, .risk3, .rgs { padding: 18px; }
+}
+@media (max-width: 360px) {
+  .rgs-main { flex-direction: column; align-items: center; }
+  .rgs-snap { width: 100%; }
   .learn2-body, .risk3-body { max-width: 100%; }
+  .learn2-field, .risk3-field { width: 32%; opacity: .6; }
 }
 
 /* ---------- Fund detail dialog (hyperlinked investment names) ---------- */
