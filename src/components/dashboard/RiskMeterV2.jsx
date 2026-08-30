@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Pencil } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import { RISK_PROFILE_UPDATED_EVENT, getRiskLevel, getRiskProfileId } from '../../lib/riskProfile'
@@ -74,11 +72,6 @@ export default function RiskMeterV2() {
           If you don&apos;t think this investment style accurately represents you, you can return to the
           questionnaire and update your answers.
         </p>
-
-        <Link to="/risk-check-in" className="risk3-btn">
-          <Pencil size={13} strokeWidth={2.3} aria-hidden="true" />
-          Edit Preferences
-        </Link>
       </div>
     </section>
   )
