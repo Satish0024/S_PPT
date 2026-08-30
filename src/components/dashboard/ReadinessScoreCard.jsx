@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ArrowRight, CircleAlert, CircleCheck, Info, SlidersHorizontal, TrendingUp } from 'lucide-react'
+import { ArrowRight, CircleAlert, CircleCheck, Info, MoreHorizontal } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import {
@@ -27,16 +27,16 @@ const TONE_ICON = { good: CircleCheck, ok: CircleCheck, warn: CircleAlert }
 function OrbitRings() {
   return (
     <svg className="rgs-orbit-rings" viewBox="0 0 128 128" aria-hidden="true" focusable="false">
-      <circle cx="64" cy="64" r="62" fill="none" stroke="rgba(255,255,255,.09)" strokeWidth="1" strokeDasharray="1 5" />
-      <circle cx="64" cy="64" r="50" fill="none" stroke="rgba(255,255,255,.07)" strokeWidth="1" />
-      <circle cx="64" cy="64" r="38" fill="none" stroke="rgba(255,255,255,.05)" strokeWidth="1" strokeDasharray="1 4" />
+      <circle cx="64" cy="64" r="62" fill="none" style={{ stroke: 'var(--rgs-ring-color)' }} strokeWidth="1" strokeDasharray="1 5" />
+      <circle cx="64" cy="64" r="50" fill="none" style={{ stroke: 'var(--rgs-ring-color)' }} strokeWidth="1" opacity=".8" />
+      <circle cx="64" cy="64" r="38" fill="none" style={{ stroke: 'var(--rgs-ring-color)' }} strokeWidth="1" strokeDasharray="1 4" opacity=".6" />
       <g className="rgs-spin">
         <path d="M64 2 A62 62 0 0 1 122 44" fill="none" stroke="#8fa0ff" strokeWidth="1.6" strokeLinecap="round" opacity=".5" />
         <path d="M6 84 A62 62 0 0 0 40 124" fill="none" stroke="#7be6c8" strokeWidth="1.6" strokeLinecap="round" opacity=".4" />
         <circle cx="122" cy="44" r="2.4" fill="#8fa0ff" opacity=".8" />
         <circle cx="8" cy="70" r="1.8" fill="#7be6c8" opacity=".7" />
-        <circle cx="96" cy="118" r="1.4" fill="#fff" opacity=".45" />
-        <circle cx="20" cy="20" r="1.4" fill="#fff" opacity=".35" />
+        <circle cx="96" cy="118" r="1.4" style={{ fill: 'var(--rgs-ink)' }} opacity=".45" />
+        <circle cx="20" cy="20" r="1.4" style={{ fill: 'var(--rgs-ink)' }} opacity=".35" />
       </g>
     </svg>
   )
@@ -109,7 +109,7 @@ export default function ReadinessScoreCard() {
             <h3>See how your inputs affect your savings, income, risk.</h3>
           </div>
           <Link className="rgs-head-act" to="/retirement-goal" aria-label="Adjust your retirement goal">
-            <SlidersHorizontal size={15} strokeWidth={2.2} aria-hidden="true" />
+            <MoreHorizontal size={16} strokeWidth={2.4} aria-hidden="true" />
           </Link>
         </header>
 
@@ -134,7 +134,7 @@ export default function ReadinessScoreCard() {
                 <div className="rgs-snap-div" aria-hidden="true" />
                 <div className="rgs-snap-row income">
                   <dt className="rgs-snap-label">
-                    <TrendingUp size={12} strokeWidth={2.4} aria-hidden="true" />
+                    <span className="rgs-dot" aria-hidden="true" />
                     All income
                   </dt>
                   <dd>

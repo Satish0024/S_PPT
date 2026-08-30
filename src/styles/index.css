@@ -100,14 +100,19 @@
     --danger: var(--red);
     --shadow-card: var(--shadow-lg);
 
-    /* Retirement — a fixed dark identity in both themes, so it always reads
-       as the most confident/precise surface on the page. */
-    --rgs-base-1:#161a34; --rgs-base-2:#10122a; --rgs-base-3:#0a0c1e;
-    --rgs-glow-primary: 99,124,255; --rgs-glow-secondary: 64,214,196;
-    --rgs-border: rgba(255,255,255,.1); --rgs-glass: rgba(255,255,255,.06);
-    --rgs-glass-border: rgba(255,255,255,.12);
-    --rgs-ink:#f3f4fc; --rgs-ink-soft:rgba(214,217,242,.78); --rgs-muted:rgba(197,205,255,.68);
-    --rgs-success:#7be6c8; --rgs-danger:#ff9d90; --rgs-success-bg:rgba(123,230,200,.16); --rgs-warn-bg:rgba(232,197,122,.16); --rgs-danger-bg:rgba(255,157,144,.16);
+    /* Retirement — light mode: a bright, near-white surface (status/
+       confidence still reads through strong color accents, not a dark
+       shell). Flips to a dark navy identity under [data-theme="dark"]
+       below, same as the other two widgets. */
+    --rgs-base-1:#ffffff; --rgs-base-2:#f6f7fc; --rgs-base-3:#eef0f9;
+    --rgs-glow-primary: 46,49,146; --rgs-glow-secondary: 20,122,76;
+    --rgs-border: rgba(20,30,60,.08); --rgs-glass: rgba(46,49,146,.045);
+    --rgs-glass-border: rgba(20,30,60,.09);
+    --rgs-ink: var(--ink); --rgs-ink-soft: var(--ink-soft); --rgs-muted: var(--muted);
+    --rgs-success: var(--green); --rgs-warn: var(--amber); --rgs-danger: var(--red);
+    --rgs-success-bg: var(--green-bg); --rgs-warn-bg: var(--amber-bg); --rgs-danger-bg: var(--red-bg);
+    --rgs-noise-dot: rgba(20,30,60,.08); --rgs-ring-color: rgba(20,30,60,.14);
+    --rgs-cta-bg: var(--ink); --rgs-cta-ink: #ffffff;
 
     /* Financial Wellness — light: warm-white → pale lavender wash. */
     --learn-surface-1:#fdfcff; --learn-surface-2:#f2effc;
@@ -127,6 +132,17 @@
   :root[data-theme="dark"]{
     --surface-glass: rgba(24,27,43,.55);
     --border-glass: rgba(255,255,255,.1);
+
+    /* Retirement — dark: deep navy-charcoal glass. */
+    --rgs-base-1:#161a34; --rgs-base-2:#10122a; --rgs-base-3:#0a0c1e;
+    --rgs-glow-primary: 99,124,255; --rgs-glow-secondary: 64,214,196;
+    --rgs-border: rgba(255,255,255,.1); --rgs-glass: rgba(255,255,255,.06);
+    --rgs-glass-border: rgba(255,255,255,.12);
+    --rgs-ink:#f3f4fc; --rgs-ink-soft:rgba(214,217,242,.78); --rgs-muted:rgba(197,205,255,.68);
+    --rgs-success:#7be6c8; --rgs-warn:#f0c876; --rgs-danger:#ff9d90;
+    --rgs-success-bg:rgba(123,230,200,.16); --rgs-warn-bg:rgba(232,197,122,.16); --rgs-danger-bg:rgba(255,157,144,.16);
+    --rgs-noise-dot: rgba(255,255,255,.13); --rgs-ring-color: rgba(255,255,255,.09);
+    --rgs-cta-bg: #ffffff; --rgs-cta-ink: var(--rgs-base-1);
 
     /* Financial Wellness — dark: charcoal with a faint lavender cast. */
     --learn-surface-1:#1c1e30; --learn-surface-2:#211f38;
@@ -1846,7 +1862,7 @@ summary:focus-visible {
   inset: 0;
   pointer-events: none;
   opacity: .5;
-  background-image: radial-gradient(rgba(255, 255, 255, .13) 1px, transparent 1.4px);
+  background-image: radial-gradient(var(--rgs-noise-dot) 1px, transparent 1.4px);
   background-size: 15px 15px;
   background-position: -4px -4px;
   -webkit-mask-image: radial-gradient(75% 65% at 82% 18%, #000 0%, transparent 72%);
@@ -1876,7 +1892,7 @@ summary:focus-visible {
   font-size: 17px;
   font-weight: 700;
   letter-spacing: -.3px;
-  color: var(--text-inverse);
+  color: var(--rgs-ink);
   line-height: 1.25;
 }
 .rgs-head-copy p {
@@ -1895,10 +1911,10 @@ summary:focus-visible {
   place-items: center;
   background: var(--rgs-glass);
   border: 1px solid var(--rgs-glass-border);
-  color: var(--text-inverse);
+  color: var(--rgs-ink);
   transition: background .15s;
 }
-.rgs-head-act:hover { background: rgba(255, 255, 255, .16); }
+.rgs-head-act:hover { background: var(--rgs-glass-border); }
 .rgs-head-act:focus-visible { outline: 2px solid #8fa0ff; outline-offset: 2px; }
 
 .rgs-main {
@@ -1937,7 +1953,7 @@ summary:focus-visible {
   font-weight: 700;
   letter-spacing: -2.5px;
   line-height: 1;
-  color: var(--text-inverse);
+  color: var(--rgs-ink);
   font-variant-numeric: tabular-nums;
 }
 .rgs-orbit-value span {
@@ -1961,7 +1977,7 @@ summary:focus-visible {
   background: var(--rgs-glass);
   border: 1px solid var(--rgs-glass-border);
   backdrop-filter: blur(14px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+  box-shadow: inset 0 1px 0 var(--rgs-glass-border);
 }
 .rgs-snap-row {
   display: flex;
@@ -1994,7 +2010,7 @@ summary:focus-visible {
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -.3px;
-  color: var(--text-inverse);
+  color: var(--rgs-ink);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -2018,15 +2034,15 @@ summary:focus-visible {
   border-radius: 10px;
   display: grid;
   place-items: center;
-  background: rgba(123, 230, 200, .18);
+  background: color-mix(in srgb, var(--rgs-success) 18%, transparent);
   color: var(--rgs-success);
 }
 .rgs-status.ok { background: var(--rgs-warn-bg); }
 .rgs-status.warn { background: var(--rgs-danger-bg); }
-.rgs-status.ok .rgs-status-ico { background: rgba(232, 197, 122, .18); color: #f0c876; }
-.rgs-status.warn .rgs-status-ico { background: rgba(255, 157, 144, .18); color: var(--rgs-danger); }
+.rgs-status.ok .rgs-status-ico { background: color-mix(in srgb, var(--rgs-warn) 18%, transparent); color: var(--rgs-warn); }
+.rgs-status.warn .rgs-status-ico { background: color-mix(in srgb, var(--rgs-danger) 18%, transparent); color: var(--rgs-danger); }
 .rgs-status-copy b { display: block; font-size: 13.5px; font-weight: 700; color: var(--rgs-success); }
-.rgs-status.ok .rgs-status-copy b { color: #f0c876; }
+.rgs-status.ok .rgs-status-copy b { color: var(--rgs-warn); }
 .rgs-status.warn .rgs-status-copy b { color: var(--rgs-danger); }
 .rgs-status-copy span { display: block; margin-top: 2px; font-size: 11.5px; line-height: 1.4; color: var(--rgs-ink-soft); }
 
@@ -2035,10 +2051,10 @@ summary:focus-visible {
 .rgs-cta {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 10px 16px; border-radius: 11px; border: none;
-  background: #fff; color: var(--rgs-base-2); font: inherit; font-size: 13px; font-weight: 700;
+  background: var(--rgs-cta-bg); color: var(--rgs-cta-ink); font: inherit; font-size: 13px; font-weight: 700;
   text-decoration: none; cursor: pointer;
 }
-.rgs-cta:hover { background: #e3e6ff; }
+.rgs-cta:hover { filter: brightness(1.1); }
 
 .rgs-foot {
   display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
@@ -2048,7 +2064,7 @@ summary:focus-visible {
 .rgs-foot-note svg { flex: 0 0 auto; }
 .rgs-foot-link {
   display: inline-flex; align-items: center; gap: 4px; font: inherit; font-size: 11px; font-weight: 700;
-  color: var(--text-inverse); background: none; border: none; padding: 0; cursor: pointer; flex: 0 0 auto; white-space: nowrap;
+  color: var(--rgs-ink); background: none; border: none; padding: 0; cursor: pointer; flex: 0 0 auto; white-space: nowrap;
 }
 .rgs-foot-link:hover { text-decoration: underline; }
 .rgs-foot-link:focus-visible { outline: 2px solid #8fa0ff; outline-offset: 2px; border-radius: 3px; }
