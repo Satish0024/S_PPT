@@ -47,11 +47,12 @@
        these. */
     --widget-radius: 20px;
     --widget-shadow: 0 20px 48px -20px rgba(20, 24, 50, .28);
-    --learn-surface-1:#fdfcff; --learn-surface-2:#f2effc;
-    --learn-ink:#201c3d; --learn-desc:#645f86;
-    --learn-accent:#6e56d6; --learn-accent-bg:rgba(110,86,214,.1);
-    --learn-pattern:rgba(110,86,214,.5); --learn-pattern-soft:rgba(110,86,214,.22);
-    --learn-border:rgba(120,100,210,.14);
+    --learn-surface-1:#ffffff; --learn-surface-2:#faf8ff;
+    --learn-ink:#1d1a35; --learn-desc:#5f5a80;
+    --learn-accent:#5b45c9; --learn-accent-bg:rgba(91,69,201,.09);
+    --learn-pattern:rgba(110,86,214,.34); --learn-pattern-soft:rgba(110,86,214,.07);
+    --learn-border:rgba(22,28,58,.10);
+    --learn-elevation: 0 1px 2px rgba(20,28,60,.05), 0 12px 28px -12px rgba(60,40,150,.16);
   }
 
   /* Dark theme. Only the tokens change — every rule above and below reads
@@ -94,8 +95,9 @@
     --learn-surface-1:#1c1e30; --learn-surface-2:#211f38;
     --learn-ink:#eeeaff; --learn-desc:#b7b2d8;
     --learn-accent:#b0a0ff; --learn-accent-bg:rgba(176,160,255,.14);
-    --learn-pattern:rgba(176,160,255,.45); --learn-pattern-soft:rgba(176,160,255,.16);
-    --learn-border:rgba(176,160,255,.16);
+    --learn-pattern:rgba(176,160,255,.38); --learn-pattern-soft:rgba(176,160,255,.08);
+    --learn-border:rgba(176,160,255,.15);
+    --learn-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.55);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body,#root{min-height:100vh}
@@ -1749,11 +1751,11 @@ summary:focus-visible {
 }
 
 /* ---------- Financial Wellness (learning) ----------
-   Organic / botanical / editorial: a light warm-white → pale-tint wash with
-   thin-outline abstract leaf shapes kept to the right, faded into the
-   background, typography carrying the hierarchy, and a small text-link CTA
-   rather than a button. Ported from the redesigned main/journey-retirement
-   dashboards — only this widget changed on this branch. */
+   Organic / botanical / editorial. Light mode is a clean white card with
+   a hairline border and real elevation — the previous version's gradient
+   bottomed out at #f2effc, which sat almost flat against the #f4f5f9
+   page, so the card never read as a raised surface. Colour is carried by
+   the accent and a whisper of corner tint instead of a full wash. */
 .learn2 {
   position: relative;
   overflow: hidden;
@@ -1761,11 +1763,11 @@ summary:focus-visible {
   min-width: 0;
   box-sizing: border-box;
   border-radius: var(--widget-radius);
-  padding: 22px;
-  background: linear-gradient(120deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 45%, var(--learn-surface-2) 100%);
+  padding: 20px;
+  background: linear-gradient(135deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 52%, var(--learn-surface-2) 100%);
   border: 1px solid var(--learn-border);
-  box-shadow: var(--widget-shadow);
-  min-height: 170px;
+  box-shadow: var(--learn-elevation);
+  min-height: 164px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1775,50 +1777,52 @@ summary:focus-visible {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 55%;
-  min-width: 160px;
+  width: 46%;
+  min-width: 132px;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 26%);
-  mask-image: linear-gradient(to right, transparent, #000 26%);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 34%);
+  mask-image: linear-gradient(to right, transparent, #000 34%);
 }
-.learn2-field .learn2-leaf-drift { animation: learn2-drift 14s ease-in-out infinite; transform-origin: 50% 50%; }
-.learn2-field .learn2-leaf-drift.d2 { animation-duration: 18s; animation-delay: -4s; }
+.learn2-field .learn2-leaf-drift {
+  animation: learn2-drift 16s ease-in-out infinite;
+  transform-origin: 70% 60%;
+}
+.learn2-field .learn2-leaf-drift.d2 { animation-duration: 21s; animation-delay: -6s; }
 @keyframes learn2-drift {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-3px) rotate(.6deg); }
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.1deg); }
 }
-.learn2-body { position: relative; z-index: 1; max-width: 62%; min-width: 0; }
+.learn2-body { position: relative; z-index: 1; max-width: 63%; min-width: 0; }
 .learn2-tag {
   display: inline-flex;
   align-items: center;
-  padding: 3px 10px;
+  padding: 4px 10px;
   border-radius: 999px;
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: .5px;
+  letter-spacing: .7px;
   text-transform: uppercase;
   color: var(--learn-accent);
   background: var(--learn-accent-bg);
   margin-bottom: 12px;
 }
 .learn2-title {
-  margin: 0 0 8px;
-  font-size: 22px;
+  margin: 0 0 7px;
+  font-size: 21px;
   font-weight: 700;
-  letter-spacing: -.5px;
+  letter-spacing: -.6px;
   color: var(--learn-ink);
   line-height: 1.15;
 }
 .learn2-desc {
-  margin: 0 0 16px;
-  font-size: 13px;
+  margin: 0 0 15px;
+  font-size: 12.5px;
   line-height: 1.55;
   color: var(--learn-desc);
 }
 .learn2-cta {
   /* Padding + a matching negative margin bring the click target to the
-     WCAG 2.5.8 24px minimum without shifting the visible text or the
-     card's layout. */
+     WCAG 2.5.8 24px minimum without shifting the visible text. */
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -1835,18 +1839,21 @@ summary:focus-visible {
   cursor: pointer;
   text-decoration: none;
 }
+.learn2-cta svg { transition: transform .18s ease; }
+.learn2-cta:hover svg { transform: translateX(3px); }
 .learn2-cta:hover { text-decoration: underline; }
-.learn2-cta:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; border-radius: 4px; }
+.learn2-cta:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; }
 
 @media (prefers-reduced-motion: reduce) {
   .learn2-field .learn2-leaf-drift { animation: none; }
+  .learn2-cta svg { transition: none; }
 }
 @media (max-width: 1080px) {
   .learn2 { padding: 18px; }
 }
-@media (max-width: 360px) {
+@media (max-width: 340px) {
   .learn2-body { max-width: 100%; }
-  .learn2-field { width: 32%; opacity: .6; }
+  .learn2-field { width: 34%; min-width: 0; opacity: .5; }
 }
 
 /* ---------- Risk meter ---------- */
