@@ -2195,9 +2195,10 @@ summary:focus-visible {
 .learn2-cta:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; }
 
 /* ---------- Investment Style ----------
-   Typography-led identity card: the level name is the visual. The field to
-   its right is now a true nested contour set (concentric, organically
-   offset) rather than the scattered unrelated ovals it replaces. */
+   Typography-led identity card: the level name is the visual. The
+   supplied illustration (a shield with a checkmark plus gold coins) sits
+   on the right at full colour, matching Financial Wellness's treatment
+   of its own reference image. */
 .risk3 {
   position: relative;
   overflow: hidden;
@@ -2212,19 +2213,20 @@ summary:focus-visible {
 }
 .risk3-field {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 50%;
-  min-width: 150px;
+  top: 50%;
+  right: -4%;
+  width: 54%;
+  min-width: 160px;
+  max-width: 220px;
+  height: auto;
+  object-fit: contain;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 30%);
-  mask-image: linear-gradient(to right, transparent, #000 30%);
+  transform: translateY(-50%);
+  animation: risk3-float 6s ease-in-out infinite;
 }
-.risk3-field .risk3-node { animation: risk3-pulse 7s ease-in-out infinite; }
-@keyframes risk3-pulse {
-  0%, 100% { opacity: var(--node-op, .6); }
-  50% { opacity: calc(var(--node-op, .6) * .5); }
+@keyframes risk3-float {
+  0%, 100% { transform: translateY(-50%); }
+  50% { transform: translateY(calc(-50% - 4px)); }
 }
 .risk3-body { position: relative; z-index: 1; max-width: 60%; min-width: 0; }
 .risk3-head {
@@ -2272,7 +2274,7 @@ summary:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .learn2-field { animation: none; }
-  .risk3-field .risk3-node { animation: none; }
+  .risk3-field { animation: none; }
   .learn2-cta svg { transition: none; }
 }
 
