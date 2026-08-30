@@ -2115,9 +2115,10 @@ summary:focus-visible {
 .rgs-foot-link:focus-visible { outline: 2px solid var(--rgs-arc-1); outline-offset: 2px; }
 
 /* ---------- Financial Wellness ----------
-   Light, editorial content card. Typography leads; a single fine-line
-   botanical sprig sits in the right margin as a quiet accent — replacing
-   three oversized flat-fill leaf blobs that read as clip-art. */
+   Light, editorial content card. Typography leads on the left; the
+   supplied illustration (a laptop with an uptrending chart, gold coins,
+   a heart badge) sits on the right at full colour — not tinted or
+   masked, since the gold/green/red of the source image is the point. */
 .learn2 {
   position: relative;
   overflow: hidden;
@@ -2129,30 +2130,27 @@ summary:focus-visible {
   background: linear-gradient(135deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 52%, var(--learn-surface-2) 100%);
   border: 1px solid var(--learn-border);
   box-shadow: var(--learn-elevation);
-  min-height: 164px;
+  min-height: 176px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .learn2-field {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 46%;
-  min-width: 132px;
+  top: 50%;
+  right: -4%;
+  width: 56%;
+  min-width: 160px;
+  max-width: 230px;
+  height: auto;
+  object-fit: contain;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 34%);
-  mask-image: linear-gradient(to right, transparent, #000 34%);
+  transform: translateY(-50%);
+  animation: learn2-float 6s ease-in-out infinite;
 }
-.learn2-field .learn2-leaf-drift {
-  animation: learn2-drift 16s ease-in-out infinite;
-  transform-origin: 70% 60%;
-}
-.learn2-field .learn2-leaf-drift.d2 { animation-duration: 21s; animation-delay: -6s; }
-@keyframes learn2-drift {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(1.1deg); }
+@keyframes learn2-float {
+  0%, 100% { transform: translateY(-50%); }
+  50% { transform: translateY(calc(-50% - 4px)); }
 }
 .learn2-body { position: relative; z-index: 1; max-width: 63%; min-width: 0; }
 .learn2-tag {
@@ -2281,7 +2279,7 @@ summary:focus-visible {
 .risk3-desc + .risk3-desc { margin-top: 9px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .learn2-field .learn2-leaf-drift { animation: none; }
+  .learn2-field { animation: none; }
   .risk3-field .risk3-node { animation: none; }
   .learn2-cta svg { transition: none; }
 }
