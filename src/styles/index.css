@@ -41,6 +41,17 @@
     --red-line:#f5c6c0;
     --scene-sky:#dbe6ff;
     --scene-ground:#eef1ff;
+
+    /* Financial Wellness widget — light: warm-white to pale lavender wash.
+       Scoped to this one widget only; nothing else on the page reads
+       these. */
+    --widget-radius: 20px;
+    --widget-shadow: 0 20px 48px -20px rgba(20, 24, 50, .28);
+    --learn-surface-1:#fdfcff; --learn-surface-2:#f2effc;
+    --learn-ink:#201c3d; --learn-desc:#645f86;
+    --learn-accent:#6e56d6; --learn-accent-bg:rgba(110,86,214,.1);
+    --learn-pattern:rgba(110,86,214,.5); --learn-pattern-soft:rgba(110,86,214,.22);
+    --learn-border:rgba(120,100,210,.14);
   }
 
   /* Dark theme. Only the tokens change — every rule above and below reads
@@ -77,6 +88,14 @@
     --scene-sky:#232a45;
     --scene-ground:#1e2338;
     color-scheme:dark;
+
+    /* Financial Wellness widget — dark: charcoal with a faint lavender
+       cast, its own identity rather than a plain inversion. */
+    --learn-surface-1:#1c1e30; --learn-surface-2:#211f38;
+    --learn-ink:#eeeaff; --learn-desc:#b7b2d8;
+    --learn-accent:#b0a0ff; --learn-accent-bg:rgba(176,160,255,.14);
+    --learn-pattern:rgba(176,160,255,.45); --learn-pattern-soft:rgba(176,160,255,.16);
+    --learn-border:rgba(176,160,255,.16);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body,#root{min-height:100vh}
@@ -1491,7 +1510,6 @@ summary:focus-visible {
    ========================================================================== */
 
 .rr3,
-.learn2,
 .risk3 {
   background:var(--panel);
   border: 1px solid var(--line);
@@ -1519,8 +1537,7 @@ summary:focus-visible {
   flex: 0 0 auto;
 }
 .rr3-tag,
-.risk3-tag,
-.learn2-tag {
+.risk3-tag {
   font-size: 10.5px;
   font-weight: 800;
   letter-spacing: .5px;
@@ -1528,8 +1545,7 @@ summary:focus-visible {
   color: var(--muted);
 }
 .rr3-title,
-.risk3-title,
-.learn2-title {
+.risk3-title {
   margin: 0 0 14px;
   font-size: 16px;
   font-weight: 800;
@@ -1693,8 +1709,7 @@ summary:focus-visible {
   color: var(--ink-soft);
 }
 .rr3-cta,
-.risk3-btn,
-.learn2-cta {
+.risk3-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1733,57 +1748,105 @@ summary:focus-visible {
   text-underline-offset: 2px;
 }
 
-/* ---------- Learning portal ---------- */
+/* ---------- Financial Wellness (learning) ----------
+   Organic / botanical / editorial: a light warm-white → pale-tint wash with
+   thin-outline abstract leaf shapes kept to the right, faded into the
+   background, typography carrying the hierarchy, and a small text-link CTA
+   rather than a button. Ported from the redesigned main/journey-retirement
+   dashboards — only this widget changed on this branch. */
 .learn2 {
-  text-decoration: none;
-  transition: .15s;
-}
-.learn2:hover {
-  border-color: var(--brand);
-  box-shadow: var(--shadow);
-}
-.learn2-banner {
-  display: grid;
-  place-items: center;
-  height: 76px;
-  margin: -18px -18px 14px;
-  border-radius: 15px 15px 0 0;
-  background: linear-gradient(135deg, var(--brand) 0%, #4a4fc4 100%);
-  color: #fff;
-}
-.learn2-lead {
-  margin: 0 0 12px;
-  font-size: 12.5px;
-  line-height: 1.5;
-  color: var(--ink-soft);
-}
-.learn2-topics {
-  list-style: none;
-  margin: 0 0 14px;
-  padding: 0;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  border-radius: var(--widget-radius);
+  padding: 22px;
+  background: linear-gradient(120deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 45%, var(--learn-surface-2) 100%);
+  border: 1px solid var(--learn-border);
+  box-shadow: var(--widget-shadow);
+  min-height: 170px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  flex-direction: column;
+  justify-content: center;
 }
-.learn2-topics li {
+.learn2-field {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 55%;
+  min-width: 160px;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 26%);
+  mask-image: linear-gradient(to right, transparent, #000 26%);
+}
+.learn2-field .learn2-leaf-drift { animation: learn2-drift 14s ease-in-out infinite; transform-origin: 50% 50%; }
+.learn2-field .learn2-leaf-drift.d2 { animation-duration: 18s; animation-delay: -4s; }
+@keyframes learn2-drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(.6deg); }
+}
+.learn2-body { position: relative; z-index: 1; max-width: 62%; min-width: 0; }
+.learn2-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--learn-accent);
+  background: var(--learn-accent-bg);
+  margin-bottom: 12px;
+}
+.learn2-title {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -.5px;
+  color: var(--learn-ink);
+  line-height: 1.15;
+}
+.learn2-desc {
+  margin: 0 0 16px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--learn-desc);
+}
+.learn2-cta {
+  /* Padding + a matching negative margin bring the click target to the
+     WCAG 2.5.8 24px minimum without shifting the visible text or the
+     card's layout. */
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: var(--active-bg);
-  font-size: 11.5px;
+  align-self: flex-start;
+  font: inherit;
+  font-size: 12.5px;
   font-weight: 700;
-  color: var(--brand);
-  white-space: nowrap;
+  color: var(--learn-accent);
+  background: none;
+  border: none;
+  padding: 6px 4px;
+  margin: -6px -4px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
 }
-.learn2-cta {
-  background: var(--active-bg);
-  color: var(--brand);
+.learn2-cta:hover { text-decoration: underline; }
+.learn2-cta:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; border-radius: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .learn2-field .learn2-leaf-drift { animation: none; }
 }
-.learn2:hover .learn2-cta {
-  background: var(--brand-fill);
-  color: #fff;
+@media (max-width: 1080px) {
+  .learn2 { padding: 18px; }
+}
+@media (max-width: 360px) {
+  .learn2-body { max-width: 100%; }
+  .learn2-field { width: 32%; opacity: .6; }
 }
 
 /* ---------- Risk meter ---------- */
