@@ -64,7 +64,7 @@ function DecorLayers() {
   )
 }
 
-// Retirement Goal Simulator sidebar widget: a premium dark glass panel
+// Retirement Readiness sidebar widget: a premium dark glass panel
 // where the goal percentage is set as large real text (not a chart), a
 // translucent snapshot lists expense/income/shortfall, and a status panel
 // reads as a confirmation state rather than an alert.
@@ -100,12 +100,12 @@ export default function ReadinessScoreCard() {
   if (isNotEligibleUser(participant)) return null
 
   return (
-    <section className="rgs" aria-label="Retirement Goal Simulator">
+    <section className="rgs" aria-label="Retirement Readiness">
       <DecorLayers />
       <div className="rgs-body">
         <header className="rgs-head">
           <div className="rgs-head-copy">
-            <h3 className="rgs-eyebrow">Retirement Goal Simulator</h3>
+            <h3 className="rgs-eyebrow">Retirement Readiness</h3>
             <p className="rgs-headline">See how your inputs affect your savings, income, risk.</p>
           </div>
           <Link className="rgs-head-act" to="/retirement-goal" aria-label="Adjust your retirement goal">
@@ -182,7 +182,7 @@ export default function ReadinessScoreCard() {
             Not guaranteed results. It&apos;s a simulation.
           </span>
           <button type="button" className="rgs-foot-link" onClick={() => setOpen(true)}>
-            Read more
+            Disclaimer
             <ArrowRight size={12} strokeWidth={2.4} aria-hidden="true" />
           </button>
         </p>

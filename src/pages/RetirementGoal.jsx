@@ -321,6 +321,11 @@ export default function RetirementGoal() {
   const [confirmSaveOpen, setConfirmSaveOpen] = useState(false)
   const [changes, setChanges] = useState([])
   const [delta, setDelta] = useState(null)
+  // Captured at save time, before `baseline` resets to the new draft — used
+  // to gate the confetti on an actual score increase this edit session,
+  // not just on the resulting tier. Without this, a score that *dropped*
+  // but stayed in the same good/ok tier still triggered confetti.
+  const [saveScoreDelta, setSaveScoreDelta] = useState(0)
   const [celebrate, setCelebrate] = useState(false)
   const prevScore = useRef(null)
 
@@ -404,6 +409,7 @@ export default function RetirementGoal() {
     writeMap(PREFS_KEY, participant.id, draft)
     writeMap(READINESS_KEY, participant.id, true)
     setChanges(goalDiff(baseline, draft, startScore, live.score))
+    setSaveScoreDelta(live.score - startScore)
     setBaseline(draft)
     setBaselineShares(planShares)
     setBaselineAuto(planAuto)
@@ -722,7 +728,9 @@ export default function RetirementGoal() {
 
       {savedOpen && (
         <div className="enroll-modal-bg rg-save-bg" role="presentation">
-          {saveTone !== 'warn' && <Confetti />}
+          {/* Only celebrate an actual improvement — a score that dropped but
+              stayed in the good/ok tier shouldn't still get confetti. */}
+          {saveTone !== 'warn' && saveScoreDelta > 0 && <Confetti />}
           <div
             className={`enroll-modal rr-modal rg-save ${saveTone}`}
             role="dialog"

@@ -372,17 +372,17 @@ export function InvestmentEditor({
             aria-labelledby="risk-consent-title"
             onClick={(e) => e.stopPropagation()}
           >
-            <h4 id="risk-consent-title">Take the risk questionnaire?</h4>
+            <h4 id="risk-consent-title">Consent to take the risk questionnaire</h4>
             <p>
               A few quick questions will match you to a Conservative, Moderate, or Aggressive investment style, and
-              set your election to that mix. Do you want to continue?
+              set your election to that mix. Do you consent to continue?
             </p>
             <div className="enroll-modal-actions">
               <button type="button" className="btn btn-secondary" onClick={() => setRiskConsentOpen(false)}>
-                Cancel
+                Decline
               </button>
               <button type="button" className="btn btn-primary" onClick={confirmChooseRisk}>
-                Continue
+                I consent, continue
               </button>
             </div>
           </div>
