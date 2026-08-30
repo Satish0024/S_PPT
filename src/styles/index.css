@@ -1879,7 +1879,6 @@ summary:focus-visible {
   min-width: 0;
   box-sizing: border-box;
   border-radius: var(--widget-radius);
-  padding: 20px;
   color: var(--rgs-ink);
   background:
     radial-gradient(120% 100% at 100% 0%, rgba(var(--rgs-glow-primary), var(--rgs-glow-a)), transparent 62%),
@@ -1906,10 +1905,38 @@ summary:focus-visible {
   pointer-events: none;
   opacity: var(--rgs-decor, 0);
 }
-.rgs-body { position: relative; z-index: 1; min-width: 0; }
+.rgs-body { position: relative; z-index: 1; min-width: 0; padding: 20px; }
 
-.rgs-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
-.rgs-head-copy { min-width: 0; flex: 1; }
+/* Header banner — a full-bleed colour strip above the card body, holding
+   the widget's name/description and the supplied beach/sunset
+   illustration. Fixed brand-blue in both themes, matching the reference:
+   this is a distinct section, not the card's own themed surface. */
+.rgs-banner {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px 20px 20px;
+  min-height: 92px;
+  background: linear-gradient(115deg, #2f7fd6 0%, #4aa3e8 100%);
+  border-radius: var(--widget-radius) var(--widget-radius) 0 0;
+}
+.rgs-banner-copy { position: relative; z-index: 1; min-width: 0; flex: 1; max-width: 66%; }
+.rgs-banner .rgs-eyebrow { color: rgba(255, 255, 255, .78); }
+.rgs-banner .rgs-headline { color: #fff; }
+.rgs-banner-art {
+  position: absolute;
+  right: -6%;
+  bottom: -14%;
+  width: 62%;
+  min-width: 170px;
+  max-width: 260px;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
 .rgs-eyebrow {
   display: block;
   margin: 0 0 5px;
@@ -1927,21 +1954,6 @@ summary:focus-visible {
   color: var(--rgs-ink);
   line-height: 1.3;
 }
-.rgs-head-act {
-  width: 32px;
-  height: 32px;
-  flex: 0 0 auto;
-  border-radius: 9px;
-  display: grid;
-  place-items: center;
-  background: transparent;
-  border: 1px solid var(--rgs-glass-border);
-  color: var(--rgs-muted);
-  transition: background .15s, color .15s;
-}
-.rgs-head-act:hover { background: var(--rgs-glass); color: var(--rgs-ink); }
-.rgs-head-act:focus-visible { outline: 2px solid var(--rgs-arc-1); outline-offset: 2px; }
-
 .rgs-main {
   display: flex;
   flex-wrap: wrap;
@@ -1999,10 +2011,15 @@ summary:focus-visible {
   margin: 0;
 }
 .rgs-snap-row {
+  /* flex-wrap lets a long figure drop to its own line instead of being
+     squeezed and clipped — margin-left:auto on the value (below) keeps
+     it right-aligned whether it's sharing the line with the label or
+     has wrapped onto one of its own. */
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 10px;
+  gap: 2px 10px;
   padding: 9px 0;
 }
 .rgs-snap-row + .rgs-snap-row { border-top: 1px solid var(--rgs-glass-border); }
@@ -2033,7 +2050,7 @@ summary:focus-visible {
 }
 .rgs-snap-row.income .rgs-snap-label { color: var(--rgs-success); }
 .rgs-snap-row.shortfall .rgs-snap-label { color: var(--rgs-danger); }
-.rgs-snap-row dd { margin: 0; }
+.rgs-snap-row dd { margin: 0 0 0 auto; min-width: 0; }
 .rgs-snap-row b {
   font-size: 16px;
   font-weight: 700;
@@ -2102,6 +2119,7 @@ summary:focus-visible {
 }
 .rgs-foot-note { display: flex; align-items: center; gap: 6px; min-width: 0; color: var(--rgs-muted); line-height: 1.4; }
 .rgs-foot-note svg { flex: 0 0 auto; }
+.rgs-foot-actions { display: flex; align-items: center; gap: 14px; flex: 0 0 auto; }
 .rgs-foot-link {
   /* Padding + matching negative margin lift the click target to the WCAG
      2.5.8 24px minimum without moving the visible text. */
@@ -2287,7 +2305,9 @@ summary:focus-visible {
 }
 
 @media (max-width: 1080px) {
-  .rr3, .learn2, .risk3, .rgs { padding: 18px; }
+  .rr3, .learn2, .risk3 { padding: 18px; }
+  .rgs-body { padding: 18px; }
+  .rgs-banner { padding: 16px 18px 18px; }
 }
 /* Narrow sidebar column: stack the ring above the figures and pull the
    decorative fields back so they never crowd the copy. */
