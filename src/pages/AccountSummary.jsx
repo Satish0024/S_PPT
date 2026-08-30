@@ -247,6 +247,7 @@ export default function AccountSummary() {
                   <thead>
                     <tr>
                       <th scope="col">{tab === 'sources' ? 'Source' : tab === 'assetclass' ? 'Asset class' : 'Investment'}</th>
+                      {tab === 'investments' ? <th scope="col">Asset class</th> : null}
                       {tab === 'investments' ? <th scope="col" className="num">Units</th> : null}
                       <th scope="col" className="num">Balance</th>
                       <th scope="col" className="num">{tab === 'investments' ? 'Election Percentage' : 'Percent'}</th>
@@ -291,6 +292,7 @@ export default function AccountSummary() {
                                 </>
                               )}
                             </td>
+                            {isInvestment ? <td className="as-asset-cell">{row.asset || '—'}</td> : null}
                             {isInvestment ? (
                               <td className="num">{row.units != null ? formatUnits(row.units) : '—'}</td>
                             ) : null}
@@ -300,12 +302,8 @@ export default function AccountSummary() {
                           </tr>
                           {isOpen && isInvestment ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
-                              <td colSpan={4}>
+                              <td colSpan={5}>
                                 <div className="as-detail-grid">
-                                  <div>
-                                    <span>Asset class</span>
-                                    <b>{row.asset || '—'}</b>
-                                  </div>
                                   <div>
                                     <span>Category</span>
                                     <b className="as-cat-badges">
@@ -349,6 +347,7 @@ export default function AccountSummary() {
                   <tfoot>
                     <tr>
                       <td>Total</td>
+                      {tab === 'investments' ? <td /> : null}
                       {tab === 'investments' ? <td /> : null}
                       <td className="num">{formatMoney(summary.balance)}</td>
                       <td className="num">100.00%</td>

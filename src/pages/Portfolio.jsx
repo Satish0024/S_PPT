@@ -164,6 +164,7 @@ export default function Portfolio() {
                     <div className="stat-block">
                       <div className="stat-k">Fund return</div>
                       <div className="stat-v pos">{plan.ret}</div>
+                      <div className="stat-period">Period of return · YTD</div>
                     </div>
                   </div>
                 </div>
@@ -217,9 +218,9 @@ export default function Portfolio() {
                         </th>
                       ))}
                       {/* Not sortable — every fund's return here is YTD, so this
-                          just calls that out per-row instead of leaving the
-                          timeframe implicit in the "Fund return %" header. */}
-                      <th scope="col">Period</th>
+                          calls out the period of return per row instead of
+                          leaving the timeframe implicit in the header. */}
+                      <th scope="col">Period of return</th>
                       {[
                         ['invested', 'Invested balance', 'num'],
                         ['current', 'Current balance', 'num'],
@@ -358,6 +359,7 @@ export default function Portfolio() {
             { label: 'Asset class / category', value: openFund.asset || openFund.cat },
             { label: 'CUSIP', value: openFund.cusip },
             { label: 'Fund return %', value: openFund.returnPct != null ? `${openFund.returnPct.toFixed(2)}%` : openFund.ytd },
+            { label: 'Period of return', value: openFund.returnPct != null ? 'YTD' : undefined },
             { label: 'Current balance', value: openFund.current != null ? money(openFund.current) : undefined },
             { label: 'Unit balance', value: openFund.units != null ? openFund.units.toFixed(2) : undefined },
             { label: '1 yr. return', value: openFund.y1 },
