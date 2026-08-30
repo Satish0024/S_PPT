@@ -1,22 +1,46 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Check, Pencil, Shield } from 'lucide-react'
+import { Pencil } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import { RISK_LEVELS, RISK_PROFILE_UPDATED_EVENT, getRiskLevel, getRiskProfileId } from '../../lib/riskProfile'
 
-// Map each level onto the theme's own status tokens rather than the raw hex
-// in riskProfile.js — those hexes are tuned for light mode only, so using
-// the tokens keeps the headline and badge readable in dark mode too.
-const LEVEL_TOKENS = {
-  conservative: { color: 'var(--green)', bg: 'var(--green-bg)' },
-  moderate: { color: 'var(--amber)', bg: 'var(--amber-bg)' },
-  aggressive: { color: 'var(--red)', bg: 'var(--red-bg)' }
+// This is an abstract visual language for risk, not a data chart: a field
+// of dots with varying opacity/size, and one highlighted row standing in
+// for the measured level. Purely decorative — the level is stated as real
+// text (title, badge, description) regardless of this rendering.
+function RiskField({ activeIndex, total }) {
+  const rows = 5
+  const cols = 6
+  const cells = []
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const onPath = r === activeIndex + 1
+      const cx = 24 + c * 22
+      const cy = 14 + r * 22
+      const base = onPath ? 0.85 : 0.16 + ((r + c) % 3) * 0.06
+      cells.push(
+        <circle
+          key={`${r}-${c}`}
+          cx={cx}
+          cy={cy}
+          r={onPath ? 4.2 : 2.6 + ((r + c) % 2) * 0.8}
+          fill={onPath ? '#0f7f6c' : '#2e8f7d'}
+          opacity={base}
+        />
+      )
+    }
+  }
+  return (
+    <svg className="risk3-field" viewBox="0 0 160 110" preserveAspectRatio="xMaxYMid meet" aria-hidden="true" focusable="false">
+      {cells}
+    </svg>
+  )
 }
 
-// Risk profile sidebar widget. The measured level is stated three ways —
-// the headline, an "X Investor" badge, and a checked step on a labelled
-// three-stop scale — so it never depends on color alone to read.
+// Investment Style sidebar widget: a typography-led risk identity card.
+// No gauge, meter, or chart — the level name is the dominant visual,
+// paired with a named badge and a labelled dot field for texture only.
 export default function RiskMeterV2() {
   const { participant } = useParticipant()
   const [levelId, setLevelId] = useState(() => getRiskProfileId(participant))
@@ -36,49 +60,29 @@ export default function RiskMeterV2() {
   const level = getRiskLevel(levelId)
   const activeIndex = RISK_LEVELS.findIndex((l) => l.id === level.id)
   const shortName = level.subtitle.replace(' risk', '')
-  const tokens = LEVEL_TOKENS[level.id] || LEVEL_TOKENS.moderate
 
   return (
-    <section
-      className="risk3"
-      aria-label="Investment risk profile"
-      style={{ '--risk-color': tokens.color, '--risk-bg': tokens.bg }}
-    >
-      <header className="risk3-head">
-        <span className="risk3-head-ico" aria-hidden="true">
-          <Shield size={18} strokeWidth={2.2} />
-        </span>
-        <span className="risk3-tag">Your Risk Level</span>
-        <span className="risk3-badge">{level.label}</span>
-      </header>
+    <section className="risk3" aria-label="Investment Style">
+      <RiskField activeIndex={activeIndex} total={RISK_LEVELS.length} />
+      <div className="risk3-body">
+        <header className="risk3-head">
+          <h3>Investment Style</h3>
+          <span className="risk3-badge">{level.label}</span>
+        </header>
 
-      <h3 className="risk3-title">{shortName}</h3>
+        <p className="risk3-title">{shortName.toUpperCase()}</p>
 
-      <ol
-        className="risk3-scale"
-        aria-label={`Risk scale: ${shortName}, level ${activeIndex + 1} of ${RISK_LEVELS.length}`}
-      >
-        {RISK_LEVELS.map((l, i) => {
-          const state = i < activeIndex ? 'done' : i === activeIndex ? 'on' : 'todo'
-          return (
-            <li key={l.id} className={`risk3-step ${state}`}>
-              <span className="risk3-step-bar" aria-hidden="true" />
-              <span className="risk3-step-label">
-                {i === activeIndex && <Check size={11} strokeWidth={3} aria-hidden="true" />}
-                {l.subtitle.replace(' risk', '')}
-              </span>
-            </li>
-          )
-        })}
-      </ol>
+        <p className="risk3-desc">
+          The illustrated Risk Level was generated based on the answers you provided to the questionnaire.
+        </p>
+        <p className="risk3-desc">
+          If you don&apos;t think this investment style accurately represents you, you can return to the
+          questionnaire and update your answers.
+        </p>
 
-      <p className="risk3-outlook">{level.outlook}</p>
-
-      <div className="risk3-foot">
-        <p>We selected this risk level based on your answers. Want to change it? You can go back and update them.</p>
         <Link to="/risk-check-in" className="risk3-btn">
-          <Pencil size={14} strokeWidth={2.3} aria-hidden="true" />
-          Edit preferences
+          <Pencil size={13} strokeWidth={2.3} aria-hidden="true" />
+          Edit Preferences
         </Link>
       </div>
     </section>

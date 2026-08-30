@@ -286,87 +286,9 @@
   .rr-modal{width:min(520px,100%);max-height:min(86vh,720px);overflow:auto}
 
   /* ---------- Retirement Readiness score card ----------
-     Sidebar widget: prominent ring gauge + status panel, then the money
-     rows grouped in one bordered container. Flat surfaces only — no glass,
-     blur, or artwork — so the figures stay the loudest thing on the card. */
-  .rsc{
-    background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
-    display:flex;flex-direction:column;overflow:hidden}
-  .rsc-body{padding:20px;display:flex;flex-direction:column;gap:20px}
-  .rsc-head{display:flex;align-items:flex-start;gap:12px}
-  .rsc-head-ico{
-    width:40px;height:40px;border-radius:12px;flex:0 0 auto;display:grid;place-items:center;
-    background:var(--active-bg);color:var(--brand)}
-  .rsc-head-copy{min-width:0;flex:1}
-  .rsc-head-copy h3{margin:0;font-size:16px;font-weight:700;letter-spacing:-.2px;color:var(--ink);line-height:1.25}
-  .rsc-head-copy p{margin:4px 0 0;font-size:12.5px;line-height:1.4;color:var(--muted)}
-  .rsc-head-act{
-    width:36px;height:36px;border-radius:10px;flex:0 0 auto;display:grid;place-items:center;
-    background:var(--active-bg);color:var(--brand);border:none;transition:.15s}
-  .rsc-head-act:hover{background:var(--brand-fill);color:#fff}
-  .rsc-head-act:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-
-  .rsc-score{display:flex;align-items:center;justify-content:space-between;gap:14px}
-  .rsc-gauge{position:relative;width:132px;height:132px;flex:0 0 auto}
-  .rsc-gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
-  .rsc-gauge-track{fill:none;stroke:var(--surface-3)}
-  .rsc-gauge-fill{
-    fill:none;stroke-linecap:round;stroke:var(--brand);
-    transition:stroke-dasharray .45s cubic-bezier(.4,0,.2,1)}
-  .rsc-gauge.good .rsc-gauge-fill{stroke:var(--green)}
-  .rsc-gauge.warn .rsc-gauge-fill{stroke:var(--amber)}
-  .rsc-gauge-mid{
-    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-  .rsc-gauge-mid b{
-    font-size:42px;font-weight:700;letter-spacing:-2px;line-height:1;color:var(--brand);
-    font-variant-numeric:tabular-nums}
-  .rsc-gauge.good .rsc-gauge-mid b{color:var(--green)}
-  .rsc-gauge.warn .rsc-gauge-mid b{color:var(--amber)}
-  .rsc-gauge-mid span{margin-top:3px;font-size:10px;font-weight:600;color:var(--muted)}
-
-  .rsc-status{flex:1;min-width:0;padding:14px;border-radius:14px;background:var(--active-bg)}
-  .rsc-status-pill{
-    display:flex;align-items:center;gap:6px;margin-bottom:4px;
-    font-size:14px;font-weight:700;color:var(--brand)}
-  .rsc-status.good .rsc-status-pill{color:var(--green)}
-  .rsc-status.warn .rsc-status-pill{color:var(--amber)}
-  .rsc-status p{margin:0;font-size:12.5px;line-height:1.45;color:var(--ink-soft)}
-
-  .rsc-rows{
-    margin:0;border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
-  .rsc-row{display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid var(--line)}
-  .rsc-row:last-child{border-bottom:none}
-  .rsc-row-ico{
-    width:36px;height:36px;border-radius:10px;flex:0 0 auto;display:grid;place-items:center;
-    background:var(--active-bg);color:var(--brand)}
-  .rsc-row-ico.income{background:var(--green-bg);color:var(--green)}
-  .rsc-row-ico.shortfall{background:var(--red-bg);color:var(--red)}
-  .rsc-row dt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;font-size:13px;font-weight:600;color:var(--ink)}
-  .rsc-row dt small{font-size:11px;font-weight:500;color:var(--muted)}
-  .rsc-row dd{
-    margin:0;font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.3px;
-    font-variant-numeric:tabular-nums;white-space:nowrap}
-  .rsc-row dd.income{color:var(--green)}
-  .rsc-row dd.shortfall{color:var(--red)}
-
-  .rsc-intro{padding:0 20px 20px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
-  .rsc-intro p{margin:0;font-size:12.5px;line-height:1.55;color:var(--ink-soft)}
-  .rsc-cta{
-    align-self:stretch;display:inline-flex;align-items:center;justify-content:center;gap:6px;
-    background:var(--brand-fill);color:#fff;border:none;border-radius:12px;padding:11px 14px;
-    font:inherit;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;box-sizing:border-box}
-  .rsc-cta:hover{background:var(--brand-dark)}
-
-  .rsc-foot{
-    display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0;
-    padding:12px 20px;border-top:1px solid var(--line);font-size:11px}
-  .rsc-foot-note{display:flex;align-items:center;gap:6px;min-width:0;color:var(--muted);line-height:1.4}
-  .rsc-foot-note svg{flex:0 0 auto}
-  .rsc-foot-link{
-    display:inline-flex;align-items:center;gap:4px;font:inherit;font-size:11px;font-weight:700;
-    color:var(--link);background:none;border:none;padding:0;cursor:pointer;flex:0 0 auto;white-space:nowrap}
-  .rsc-foot-link:hover{text-decoration:underline}
-  .rsc-foot-link:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:3px}
+     Replaced by the .rgs "Retirement Goal Simulator" widget further down
+     (see ReadinessScoreCard.jsx) — this old flat-card ruleset is now dead
+     and kept only in case another surface still references it. */
 
   /* ---------- Retirement Readiness widget v2 ---------- */
   .rr2-card{
@@ -1585,9 +1507,7 @@ summary:focus-visible {
    full-width instead, so nothing clips at any column width.
    ========================================================================== */
 
-.rr3,
-.learn2,
-.risk3 {
+.rr3 {
   background:var(--panel);
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -1596,15 +1516,13 @@ summary:focus-visible {
   box-shadow: var(--shadow);
 }
 
-.rr3-head,
-.risk3-head {
+.rr3-head {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
 }
-.rr3-ico,
-.risk3-ico {
+.rr3-ico {
   width: 28px;
   height: 28px;
   border-radius: 9px;
@@ -1614,19 +1532,14 @@ summary:focus-visible {
   color: var(--brand);
   flex: 0 0 auto;
 }
-/* .risk3-tag / .risk3-title are deliberately absent from these shared
-   groups — the risk card uses a sentence-case heading and a large
-   level-coloured headline, and styles both itself further down. */
-.rr3-tag,
-.learn2-tag {
+.rr3-tag {
   font-size: 10.5px;
   font-weight: 800;
   letter-spacing: .5px;
   text-transform: uppercase;
   color: var(--muted);
 }
-.rr3-title,
-.learn2-title {
+.rr3-title {
   margin: 0 0 14px;
   font-size: 16px;
   font-weight: 800;
@@ -1828,235 +1741,405 @@ summary:focus-visible {
   text-underline-offset: 2px;
 }
 
-/* ---------- Learning portal ----------
-   A compact list of real guides rather than decorative topic chips: each
-   row carries its topic, read time, and title, and is a link in its own
-   right. Flat surfaces and hairline dividers only. */
-.learn2-head {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 14px;
+/* ==========================================================================
+   Widget design system tokens — shared by the three redesigned sidebar
+   widgets below (retirement, learning, investment style). Each widget keeps
+   its own fixed palette by design (dark navy / pale lavender / pale mint)
+   so the set reads as a distinct premium sub-system, not a theme re-skin —
+   these tokens exist to keep the shape language (radius, border, shadow)
+   consistent across the three regardless of that.
+   ========================================================================== */
+:root {
+  --widget-radius: 20px;
+  --widget-shadow: 0 20px 48px -20px rgba(20, 24, 50, .28);
 }
-.learn2-head-ico {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  flex: 0 0 auto;
-  border-radius: 9px;
-  background: var(--active-bg);
-  color: var(--brand);
+
+/* ---------- Retirement Goal Simulator ----------
+   Premium dark glass panel. The 80% figure is set in real text at 56px, not
+   drawn by a chart, so it stays legible with every decorative layer removed
+   (prefers-reduced-motion, or just a broken gradient). Layers behind it are
+   purely atmospheric: a navy base, two soft radial glows, a dotted field,
+   and a thin flowing line — all pointer-events:none and clipped by
+   overflow:hidden so nothing escapes the card. */
+.rgs {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--widget-radius);
+  padding: 22px 22px 20px;
+  color: #eef0fb;
+  background:
+    radial-gradient(120% 90% at 88% -10%, rgba(93, 120, 255, .35), transparent 60%),
+    radial-gradient(70% 60% at 8% 105%, rgba(56, 214, 200, .16), transparent 65%),
+    linear-gradient(165deg, #171b3d 0%, #11142e 55%, #0b0d22 100%);
+  border: 1px solid rgba(255, 255, 255, .09);
+  box-shadow: var(--widget-shadow);
 }
-.learn2-head-copy {
-  min-width: 0;
-  flex: 1;
+.rgs-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .5;
+  background-image: radial-gradient(rgba(255, 255, 255, .13) 1px, transparent 1.4px);
+  background-size: 15px 15px;
+  background-position: -4px -4px;
+  -webkit-mask-image: radial-gradient(75% 65% at 82% 18%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(75% 65% at 82% 18%, #000 0%, transparent 72%);
 }
-.learn2-tag {
+.rgs-wave {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .5;
+}
+.rgs-body { position: relative; z-index: 1; }
+
+.rgs-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
+.rgs-head-copy { min-width: 0; flex: 1; }
+.rgs-eyebrow {
   display: block;
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 700;
   letter-spacing: .6px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(197, 205, 255, .75);
+  margin-bottom: 6px;
 }
-.learn2-title {
-  margin: 1px 0 0;
-  font-size: 14.5px;
-  font-weight: 700;
-  letter-spacing: -.2px;
-  color: var(--ink);
-  line-height: 1.3;
-}
-.learn2-all {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  flex: 0 0 auto;
-  margin-top: 2px;
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--brand);
-  text-decoration: none;
-  white-space: nowrap;
-}
-.learn2-all:hover { color: var(--brand-dark); text-decoration: underline; }
-.learn2-all:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 4px; }
-
-.learn2-list {
-  list-style: none;
+.rgs-head-copy h3 {
   margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+  color: #fff;
+  line-height: 1.25;
 }
-.learn2-list li + li { border-top: 1px solid var(--line); }
-.learn2-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 11px 10px;
-  margin: 0 -10px;
+.rgs-head-copy p {
+  margin: 5px 0 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: rgba(210, 214, 240, .78);
+  max-width: 30ch;
+}
+.rgs-head-act {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
   border-radius: 10px;
-  text-decoration: none;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .12);
+  color: #fff;
   transition: background .15s;
 }
-.learn2-item:hover { background: var(--surface-2); }
-.learn2-item:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
-.learn2-item-copy {
-  min-width: 0;
-  flex: 1;
+.rgs-head-act:hover { background: rgba(255, 255, 255, .16); }
+.rgs-head-act:focus-visible { outline: 2px solid #8fa0ff; outline-offset: 2px; }
+
+.rgs-main {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Orbital progress: no chart/arc drives the number — it's plain text,
+   decorated by a couple of very faint concentric rings and floating dots
+   behind it, all aria-hidden. */
+.rgs-orbit {
+  position: relative;
+  flex: 0 0 auto;
+  width: 128px;
+  height: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rgs-orbit-rings { position: absolute; inset: 0; }
+.rgs-orbit-value {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-}
-.learn2-item-meta {
-  display: flex;
   align-items: center;
-  gap: 7px;
-  min-width: 0;
 }
-.learn2-chip {
+.rgs-orbit-value b {
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -2.5px;
+  line-height: 1;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.rgs-orbit-value span {
+  margin-top: 6px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  color: rgba(197, 205, 255, .7);
+  white-space: nowrap;
+}
+
+.rgs-snap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .055);
+  border: 1px solid rgba(255, 255, 255, .1);
+  backdrop-filter: blur(14px);
+}
+.rgs-snap-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.rgs-snap-label {
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
+  gap: 6px;
+  min-width: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2px;
+  color: rgba(219, 222, 245, .82);
+  white-space: nowrap;
+}
+.rgs-snap-row.expense .rgs-snap-label { text-transform: uppercase; letter-spacing: .5px; font-size: 10px; color: rgba(197, 205, 255, .68); }
+.rgs-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: currentColor;
+}
+.rgs-snap-row.income .rgs-snap-label { color: #7be6c8; }
+.rgs-snap-row.shortfall .rgs-snap-label { color: #ff9d90; }
+.rgs-snap-row b {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.rgs-snap-row.income b { color: #7be6c8; }
+.rgs-snap-row.shortfall b { color: #ff9d90; }
+.rgs-snap-div { height: 1px; background: rgba(255, 255, 255, .1); }
+
+.rgs-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .1);
+}
+.rgs-status-ico {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: rgba(123, 230, 200, .18);
+  color: #7be6c8;
+}
+.rgs-status.ok .rgs-status-ico { background: rgba(232, 197, 122, .18); color: #f0c876; }
+.rgs-status.warn .rgs-status-ico { background: rgba(255, 157, 144, .18); color: #ff9d90; }
+.rgs-status-copy b { display: block; font-size: 13.5px; font-weight: 700; color: #fff; }
+.rgs-status.ok .rgs-status-copy b { color: #f0c876; }
+.rgs-status.warn .rgs-status-copy b { color: #ff9d90; }
+.rgs-status-copy span { display: block; margin-top: 2px; font-size: 11.5px; line-height: 1.4; color: rgba(210, 214, 240, .78); }
+
+.rgs-intro { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
+.rgs-intro p { margin: 0; font-size: 12.5px; line-height: 1.55; color: rgba(214, 218, 245, .82); }
+.rgs-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 16px; border-radius: 11px; border: none;
+  background: #fff; color: #171b3d; font: inherit; font-size: 13px; font-weight: 700;
+  text-decoration: none; cursor: pointer;
+}
+.rgs-cta:hover { background: #e3e6ff; }
+
+.rgs-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  margin: 0; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .1); font-size: 11px;
+}
+.rgs-foot-note { display: flex; align-items: center; gap: 6px; min-width: 0; color: rgba(197, 205, 255, .68); line-height: 1.4; }
+.rgs-foot-note svg { flex: 0 0 auto; }
+.rgs-foot-link {
+  display: inline-flex; align-items: center; gap: 4px; font: inherit; font-size: 11px; font-weight: 700;
+  color: #fff; background: none; border: none; padding: 0; cursor: pointer; flex: 0 0 auto; white-space: nowrap;
+}
+.rgs-foot-link:hover { text-decoration: underline; }
+.rgs-foot-link:focus-visible { outline: 2px solid #8fa0ff; outline-offset: 2px; border-radius: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rgs-orbit-rings circle, .rgs-orbit-rings .rgs-arc { animation: none !important; }
+}
+
+/* ---------- Financial Wellness (learning) ----------
+   Light, airy "knowledge field" card: pale lavender wash with a faint
+   contour/dot pattern kept to the right, typography carrying the
+   hierarchy, and a compact secondary CTA rather than a button. */
+.learn2 {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--widget-radius);
+  padding: 22px;
+  background: linear-gradient(120deg, #fdfcff 0%, #f3f1ff 60%, #ece8fd 100%);
+  border: 1px solid rgba(120, 100, 210, .14);
+  box-shadow: var(--widget-shadow);
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.learn2-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .8;
+}
+.learn2-body { position: relative; z-index: 1; max-width: 64%; }
+.learn2-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
   border-radius: 999px;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: .2px;
-  background: var(--surface-3);
-  color: var(--ink-soft);
-  white-space: nowrap;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: #6e56d6;
+  background: rgba(110, 86, 214, .1);
+  margin-bottom: 12px;
 }
-.learn2-chip.t1 { background: var(--active-bg); color: var(--brand); }
-.learn2-chip.t2 { background: var(--green-bg); color: var(--green); }
-.learn2-chip.t3 { background: var(--amber-bg); color: var(--amber); }
-.learn2-time {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 10.5px;
-  font-weight: 600;
-  color: var(--muted);
-  white-space: nowrap;
-}
-.learn2-item-copy b {
-  font-size: 12.5px;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--ink);
-}
-.learn2-item:hover .learn2-item-copy b { color: var(--brand); }
-.learn2-item-go {
-  flex: 0 0 auto;
-  color: var(--muted);
-  transition: transform .15s, color .15s;
-}
-.learn2-item:hover .learn2-item-go { color: var(--brand); transform: translateX(2px); }
-
-/* ---------- Risk meter ----------
-   Level is conveyed by the headline, a named badge, and a checked step on a
-   labelled scale — never by color alone. */
-.risk3-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-.risk3-head-ico {
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  color: var(--brand);
-}
-.risk3-tag {
-  flex: 1;
-  min-width: 0;
-  font-size: 15px;
+.learn2-title {
+  margin: 0 0 8px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: -.1px;
-  color: var(--ink);
+  letter-spacing: -.5px;
+  color: #201c3d;
+  line-height: 1.15;
 }
-.risk3-badge {
-  flex: 0 0 auto;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11.5px;
-  font-weight: 700;
-  background: var(--risk-bg, var(--surface-2));
-  color: var(--risk-color, var(--ink));
-  white-space: nowrap;
-}
-.risk3-title {
-  margin: 0 0 12px;
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  line-height: 1.05;
-  color: var(--risk-color, var(--ink));
-}
-
-.risk3-scale {
-  list-style: none;
-  margin: 0 0 16px;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
-}
-.risk3-step { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
-.risk3-step-bar { height: 6px; border-radius: 999px; background: var(--surface-3); }
-.risk3-step.done .risk3-step-bar,
-.risk3-step.on .risk3-step-bar { background: var(--risk-color, var(--brand)); }
-.risk3-step.done .risk3-step-bar { opacity: .4; }
-.risk3-step-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 10.5px;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--muted);
-}
-.risk3-step.on .risk3-step-label { font-weight: 700; color: var(--ink); }
-
-.risk3-outlook {
+.learn2-desc {
   margin: 0 0 16px;
   font-size: 13px;
   line-height: 1.55;
-  color: var(--ink-soft);
+  color: #625d84;
 }
-.risk3-foot {
+.learn2-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #4e3fc4;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+.learn2-cta:hover { text-decoration: underline; }
+.learn2-cta:focus-visible { outline: 2px solid #6e56d6; outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Investment Style ----------
+   Typography + pattern based risk-profile card — no gauge, chart, or
+   progress bar. The level name itself is the dominant visual; a field of
+   dots to the right stands in for a data visualization without being one. */
+.risk3 {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--widget-radius);
+  padding: 22px;
+  background: linear-gradient(150deg, #f4fbf8 0%, #eaf6f5 55%, #e6f1fb 100%);
+  border: 1px solid rgba(30, 140, 130, .14);
+  box-shadow: var(--widget-shadow);
+}
+.risk3-field {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 42%;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 30%);
+  mask-image: linear-gradient(to right, transparent, #000 30%);
+}
+.risk3-body { position: relative; z-index: 1; max-width: 60%; }
+.risk3-head {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
 }
-.risk3-foot p { margin: 0; font-size: 12px; line-height: 1.5; color: var(--muted); }
+.risk3-head h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -.1px;
+  color: #1c3934;
+}
+.risk3-badge {
+  flex: 0 0 auto;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  background: rgba(19, 148, 130, .14);
+  color: #0f7f6c;
+  white-space: nowrap;
+}
+.risk3-title {
+  margin: 0 0 4px;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  color: #0f7f6c;
+}
+.risk3-desc {
+  margin: 12px 0 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #3f5854;
+}
+.risk3-desc + .risk3-desc { margin-top: 8px; }
 .risk3-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 7px;
-  width: 100%;
-  padding: 11px 16px;
-  border-radius: 12px;
-  border: none;
+  margin-top: 16px;
+  padding: 9px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 127, 108, .3);
   box-sizing: border-box;
   font: inherit;
-  font-size: 13.5px;
+  font-size: 12.5px;
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
-  background: var(--brand-fill);
-  color: #fff;
+  background: rgba(255, 255, 255, .5);
+  color: #0f7f6c;
+  transition: background .15s;
 }
-.risk3-btn:hover { background: var(--brand-dark); }
-.risk3-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.risk3-btn:hover { background: #fff; }
+.risk3-btn:focus-visible { outline: 2px solid #0f7f6c; outline-offset: 2px; }
 
 @media (max-width: 1080px) {
-  .rr3, .learn2, .risk3 { padding: 16px; }
+  .rr3, .learn2, .risk3, .rgs { padding: 18px; }
+  .learn2-body, .risk3-body { max-width: 100%; }
 }
 
 /* ---------- Fund detail dialog (hyperlinked investment names) ---------- */
