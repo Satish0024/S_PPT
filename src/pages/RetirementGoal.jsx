@@ -319,6 +319,7 @@ export default function RetirementGoal() {
   const [open, setOpen] = useState(false)
   const [savedOpen, setSavedOpen] = useState(false)
   const [confirmSaveOpen, setConfirmSaveOpen] = useState(false)
+  const [pendingCollapsePlanId, setPendingCollapsePlanId] = useState(null)
   const [changes, setChanges] = useState([])
   const [delta, setDelta] = useState(null)
   // Captured at save time, before `baseline` resets to the new draft — used
@@ -417,12 +418,91 @@ export default function RetirementGoal() {
   }
 
   // Deferral rate / auto-increase edits affect the participant's actual
-  // paycheck deductions, so "Save this goal" confirms before committing
-  // instead of saving immediately.
-  const requestSave = () => setConfirmSaveOpen(true)
+  // paycheck deductions, so saving confirms before committing when deferral
+  // or auto-increase values changed.
+  const autoEqual = (a = {}, b = {}) =>
+    !!a.on === !!b.on &&
+    +a.pctPre === +b.pctPre &&
+    +a.capPre === +b.capPre &&
+    +a.pctRoth === +b.pctRoth &&
+    +a.capRoth === +b.capRoth
+
+  const planPaycheckDirty = (planId) => {
+    const share = planShares[planId] || { pre: 0, roth: 0 }
+    const base = baselineShares[planId] || { pre: 0, roth: 0 }
+    return (
+      +share.pre !== +base.pre ||
+      +share.roth !== +base.roth ||
+      !autoEqual(planAuto[planId], baselineAuto[planId])
+    )
+  }
+
+  const paycheckImpacted = () => {
+    if (multiPlan) {
+      return deferralPlans.some((plan) => planPaycheckDirty(plan.id))
+    }
+    return (
+      +draft.pre !== +baseline.pre ||
+      +draft.roth !== +baseline.roth ||
+      !!draft.autoOn !== !!baseline.autoOn ||
+      +draft.autoPct !== +baseline.autoPct ||
+      +draft.autoCap !== +baseline.autoCap ||
+      +draft.autoPctRoth !== +baseline.autoPctRoth ||
+      +draft.autoCapRoth !== +baseline.autoCapRoth
+    )
+  }
+
+  const requestSave = () => {
+    if (paycheckImpacted()) setConfirmSaveOpen(true)
+    else save()
+  }
   const confirmSave = () => {
     setConfirmSaveOpen(false)
+    if (pendingCollapsePlanId) {
+      const planId = pendingCollapsePlanId
+      setBaselineShares((prev) => ({
+        ...prev,
+        [planId]: { ...(planShares[planId] || { pre: 0, roth: 0 }) }
+      }))
+      setBaselineAuto((prev) => ({
+        ...prev,
+        [planId]: { ...(planAuto[planId] || blankAuto()) }
+      }))
+      setExpandedPlanId(null)
+      setPendingCollapsePlanId(null)
+      return
+    }
     save()
+  }
+  const cancelConfirmSave = () => {
+    if (pendingCollapsePlanId) {
+      const planId = pendingCollapsePlanId
+      const baseShare = baselineShares[planId] || { pre: 0, roth: 0 }
+      const baseAuto = baselineAuto[planId] || blankAuto()
+      const nextShares = { ...planShares, [planId]: { ...baseShare } }
+      const nextAuto = { ...planAuto, [planId]: { ...baseAuto } }
+      const totals = sumShares(nextShares)
+      setPlanShares(nextShares)
+      setPlanAuto(nextAuto)
+      setDraft((d) => ({ ...d, pre: totals.pre, roth: totals.roth, ...aggregateAuto(nextAuto) }))
+      setExpandedPlanId(null)
+      setPendingCollapsePlanId(null)
+    }
+    setConfirmSaveOpen(false)
+  }
+
+  const togglePlanCard = (planId) => {
+    const expanded = expandedPlanId === planId
+    if (!expanded) {
+      setExpandedPlanId(planId)
+      return
+    }
+    if (planPaycheckDirty(planId)) {
+      setPendingCollapsePlanId(planId)
+      setConfirmSaveOpen(true)
+      return
+    }
+    setExpandedPlanId(null)
   }
 
   const autoPct = Math.max(1, +draft.autoPct || 1)
@@ -660,7 +740,7 @@ export default function RetirementGoal() {
                     type="button"
                     className="rg-plan-card-h"
                     aria-expanded={expanded}
-                    onClick={() => setExpandedPlanId(expanded ? null : plan.id)}
+                    onClick={() => togglePlanCard(plan.id)}
                   >
                     <div className="rg-plan-card-name">
                       <b>{plan.name}</b>
@@ -702,7 +782,7 @@ export default function RetirementGoal() {
       {open && <DisclaimerModal onClose={() => setOpen(false)} />}
 
       {confirmSaveOpen && (
-        <div className="enroll-modal-bg" role="presentation" onClick={() => setConfirmSaveOpen(false)}>
+        <div className="enroll-modal-bg" role="presentation" onClick={cancelConfirmSave}>
           <div
             className="enroll-modal rr-modal"
             role="dialog"
@@ -718,7 +798,7 @@ export default function RetirementGoal() {
               <button type="button" className="btn btn-primary" onClick={confirmSave}>
                 Yes
               </button>
-              <button type="button" className="btn btn-secondary" onClick={() => setConfirmSaveOpen(false)}>
+              <button type="button" className="btn btn-secondary" onClick={cancelConfirmSave}>
                 No
               </button>
             </div>

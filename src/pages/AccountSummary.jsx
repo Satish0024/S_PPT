@@ -247,6 +247,7 @@ export default function AccountSummary() {
                   <thead>
                     <tr>
                       <th scope="col">{tab === 'sources' ? 'Source' : tab === 'assetclass' ? 'Asset class' : 'Investment'}</th>
+                      {tab === 'investments' ? <th scope="col">Asset class</th> : null}
                       {tab === 'investments' ? <th scope="col" className="num">Units</th> : null}
                       <th scope="col" className="num">Balance</th>
                       <th scope="col" className="num">{tab === 'investments' ? 'Election Percentage' : 'Percent'}</th>
@@ -259,6 +260,7 @@ export default function AccountSummary() {
                       const isAssetClass = tab === 'assetclass'
                       const isExpandable = isInvestment || isAssetClass
                       const isOpen = isExpandable && expandedRow === row.id
+                      const detailCols = isInvestment ? 5 : isAssetClass ? 3 : tab === 'sources' ? 4 : 3
                       return (
                         <Fragment key={row.id}>
                           <tr
@@ -276,7 +278,7 @@ export default function AccountSummary() {
                                   aria-controls={`${row.id}-detail`}
                                 >
                                   <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
-                                  {row.name}
+                                  <span className="as-row-name">{row.name}</span>
                                   <ChevronDown
                                     size={15}
                                     strokeWidth={2.2}
@@ -291,6 +293,7 @@ export default function AccountSummary() {
                                 </>
                               )}
                             </td>
+                            {isInvestment ? <td className="as-asset-cell">{row.asset || '—'}</td> : null}
                             {isInvestment ? (
                               <td className="num">{row.units != null ? formatUnits(row.units) : '—'}</td>
                             ) : null}
@@ -300,12 +303,8 @@ export default function AccountSummary() {
                           </tr>
                           {isOpen && isInvestment ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
-                              <td colSpan={4}>
+                              <td colSpan={detailCols}>
                                 <div className="as-detail-grid">
-                                  <div>
-                                    <span>Asset class</span>
-                                    <b>{row.asset || '—'}</b>
-                                  </div>
                                   <div>
                                     <span>Category</span>
                                     <b className="as-cat-badges">
@@ -326,7 +325,7 @@ export default function AccountSummary() {
                           ) : null}
                           {isOpen && isAssetClass ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
-                              <td colSpan={3}>
+                              <td colSpan={detailCols}>
                                 <ul className="as-class-members">
                                   {row.members.map((m) => (
                                     <li key={m.id}>
@@ -349,6 +348,7 @@ export default function AccountSummary() {
                   <tfoot>
                     <tr>
                       <td>Total</td>
+                      {tab === 'investments' ? <td /> : null}
                       {tab === 'investments' ? <td /> : null}
                       <td className="num">{formatMoney(summary.balance)}</td>
                       <td className="num">100.00%</td>

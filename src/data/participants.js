@@ -130,7 +130,7 @@ export const PARTICIPANTS = [
         id: 'roth',
         name: PLAN_ROTH,
         type: '401(k) — Roth',
-        meta: 'Eligible Since Mar 1, 2026 · ID 124675',
+        meta: 'ID 124675',
         badge: 'Eligible',
         badgeClass: 'eligible',
         cardClass: 'eligible-not',

@@ -483,7 +483,7 @@
   .rr-modal .enroll-modal-actions{grid-template-columns:1fr}
   .rg-page{max-width:none;width:100%}
   .rg-page .hi-bar{align-items:flex-start}
-  .rg-disc-top{flex:0 0 auto;white-space:nowrap;margin-top:4px}
+  .rg-disc-top{flex:0 0 auto;white-space:nowrap;margin-top:4px;font-size:13.5px;font-weight:800}
   .rg-back{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px}
   .rg-intro{margin:8px 0 0;max-width:640px;font-size:14.5px;line-height:1.5;color:var(--ink-soft);font-weight:500}
   .rg-shell{display:grid;grid-template-columns:7fr 3fr;gap:24px;align-items:start;width:100%}
@@ -2104,14 +2104,30 @@ summary:focus-visible {
 .rgs-cta:focus-visible { outline: 2px solid var(--rgs-arc-1); outline-offset: 2px; }
 
 .rgs-foot {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  display: flex; flex-direction: column; align-items: stretch; gap: 8px;
   margin: 14px 0 0; padding-top: 12px;
   border-top: 1px solid var(--rgs-glass-border);
   font-size: 10.5px;
 }
-.rgs-foot-note { display: flex; align-items: center; gap: 6px; min-width: 0; color: var(--rgs-muted); line-height: 1.4; }
-.rgs-foot-note svg { flex: 0 0 auto; }
-.rgs-foot-actions { display: flex; align-items: center; gap: 14px; flex: 0 0 auto; }
+.rgs-foot-note {
+  display: flex; align-items: flex-start; gap: 6px;
+  width: 100%; min-width: 0; margin: 0;
+  color: var(--rgs-muted); line-height: 1.45;
+}
+.rgs-foot-note svg { flex: 0 0 auto; margin-top: 1px; }
+.rgs-foot-note > span { flex: 1; min-width: 0; }
+.rgs-foot-note .rgs-foot-link {
+  display: inline;
+  color: var(--brand);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: 0;
+  margin: 0;
+  white-space: normal;
+  vertical-align: baseline;
+}
+.rgs-foot-actions { display: flex; align-items: center; gap: 14px; }
 .rgs-foot-link {
   /* Padding + matching negative margin lift the click target to the WCAG
      2.5.8 24px minimum without moving the visible text. */

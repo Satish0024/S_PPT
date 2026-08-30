@@ -34,9 +34,11 @@ export default function Dashboard() {
           <section>
             <h2 className="section-title">My plans</h2>
             <div className="plans-grid">
-              {participant.plans.map((plan) => (
-                <PlanCard key={plan.id} plan={plan} />
-              ))}
+              {participant.plans
+                .filter((plan) => plan.type !== 'Profit Sharing')
+                .map((plan) => (
+                  <PlanCard key={plan.id} plan={plan} />
+                ))}
             </div>
           </section>
           <QuickLinks />

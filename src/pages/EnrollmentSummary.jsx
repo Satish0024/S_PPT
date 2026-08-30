@@ -42,10 +42,13 @@ export default function EnrollmentSummary() {
   const usingPlan = investment?.mode === 'plan'
 
   const confirm = () => {
-    // A not-yet-eligible participant is "providing elections in advance"
-    // rather than enrolling — flag it so the dashboard plan card offers to
-    // view what was saved instead of prompting for advance elections again.
-    if (notEligible) markAdvanceElections(participant.id)
+    // Any plan that still offers "Provide elections in advance" should switch
+    // to "View Saved Details" after confirm — including eligible participants
+    // who only have that link on a not-yet-eligible plan (e.g. Deferred Comp).
+    const hasAdvanceLink = (participant.plans || []).some(
+      (plan) => plan.noticeLink?.label === 'Provide elections in advance'
+    )
+    if (notEligible || hasAdvanceLink) markAdvanceElections(participant.id)
     setDone(true)
   }
   const goHome = () => navigate('/', { replace: true })

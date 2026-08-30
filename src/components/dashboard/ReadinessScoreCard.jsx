@@ -190,19 +190,20 @@ export default function ReadinessScoreCard() {
         )}
 
         <div className="rgs-foot">
-          <span className="rgs-foot-note">
+          <p className="rgs-foot-note">
             <Info size={13} strokeWidth={2.2} aria-hidden="true" />
-            Not guaranteed results. It&apos;s a simulation.
-          </span>
+            <span>
+              Not guaranteed results · It&apos;s a simulation.{' '}
+              <button type="button" className="rgs-foot-link" onClick={() => setOpen(true)}>
+                Disclaimer
+              </button>
+            </span>
+          </p>
           <span className="rgs-foot-actions">
             <Link className="rgs-foot-link" to="/retirement-goal">
               <SlidersHorizontal size={12} strokeWidth={2.4} aria-hidden="true" />
               Adjust goal
             </Link>
-            <button type="button" className="rgs-foot-link" onClick={() => setOpen(true)}>
-              Disclaimer
-              <ArrowRight size={12} strokeWidth={2.4} aria-hidden="true" />
-            </button>
           </span>
         </div>
       </div>
