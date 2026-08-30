@@ -100,33 +100,43 @@
     --danger: var(--red);
     --shadow-card: var(--shadow-lg);
 
-    /* Retirement — light mode: a bright, near-white surface (status/
-       confidence still reads through strong color accents, not a dark
-       shell). Flips to a dark navy identity under [data-theme="dark"]
-       below, same as the other two widgets. */
-    --rgs-base-1:#ffffff; --rgs-base-2:#f6f7fc; --rgs-base-3:#eef0f9;
+    /* Retirement — light mode: a clean white card that sits ABOVE the
+       page. The previous gradient bottomed out at #eef0f9, darker than
+       the #f4f5f9 page, so the card never read as a raised surface —
+       hence the washed-out look. Now: flat white + crisp hairline +
+       real elevation, with colour carried by the accents instead. */
+    --rgs-base-1:#ffffff; --rgs-base-2:#ffffff; --rgs-base-3:#fdfdff;
     --rgs-glow-primary: 46,49,146; --rgs-glow-secondary: 20,122,76;
-    --rgs-border: rgba(20,30,60,.08); --rgs-glass: rgba(46,49,146,.045);
-    --rgs-glass-border: rgba(20,30,60,.09);
+    --rgs-border: rgba(22,28,58,.10); --rgs-glass: rgba(22,28,58,.028);
+    --rgs-glass-border: rgba(22,28,58,.08);
     --rgs-ink: var(--ink); --rgs-ink-soft: var(--ink-soft); --rgs-muted: var(--muted);
     --rgs-success: var(--green); --rgs-warn: var(--amber); --rgs-danger: var(--red);
     --rgs-success-bg: var(--green-bg); --rgs-warn-bg: var(--amber-bg); --rgs-danger-bg: var(--red-bg);
-    --rgs-noise-dot: rgba(20,30,60,.08); --rgs-ring-color: rgba(20,30,60,.14);
+    --rgs-track: rgba(22,28,58,.09);
+    --rgs-arc-1:#4a63c7; --rgs-arc-2:#2e3192;
+    /* Corner tint + atmosphere strength. Light keeps only a whisper of
+       tint and switches the dotted/wave layers off entirely. */
+    --rgs-glow-a: .05; --rgs-glow-b: .035; --rgs-decor: 0;
     --rgs-cta-bg: var(--ink); --rgs-cta-ink: #ffffff;
+    --rgs-elevation: 0 1px 2px rgba(20,28,60,.05), 0 12px 28px -12px rgba(20,28,60,.18);
 
-    /* Financial Wellness — light: warm-white → pale lavender wash. */
-    --learn-surface-1:#fdfcff; --learn-surface-2:#f2effc;
-    --learn-ink:#201c3d; --learn-desc:#645f86;
-    --learn-accent:#6e56d6; --learn-accent-bg:rgba(110,86,214,.1);
-    --learn-pattern:rgba(110,86,214,.5); --learn-pattern-soft:rgba(110,86,214,.22);
-    --learn-border:rgba(120,100,210,.14);
+    /* Financial Wellness — light: warm white, lavender only as accent.
+       The pattern fill is much lighter than before; the old .22 fill on
+       oversized shapes read as flat purple clip-art. */
+    --learn-surface-1:#ffffff; --learn-surface-2:#faf8ff;
+    --learn-ink:#1d1a35; --learn-desc:#5f5a80;
+    --learn-accent:#5b45c9; --learn-accent-bg:rgba(91,69,201,.09);
+    --learn-pattern:rgba(110,86,214,.34); --learn-pattern-soft:rgba(110,86,214,.07);
+    --learn-border:rgba(22,28,58,.10);
+    --learn-elevation: 0 1px 2px rgba(20,28,60,.05), 0 12px 28px -12px rgba(60,40,150,.16);
 
-    /* Investment Style — light: pale mint → blue-grey. */
-    --inv-surface-1:#f6fbf9; --inv-surface-2:#eef5f8;
-    --inv-ink:#17332e; --inv-desc:#3f5854;
-    --inv-accent:#0a6656; --inv-accent-bg:rgba(15,127,108,.12);
-    --inv-pattern:rgba(15,127,108,.4); --inv-node:#1c9c85;
-    --inv-border:rgba(30,140,130,.16);
+    /* Investment Style — light: warm white with mint only as accent. */
+    --inv-surface-1:#ffffff; --inv-surface-2:#f6fcfa;
+    --inv-ink:#14312b; --inv-desc:#3d564f;
+    --inv-accent:#0a6656; --inv-accent-bg:rgba(10,102,86,.10);
+    --inv-pattern:rgba(15,127,108,.26); --inv-node:#0f7f6c;
+    --inv-border:rgba(22,28,58,.10);
+    --inv-elevation: 0 1px 2px rgba(20,28,60,.05), 0 12px 28px -12px rgba(10,80,68,.18);
   }
 
   :root[data-theme="dark"]{
@@ -134,29 +144,34 @@
     --border-glass: rgba(255,255,255,.1);
 
     /* Retirement — dark: deep navy-charcoal glass. */
-    --rgs-base-1:#161a34; --rgs-base-2:#10122a; --rgs-base-3:#0a0c1e;
+    --rgs-base-1:#171b36; --rgs-base-2:#11142c; --rgs-base-3:#0b0e21;
     --rgs-glow-primary: 99,124,255; --rgs-glow-secondary: 64,214,196;
-    --rgs-border: rgba(255,255,255,.1); --rgs-glass: rgba(255,255,255,.06);
-    --rgs-glass-border: rgba(255,255,255,.12);
+    --rgs-border: rgba(255,255,255,.11); --rgs-glass: rgba(255,255,255,.055);
+    --rgs-glass-border: rgba(255,255,255,.11);
     --rgs-ink:#f3f4fc; --rgs-ink-soft:rgba(214,217,242,.78); --rgs-muted:rgba(197,205,255,.68);
     --rgs-success:#7be6c8; --rgs-warn:#f0c876; --rgs-danger:#ff9d90;
     --rgs-success-bg:rgba(123,230,200,.16); --rgs-warn-bg:rgba(232,197,122,.16); --rgs-danger-bg:rgba(255,157,144,.16);
-    --rgs-noise-dot: rgba(255,255,255,.13); --rgs-ring-color: rgba(255,255,255,.09);
+    --rgs-track: rgba(255,255,255,.10);
+    --rgs-arc-1:#8fa0ff; --rgs-arc-2:#6f86ff;
+    --rgs-glow-a: .34; --rgs-glow-b: .16; --rgs-decor: .5;
     --rgs-cta-bg: #ffffff; --rgs-cta-ink: var(--rgs-base-1);
+    --rgs-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.6);
 
     /* Financial Wellness — dark: charcoal with a faint lavender cast. */
     --learn-surface-1:#1c1e30; --learn-surface-2:#211f38;
     --learn-ink:#eeeaff; --learn-desc:#b7b2d8;
     --learn-accent:#b0a0ff; --learn-accent-bg:rgba(176,160,255,.14);
-    --learn-pattern:rgba(176,160,255,.45); --learn-pattern-soft:rgba(176,160,255,.16);
-    --learn-border:rgba(176,160,255,.16);
+    --learn-pattern:rgba(176,160,255,.38); --learn-pattern-soft:rgba(176,160,255,.08);
+    --learn-border:rgba(176,160,255,.15);
+    --learn-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.55);
 
     /* Investment Style — dark: graphite with mint/teal contour lines. */
     --inv-surface-1:#161c1e; --inv-surface-2:#131a1c;
     --inv-ink:#e7f5f1; --inv-desc:#9fb8b2;
-    --inv-accent:#5fe3c4; --inv-accent-bg:rgba(95,227,196,.14);
-    --inv-pattern:rgba(95,227,196,.32); --inv-node:#5fe3c4;
-    --inv-border:rgba(95,227,196,.16);
+    --inv-accent:#5fe3c4; --inv-accent-bg:rgba(95,227,196,.13);
+    --inv-pattern:rgba(95,227,196,.24); --inv-node:#5fe3c4;
+    --inv-border:rgba(95,227,196,.15);
+    --inv-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.55);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body,#root{min-height:100vh}
@@ -1830,13 +1845,25 @@ summary:focus-visible {
   --widget-shadow: 0 20px 48px -20px rgba(20, 24, 50, .28);
 }
 
-/* ---------- Retirement Goal Simulator ----------
-   A fixed dark-glass identity in both themes — orbital/signal/precision
-   language: real text for 80%, decorated only by faint dotted rings, thin
-   orbital arcs and particles (none of it is a progress indicator — every
-   ring is the same static decoration regardless of the score). Layered
-   atmosphere behind it (radial glows, a dotted field, flowing lines) is
-   pointer-events:none and clipped by overflow:hidden. */
+/* ==========================================================================
+   Dashboard sidebar widgets — Retirement Readiness, Financial Wellness,
+   Investment Style.
+
+   Design pass 3. What changed and why:
+   - Light mode previously used a full-card gradient bottoming out at
+     #eef0f9, which is DARKER than the #f4f5f9 page — so the cards never
+     read as raised surfaces and looked washed out. Now each card is a
+     clean white surface with a hairline border and real elevation, with
+     colour carried by accents and a whisper of corner tint instead.
+   - Decoration was doing too much and reading as noise (scattered
+     particles, oversized flat-fill leaves, arbitrary ovals). Each card now
+     has one deliberate, well-formed motif with restrained opacity.
+   ========================================================================== */
+
+/* ---------- Retirement Readiness (hero card) ----------
+   The primary widget: strongest contrast, largest type, one clear focal
+   number. Light = white card; dark = layered navy glass. Both carry the
+   same structure so nothing shifts between themes. */
 .rgs {
   position: relative;
   overflow: hidden;
@@ -1844,233 +1871,245 @@ summary:focus-visible {
   min-width: 0;
   box-sizing: border-box;
   border-radius: var(--widget-radius);
-  padding: 22px 22px 20px;
+  padding: 20px;
   color: var(--rgs-ink);
   background:
-    radial-gradient(120% 90% at 88% -10%, rgba(var(--rgs-glow-primary), .32), transparent 60%),
-    radial-gradient(70% 60% at 6% 100%, rgba(var(--rgs-glow-secondary), .15), transparent 65%),
-    linear-gradient(165deg, var(--rgs-base-1) 0%, var(--rgs-base-2) 55%, var(--rgs-base-3) 100%);
+    radial-gradient(120% 100% at 100% 0%, rgba(var(--rgs-glow-primary), var(--rgs-glow-a)), transparent 62%),
+    radial-gradient(90% 80% at 0% 100%, rgba(var(--rgs-glow-secondary), var(--rgs-glow-b)), transparent 68%),
+    linear-gradient(168deg, var(--rgs-base-1) 0%, var(--rgs-base-2) 58%, var(--rgs-base-3) 100%);
   border: 1px solid var(--rgs-border);
-  box-shadow: var(--widget-shadow);
+  box-shadow: var(--rgs-elevation);
 }
+/* Atmosphere is dark-mode only — in light mode these read as dirt on an
+   otherwise clean white card, so they fade to nothing. */
 .rgs-noise {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: .5;
-  background-image: radial-gradient(var(--rgs-noise-dot) 1px, transparent 1.4px);
-  background-size: 15px 15px;
-  background-position: -4px -4px;
-  -webkit-mask-image: radial-gradient(75% 65% at 82% 18%, #000 0%, transparent 72%);
-  mask-image: radial-gradient(75% 65% at 82% 18%, #000 0%, transparent 72%);
+  opacity: var(--rgs-decor, 0);
+  background-image: radial-gradient(rgba(255, 255, 255, .12) 1px, transparent 1.4px);
+  background-size: 16px 16px;
+  -webkit-mask-image: radial-gradient(70% 60% at 84% 12%, #000 0%, transparent 74%);
+  mask-image: radial-gradient(70% 60% at 84% 12%, #000 0%, transparent 74%);
 }
 .rgs-wave {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: .5;
+  opacity: var(--rgs-decor, 0);
 }
 .rgs-body { position: relative; z-index: 1; min-width: 0; }
 
-.rgs-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
+.rgs-head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
 .rgs-head-copy { min-width: 0; flex: 1; }
 .rgs-eyebrow {
   display: block;
-  font-size: 10.5px;
+  margin: 0 0 5px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: .6px;
+  letter-spacing: .8px;
   text-transform: uppercase;
   color: var(--rgs-muted);
-  margin-bottom: 6px;
 }
 .rgs-headline {
   margin: 0;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: -.3px;
+  letter-spacing: -.25px;
   color: var(--rgs-ink);
-  line-height: 1.25;
+  line-height: 1.3;
 }
 .rgs-head-act {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   flex: 0 0 auto;
-  border-radius: 10px;
+  border-radius: 9px;
   display: grid;
   place-items: center;
-  background: var(--rgs-glass);
+  background: transparent;
   border: 1px solid var(--rgs-glass-border);
-  color: var(--rgs-ink);
-  transition: background .15s;
+  color: var(--rgs-muted);
+  transition: background .15s, color .15s;
 }
-.rgs-head-act:hover { background: var(--rgs-glass-border); }
-.rgs-head-act:focus-visible { outline: 2px solid #8fa0ff; outline-offset: 2px; }
+.rgs-head-act:hover { background: var(--rgs-glass); color: var(--rgs-ink); }
+.rgs-head-act:focus-visible { outline: 2px solid var(--rgs-arc-1); outline-offset: 2px; }
 
 .rgs-main {
   display: flex;
   flex-wrap: wrap;
-  align-items: stretch;
-  gap: 16px;
+  align-items: center;
+  gap: 18px;
   margin-bottom: 16px;
 }
 
-/* Orbital signal: no chart/arc drives the number — it's plain text,
-   decorated by faint concentric dotted rings, two short static arc
-   fragments and a few particles behind it, all aria-hidden. Nothing here
-   encodes the 80% value; the rings are identical at any score. */
+/* One clean progress ring: a track plus a single gradient arc with a
+   rounded cap. This replaces the old scattered dotted rings and floating
+   particles, which read as unfinished noise rather than intent. The arc
+   is aria-hidden decoration — the percentage next to it is real text. */
 .rgs-orbit {
   position: relative;
   flex: 0 0 auto;
-  width: 128px;
-  height: 128px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 116px;
+  height: 116px;
+  display: grid;
+  place-items: center;
 }
-.rgs-orbit-rings { position: absolute; inset: 0; }
-.rgs-orbit-rings .rgs-spin { transform-origin: 50% 50%; animation: rgs-orbit-spin 40s linear infinite; }
-@keyframes rgs-orbit-spin { to { transform: rotate(360deg); } }
+.rgs-orbit-rings { position: absolute; inset: 0; width: 100%; height: 100%; }
 .rgs-orbit-value {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  line-height: 1;
 }
 .rgs-orbit-value b {
-  font-size: clamp(38px, 6vw, 52px);
+  font-size: 34px;
   font-weight: 700;
-  letter-spacing: -2.5px;
+  letter-spacing: -1.4px;
   line-height: 1;
   color: var(--rgs-ink);
   font-variant-numeric: tabular-nums;
 }
 .rgs-orbit-value span {
-  margin-top: 6px;
-  font-size: 10.5px;
+  margin-top: 5px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: .3px;
+  letter-spacing: .2px;
   color: var(--rgs-muted);
   white-space: nowrap;
 }
 
+/* Borderless, hairline-divided rows — the boxed grey panel this replaces
+   fought the card's own border and made the figures feel cramped. */
 .rgs-snap {
-  flex: 1 1 200px;
+  flex: 1 1 165px;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 16px;
-  border-radius: 14px;
-  background: var(--rgs-glass);
-  border: 1px solid var(--rgs-glass-border);
-  backdrop-filter: blur(14px);
-  box-shadow: inset 0 1px 0 var(--rgs-glass-border);
+  gap: 0;
+  margin: 0;
 }
 .rgs-snap-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 10px;
+  padding: 9px 0;
 }
+.rgs-snap-row + .rgs-snap-row { border-top: 1px solid var(--rgs-glass-border); }
 .rgs-snap-label {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   min-width: 0;
-  font-size: 11px;
+  margin: 0;
+  font-size: 11.5px;
   font-weight: 600;
-  letter-spacing: .2px;
   color: var(--rgs-ink-soft);
   white-space: nowrap;
 }
-.rgs-snap-row.expense .rgs-snap-label { text-transform: uppercase; letter-spacing: .5px; font-size: 10px; color: var(--rgs-muted); }
+.rgs-snap-row.expense .rgs-snap-label {
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--rgs-muted);
+}
 .rgs-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   flex: 0 0 auto;
   background: currentColor;
 }
 .rgs-snap-row.income .rgs-snap-label { color: var(--rgs-success); }
 .rgs-snap-row.shortfall .rgs-snap-label { color: var(--rgs-danger); }
+.rgs-snap-row dd { margin: 0; }
 .rgs-snap-row b {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: -.3px;
+  letter-spacing: -.4px;
   color: var(--rgs-ink);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 .rgs-snap-row.income b { color: var(--rgs-success); }
 .rgs-snap-row.shortfall b { color: var(--rgs-danger); }
-.rgs-snap-div { height: 1px; background: var(--rgs-glass-border); }
+/* The explicit divider element is redundant now that rows self-divide. */
+.rgs-snap-div { display: none; }
 
 .rgs-status {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border-radius: 14px;
+  gap: 11px;
+  padding: 12px 14px;
+  border-radius: 13px;
   background: var(--rgs-success-bg);
-  border: 1px solid var(--rgs-glass-border);
+  border: 1px solid transparent;
 }
 .rgs-status-ico {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   flex: 0 0 auto;
-  border-radius: 10px;
+  border-radius: 9px;
   display: grid;
   place-items: center;
-  background: color-mix(in srgb, var(--rgs-success) 18%, transparent);
+  background: color-mix(in srgb, var(--rgs-success) 20%, transparent);
   color: var(--rgs-success);
 }
 .rgs-status.ok { background: var(--rgs-warn-bg); }
 .rgs-status.warn { background: var(--rgs-danger-bg); }
-.rgs-status.ok .rgs-status-ico { background: color-mix(in srgb, var(--rgs-warn) 18%, transparent); color: var(--rgs-warn); }
-.rgs-status.warn .rgs-status-ico { background: color-mix(in srgb, var(--rgs-danger) 18%, transparent); color: var(--rgs-danger); }
-.rgs-status-copy b { display: block; font-size: 13.5px; font-weight: 700; color: var(--rgs-success); }
+.rgs-status.ok .rgs-status-ico { background: color-mix(in srgb, var(--rgs-warn) 20%, transparent); color: var(--rgs-warn); }
+.rgs-status.warn .rgs-status-ico { background: color-mix(in srgb, var(--rgs-danger) 20%, transparent); color: var(--rgs-danger); }
+.rgs-status-copy { min-width: 0; }
+.rgs-status-copy b { display: block; font-size: 13px; font-weight: 700; color: var(--rgs-success); }
 .rgs-status.ok .rgs-status-copy b { color: var(--rgs-warn); }
 .rgs-status.warn .rgs-status-copy b { color: var(--rgs-danger); }
-.rgs-status-copy span { display: block; margin-top: 2px; font-size: 11.5px; line-height: 1.4; color: var(--rgs-ink-soft); }
+.rgs-status-copy span {
+  display: block;
+  margin-top: 2px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--rgs-ink-soft);
+}
 
 .rgs-intro { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
 .rgs-intro p { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--rgs-ink-soft); }
 .rgs-cta {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 10px 16px; border-radius: 11px; border: none;
-  background: var(--rgs-cta-bg); color: var(--rgs-cta-ink); font: inherit; font-size: 13px; font-weight: 700;
+  padding: 10px 16px; border-radius: 10px; border: none;
+  background: var(--rgs-cta-bg); color: var(--rgs-cta-ink);
+  font: inherit; font-size: 13px; font-weight: 700;
   text-decoration: none; cursor: pointer;
 }
-.rgs-cta:hover { filter: brightness(1.1); }
-.rgs-cta:focus-visible { outline: 2px solid #8fa0ff; outline-offset: 2px; }
+.rgs-cta:hover { filter: brightness(1.12); }
+.rgs-cta:focus-visible { outline: 2px solid var(--rgs-arc-1); outline-offset: 2px; }
 
 .rgs-foot {
   display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
-  margin: 0; padding-top: 14px; border-top: 1px solid var(--rgs-glass-border); font-size: 11px;
+  margin: 14px 0 0; padding-top: 12px;
+  border-top: 1px solid var(--rgs-glass-border);
+  font-size: 10.5px;
 }
 .rgs-foot-note { display: flex; align-items: center; gap: 6px; min-width: 0; color: var(--rgs-muted); line-height: 1.4; }
 .rgs-foot-note svg { flex: 0 0 auto; }
 .rgs-foot-link {
-  /* Padding + a matching negative margin bring the click target to the
-     WCAG 2.5.8 24px minimum without shifting the visible text. */
-  display: inline-flex; align-items: center; gap: 4px; font: inherit; font-size: 11px; font-weight: 700;
-  color: var(--rgs-ink); background: none; border: none; cursor: pointer; flex: 0 0 auto; white-space: nowrap;
+  /* Padding + matching negative margin lift the click target to the WCAG
+     2.5.8 24px minimum without moving the visible text. */
+  display: inline-flex; align-items: center; gap: 4px;
+  font: inherit; font-size: 10.5px; font-weight: 700;
+  color: var(--rgs-ink); background: none; border: none; cursor: pointer;
+  flex: 0 0 auto; white-space: nowrap;
   padding: 6px 4px; margin: -6px -4px; border-radius: 6px;
 }
 .rgs-foot-link:hover { text-decoration: underline; }
-.rgs-foot-link:focus-visible { outline: 2px solid #8fa0ff; outline-offset: 2px; border-radius: 3px; }
-
-@media (prefers-reduced-motion: reduce) {
-  .rgs-orbit-rings .rgs-spin { animation: none; }
-}
+.rgs-foot-link:focus-visible { outline: 2px solid var(--rgs-arc-1); outline-offset: 2px; }
 
 /* ---------- Financial Wellness ----------
-   Organic / botanical / editorial: a light warm-white → pale-tint wash with
-   thin-outline abstract leaf shapes kept to the right, faded into the
-   background, typography carrying the hierarchy, and a small text-link CTA
-   rather than a button. */
+   Light, editorial content card. Typography leads; a single fine-line
+   botanical sprig sits in the right margin as a quiet accent — replacing
+   three oversized flat-fill leaf blobs that read as clip-art. */
 .learn2 {
   position: relative;
   overflow: hidden;
@@ -2078,11 +2117,11 @@ summary:focus-visible {
   min-width: 0;
   box-sizing: border-box;
   border-radius: var(--widget-radius);
-  padding: 22px;
-  background: linear-gradient(120deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 45%, var(--learn-surface-2) 100%);
+  padding: 20px;
+  background: linear-gradient(135deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 52%, var(--learn-surface-2) 100%);
   border: 1px solid var(--learn-border);
-  box-shadow: var(--widget-shadow);
-  min-height: 170px;
+  box-shadow: var(--learn-elevation);
+  min-height: 164px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -2092,50 +2131,50 @@ summary:focus-visible {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 55%;
-  min-width: 160px;
+  width: 46%;
+  min-width: 132px;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 26%);
-  mask-image: linear-gradient(to right, transparent, #000 26%);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 34%);
+  mask-image: linear-gradient(to right, transparent, #000 34%);
 }
-.learn2-field .learn2-leaf-drift { animation: learn2-drift 14s ease-in-out infinite; transform-origin: 50% 50%; }
-.learn2-field .learn2-leaf-drift.d2 { animation-duration: 18s; animation-delay: -4s; }
+.learn2-field .learn2-leaf-drift {
+  animation: learn2-drift 16s ease-in-out infinite;
+  transform-origin: 70% 60%;
+}
+.learn2-field .learn2-leaf-drift.d2 { animation-duration: 21s; animation-delay: -6s; }
 @keyframes learn2-drift {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-3px) rotate(.6deg); }
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.1deg); }
 }
-.learn2-body { position: relative; z-index: 1; max-width: 62%; min-width: 0; }
+.learn2-body { position: relative; z-index: 1; max-width: 63%; min-width: 0; }
 .learn2-tag {
   display: inline-flex;
   align-items: center;
-  padding: 3px 10px;
+  padding: 4px 10px;
   border-radius: 999px;
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: .5px;
+  letter-spacing: .7px;
   text-transform: uppercase;
   color: var(--learn-accent);
   background: var(--learn-accent-bg);
   margin-bottom: 12px;
 }
 .learn2-title {
-  margin: 0 0 8px;
-  font-size: 22px;
+  margin: 0 0 7px;
+  font-size: 21px;
   font-weight: 700;
-  letter-spacing: -.5px;
+  letter-spacing: -.6px;
   color: var(--learn-ink);
   line-height: 1.15;
 }
 .learn2-desc {
-  margin: 0 0 16px;
-  font-size: 13px;
+  margin: 0 0 15px;
+  font-size: 12.5px;
   line-height: 1.55;
   color: var(--learn-desc);
 }
 .learn2-cta {
-  /* Padding + a matching negative margin bring the click target to the
-     WCAG 2.5.8 24px minimum without shifting the visible text or the
-     card's layout. */
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -2152,14 +2191,15 @@ summary:focus-visible {
   cursor: pointer;
   text-decoration: none;
 }
+.learn2-cta svg { transition: transform .18s ease; }
+.learn2-cta:hover svg { transform: translateX(3px); }
 .learn2-cta:hover { text-decoration: underline; }
-.learn2-cta:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; border-radius: 4px; }
+.learn2-cta:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; }
 
 /* ---------- Investment Style ----------
-   Topographic / generative / analytical: no gauge, chart, or progress bar.
-   A large display-type level name is the dominant visual; an abstract
-   contour field with a few generative nodes sits only in the right margin,
-   standing in for a data visualization without being one. */
+   Typography-led identity card: the level name is the visual. The field to
+   its right is now a true nested contour set (concentric, organically
+   offset) rather than the scattered unrelated ovals it replaces. */
 .risk3 {
   position: relative;
   overflow: hidden;
@@ -2167,102 +2207,87 @@ summary:focus-visible {
   min-width: 0;
   box-sizing: border-box;
   border-radius: var(--widget-radius);
-  padding: 22px;
+  padding: 20px;
   background: linear-gradient(150deg, var(--inv-surface-1) 0%, var(--inv-surface-1) 55%, var(--inv-surface-2) 100%);
   border: 1px solid var(--inv-border);
-  box-shadow: var(--widget-shadow);
+  box-shadow: var(--inv-elevation);
 }
 .risk3-field {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 48%;
-  min-width: 170px;
+  width: 50%;
+  min-width: 150px;
   pointer-events: none;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 24%);
-  mask-image: linear-gradient(to right, transparent, #000 24%);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 30%);
+  mask-image: linear-gradient(to right, transparent, #000 30%);
 }
-.risk3-field .risk3-node { animation: risk3-pulse 6s ease-in-out infinite; }
+.risk3-field .risk3-node { animation: risk3-pulse 7s ease-in-out infinite; }
 @keyframes risk3-pulse {
   0%, 100% { opacity: var(--node-op, .6); }
-  50% { opacity: calc(var(--node-op, .6) * .55); }
+  50% { opacity: calc(var(--node-op, .6) * .5); }
 }
-.risk3-body { position: relative; z-index: 1; max-width: 58%; min-width: 0; }
+.risk3-body { position: relative; z-index: 1; max-width: 60%; min-width: 0; }
 .risk3-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 .risk3-head h3 {
   margin: 0;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: -.1px;
-  color: var(--inv-ink);
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--inv-desc);
 }
 .risk3-badge {
   flex: 0 0 auto;
-  padding: 4px 11px;
+  padding: 4px 10px;
   border-radius: 999px;
-  font-size: 10.5px;
+  font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: .2px;
+  letter-spacing: .4px;
+  text-transform: uppercase;
   background: var(--inv-accent-bg);
   color: var(--inv-accent);
   white-space: nowrap;
 }
 .risk3-title {
-  margin: 0 0 4px;
-  font-size: clamp(28px, 4vw, 38px);
+  margin: 0 0 12px;
+  font-size: clamp(28px, 3.6vw, 36px);
   font-weight: 700;
-  letter-spacing: -1.5px;
+  letter-spacing: -1.6px;
   line-height: 1;
   color: var(--inv-accent);
 }
 .risk3-desc {
-  margin: 12px 0 0;
+  margin: 0;
   font-size: 12px;
   line-height: 1.55;
   color: var(--inv-desc);
 }
-.risk3-desc + .risk3-desc { margin-top: 8px; }
-.risk3-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 16px;
-  padding: 9px 15px;
-  border-radius: 10px;
-  border: 1px solid var(--inv-accent);
-  box-sizing: border-box;
-  font: inherit;
-  font-size: 12.5px;
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
-  background: transparent;
-  color: var(--inv-accent);
-  transition: background .15s;
-}
-.risk3-btn:hover { background: var(--inv-accent-bg); }
-.risk3-btn:focus-visible { outline: 2px solid var(--inv-accent); outline-offset: 2px; }
+.risk3-desc + .risk3-desc { margin-top: 9px; }
 
 @media (prefers-reduced-motion: reduce) {
   .learn2-field .learn2-leaf-drift { animation: none; }
   .risk3-field .risk3-node { animation: none; }
+  .learn2-cta svg { transition: none; }
 }
 
 @media (max-width: 1080px) {
   .rr3, .learn2, .risk3, .rgs { padding: 18px; }
 }
-@media (max-width: 360px) {
-  .rgs-main { flex-direction: column; align-items: center; }
-  .rgs-snap { width: 100%; }
+/* Narrow sidebar column: stack the ring above the figures and pull the
+   decorative fields back so they never crowd the copy. */
+@media (max-width: 340px) {
+  .rgs-main { flex-direction: column; align-items: stretch; gap: 12px; }
+  .rgs-orbit { align-self: center; }
   .learn2-body, .risk3-body { max-width: 100%; }
-  .learn2-field, .risk3-field { width: 32%; opacity: .6; }
+  .learn2-field, .risk3-field { width: 34%; min-width: 0; opacity: .5; }
 }
 
 /* ---------- Fund detail dialog (hyperlinked investment names) ---------- */
