@@ -19,25 +19,40 @@ import { DisclaimerModal } from './ReadinessVisuals.jsx'
 // is never communicated by color alone (a11y requirement).
 const TONE_ICON = { good: CircleCheck, ok: CircleCheck, warn: CircleAlert }
 
-// Purely decorative "orbital signal": dotted concentric rings, two short
-// broken arc fragments, and a scatter of particles behind the score. None
-// of this encodes the percentage — it renders identically at any score —
-// so it reads as atmosphere, not a progress indicator. aria-hidden; the
-// score itself is real text laid on top.
-function OrbitRings() {
+const RING_R = 52
+const RING_C = 2 * Math.PI * RING_R
+
+// A single clean progress ring: a full-circle track plus one gradient arc
+// with a rounded cap, drawn to the score. This replaces the previous
+// scatter of dotted rings, broken arc fragments and floating particles,
+// which read as unfinished noise rather than intent.
+//
+// aria-hidden: the percentage is real text rendered on top of this, and
+// the wrapper carries its own aria-label, so nothing here is needed to
+// read the widget.
+function ScoreRing({ pct }) {
+  const dash = (Math.max(0, Math.min(100, pct)) / 100) * RING_C
   return (
     <svg className="rgs-orbit-rings" viewBox="0 0 128 128" aria-hidden="true" focusable="false">
-      <circle cx="64" cy="64" r="62" fill="none" style={{ stroke: 'var(--rgs-ring-color)' }} strokeWidth="1" strokeDasharray="1 5" />
-      <circle cx="64" cy="64" r="50" fill="none" style={{ stroke: 'var(--rgs-ring-color)' }} strokeWidth="1" opacity=".8" />
-      <circle cx="64" cy="64" r="38" fill="none" style={{ stroke: 'var(--rgs-ring-color)' }} strokeWidth="1" strokeDasharray="1 4" opacity=".6" />
-      <g className="rgs-spin">
-        <path d="M64 2 A62 62 0 0 1 122 44" fill="none" stroke="#8fa0ff" strokeWidth="1.6" strokeLinecap="round" opacity=".5" />
-        <path d="M6 84 A62 62 0 0 0 40 124" fill="none" stroke="#7be6c8" strokeWidth="1.6" strokeLinecap="round" opacity=".4" />
-        <circle cx="122" cy="44" r="2.4" fill="#8fa0ff" opacity=".8" />
-        <circle cx="8" cy="70" r="1.8" fill="#7be6c8" opacity=".7" />
-        <circle cx="96" cy="118" r="1.4" style={{ fill: 'var(--rgs-ink)' }} opacity=".45" />
-        <circle cx="20" cy="20" r="1.4" style={{ fill: 'var(--rgs-ink)' }} opacity=".35" />
-      </g>
+      <defs>
+        <linearGradient id="rgs-arc" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="var(--rgs-arc-1)" />
+          <stop offset="100%" stopColor="var(--rgs-arc-2)" />
+        </linearGradient>
+      </defs>
+      <circle cx="64" cy="64" r={RING_R} fill="none" stroke="var(--rgs-track)" strokeWidth="8" />
+      <circle
+        cx="64"
+        cy="64"
+        r={RING_R}
+        fill="none"
+        stroke="url(#rgs-arc)"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeDasharray={`${dash} ${RING_C}`}
+        transform="rotate(-90 64 64)"
+        style={{ transition: 'stroke-dasharray .5s cubic-bezier(.4,0,.2,1)' }}
+      />
     </svg>
   )
 }
@@ -117,7 +132,7 @@ export default function ReadinessScoreCard() {
           <>
             <div className="rgs-main">
               <div className="rgs-orbit" role="img" aria-label={`${pct}% of your retirement goal`}>
-                <OrbitRings />
+                <ScoreRing pct={pct} />
                 <div className="rgs-orbit-value">
                   <b>{pct}%</b>
                   <span>of your goal</span>
