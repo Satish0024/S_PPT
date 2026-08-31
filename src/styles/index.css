@@ -212,7 +212,7 @@
   .overall-balance .ob-k{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
   .overall-balance .ob-v{font-size:34px;font-weight:700;letter-spacing:-.7px;line-height:1;color:var(--ink);
     font-variant-numeric:tabular-nums}
-  .overall-balance .ob-block.vested .ob-v{font-size:28px;color:var(--green)}
+  .overall-balance .ob-block.vested .ob-v{color:var(--green)}
   .overall-balance .ob-loan{
     margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
   .overall-balance .ob-loan-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}

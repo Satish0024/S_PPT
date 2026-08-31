@@ -16,7 +16,9 @@ import '../styles/portfolio.css'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
 
-const PERIODS = ['1m', '3m', '6m', 'ytd', '1y', '3y', '5y', '10y', 'si']
+// 'si' (Since inception) stays out of the graph's own period toggle — it's
+// still available as a column in the holdings table below.
+const PERIODS = ['1m', '3m', '6m', 'ytd', '1y', '3y', '5y', '10y']
 const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1Y', '3y': '3Y', '5y': '5Y', '10y': '10Y', si: 'Since inception' }
 
 const SERIES = [

@@ -412,18 +412,12 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
                 </th>
                 <th scope="col" rowSpan={2}>
                   Return YTD
-                  <br />
-                  As of 03/10/2025
                 </th>
                 <th scope="col" className="group-h" colSpan={4}>
                   Average annual total return
-                  <br />
-                  As of 12/31/2024
                 </th>
                 <th scope="col" className="group-h" colSpan={2}>
                   Total annual operating expenses
-                  <br />
-                  As of 12/31/2024
                 </th>
                 <th scope="col" rowSpan={2}>
                   Shareholder-
