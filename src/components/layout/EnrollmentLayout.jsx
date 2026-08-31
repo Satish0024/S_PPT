@@ -47,7 +47,15 @@ export default function EnrollmentLayout() {
                 key={step.n}
                 className={cls}
                 onClick={() => step.to && navigate({ pathname: step.to, search })}
+                onKeyDown={(e) => {
+                  if (!step.to) return
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    navigate({ pathname: step.to, search })
+                  }
+                }}
                 role={step.to ? 'button' : undefined}
+                tabIndex={step.to ? 0 : undefined}
               >
                 <div className="rail">
                   <div className="num">{complete ? '✓' : step.n}</div>
