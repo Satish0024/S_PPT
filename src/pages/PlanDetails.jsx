@@ -12,6 +12,7 @@ import {
   readSession,
   writeSession
 } from '../data/participants'
+import { formatMoney, summaryForPlan } from '../lib/accountSummary'
 import { PlanStats } from '../components/dashboard/PlanCard.jsx'
 import { DeferralEditor } from './Enrollment.jsx'
 import { InvestmentEditor } from './Investments.jsx'
@@ -79,6 +80,12 @@ export default function PlanDetails() {
   const enrolled = isParticipating(plan) && !sessionOptOut
   const eligible = isEligibleOnly(plan) && !enrolled && !sessionOptOut
   const activeTab = deferCapable ? tab : 'investments'
+  // The plan's real balance breakdown (Pre-Tax/Roth/Match/etc. with vested
+  // amounts) and current holdings already exist in the data model and are
+  // used on Account Summary, but were never surfaced here — a participant
+  // looking at "Plan details" would expect to see where their balance
+  // (including any employer match) actually came from.
+  const summary = useMemo(() => summaryForPlan(plan), [plan])
 
   const deferral = enrolled ? { ...DEFAULT_DEFERRAL, ...(savedDeferral || {}) } : savedDeferral
   const autoInc = enrolled ? { ...DEFAULT_AI, ...(savedAi || {}) } : savedAi
@@ -200,6 +207,32 @@ export default function PlanDetails() {
             <Link className="btn btn-primary" to="/enrollment">
               Enroll
             </Link>
+          </div>
+        </section>
+      )}
+
+      {enrolled && summary.sources.length > 0 && (
+        <section className="panel">
+          <div className="panel-h">
+            <h3>Contribution sources</h3>
+          </div>
+          <p className="panel-note">Where this plan&apos;s balance comes from, including any employer match.</p>
+          <div className="fund-list">
+            <div className="fund-list-head">
+              <span>Source</span>
+              <span>Vested</span>
+            </div>
+            <ul className="detail-rows">
+              {summary.sources.map((s) => (
+                <li key={s.id}>
+                  <span>{s.name}</span>
+                  <b>
+                    {formatMoney(s.amount)}
+                    <small>{formatMoney(s.vested)} vested</small>
+                  </b>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
       )}
