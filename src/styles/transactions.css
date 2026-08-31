@@ -112,6 +112,22 @@
 .txn-field .note{font-size:12px;color:var(--ink-soft)}
 .txn-field .note.warn{color:var(--amber)}
 
+.field-tip{position:relative;display:inline-flex;vertical-align:middle;margin-left:5px}
+.field-tip-btn{
+  display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;
+  border:none;padding:0;background:var(--surface-3);color:var(--ink-soft);cursor:help}
+.field-tip-btn:hover,.field-tip-btn:focus-visible{background:var(--brand);color:#fff;outline:none}
+.field-tip-bubble{
+  position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);
+  width:max-content;max-width:220px;padding:8px 10px;border-radius:8px;background:var(--ink);color:var(--panel);
+  font-size:12px;font-weight:600;line-height:1.35;text-align:left;box-shadow:var(--shadow-lg);
+  opacity:0;visibility:hidden;pointer-events:none;transition:opacity .12s,transform .12s;z-index:20}
+.field-tip-bubble::after{
+  content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;
+  border-top-color:var(--ink)}
+.field-tip:hover .field-tip-bubble,.field-tip:focus-within .field-tip-bubble{
+  opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+
 .txn-tenure-row{display:flex;gap:8px;align-items:center}
 .txn-tenure-row input{width:70px;text-align:center}
 

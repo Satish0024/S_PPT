@@ -518,6 +518,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
               label="Length of Loan Term"
               required
               note={`Maximum tenure is ${maxTermYears} year(s) 0 month(s)`}
+              tooltip="Changes to the tenure automatically update the periodic payment."
             >
               <div className="txn-tenure-row">
                 <input
@@ -539,7 +540,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
                 <span className="note">Month(s)</span>
               </div>
             </FieldGroup>
-            <Field label="Periodic Payment" note="Changes to the loan term automatically update the periodic payment.">
+            <Field label="Periodic Payment">
               <input type="text" readOnly value={payment ? formatMoney(payment) : '—'} />
             </Field>
           </div>
