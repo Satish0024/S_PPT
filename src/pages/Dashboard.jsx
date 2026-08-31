@@ -14,14 +14,11 @@ import LearningPortal from '../components/dashboard/LearningPortal.jsx'
 export default function Dashboard() {
   const { participant } = useParticipant()
   const first = participant.name.split(' ')[0]
-  // Cash Balance, Deferred Comp, and Roth 401(k) stay in participant data
-  // but are hidden from the dashboard plan grid for this prototype pass.
-  const visiblePlans = participant.plans.filter(
-    (p) =>
-      p.type !== 'Cash Balance' &&
-      p.type !== 'Nonqualified Deferred Compensation' &&
-      p.type !== '401(k) — Roth'
-  )
+  // Cash Balance is a notional benefit, not real plan assets — carried
+  // separately from every balance total already (see planBalance /
+  // isSummaryPlan), same as an outstanding loan. Surfaced explicitly here
+  // per prototype review #8 so it's visibly excluded, not just silently so.
+  const cashBalancePlan = participant.plans.find((p) => p.type === 'Cash Balance' && p.cashBenefit)
 
   return (
     <div className="page-body">
@@ -33,11 +30,12 @@ export default function Dashboard() {
           <OverallBalance
             {...participant.overall}
             showSummary={hasAccountSummary(participant)}
+            cashBalance={cashBalancePlan?.cashBenefit}
           />
           <section>
             <h2 className="section-title">My plans</h2>
             <div className="plans-grid">
-              {visiblePlans.map((plan) => (
+              {participant.plans.map((plan) => (
                 <PlanCard key={plan.id} plan={plan} />
               ))}
             </div>
