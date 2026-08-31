@@ -239,6 +239,12 @@
   .nav a:hover{background:var(--hover-bg);color:var(--ink)}
   .nav a.active{color:var(--brand);background:var(--active-bg)}
   .nav a.active::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--brand);border-radius:0 4px 4px 0}
+  /* .nav has overflow-y:auto for scrolling on short viewports, which clips
+     any outline that renders outside the link's own box (the browser
+     default outline-offset is positive) — the keyboard focus ring was
+     silently disappearing on every nav item. Draw it inset instead so it
+     always stays inside the link and can never get clipped. */
+  .nav a:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:8px}
 
   .main{flex:1;min-width:0;display:flex;flex-direction:column}
   .page-body{padding:24px 32px 48px;display:flex;flex-direction:column;gap:20px;width:100%;max-width:none}

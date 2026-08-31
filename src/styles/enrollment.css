@@ -68,6 +68,10 @@
   .nav a:hover{background:var(--hover-bg);color:var(--ink)}
   .nav a.active{color:var(--brand);background:var(--active-bg)}
   .nav a.active::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--brand);border-radius:0 4px 4px 0;}
+  /* .nav has overflow-y:auto for scrolling on short viewports, which clips
+     any outline rendered outside the link's box — draw it inset so the
+     keyboard focus ring can never disappear. */
+  .nav a:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:8px}
 
   /* ---------- Steps column (frozen) ---------- */
   .steps{width:280px;flex:0 0 280px;border-right:1px solid var(--line);padding:22px 20px 32px;
@@ -77,6 +81,11 @@
   .steps h1{font-size:22px;font-weight:700;margin:12px 0 16px;letter-spacing:-.3px}
   .divider{height:1px;background:var(--line);margin-bottom:16px}
   .step{display:flex;gap:12px;position:relative;padding:0;margin:0;cursor:pointer;align-items:stretch}
+  /* .steps (the containing aside) has overflow-y:auto for scrolling on
+     short viewports, which clips any outline rendered outside this
+     element's box — draw it inset so the keyboard focus ring can never
+     disappear. */
+  .step:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:8px}
   .step .rail{display:flex;flex-direction:column;align-items:center;flex:0 0 32px;width:32px}
   .step .num{width:32px;height:32px;flex:0 0 32px;border-radius:50%;display:grid;place-items:center;
     font-weight:700;font-size:13px;background:var(--surface-3);color:var(--muted);z-index:1;transition:.2s}
