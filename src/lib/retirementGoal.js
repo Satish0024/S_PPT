@@ -125,10 +125,12 @@ export function scoreGoal({ prefs, currentAge, balance }) {
   return { score, income, expense, shortfall, years }
 }
 
+// Only two neutral scenarios are shown here — there is no alarming
+// "Needs Attention" state, so a lower score still reads as encouraging
+// guidance rather than a warning.
 export function statusCopy(score) {
   if (score >= 80) return { title: 'Excellent!', body: 'Your plan is well set up for this retirement goal.' }
-  if (score >= 55) return { title: 'On Track', body: 'A few changes can close the gap to your target.' }
-  return { title: 'Needs Attention', body: 'Raise savings or lower expected spend to reach your goal.' }
+  return { title: 'On Track', body: 'A few changes can close the gap to your target.' }
 }
 
 export function playLevel(score) {

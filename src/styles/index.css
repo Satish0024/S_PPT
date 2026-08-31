@@ -287,7 +287,7 @@
   .overall-balance .ob-k{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
   .overall-balance .ob-v{font-size:34px;font-weight:700;letter-spacing:-.7px;line-height:1;color:var(--ink);
     font-variant-numeric:tabular-nums}
-  .overall-balance .ob-block.vested .ob-v{font-size:28px;color:var(--green)}
+  .overall-balance .ob-block.vested .ob-v{color:var(--green)}
   .overall-balance .ob-loan{
     margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
   .overall-balance .ob-loan-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
@@ -351,17 +351,17 @@
     padding:8px 10px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;
     box-shadow:0 0 0 1px rgba(2,132,199,.14);box-sizing:border-box;width:100%}
   .rr-status-go:hover{background:var(--active-bg);color:var(--brand)}
+  /* One neutral treatment for every status tone — status is communicated
+     through the label text itself, not through a traffic-light color. */
   .rr-status{
     display:flex;flex-direction:column;align-items:stretch;gap:10px;
-    border-radius:12px;padding:12px 12px;background:var(--green-bg)}
+    border-radius:12px;padding:12px 12px;background:var(--surface-2)}
   .rr-status-copy{flex:1;min-width:0}
-  .rr-status b{display:block;font-size:13px;font-weight:800;color:#1a9d63;margin-bottom:2px}
+  .rr-status b{display:block;font-size:13px;font-weight:800;color:var(--ink);margin-bottom:2px}
   .rr-status span{font-size:12px;line-height:1.4;color:var(--ink-soft)}
-  .rr-status em{display:block;margin-top:4px;font-style:normal;font-size:11px;font-weight:700;color:#1a9d63}
-  .rr-status.ok{background:var(--amber-bg)}
-  .rr-status.ok b,.rr-status.ok em{color:#b7791f}
-  .rr-status.warn{background:var(--red-bg)}
-  .rr-status.warn b,.rr-status.warn em{color:#c0392b}
+  .rr-status em{display:block;margin-top:4px;font-style:normal;font-size:11px;font-weight:700;color:var(--ink)}
+  .rr-status.ok,.rr-status.warn,.rr-status.good{background:var(--surface-2)}
+  .rr-status.ok b,.rr-status.ok em,.rr-status.warn b,.rr-status.warn em,.rr-status.good b,.rr-status.good em{color:var(--ink)}
   .rr-field{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--ink);margin:0 0 12px}
   .rr-field span{display:inline-flex;align-items:center;gap:6px}
   .rr-field input,.rr-field select{
@@ -498,8 +498,11 @@
   .rg-plan-single{display:flex;flex-direction:column;gap:5px;margin:0 0 16px;max-width:320px}
   .rg-plan-single span{font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--muted)}
   .rg-plan-single select{
-    border:1px solid var(--line);border-radius:10px;padding:9px 12px;font:inherit;font-weight:700;
-    color:var(--ink);background:var(--panel);appearance:none}
+    border:1px solid var(--line);border-radius:10px;padding:9px 32px 9px 12px;font:inherit;font-weight:700;
+    color:var(--ink);appearance:none;transition:border-color .15s,box-shadow .15s;
+    background:var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%230284c7' d='M1.2 1.2L6 6l4.8-4.8'/%3E%3C/svg%3E") no-repeat right 12px center}
+  .rg-plan-single select:focus-visible{border-color:var(--brand);box-shadow:0 0 0 3px rgba(2,132,199,.15);outline:none}
+  .rg-plan-single select:disabled{opacity:.65;cursor:default;background-image:none;padding-right:12px}
   .rg-plan-card{border:1px solid var(--line);border-radius:12px;background:var(--surface-2);margin:0 0 12px;overflow:hidden}
   .rg-plan-card.open{background:var(--panel);border-color:var(--line-strong)}
   .rg-plan-card-h{
@@ -2059,14 +2062,17 @@ summary:focus-visible {
 /* The explicit divider element is redundant now that rows self-divide. */
 .rgs-snap-div { display: none; }
 
+/* One neutral treatment regardless of tone — there's no more "Needs
+   Attention" scenario, and status is communicated through the label text
+   itself rather than a traffic-light color. */
 .rgs-status {
   display: flex;
   align-items: center;
   gap: 11px;
   padding: 12px 14px;
   border-radius: 13px;
-  background: var(--rgs-success-bg);
-  border: 1px solid transparent;
+  background: var(--rgs-glass);
+  border: 1px solid var(--rgs-glass-border);
 }
 .rgs-status-ico {
   width: 30px;
@@ -2075,17 +2081,15 @@ summary:focus-visible {
   border-radius: 9px;
   display: grid;
   place-items: center;
-  background: color-mix(in srgb, var(--rgs-success) 20%, transparent);
-  color: var(--rgs-success);
+  background: color-mix(in srgb, var(--rgs-ink) 12%, transparent);
+  color: var(--rgs-ink);
 }
-.rgs-status.ok { background: var(--rgs-warn-bg); }
-.rgs-status.warn { background: var(--rgs-danger-bg); }
-.rgs-status.ok .rgs-status-ico { background: color-mix(in srgb, var(--rgs-warn) 20%, transparent); color: var(--rgs-warn); }
-.rgs-status.warn .rgs-status-ico { background: color-mix(in srgb, var(--rgs-danger) 20%, transparent); color: var(--rgs-danger); }
+.rgs-status.ok, .rgs-status.warn { background: var(--rgs-glass); }
+.rgs-status.ok .rgs-status-ico, .rgs-status.warn .rgs-status-ico { background: color-mix(in srgb, var(--rgs-ink) 12%, transparent); color: var(--rgs-ink); }
 .rgs-status-copy { min-width: 0; }
-.rgs-status-copy b { display: block; font-size: 13px; font-weight: 700; color: var(--rgs-success); }
-.rgs-status.ok .rgs-status-copy b { color: var(--rgs-warn); }
-.rgs-status.warn .rgs-status-copy b { color: var(--rgs-danger); }
+.rgs-status-copy b { display: block; font-size: 13px; font-weight: 700; color: var(--rgs-ink); }
+.rgs-status.ok .rgs-status-copy b { color: var(--rgs-ink); }
+.rgs-status.warn .rgs-status-copy b { color: var(--rgs-ink); }
 .rgs-status-copy span {
   display: block;
   margin-top: 2px;

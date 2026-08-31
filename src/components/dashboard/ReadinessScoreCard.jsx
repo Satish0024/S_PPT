@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ArrowRight, CircleAlert, CircleCheck, Info, SlidersHorizontal } from 'lucide-react'
+import { ArrowRight, Info, SlidersHorizontal } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import {
@@ -10,14 +10,9 @@ import {
   money,
   parseMoney,
   readMap,
-  scoreGoal,
-  statusCopy
+  scoreGoal
 } from '../../lib/retirementGoal'
 import { DisclaimerModal } from './ReadinessVisuals.jsx'
-
-// The status icon changes with the tone as well as the color, so the state
-// is never communicated by color alone (a11y requirement).
-const TONE_ICON = { good: CircleCheck, ok: CircleCheck, warn: CircleAlert }
 
 const RING_R = 52
 const RING_C = 2 * Math.PI * RING_R
@@ -80,9 +75,8 @@ function DecorLayers() {
 }
 
 // Retirement Readiness sidebar widget: a premium dark glass panel
-// where the goal percentage is set as large real text (not a chart), a
-// translucent snapshot lists expense/income/shortfall, and a status panel
-// reads as a confirmation state rather than an alert.
+// where the goal percentage is set as large real text (not a chart) and a
+// translucent snapshot lists expense/income/shortfall.
 export default function ReadinessScoreCard() {
   const { participant } = useParticipant()
   const location = useLocation()
@@ -107,9 +101,6 @@ export default function ReadinessScoreCard() {
     () => scoreGoal({ prefs, currentAge, balance }),
     [prefs, currentAge, balance]
   )
-  const status = statusCopy(score)
-  const tone = score >= 80 ? 'good' : score >= 55 ? 'ok' : 'warn'
-  const StatusIcon = TONE_ICON[tone]
   const pct = Math.max(0, Math.min(100, Math.round(score)))
 
   if (isNotEligibleUser(participant)) return null
@@ -164,16 +155,6 @@ export default function ReadinessScoreCard() {
                   </dd>
                 </div>
               </dl>
-            </div>
-
-            <div className={`rgs-status ${tone}`}>
-              <span className="rgs-status-ico" aria-hidden="true">
-                <StatusIcon size={17} strokeWidth={2.3} />
-              </span>
-              <span className="rgs-status-copy">
-                <b>{status.title}</b>
-                <span>{status.body}</span>
-              </span>
             </div>
           </>
         ) : (

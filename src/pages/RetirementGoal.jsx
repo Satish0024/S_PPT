@@ -374,7 +374,6 @@ export default function RetirementGoal() {
   )
   const shownScore = useAnimatedNumber(live.score)
   const liveStatus = statusCopy(live.score)
-  const liveExcellent = live.score >= 80
 
   useEffect(() => {
     const prev = prevScore.current
@@ -506,10 +505,6 @@ export default function RetirementGoal() {
               {delta.value}
             </span>
           )}
-          <div className={`rr-status ${liveExcellent ? 'good' : live.score >= 55 ? 'ok' : 'warn'}`}>
-            <b>{liveStatus.title}</b>
-            <span>{liveStatus.body}</span>
-          </div>
           <dl className="rg-facts">
             <div>
               <dt>Retirement age</dt>

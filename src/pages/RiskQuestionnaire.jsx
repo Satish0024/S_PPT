@@ -95,7 +95,7 @@ export default function RiskQuestionnaire() {
             <ArrowLeft size={15} strokeWidth={2.2} />
             Back
           </button>
-          {!isResultsStep && (
+          {!isProfileStep && !isResultsStep && (
             <div className="rq-progress">
               <div className="rq-progress-track">
                 <div
