@@ -1056,6 +1056,7 @@
   .pr-table td{padding:12px 14px;border-bottom:1px solid var(--line);font-weight:600;color:var(--ink)}
   .pr-table tr:last-child td{border-bottom:none}
   .pr-table .num{text-align:right;font-variant-numeric:tabular-nums}
+  .pr-table tbody tr:nth-child(even){background:var(--surface-2)}
   .pr-pill{
     display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;
     background:var(--surface-2);font-size:11.5px;font-weight:800;color:var(--ink-soft)}
@@ -1134,6 +1135,7 @@
   .tx-table td{padding:12px 14px;border-bottom:1px solid var(--line)}
   .tx-table tr:last-child td{border-bottom:none}
   .tx-table .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+  .tx-table tbody tr:nth-child(even){background:var(--surface-2)}
 
   .doc-list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;overflow:hidden}
   .doc-row{display:grid;grid-template-columns:40px minmax(0,1fr) auto auto;gap:12px;align-items:center;
@@ -1430,6 +1432,7 @@
   .wd-alloc-table td:first-child{color:var(--ink);font-weight:700}
   .wd-alloc-table .num{text-align:right;font-variant-numeric:tabular-nums}
   .wd-alloc-table tr:last-child td{border-bottom:none}
+  .wd-alloc-table tbody tr:nth-child(even){background:var(--surface-2)}
   .wd-alloc-edit{
     font:inherit;font-size:12.5px;font-weight:700;color:var(--brand);background:none;border:none;
     padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px}

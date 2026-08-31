@@ -241,6 +241,7 @@
 .alloc-nav b{font-weight:700;color:var(--ink)}
 .alloc-table tr.alloc-total td{border-bottom:none;font-weight:800;color:var(--ink);background:var(--surface-2)}
 .alloc-table tr.alloc-total .alloc-name-col{font-size:13px}
+.alloc-table tbody tr:nth-child(even):not(.alloc-total) td:not(.alloc-after){background:var(--surface-2)}
 .alloc-off{color:var(--red)}
 .alloc-pct-input{
   display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--panel)}
