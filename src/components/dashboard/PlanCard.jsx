@@ -43,7 +43,8 @@ export default function PlanCard({ plan }) {
       </div>
       {isCashBalance ? (
         <p className="plan-cash-note">
-          Cash balance benefit is <b>{plan.cashBenefit}</b>. This is a notional value.
+          Cash balance benefit is <b>{plan.cashBenefit}</b>. This is a notional value, tracked separately, and is
+          removed from the account balances shown above.
         </p>
       ) : (
         <>

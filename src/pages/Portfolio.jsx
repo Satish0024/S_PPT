@@ -219,7 +219,7 @@ export default function Portfolio() {
                       {/* Not sortable — every fund's return here is YTD, so this
                           just calls that out per-row instead of leaving the
                           timeframe implicit in the "Fund return %" header. */}
-                      <th scope="col">Period</th>
+                      <th scope="col">Period of return</th>
                       {[
                         ['invested', 'Invested balance', 'num'],
                         ['current', 'Current balance', 'num'],
