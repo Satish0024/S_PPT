@@ -24,6 +24,12 @@ export const TRANSACTION_TYPES = [
     label: 'Rebalance',
     hint: 'Reset your investments back to target percentages.',
     to: (planId) => `/transactions/request/rebalance?plan=${planId}`
+  },
+  {
+    id: 'rollover',
+    label: 'Rollover',
+    hint: 'Move money from a former employer plan or IRA into this plan.',
+    to: (planId) => `/transactions/request/rollover?plan=${planId}`
   }
 ]
 
@@ -234,6 +240,35 @@ export const ACCOUNT_TYPES = [
   { id: 'checking', label: 'Checking account' }
 ]
 
+// ---------------- Rollover wizard ----------------
+
+// "Distributing plan details" step — the plan type of the outside account
+// the money is coming from (Figma's Dropdown instance).
+export const ROLLOVER_PLAN_TYPES = [
+  { id: '401k', label: '401(k)' },
+  { id: '403b', label: '403(b)' },
+  { id: '457b', label: '457(b)' },
+  { id: 'ira-traditional', label: 'Traditional IRA' },
+  { id: 'ira-roth', label: 'Roth IRA' },
+  { id: 'other', label: 'Other qualified plan' }
+]
+
+// "Allocation details" step's Sources Mapping table (Figma: Pre tax rollover
+// / After tax rollover / Roth rollover, each with Contribution(s) and
+// Earning(s) inputs that sum to that source's Amount).
+export const ROLLOVER_SOURCES = [
+  { id: 'pretax', label: 'Pre tax rollover' },
+  { id: 'aftertax', label: 'After tax rollover' },
+  { id: 'roth', label: 'Roth rollover' }
+]
+
+// "Transaction details" step's Payment mode — how the distributing
+// custodian sends the money (same shape as loan/withdrawal payment methods).
+export const ROLLOVER_PAYMENT_MODES = [
+  { id: 'check', label: 'Check' },
+  { id: 'bank', label: 'Bank transfer' }
+]
+
 export const SOURCE_OPTIONS = [
   { id: 'prorata', label: 'Prorata' },
   { id: 'choose', label: 'Allow me to choose' },
@@ -356,7 +391,12 @@ export function activeLoanFor(participant, plan) {
 export const REQUEST_DOC_REQUIREMENTS = {
   loan: [{ id: 'promissory', label: 'Promissory Note', required: true }],
   withdrawal: [{ id: 'distribution-form', label: 'Distribution Request Form', required: true }],
-  transfer: []
+  transfer: [],
+  // Figma's Rollover Summary shows "Documents uploaded · 02 File(s)".
+  rollover: [
+    { id: 'distributing-statement', label: 'Distributing Plan Statement', required: true },
+    { id: 'rollover-certification', label: 'Rollover Certification Form', required: true }
+  ]
 }
 
 // A married participant must supply a Spousal Consent Form in addition to

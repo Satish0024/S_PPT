@@ -15,6 +15,7 @@ import InvestmentAllocationTable from '../components/transactions/InvestmentAllo
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import {
+  AVAILABLE_INVESTMENTS,
   BANK_ON_FILE,
   DISTRIBUTION_MODES,
   LOAN_INTEREST_RATE,
@@ -26,6 +27,9 @@ import {
   LOAN_TYPES,
   NAV_DISCLAIMER,
   REQUEST_DOC_REQUIREMENTS,
+  ROLLOVER_PAYMENT_MODES,
+  ROLLOVER_PLAN_TYPES,
+  ROLLOVER_SOURCES,
   SPOUSAL_CONSENT_DOC,
   WITHDRAWAL_TYPES,
   activeLoanFor,
@@ -76,6 +80,16 @@ const WIZARDS = {
       { id: 'details', title: 'Source Selection' },
       { id: 'summary', title: 'Rebalance Request Summary' }
     ]
+  },
+  rollover: {
+    title: 'New Rollover Request',
+    steps: [
+      { id: 'distribution', title: 'Distribution details' },
+      { id: 'allocation', title: 'Allocation details' },
+      { id: 'transaction', title: 'Transaction details' },
+      { id: 'documents', title: 'Upload documents' },
+      { id: 'summary', title: 'Rollover Request Summary' }
+    ]
   }
 }
 
@@ -111,6 +125,26 @@ function blankForm(type) {
       addressChanged: false,
       docUploaded: false,
       termsAccepted: false
+    }
+  }
+  if (type === 'rollover') {
+    return {
+      distributingPlanName: '',
+      distributingPlanType: '',
+      distributingAccountNumber: '',
+      trusteeName: '',
+      trusteePhone: '',
+      trusteeAddress: '',
+      // One row per ROLLOVER_SOURCES id: { contribution, earning }.
+      sources: Object.fromEntries(ROLLOVER_SOURCES.map((s) => [s.id, { contribution: '', earning: '' }])),
+      investmentPct: {},
+      paymentMode: 'check',
+      checkPayableTo: '',
+      checkAddress: '',
+      hasBankOnFile: false,
+      addedBank: null,
+      docUploaded: false,
+      docs: {}
     }
   }
   // transfer + rebalance
@@ -217,7 +251,7 @@ export default function TransactionRequest() {
 
           {/* Transfer and rebalance render wide current-vs-target tables, so
               they get more room than the form-style loan/withdrawal steps. */}
-          <main className={`txn-main${type === 'transfer' || type === 'rebalance' ? ' txn-main-wide' : ''}`}>
+          <main className={`txn-main${type === 'transfer' || type === 'rebalance' || type === 'rollover' ? ' txn-main-wide' : ''}`}>
             <div className="txn-plan-head">
               <div>
                 <h2>{plan.name}</h2>
@@ -275,6 +309,18 @@ export default function TransactionRequest() {
                 onSubmit={submit}
               />
             )}
+            {type === 'rollover' && (
+              <RolloverSteps
+                step={step.id}
+                plan={plan}
+                form={form}
+                set={set}
+                onNext={next}
+                onBack={back}
+                onSubmit={submit}
+                onEdit={goTo}
+              />
+            )}
           </main>
         </div>
       </div>
@@ -292,7 +338,9 @@ export default function TransactionRequest() {
 // visible (dimmed) behind it, so "submitted" reads as a confirmation of
 // what's on screen instead of a navigation away from it.
 function SubmittedPanel({ type, transactionId, navigate }) {
-  const label = { loan: 'loan', withdrawal: 'withdrawal', transfer: 'transfer', rebalance: 'rebalance' }[type] || 'request'
+  const label =
+    { loan: 'loan', withdrawal: 'withdrawal', transfer: 'transfer', rebalance: 'rebalance', rollover: 'rollover' }[type] ||
+    'request'
   const headline = type === 'loan' ? 'Your loan request successfully sent!' : 'Your request successfully sent!'
   const [copied, setCopied] = useState(false)
   const trapRef = useFocusTrap(true)
@@ -1370,6 +1418,443 @@ function AllocationSteps({ mode, step, plan, form, set, onNext, onBack, onSubmit
           onClose={() => setBuySellFor(null)}
         />
       )}
+    </SummaryStep>
+  )
+}
+
+/* ---------------- Rollover ---------------- */
+// 5-step wizard per Figma (node 27918-22616): Distribution details →
+// Allocation details → Transaction details → Upload documents → Summary.
+// Money is coming FROM an outside plan/IRA INTO this plan, the reverse
+// direction of Transfer/Rebalance, so it reuses Field/FieldGroup form
+// patterns from Loan rather than the current-vs-target allocation tables.
+
+function rolloverSourceAmount(form, sourceId) {
+  const row = form.sources[sourceId] || {}
+  return (+row.contribution || 0) + (+row.earning || 0)
+}
+
+function rolloverTotal(form) {
+  return ROLLOVER_SOURCES.reduce((sum, s) => sum + rolloverSourceAmount(form, s.id), 0)
+}
+
+// Investment Mapping defaults to an even split across the plan's lineup,
+// same starting point as the enrollment Investment Election's plan-selected
+// mix, until the participant edits an individual percentage.
+function rolloverPct(form, investments, name) {
+  if (form.investmentPct[name] != null) return form.investmentPct[name]
+  return investments.length ? Math.round((100 / investments.length) * 10) / 10 : 0
+}
+
+function RolloverSourcesTable({ form, set, editable }) {
+  const total = rolloverTotal(form)
+  return (
+    <div className="table-wrap">
+      <table className="alloc-table">
+        <thead>
+          <tr>
+            <th scope="col">Sources Mapping</th>
+            <th scope="col" className="num">Contribution(s)</th>
+            <th scope="col" className="num">Earning(s)</th>
+            <th scope="col" className="num">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ROLLOVER_SOURCES.map((s) => {
+            const row = form.sources[s.id] || {}
+            const setField = (field, val) =>
+              set((f) => ({ sources: { ...f.sources, [s.id]: { ...f.sources[s.id], [field]: val } } }))
+            return (
+              <tr key={s.id}>
+                <td>{s.label}</td>
+                <td className="num">
+                  {editable ? (
+                    <input
+                      type="number"
+                      min={0}
+                      value={row.contribution}
+                      onChange={(e) => setField('contribution', e.target.value)}
+                      style={{ width: 100, textAlign: 'right' }}
+                    />
+                  ) : (
+                    formatMoney(+row.contribution || 0)
+                  )}
+                </td>
+                <td className="num">
+                  {editable ? (
+                    <input
+                      type="number"
+                      min={0}
+                      value={row.earning}
+                      onChange={(e) => setField('earning', e.target.value)}
+                      style={{ width: 100, textAlign: 'right' }}
+                    />
+                  ) : (
+                    formatMoney(+row.earning || 0)
+                  )}
+                </td>
+                <td className="num">{formatMoney(rolloverSourceAmount(form, s.id))}</td>
+              </tr>
+            )
+          })}
+          <tr className="alloc-total">
+            <td>Total rollover amount</td>
+            <td />
+            <td />
+            <td className="num">{formatMoney(total)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+function RolloverInvestmentTable({ plan, form, set, editable }) {
+  const investments = plan.investments || []
+  const pctTotal = investments.reduce((sum, inv) => sum + (+rolloverPct(form, investments, inv.name) || 0), 0)
+
+  return (
+    <>
+      {!investments.length ? (
+        <p className="hint">No investment lineup on file for this plan yet.</p>
+      ) : (
+        <div className="table-wrap">
+          <table className="alloc-table">
+            <thead>
+              <tr>
+                <th scope="col">Investment names</th>
+                <th scope="col" className="num">Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              {investments.map((inv) => (
+                <tr key={inv.name}>
+                  <td>{inv.name}</td>
+                  <td className="num">
+                    {editable ? (
+                      <input
+                        type="number"
+                        min={0}
+                        max={100}
+                        value={rolloverPct(form, investments, inv.name)}
+                        onChange={(e) =>
+                          set((f) => ({ investmentPct: { ...f.investmentPct, [inv.name]: e.target.value } }))
+                        }
+                        style={{ width: 80, textAlign: 'right' }}
+                      />
+                    ) : (
+                      `${rolloverPct(form, investments, inv.name)}%`
+                    )}
+                  </td>
+                </tr>
+              ))}
+              <tr className="alloc-total">
+                <td>Total Percentage</td>
+                <td className="num" style={Math.round(pctTotal) !== 100 ? { color: 'var(--amber)' } : undefined}>
+                  {Math.round(pctTotal * 10) / 10}%
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+    </>
+  )
+}
+
+function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit }) {
+  const [showAddBank, setShowAddBank] = useState(false)
+  const investments = plan.investments || []
+  const pctTotal = investments.reduce((sum, inv) => sum + (+rolloverPct(form, investments, inv.name) || 0), 0)
+  const total = rolloverTotal(form)
+
+  if (step === 'distribution') {
+    return (
+      <div className="txn-card">
+        <h3>Distribution details</h3>
+
+        <h4>Distributing plan details</h4>
+        <div className="txn-row">
+          <Field label="Distributing plan name" required>
+            <input
+              type="text"
+              placeholder="e.g. Former Employer 401(k)"
+              value={form.distributingPlanName}
+              onChange={(e) => set({ distributingPlanName: e.target.value })}
+            />
+          </Field>
+          <Field label="Distributing plan type" required>
+            <select value={form.distributingPlanType} onChange={(e) => set({ distributingPlanType: e.target.value })}>
+              <option value="">Select</option>
+              {ROLLOVER_PLAN_TYPES.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.label}
+                </option>
+              ))}
+            </select>
+          </Field>
+        </div>
+        <div className="txn-row" style={{ marginTop: 14 }}>
+          <Field label="Distributing account number" required>
+            <input
+              type="text"
+              value={form.distributingAccountNumber}
+              onChange={(e) => set({ distributingAccountNumber: e.target.value })}
+            />
+          </Field>
+        </div>
+
+        <h4 style={{ marginTop: 24 }}>Trustee / Custodian details</h4>
+        <div className="txn-row">
+          <Field label="Trustee / Custodian name" required>
+            <input type="text" value={form.trusteeName} onChange={(e) => set({ trusteeName: e.target.value })} />
+          </Field>
+          <Field label="Trustee phone">
+            <input type="tel" value={form.trusteePhone} onChange={(e) => set({ trusteePhone: e.target.value })} />
+          </Field>
+        </div>
+        <div className="txn-row" style={{ marginTop: 14 }}>
+          <Field label="Trustee address" required>
+            <input type="text" value={form.trusteeAddress} onChange={(e) => set({ trusteeAddress: e.target.value })} />
+          </Field>
+        </div>
+
+        <div className="txn-actions">
+          <span />
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={
+              !form.distributingPlanName ||
+              !form.distributingPlanType ||
+              !form.distributingAccountNumber ||
+              !form.trusteeName ||
+              !form.trusteeAddress
+            }
+            onClick={onNext}
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  if (step === 'allocation') {
+    return (
+      <div className="txn-card">
+        <h3>Allocation details</h3>
+
+        <h4>Sources Mapping</h4>
+        <RolloverSourcesTable form={form} set={set} editable />
+
+        <h4 style={{ marginTop: 24 }}>Investment Mapping</h4>
+        <p className="hint" style={{ marginTop: 0 }}>
+          Investment mapping has been allocated already. You can configure the investment details below.
+        </p>
+        <RolloverInvestmentTable plan={plan} form={form} set={set} editable />
+
+        <div className="txn-actions">
+          <button type="button" className="btn btn-ghost" onClick={onBack}>
+            Back
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={total <= 0 || (investments.length > 0 && Math.round(pctTotal) !== 100)}
+            onClick={onNext}
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  if (step === 'transaction') {
+    const bank = form.addedBank || (form.hasBankOnFile ? BANK_ON_FILE : null)
+    return (
+      <div className="txn-card">
+        <h3>Transaction details</h3>
+
+        <FieldGroup label="Payment mode" required>
+          <div className="txn-radio-row">
+            {ROLLOVER_PAYMENT_MODES.map((m) => (
+              <label key={m.id} className="txn-radio">
+                <input
+                  type="radio"
+                  name="rollover-payment-mode"
+                  checked={form.paymentMode === m.id}
+                  onChange={() => set({ paymentMode: m.id })}
+                />
+                {m.label}
+              </label>
+            ))}
+          </div>
+        </FieldGroup>
+
+        {form.paymentMode === 'check' ? (
+          <>
+            <h4>Select check</h4>
+            <div className="txn-row">
+              <Field label="Check payable to" required>
+                <input
+                  type="text"
+                  value={form.checkPayableTo}
+                  onChange={(e) => set({ checkPayableTo: e.target.value })}
+                />
+              </Field>
+              <Field label="Address" required>
+                <input type="text" value={form.checkAddress} onChange={(e) => set({ checkAddress: e.target.value })} />
+              </Field>
+            </div>
+          </>
+        ) : (
+          <>
+            <h4>Select bank</h4>
+            {bank ? (
+              <div className="edit-alloc-readcard" style={{ display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+                <div>
+                  <b>Bank name</b>
+                  <span>{bank.bankName}</span>
+                </div>
+                <div>
+                  <b>Account number</b>
+                  <span>•••• •••• {bank.last4}</span>
+                </div>
+                <div>
+                  <b>Routing No</b>
+                  <span>{bank.routingNo}</span>
+                </div>
+                <button type="button" className="txn-summary-edit" onClick={() => setShowAddBank(true)}>
+                  Edit
+                </button>
+              </div>
+            ) : (
+              <div className="wd-note">
+                No bank details found.{' '}
+                <button type="button" className="txn-summary-edit" onClick={() => setShowAddBank(true)}>
+                  Add new bank details
+                </button>
+              </div>
+            )}
+          </>
+        )}
+
+        <div className="txn-actions">
+          <button type="button" className="btn btn-ghost" onClick={onBack}>
+            Back
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={
+              form.paymentMode === 'check'
+                ? !form.checkPayableTo || !form.checkAddress
+                : !bank
+            }
+            onClick={onNext}
+          >
+            Continue
+          </button>
+        </div>
+
+        {showAddBank && (
+          <AddBankDialog
+            bank={bank}
+            onCancel={() => setShowAddBank(false)}
+            onSave={(b) => {
+              set({ addedBank: b, hasBankOnFile: true })
+              setShowAddBank(false)
+            }}
+          />
+        )}
+      </div>
+    )
+  }
+
+  if (step === 'documents') {
+    return <DocumentsStep type="rollover" form={form} set={set} onNext={onNext} onBack={onBack} />
+  }
+
+  // summary
+  const distPlanType = ROLLOVER_PLAN_TYPES.find((t) => t.id === form.distributingPlanType)
+  const docsState = form.docs || {}
+  const docCount = Object.values(docsState).filter(Boolean).length
+  return (
+    <SummaryStep title="Rollover Request Summary" onBack={onBack} onSubmit={onSubmit}>
+      <div className="txn-summary-head">
+        <h4>Plan details</h4>
+      </div>
+      <div className="txn-row">
+        <ul className="detail-rows" style={{ flex: 1 }}>
+          <li>
+            <span>Plan ID</span>
+            <b>{plan.meta?.match(/ID\s+(\S+)/i)?.[1] || plan.id}</b>
+          </li>
+          <li>
+            <span>Type</span>
+            <b>{plan.type}</b>
+          </li>
+        </ul>
+        <ul className="detail-rows" style={{ flex: 1 }}>
+          <li>
+            <span>Plan balance</span>
+            <b>{formatMoney(planBalance(plan))}</b>
+          </li>
+          <li>
+            <span>Vested balance</span>
+            <b>{formatMoney(planVested(plan))}</b>
+          </li>
+        </ul>
+      </div>
+
+      <div className="txn-summary-head" style={{ marginTop: 20 }}>
+        <h4>Rollover details</h4>
+        <button type="button" className="txn-summary-edit" onClick={() => onEdit(0)}>
+          Edit
+        </button>
+      </div>
+      <ul className="detail-rows">
+        <li>
+          <span>Rollover amount</span>
+          <b>{formatMoney(total)}</b>
+        </li>
+        <li>
+          <span>Distributing plan details</span>
+          <b>
+            {form.distributingPlanName} · {distPlanType?.label} · {form.distributingAccountNumber}
+          </b>
+        </li>
+        <li>
+          <span>Trustee / Custodian details</span>
+          <b>
+            {form.trusteeName}
+            {form.trusteePhone ? ` · ${form.trusteePhone}` : ''} · {form.trusteeAddress}
+          </b>
+        </li>
+      </ul>
+
+      <div className="txn-summary-head" style={{ marginTop: 20 }}>
+        <h4>Allocation details</h4>
+        <button type="button" className="txn-summary-edit" onClick={() => onEdit(1)}>
+          Edit
+        </button>
+      </div>
+      <RolloverSourcesTable form={form} set={set} editable={false} />
+      {investments.length > 0 && (
+        <div style={{ marginTop: 14 }}>
+          <RolloverInvestmentTable plan={plan} form={form} set={set} editable={false} />
+        </div>
+      )}
+
+      <div className="txn-summary-head" style={{ marginTop: 20 }}>
+        <h4>Documents uploaded</h4>
+        <button type="button" className="txn-summary-edit" onClick={() => onEdit(3)}>
+          Edit
+        </button>
+      </div>
+      <p>{docCount} File(s)</p>
     </SummaryStep>
   )
 }
