@@ -41,4 +41,7 @@ export const LIKERT_QUESTIONS = [
   }
 ]
 
-export const QUESTIONNAIRE_STEP_COUNT = LIKERT_QUESTIONS.length + 1
+// Only the 5 Likert questions are counted in the step indicator — the
+// combined financial-profile step that follows them isn't a "question",
+// so it's excluded from the 01/05 progress shown to the participant.
+export const QUESTIONNAIRE_STEP_COUNT = LIKERT_QUESTIONS.length

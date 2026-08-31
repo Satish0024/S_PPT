@@ -374,7 +374,6 @@ export default function RetirementGoal() {
   )
   const shownScore = useAnimatedNumber(live.score)
   const liveStatus = statusCopy(live.score)
-  const liveExcellent = live.score >= 80
 
   useEffect(() => {
     const prev = prevScore.current
@@ -448,10 +447,6 @@ export default function RetirementGoal() {
             Back to dashboard
           </Link>
           <h1>Retirement readiness</h1>
-          <p className="rg-intro">
-            Set the target first, then try a change below. The score updates as you go — enrollment is not changed until
-            you save this goal.
-          </p>
         </div>
       </div>
 
@@ -470,10 +465,6 @@ export default function RetirementGoal() {
               {delta.value}
             </span>
           )}
-          <div className={`rr-status ${liveExcellent ? 'good' : live.score >= 55 ? 'ok' : 'warn'}`}>
-            <b>{liveStatus.title}</b>
-            <span>{liveStatus.body}</span>
-          </div>
           <dl className="rg-facts">
             <div>
               <dt>Retirement age</dt>
