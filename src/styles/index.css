@@ -483,7 +483,10 @@
   .rr-modal .enroll-modal-actions{grid-template-columns:1fr}
   .rg-page{max-width:none;width:100%}
   .rg-page .hi-bar{align-items:flex-start}
-  .rg-disc-top{flex:0 0 auto;white-space:nowrap;margin-top:4px}
+  /* Now sits inside .rg-disc alongside the disclaimer note text, so the
+     link and its note read as one card element instead of the link
+     living in the page header, far from what it's disclaiming. */
+  .rg-disc-top{flex:0 0 auto;white-space:nowrap;text-decoration:underline;text-underline-offset:2px}
   .rg-back{display:inline-flex;align-items:center;gap:6px;margin-bottom:8px}
   .rg-intro{margin:8px 0 0;max-width:640px;font-size:14.5px;line-height:1.5;color:var(--ink-soft);font-weight:500}
   .rg-shell{display:grid;grid-template-columns:7fr 3fr;gap:24px;align-items:start;width:100%}

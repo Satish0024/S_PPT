@@ -311,7 +311,6 @@ export default function RetirementGoal() {
   const deferralPlans = useMemo(() => deferralPlansFor(participant), [participant])
   const multiPlan = deferralPlans.length > 1
   const [activePlanId, setActivePlanId] = useState(() => deferralPlans[0]?.id)
-  const [expandedPlanId, setExpandedPlanId] = useState(() => deferralPlans[0]?.id)
   const [planShares, setPlanShares] = useState(() => initialShares(deferralPlans, draft.pre, draft.roth))
   const [baselineShares, setBaselineShares] = useState(() => initialShares(deferralPlans, draft.pre, draft.roth))
   const [planAuto, setPlanAuto] = useState(() => initialAuto(deferralPlans, draft))
@@ -343,7 +342,6 @@ export default function RetirementGoal() {
     const shares = initialShares(plans, next.pre, next.roth)
     const auto = initialAuto(plans, next)
     setActivePlanId(plans[0]?.id)
-    setExpandedPlanId(plans[0]?.id)
     setPlanShares(shares)
     setBaselineShares(shares)
     setPlanAuto(auto)
@@ -455,9 +453,6 @@ export default function RetirementGoal() {
             you save this goal.
           </p>
         </div>
-        <button type="button" className="rr-disclaimer-link rg-disc-top" onClick={() => setOpen(true)}>
-          Disclaimer
-        </button>
       </div>
 
       <div className="rg-shell">
@@ -511,6 +506,9 @@ export default function RetirementGoal() {
           </dl>
           <p className="rg-disc">
             <span className="rr-foot-note">*Not guaranteed results · It&apos;s a simulation.</span>
+            <button type="button" className="rr-disclaimer-link rg-disc-top" onClick={() => setOpen(true)}>
+              Disclaimer
+            </button>
           </p>
         </aside>
 
@@ -582,30 +580,49 @@ export default function RetirementGoal() {
 
           <section className="panel rg-inputs">
             <h2>Deferrals</h2>
-            {multiPlan ? (
+            {multiPlan && (
               <p className="rg-plan-note">
                 Select a plan to update its deferral rate. Changes will affect your paycheck deductions.
               </p>
-            ) : deferralPlans[0] ? (
-              // Single-plan case still names the plan so it's clear which
-              // plan these fields belong to, instead of a bare "Deferrals"
-              // heading with no plan context.
+            )}
+            {deferralPlans[0] && (
+              // One common dropdown for every case — disabled when there's
+              // only one deferral-eligible plan (nothing to choose between),
+              // enabled when there's more than one, so the plan a
+              // participant is editing is always explicit instead of
+              // implied by a bare "Deferrals" heading.
               <label className="rg-plan-single">
                 <span>Plan</span>
-                <select value={deferralPlans[0].id} disabled aria-label="Plan">
-                  <option value={deferralPlans[0].id}>{deferralPlans[0].name}</option>
+                <select
+                  value={activePlanId || deferralPlans[0].id}
+                  disabled={!multiPlan}
+                  onChange={(e) => setActivePlanId(e.target.value)}
+                  aria-label="Plan"
+                >
+                  {deferralPlans.map((plan) => (
+                    <option key={plan.id} value={plan.id}>
+                      {plan.name}
+                    </option>
+                  ))}
                 </select>
               </label>
-            ) : null}
-            {deferralPlans.map((plan, i) => {
+            )}
+            {(() => {
+              const plan = multiPlan ? deferralPlans.find((p) => p.id === activePlanId) || deferralPlans[0] : deferralPlans[0]
+              if (!plan) return null
               const share = multiPlan ? planShares[plan.id] || { pre: 0, roth: 0 } : { pre: draft.pre || 0, roth: draft.roth || 0 }
               const baseShare = multiPlan
                 ? baselineShares[plan.id] || { pre: 0, roth: 0 }
                 : { pre: baseline.pre || 0, roth: baseline.roth || 0 }
               const onPre = (v) => (multiPlan ? setPlanRate(plan.id, 'pre', v) : setRate('pre', v))
               const onRoth = (v) => (multiPlan ? setPlanRate(plan.id, 'roth', v) : setRate('roth', v))
-              const body = (
-                <>
+              const autoState = multiPlan
+                ? planAuto[plan.id] || blankAuto()
+                : { on: draft.autoOn, pctPre: autoPct, capPre: autoCap, pctRoth: autoPctRoth, capRoth: autoCapRoth }
+              const onAutoChange = (key, val) =>
+                multiPlan ? setPlanAutoField(plan.id, key, val) : setDraftField(AUTO_FIELD_MAP[key], val)
+              return (
+                <div key={plan.id}>
                   <div className="rg-source">
                     <div className="rg-source-h">
                       <span>
@@ -638,54 +655,10 @@ export default function RetirementGoal() {
                       onChange={(e) => onRoth(e.target.value)}
                     />
                   </div>
-                </>
-              )
-              if (!multiPlan) {
-                return (
-                  <div key="single">
-                    {body}
-                    <AutoIncreaseBlock
-                      state={{ on: draft.autoOn, pctPre: autoPct, capPre: autoCap, pctRoth: autoPctRoth, capRoth: autoCapRoth }}
-                      onChange={(key, val) => setDraftField(AUTO_FIELD_MAP[key], val)}
-                    />
-                  </div>
-                )
-              }
-              const total = (+share.pre || 0) + (+share.roth || 0)
-              const expanded = expandedPlanId === plan.id
-              const planAutoState = planAuto[plan.id] || blankAuto()
-              return (
-                <div className={`rg-plan-card${expanded ? ' open' : ''}`} key={plan.id}>
-                  <button
-                    type="button"
-                    className="rg-plan-card-h"
-                    aria-expanded={expanded}
-                    onClick={() => setExpandedPlanId(expanded ? null : plan.id)}
-                  >
-                    <div className="rg-plan-card-name">
-                      <b>{plan.name}</b>
-                      <span className={`plan-badge ${plan.badgeClass || ''}`}>{plan.badge}</span>
-                    </div>
-                    <div className="rg-plan-card-metrics">
-                      <span className="rg-plan-card-total">
-                        Deferral <b>{total}%</b>
-                        <small>
-                          Pre-Tax {share.pre || 0}% · Roth {share.roth || 0}%
-                          {planAutoState.on ? ` · Auto +${planAutoState.pctPre}%/yr` : ''}
-                        </small>
-                      </span>
-                      <span className="rg-plan-card-toggle">{expanded ? 'Save changes' : 'Edit'}</span>
-                    </div>
-                  </button>
-                  {expanded && (
-                    <div className="rg-plan-card-body">
-                      {body}
-                      <AutoIncreaseBlock state={planAutoState} onChange={(key, val) => setPlanAutoField(plan.id, key, val)} />
-                    </div>
-                  )}
+                  <AutoIncreaseBlock state={autoState} onChange={onAutoChange} />
                 </div>
               )
-            })}
+            })()}
           </section>
         </div>
       </div>

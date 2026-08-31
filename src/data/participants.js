@@ -147,7 +147,7 @@ export const PARTICIPANTS = [
         badge: 'Not Eligible',
         badgeClass: 'muted',
         cardClass: 'ineligible',
-        notice: 'You are currently not eligible for this plan since you have not met the age requirement.',
+        notice: 'You are currently not eligible for this plan since you have not met the age/service requirement.',
         noticeClass: 'ineligible-notice',
         noticeLink: { label: 'Provide elections in advance', to: '/enrollment' },
         details: { status: 'Not Eligible', balance: '—', vested: '—' }
@@ -203,7 +203,7 @@ export const PARTICIPANTS = [
         badge: 'Not Eligible',
         badgeClass: 'muted',
         cardClass: 'ineligible',
-        notice: 'You are currently not eligible for this plan since you have not met the age requirement.',
+        notice: 'You are currently not eligible for this plan since you have not met the age/service requirement.',
         noticeClass: 'ineligible-notice',
         noticeLink: { label: 'Provide elections in advance', to: '/enrollment' },
         details: { status: 'Not Eligible', balance: '$0.00', vested: '$0.00' }
@@ -216,7 +216,7 @@ export const PARTICIPANTS = [
         badge: 'Not Eligible',
         badgeClass: 'muted',
         cardClass: 'ineligible',
-        notice: 'You are currently not eligible for this plan since you have not met the service requirement.',
+        notice: 'You are currently not eligible for this plan since you have not met the age/service requirement.',
         noticeClass: 'ineligible-notice',
         noticeLink: { label: 'View details', details: true },
         details: { status: 'Not Eligible', balance: '$0.00', vested: '$0.00' }
