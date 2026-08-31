@@ -131,7 +131,9 @@
   .plan-table tr.group-end td{border-bottom:2px solid var(--line-strong)}
   .plan-table tbody tr:hover{background:transparent}
   .plan-table tbody tr.fund-row:hover td{background:var(--surface-2)}
+  .plan-table tbody tr:nth-child(even):not(.bench-row) td{background:var(--surface-2)}
   .holdings-table{min-width:820px}
+  .holdings-table tbody tr:nth-child(even){background:var(--surface-2)}
   .holdings-table th.num,.holdings-table td.num{text-align:right;white-space:nowrap}
   .holdings-table th.sortable{cursor:pointer;user-select:none;padding-right:22px;position:relative}
   .holdings-table th.sortable:hover{color:var(--brand)}
