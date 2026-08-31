@@ -1,19 +1,16 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useParticipant } from '../../context/ParticipantContext.jsx'
-import StatementModal from '../common/StatementModal.jsx'
 
 export default function Transactions({ rows }) {
   const navigate = useNavigate()
-  const { participant } = useParticipant()
-  const [statementOpen, setStatementOpen] = useState(false)
-
   return (
     <section className="section-card tx-compact">
       <div className="section-head">
         <h3>Recent transactions</h3>
         {!!rows?.length && (
-          <button type="button" className="text-link" onClick={() => setStatementOpen(true)}>
+          // Matches the "Generate Statement" link on the Transactions page:
+          // navigate with openStatement so Reports opens the modal on
+          // arrival instead of landing on a plain Documents page.
+          <button type="button" className="text-link" onClick={() => navigate('/reports', { state: { openStatement: true } })}>
             Generate statement
           </button>
         )}
@@ -34,17 +31,6 @@ export default function Transactions({ rows }) {
           ))
         )}
       </div>
-
-      {statementOpen ? (
-        <StatementModal
-          plans={participant.plans}
-          onCancel={() => setStatementOpen(false)}
-          onGenerate={() => {
-            setStatementOpen(false)
-            navigate('/reports')
-          }}
-        />
-      ) : null}
     </section>
   )
 }
