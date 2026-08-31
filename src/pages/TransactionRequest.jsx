@@ -1934,7 +1934,7 @@ function SummaryStep({ title, children, onBack, onSubmit, submitDisabled }) {
     <div className="txn-card">
       <div className="txn-summary-head">
         <h3>{title}</h3>
-        <button type="button" className="icon-btn" title="Print" onClick={() => window.print()}>
+        <button type="button" className="icon-btn" title="Print" aria-label="Print" onClick={() => window.print()}>
           <Printer size={17} strokeWidth={2} />
         </button>
       </div>

@@ -284,6 +284,14 @@
   .overall-balance .ob-metrics{display:flex;flex-wrap:wrap;align-items:flex-start;gap:20px 40px;min-width:0}
   .overall-balance .ob-block{min-width:0}
   .overall-balance .ob-summary{width:auto;white-space:nowrap;justify-self:end;align-self:center}
+  /* Below ~420px the balance figures wrap onto a second line and the row
+     grows taller than the "View summary" button, whose align-self:center
+     then lands it mid-row — directly on top of the balance text instead of
+     beside it. Stack the button under the metrics once that's likely. */
+  @media(max-width:420px){
+    .overall-balance .ob-top{grid-template-columns:1fr;justify-items:stretch}
+    .overall-balance .ob-summary{justify-self:stretch;align-self:auto;margin-top:4px}
+  }
   .overall-balance .ob-k{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
   .overall-balance .ob-v{font-size:34px;font-weight:700;letter-spacing:-.7px;line-height:1;color:var(--ink);
     font-variant-numeric:tabular-nums}

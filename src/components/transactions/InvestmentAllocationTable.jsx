@@ -109,7 +109,7 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
         </tbody>
       </table>
       {editable && !totalsMatch && (
-        <p className="alloc-warn">Target percentages must add up to 100%. Currently {Math.round(afterPctTotal)}%.</p>
+        <p className="alloc-warn" role="alert">Target percentages must add up to 100%. Currently {Math.round(afterPctTotal)}%.</p>
       )}
       {openFund && (
         <FundDetailDialog
