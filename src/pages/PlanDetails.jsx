@@ -419,6 +419,7 @@ export default function PlanDetails() {
 
 function FundList({ rows }) {
   if (!rows?.length) return <p>No funds selected yet.</p>
+  const total = rows.reduce((sum, [, share]) => sum + (+share || 0), 0)
   return (
     <div className="fund-list">
       <div className="fund-list-head">
@@ -433,6 +434,13 @@ function FundList({ rows }) {
           </li>
         ))}
       </ul>
+      <div className={`totalbar${Math.round(total) === 100 ? ' ok' : ''}`}>
+        <span />
+        <span className="tval-wrap">
+          Total
+          <b className="tval">{pct(total)}</b>
+        </span>
+      </div>
     </div>
   )
 }

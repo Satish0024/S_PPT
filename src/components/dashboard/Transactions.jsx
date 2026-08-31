@@ -1,14 +1,18 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Transactions({ rows }) {
+  const navigate = useNavigate()
   return (
     <section className="section-card tx-compact">
       <div className="section-head">
         <h3>Recent transactions</h3>
         {!!rows?.length && (
-          <Link to="/reports" className="text-link">
+          // Matches the "Generate Statement" link on the Transactions page:
+          // navigate with openStatement so Reports opens the modal on
+          // arrival instead of landing on a plain Documents page.
+          <button type="button" className="text-link" onClick={() => navigate('/reports', { state: { openStatement: true } })}>
             Generate statement
-          </Link>
+          </button>
         )}
       </div>
       <div className="tx-list">
