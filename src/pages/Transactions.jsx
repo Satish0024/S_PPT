@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Landmark, Plus, Scale, Shuffle, TrendingDown } from 'lucide-react'
+import { ArrowLeftRight, Landmark, Plus, Scale, Shuffle, TrendingDown } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import { TRANSACTION_TYPES, canRequest, requestStatusTone, requestsFor, transactablePlans } from '../data/transactions.js'
@@ -15,7 +15,7 @@ const FILTERS = [
   { id: 'other', label: 'Other' }
 ]
 
-const TYPE_ICON = { loan: Landmark, withdrawal: TrendingDown, transfer: Shuffle, rebalance: Scale }
+const TYPE_ICON = { loan: Landmark, withdrawal: TrendingDown, transfer: Shuffle, rebalance: Scale, rollover: ArrowLeftRight }
 
 function NewRequestMenu({ plan, disabled }) {
   const navigate = useNavigate()
@@ -171,7 +171,10 @@ function RequestsPanel({ participant, planId, onPlanChange }) {
         </div>
       </div>
 
-      <QuickActions plan={plan} />
+      {/* Quick Actions is hidden per feedback — kept in code (not deleted)
+          in case it comes back. Use "New request" above to start a
+          transaction instead. */}
+      {false && <QuickActions plan={plan} />}
 
       {!requests.length ? (
         <div className="tx-empty">No transaction requests yet for this plan.</div>
