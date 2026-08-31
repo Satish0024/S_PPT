@@ -91,7 +91,8 @@
 .as-table-wrap td{
   padding:11px 12px;border-bottom:1px solid var(--line);font-weight:600;color:var(--ink);
   font-variant-numeric:tabular-nums}
-.as-table-wrap tbody tr:hover,.as-table-wrap tbody tr.on{background:var(--surface-2)}
+.as-table-wrap tbody tr:nth-child(even){background:var(--surface-2)}
+.as-table-wrap tbody tr:hover,.as-table-wrap tbody tr.on{background:var(--active-bg)}
 .as-table-wrap tbody tr:last-child td{border-bottom:none}
 .as-table-wrap tfoot td{
   background:var(--surface-2);font-weight:800;border-bottom:none;border-top:1px solid var(--line)}
