@@ -483,10 +483,6 @@ export default function RetirementGoal() {
             Back to dashboard
           </Link>
           <h1>Retirement readiness</h1>
-          <p className="rg-intro">
-            Set the target first, then try a change below. The score updates as you go — enrollment is not changed until
-            you save this goal.
-          </p>
         </div>
       </div>
 
