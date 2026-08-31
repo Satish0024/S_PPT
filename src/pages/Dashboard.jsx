@@ -19,6 +19,12 @@ export default function Dashboard() {
   // isSummaryPlan), same as an outstanding loan. Surfaced explicitly here
   // per prototype review #8 so it's visibly excluded, not just silently so.
   const cashBalancePlan = participant.plans.find((p) => p.type === 'Cash Balance' && p.cashBenefit)
+  // Deferred Comp and Roth 401(k) stay in participant data but are hidden
+  // from the dashboard plan grid for this prototype pass — only Cash
+  // Balance was missing (item 8); the other two are deliberately trimmed.
+  const visiblePlans = participant.plans.filter(
+    (p) => p.type !== 'Nonqualified Deferred Compensation' && p.type !== '401(k) — Roth'
+  )
 
   return (
     <div className="page-body">
@@ -35,7 +41,7 @@ export default function Dashboard() {
           <section>
             <h2 className="section-title">My plans</h2>
             <div className="plans-grid">
-              {participant.plans.map((plan) => (
+              {visiblePlans.map((plan) => (
                 <PlanCard key={plan.id} plan={plan} />
               ))}
             </div>
