@@ -21,11 +21,16 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 const PERIODS = ['1m', '3m', '6m', 'ytd', '1y', '3y', '5y', '10y']
 const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1Y', '3y': '3Y', '5y': '5Y', '10y': '10Y', si: 'Since inception' }
 
+// Each series carries its own dash pattern and point shape, not just a
+// color — a color-blind or low-vision reader (or a black-and-white
+// printout) can still tell the lines apart. Chart.js applies `dash` as
+// `borderDash` and `pointStyle` as-is; the legend swatches below draw the
+// same dash pattern in CSS so the key matches the chart.
 const SERIES = [
-  { key: 'total', label: 'Total portfolio', color: '#e05a4f' },
-  { key: 'equity', label: 'U.S. Equity', color: '#1a9d63' },
-  { key: 'bond', label: 'U.S. Bond', color: '#2e3192' },
-  { key: 'target', label: 'Target-Date', color: '#d4a017' }
+  { key: 'total', label: 'Total portfolio', color: '#e05a4f', dash: [], pointStyle: 'circle' },
+  { key: 'equity', label: 'U.S. Equity', color: '#1a9d63', dash: [7, 4], pointStyle: 'triangle' },
+  { key: 'bond', label: 'U.S. Bond', color: '#2e3192', dash: [2, 3], pointStyle: 'rect' },
+  { key: 'target', label: 'Target-Date', color: '#d4a017', dash: [9, 3, 2, 3], pointStyle: 'star' }
 ]
 
 const COLS = {
@@ -91,20 +96,23 @@ export default function Portfolio() {
     const bond = cumSeries(n, ends.bond, 4)
     const target = cumSeries(n, ends.target, 7)
     const total = equity.map((e, i) => Math.round((e * 0.64 + bond[i] * 0.23 + target[i] * 0.13) * 100) / 100)
-    const byKey = {
-      total: line('Total portfolio', total, '#e05a4f', 0),
-      equity: line('U.S. Equity', equity, '#1a9d63'),
-      bond: line('U.S. Bond', bond, '#2e3192'),
-      target: line('Target-Date', target, '#d4a017')
-    }
+    const dataByKey = { total, equity, bond, target }
     return {
       labels: labs,
-      datasets: SERIES.map((s) => ({ ...byKey[s.key], hidden: !visible[s.key] }))
+      datasets: SERIES.map((s) => line(s, dataByKey[s.key], s.key === 'total' ? 0 : undefined, !visible[s.key]))
     }
   }, [period, visible])
 
+  // Total portfolio is an aggregate of the other three — showing it next
+  // to its own components reads as noise, not signal, so picking it
+  // clears and disables the rest instead of layering everything at once.
   const toggleSeries = (key) => {
-    setVisible((v) => ({ ...v, [key]: !v[key] }))
+    setVisible((v) => {
+      if (key === 'total') {
+        return v.total ? { total: false, equity: false, bond: false, target: false } : { total: true, equity: false, bond: false, target: false }
+      }
+      return { ...v, total: false, [key]: !v[key] }
+    })
   }
 
   const toggleSort = (key) => {
@@ -174,16 +182,28 @@ export default function Portfolio() {
                 <div className="chart-top">
                   <h2>Asset class performance</h2>
                   <div className="legend">
-                    {SERIES.map((s) => (
-                      <label key={s.key} className={visible[s.key] ? 'on' : ''} style={{ '--series-color': s.color }}>
-                        <input
-                          type="checkbox"
-                          checked={visible[s.key]}
-                          onChange={() => toggleSeries(s.key)}
-                        />
-                        {s.label}
-                      </label>
-                    ))}
+                    {SERIES.map((s) => {
+                      // Total portfolio is an aggregate of the other three
+                      // series, so picking it clears and disables them
+                      // rather than layering everything on one chart.
+                      const disabled = s.key !== 'total' && visible.total
+                      return (
+                        <label
+                          key={s.key}
+                          className={`${visible[s.key] ? 'on' : ''}${disabled ? ' disabled' : ''}`}
+                          style={{ '--series-color': s.color }}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={visible[s.key]}
+                            disabled={disabled}
+                            onChange={() => toggleSeries(s.key)}
+                          />
+                          <span className={`legend-swatch legend-swatch--${s.pointStyle}`} aria-hidden="true" />
+                          {s.label}
+                        </label>
+                      )
+                    })}
                   </div>
                 </div>
                 <div className="period" role="tablist" aria-label="Chart period">
@@ -372,20 +392,25 @@ function parsePct(value) {
   return Number.isFinite(n) ? n : Number.NEGATIVE_INFINITY
 }
 
-function line(label, data, color, order) {
+// `series` also carries a dash pattern and point shape (see SERIES above)
+// so each line reads distinctly without relying on color alone.
+function line(series, data, order, hidden) {
   return {
-    label,
+    label: series.label,
     data,
-    borderColor: color,
-    backgroundColor: color,
+    borderColor: series.color,
+    backgroundColor: series.color,
+    borderDash: series.dash,
+    pointStyle: series.pointStyle,
     tension: 0.3,
     pointRadius: 4,
     pointHoverRadius: 6,
     pointBackgroundColor: '#fff',
-    pointBorderColor: color,
+    pointBorderColor: series.color,
     pointBorderWidth: 2,
     borderWidth: 2.5,
-    order
+    order,
+    hidden
   }
 }
 
