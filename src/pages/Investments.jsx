@@ -236,7 +236,7 @@ export function InvestmentEditor({ embedded = false, saveLabel = 'Continue', onC
         </div>
       )}
 
-      {error && <p className="enroll-error">{error}</p>}
+      {error && <p className="enroll-error" role="alert">{error}</p>}
 
       <div className="enroll-nav">
         {onCancel && (
