@@ -1,16 +1,37 @@
 import { cloneElement, useId } from 'react'
+import { Info } from 'lucide-react'
+
+// An info icon that reveals its message on hover/focus, via CSS rather than
+// JS state — keeps it keyboard-accessible (focusable button, shown on
+// :focus-within) without a portal or positioning library.
+function FieldTip({ tooltip, id }) {
+  if (!tooltip) return null
+  return (
+    <span className="field-tip">
+      <button type="button" className="field-tip-btn" aria-describedby={id}>
+        <Info size={13} strokeWidth={2.4} aria-hidden="true" />
+        <span className="sr-only">More info</span>
+      </button>
+      <span className="field-tip-bubble" role="tooltip" id={id}>
+        {tooltip}
+      </span>
+    </span>
+  )
+}
 
 // A labelled form row. Generates an id and wires the <label> to the control,
 // so assistive tech announces them together — the plain sibling
 // <label> + <input> pattern this replaces left the control unlabelled.
-export default function Field({ label, required, note, noteClass, children }) {
+export default function Field({ label, required, note, noteClass, tooltip, children }) {
   const id = useId()
+  const tipId = useId()
   return (
     <div className="txn-field">
       <label htmlFor={id}>
         {label}
         {required && <i aria-hidden="true">*</i>}
         {required && <span className="sr-only"> (required)</span>}
+        <FieldTip tooltip={tooltip} id={tipId} />
       </label>
       {cloneElement(children, { id, ...(required ? { required: true } : null) })}
       {note && <span className={`note${noteClass ? ` ${noteClass}` : ''}`}>{note}</span>}
@@ -21,13 +42,15 @@ export default function Field({ label, required, note, noteClass, children }) {
 // Grouped controls (radios, checkboxes, or a multi-input row like a term
 // split across years/months). A fieldset+legend is what lets a screen reader
 // announce the group's name before each individual option.
-export function FieldGroup({ label, required, note, noteClass, children }) {
+export function FieldGroup({ label, required, note, noteClass, tooltip, children }) {
+  const tipId = useId()
   return (
     <fieldset className="txn-field txn-fieldset">
       <legend>
         {label}
         {required && <i aria-hidden="true">*</i>}
         {required && <span className="sr-only"> (required)</span>}
+        <FieldTip tooltip={tooltip} id={tipId} />
       </legend>
       {children}
       {note && <span className={`note${noteClass ? ` ${noteClass}` : ''}`}>{note}</span>}
