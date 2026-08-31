@@ -1425,6 +1425,13 @@
   .confirm-dialog{
     width:min(360px,100%);background:var(--panel);border-radius:16px;padding:26px 24px 22px;box-shadow:var(--shadow-lg);
     text-align:center;display:flex;flex-direction:column;align-items:center;animation:rq-modal-in .22s ease}
+  /* .txn-field's flex:1 1 200px is meant for side-by-side fields in a
+     .txn-row — inside this dialog's vertical flex column that flex-grow
+     stretches each field to fill the dialog's height instead, opening up
+     huge gaps between fields (e.g. AddBankDialog, which reuses this class
+     for a form rather than the icon/heading/paragraph confirm layout). */
+  .confirm-dialog .txn-field{flex:none;width:100%;gap:8px}
+  .confirm-dialog .txn-field + .txn-field{margin-top:14px}
   .confirm-dialog-ico{
     width:44px;height:44px;border-radius:50%;background:var(--red-bg);color:var(--red);
     display:grid;place-items:center;margin-bottom:12px}
