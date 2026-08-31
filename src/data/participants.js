@@ -382,7 +382,7 @@ export const PARTICIPANTS = [
         badgeClass: 'opted',
         notice: 'You have chosen to opt out from payroll deductions.',
         noticeClass: 'opted-notice',
-        noticeLink: { label: 'Enroll here', to: '/enrollment' },
+        noticeLink: { label: 'Re-enroll', to: '/enrollment' },
         details: { status: 'Opted Out', balance: '$0.00', vested: '$0.00' }
       },
       {
