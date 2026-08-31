@@ -4,6 +4,7 @@ import { Check, ChevronDown, LogOut, Moon, Sun } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { useTheme } from '../../context/ThemeContext.jsx'
 import { BRAND } from '../../config/brand.js'
+import AccessibilityMenu from './AccessibilityMenu.jsx'
 
 export default function Header() {
   const { participant, participants, selectParticipant, logout } = useParticipant()
@@ -33,6 +34,7 @@ export default function Header() {
         <img src={theme === 'dark' ? BRAND.logoOnDark || BRAND.logo : BRAND.logo} alt={BRAND.name} />
       </div>
       <div className="top-right">
+        <AccessibilityMenu />
         <button
           type="button"
           className="icon-btn theme-toggle"
