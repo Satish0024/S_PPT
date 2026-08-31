@@ -341,7 +341,7 @@ export function InvestmentEditor({
         </div>
       )}
 
-      {error && <p className="enroll-error">{error}</p>}
+      {error && <p className="enroll-error" role="alert">{error}</p>}
 
       <div className="enroll-nav">
         {onCancel && (
