@@ -420,3 +420,15 @@ export function isNotEligibleUser(participant) {
     )
   )
 }
+
+export function isOptedOutUser(participant) {
+  return participant?.scenario === 'Opted Out'
+}
+
+export function isEligibleNotEnrolledUser(participant) {
+  return participant?.scenario === 'Eligible — Not Enrolled'
+}
+
+export function isEnrolledUser(participant) {
+  return participant?.scenario === 'Eligible Enrolled' || participant?.scenario === 'Auto Enrolled'
+}

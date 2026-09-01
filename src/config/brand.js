@@ -13,5 +13,6 @@ export const BRAND = {
   logoOnDark: '/logo-lockup-dark.svg',
   tagline: 'Your Path To A Confident Retirement.',
   taglineBody: 'Access your 401(k), deferrals, and retirement tools in one secure participant portal.',
-  supportPlanNoun: 'your LendGuard plan'
+  supportPlanNoun: 'your LendGuard plan',
+  supportEmail: 'support@lendguard.com'
 }

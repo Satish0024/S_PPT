@@ -2133,6 +2133,14 @@ summary:focus-visible {
 }
 .rgs-cta:hover { filter: brightness(1.12); }
 .rgs-cta:focus-visible { outline: 2px solid var(--rgs-arc-1); outline-offset: 2px; }
+/* Eligible but not yet enrolled: readiness needs plan data that doesn't
+   exist until enrollment, so the CTA renders greyed-out and inert (a real
+   disabled <button> would still be focusable/clickable as a <Link>, so this
+   is a plain span instead). */
+.rgs-cta-disabled {
+  background: var(--rgs-glass-border); color: var(--rgs-ink-soft);
+  cursor: not-allowed; pointer-events: none; opacity: .75;
+}
 
 .rgs-foot {
   display: flex; flex-direction: column; align-items: stretch; gap: 8px;

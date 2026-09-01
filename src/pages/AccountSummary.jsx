@@ -2,7 +2,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ArcElement, Chart as ChartJS, Tooltip } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
-import { ArrowLeft, ChevronDown, Database, PieChart, Wallet } from 'lucide-react'
+import { ArrowLeft, ChevronDown, Database, PieChart } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import {
   assetCategory,
@@ -24,10 +24,12 @@ import '../styles/account-summary.css'
 
 ChartJS.register(ArcElement, Tooltip)
 
+// The old literal "Investments" tab (per-fund rows) was removed — the
+// asset-class-grouped view now carries the "Investments" label instead,
+// since that's the view participants actually want when they click it.
 const TABS = [
   { id: 'sources', label: 'Sources', icon: Database },
-  { id: 'investments', label: 'Investments', icon: Wallet },
-  { id: 'assetclass', label: 'Asset class', icon: PieChart }
+  { id: 'assetclass', label: 'Investments', icon: PieChart }
 ]
 
 function fade(hex, on) {

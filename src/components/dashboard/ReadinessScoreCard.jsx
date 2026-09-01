@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ArrowRight, Info, SlidersHorizontal } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
-import { isNotEligibleUser } from '../../data/participants'
+import { isEligibleNotEnrolledUser, isNotEligibleUser, isOptedOutUser } from '../../data/participants'
 import {
   READINESS_KEY,
   ageFromDob,
@@ -103,7 +103,12 @@ export default function ReadinessScoreCard() {
   )
   const pct = Math.max(0, Math.min(100, Math.round(score)))
 
-  if (isNotEligibleUser(participant)) return null
+  // Not eligible or opted out: the widget has nothing to offer this
+  // participant (they either can't participate or have declined to), so it
+  // doesn't render at all rather than showing a dead-end CTA.
+  if (isNotEligibleUser(participant) || isOptedOutUser(participant)) return null
+
+  const notEnrolled = isEligibleNotEnrolledUser(participant)
 
   return (
     <section className="rgs" aria-label="Retirement Readiness">
@@ -160,13 +165,21 @@ export default function ReadinessScoreCard() {
         ) : (
           <div className="rgs-intro">
             <p>
-              This estimates how much of your retirement spending is covered by your savings, using your deferrals,
-              age, and location.
+              {notEnrolled
+                ? 'Please enroll to get started with your retirement readiness set up.'
+                : 'This estimates how much of your retirement spending is covered by your savings, using your deferrals, age, and location.'}
             </p>
-            <Link className="rgs-cta" to="/retirement-goal">
-              Get started
-              <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
-            </Link>
+            {notEnrolled ? (
+              <span className="rgs-cta rgs-cta-disabled" aria-disabled="true">
+                Get started
+                <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
+              </span>
+            ) : (
+              <Link className="rgs-cta" to="/retirement-goal">
+                Get started
+                <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
+              </Link>
+            )}
           </div>
         )}
 
@@ -180,12 +193,16 @@ export default function ReadinessScoreCard() {
               </button>
             </span>
           </p>
-          <span className="rgs-foot-actions">
-            <Link className="rgs-foot-link" to="/retirement-goal">
-              <SlidersHorizontal size={12} strokeWidth={2.4} aria-hidden="true" />
-              Adjust goal
-            </Link>
-          </span>
+          {/* Only shown once the widget is already started — showing this
+              alongside "Get started" duplicated the same call to action. */}
+          {started && (
+            <span className="rgs-foot-actions">
+              <Link className="rgs-foot-link" to="/retirement-goal">
+                <SlidersHorizontal size={12} strokeWidth={2.4} aria-hidden="true" />
+                Adjust deferral rate and goal
+              </Link>
+            </span>
+          )}
         </div>
       </div>
 
