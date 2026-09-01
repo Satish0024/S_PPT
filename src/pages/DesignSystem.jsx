@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  AlertTriangle, Check, ChevronDown, Eye, Keyboard, Mic, MousePointerClick,
-  ShieldCheck, Type as TypeIcon, Volume2, X
+  AlertTriangle, Check, ChevronDown, Copy, Eye, Keyboard, Mic, Moon, MousePointerClick,
+  ShieldCheck, Sun, Type as TypeIcon, Volume2, X
 } from 'lucide-react'
 import { BRAND } from '../config/brand.js'
+import { useTheme } from '../context/ThemeContext.jsx'
 import '../styles/design-system.css'
 
 const NAV = [
@@ -70,6 +71,66 @@ const WCAG_CHECKS = [
   ['4.1.2', 'Name, Role, Value', 'Custom components expose an accessible name, role, and state via semantic HTML or ARIA.'],
 ]
 
+function copyToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text)
+  }
+  const ta = document.createElement('textarea')
+  ta.value = text
+  ta.style.position = 'fixed'
+  ta.style.opacity = '0'
+  document.body.appendChild(ta)
+  ta.focus()
+  ta.select()
+  try { document.execCommand('copy') } finally { document.body.removeChild(ta) }
+  return Promise.resolve()
+}
+
+function CopyButton({ text, label = 'Copy', className = '', small = false }) {
+  const [copied, setCopied] = useState(false)
+  const onClick = async () => {
+    await copyToClipboard(text)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1400)
+  }
+  return (
+    <button
+      type="button"
+      className={`ds-copy-btn ${small ? 'ds-copy-btn-sm' : ''} ${copied ? 'copied' : ''} ${className}`}
+      onClick={onClick}
+      aria-label={copied ? `${label} copied` : label}
+    >
+      {copied ? <Check size={small ? 12 : 13} /> : <Copy size={small ? 12 : 13} />}
+      {!small && <span>{copied ? 'Copied!' : label}</span>}
+    </button>
+  )
+}
+
+/** Resolves a CSS custom property (e.g. "--brand") to its live computed hex/color value. */
+function useResolvedTokens(varNames) {
+  const { theme } = useTheme()
+  const [values, setValues] = useState({})
+  const depKey = varNames.join(',')
+  useEffect(() => {
+    // Deferred (not read synchronously): ThemeProvider's own effect (an
+    // ancestor) is what actually flips [data-theme] on <html>, and child
+    // effects in the same commit fire before ancestor effects — reading
+    // synchronously here would pick up the outgoing theme's colors, one
+    // toggle behind. A macrotask (not requestAnimationFrame — rAF is paused
+    // while this tab is backgrounded/hidden, e.g. in a preview pane) runs
+    // after all of this commit's effects have flushed.
+    const t = setTimeout(() => {
+      const styles = getComputedStyle(document.documentElement)
+      const next = {}
+      varNames.forEach((v) => { next[v] = styles.getPropertyValue(v).trim() || '—' })
+      setValues(next)
+    }, 0)
+    return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [depKey, theme])
+  return values
+}
+
 function useScrollSpy(ids) {
   const [active, setActive] = useState(ids[0])
   useEffect(() => {
@@ -89,10 +150,16 @@ function useScrollSpy(ids) {
 }
 
 function Code({ children }) {
-  return <pre className="ds-code">{children}</pre>
+  return (
+    <div className="ds-code-wrap">
+      <CopyButton text={children} label="Copy code" className="ds-code-copy" />
+      <pre className="ds-code">{children}</pre>
+    </div>
+  )
 }
 
-function Component({ id, title, desc, tags = [], demo, dos = [], donts = [], code, extra }) {
+function Component({ id, title, desc, tags = [], demo, dos = [], donts = [], code, extra, colors = [] }) {
+  const tokenValues = useResolvedTokens(colors.map(([, v]) => v))
   return (
     <div id={id} className="ds-card">
       <div className="ds-card-head">
@@ -106,6 +173,29 @@ function Component({ id, title, desc, tags = [], demo, dos = [], donts = [], cod
       </div>
       <div className="ds-demo">{demo}</div>
       {extra}
+      {colors.length > 0 && (
+        <div className="ds-comp-colors">
+          <span className="ds-comp-colors-label">Colors used</span>
+          <div className="ds-comp-colors-list">
+            {colors.map(([name, varName]) => {
+              const hex = tokenValues[varName]
+              return (
+                <button
+                  key={`${varName}-${name}`}
+                  type="button"
+                  className="ds-color-chip"
+                  onClick={() => hex && copyToClipboard(hex)}
+                  title="Click to copy color value"
+                >
+                  <span className="ds-color-chip-dot" style={{ background: `var(${varName})` }} />
+                  {name} <code>{hex}</code>
+                  <Copy size={11} />
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
       {(dos.length > 0 || donts.length > 0 || code) && (
         <div className="ds-panel">
           {dos.map((d, i) => (
@@ -124,6 +214,8 @@ function Component({ id, title, desc, tags = [], demo, dos = [], donts = [], cod
 export default function DesignSystem() {
   const ids = NAV.flatMap((g) => g.items.map((i) => i.id))
   const active = useScrollSpy(ids)
+  const tokenValues = useResolvedTokens(COLORS.map(([, v]) => v))
+  const { theme, toggle } = useTheme()
 
   return (
     <div className="ds">
@@ -131,6 +223,17 @@ export default function DesignSystem() {
         <div className="ds-logo"><span className="dot" /> {BRAND.name} Design System</div>
         <div className="ds-meta">
           <span className="ds-badge"><ShieldCheck size={13} /> WCAG 2.2 AA target</span>
+          <button
+            type="button"
+            className="ds-theme-toggle"
+            onClick={toggle}
+            aria-pressed={theme === 'dark'}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+          </button>
           <Link to="/" className="ds-back">← Back to app</Link>
         </div>
       </header>
@@ -210,12 +313,28 @@ export default function DesignSystem() {
               the current light theme; each has a matching dark-theme value applied via <code>[data-theme="dark"]</code>.
             </p>
             <div className="ds-token-grid">
-              {COLORS.map(([name, varName]) => (
-                <div key={varName} className="ds-swatch">
-                  <div className="ds-swatch-fill" style={{ background: `var(${varName})`, borderBottom: '1px solid var(--line)' }} />
-                  <div className="ds-swatch-meta"><b>{name}</b><span>{varName}</span></div>
-                </div>
-              ))}
+              {COLORS.map(([name, varName]) => {
+                const hex = tokenValues[varName]
+                return (
+                  <button
+                    key={varName}
+                    type="button"
+                    className="ds-swatch ds-swatch-btn"
+                    onClick={() => hex && copyToClipboard(hex)}
+                    aria-label={`Copy ${name} color value ${hex || ''}`}
+                    title="Click to copy color value"
+                  >
+                    <div className="ds-swatch-fill" style={{ background: `var(${varName})`, borderBottom: '1px solid var(--line)' }}>
+                      <Copy size={13} className="ds-swatch-copy-ico" />
+                    </div>
+                    <div className="ds-swatch-meta">
+                      <b>{name}</b>
+                      <span>{varName}</span>
+                      <span className="ds-swatch-hex">{hex}</span>
+                    </div>
+                  </button>
+                )
+              })}
             </div>
             <div className="ds-callout">
               <ShieldCheck size={16} />
@@ -291,6 +410,7 @@ export default function DesignSystem() {
             donts={['Never rely on color alone to show a disabled state — pair with aria-disabled and reduced opacity.']}
             code={`<button type="button" className="btn btn-primary">Save changes</button>
 <button type="button" className="icon-btn" aria-label="Print"><Printer size={18} /></button>`}
+            colors={[['Brand fill', '--brand-fill'], ['Brand dark (hover)', '--brand-dark'], ['Line', '--line'], ['Ink (ghost text)', '--ink-soft']]}
           />
 
           {/* ---------------- FORMS ---------------- */}
@@ -317,6 +437,7 @@ export default function DesignSystem() {
   <input placeholder="e.g. My 401(k)" />
 </label>
 {error && <p role="alert">{error}</p>}`}
+            colors={[['Border', '--line'], ['Focus ring', '--brand'], ['Error text', '--red'], ['Panel bg', '--panel']]}
           />
 
           {/* ---------------- SELECTION CONTROLS ---------------- */}
@@ -334,6 +455,11 @@ export default function DesignSystem() {
             </div>}
             dos={['Use native <input type="checkbox"/radio"> so keyboard, label-click, and AT support come for free.']}
             donts={['Never build a checkbox out of a plain <div> with a click handler — it breaks keyboard and screen-reader support (WCAG 4.1.2).']}
+            code={`<label className="a11y-switch">
+  <input type="checkbox" checked={on} onChange={toggle} />
+  <span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
+</label>`}
+            colors={[['Checked / on', '--brand'], ['Track (off)', '--surface-3'], ['Border', '--line-strong']]}
           />
 
           {/* ---------------- BADGES / ALERTS ---------------- */}
@@ -350,6 +476,10 @@ export default function DesignSystem() {
               </div>
             </>}
             dos={['Pair every status color with a text label ("Active", "Pending") — never color alone.']}
+            code={`<span className="badge" style={{ background: 'var(--green-bg)', color: 'var(--green)' }}>
+  Active
+</span>`}
+            colors={[['Success', '--green'], ['Success bg', '--green-bg'], ['Warning', '--amber'], ['Warning bg', '--amber-bg'], ['Danger', '--red'], ['Danger bg', '--red-bg']]}
           />
 
           {/* ---------------- NAV ---------------- */}
@@ -369,6 +499,7 @@ export default function DesignSystem() {
             donts={['Never remove the default focus outline without supplying an equally visible replacement.']}
             code={`.nav a:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:8px}
 /* inset offset survives a scrolling ancestor with overflow-y:auto */`}
+            colors={[['Active text', '--brand'], ['Active bg', '--active-bg'], ['Hover bg', '--hover-bg'], ['Default text', '--ink-soft']]}
           />
 
           {/* ---------------- TABS / STEPS ---------------- */}
@@ -382,6 +513,10 @@ export default function DesignSystem() {
               ))}
             </div>}
             dos={['Every step in a wizard is a real, tabIndex=0, keydown-handled control — never a bare div.']}
+            code={`<button type="button" className={\`tab \${active ? 'on' : ''}\`} onClick={() => setActive(t)}>
+  {t.label}
+</button>`}
+            colors={[['Active text', '--brand'], ['Active underline', '--brand'], ['Inactive text', '--ink-soft']]}
           />
 
           {/* ---------------- TABLE ---------------- */}
@@ -398,6 +533,7 @@ export default function DesignSystem() {
               </tbody>
             </table>}
             code={`tbody tr:nth-child(even){ background: var(--surface-2); }`}
+            colors={[['Zebra row', '--surface-2'], ['Row border', '--line'], ['Positive value', '--green']]}
           />
 
           {/* ---------------- DIALOG ---------------- */}
@@ -418,6 +554,12 @@ export default function DesignSystem() {
             </div>}
             dos={['Trap focus inside the dialog while open (useFocusTrap), and return focus to the trigger on close.', 'Bind Escape to close every dialog and dropdown.']}
             donts={['Never let background content remain tabbable while a modal is open.']}
+            code={`const trapRef = useFocusTrap(open)
+<div className="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" ref={trapRef}>
+  <h3 id="dlg-title">Confirm rollover request</h3>
+  ...
+</div>`}
+            colors={[['Panel bg', '--panel'], ['Shadow', '--shadow-lg'], ['Border', '--line']]}
           />
 
           {/* ---------------- LEGEND ---------------- */}
@@ -449,6 +591,10 @@ export default function DesignSystem() {
             </div>}
             dos={['Persist settings to localStorage only — never send accessibility preferences to a server.', 'Feature-detect SpeechRecognition and disable voice input gracefully in unsupported browsers (e.g. Firefox).']}
             donts={['Never let a voice command submit a form or move money — the command set is read/navigate/scroll only.']}
+            code={`const { speaking, speakPage, stop } = useReadAloud()
+const { listening, start, stop: stopListening } = useVoiceNav(navigate)
+<AccessibilityMenu />  // dropdown next to the theme toggle in Header.jsx`}
+            colors={[['Panel bg', '--panel'], ['Active row', '--active-bg'], ['Switch on', '--brand']]}
           />
 
           {/* ---------------- WCAG CHECKLIST ---------------- */}

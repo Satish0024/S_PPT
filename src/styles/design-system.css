@@ -20,6 +20,11 @@
 }
 .ds-top a.ds-back{color:var(--link);text-decoration:none;font-weight:600;font-size:13px}
 .ds-top a.ds-back:hover{text-decoration:underline}
+.ds-theme-toggle{
+  display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface-2);
+  color:var(--ink-soft);border-radius:999px;padding:6px 12px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer
+}
+.ds-theme-toggle:hover{border-color:var(--brand);color:var(--brand)}
 
 /* ---------- Shell ---------- */
 .ds-shell{display:flex;align-items:flex-start;max-width:1400px;margin:0 auto}
@@ -90,6 +95,7 @@
 .ds-kv dt{color:var(--muted);font-weight:700}
 .ds-kv dd{color:var(--ink-soft)}
 
+.ds-code-wrap{position:relative}
 .ds-code{
   margin:0;padding:16px 20px;background:#12131f;color:#dfe3ff;font-family:ui-monospace,"SF Mono",Menlo,monospace;
   font-size:12.5px;line-height:1.6;overflow-x:auto;white-space:pre
@@ -97,13 +103,45 @@
 :root[data-theme="dark"] .ds-code,
 .ds[data-theme] .ds-code{background:#0b0c14}
 
+/* ---------- Copy button (code blocks + swatches) ---------- */
+.ds-copy-btn{
+  display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);color:#dfe3ff;border-radius:8px;padding:6px 10px;
+  font:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:.15s
+}
+.ds-copy-btn:hover{background:rgba(255,255,255,.14)}
+.ds-copy-btn.copied{background:var(--green);color:#06180f;border-color:var(--green)}
+.ds-code-copy{position:absolute;top:10px;right:10px}
+.ds-copy-btn-sm{padding:4px;border-radius:6px}
+
 /* ---------- Token swatches ---------- */
 .ds-token-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
 .ds-swatch{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
-.ds-swatch-fill{height:56px}
+.ds-swatch-btn{padding:0;text-align:left;cursor:pointer;font:inherit;width:100%;color:inherit;transition:box-shadow .15s,transform .1s}
+.ds-swatch-btn:hover{box-shadow:var(--shadow-lg)}
+.ds-swatch-btn:active{transform:scale(.98)}
+.ds-swatch-fill{height:56px;position:relative}
+.ds-swatch-copy-ico{
+  position:absolute;top:6px;right:6px;opacity:0;transition:opacity .15s;
+  background:rgba(0,0,0,.35);color:#fff;border-radius:6px;padding:4px
+}
+.ds-swatch-btn:hover .ds-swatch-copy-ico,.ds-swatch-btn:focus-visible .ds-swatch-copy-ico{opacity:1}
 .ds-swatch-meta{padding:8px 10px}
 .ds-swatch-meta b{display:block;font-size:12px;font-weight:700}
-.ds-swatch-meta span{font-size:11px;color:var(--muted);font-family:ui-monospace,monospace}
+.ds-swatch-meta span{display:block;font-size:11px;color:var(--muted);font-family:ui-monospace,monospace}
+.ds-swatch-hex{color:var(--ink-soft) !important;font-weight:700;text-transform:uppercase;margin-top:2px}
+
+/* ---------- Per-component color chips ---------- */
+.ds-comp-colors{padding:14px 20px;border-top:1px solid var(--line);background:var(--panel)}
+.ds-comp-colors-label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:8px}
+.ds-comp-colors-list{display:flex;flex-wrap:wrap;gap:8px}
+.ds-color-chip{
+  display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;
+  padding:5px 10px;background:var(--surface-2);font:inherit;font-size:12px;font-weight:600;color:var(--ink-soft);cursor:pointer
+}
+.ds-color-chip:hover{border-color:var(--brand);color:var(--brand)}
+.ds-color-chip code{font-family:ui-monospace,monospace;font-size:11px;color:var(--muted)}
+.ds-color-chip-dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto;border:1px solid rgba(0,0,0,.1)}
 
 .ds-type-row{display:flex;align-items:baseline;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}
 .ds-type-row:last-child{border-bottom:none}
