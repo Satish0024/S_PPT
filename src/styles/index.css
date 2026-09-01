@@ -2381,3 +2381,38 @@ summary:focus-visible {
   background:none;border:none;padding:0;font:inherit;font-weight:700;color:var(--brand);cursor:pointer;
   text-decoration:underline;text-underline-offset:2px;text-align:left}
 .fund-link:hover{color:var(--brand-dark)}
+
+/* ---------- Prototype-only demo scenario switcher ---------- */
+/* Deliberately separate from the real account menu (Header's user-dropdown)
+   and pinned to the corner so it never competes with real navigation —
+   the same pattern used on the login page before authentication. */
+.demo-switcher{position:fixed;right:20px;bottom:20px;z-index:40}
+.demo-switcher-toggle{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);
+  font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;box-shadow:var(--shadow-lg)
+}
+.demo-switcher-toggle:hover,.demo-switcher-toggle.open{border-color:var(--brand);color:var(--brand)}
+.demo-switcher-menu{
+  position:absolute;right:0;bottom:calc(100% + 8px);width:250px;max-height:320px;overflow-y:auto;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);
+  padding:6px;display:flex;flex-direction:column;gap:1px
+}
+.demo-switcher-label{
+  font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);
+  padding:8px 8px 6px
+}
+.demo-switcher-row{
+  display:flex;align-items:center;gap:10px;width:100%;border:none;background:transparent;padding:8px;
+  border-radius:8px;cursor:pointer;text-align:left;font:inherit
+}
+.demo-switcher-row:hover{background:var(--hover-bg)}
+.demo-switcher-row.on{background:var(--active-bg)}
+.demo-switcher-row img{border-radius:50%;flex:0 0 auto;object-fit:cover}
+.demo-switcher-text{display:flex;flex-direction:column;gap:1px;min-width:0}
+.demo-switcher-text strong{font-size:13px;font-weight:700;color:var(--ink)}
+.demo-switcher-text small{font-size:11px;font-weight:600;color:var(--ink-soft)}
+@media(max-width:480px){
+  .demo-switcher{right:12px;bottom:12px}
+  .demo-switcher-menu{width:calc(100vw - 24px);right:-12px}
+}

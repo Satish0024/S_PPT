@@ -17,6 +17,10 @@ import {
 
 const CATEGORY_CLASS = { Stock: 'is-stock', Bond: 'is-bond', Other: 'is-other' }
 
+// Funds are priced once per business day, not live — showing when that
+// price was struck matters for a NAV figure to be trustworthy.
+const NAV_AS_OF = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+
 function formatUnits(n) {
   return n.toLocaleString('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
 }
@@ -218,7 +222,12 @@ export default function AccountSummary() {
                     <em>{highlight ? formatPct(highlight.pct) : '100.00%'}</em>
                   </div>
                 </div>
-                <ul className="as-legend">
+                <div className="as-legend-wrap">
+                  <div className="as-legend-head" aria-hidden="true">
+                    <span>{tab === 'sources' ? 'Source' : 'Asset class'}</span>
+                    <span>Balance</span>
+                  </div>
+                  <ul className="as-legend">
                   {rows.map((row, i) => (
                     <li key={row.id}>
                       <button
@@ -241,7 +250,8 @@ export default function AccountSummary() {
                       </button>
                     </li>
                   ))}
-                </ul>
+                  </ul>
+                </div>
               </div>
 
               <div className="as-table-wrap">
@@ -328,11 +338,19 @@ export default function AccountSummary() {
                           {isOpen && isAssetClass ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
                               <td colSpan={detailCols}>
+                                {/* The old standalone Investments tab used to be the only place
+                                    a participant could see a fund's NAV (price per unit) — now
+                                    that view lives here instead, so it's carried over rather than
+                                    lost, alongside when that price was last priced. */}
+                                <p className="as-class-asof">NAV as of {NAV_AS_OF}</p>
                                 <ul className="as-class-members">
                                   {row.members.map((m) => (
                                     <li key={m.id}>
                                       <span className="as-swatch" style={{ background: m.color }} aria-hidden="true" />
-                                      <span className="as-class-member-name">{m.name}</span>
+                                      <span className="as-class-member-name">
+                                        {m.name}
+                                        {m.price != null && <small className="as-class-member-nav">NAV {formatMoney(m.price)}</small>}
+                                      </span>
                                       <span className="as-class-member-units">
                                         {m.units != null ? `${formatUnits(m.units)} units` : ''}
                                       </span>
