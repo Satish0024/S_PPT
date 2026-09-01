@@ -12,6 +12,7 @@ import { Line } from 'react-chartjs-2'
 import { HOLDINGS, PLAN_FUNDS, PLAN_STATS, cumSeries, labelsFor, ENDS, money } from '../data/portfolio'
 import { useTheme } from '../context/ThemeContext.jsx'
 import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
+import ChartLegend from '../components/common/ChartLegend.jsx'
 import '../styles/portfolio.css'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
@@ -182,30 +183,20 @@ export default function Portfolio() {
               <section className="chart-panel">
                 <div className="chart-top">
                   <h2>Asset class performance</h2>
-                  <div className="legend">
-                    {SERIES.map((s) => {
+                  <ChartLegend
+                    items={SERIES.map((s) => ({
+                      key: s.key,
+                      label: s.label,
+                      color: s.color,
+                      pointStyle: s.pointStyle,
+                      checked: visible[s.key],
                       // Total portfolio is an aggregate of the other three
                       // series, so picking it clears and disables them
                       // rather than layering everything on one chart.
-                      const disabled = s.key !== 'total' && visible.total
-                      return (
-                        <label
-                          key={s.key}
-                          className={`${visible[s.key] ? 'on' : ''}${disabled ? ' disabled' : ''}`}
-                          style={{ '--series-color': s.color }}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={visible[s.key]}
-                            disabled={disabled}
-                            onChange={() => toggleSeries(s.key)}
-                          />
-                          <span className={`legend-swatch legend-swatch--${s.pointStyle}`} aria-hidden="true" />
-                          {s.label}
-                        </label>
-                      )
-                    })}
-                  </div>
+                      disabled: s.key !== 'total' && visible.total
+                    }))}
+                    onToggle={toggleSeries}
+                  />
                 </div>
                 <div className="period" role="tablist" aria-label="Chart period">
                   {PERIODS.map((p) => (
