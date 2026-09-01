@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Check, ChevronDown, HelpCircle, LogOut, Moon, Settings, Sun } from 'lucide-react'
+import { ChevronDown, HelpCircle, LogOut, Moon, Settings, Sun } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { useTheme } from '../../context/ThemeContext.jsx'
 import { BRAND } from '../../config/brand.js'
 import AccessibilityMenu from './AccessibilityMenu.jsx'
 
 export default function Header() {
-  const { participant, participants, selectParticipant, logout } = useParticipant()
+  const { participant, logout } = useParticipant()
   const { theme, toggle } = useTheme()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
@@ -60,29 +60,6 @@ export default function Header() {
             <ChevronDown className="chev" size={14} strokeWidth={2.2} />
           </button>
           <div className={`user-dropdown${open ? ' open' : ''}`} role="menu" aria-label="Account">
-            <div className="dd-label">Participants</div>
-            {participants.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                className={`user-option${p.id === participant.id ? ' on' : ''}`}
-                role="menuitemradio"
-                aria-checked={p.id === participant.id}
-                onClick={() => {
-                  selectParticipant(p.id)
-                  setOpen(false)
-                  navigate('/', { replace: true })
-                }}
-              >
-                <img src={p.avatar} alt="" />
-                <span className="meta">
-                  <span className="name">{p.name}</span>
-                  <span className="scenario">{p.scenario}</span>
-                </span>
-                <Check className="check" size={18} strokeWidth={2.4} />
-              </button>
-            ))}
-            <div className="dd-label">Account</div>
             <button
               type="button"
               className="user-option"

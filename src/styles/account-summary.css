@@ -54,7 +54,12 @@
 
 .as-viz{
   display:flex;flex-wrap:wrap;align-items:center;gap:12px 40px;margin:0 0 20px}
-.as-legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;min-width:0;flex:1 1 260px;max-width:420px}
+.as-legend-wrap{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1 1 260px;max-width:420px}
+.as-legend-head{
+  display:flex;justify-content:space-between;gap:10px;padding:0 10px;
+  font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)
+}
+.as-legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;min-width:0}
 .as-legend button{
   display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:10px;align-items:center;
   width:100%;border:none;background:transparent;padding:7px 10px;border-radius:10px;
@@ -126,10 +131,12 @@
 
 /* Asset class tab — each row expands to list the investments in that
    class, same accordion pattern as the Investments tab's detail grid. */
+.as-class-asof{margin:2px 16px 8px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
 .as-class-members{list-style:none;margin:0;padding:6px 16px 10px;display:flex;flex-direction:column;gap:2px}
 .as-class-members li{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
 .as-class-members li:last-child{border-bottom:none}
-.as-class-member-name{font-size:12.5px;font-weight:700;color:var(--ink)}
+.as-class-member-name{display:flex;flex-direction:column;gap:1px;font-size:12.5px;font-weight:700;color:var(--ink)}
+.as-class-member-nav{font-size:11px;font-weight:600;color:var(--ink-soft)}
 .as-class-member-units{margin-left:auto;font-size:11.5px;color:var(--ink-soft)}
 .as-class-members li b{font-size:12.5px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
 
