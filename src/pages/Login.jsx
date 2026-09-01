@@ -1,24 +1,43 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
+import { Beaker, Eye, EyeOff, Lock, Mail } from 'lucide-react'
+import { DEMO_PASSWORD } from '../data/participants'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { BRAND } from '../config/brand.js'
 import '../styles/login.css'
 
-// The participant/scenario switcher used to live here as a "Try a
-// participant" picker. Now that this is heading to production, login is a
-// real email/password form only — switching between demo participants
-// moved to the profile menu in the header (post-login), alongside
-// Settings/Help/Sign out, rather than being part of the sign-in flow itself.
+// The participant/scenario switcher used to live inline in the sign-in
+// form as a "Try a participant" picker. Now that this is heading to
+// production, the real sign-in form only takes email/password — but this
+// is still a prototype, so a scenario switch is kept, just moved out of the
+// form itself: a small "Prototype demo" control in the corner of the page,
+// and (post-login) the profile menu in the header alongside Settings/Help.
 export default function Login() {
-  const { login } = useParticipant()
+  const { login, participants } = useParticipant()
   const { theme } = useTheme()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [show, setShow] = useState(false)
   const [error, setError] = useState('')
+  const [demoOpen, setDemoOpen] = useState(false)
+  const demoRef = useRef(null)
+
+  useEffect(() => {
+    const onClick = (e) => {
+      if (demoRef.current && !demoRef.current.contains(e.target)) setDemoOpen(false)
+    }
+    const onKey = (e) => {
+      if (e.key === 'Escape') setDemoOpen(false)
+    }
+    document.addEventListener('click', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('click', onClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [])
 
   const submit = (e) => {
     e.preventDefault()
@@ -27,6 +46,11 @@ export default function Login() {
       return
     }
     navigate('/', { replace: true })
+  }
+
+  const pickDemoUser = (p) => {
+    setDemoOpen(false)
+    if (login(p.profile.email, DEMO_PASSWORD)) navigate('/', { replace: true })
   }
 
   return (
@@ -90,6 +114,32 @@ export default function Login() {
           </form>
         </div>
       </main>
+
+      <div className="login-demo-corner" ref={demoRef}>
+        <button
+          type="button"
+          className={`login-demo-toggle${demoOpen ? ' open' : ''}`}
+          aria-haspopup="listbox"
+          aria-expanded={demoOpen}
+          onClick={() => setDemoOpen((v) => !v)}
+        >
+          <Beaker size={14} strokeWidth={2.2} />
+          Prototype demo — try a participant
+        </button>
+        {demoOpen && (
+          <div className="login-demo-menu" role="listbox">
+            {participants.map((p) => (
+              <button key={p.id} type="button" className="login-demo-row" role="option" onClick={() => pickDemoUser(p)}>
+                <img src={p.avatar} alt="" width={22} height={22} />
+                <span className="login-demo-text">
+                  <strong>{p.name}</strong>
+                  <small>{p.scenario}</small>
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
