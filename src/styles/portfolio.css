@@ -82,6 +82,28 @@
   .legend-swatch--rect{border-radius:2px}
   .legend-swatch--triangle{width:0;height:0;background:transparent;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:9px solid var(--series-color)}
   .legend-swatch--star{clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+
+  /* "+N more" overflow toggle — kicks in once a legend has more series
+     than comfortably fit on one line (see ChartLegend's maxInline), so a
+     chart with 8-10 series doesn't wrap into several rows of checkboxes
+     above the chart or need its own bespoke UI per chart. */
+  .legend-more-wrap{position:relative}
+  .legend-more{
+    display:inline-flex;align-items:center;gap:5px;border:1px dashed var(--line-strong);background:transparent;
+    border-radius:999px;padding:5px 10px;font:inherit;font-size:12.5px;font-weight:700;color:var(--ink-soft);
+    cursor:pointer}
+  .legend-more:hover{border-color:var(--brand);color:var(--brand)}
+  .legend-more.on{border-style:solid;border-color:var(--brand);color:var(--brand);background:var(--active-bg)}
+  .legend-more-badge{
+    display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;
+    border-radius:999px;background:var(--brand);color:#fff;font-size:10.5px;font-weight:800}
+  .legend-panel{
+    position:absolute;left:0;top:calc(100% + 8px);width:240px;max-height:280px;overflow-y:auto;
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);
+    padding:6px;z-index:20;display:flex;flex-direction:column;gap:1px}
+  .legend-panel-row{display:flex!important;width:100%;padding:7px 8px;border-radius:8px}
+  .legend-panel-row:hover{background:var(--hover-bg)}
+
   .chart-wrap{position:relative;height:260px}
   .chart-wrap canvas{width:100%!important;height:100%!important}
 
