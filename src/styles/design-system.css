@@ -138,3 +138,8 @@
   .ds-nav{display:none}
   .ds-main{padding:0 18px 80px}
 }
+
+@media(max-width:640px){
+  .ds-top{height:auto;flex-wrap:wrap;padding:12px 16px;gap:8px}
+  .ds-top .ds-meta{margin-left:0;width:100%;justify-content:space-between}
+}
