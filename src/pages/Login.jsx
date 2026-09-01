@@ -1,52 +1,32 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChevronDown, Eye, EyeOff, Lock, Mail } from 'lucide-react'
-import { DEMO_PASSWORD } from '../data/participants'
+import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { BRAND } from '../config/brand.js'
 import '../styles/login.css'
 
+// The participant/scenario switcher used to live here as a "Try a
+// participant" picker. Now that this is heading to production, login is a
+// real email/password form only — switching between demo participants
+// moved to the profile menu in the header (post-login), alongside
+// Settings/Help/Sign out, rather than being part of the sign-in flow itself.
 export default function Login() {
-  const { login, participants } = useParticipant()
+  const { login } = useParticipant()
   const { theme } = useTheme()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [show, setShow] = useState(false)
   const [error, setError] = useState('')
-  const [open, setOpen] = useState(false)
-  const [picked, setPicked] = useState(null)
-  const dropRef = useRef(null)
 
-  useEffect(() => {
-    const onClick = (e) => {
-      if (dropRef.current && !dropRef.current.contains(e.target)) setOpen(false)
-    }
-    document.addEventListener('click', onClick)
-    return () => document.removeEventListener('click', onClick)
-  }, [])
-
-  const goDashboard = (ok) => {
-    if (!ok) {
+  const submit = (e) => {
+    e.preventDefault()
+    if (!login(email, password)) {
       setError('Email or password is incorrect.')
       return
     }
     navigate('/', { replace: true })
-  }
-
-  const submit = (e) => {
-    e.preventDefault()
-    goDashboard(login(email, password))
-  }
-
-  const pickUser = (p) => {
-    setPicked(p)
-    setEmail(p.profile.email)
-    setPassword(DEMO_PASSWORD)
-    setError('')
-    setOpen(false)
-    goDashboard(login(p.profile.email, DEMO_PASSWORD))
   }
 
   return (
@@ -108,50 +88,6 @@ export default function Login() {
               Sign in
             </button>
           </form>
-
-          <p className="login-hint">
-            Demo password: <b>{DEMO_PASSWORD}</b>
-          </p>
-          <div className="login-demos" ref={dropRef}>
-            <span>Try a participant</span>
-            <button
-              type="button"
-              className={`lp-toggle${open ? ' open' : ''}`}
-              aria-haspopup="listbox"
-              aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
-            >
-              {picked ? (
-                <span className="lp-text">
-                  <strong>{picked.name}</strong>
-                  <small>{picked.scenario}</small>
-                </span>
-              ) : (
-                <span className="lp-placeholder">Select a participant</span>
-              )}
-              <ChevronDown size={16} strokeWidth={2.2} />
-            </button>
-            {open && (
-              <div className="lp-menu" role="listbox">
-                {participants.map((p) => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    className={`lp-row${picked?.id === p.id ? ' on' : ''}`}
-                    role="option"
-                    aria-selected={picked?.id === p.id}
-                    onClick={() => pickUser(p)}
-                  >
-                    <img src={p.avatar} alt="" width={24} height={24} />
-                    <span className="lp-text">
-                      <strong>{p.name}</strong>
-                      <small>{p.scenario}</small>
-                    </span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
       </main>
     </div>
