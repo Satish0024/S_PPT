@@ -17,10 +17,12 @@ import Login from './pages/Login.jsx'
 import AccountSummary from './pages/AccountSummary.jsx'
 import RiskQuestionnaire from './pages/RiskQuestionnaire.jsx'
 import RetirementGoal from './pages/RetirementGoal.jsx'
+import DesignSystem from './pages/DesignSystem.jsx'
 
 export default function App() {
   return (
     <Routes>
+      <Route path="/design-system" element={<DesignSystem />} />
       <Route element={<GuestOnly />}>
         <Route path="/login" element={<Login />} />
       </Route>
