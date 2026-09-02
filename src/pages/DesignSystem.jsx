@@ -414,7 +414,9 @@ export default function DesignSystem() {
     <div className="ds">
       <header className="ds-top">
         <div className="ds-logo">
-          <img src={theme === 'dark' ? '/logo-lockup-dark.svg' : '/logo-lockup-light.svg'} alt={BRAND.name} className="ds-logo-mark" />
+          <img src={theme === 'dark' ? '/core-logo-dark.svg' : '/core-logo.svg'} alt="CORE" className="ds-logo-mark" />
+          <span className="ds-logo-div" />
+          <img src={theme === 'dark' ? '/logo-lockup-dark.svg' : '/logo-lockup-light.svg'} alt={BRAND.name} className="ds-logo-mark" style={{ height: 20 }} />
           <span className="ds-logo-div" />
           Participant Portal Design System
         </div>
@@ -654,7 +656,7 @@ export default function DesignSystem() {
             <DotLegend items={[
               '.hi-bar h1 · 26px/700 — the real Dashboard "page title"',
               '.ob-k · 13px/600, --muted — small label above a figure',
-              '.ob-v · 34px/700, tabular-nums — the actual 34px use in the app (a dollar figure, not a heading)',
+              '.ob-v · 34px/700, tabular-nums — a dollar figure, not a heading',
               '.section-title · 16px/700 — real "section heading"',
               '.pc-name (h3) · 15px/700 — plan card title',
               '.pc-type · 12px/600, --brand',
@@ -828,18 +830,26 @@ export default function DesignSystem() {
             </div>
 
             <h3 className="ds-sub">Applied in context</h3>
-            <p className="ds-lede">Both shown together the way they actually stack: a resting card holding a raised dropdown — each labeled with the exact token producing it.</p>
-            <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
-              <div style={{ position: 'relative', maxWidth: 320 }}>
-                <div style={{ padding: 20, borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>
-                  <b style={{ fontSize: 13.5 }}>Account balance</b>
-                  <p style={{ fontSize: 12.5, color: 'var(--ink-soft)', margin: '4px 0 0' }}>Card resting on --shadow</p>
-                </div>
-                <div style={{ position: 'absolute', top: '100%', left: 0, right: 40, marginTop: 8, padding: 12, borderRadius: 12, background: 'var(--panel)', border: '1px solid var(--line)', boxShadow: 'var(--shadow-lg)' }}>
-                  <b style={{ fontSize: 12.5 }}>Dropdown raised on --shadow-lg</b>
+            <p className="ds-lede">Both shown together the way they actually stack: a resting card holding a raised dropdown — numbered markers point at the exact element each token produces.</p>
+            <div className="ds-example-screen" style={{ maxWidth: 400 }}>
+              <div style={{ padding: '32px 24px 60px', position: 'relative' }}>
+                <div style={{ position: 'relative', maxWidth: 320, margin: '0 auto' }}>
+                  <div style={{ padding: 20, borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <Dot>1</Dot>
+                      <b style={{ fontSize: 13.5 }}>Account balance</b>
+                    </div>
+                  </div>
+                  <div style={{ position: 'absolute', top: '100%', left: 0, right: 40, marginTop: 8, padding: 12, borderRadius: 12, background: 'var(--panel)', border: '1px solid var(--line)', boxShadow: 'var(--shadow-lg)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <Dot>2</Dot>
+                      <b style={{ fontSize: 12.5 }}>Dropdown menu</b>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <DotLegend items={['--shadow · resting card in the normal document flow', '--shadow-lg · raised above the flow (dropdowns, dialogs, the user menu)']} />
             <div className="ds-usage-grid" style={{ padding: '20px 0 0' }}>
               <div className="ds-usage-box do"><span className="ds-usage-badge"><Icon icon={faCheck} size={12} /></span><p>Use --shadow for anything resting in the normal document flow (cards, panels).</p></div>
               <div className="ds-usage-box dont"><span className="ds-usage-badge"><Icon icon={faXmark} size={12} /></span><p>Don't invent a third, custom shadow value — only these two exist; a one-off box-shadow breaks the elevation system's meaning.</p></div>
@@ -1441,23 +1451,25 @@ export default function DesignSystem() {
             </>}
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
-                <div style={{ display: 'flex', gap: 28, alignItems: 'flex-start', justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
                   <div className="confirm-dialog" style={{ margin: 0 }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 4 }}><Dot>1</Dot></div>
                     <div className="confirm-dialog-ico"><Icon icon={faTriangleExclamation} size={20} /></div>
-                    <h4>Cancel this request?</h4>
-                    <p>This rollover request will be withdrawn.</p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center' }}><Dot>2</Dot><h4 style={{ margin: 0 }}>Cancel this request?</h4></div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center' }}><Dot>3</Dot><p style={{ margin: 0 }}>This rollover request will be withdrawn.</p></div>
                     <div className="confirm-dialog-actions">
                       <button type="button" className="btn btn-secondary" tabIndex={-1}>Keep it</button>
                       <button type="button" className="btn btn-primary" tabIndex={-1}>Cancel request</button>
                     </div>
-                  </div>
-                  <div className="ds-annotated-frame" style={{ maxWidth: 260, gap: 10 }}>
-                    <span className="ds-pin"><Num>1</Num>Icon badge · 44×44px, --red-bg</span>
-                    <span className="ds-pin"><Num>2</Num>Title · 17px/800 question</span>
-                    <span className="ds-pin"><Num>3</Num>Body · 13.5px/400, --ink-soft</span>
-                    <span className="ds-pin"><Num>4</Num>Actions · equal-width, safe left / destructive right</span>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}><Dot>4</Dot></div>
                   </div>
                 </div>
+                <DotLegend items={[
+                  'Icon badge · 44×44px, --red-bg',
+                  'Title · 17px/800, always phrased as a question',
+                  'Body · 13.5px/400, --ink-soft',
+                  'Actions · equal-width, safe choice left / destructive right',
+                ]} />
                 <div className="ds-spec-facts">
                   <span><b>Width</b> min(360px, 100%)</span><span><b>Padding</b> 26px 24px 22px</span><span><b>Corner radius</b> 16px</span><span><b>Icon badge</b> 44×44px, --red-bg</span><span><b>Elevation</b> --shadow-lg</span>
                 </div>
@@ -1701,23 +1713,31 @@ export default function DesignSystem() {
             desc=".step (styles/enrollment.css) — the enrollment flow's vertical progress stepper."
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
-                <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start', justifyContent: 'center', marginBottom: 16 }}>
-                  <div style={{ width: 220 }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+                  <div style={{ width: 260 }}>
                     <div className="step complete">
-                      <div className="rail"><div className="num"><Icon icon={faCheck} size={13} /></div><div className="rail-line" /></div>
-                      <div className="body"><h3>Personal info</h3></div>
+                      <div className="rail" style={{ position: 'relative' }}>
+                        <div className="num"><Icon icon={faCheck} size={13} /></div>
+                        <div className="rail-line" />
+                        <span style={{ position: 'absolute', left: 40, top: 34 }}><Dot>2</Dot></span>
+                      </div>
+                      <div className="body" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <Dot>1</Dot><h3 style={{ margin: 0 }}>Personal info</h3>
+                      </div>
                     </div>
                     <div className="step current">
-                      <div className="rail"><div className="num">2</div><div className="rail-line" /></div>
-                      <div className="body"><h3>Investment elections</h3></div>
+                      <div className="rail"><div className="num">2</div></div>
+                      <div className="body" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <Dot>3</Dot><h3 style={{ margin: 0 }}>Investment elections</h3>
+                      </div>
                     </div>
                   </div>
-                  <div className="ds-annotated-frame" style={{ maxWidth: 240, gap: 10 }}>
-                    <span className="ds-pin"><Num>1</Num>Number badge · 32×32px circle</span>
-                    <span className="ds-pin"><Num>2</Num>Rail line · 2px, connects steps</span>
-                    <span className="ds-pin"><Num>3</Num>Title (h3) · 15px/600</span>
-                  </div>
                 </div>
+                <DotLegend items={[
+                  'Number badge · 32×32px circle (complete = --green, check icon)',
+                  'Rail line · 2px, connects steps (the last step has none)',
+                  'Title (h3) · 15px/600, --brand when current',
+                ]} />
                 <div className="ds-spec-facts">
                   <span><b>Complete</b> --green num, check icon</span><span><b>Current</b> --brand-fill num, --brand title</span><span><b>Upcoming</b> --surface-3 num, default text</span>
                 </div>
@@ -1790,14 +1810,20 @@ export default function DesignSystem() {
                 <div className="learn2" style={{ maxWidth: 380, margin: '0 auto 16px' }}>
                   <img className="learn2-field" src="/learning-illustration.png" alt="" aria-hidden="true" />
                   <div className="learn2-body">
-                    <span className="learn2-tag">Learning</span>
-                    <h3 className="learn2-title">Financial Wellness</h3>
-                    <p className="learn2-desc">Learn about planning, saving, investing wisely</p>
-                    <span className="learn2-cta">Know More <Icon icon={faArrowRight} size={12} /></span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Dot>1</Dot><span className="learn2-tag">Learning</span></div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Dot>2</Dot><h3 className="learn2-title" style={{ margin: 0 }}>Financial Wellness</h3></div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, margin: '7px 0' }}><Dot>3</Dot><p className="learn2-desc" style={{ margin: 0 }}>Learn about planning, saving, investing wisely</p></div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Dot>4</Dot><span className="learn2-cta">Know More <Icon icon={faArrowRight} size={12} /></span></div>
                   </div>
                 </div>
+                <DotLegend items={[
+                  'Tag · 9.5px/700, uppercase pill',
+                  'Title (h3) · 21px/700',
+                  'Description · 12.5px/400',
+                  'CTA · 12.5px/700, arrow slides on hover',
+                ]} />
                 <div className="ds-spec-facts">
-                  <span><b>Padding</b> 20px</span><span><b>Tag</b> 9.5px/700, pill</span><span><b>Title</b> 21px/700</span><span><b>Desc</b> 12.5px/400</span><span><b>Illustration width</b> 56% (max 230px), floats via a 6s ease loop</span>
+                  <span><b>Padding</b> 20px</span><span><b>Illustration width</b> 56% (max 230px)</span><span><b>Illustration motion</b> 6s ease float loop</span>
                 </div>
                 <p className="ds-anatomy-caption">a. Content card (styles/index.css .learn2, line 2264)</p>
               </div>
@@ -1838,22 +1864,51 @@ export default function DesignSystem() {
             desc=".slideover-panel (styles/index.css) — a right-edge panel over a dimmed backdrop, for in-context tasks that don't need a full page."
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
-                <div style={{ position: 'relative', height: 220, borderRadius: 12, overflow: 'hidden', background: 'var(--surface-3)' }}>
+                <div style={{ position: 'relative', height: 240, borderRadius: 12, overflow: 'hidden', background: 'var(--surface-3)' }}>
                   <div style={{ position: 'absolute', inset: 0, background: 'rgba(20,21,31,.46)' }} />
-                  <div className="slideover-panel" style={{ position: 'absolute', right: 0, top: 0, height: '100%', width: 240, maxWidth: 240 }}>
+                  <div className="slideover-panel" style={{ position: 'absolute', right: 0, top: 0, height: '100%', width: 260, maxWidth: 260 }}>
                     <div className="slideover-head">
-                      <h3>Loan calculator</h3>
-                      <button type="button" className="slideover-close" tabIndex={-1}><Icon icon={faXmark} size={14} /></button>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Dot>1</Dot><h3>Loan calculator</h3></div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <Dot>2</Dot>
+                        <button type="button" className="slideover-close" tabIndex={-1}><Icon icon={faXmark} size={14} /></button>
+                      </div>
                     </div>
-                    <div className="slideover-body" style={{ fontSize: 12, color: 'var(--ink-soft)' }}>Body content scrolls independently</div>
+                    <div className="slideover-body" style={{ fontSize: 12, color: 'var(--ink-soft)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <Dot>3</Dot>Body content scrolls independently
+                    </div>
                   </div>
                 </div>
+                <DotLegend items={[
+                  'Head · 20px 24px padding, 1px --line bottom border',
+                  'Close button · 32×32px circle, --hover-bg fill on hover',
+                  'Body · 22px 24px padding, --surface-2 background, scrolls independently',
+                ]} />
                 <div className="ds-spec-facts" style={{ marginTop: 16 }}>
-                  <span><b>Width</b> 420px (680px .slideover-wide)</span><span><b>Head padding</b> 20px 24px</span><span><b>Body padding</b> 22px 24px</span><span><b>Close button</b> 32×32px circle</span><span><b>Backdrop</b> rgba(20,21,31,.46)</span>
+                  <span><b>Width</b> 420px (680px .slideover-wide)</span><span><b>Backdrop</b> rgba(20,21,31,.46)</span><span><b>Animation</b> slides in from the right, .28s</span>
                 </div>
                 <p className="ds-anatomy-caption">a. Slideover (styles/index.css .slideover-panel, line 1509)</p>
               </div>
             }
+            demo={<>
+              <VariantGroup tag="live" title=".slideover-panel over a dimmed backdrop">
+                <div style={{ position: 'relative', width: '100%', height: 280, borderRadius: 12, overflow: 'hidden', background: 'var(--surface-3)' }}>
+                  <div style={{ position: 'absolute', inset: 0, background: 'rgba(20,21,31,.46)' }} />
+                  <div className="slideover-panel" style={{ position: 'absolute', right: 0, top: 0, height: '100%', width: 300, maxWidth: '80%' }}>
+                    <div className="slideover-head">
+                      <h3>Loan calculator</h3>
+                      <button type="button" className="slideover-close" tabIndex={-1} aria-label="Close"><Icon icon={faXmark} size={14} /></button>
+                    </div>
+                    <div className="slideover-body">
+                      <p style={{ margin: '0 0 12px', fontSize: 13.5, color: 'var(--ink-soft)' }}>Estimate a loan against your vested balance.</p>
+                      <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Loan amount
+                        <input readOnly value="$10,000" style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)' }} />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </VariantGroup>
+            </>}
             dos={['Trap focus inside the panel while open; Escape closes it, same as a dialog.']}
             code={`<div className="slideover-bg" role="dialog" aria-modal="true">
   <div className="slideover-panel">
