@@ -176,6 +176,14 @@ const TYPE_SCALE = [
 // height, letter spacing, text case. Every value is either read directly
 // off a real class (noted inline) or, where the app sets nothing
 // explicit, honestly marked "default" rather than inventing a number.
+// Verified: lib/accountSummary.js line 38 — the real 7-color palette
+// Chart.js reads for every .as-donut slice (asset classes, investment
+// holdings, or contribution sources — whichever tab is active). It's a
+// fixed array indexed by `COLORS[i % COLORS.length]`, so any number of
+// investments is supported: past 7, colors repeat rather than the app
+// running out or falling back to a default.
+const ACCOUNT_SUMMARY_COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#2e3192', '#d4a017']
+
 const TYPE_TOKENS = [
   { name: 'Display', family: 'Inclusive Sans', size: '44px', weight: 800, lineHeight: '1 (.rr2-hero-copy b)', letterSpacing: '-1px (.rr2-hero-copy b)', case: 'None' },
   { name: 'H1 / Page title', family: 'Inclusive Sans', size: '34px (proposed) · real range 22–38px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '-.4px (.hi-bar h1)', case: 'None' },
@@ -2270,22 +2278,47 @@ export default function DesignSystem() {
                 </div>
               </VariantGroup>
               <VariantGroup tag="live" title=".as-donut (Account Summary → Investments) — Chart.js Doughnut, a different pattern">
-                <div className="as-donut" style={{ position: 'relative', height: 180, width: 180, flex: '0 0 auto' }}>
-                  <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%' }}>
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--surface-3)" strokeWidth="14" />
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--brand)" strokeWidth="14" strokeDasharray={`${0.55 * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} transform="rotate(-90 50 50)" />
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--green)" strokeWidth="14" strokeDasharray={`${0.25 * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} strokeDashoffset={-0.55 * 2 * Math.PI * 40} transform="rotate(-90 50 50)" />
-                  </svg>
-                  <div className="as-donut-center" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                    <small style={{ fontSize: 11.5, color: 'var(--ink-soft)' }}>Account balance</small>
-                    <b style={{ fontSize: 18 }}>$284,900</b>
-                    <em style={{ fontStyle: 'normal', fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>100.00%</em>
+                <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
+                  <div className="as-donut" style={{ position: 'relative', height: 180, width: 180, flex: '0 0 auto' }}>
+                    <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%' }}>
+                      <circle cx="50" cy="50" r="40" fill="none" stroke={ACCOUNT_SUMMARY_COLORS[0]} strokeWidth="14" strokeDasharray={`${0.4 * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} transform="rotate(-90 50 50)" />
+                      <circle cx="50" cy="50" r="40" fill="none" stroke={ACCOUNT_SUMMARY_COLORS[1]} strokeWidth="14" strokeDasharray={`${0.25 * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} strokeDashoffset={-0.4 * 2 * Math.PI * 40} transform="rotate(-90 50 50)" />
+                      <circle cx="50" cy="50" r="40" fill="none" stroke={ACCOUNT_SUMMARY_COLORS[2]} strokeWidth="14" strokeDasharray={`${0.15 * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} strokeDashoffset={-0.65 * 2 * Math.PI * 40} transform="rotate(-90 50 50)" />
+                      <circle cx="50" cy="50" r="40" fill="none" stroke={ACCOUNT_SUMMARY_COLORS[3]} strokeWidth="14" strokeDasharray={`${0.12 * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} strokeDashoffset={-0.8 * 2 * Math.PI * 40} transform="rotate(-90 50 50)" />
+                      <circle cx="50" cy="50" r="40" fill="none" stroke={ACCOUNT_SUMMARY_COLORS[4]} strokeWidth="14" strokeDasharray={`${0.08 * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} strokeDashoffset={-0.92 * 2 * Math.PI * 40} transform="rotate(-90 50 50)" />
+                    </svg>
+                    <div className="as-donut-center" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                      <small style={{ fontSize: 11.5, color: 'var(--ink-soft)' }}>Account balance</small>
+                      <b style={{ fontSize: 18 }}>$284,900</b>
+                      <em style={{ fontStyle: 'normal', fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>100.00%</em>
+                    </div>
                   </div>
+                  <ul className="as-legend" style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    {['U.S. Equity', 'International Equity', 'U.S. Bond', 'International Bond', 'Target-Date'].map((label, i) => (
+                      <li key={label} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12.5 }}>
+                        <i style={{ width: 10, height: 10, borderRadius: 3, background: ACCOUNT_SUMMARY_COLORS[i], display: 'block' }} />
+                        {label}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </VariantGroup>
+              <VariantGroup tag="live" title="lib/accountSummary.js COLORS — the full 7-color cycle behind every .as-donut slice">
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+                  {ACCOUNT_SUMMARY_COLORS.map((c, i) => (
+                    <div key={c} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, fontSize: 10.5, color: 'var(--ink-soft)' }}>
+                      <div style={{ width: 32, height: 32, borderRadius: 8, background: c }} />
+                      <code>{c}</code>
+                    </div>
+                  ))}
                 </div>
               </VariantGroup>
             </>}
             donts={["Don't reuse .rr-donut's stroke-dasharray code for a new breakdown chart — .as-donut (Account Summary → Investments tab) is Chart.js-rendered, a genuinely different implementation, not a variant of the same pattern."]}
-            dos={['Give the <svg> an aria-label stating the percentage in words — the visual arc alone conveys nothing to a screen reader.']}
+            dos={[
+              'Give the <svg> an aria-label stating the percentage in words — the visual arc alone conveys nothing to a screen reader.',
+              'For .as-donut specifically: with more than 7 investments, colors repeat (COLORS[i % 7]) — pair every slice with its label in the legend, never color alone, since two slices can share a color once the palette wraps.',
+            ]}
             code={`const CIRC = 2 * Math.PI * 42
 <div className="rr-donut">
   <svg viewBox="0 0 100 100" role="img" aria-label={\`\${score}% funded\`}>
