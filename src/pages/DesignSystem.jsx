@@ -51,6 +51,17 @@ const GROUP_META = {
   'Accessibility': { icon: faUniversalAccess, desc: 'WCAG 2.2 AA checklist and keyboard contract.' },
 }
 
+// The primary, most-reached-for tokens — one flat glanceable grid before
+// the full light/dark breakdown below. From the previous version of this
+// page; re-added on request, updated to this rebuild's actual token set.
+const PRIMARY_COLORS = [
+  ['Brand', '--brand'], ['Brand dark', '--brand-dark'], ['Accent', '--accent'],
+  ['Ink (text)', '--ink'], ['Ink soft', '--ink-soft'], ['Muted', '--muted'],
+  ['Line', '--line'], ['Background', '--bg'], ['Panel', '--panel'],
+  ['Active bg', '--active-bg'], ['Green (success)', '--green'], ['Amber (warning)', '--amber'],
+  ['Red (danger)', '--red'], ['Surface 2', '--surface-2'], ['Surface 3', '--surface-3'],
+]
+
 // Verified against styles/index.css :root / [data-theme="dark"].
 const COLOR_GROUPS = [
   { title: 'Brand', tokens: [
@@ -350,6 +361,7 @@ export default function DesignSystem() {
   const [openGroups, setOpenGroups] = useState(() => new Set(['Get started']))
   const toggleGroup = (g) => setOpenGroups((prev) => { const next = new Set(prev); next.has(g) ? next.delete(g) : next.add(g); return next })
   const dualTokens = useDualThemeTokens(COLOR_GROUPS.flatMap((g) => g.tokens.map(([, v]) => v)))
+  const primaryTokenValues = useResolvedTokens(PRIMARY_COLORS.map(([, v]) => v))
 
   useEffect(() => {
     const activeGroup = NAV.find((g) => g.items.some((i) => i.id === active))?.group
@@ -449,6 +461,33 @@ export default function DesignSystem() {
           {/* ---------------- COLOR ---------------- */}
           <section id="color" className="ds-section">
             <h2>Color</h2>
+            <p className="ds-lede">The primary, most-reached-for tokens at a glance — click any swatch to copy its current value. The full light/dark breakdown, including every status and neutral variant, follows below.</p>
+            <div className="ds-token-grid">
+              {PRIMARY_COLORS.map(([name, varName]) => {
+                const hex = primaryTokenValues[varName]
+                return (
+                  <button
+                    key={varName}
+                    type="button"
+                    className="ds-swatch ds-swatch-btn"
+                    onClick={() => hex && copyToClipboard(hex)}
+                    aria-label={`Copy ${name} color value ${hex || ''}`}
+                    title="Click to copy color value"
+                  >
+                    <div className="ds-swatch-fill" style={{ background: `var(${varName})`, borderBottom: '1px solid var(--line)' }}>
+                      <Icon icon={faCopy} size={13} className="ds-swatch-copy-ico" />
+                    </div>
+                    <div className="ds-swatch-meta">
+                      <b>{name}</b>
+                      <span>{varName}</span>
+                      <span className="ds-swatch-hex">{hex}</span>
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
+
+            <h3 className="ds-sub">Full token reference</h3>
             <p className="ds-lede">Every value below is read live from the running app's CSS custom properties — both light and dark, regardless of which theme this page is currently in.</p>
             {COLOR_GROUPS.map((g) => (
               <div key={g.title}>

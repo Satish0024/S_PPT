@@ -200,6 +200,20 @@
 .ds-pin{display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;padding:5px 10px 5px 4px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink);font-size:11.5px;font-weight:600;white-space:nowrap}
 .ds-pin::before{content:"";width:20px;height:1px;background:var(--line-strong);margin-right:2px}
 
+/* ---------- Color swatch grid (primary tokens at a glance) ---------- */
+.ds-token-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.ds-swatch{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
+.ds-swatch-btn{padding:0;text-align:left;cursor:pointer;font:inherit;width:100%;color:inherit;transition:box-shadow .15s,transform .1s}
+.ds-swatch-btn:hover{box-shadow:var(--shadow-lg)}
+.ds-swatch-btn:active{transform:scale(.98)}
+.ds-swatch-fill{height:56px;position:relative}
+.ds-swatch-copy-ico{position:absolute;top:6px;right:6px;opacity:0;transition:opacity .15s;background:rgba(0,0,0,.35);color:#fff;border-radius:6px;padding:4px}
+.ds-swatch-btn:hover .ds-swatch-copy-ico,.ds-swatch-btn:focus-visible .ds-swatch-copy-ico{opacity:1}
+.ds-swatch-meta{padding:8px 10px}
+.ds-swatch-meta b{display:block;font-size:12px;font-weight:700}
+.ds-swatch-meta span{display:block;font-size:11px;color:var(--muted);font-family:ui-monospace,monospace}
+.ds-swatch-hex{color:var(--ink-soft) !important;font-weight:700;text-transform:uppercase;margin-top:2px}
+
 /* ---------- Typography / token table ---------- */
 .ds-type-table{width:100%;border-collapse:collapse}
 .ds-type-table th{text-align:left;padding:12px 20px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--line)}
