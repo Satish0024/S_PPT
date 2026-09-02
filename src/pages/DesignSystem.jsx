@@ -125,19 +125,38 @@ function CopyButton({ text, label = 'Copy', className = '' }) {
   )
 }
 
-// Numbered parts callout — same pattern as the reference Figma file's
-// Anatomy tab: a numbered badge + connector line pointing at a labeled
-// region, listed above the measured spec diagram.
-function Parts({ items }) {
+// Pin callout — same pattern as the reference Figma file's Anatomy tab:
+// a numbered badge sits directly above the real element it describes,
+// connected to it by a short line, so the number visibly points at a
+// specific pixel rather than floating in an unrelated list.
+function Anno({ n, label, children, wrap }) {
+  const Tag = wrap || 'span'
   return (
-    <div className="ds-parts">
-      {items.map(([label, desc], i) => (
-        <div key={label} className="ds-part">
-          <span className="ds-part-badge">{i + 1}</span>
-          <span className="ds-part-line" />
-          <span className="ds-part-label"><b>{label}</b><p>{desc}</p></span>
-        </div>
-      ))}
+    <Tag className="ds-anno">
+      <span className="ds-anno-callout">
+        <span className="ds-anno-badge">{n}</span>
+        <span className="ds-anno-text">{label}</span>
+        <span className="ds-anno-line" />
+      </span>
+      {children}
+    </Tag>
+  )
+}
+
+// Small numbered circle used inside a .ds-pin label, so a side-by-side
+// pin (real element + pin text) still carries the same numbered-part
+// identity as the floating callouts above horizontally-laid-out parts.
+function Num({ children }) {
+  return <span className="ds-pin-num">{children}</span>
+}
+
+// Wraps a set of Anno-pinned elements with the top padding they need to
+// float their callouts above the content, plus the caption row below.
+function AnatomyPins({ children, caption }) {
+  return (
+    <div className="ds-anatomy-pins">
+      <div className="ds-anatomy-pins-row">{children}</div>
+      {caption && <p className="ds-anatomy-caption" style={{ marginTop: 6 }}>{caption}</p>}
     </div>
   )
 }
@@ -407,14 +426,7 @@ export default function DesignSystem() {
             ))}
 
             <h3 className="ds-sub">Applied in context</h3>
-            <p className="ds-lede">The real Transactions table showing which token colors which piece — not swatches in isolation.</p>
-            <div className="ds-anatomy" style={{ background: 'transparent', padding: '0 0 18px' }}>
-              <Parts items={[
-                ['Brand accents', 'Primary buttons, links, active nav item, focus rings — the one color that says "interactive".'],
-                ['Status pairs', 'Each status (success/warning/danger) is a fill + a matching background tint, never fill alone.'],
-                ['Neutrals', 'Everything else — page background, panel surfaces, borders, and the 3-step text hierarchy (ink / ink-soft / muted).'],
-              ]} />
-            </div>
+            <p className="ds-lede">The real Transactions table showing which token colors which piece — pins point straight at the pixel, not swatches in isolation.</p>
             <div className="ds-annotated-frame">
               <div className="table-wrap">
                 <table className="tx-table">
@@ -427,15 +439,19 @@ export default function DesignSystem() {
               </div>
               <div className="ds-annotated-row">
                 <span className="req-status good">Approved</span>
-                <span className="ds-pin">--green / --green-bg</span>
+                <span className="ds-pin">--green text / --green-bg fill</span>
               </div>
               <div className="ds-annotated-row">
                 <span className="req-status ok">Pending</span>
-                <span className="ds-pin">--amber / --amber-bg</span>
+                <span className="ds-pin">--amber text / --amber-bg fill</span>
               </div>
               <div className="ds-annotated-row">
                 <span style={{ background: 'var(--surface-2)', padding: '4px 10px', borderRadius: 6, fontSize: 12.5 }}>Even row</span>
                 <span className="ds-pin">--surface-2 (zebra stripe)</span>
+              </div>
+              <div className="ds-annotated-row">
+                <button type="button" className="btn btn-primary" tabIndex={-1} style={{ pointerEvents: 'none' }}>Primary action</button>
+                <span className="ds-pin">--brand-fill (the one "interactive" color)</span>
               </div>
             </div>
           </section>
@@ -479,15 +495,7 @@ export default function DesignSystem() {
             </div>
 
             <h3 className="ds-sub">Applied in context</h3>
-            <p className="ds-lede">Where each level actually lands on a real screen, annotated against the Transactions page's own markup.</p>
-            <div className="ds-anatomy" style={{ background: 'transparent', padding: '0 0 18px' }}>
-              <Parts items={[
-                ['H1 — Page title', 'One per page, top of the content area. 34px/800.'],
-                ['H2 — Section heading', 'Introduces a card group or table. 26px/800.'],
-                ['Body', 'Default reading text everywhere — table cells, paragraphs. 15px/400.'],
-                ['Label', 'Form labels and secondary/meta text, --ink-soft. 13.5px/600.'],
-              ]} />
-            </div>
+            <p className="ds-lede">Where each level actually lands on a real screen — every pin sits directly on the real text it's labeling.</p>
             <div className="ds-annotated-frame">
               <div className="ds-annotated-row">
                 <h4 className="ds-type-h1" style={{ margin: 0, fontSize: 26 }}>Retirement plan balance</h4>
@@ -556,13 +564,7 @@ export default function DesignSystem() {
             </div>
 
             <h3 className="ds-sub">Applied in context</h3>
-            <p className="ds-lede">Both shown together the way they actually stack: a resting card holding a raised dropdown.</p>
-            <div className="ds-anatomy" style={{ background: 'transparent', padding: '0 0 18px' }}>
-              <Parts items={[
-                ['--shadow', 'Resting elevation for anything in the normal document flow — cards, panels.'],
-                ['--shadow-lg', 'Raised elevation for anything floating above the flow — dropdowns, dialogs, the user menu.'],
-              ]} />
-            </div>
+            <p className="ds-lede">Both shown together the way they actually stack: a resting card holding a raised dropdown — each labeled with the exact token producing it.</p>
             <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
               <div style={{ position: 'relative', maxWidth: 320 }}>
                 <div style={{ padding: 20, borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>
@@ -664,10 +666,14 @@ export default function DesignSystem() {
             desc="The standard button used across Dashboard, Portfolio, Transactions, and Profile."
             anatomy={
               <div className="ds-anatomy">
-                <Parts items={[
-                  ['Label', 'Centered text, 14px/700 — the only required part.'],
-                  ['Icon (optional)', 'Leading icon, 16px, 6px gap from the label. Icon-only buttons use .icon-btn instead (36×36px circle).'],
-                ]} />
+                <AnatomyPins>
+                  <Anno n={1} label="Label — 14px/700">
+                    <button type="button" className="btn btn-primary" tabIndex={-1}>Save changes</button>
+                  </Anno>
+                  <Anno n={2} label="Icon-only · .icon-btn, 36×36px">
+                    <button type="button" className="icon-btn" tabIndex={-1} aria-label="Settings"><Icon icon={faGear} size={18} /></button>
+                  </Anno>
+                </AnatomyPins>
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 11px</div>
                   <div className="ds-spec-row">
@@ -722,12 +728,23 @@ export default function DesignSystem() {
             id="forms" title="Forms & inputs"
             desc="Text fields and selects, from styles/transactions.css and styles/index.css."
             anatomy={
-              <div className="ds-anatomy">
-                <Parts items={[
-                  ['Label', 'Above the field, 12.5px/700, --ink-soft — always present, never a placeholder-only field.'],
-                  ['Field', 'Bordered input/select, 40px min-height.'],
-                  ['Helper / error text', 'Below the field; error state switches to --red and role="alert".'],
-                ]} />
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div className="ds-annotated-frame" style={{ maxWidth: 380, margin: '0 auto 20px' }}>
+                  <div className="ds-annotated-row">
+                    <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname</label>
+                    <span className="ds-pin"><Num>1</Num>Label · 12.5px/700</span>
+                  </div>
+                  <div className="ds-annotated-row">
+                    <input readOnly value="e.g. My 401(k)" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', width: 180 }} />
+                    <span className="ds-pin"><Num>2</Num>Field · 40px min-height</span>
+                  </div>
+                  <div className="ds-annotated-row">
+                    <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5, color: 'var(--red)', fontWeight: 600, margin: 0 }}>
+                      <Icon icon={faTriangleExclamation} size={14} /> Required
+                    </p>
+                    <span className="ds-pin"><Num>3</Num>Error text · --red, role="alert"</span>
+                  </div>
+                </div>
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 8px</div>
                   <div className="ds-spec-row">
@@ -796,12 +813,21 @@ export default function DesignSystem() {
             id="selection" title="Checkbox, radio & switch"
             desc="Native inputs for checkbox/radio; .a11y-switch (styles/index.css) for the toggle."
             anatomy={
-              <div className="ds-anatomy">
-                <Parts items={[
-                  ['Track', '36×20px pill, --surface-3 off / --brand on.'],
-                  ['Thumb', '16×16px white circle, 2px inset, slides +16px on check.'],
-                  ['Label', 'Adjacent text — the switch alone has no accessible name.'],
-                ]} />
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div className="ds-annotated-frame" style={{ maxWidth: 380, margin: '0 auto 20px' }}>
+                  <div className="ds-annotated-row">
+                    <span style={{ fontSize: 13.5 }}>High contrast mode</span>
+                    <span className="ds-pin"><Num>1</Num>Label · adjacent text (switch has no accessible name alone)</span>
+                  </div>
+                  <div className="ds-annotated-row">
+                    <label className="a11y-switch" style={{ display: 'inline-flex' }}><input type="checkbox" readOnly /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span></label>
+                    <span className="ds-pin"><Num>2</Num>Track · 36×20px pill</span>
+                  </div>
+                  <div className="ds-annotated-row">
+                    <label className="a11y-switch" style={{ display: 'inline-flex' }}><input type="checkbox" defaultChecked readOnly /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span></label>
+                    <span className="ds-pin"><Num>3</Num>Thumb · 16×16px, slides +16px on check</span>
+                  </div>
+                </div>
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Track height</b> 20px</div>
                   <div className="ds-spec-row">
@@ -863,10 +889,14 @@ export default function DesignSystem() {
             desc=".req-status (styles/transactions.css) — the one reusable, unscoped status pill in the app."
             anatomy={
               <div className="ds-anatomy">
-                <Parts items={[
-                  ['Label', 'Status word, 11.5px/800 — never color alone, always paired with text.'],
-                  ['Pill background', 'One of 3 pairs: --green/--green-bg, --amber/--amber-bg, --red/--red-bg.'],
-                ]} />
+                <AnatomyPins>
+                  <Anno n={1} label="Label · 11.5px/800">
+                    <span className="req-status good" style={{ position: 'relative' }}>Approved</span>
+                  </Anno>
+                  <Anno n={2} label="Fill · --green/--green-bg">
+                    <span className="req-status good">Approved</span>
+                  </Anno>
+                </AnatomyPins>
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 3px</div>
                   <div className="ds-spec-row">
@@ -920,17 +950,29 @@ export default function DesignSystem() {
             id="table" title="Tables (zebra)"
             desc=".table-wrap > table.tx-table (styles/index.css) — the Transactions page's own table."
             anatomy={
-              <div className="ds-anatomy">
-                <Parts items={[
-                  ['Header row', 'Column labels, 12px/700, --surface-2 background.'],
-                  ['Body row', '13.5px/400 cells, 1px --line border between rows.'],
-                  ['Zebra stripe', 'Every even row tinted --surface-2 for scan-ability.'],
-                ]} />
-                <div className="table-wrap" style={{ width: '100%', maxWidth: 360, position: 'relative' }}>
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div className="table-wrap" style={{ width: '100%', maxWidth: 420, margin: '0 auto 16px' }}>
                   <table className="tx-table">
                     <thead><tr><th>Type</th><th className="num">Amount</th></tr></thead>
-                    <tbody><tr><td>Rollover</td><td className="num">$18,400.00</td></tr></tbody>
+                    <tbody>
+                      <tr><td>Rollover</td><td className="num">$18,400.00</td></tr>
+                      <tr><td>Rebalance</td><td className="num">$2,000.00</td></tr>
+                    </tbody>
                   </table>
+                </div>
+                <div className="ds-annotated-frame" style={{ maxWidth: 420, margin: '0 auto 20px' }}>
+                  <div className="ds-annotated-row">
+                    <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Type / Amount</span>
+                    <span className="ds-pin"><Num>1</Num>Header row · 12px/700, --surface-2 bg</span>
+                  </div>
+                  <div className="ds-annotated-row">
+                    <span style={{ fontSize: 13.5 }}>Rollover</span>
+                    <span className="ds-pin"><Num>2</Num>Body row · 13.5px/400, 1px --line border</span>
+                  </div>
+                  <div className="ds-annotated-row">
+                    <span style={{ background: 'var(--surface-2)', padding: '4px 10px', borderRadius: 6, fontSize: 12.5 }}>Rebalance (row 2)</span>
+                    <span className="ds-pin"><Num>3</Num>Zebra stripe · even rows → --surface-2</span>
+                  </div>
                 </div>
                 <div className="ds-spec-facts">
                   <span><b>Cell padding</b> 12px 14px</span><span><b>Header</b> 12px / 700, --ink-soft, --surface-2 bg</span><span><b>Row border</b> 1px solid --line (bottom)</span><span><b>Zebra</b> even rows → --surface-2</span>
@@ -989,21 +1031,22 @@ export default function DesignSystem() {
               </div>
             </div>}
             anatomy={
-              <div className="ds-anatomy">
-                <Parts items={[
-                  ['Icon badge', '44×44px circle, --red-bg fill, warns before a destructive action.'],
-                  ['Title', '17px/800 question, always phrased as a question.'],
-                  ['Body', '13.5px/400, --ink-soft — states the consequence in plain language.'],
-                  ['Actions', 'Two buttons, equal width — safe choice on the left, destructive on the right.'],
-                ]} />
-                <div className="confirm-dialog" style={{ margin: '0 auto', position: 'relative' }}>
-                  <span className="ds-spec-tick" style={{ position: 'absolute', top: -18, left: '50%' }} />
-                  <div className="confirm-dialog-ico"><Icon icon={faTriangleExclamation} size={20} /></div>
-                  <h4>Cancel this request?</h4>
-                  <p>This rollover request will be withdrawn.</p>
-                  <div className="confirm-dialog-actions">
-                    <button type="button" className="btn btn-secondary" tabIndex={-1}>Keep it</button>
-                    <button type="button" className="btn btn-primary" tabIndex={-1}>Cancel request</button>
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', gap: 28, alignItems: 'flex-start', justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
+                  <div className="confirm-dialog" style={{ margin: 0 }}>
+                    <div className="confirm-dialog-ico"><Icon icon={faTriangleExclamation} size={20} /></div>
+                    <h4>Cancel this request?</h4>
+                    <p>This rollover request will be withdrawn.</p>
+                    <div className="confirm-dialog-actions">
+                      <button type="button" className="btn btn-secondary" tabIndex={-1}>Keep it</button>
+                      <button type="button" className="btn btn-primary" tabIndex={-1}>Cancel request</button>
+                    </div>
+                  </div>
+                  <div className="ds-annotated-frame" style={{ maxWidth: 260, gap: 10 }}>
+                    <span className="ds-pin"><Num>1</Num>Icon badge · 44×44px, --red-bg</span>
+                    <span className="ds-pin"><Num>2</Num>Title · 17px/800 question</span>
+                    <span className="ds-pin"><Num>3</Num>Body · 13.5px/400, --ink-soft</span>
+                    <span className="ds-pin"><Num>4</Num>Actions · equal-width, safe left / destructive right</span>
                   </div>
                 </div>
                 <div className="ds-spec-facts">
@@ -1057,12 +1100,24 @@ export default function DesignSystem() {
               </div>
             </header>}
             anatomy={
-              <div className="ds-anatomy">
-                <Parts items={[
-                  ['Brand', 'App logo, 26px tall, links home.'],
-                  ['Icon button', 'Theme toggle — 36×36px, --icon-btn circle.'],
-                  ['User chip', 'Avatar + name + chevron, opens the profile menu.'],
-                ]} />
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div className="ds-anatomy-pins" style={{ paddingTop: 56, marginBottom: 16 }}>
+                  <div className="ds-anatomy-pins-row" style={{ justifyContent: 'space-between', maxWidth: 420, margin: '0 auto' }}>
+                    <Anno n={1} label="Brand · 26px logo">
+                      <div style={{ height: 26, width: 80, borderRadius: 4, background: 'var(--surface-3)' }} />
+                    </Anno>
+                    <Anno n={2} label="Icon button · 36×36px">
+                      <button type="button" className="icon-btn" tabIndex={-1} aria-label="Switch theme"><Icon icon={faMoon} size={18} /></button>
+                    </Anno>
+                    <Anno n={3} label="User chip · avatar + name + chevron">
+                      <div className="user-chip">
+                        <div style={{ width: 26, height: 26, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                        <span className="chip-text"><span className="chip-name">Jordan Lee</span></span>
+                        <Icon icon={faChevronDown} size={13} className="chev" />
+                      </div>
+                    </Anno>
+                  </div>
+                </div>
                 <div className="ds-spec-frame" style={{ padding: 0 }}>
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Height</b> var(--header-h)</div>
                   <div className="ds-spec-row">
@@ -1120,12 +1175,18 @@ export default function DesignSystem() {
             id="sidebar" title="Sidebar navigation"
             desc="components/layout/Sidebar.jsx — the real frozen left rail."
             anatomy={
-              <div className="ds-anatomy">
-                <Parts items={[
-                  ['Icon', '23×23px, centered above the label.'],
-                  ['Label', '13px/600 text, wraps to 2 lines on narrow rails.'],
-                  ['Active indicator', '4px --brand bar on the leading edge, --active-bg fill behind the whole item.'],
-                ]} />
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', gap: 28, alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
+                  <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active" style={{ width: 120 }}>
+                    <span className="ico" aria-hidden="true"><Icon icon={faGear} size={23} /></span>
+                    <span className="nav-label">Dashboard</span>
+                  </a>
+                  <div className="ds-annotated-frame" style={{ maxWidth: 260, gap: 10 }}>
+                    <span className="ds-pin"><Num>1</Num>Icon · 23×23px, centered</span>
+                    <span className="ds-pin"><Num>2</Num>Label · 13px/600</span>
+                    <span className="ds-pin"><Num>3</Num>Active bar · 4px --brand, leading edge</span>
+                  </div>
+                </div>
                 <div className="ds-spec-frame" style={{ padding: 0 }}>
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Item padding-top</b> 15px</div>
                   <div className="ds-spec-row">

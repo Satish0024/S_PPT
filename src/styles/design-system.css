@@ -151,15 +151,18 @@
 .ds-spec-facts span{font-size:11.5px;color:var(--ink-soft)}
 .ds-spec-facts b{color:var(--ink);font-weight:700}
 
-/* ---------- Numbered parts callout (Figma reference pattern: numbered
-   blue badge + connector line + label, pointing at a labeled region of
-   the anatomy diagram below it) ---------- */
-.ds-parts{width:100%;max-width:460px;display:flex;flex-direction:column;gap:2px}
-.ds-part{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0}
-.ds-part-badge{width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center;flex:0 0 auto}
-.ds-part-line{width:1px;flex:1 1 auto;min-height:16px;background:var(--brand)}
-.ds-part-label b{display:block;font-size:13px;font-weight:800;color:var(--ink);margin-top:6px}
-.ds-part-label p{margin:2px 0 0;font-size:12px;color:var(--ink-soft);max-width:320px}
+/* ---------- Pin callout (Figma reference pattern): a numbered badge
+   floats directly above the real element it labels, connected to it by
+   a short line — the pin visibly touches the pixel it describes,
+   instead of sitting in a disconnected list. ---------- */
+.ds-anatomy-pins{width:100%;padding-top:56px}
+.ds-anatomy-pins-row{display:flex;align-items:flex-end;justify-content:center;gap:28px;flex-wrap:wrap}
+.ds-anno{position:relative;display:inline-flex}
+.ds-anno-callout{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;padding-bottom:0;z-index:2}
+.ds-anno-badge{width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;margin-bottom:6px;flex:0 0 auto;box-shadow:0 0 0 3px var(--surface-2)}
+.ds-anno-text{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--ink);white-space:nowrap;box-shadow:var(--shadow);margin-bottom:6px}
+.ds-anno-line{width:1px;height:14px;background:var(--brand)}
+.ds-pin-num{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#fff;color:var(--brand);font-size:9.5px;font-weight:800;flex:0 0 auto}
 
 /* ---------- Ruler-style padding band (blue highlighted strip along an
    edge, pixel value at each end) — visual upgrade of .ds-spec-cell to
