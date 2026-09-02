@@ -603,6 +603,23 @@ export default function DesignSystem() {
           <Component
             id="forms" title="Forms & inputs"
             desc="Text fields and selects, from styles/transactions.css and styles/index.css."
+            anatomy={
+              <div className="ds-anatomy">
+                <div className="ds-spec-frame">
+                  <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 8px</div>
+                  <div className="ds-spec-row">
+                    <div className="ds-spec-cell ds-spec-left"><span className="ds-spec-tick" /><b>Padding-left</b> 12px</div>
+                    <input readOnly value="e.g. My 401(k)" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, color: 'var(--ink)', background: 'var(--panel)', width: 200 }} />
+                    <div className="ds-spec-cell ds-spec-right"><span className="ds-spec-tick" /><b>Padding-right</b> 12px</div>
+                  </div>
+                  <div className="ds-spec-cell ds-spec-bottom"><span className="ds-spec-tick" /><b>Padding-bottom</b> 8px</div>
+                </div>
+                <div className="ds-spec-facts">
+                  <span><b>Min-height</b> 40px</span><span><b>Corner radius</b> 9px</span><span><b>Border</b> 1px solid --line</span><span><b>Font</b> 14px / 600</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Text input (styles/transactions.css .txn-field input, line 107)</p>
+              </div>
+            }
             demo={<div style={{ display: 'grid', gap: 12, width: '100%', maxWidth: 340 }}>
               <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname
                 <input
@@ -626,6 +643,26 @@ export default function DesignSystem() {
 <select className="tx-plan-select">...</select>
 {error && <p role="alert">{error}</p>}`}
             colors={[['Border', '--line'], ['Focus ring', '--brand'], ['Error text', '--red']]}
+            extra={
+              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '18px 20px 4px' }}>
+                <h3 className="ds-sub" style={{ marginTop: 0 }}>Applied in context</h3>
+                <p className="ds-lede" style={{ marginTop: 0 }}>The Transactions page's rebalance form — the real .txn-field layout this component is pulled from.</p>
+                <div className="ds-annotated-frame">
+                  <div className="ds-annotated-row">
+                    <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)', flex: '1 1 200px' }}>Target amount
+                      <input readOnly value="$5,000.00" style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)' }} />
+                    </label>
+                    <span className="ds-pin">.txn-field input</span>
+                  </div>
+                  <div className="ds-annotated-row">
+                    <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5, color: 'var(--red)', fontWeight: 600, margin: 0 }}>
+                      <Icon icon={faTriangleExclamation} size={14} /> Target percentages must add up to 100%.
+                    </p>
+                    <span className="ds-pin">role="alert" · --red</span>
+                  </div>
+                </div>
+              </div>
+            }
           />
 
           {/* ---------------- SELECTION ---------------- */}
@@ -635,11 +672,35 @@ export default function DesignSystem() {
           <Component
             id="selection" title="Checkbox, radio & switch"
             desc="Native inputs for checkbox/radio; .a11y-switch (styles/index.css) for the toggle."
+            anatomy={
+              <div className="ds-anatomy">
+                <div className="ds-spec-frame">
+                  <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Track height</b> 20px</div>
+                  <div className="ds-spec-row">
+                    <div className="ds-spec-cell ds-spec-left"><span className="ds-spec-tick" /><b>Track width</b> 36px</div>
+                    <label className="a11y-switch" style={{ display: 'inline-flex' }}>
+                      <input type="checkbox" defaultChecked readOnly /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
+                    </label>
+                    <div className="ds-spec-cell ds-spec-right"><span className="ds-spec-tick" /><b>Thumb</b> 16×16px</div>
+                  </div>
+                  <div className="ds-spec-cell ds-spec-bottom"><span className="ds-spec-tick" /><b>Thumb inset</b> 2px</div>
+                </div>
+                <div className="ds-spec-facts">
+                  <span><b>Track radius</b> 999px</span><span><b>Checked</b> --brand track, thumb slides +16px</span><span><b>Focus ring</b> 2px solid --brand, offset 2px</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Toggle switch (styles/index.css .a11y-switch, line 266)</p>
+              </div>
+            }
             demo={<div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
               <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="checkbox" defaultChecked /> Email statements</label>
+              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5, opacity: .5 }}><input type="checkbox" disabled /> Paper statements (disabled)</label>
               <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="radio" name="ds-r" defaultChecked /> Direct deposit</label>
+              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="radio" name="ds-r" /> Mailed check</label>
               <label className="a11y-switch" style={{ display: 'inline-flex' }}>
                 <input type="checkbox" defaultChecked /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
+              </label>
+              <label className="a11y-switch" style={{ display: 'inline-flex' }}>
+                <input type="checkbox" /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
               </label>
             </div>}
             dos={['Use native <input> elements so keyboard and screen-reader support come for free.']}
@@ -647,6 +708,21 @@ export default function DesignSystem() {
   <input type="checkbox" checked={on} onChange={toggle} />
   <span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
 </label>`}
+            extra={
+              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '18px 20px 4px' }}>
+                <h3 className="ds-sub" style={{ marginTop: 0 }}>Applied in context</h3>
+                <p className="ds-lede" style={{ marginTop: 0 }}>The accessibility menu's own switch row — where .a11y-switch actually ships today.</p>
+                <div className="ds-annotated-frame">
+                  <div className="ds-annotated-row">
+                    <span style={{ fontSize: 13.5 }}>High contrast mode</span>
+                    <label className="a11y-switch" style={{ display: 'inline-flex' }}>
+                      <input type="checkbox" defaultChecked /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
+                    </label>
+                    <span className="ds-pin">36×20px · .a11y-switch</span>
+                  </div>
+                </div>
+              </div>
+            }
           />
 
           {/* ---------------- BADGES ---------------- */}
@@ -657,6 +733,23 @@ export default function DesignSystem() {
           <Component
             id="badges" title="Badges"
             desc=".req-status (styles/transactions.css) — the one reusable, unscoped status pill in the app."
+            anatomy={
+              <div className="ds-anatomy">
+                <div className="ds-spec-frame">
+                  <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 3px</div>
+                  <div className="ds-spec-row">
+                    <div className="ds-spec-cell ds-spec-left"><span className="ds-spec-tick" /><b>Padding-left</b> 10px</div>
+                    <span className="req-status good">Approved</span>
+                    <div className="ds-spec-cell ds-spec-right"><span className="ds-spec-tick" /><b>Padding-right</b> 10px</div>
+                  </div>
+                  <div className="ds-spec-cell ds-spec-bottom"><span className="ds-spec-tick" /><b>Padding-bottom</b> 3px</div>
+                </div>
+                <div className="ds-spec-facts">
+                  <span><b>Corner radius</b> 999px (pill)</span><span><b>Font</b> 11.5px / 800</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Status pill (styles/transactions.css .req-status, line 56)</p>
+              </div>
+            }
             demo={<div style={{ display: 'flex', gap: 10 }}>
               <span className="req-status good">Active</span>
               <span className="req-status ok">Pending</span>
@@ -668,6 +761,24 @@ export default function DesignSystem() {
 <span className="req-status ok">Pending</span>
 <span className="req-status warn">Action needed</span>`}
             colors={[['Success', '--green'], ['Warning', '--amber'], ['Danger', '--red']]}
+            extra={
+              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '18px 20px 4px' }}>
+                <h3 className="ds-sub" style={{ marginTop: 0 }}>Applied in context</h3>
+                <p className="ds-lede" style={{ marginTop: 0 }}>Inside the Transactions table's Status column — its real placement.</p>
+                <div className="ds-annotated-frame">
+                  <div className="table-wrap">
+                    <table className="tx-table">
+                      <thead><tr><th>Type</th><th>Status</th></tr></thead>
+                      <tbody><tr><td>Rollover</td><td><span className="req-status good">Approved</span></td></tr></tbody>
+                    </table>
+                  </div>
+                  <div className="ds-annotated-row">
+                    <span className="req-status good">Approved</span>
+                    <span className="ds-pin">Table cell · right-aligned</span>
+                  </div>
+                </div>
+              </div>
+            }
           />
 
           {/* ---------------- TABLE ---------------- */}
@@ -676,6 +787,20 @@ export default function DesignSystem() {
           <Component
             id="table" title="Tables (zebra)"
             desc=".table-wrap > table.tx-table (styles/index.css) — the Transactions page's own table."
+            anatomy={
+              <div className="ds-anatomy">
+                <div className="table-wrap" style={{ width: '100%', maxWidth: 360, position: 'relative' }}>
+                  <table className="tx-table">
+                    <thead><tr><th>Type</th><th className="num">Amount</th></tr></thead>
+                    <tbody><tr><td>Rollover</td><td className="num">$18,400.00</td></tr></tbody>
+                  </table>
+                </div>
+                <div className="ds-spec-facts">
+                  <span><b>Cell padding</b> 12px 14px</span><span><b>Header</b> 12px / 700, --ink-soft, --surface-2 bg</span><span><b>Row border</b> 1px solid --line (bottom)</span><span><b>Zebra</b> even rows → --surface-2</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Data table (styles/index.css .tx-table)</p>
+              </div>
+            }
             demo={<div className="table-wrap" style={{ width: '100%' }}>
               <table className="tx-table">
                 <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
@@ -687,6 +812,28 @@ export default function DesignSystem() {
             </div>}
             code={`tbody tr:nth-child(even){ background: var(--surface-2); }`}
             colors={[['Zebra row', '--surface-2'], ['Row border', '--line']]}
+            extra={
+              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '18px 20px 4px' }}>
+                <h3 className="ds-sub" style={{ marginTop: 0 }}>Applied in context</h3>
+                <p className="ds-lede" style={{ marginTop: 0 }}>The full Transactions history list — three rows so the zebra stripe is visible.</p>
+                <div className="ds-annotated-frame">
+                  <div className="table-wrap">
+                    <table className="tx-table">
+                      <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
+                      <tbody>
+                        <tr><td>Rollover</td><td><span className="req-status good">Approved</span></td><td className="num">$18,400.00</td></tr>
+                        <tr><td>Rebalance</td><td><span className="req-status ok">Pending</span></td><td className="num">—</td></tr>
+                        <tr><td>Distribution</td><td><span className="req-status warn">Action needed</span></td><td className="num">$2,000.00</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="ds-annotated-row">
+                    <span style={{ background: 'var(--surface-2)', padding: '4px 10px', borderRadius: 6, fontSize: 12.5 }}>Row 2</span>
+                    <span className="ds-pin">tbody tr:nth-child(even) → --surface-2</span>
+                  </div>
+                </div>
+              </div>
+            }
           />
 
           {/* ---------------- DIALOG ---------------- */}
@@ -704,6 +851,24 @@ export default function DesignSystem() {
                 <button type="button" className="btn btn-primary">Cancel request</button>
               </div>
             </div>}
+            anatomy={
+              <div className="ds-anatomy">
+                <div className="confirm-dialog" style={{ margin: '0 auto', position: 'relative' }}>
+                  <span className="ds-spec-tick" style={{ position: 'absolute', top: -18, left: '50%' }} />
+                  <div className="confirm-dialog-ico"><Icon icon={faTriangleExclamation} size={20} /></div>
+                  <h4>Cancel this request?</h4>
+                  <p>This rollover request will be withdrawn.</p>
+                  <div className="confirm-dialog-actions">
+                    <button type="button" className="btn btn-secondary" tabIndex={-1}>Keep it</button>
+                    <button type="button" className="btn btn-primary" tabIndex={-1}>Cancel request</button>
+                  </div>
+                </div>
+                <div className="ds-spec-facts">
+                  <span><b>Width</b> min(360px, 100%)</span><span><b>Padding</b> 26px 24px 22px</span><span><b>Corner radius</b> 16px</span><span><b>Icon badge</b> 44×44px, --red-bg</span><span><b>Elevation</b> --shadow-lg</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Confirm dialog (styles/index.css .confirm-dialog, line 1527)</p>
+              </div>
+            }
             dos={['Trap focus inside the dialog while open, return focus to the trigger on close.']}
             code={`<div className="confirm-dialog" role="dialog" aria-modal="true">
   <div className="confirm-dialog-ico"><Icon icon={faTriangleExclamation} /></div>
@@ -711,6 +876,23 @@ export default function DesignSystem() {
   <div className="confirm-dialog-actions">...</div>
 </div>`}
             colors={[['Panel bg', '--panel'], ['Border', '--line']]}
+            extra={
+              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '18px 20px 4px' }}>
+                <h3 className="ds-sub" style={{ marginTop: 0 }}>Applied in context</h3>
+                <p className="ds-lede" style={{ marginTop: 0 }}>Sitting centered over a dimmed backdrop, the way every destructive confirmation on the Transactions page actually shows it.</p>
+                <div className="ds-annotated-frame" style={{ position: 'relative', minHeight: 200, background: 'var(--surface-3)', overflow: 'hidden' }}>
+                  <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,14,30,.45)' }} />
+                  <div className="confirm-dialog" style={{ margin: '20px auto', position: 'relative', zIndex: 1 }}>
+                    <div className="confirm-dialog-ico"><Icon icon={faTriangleExclamation} size={20} /></div>
+                    <h4>Cancel this request?</h4>
+                    <div className="confirm-dialog-actions">
+                      <button type="button" className="btn btn-secondary" tabIndex={-1}>Keep it</button>
+                      <button type="button" className="btn btn-primary" tabIndex={-1}>Cancel request</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
           />
 
           {/* ---------------- HEADER ---------------- */}
@@ -731,6 +913,25 @@ export default function DesignSystem() {
                 </div>
               </div>
             </header>}
+            anatomy={
+              <div className="ds-anatomy">
+                <div className="ds-spec-frame" style={{ padding: 0 }}>
+                  <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Height</b> var(--header-h)</div>
+                  <div className="ds-spec-row">
+                    <div className="ds-spec-cell ds-spec-left"><span className="ds-spec-tick" /><b>Padding-left</b> 10px</div>
+                    <header className="topbar" style={{ width: 320, borderRadius: 0 }}>
+                      <div className="brand"><div style={{ height: 26, width: 80, borderRadius: 4, background: 'var(--surface-3)' }} /></div>
+                      <div className="top-right"><div className="user-chip"><div style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--active-bg)' }} /></div></div>
+                    </header>
+                    <div className="ds-spec-cell ds-spec-right"><span className="ds-spec-tick" /><b>Padding-right</b> 24px</div>
+                  </div>
+                </div>
+                <div className="ds-spec-facts">
+                  <span><b>Position</b> sticky, top: 0</span><span><b>Border</b> 1px solid --line (bottom)</span><span><b>z-index</b> 40</span>
+                </div>
+                <p className="ds-anatomy-caption">a. App top bar (styles/index.css .topbar, line 185; components/layout/Header.jsx)</p>
+              </div>
+            }
             code={`<header className="topbar">
   <div className="brand"><img src={BRAND.logo} alt={BRAND.name} /></div>
   <div className="top-right">
@@ -738,6 +939,30 @@ export default function DesignSystem() {
     <div className="user-chip">...</div>
   </div>
 </header>`}
+            extra={
+              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '18px 20px 4px' }}>
+                <h3 className="ds-sub" style={{ marginTop: 0 }}>Applied in context</h3>
+                <p className="ds-lede" style={{ marginTop: 0 }}>Sticky at the top of every authenticated route — sits above the routed page content.</p>
+                <div className="ds-annotated-frame">
+                  <header className="topbar" style={{ width: '100%', borderRadius: 12, border: '1px solid var(--line)' }}>
+                    <div className="brand"><div style={{ height: 26, width: 100, borderRadius: 4, background: 'var(--surface-3)' }} /></div>
+                    <div className="top-right">
+                      <button type="button" className="icon-btn" aria-label="Switch theme" tabIndex={-1}><Icon icon={faMoon} size={19} /></button>
+                      <div className="user-chip">
+                        <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                        <span className="chip-text"><span className="chip-name">Jordan Lee</span></span>
+                        <Icon icon={faChevronDown} size={14} className="chev" />
+                      </div>
+                    </div>
+                  </header>
+                  <div style={{ height: 60, borderRadius: 10, background: 'var(--surface-3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: 'var(--muted)' }}>Routed page content scrolls under this bar</div>
+                  <div className="ds-annotated-row">
+                    <span className="user-chip" style={{ display: 'inline-flex' }}><span className="chip-text"><span className="chip-name">Jordan Lee</span></span><Icon icon={faChevronDown} size={14} className="chev" /></span>
+                    <span className="ds-pin">.user-chip · opens profile menu</span>
+                  </div>
+                </div>
+              </div>
+            }
           />
 
           {/* ---------------- SIDEBAR ---------------- */}
@@ -746,6 +971,26 @@ export default function DesignSystem() {
           <Component
             id="sidebar" title="Sidebar navigation"
             desc="components/layout/Sidebar.jsx — the real frozen left rail."
+            anatomy={
+              <div className="ds-anatomy">
+                <div className="ds-spec-frame" style={{ padding: 0 }}>
+                  <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Item padding-top</b> 15px</div>
+                  <div className="ds-spec-row">
+                    <div className="ds-spec-cell ds-spec-left"><span className="ds-spec-tick" /><b>Rail width</b> 120px</div>
+                    <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active" style={{ width: 120 }}>
+                      <span className="ico" aria-hidden="true"><Icon icon={faGear} size={23} /></span>
+                      <span className="nav-label">Dashboard</span>
+                    </a>
+                    <div className="ds-spec-cell ds-spec-right"><span className="ds-spec-tick" /><b>Item padding-x</b> 8px</div>
+                  </div>
+                  <div className="ds-spec-cell ds-spec-bottom"><span className="ds-spec-tick" /><b>Item padding-bottom</b> 15px</div>
+                </div>
+                <div className="ds-spec-facts">
+                  <span><b>Icon</b> 23×23px</span><span><b>Label</b> 13px / 600</span><span><b>Active</b> --brand text, --active-bg fill, 4px --brand left bar</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Nav item (styles/index.css .nav a / .nav a.active, line 311)</p>
+              </div>
+            }
             demo={<nav className="nav" aria-label="Primary (sample)" style={{ width: 110, height: 260, border: '1px solid var(--line)', borderRadius: 12, position: 'static' }}>
               <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active">
                 <span className="ico" aria-hidden="true"><Icon icon={faGear} size={20} /></span>
@@ -755,6 +1000,10 @@ export default function DesignSystem() {
                 <span className="ico" aria-hidden="true"><Icon icon={faPrint} size={20} /></span>
                 <span className="nav-label">Reports</span>
               </a>
+              <a href="#sidebar" onClick={(e) => e.preventDefault()} style={{ opacity: .5 }}>
+                <span className="ico" aria-hidden="true"><Icon icon={faMagnifyingGlass} size={20} /></span>
+                <span className="nav-label">Search (disabled)</span>
+              </a>
             </nav>}
             code={`<nav className="nav" aria-label="Primary">
   <NavLink to="/" className={({isActive}) => isActive ? 'active' : ''}>
@@ -763,6 +1012,31 @@ export default function DesignSystem() {
   </NavLink>
 </nav>`}
             colors={[['Active text', '--brand'], ['Active bg', '--active-bg']]}
+            extra={
+              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '18px 20px 4px' }}>
+                <h3 className="ds-sub" style={{ marginTop: 0 }}>Applied in context</h3>
+                <p className="ds-lede" style={{ marginTop: 0 }}>The frozen left rail alongside a routed page — active item marked with --active-bg + --brand text.</p>
+                <div className="ds-annotated-frame">
+                  <div style={{ display: 'flex', gap: 14 }}>
+                    <nav className="nav" aria-label="Primary (sample)" style={{ width: 100, height: 200, border: '1px solid var(--line)', borderRadius: 12, position: 'static', flex: '0 0 auto' }}>
+                      <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active">
+                        <span className="ico" aria-hidden="true"><Icon icon={faGear} size={18} /></span>
+                        <span className="nav-label">Dashboard</span>
+                      </a>
+                      <a href="#sidebar" onClick={(e) => e.preventDefault()}>
+                        <span className="ico" aria-hidden="true"><Icon icon={faPrint} size={18} /></span>
+                        <span className="nav-label">Reports</span>
+                      </a>
+                    </nav>
+                    <div style={{ flex: 1, borderRadius: 10, background: 'var(--surface-3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: 'var(--muted)' }}>Routed page content</div>
+                  </div>
+                  <div className="ds-annotated-row">
+                    <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active" style={{ display: 'inline-flex', width: 'auto' }}><span className="ico" aria-hidden="true"><Icon icon={faGear} size={16} /></span><span className="nav-label">Dashboard</span></a>
+                    <span className="ds-pin">.active → --brand text / --active-bg</span>
+                  </div>
+                </div>
+              </div>
+            }
           />
 
           {/* ---------------- WCAG ---------------- */}
