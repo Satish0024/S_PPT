@@ -1115,6 +1115,11 @@
   .actions{display:flex;flex-wrap:wrap;gap:10px}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border-radius:10px;
     font-weight:700;font-size:14px;text-decoration:none;border:1px solid transparent;cursor:pointer}
+  /* Real gap, not a style choice: .btn had no :disabled rule at all —
+     a disabled button rendered pixel-identical to an active one, with
+     only the browser's default not-allowed cursor (easy to miss) as
+     any indication. */
+  .btn:disabled{opacity:.5;cursor:not-allowed;pointer-events:none}
   .btn-primary{background:var(--brand-fill);color:#fff}
   .btn-primary:hover{background:var(--brand-dark)}
   .btn-secondary{background:var(--panel);color:var(--brand);border-color:var(--line)}

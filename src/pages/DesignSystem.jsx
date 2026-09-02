@@ -412,9 +412,7 @@ export default function DesignSystem() {
     <div className="ds">
       <header className="ds-top">
         <div className="ds-logo">
-          <img src="/core-logo.svg" alt="CORE" className="ds-logo-mark" />
-          <span className="ds-logo-div" />
-          CORE Participant Portal Design System
+          Participant Portal Design System
         </div>
         <div className="ds-meta">
           <button type="button" className="ds-theme-toggle" onClick={toggle} aria-pressed={theme === 'dark'} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
@@ -457,7 +455,7 @@ export default function DesignSystem() {
         <main className="ds-main">
           <div className="ds-hero">
             <div className="eyebrow">CORE Participant Portal · Design System v2.0</div>
-            <h1>One system, three brands, zero rework.</h1>
+            <h1>The design system behind the CORE Participant Portal.</h1>
             <p>
               Rebuilt from scratch. Every component fact on this page — every class name, every
               padding value, every claimed size — is verified directly against the real app source,
@@ -484,10 +482,9 @@ export default function DesignSystem() {
           <section id="overview" className="ds-section">
             <h2>Overview</h2>
             <p className="ds-lede">
-              The portal ships as one React codebase with three brand skins selected by build
-              branch. Every component below is pulled from the real app CSS — verified via grep
-              against the actual stylesheet, not written from memory of what the pattern
-              "should" look like.
+              This is the design system for the CORE Participant Portal. Every component below is
+              pulled from the real app CSS — verified via grep against the actual stylesheet, not
+              written from memory of what the pattern "should" look like.
             </p>
           </section>
 
@@ -1033,7 +1030,11 @@ export default function DesignSystem() {
                 </button>
               </VariantGroup>
             </>}
-            dos={['Give every icon-only button an aria-label.', 'Keep one primary button per view.']}
+            dos={[
+              'Give every icon-only button an aria-label.',
+              'Keep one primary button per view.',
+              'Fixed — .btn now has a real :disabled style (50% opacity, not-allowed cursor). It used to have none, so a disabled button rendered pixel-identical to an active one.',
+            ]}
             donts={[
               "Don't combine .btn with .btn-sm — .btn-sm is dead CSS with zero real usages and its own padding loses the cascade to .btn.",
               "Don't treat the \"Proposed\" row as existing CSS — Destructive/Small/Large/Loading are inline-styled mockups for a variant that hasn't been built. Add a real .btn-danger / .btn-sm-v2 / .btn-lg / .btn-loading class before using one in a page.",
@@ -1133,7 +1134,7 @@ export default function DesignSystem() {
               </VariantGroup>
             </>}
             dos={['Associate every input with a <label>.', 'Announce validation errors with role="alert".']}
-            donts={["Don't trust the focus-ring color to always equal --brand — transactions.css line 111 hard-codes rgba(46,49,146,.12) (the old CORE purple) instead of using the token, so on this LendGuard-themed branch the focus ring is subtly the wrong hue. Real, pre-existing bug, not a design choice."]}
+            donts={["Don't trust the focus-ring color to always equal --brand — transactions.css line 111 hard-codes rgba(46,49,146,.12) instead of using the token, so with the current --brand value the focus ring is subtly the wrong hue. Real, pre-existing bug, not a design choice."]}
             code={`<label>Account nickname
   <input placeholder="e.g. My 401(k)" />
 </label>
