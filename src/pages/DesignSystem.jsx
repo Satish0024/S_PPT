@@ -79,23 +79,41 @@ const GROUP_META = {
 // page; re-added on request, updated to this rebuild's actual token set.
 // name, var, "used by" — real components/classes that reach for this
 // token, so a token is never just a swatch in isolation.
-const PRIMARY_COLORS = [
-  ['Primary', '--brand', '.nav a.active text, links, focus rings'],
-  ['Primary dark', '--brand-dark', '.btn-primary:hover, .icon-btn active state'],
-  ['Primary CTA', '--brand-fill', 'Solid .btn-primary background — the actual "call to action" surface'],
-  ['Secondary', '--accent', '.btn-secondary text/border, chart accents (aliased --accent-secondary)'],
-  ['Ink (text)', '--ink', 'Primary body text, headings everywhere'],
-  ['Ink soft', '--ink-soft', 'Secondary text — .pc-meta, .as-empty message'],
-  ['Muted', '--muted', 'Tertiary text — captions, table header labels'],
-  ['Line', '--line', 'Default 1px border — cards, inputs, table rows'],
-  ['Background', '--bg', 'Page background behind every panel'],
-  ['Panel', '--panel', 'Card/panel surface — .plan-card, .confirm-dialog'],
-  ['Active bg', '--active-bg', '.nav a.active fill, avatar placeholder bg'],
-  ['Green (success)', '--green', '.req-status.good, complete .step .num'],
-  ['Amber (warning)', '--amber', '.req-status.ok, pending states'],
-  ['Red (danger)', '--red', '.req-status.warn, .confirm-dialog-ico bg'],
-  ['Surface 2', '--surface-2', '.tx-table zebra rows, .as-empty background'],
-  ['Surface 3', '--surface-3', '.ds-skeleton-bar, .step upcoming .num'],
+// The primary, most-reached-for tokens — grouped by role instead of one
+// flat grid, so Primary/Secondary/Tertiary read as a deliberate hierarchy,
+// not an undifferentiated wall of swatches. Tertiary is --link: a real,
+// distinct token in styles/index.css, just set to the same hex as Primary
+// today — named honestly rather than invented from nothing.
+const PRIMARY_COLOR_GROUPS = [
+  { title: 'Primary', items: [
+    ['Primary', '--brand', '.nav a.active text, links, focus rings'],
+    ['Primary dark', '--brand-dark', '.btn-primary:hover, .icon-btn active state'],
+    ['Primary CTA', '--brand-fill', 'Solid .btn-primary background — the actual "call to action" surface'],
+  ] },
+  { title: 'Secondary', items: [
+    ['Secondary', '--accent', '.btn-secondary text/border, chart accents (aliased --accent-secondary)'],
+  ] },
+  { title: 'Tertiary', items: [
+    ['Tertiary', '--link', 'Text links — distinct token, same hex as Primary today'],
+  ] },
+  { title: 'Neutral / text', items: [
+    ['Ink (text)', '--ink', 'Primary body text, headings everywhere'],
+    ['Ink soft', '--ink-soft', 'Secondary text — .pc-meta, .as-empty message'],
+    ['Muted', '--muted', 'Tertiary text — captions, table header labels'],
+    ['Line', '--line', 'Default 1px border — cards, inputs, table rows'],
+  ] },
+  { title: 'Surface', items: [
+    ['Background', '--bg', 'Page background behind every panel'],
+    ['Panel', '--panel', 'Card/panel surface — .plan-card, .confirm-dialog'],
+    ['Active bg', '--active-bg', '.nav a.active fill, avatar placeholder bg'],
+    ['Surface 2', '--surface-2', '.tx-table zebra rows, .as-empty background'],
+    ['Surface 3', '--surface-3', '.ds-skeleton-bar, .step upcoming .num'],
+  ] },
+  { title: 'Status', items: [
+    ['Green (success)', '--green', '.req-status.good, complete .step .num'],
+    ['Amber (warning)', '--amber', '.req-status.ok, pending states'],
+    ['Red (danger)', '--red', '.req-status.warn, .confirm-dialog-ico bg'],
+  ] },
 ]
 
 // Verified against styles/index.css :root / [data-theme="dark"].
@@ -599,7 +617,7 @@ export default function DesignSystem() {
   const [openGroups, setOpenGroups] = useState(() => new Set(['Get started']))
   const toggleGroup = (g) => setOpenGroups((prev) => { const next = new Set(prev); next.has(g) ? next.delete(g) : next.add(g); return next })
   const dualTokens = useDualThemeTokens(COLOR_GROUPS.flatMap((g) => g.tokens.map(([, v]) => v).filter(Boolean)))
-  const primaryTokenValues = useResolvedTokens(PRIMARY_COLORS.map(([, v]) => v))
+  const primaryTokenValues = useResolvedTokens(PRIMARY_COLOR_GROUPS.flatMap((g) => g.items.map(([, v]) => v)))
 
   useEffect(() => {
     const activeGroup = NAV.find((g) => g.items.some((i) => i.id === active))?.group
@@ -731,32 +749,37 @@ export default function DesignSystem() {
           {/* ---------------- COLOR ---------------- */}
           <section id="color" className="ds-section">
             <h2>Color</h2>
-            <p className="ds-lede">The primary, most-reached-for tokens at a glance — click any swatch to copy its current value. The full light/dark breakdown, including every status and neutral variant, follows below.</p>
-            <div className="ds-token-grid">
-              {PRIMARY_COLORS.map(([name, varName, usedBy]) => {
-                const hex = primaryTokenValues[varName]
-                return (
-                  <button
-                    key={varName}
-                    type="button"
-                    className="ds-swatch ds-swatch-btn"
-                    onClick={() => hex && copyToClipboard(hex)}
-                    aria-label={`Copy ${name} color value ${hex || ''}`}
-                    title="Click to copy color value"
-                  >
-                    <div className="ds-swatch-fill" style={{ background: `var(${varName})`, borderBottom: '1px solid var(--line)' }}>
-                      <Icon icon={faCopy} size={13} className="ds-swatch-copy-ico" />
-                    </div>
-                    <div className="ds-swatch-meta">
-                      <b>{name}</b>
-                      <span>{varName}</span>
-                      <span className="ds-swatch-hex">{hex}</span>
-                      <span className="ds-swatch-usage">{usedBy}</span>
-                    </div>
-                  </button>
-                )
-              })}
-            </div>
+            <p className="ds-lede">Click any swatch to copy its current value.</p>
+            {PRIMARY_COLOR_GROUPS.map((g) => (
+              <div key={g.title} style={{ marginBottom: 22 }}>
+                <h3 className="ds-sub">{g.title}</h3>
+                <div className="ds-token-grid">
+                  {g.items.map(([name, varName, usedBy]) => {
+                    const hex = primaryTokenValues[varName]
+                    return (
+                      <button
+                        key={varName}
+                        type="button"
+                        className="ds-swatch ds-swatch-btn"
+                        onClick={() => hex && copyToClipboard(hex)}
+                        aria-label={`Copy ${name} color value ${hex || ''}`}
+                        title="Click to copy color value"
+                      >
+                        <div className="ds-swatch-fill" style={{ background: `var(${varName})`, borderBottom: '1px solid var(--line)' }}>
+                          <Icon icon={faCopy} size={13} className="ds-swatch-copy-ico" />
+                        </div>
+                        <div className="ds-swatch-meta">
+                          <b>{name}</b>
+                          <span>{varName}</span>
+                          <span className="ds-swatch-hex">{hex}</span>
+                          <span className="ds-swatch-usage">{usedBy}</span>
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
 
             <h3 className="ds-sub">Full token reference</h3>
             <p className="ds-lede">
