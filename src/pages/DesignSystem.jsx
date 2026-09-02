@@ -22,7 +22,7 @@ const NAV = [
     { id: 'color', label: 'Color' },
     { id: 'type', label: 'Typography' },
     { id: 'space', label: 'Spacing & radius' },
-    { id: 'elevation', label: 'Elevation' },
+    { id: 'elevation', label: 'Shadows' },
   ] },
   { group: 'Components', items: [
     { id: 'buttons', label: 'Buttons' },
@@ -56,11 +56,17 @@ const COLOR_GROUPS = [
   { title: 'Neutrals', tokens: [
     ['Ink (primary text)', '--ink'], ['Ink soft (secondary text)', '--ink-soft'], ['Muted (tertiary text)', '--muted'],
     ['Line (border)', '--line'], ['Line strong', '--line-strong'], ['Background', '--bg'],
-    ['Panel', '--panel'], ['Surface 2', '--surface-2'], ['Surface 3', '--surface-3'], ['Active bg', '--active-bg'],
+    ['Panel', '--panel'], ['Surface 2', '--surface-2'], ['Surface 3', '--surface-3'],
+    ['Active bg', '--active-bg'], ['Hover bg', '--hover-bg'],
   ] },
-  { title: 'Status', tokens: [
-    ['Green', '--green'], ['Green bg', '--green-bg'], ['Amber', '--amber'], ['Amber bg', '--amber-bg'],
-    ['Red', '--red'], ['Red bg', '--red-bg'],
+  { title: 'Status — success', tokens: [
+    ['Green', '--green'], ['Green bg', '--green-bg'], ['Green line (border)', '--green-line'],
+  ] },
+  { title: 'Status — warning', tokens: [
+    ['Amber', '--amber'], ['Amber bg', '--amber-bg'], ['Amber line (border)', '--amber-line'],
+  ] },
+  { title: 'Status — danger', tokens: [
+    ['Red', '--red'], ['Red bg', '--red-bg'], ['Red line (border)', '--red-line'],
   ] },
 ]
 
@@ -378,12 +384,56 @@ export default function DesignSystem() {
                 </div>
               </div>
             ))}
+
+            <h3 className="ds-sub">Applied in context</h3>
+            <p className="ds-lede">The real Transactions table showing which token colors which piece — not swatches in isolation.</p>
+            <div className="ds-annotated-frame">
+              <div className="table-wrap">
+                <table className="tx-table">
+                  <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
+                  <tbody>
+                    <tr><td>Rollover</td><td><span className="req-status good">Approved</span></td><td className="num">$18,400.00</td></tr>
+                    <tr><td>Rebalance</td><td><span className="req-status ok">Pending</span></td><td className="num">—</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="ds-annotated-row">
+                <span className="req-status good">Approved</span>
+                <span className="ds-pin">--green / --green-bg</span>
+              </div>
+              <div className="ds-annotated-row">
+                <span className="req-status ok">Pending</span>
+                <span className="ds-pin">--amber / --amber-bg</span>
+              </div>
+              <div className="ds-annotated-row">
+                <span style={{ background: 'var(--surface-2)', padding: '4px 10px', borderRadius: 6, fontSize: 12.5 }}>Even row</span>
+                <span className="ds-pin">--surface-2 (zebra stripe)</span>
+              </div>
+            </div>
           </section>
 
           {/* ---------------- TYPE ---------------- */}
           <section id="type" className="ds-section">
             <h2>Typography</h2>
-            <p className="ds-lede">System font stack ("Inclusive Sans") at a 15px base.</p>
+            <p className="ds-lede">System font stack, verified from styles/index.css line 179.</p>
+
+            <div className="ds-font-card">
+              <b className="ds-font-name">Inclusive Sans</b>
+              <div className="ds-font-sample">Ag</div>
+              <p className="ds-font-about">
+                Inclusive Sans is the only typeface used across the app — one family for every
+                weight, no secondary/serif/mono display face. Loaded via Google Fonts
+                (<code>@import</code>, styles/index.css line 1), variable weight 400–700, with a
+                system <code>sans-serif</code> fallback stack for offline/blocked-font cases.
+              </p>
+              <div className="ds-font-weights">
+                {[[400, 'Regular'], [500, 'Medium'], [600, 'SemiBold'], [700, 'Bold']].map(([w, name]) => (
+                  <span key={w} style={{ fontWeight: w }}>{name} <em>{w}</em></span>
+                ))}
+              </div>
+            </div>
+
+            <h3 className="ds-sub">Type scale</h3>
             <div className="ds-card">
               <table className="ds-type-table">
                 <thead><tr><th>Style</th><th>Usage</th><th>Size</th><th>Weight</th></tr></thead>
@@ -398,6 +448,33 @@ export default function DesignSystem() {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            <h3 className="ds-sub">Applied in context</h3>
+            <p className="ds-lede">Where each level actually lands on a real screen, annotated against the Transactions page's own markup.</p>
+            <div className="ds-annotated-frame">
+              <div className="ds-annotated-row">
+                <h4 className="ds-type-h1" style={{ margin: 0, fontSize: 26 }}>Retirement plan balance</h4>
+                <span className="ds-pin">H1 · Page title</span>
+              </div>
+              <div className="ds-annotated-row">
+                <h5 className="ds-type-h2" style={{ margin: 0, fontSize: 18 }}>Recent requests</h5>
+                <span className="ds-pin">H2 · Section heading</span>
+              </div>
+              <div className="table-wrap">
+                <table className="tx-table">
+                  <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
+                  <tbody><tr><td className="ds-type-p2">Rollover</td><td><span className="req-status good">Approved</span></td><td className="num ds-type-p2">$18,400.00</td></tr></tbody>
+                </table>
+              </div>
+              <div className="ds-annotated-row" style={{ marginTop: 4 }}>
+                <span className="ds-type-p2">Table body text</span>
+                <span className="ds-pin">Body · 15px/400</span>
+              </div>
+              <div className="ds-annotated-row">
+                <span className="ds-type-p3" style={{ color: 'var(--ink-soft)' }}>Distribution plan type</span>
+                <span className="ds-pin">Label · 13.5px/600</span>
+              </div>
             </div>
           </section>
 
@@ -416,11 +493,48 @@ export default function DesignSystem() {
 
           {/* ---------------- ELEVATION ---------------- */}
           <section id="elevation" className="ds-section">
-            <h2>Elevation</h2>
-            <p className="ds-lede">Two shadow tokens — a resting shadow and an elevated one for overlays.</p>
+            <h2>Shadows</h2>
+            <p className="ds-lede">Two shadow tokens, verified from styles/index.css lines 29–30 (light) / 75–76 (dark) — no third "overlay" tier exists in the app.</p>
+            <div className="ds-card">
+              <table className="ds-type-table">
+                <thead><tr><th>Token</th><th>Value (light)</th><th>Value (dark)</th><th>Used for</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><code>--shadow</code></td>
+                    <td><code style={{ fontSize: 11 }}>0 1px 2px rgba(20,30,60,.06)</code></td>
+                    <td><code style={{ fontSize: 11 }}>0 1px 2px rgba(0,0,0,.4)</code></td>
+                    <td>Resting elevation — cards, panels</td>
+                  </tr>
+                  <tr>
+                    <td><code>--shadow-lg</code></td>
+                    <td><code style={{ fontSize: 11 }}>0 8px 30px rgba(20,30,60,.10)</code></td>
+                    <td><code style={{ fontSize: 11 }}>0 8px 30px rgba(0,0,0,.55)</code></td>
+                    <td>Raised elevation — dropdowns, dialogs, the user menu</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div className="ds-demo">
               <div style={{ padding: '18px 24px', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>--shadow (cards)</div>
               <div style={{ padding: '18px 24px', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--line)' }}>--shadow-lg (dropdowns, dialogs)</div>
+            </div>
+
+            <h3 className="ds-sub">Applied in context</h3>
+            <p className="ds-lede">Both shown together the way they actually stack: a resting card holding a raised dropdown.</p>
+            <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+              <div style={{ position: 'relative', maxWidth: 320 }}>
+                <div style={{ padding: 20, borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>
+                  <b style={{ fontSize: 13.5 }}>Account balance</b>
+                  <p style={{ fontSize: 12.5, color: 'var(--ink-soft)', margin: '4px 0 0' }}>Card resting on --shadow</p>
+                </div>
+                <div style={{ position: 'absolute', top: '100%', left: 0, right: 40, marginTop: 8, padding: 12, borderRadius: 12, background: 'var(--panel)', border: '1px solid var(--line)', boxShadow: 'var(--shadow-lg)' }}>
+                  <b style={{ fontSize: 12.5 }}>Dropdown raised on --shadow-lg</b>
+                </div>
+              </div>
+            </div>
+            <div className="ds-usage-grid" style={{ padding: '20px 0 0' }}>
+              <div className="ds-usage-box do"><span className="ds-usage-badge"><Icon icon={faCheck} size={12} /></span><p>Use --shadow for anything resting in the normal document flow (cards, panels).</p></div>
+              <div className="ds-usage-box dont"><span className="ds-usage-badge"><Icon icon={faXmark} size={12} /></span><p>Don't invent a third, custom shadow value — only these two exist; a one-off box-shadow breaks the elevation system's meaning.</p></div>
             </div>
           </section>
 
