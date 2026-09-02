@@ -58,7 +58,13 @@ export default function AccountSummary() {
     plans.some((p) => p.id === requested) ? requested : fallback
   )
   const [tab, setTab] = useState('sources')
+  // `active` drives the donut + legend hover only. The table below used
+  // to share this same state (hovering a legend row also lit up the
+  // table row, and vice versa) — kept separate so hovering the legend
+  // only reacts in the chart, not the table (applies to every tab:
+  // Sources, Investments, Asset class — they all share this component).
   const [active, setActive] = useState(null)
+  const [tableActive, setTableActive] = useState(null)
   const [expandedRow, setExpandedRow] = useState(null)
 
   const plan = plans.find((p) => p.id === planId) || plans[0]
@@ -143,6 +149,7 @@ export default function AccountSummary() {
                 onClick={() => {
                   setPlanId(item.id)
                   setActive(null)
+                  setTableActive(null)
                   setExpandedRow(null)
                 }}
               >
@@ -195,6 +202,7 @@ export default function AccountSummary() {
                   onClick={() => {
                     setTab(item.id)
                     setActive(null)
+                    setTableActive(null)
                     setExpandedRow(null)
                   }}
                 >
@@ -276,9 +284,9 @@ export default function AccountSummary() {
                       return (
                         <Fragment key={row.id}>
                           <tr
-                            className={`${active === i ? 'on' : ''} ${isOpen ? 'as-row-open' : ''}`.trim()}
-                            onMouseEnter={() => setActive(i)}
-                            onMouseLeave={() => setActive(null)}
+                            className={`${tableActive === i ? 'on' : ''} ${isOpen ? 'as-row-open' : ''}`.trim()}
+                            onMouseEnter={() => setTableActive(i)}
+                            onMouseLeave={() => setTableActive(null)}
                           >
                             <td>
                               {isExpandable ? (
@@ -289,14 +297,14 @@ export default function AccountSummary() {
                                   aria-expanded={isOpen}
                                   aria-controls={`${row.id}-detail`}
                                 >
-                                  <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
-                                  <span className="as-row-name">{row.name}</span>
                                   <ChevronDown
                                     size={15}
                                     strokeWidth={2.2}
                                     className="as-row-chevron"
                                     aria-hidden="true"
                                   />
+                                  <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
+                                  <span className="as-row-name">{row.name}</span>
                                 </button>
                               ) : (
                                 <>

@@ -116,7 +116,12 @@
   display:inline;min-width:0;margin-right:8px}
 .as-asset-cell{font-weight:600;color:var(--ink-soft)}
 .as-row-chevron{
-  margin-left:auto;color:var(--ink-soft);transition:transform .18s ease;flex:0 0 auto}
+  /* Was margin-left:auto, which pushed the chevron to the far right edge
+     of the (often much wider than its content) name cell -- it landed
+     floating in the middle of the row instead of reading as part of the
+     name. Now the first element in .as-row-toggle (JSX order), right
+     before the asset-class swatch/name, at the front of the row. */
+  margin-right:6px;color:var(--ink-soft);transition:transform .18s ease;flex:0 0 auto}
 .as-row-open .as-row-chevron{transform:rotate(180deg);color:var(--brand)}
 .as-row-detail td{background:var(--surface-2);padding:0;border-bottom:1px solid var(--line)}
 .as-row-detail:hover{background:transparent}
