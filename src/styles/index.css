@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,400..700;1,400..700&display=swap');
 
   :root{
-    --brand:#2e3192;
-    --brand-dark:#1f2268;
+    --brand:#0284c7;
+    --brand-dark:#075985;
     /* Solid-fill buttons/chips need white text at >=4.5:1. --brand itself
        has to stay light enough to read as text on dark panels once the
        dark theme lightens it, so filled surfaces use this separate token
        instead — equal to --brand in light mode, deliberately darker than
        it in dark mode. */
-    --brand-fill:#2e3192;
-    --accent:#4a63c7;
-    --link:#2e3192;
+    --brand-fill:#0284c7;
+    --accent:#0369a1;
+    --link:#0284c7;
     --ink:#14151f;
     --ink-soft:#4a4d63;
     --muted:#666a83;
@@ -18,7 +18,7 @@
     --bg:#f4f5f9;
     --panel:#ffffff;
     --sidebar:#ffffff;
-    --active-bg:#eef1ff;
+    --active-bg:#e0f2fe;
     --hover-bg:#f4f5f9;
     --green:#147a4c;
     --green-bg:#e7f7ef;
@@ -46,11 +46,11 @@
   /* Dark theme. Only the tokens change — every rule above and below reads
      through them, so there is no duplicated dark-mode stylesheet. */
   :root[data-theme="dark"]{
-    --brand:#868df0;
-    --brand-dark:#9aa0f0;
-    --brand-fill:#555fdb;
-    --accent:#8f9df0;
-    --link:#9aa0f0;
+    --brand:#38bdf8;
+    --brand-dark:#7dd3fc;
+    --brand-fill:#0284c7;
+    --accent:#7dd3fc;
+    --link:#7dd3fc;
     --ink:#eceef7;
     --ink-soft:#b3b7cc;
     --muted:#8f93aa;

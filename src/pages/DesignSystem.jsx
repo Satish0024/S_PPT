@@ -460,11 +460,24 @@ export default function DesignSystem() {
               <button type="button" className="icon-btn" aria-label="Print"><Icon icon={faPrint} size={18} /></button>
             </div>}
             dos={['Give every icon-only button an aria-label.', 'Keep one primary button per view.']}
-            donts={["Don't combine .btn with .btn-sm — .btn-sm is dead CSS with zero real usages and its own padding loses the cascade to .btn."]}
+            donts={[
+              "Don't combine .btn with .btn-sm — .btn-sm is dead CSS with zero real usages and its own padding loses the cascade to .btn.",
+              "Don't assume a page-scoped stylesheet (enrollment.css, transactions.css, etc.) only applies on that page — Vite bundles every statically-imported CSS file into one global stylesheet. enrollment.css's own .btn{width:100%} is live everywhere, all the time, including here, and wins over index.css's .btn on whichever loaded later.",
+            ]}
             code={`<button type="button" className="btn btn-primary">Save changes</button>
 <button type="button" className="btn btn-ghost">Ghost</button>
 <button type="button" className="icon-btn" aria-label="Print"><Icon icon={faPrint} /></button>`}
             colors={[['Brand fill', '--brand-fill'], ['Brand dark (hover)', '--brand-dark'], ['Line', '--line']]}
+            extra={
+              <div className="ds-panel-row donts" style={{ borderTop: '1px solid var(--line)', padding: '14px 20px', fontSize: 13, lineHeight: 1.6 }}>
+                <b>Real bug found while building this page — </b> these standard buttons render full-width
+                by default. Root cause: <code>enrollment.css</code> (imported by <code>PlanDetails.jsx</code> and
+                <code> EnrollmentLayout.jsx</code>) defines its own <code>.btn{'{'}width:100%{'}'}</code>. Because
+                every page component is statically imported from <code>App.jsx</code>, Vite bundles that CSS
+                globally — it is not actually scoped to enrollment pages, despite living in a file named for
+                them. The demo above works around it with a scoped override; the app itself does not.
+              </div>
+            }
           />
 
           {/* ---------------- FORMS ---------------- */}

@@ -1,0 +1,6 @@
+<svg width="379" height="68" viewBox="0 0 379 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 12C0 6.47715 4.47715 2 10 2H22V60V60C9.84974 60 0 50.1503 0 38V12Z" fill="#1E4E8C"/>
+<path d="M27 31H56.5641C60.6708 31 64 34.3292 64 38.4359V38.4359C64 50.3454 54.3454 60 42.4359 60H27V31Z" fill="#1E4E8C"/>
+<circle cx="35" cy="20" r="8" fill="#38BDF8"/>
+<text x="80" y="46" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" fill="#1E4E8C">Lend<tspan font-weight="500">Guard</tspan></text>
+</svg>

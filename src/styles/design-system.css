@@ -101,6 +101,13 @@
 .ds-demo{padding:22px 20px;background:var(--surface-2);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .ds-demo-col{display:flex;flex-direction:column;align-items:stretch}
 .ds-demo-row{display:flex;flex-wrap:wrap;gap:10px}
+/* Real bug, not a doc-page quirk: enrollment.css's .btn{width:100%} is
+   bundled globally by Vite (every page is statically imported from
+   App.jsx), so it wins over index.css's .btn everywhere — including here.
+   Scoped so this demo shows buttons at their real auto width without
+   papering over the underlying app bug (documented in the Buttons Usage
+   tab instead of silently fixed). */
+.ds-demo-row .btn{width:auto}
 
 .ds-code-wrap{position:relative}
 .ds-code{margin:0;padding:16px 20px;background:#12131f;color:#dfe3ff;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12.5px;line-height:1.6;overflow-x:auto;white-space:pre}
