@@ -684,6 +684,32 @@ export default function DesignSystem() {
               pulled from the real app CSS — verified via grep against the actual stylesheet, not
               written from memory of what the pattern "should" look like.
             </p>
+
+            <h3 className="ds-sub">Multi-tenant by construction</h3>
+            <p className="ds-lede">
+              Nothing on this page is hardcoded to one brand's colors. Every hex value shown — in
+              the Color section, in every component's "Tokens" tab, in the composed screen example —
+              is read live from the running app's CSS custom properties at render time
+              (<code>getComputedStyle(document.documentElement)</code>), not typed in as a literal.
+              Load this same page under a different tenant's build and every swatch, chip, and
+              example updates automatically; nothing in this file needs to change.
+            </p>
+            <div className="ds-card">
+              <table className="ds-type-table">
+                <thead><tr><th>What changes per tenant</th><th>Where it lives</th></tr></thead>
+                <tbody>
+                  <tr><td>Brand name, tagline, support email</td><td><code>config/brand.js</code> — one object, no JSX changes</td></tr>
+                  <tr><td>Color tokens (light + dark)</td><td><code>styles/index.css</code> <code>:root</code> / <code>:root[data-theme="dark"]</code></td></tr>
+                  <tr><td>Logo files</td><td><code>/public</code> — swapped by filename, referenced only via <code>BRAND.logo</code></td></tr>
+                  <tr><td>Everything else — spacing, radius, type scale, component structure</td><td>Shared, unchanged across tenants (this is the actual design system)</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="ds-lede" style={{ marginTop: 12 }}>
+              This is proven, not theoretical: the same codebase already ships as three real
+              tenants (CORE, Saturna Capital, LendGuard) as separate build branches, each only
+              touching the three rows above.
+            </p>
           </section>
 
           {/* ---------------- COLOR ---------------- */}
