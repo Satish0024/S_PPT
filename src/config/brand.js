@@ -7,10 +7,15 @@ export const BRAND = {
   name: 'LendGuard',
   shortName: 'LendGuard',
   // Logo on light/white surfaces (topbar, login card) — no background needed.
-  logo: '/logo-lockup-light.svg',
+  // ?v=2 is a manual cache-bust: these are plain /public files, so Vite
+  // never fingerprints their filename the way it does bundled assets —
+  // a browser that cached the pre-fix wordmark-size version would keep
+  // serving it indefinitely from the same URL otherwise. Bump the
+  // version suffix again if these files are ever edited again.
+  logo: '/logo-lockup-light.svg?v=2',
   // Logo on dark/colored surfaces (the login page's gradient hero panel).
   // Falls back to `logo` for brands with a single all-purpose mark.
-  logoOnDark: '/logo-lockup-dark.svg',
+  logoOnDark: '/logo-lockup-dark.svg?v=2',
   tagline: 'Your Path To A Confident Retirement.',
   taglineBody: 'Access your 401(k), deferrals, and retirement tools in one secure participant portal.',
   supportPlanNoun: 'your LendGuard plan',

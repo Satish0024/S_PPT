@@ -7,7 +7,6 @@ import {
 import * as fasIcons from '@fortawesome/free-solid-svg-icons'
 import { Icon } from '../lib/icons.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
-import { BRAND } from '../config/brand.js'
 import '../styles/design-system.css'
 
 // Rebuilt from scratch (previous version had unverified claims — e.g.
@@ -144,8 +143,8 @@ const RADIUS_SCALE = [
 // exist too (see the Content card component) but aren't catalogued here —
 // this list is scoped to the logo only.
 const LOGO_ASSETS = [
-  ['Logo lockup — light surfaces', '/logo-lockup-light.svg', 'config/brand.js BRAND.logo — topbar, login card, this page\'s own header'],
-  ['Logo lockup — dark surfaces', '/logo-lockup-dark.svg', 'config/brand.js BRAND.logoOnDark — login hero panel, this page\'s own header in dark theme'],
+  ['Logo lockup — light surfaces', '/logo-lockup-light.svg', 'config/brand.js BRAND.logo — app topbar, login card'],
+  ['Logo lockup — dark surfaces', '/logo-lockup-dark.svg', 'config/brand.js BRAND.logoOnDark — login hero panel'],
 ]
 
 // Every icon Font Awesome (Free, Solid) ships — not a curated subset —
@@ -473,8 +472,6 @@ export default function DesignSystem() {
       <header className="ds-top">
         <div className="ds-logo">
           <img src={theme === 'dark' ? '/core-logo-dark.svg' : '/core-logo.svg'} alt="CORE" className="ds-logo-mark" />
-          <span className="ds-logo-div" />
-          <img src={theme === 'dark' ? '/logo-lockup-dark.svg' : '/logo-lockup-light.svg'} alt={BRAND.name} className="ds-logo-mark" style={{ height: 20 }} />
           <span className="ds-logo-div" />
           Participant Portal Design System
         </div>
@@ -1161,22 +1158,23 @@ export default function DesignSystem() {
             desc="Text fields and selects, from styles/transactions.css and styles/index.css."
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
-                <div className="ds-annotated-frame" style={{ maxWidth: 380, margin: '0 auto 20px' }}>
-                  <div className="ds-annotated-row">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 260, margin: '0 auto 20px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>1</Dot>
                     <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname</label>
-                    <span className="ds-pin"><Num>1</Num>Label · 12.5px/700</span>
                   </div>
-                  <div className="ds-annotated-row">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>2</Dot>
                     <input readOnly value="e.g. My 401(k)" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', width: 180 }} />
-                    <span className="ds-pin"><Num>2</Num>Field · 40px min-height</span>
                   </div>
-                  <div className="ds-annotated-row">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>3</Dot>
                     <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5, color: 'var(--red)', fontWeight: 600, margin: 0 }}>
                       <Icon icon={faTriangleExclamation} size={14} /> Required
                     </p>
-                    <span className="ds-pin"><Num>3</Num>Error text · --red, role="alert"</span>
                   </div>
                 </div>
+                <DotLegend items={['Label · 12.5px/700', 'Field · 40px min-height', 'Error text · --red, role="alert"']} />
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 8px</div>
                   <div className="ds-spec-row">
@@ -1266,20 +1264,25 @@ export default function DesignSystem() {
             desc="Native inputs for checkbox/radio; .a11y-switch (styles/index.css) for the toggle."
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
-                <div className="ds-annotated-frame" style={{ maxWidth: 380, margin: '0 auto 20px' }}>
-                  <div className="ds-annotated-row">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 24, justifyContent: 'center', marginBottom: 20 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>1</Dot>
                     <span style={{ fontSize: 13.5 }}>High contrast mode</span>
-                    <span className="ds-pin"><Num>1</Num>Label · adjacent text (switch has no accessible name alone)</span>
                   </div>
-                  <div className="ds-annotated-row">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>2</Dot>
                     <label className="a11y-switch" style={{ display: 'inline-flex' }}><input type="checkbox" readOnly /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span></label>
-                    <span className="ds-pin"><Num>2</Num>Track · 36×20px pill</span>
                   </div>
-                  <div className="ds-annotated-row">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>3</Dot>
                     <label className="a11y-switch" style={{ display: 'inline-flex' }}><input type="checkbox" defaultChecked readOnly /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span></label>
-                    <span className="ds-pin"><Num>3</Num>Thumb · 16×16px, slides +16px on check</span>
                   </div>
                 </div>
+                <DotLegend items={[
+                  'Label · adjacent text (the switch has no accessible name alone)',
+                  'Track · 36×20px pill',
+                  'Thumb · 16×16px, slides +16px on check',
+                ]} />
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Track height</b> 20px</div>
                   <div className="ds-spec-row">
@@ -1416,29 +1419,20 @@ export default function DesignSystem() {
             desc=".table-wrap > table.tx-table (styles/index.css) — the Transactions page's own table."
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
-                <div className="table-wrap" style={{ width: '100%', maxWidth: 420, margin: '0 auto 16px' }}>
+                <div className="table-wrap" style={{ width: '100%', maxWidth: 460, margin: '0 auto 16px' }}>
                   <table className="tx-table">
-                    <thead><tr><th>Type</th><th className="num">Amount</th></tr></thead>
+                    <thead><tr><th><Dot>1</Dot>Type</th><th className="num">Amount</th></tr></thead>
                     <tbody>
-                      <tr><td>Rollover</td><td className="num">$18,400.00</td></tr>
-                      <tr><td>Rebalance</td><td className="num">$2,000.00</td></tr>
+                      <tr><td><Dot>2</Dot>Rollover</td><td className="num">$18,400.00</td></tr>
+                      <tr><td><Dot>3</Dot>Rebalance</td><td className="num">$2,000.00</td></tr>
                     </tbody>
                   </table>
                 </div>
-                <div className="ds-annotated-frame" style={{ maxWidth: 420, margin: '0 auto 20px' }}>
-                  <div className="ds-annotated-row">
-                    <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Type / Amount</span>
-                    <span className="ds-pin"><Num>1</Num>Header row · 12px/700, --surface-2 bg</span>
-                  </div>
-                  <div className="ds-annotated-row">
-                    <span style={{ fontSize: 13.5 }}>Rollover</span>
-                    <span className="ds-pin"><Num>2</Num>Body row · 13.5px/400, 1px --line border</span>
-                  </div>
-                  <div className="ds-annotated-row">
-                    <span style={{ background: 'var(--surface-2)', padding: '4px 10px', borderRadius: 6, fontSize: 12.5 }}>Rebalance (row 2)</span>
-                    <span className="ds-pin"><Num>3</Num>Zebra stripe · even rows → --surface-2</span>
-                  </div>
-                </div>
+                <DotLegend items={[
+                  'Header row · 12px/700, --surface-2 bg',
+                  'Body row · 13.5px/400, 1px --line bottom border',
+                  'Zebra stripe · even rows → --surface-2',
+                ]} />
                 <div className="ds-spec-facts">
                   <span><b>Cell padding</b> 12px 14px</span><span><b>Header</b> 12px / 700, --ink-soft, --surface-2 bg</span><span><b>Row border</b> 1px solid --line (bottom)</span><span><b>Zebra</b> even rows → --surface-2</span>
                 </div>
@@ -1692,17 +1686,15 @@ export default function DesignSystem() {
             desc="components/layout/Sidebar.jsx — the real frozen left rail."
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
-                <div style={{ display: 'flex', gap: 28, alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
-                  <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active" style={{ width: 120 }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
+                  <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active" style={{ width: 140 }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}><Dot>1</Dot></div>
                     <span className="ico" aria-hidden="true"><Icon icon={faGear} size={23} /></span>
-                    <span className="nav-label">Dashboard</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center' }}><Dot>2</Dot><span className="nav-label">Dashboard</span></div>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}><Dot>3</Dot></div>
                   </a>
-                  <div className="ds-annotated-frame" style={{ maxWidth: 260, gap: 10 }}>
-                    <span className="ds-pin"><Num>1</Num>Icon · 23×23px, centered</span>
-                    <span className="ds-pin"><Num>2</Num>Label · 13px/600</span>
-                    <span className="ds-pin"><Num>3</Num>Active bar · 4px --brand, leading edge</span>
-                  </div>
                 </div>
+                <DotLegend items={['Icon · 23×23px, centered', 'Label · 13px/600', 'Active bar · 4px --brand, leading edge']} />
                 <div className="ds-spec-frame" style={{ padding: 0 }}>
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Item padding-top</b> 15px</div>
                   <div className="ds-spec-row">
@@ -1722,7 +1714,7 @@ export default function DesignSystem() {
               </div>
             }
             demo={<>
-              <VariantGroup tag="live" title="index.css .nav — active / inactive / disabled items">
+              <VariantGroup tag="live" title="index.css .nav — the 3 real states (default / active / hover)">
                 <nav className="nav" aria-label="Primary (sample)" style={{ width: 110, height: 260, border: '1px solid var(--line)', borderRadius: 12, position: 'static' }}>
                   <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active">
                     <span className="ico" aria-hidden="true"><Icon icon={faGear} size={20} /></span>
@@ -1732,9 +1724,9 @@ export default function DesignSystem() {
                     <span className="ico" aria-hidden="true"><Icon icon={faPrint} size={20} /></span>
                     <span className="nav-label">Reports</span>
                   </a>
-                  <a href="#sidebar" onClick={(e) => e.preventDefault()} style={{ opacity: .5 }}>
+                  <a href="#sidebar" onClick={(e) => e.preventDefault()} style={{ background: 'var(--hover-bg)', color: 'var(--ink)' }}>
                     <span className="ico" aria-hidden="true"><Icon icon={faMagnifyingGlass} size={20} /></span>
-                    <span className="nav-label">Search (disabled)</span>
+                    <span className="nav-label">Search (hover)</span>
                   </a>
                 </nav>
               </VariantGroup>
@@ -1752,7 +1744,8 @@ export default function DesignSystem() {
     <span className="nav-label">Dashboard</span>
   </NavLink>
 </nav>`}
-            colors={[['Active text', '--brand'], ['Active bg', '--active-bg']]}
+            donts={["Don't invent a disabled nav-item state — .nav a has no :disabled/.disabled rule at all (grep-verified). Every rail item is always navigable; if one needs to be unavailable, that's a product decision this component doesn't support yet, not a CSS class to reach for."]}
+            colors={[['Active text', '--brand'], ['Active bg', '--active-bg'], ['Hover bg', '--hover-bg']]}
             extra={
               <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '18px 20px 4px' }}>
                 <h3 className="ds-sub" style={{ marginTop: 0 }}>Applied in context</h3>
@@ -2006,8 +1999,8 @@ export default function DesignSystem() {
               charting library. styles/index.css .rr-donut/.rr-track/
               .rr-arc/.rr-score (line 413). Not previously documented. */}
           <Component
-            id="donut" title="Donut chart"
-            desc=".rr-donut (styles/index.css) — the readiness-score ring: a hand-built SVG circle with stroke-dasharray, not a charting library."
+            id="donut" title="Donut / ring charts"
+            desc="Two real donut patterns exist, built two different ways — .rr-donut (hand-built SVG) and .as-donut (Chart.js Doughnut)."
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
@@ -2036,7 +2029,22 @@ export default function DesignSystem() {
                   <div className="rr-score"><b>72%</b><span>Goal reached</span></div>
                 </div>
               </VariantGroup>
+              <VariantGroup tag="live" title=".as-donut (Account Summary → Investments) — Chart.js Doughnut, a different pattern">
+                <div className="as-donut" style={{ position: 'relative', height: 180, width: 180, flex: '0 0 auto' }}>
+                  <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%' }}>
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--surface-3)" strokeWidth="14" />
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--brand)" strokeWidth="14" strokeDasharray={`${0.55 * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} transform="rotate(-90 50 50)" />
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--green)" strokeWidth="14" strokeDasharray={`${0.25 * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} strokeDashoffset={-0.55 * 2 * Math.PI * 40} transform="rotate(-90 50 50)" />
+                  </svg>
+                  <div className="as-donut-center" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                    <small style={{ fontSize: 11.5, color: 'var(--ink-soft)' }}>Account balance</small>
+                    <b style={{ fontSize: 18 }}>$284,900</b>
+                    <em style={{ fontStyle: 'normal', fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>100.00%</em>
+                  </div>
+                </div>
+              </VariantGroup>
             </>}
+            donts={["Don't reuse .rr-donut's stroke-dasharray code for a new breakdown chart — .as-donut (Account Summary → Investments tab) is Chart.js-rendered, a genuinely different implementation, not a variant of the same pattern."]}
             dos={['Give the <svg> an aria-label stating the percentage in words — the visual arc alone conveys nothing to a screen reader.']}
             code={`const CIRC = 2 * Math.PI * 42
 <div className="rr-donut">
@@ -2095,17 +2103,31 @@ export default function DesignSystem() {
               </div>
             }
             demo={<>
-              <VariantGroup tag="live" title=".legend + .period — real, reusable regardless of chart library">
-                <div className="legend" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                  <label className="on" style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" checked readOnly /><span className="legend-swatch" style={{ background: 'var(--red)' }} />Total portfolio</label>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" readOnly /><span className="legend-swatch" style={{ background: 'var(--green)' }} />U.S. Equity</label>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" readOnly /><span className="legend-swatch" style={{ background: 'var(--brand)' }} />U.S. Bond</label>
-                </div>
-                <div className="period" role="tablist" aria-label="Chart period">
-                  <button type="button" tabIndex={-1}>1M</button>
-                  <button type="button" tabIndex={-1}>YTD</button>
-                  <button type="button" className="on" tabIndex={-1}>1Y</button>
-                  <button type="button" tabIndex={-1}>5Y</button>
+              <VariantGroup tag="live" title=".chart-panel — full panel, chart included">
+                <div className="chart-panel" style={{ width: '100%', border: '1px solid var(--line)', borderRadius: 14, padding: 16, background: 'var(--panel)' }}>
+                  <div className="chart-top" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10, marginBottom: 10 }}>
+                    <h2 style={{ fontSize: 15, margin: 0 }}>Asset class performance</h2>
+                    <div className="legend" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                      <label className="on" style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" checked readOnly /><span className="legend-swatch" style={{ background: 'var(--red)' }} />Total portfolio</label>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" readOnly /><span className="legend-swatch" style={{ background: 'var(--green)' }} />U.S. Equity</label>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" readOnly /><span className="legend-swatch" style={{ background: 'var(--brand)' }} />U.S. Bond</label>
+                    </div>
+                  </div>
+                  <div className="period" role="tablist" aria-label="Chart period" style={{ marginBottom: 12, display: 'inline-flex' }}>
+                    <button type="button" tabIndex={-1}>1M</button>
+                    <button type="button" tabIndex={-1}>YTD</button>
+                    <button type="button" className="on" tabIndex={-1}>1Y</button>
+                    <button type="button" tabIndex={-1}>5Y</button>
+                  </div>
+                  <svg viewBox="0 0 400 120" style={{ width: '100%', height: 140 }}>
+                    <line x1="0" y1="30" x2="400" y2="30" stroke="var(--line)" strokeWidth="1" />
+                    <line x1="0" y1="70" x2="400" y2="70" stroke="var(--line)" strokeWidth="1" />
+                    <line x1="0" y1="110" x2="400" y2="110" stroke="var(--line)" strokeWidth="1" />
+                    <polyline points="0,105 50,95 100,80 150,70 200,58 250,48 300,38 350,25 400,15" fill="none" stroke="var(--red)" strokeWidth="2.5" />
+                    {[[0, 105], [50, 95], [100, 80], [150, 70], [200, 58], [250, 48], [300, 38], [350, 25], [400, 15]].map(([x, y], i) => (
+                      <circle key={i} cx={x} cy={y} r="3.5" fill="var(--panel)" stroke="var(--red)" strokeWidth="2" />
+                    ))}
+                  </svg>
                 </div>
               </VariantGroup>
             </>}
