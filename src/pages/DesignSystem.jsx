@@ -19,6 +19,10 @@ const NAV = [
   { group: 'Get started', items: [
     { id: 'overview', label: 'Overview' },
   ] },
+  { group: 'Assets', items: [
+    { id: 'assets', label: 'Logo' },
+    { id: 'icons', label: 'Icons' },
+  ] },
   { group: 'Foundations', items: [
     { id: 'color', label: 'Color' },
     { id: 'type', label: 'Typography' },
@@ -27,10 +31,6 @@ const NAV = [
   ] },
   { group: 'Examples', items: [
     { id: 'examples', label: 'Composed screen' },
-  ] },
-  { group: 'Assets', items: [
-    { id: 'assets', label: 'Logo' },
-    { id: 'icons', label: 'Icons' },
   ] },
   { group: 'Components', items: [
     { id: 'buttons', label: 'Buttons' },
@@ -80,9 +80,10 @@ const GROUP_META = {
 // name, var, "used by" — real components/classes that reach for this
 // token, so a token is never just a swatch in isolation.
 const PRIMARY_COLORS = [
-  ['Brand', '--brand', '.nav a.active text, links, focus rings'],
-  ['Brand dark', '--brand-dark', '.btn-primary:hover, .icon-btn active state'],
-  ['Accent', '--accent', 'Secondary highlights, chart accents'],
+  ['Primary', '--brand', '.nav a.active text, links, focus rings'],
+  ['Primary dark', '--brand-dark', '.btn-primary:hover, .icon-btn active state'],
+  ['Primary CTA', '--brand-fill', 'Solid .btn-primary background — the actual "call to action" surface'],
+  ['Secondary', '--accent', '.btn-secondary text/border, chart accents (aliased --accent-secondary)'],
   ['Ink (text)', '--ink', 'Primary body text, headings everywhere'],
   ['Ink soft', '--ink-soft', 'Secondary text — .pc-meta, .as-empty message'],
   ['Muted', '--muted', 'Tertiary text — captions, table header labels'],
@@ -104,16 +105,16 @@ const PRIMARY_COLORS = [
 // explicitly rather than inventing one that doesn't exist.
 const COLOR_GROUPS = [
   { title: 'Primary', tokens: [
-    ['Brand', '--brand', 'Links, active nav text, focus rings — the one "interactive" color'],
-    ['Brand dark', '--brand-dark', 'Hover state for --brand-fill surfaces'],
-    ['Brand fill', '--brand-fill', 'Solid primary-button/CTA backgrounds'],
+    ['Primary', '--brand', 'Links, active nav text, focus rings — the one "interactive" color'],
+    ['Primary dark', '--brand-dark', 'Hover state for the Primary CTA surface'],
+    ['Primary CTA', '--brand-fill', 'Solid .btn-primary background — the app\'s actual call-to-action color'],
   ] },
   { title: 'Secondary', tokens: [
-    ['— none —', null, 'No dedicated secondary color exists — .btn-secondary reuses --panel/--brand (see Accent)'],
+    ['Secondary', '--accent', 'Aliased --accent-secondary (index.css line 97) — .btn-secondary, chart accents'],
   ] },
   { title: 'Accent', tokens: [
-    ['Accent', '--accent', 'Secondary highlights, chart accents'],
-    ['Link', '--link', 'Text links (distinct token, same value as --brand today)'],
+    ['Accent', '--accent', 'Same token as Secondary — this app has one accent color, doing both jobs'],
+    ['Link', '--link', 'Text links (distinct token, same value as Primary today)'],
   ] },
   { title: 'Neutral / Gray scale', tokens: [
     ['Ink', '--ink', 'Primary text'], ['Ink soft', '--ink-soft', 'Secondary text'], ['Muted', '--muted', 'Tertiary text, captions'],
@@ -165,9 +166,9 @@ const TYPE_SCALE = [
   { role: 'H1 (page title)', size: '22–38px', weight: '700–800', cls: 'ds-type-h1 (proposed, 34px/800)', real: ['.login-brand-copy h1 · 36/700', '.hi-bar h1 · 26/700 (Dashboard)', '.page-head h1 · 22/700 (Portfolio)'], proposed: '34px / 800' },
   { role: 'H2 (section heading)', size: '15–26px', weight: 700, cls: 'ds-type-h2 (proposed, 26px/800)', real: ['.login-card h2 · 26/700', '.section-title · 16/700 (Dashboard)', '.chart-top h2 · 16/700'], proposed: '26px / 800' },
   { role: 'H3 (card title)', size: '15–20px', weight: 700, cls: 'ds-type-h3 (proposed, 20px/700)', real: ['.pc-name (PlanCard h3) · 15/700', '.summary .head h4 · 16/600'], proposed: '20px / 700' },
-  { role: 'Body', size: '13–15px', weight: '400–600', cls: 'ds-type-p2 (proposed, 15px/400)', real: ['table cells (.tx-table td) · 13.5/400', '.pr-intro · 14.5/500'], proposed: '15px / 400' },
-  { role: 'Label', size: '12–13.5px', weight: 600, cls: 'ds-type-p3 (proposed, 13.5px/600)', real: ['.ob-k · 13/600', 'form labels (.txn-field label) · 12.5/700'], proposed: '13.5px / 600' },
-  { role: 'Caption / micro', size: '9–12px', weight: 700, cls: 'ds-type-caption (proposed, 11.5px/700)', real: ['.pc-type · 12/600', '.plan-badge · 11/700', 'table headers (.tx-table th) · 12/700'], proposed: '11.5px / 700' },
+  { role: 'Body', size: '13–15px', weight: '400–600', cls: 'ds-type-p2 (proposed, 14px/400)', real: ['table cells (.tx-table td) · 13.5/400', '.pr-intro · 14.5/500'], proposed: '14px / 400' },
+  { role: 'Label', size: '12–13.5px', weight: 600, cls: 'ds-type-p3 (proposed, 13px/600)', real: ['.ob-k · 13/600', 'form labels (.txn-field label) · 12.5/700'], proposed: '13px / 600' },
+  { role: 'Caption / micro', size: '9–12px', weight: 700, cls: 'ds-type-caption (proposed, 12px/700)', real: ['.pc-type · 12/600', '.plan-badge · 11/700', 'table headers (.tx-table th) · 12/700'], proposed: '12px / 700' },
   { role: 'Overline / eyebrow', size: '11–13px', weight: '700–800', cls: null, real: ['.eyebrow · 11–13px/600–800, uppercase (5 different page-scoped rules)', '.learn2-tag · 9.5/700, uppercase pill'], proposed: '12px / 800, uppercase, .4px tracking' },
   { role: 'Button label', size: '14–15px', weight: 700, cls: null, real: ['.btn · 14/700 (line 1116)', '.step .body h3 as a step title · 15/600'], proposed: '14px / 700 — matches .btn exactly, already consistent' },
 ]
@@ -189,9 +190,9 @@ const TYPE_TOKENS = [
   { name: 'H1 / Page title', family: 'Inclusive Sans', size: '34px (proposed) · real range 22–38px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '-.4px (.hi-bar h1)', case: 'None' },
   { name: 'H2 / Section heading', family: 'Inclusive Sans', size: '26px (proposed) · real range 15–26px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '-.2px (.section-title)', case: 'None' },
   { name: 'H3 / Card title', family: 'Inclusive Sans', size: '20px (proposed) · real range 15–20px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: '-.2px (.pc-name)', case: 'None' },
-  { name: 'Body', family: 'Inclusive Sans', size: '15px (proposed) · real range 13–15px', weight: 400, lineHeight: 'default (~1.4, not set)', letterSpacing: 'Normal', case: 'None' },
-  { name: 'Label', family: 'Inclusive Sans', size: '13.5px (proposed) · real range 12–13.5px', weight: 600, lineHeight: 'default (~1.3, not set)', letterSpacing: 'Normal', case: 'None' },
-  { name: 'Caption / micro', family: 'Inclusive Sans', size: '11.5px (proposed) · real range 9–12px', weight: 700, lineHeight: 'default (~1.3, not set)', letterSpacing: 'Normal', case: 'None' },
+  { name: 'Body', family: 'Inclusive Sans', size: '14px (proposed) · real range 13–15px', weight: 400, lineHeight: 'default (~1.4, not set)', letterSpacing: 'Normal', case: 'None' },
+  { name: 'Label', family: 'Inclusive Sans', size: '13px (proposed) · real range 12–13.5px', weight: 600, lineHeight: 'default (~1.3, not set)', letterSpacing: 'Normal', case: 'None' },
+  { name: 'Caption / micro', family: 'Inclusive Sans', size: '12px (proposed) · real range 9–12px', weight: 700, lineHeight: 'default (~1.3, not set)', letterSpacing: 'Normal', case: 'None' },
   { name: 'Overline / eyebrow', family: 'Inclusive Sans', size: '12px (proposed) · real range 11–13px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '.3–.8px (.eyebrow, varies by page)', case: 'UPPERCASE (real: text-transform)' },
   { name: 'Button label', family: 'Inclusive Sans', size: '14px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: 'Normal', case: 'None' },
 ]
@@ -203,6 +204,7 @@ const SPACE_SCALE = [
   [8, 'Default gap between related controls — button groups, form rows, .txn-field'],
   [12, 'Gap between fields in a form, card internal spacing'],
   [16, 'Padding inside cards and panels; gap between unrelated form sections'],
+  [18, 'Panel/banner padding side value — .panel, .status-banner (padding: 18px 20px)'],
   [20, 'Section-level gaps — between a heading and the content below it'],
   [24, 'Page-edge padding; gap between major page sections'],
   [32, 'Padding inside large modals/panels (.confirm-dialog top padding)'],
@@ -233,6 +235,7 @@ const SPACING_TOKENS = [
     ['gap-sm', '8px', 'Default gap between related controls — button groups, .txn-field rows'],
     ['gap-md', '12px', 'Between fields in a form; card internal spacing'],
     ['gap-lg', '16px', 'Between unrelated form sections'],
+    ['gap-18', '18px', 'The most-repeated gap in the app — card stacks, .pr-page, .confirm-dialog body (7 real uses, was missing from this scale)'],
     ['gap-xl', '20px', 'Between a heading and the content below it'],
   ] },
   { category: 'Component spacing', tokens: [
@@ -687,37 +690,42 @@ export default function DesignSystem() {
           {/* ---------------- OVERVIEW ---------------- */}
           <section id="overview" className="ds-section">
             <h2>Overview</h2>
-            <p className="ds-lede">
-              This is the design system for the CORE Participant Portal. Every component below is
-              pulled from the real app CSS — verified via grep against the actual stylesheet, not
-              written from memory of what the pattern "should" look like.
-            </p>
+            <p className="ds-lede">Design system for the CORE Participant Portal — every value below is grepped live from the real app, not written from memory.</p>
 
-            <h3 className="ds-sub">Multi-tenant by construction</h3>
-            <p className="ds-lede">
-              Nothing on this page is hardcoded to one brand's colors. Every hex value shown — in
-              the Color section, in every component's "Tokens" tab, in the composed screen example —
-              is read live from the running app's CSS custom properties at render time
-              (<code>getComputedStyle(document.documentElement)</code>), not typed in as a literal.
-              Load this same page under a different tenant's build and every swatch, chip, and
-              example updates automatically; nothing in this file needs to change.
-            </p>
+            <h3 className="ds-sub">Multi-tenant — swap 3 things, everything else stays</h3>
             <div className="ds-card">
               <table className="ds-type-table">
-                <thead><tr><th>What changes per tenant</th><th>Where it lives</th></tr></thead>
+                <thead><tr><th>Changes per tenant</th><th>Where</th></tr></thead>
                 <tbody>
-                  <tr><td>Brand name, tagline, support email</td><td><code>config/brand.js</code> — one object, no JSX changes</td></tr>
-                  <tr><td>Color tokens (light + dark)</td><td><code>styles/index.css</code> <code>:root</code> / <code>:root[data-theme="dark"]</code></td></tr>
-                  <tr><td>Logo files</td><td><code>/public</code> — swapped by filename, referenced only via <code>BRAND.logo</code></td></tr>
-                  <tr><td>Everything else — spacing, radius, type scale, component structure</td><td>Shared, unchanged across tenants (this is the actual design system)</td></tr>
+                  <tr><td>Brand name, tagline, support email</td><td><code>config/brand.js</code></td></tr>
+                  <tr><td>Color tokens</td><td><code>styles/index.css</code> <code>:root</code></td></tr>
+                  <tr><td>Logo files</td><td><code>/public</code> via <code>BRAND.logo</code></td></tr>
                 </tbody>
               </table>
             </div>
-            <p className="ds-lede" style={{ marginTop: 12 }}>
-              This is proven, not theoretical: the same codebase already ships as three real
-              tenants (CORE, Saturna Capital, LendGuard) as separate build branches, each only
-              touching the three rows above.
-            </p>
+            <p className="ds-lede" style={{ marginTop: 10 }}>Live today as 3 tenants — CORE, Saturna Capital, LendGuard — each only touching the rows above.</p>
+          </section>
+
+          {/* ---------------- ASSETS (logo only, by request) ---------------- */}
+          <section id="assets" className="ds-section">
+            <h2>Logo</h2>
+            <p className="ds-lede">Real files from <code>/public</code>, referenced only via <code>config/brand.js</code> — a rebrand swaps these, never JSX.</p>
+            <div className="ds-asset-grid">
+              {LOGO_ASSETS.map(([name, src, use]) => (
+                <div key={src} className="ds-card ds-asset-card">
+                  <div className={`ds-asset-preview${src.includes('dark') ? ' dark' : ''}`}>
+                    <img src={src} alt={name} onError={(e) => { e.currentTarget.style.display = 'none' }} />
+                  </div>
+                  <div className="ds-asset-meta">
+                    <b>{name}</b>
+                    <span>{use}</span>
+                    <button type="button" className="ds-hex-cell" onClick={() => copyToClipboard(src)} title="Copy path">
+                      <code>{src}</code><Icon icon={faCopy} size={11} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </section>
 
           {/* ---------------- COLOR ---------------- */}
@@ -1224,35 +1232,6 @@ export default function DesignSystem() {
                 <li key={p.n}><span className="ds-anno-badge" style={{ margin: 0 }}>{p.n}</span>{p.label}</li>
               ))}
             </ol>
-          </section>
-
-          {/* ---------------- ASSETS (logo only, by request) ---------------- */}
-          <section id="assets" className="ds-section">
-            <h2>Logo</h2>
-            <p className="ds-lede">
-              The real logo files this app ships in <code>/public</code>, referenced only through{' '}
-              <code>config/brand.js</code> — component code never hardcodes a filename or brand
-              name, so a rebrand only has to swap these files, not touch JSX. Illustrations exist
-              too (e.g. <code>learning-illustration.png</code>, used on the{' '}
-              <a href="#content-card">Content card</a>) but aren't catalogued here — this section
-              is scoped to the logo only.
-            </p>
-            <div className="ds-asset-grid">
-              {LOGO_ASSETS.map(([name, src, use]) => (
-                <div key={src} className="ds-card ds-asset-card">
-                  <div className={`ds-asset-preview${src.includes('dark') ? ' dark' : ''}`}>
-                    <img src={src} alt={name} onError={(e) => { e.currentTarget.style.display = 'none' }} />
-                  </div>
-                  <div className="ds-asset-meta">
-                    <b>{name}</b>
-                    <span>{use}</span>
-                    <button type="button" className="ds-hex-cell" onClick={() => copyToClipboard(src)} title="Copy path">
-                      <code>{src}</code><Icon icon={faCopy} size={11} />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
           </section>
 
           {/* ---------------- ICONS ---------------- */}
