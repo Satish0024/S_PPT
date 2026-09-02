@@ -94,6 +94,11 @@
 
 /* ---------- Component card ---------- */
 .ds-card{border:1px solid var(--line);border-radius:14px;background:var(--panel);box-shadow:var(--ds-elev-1);margin-bottom:22px;overflow:hidden;transition:box-shadow .18s ease,border-color .18s ease}
+/* A card whose content is (or contains) a wide table was clipped by the
+   overflow:hidden above instead of scrolling — the corner-rounding clip
+   and a wide table need different overflow behavior, so give any card
+   holding a table its own horizontal scroll instead of hiding content. */
+.ds-card:has(table){overflow-x:auto}
 .ds-card:hover{box-shadow:var(--ds-elev-2);border-color:var(--line-strong)}
 .ds-card-head{padding:20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .ds-card-head h3{font-size:15px;font-weight:700;letter-spacing:-.1px}

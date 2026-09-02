@@ -98,25 +98,55 @@ const PRIMARY_COLORS = [
 ]
 
 // Verified against styles/index.css :root / [data-theme="dark"].
+// name, var, usage — organized into the 13 categories a full color-token
+// spec is expected to have. Where the app genuinely has no dedicated
+// token for a category (Secondary, Info, Disabled), that's stated
+// explicitly rather than inventing one that doesn't exist.
 const COLOR_GROUPS = [
-  { title: 'Brand', tokens: [
-    ['Brand', '--brand'], ['Brand dark (hover)', '--brand-dark'], ['Brand fill (solid surfaces)', '--brand-fill'],
-    ['Accent', '--accent'], ['Link', '--link'],
+  { title: 'Primary', tokens: [
+    ['Brand', '--brand', 'Links, active nav text, focus rings — the one "interactive" color'],
+    ['Brand dark', '--brand-dark', 'Hover state for --brand-fill surfaces'],
+    ['Brand fill', '--brand-fill', 'Solid primary-button/CTA backgrounds'],
   ] },
-  { title: 'Neutrals', tokens: [
-    ['Ink (primary text)', '--ink'], ['Ink soft (secondary text)', '--ink-soft'], ['Muted (tertiary text)', '--muted'],
-    ['Line (border)', '--line'], ['Line strong', '--line-strong'], ['Background', '--bg'],
-    ['Panel', '--panel'], ['Surface 2', '--surface-2'], ['Surface 3', '--surface-3'],
-    ['Active bg', '--active-bg'], ['Hover bg', '--hover-bg'],
+  { title: 'Secondary', tokens: [
+    ['— none —', null, 'No dedicated secondary color exists — .btn-secondary reuses --panel/--brand (see Accent)'],
   ] },
-  { title: 'Status — success', tokens: [
-    ['Green', '--green'], ['Green bg', '--green-bg'], ['Green line (border)', '--green-line'],
+  { title: 'Accent', tokens: [
+    ['Accent', '--accent', 'Secondary highlights, chart accents'],
+    ['Link', '--link', 'Text links (distinct token, same value as --brand today)'],
   ] },
-  { title: 'Status — warning', tokens: [
-    ['Amber', '--amber'], ['Amber bg', '--amber-bg'], ['Amber line (border)', '--amber-line'],
+  { title: 'Neutral / Gray scale', tokens: [
+    ['Ink', '--ink', 'Primary text'], ['Ink soft', '--ink-soft', 'Secondary text'], ['Muted', '--muted', 'Tertiary text, captions'],
+    ['Line', '--line', 'Default border'], ['Line strong', '--line-strong', 'Emphasized border'],
   ] },
-  { title: 'Status — danger', tokens: [
-    ['Red', '--red'], ['Red bg', '--red-bg'], ['Red line (border)', '--red-line'],
+  { title: 'Background', tokens: [
+    ['Background', '--bg', 'Page background, behind every panel'],
+  ] },
+  { title: 'Surface', tokens: [
+    ['Panel', '--panel', 'Card/dialog/dropdown surface'], ['Surface 2', '--surface-2', 'Zebra rows, subtle recessed fill'],
+    ['Surface 3', '--surface-3', 'Skeleton placeholders, disabled-field fill'], ['Active bg', '--active-bg', 'Selected/active state fill'],
+    ['Hover bg', '--hover-bg', 'Hover state fill'],
+  ] },
+  { title: 'Text', tokens: [
+    ['Ink', '--ink', 'Primary text (same token as Neutral — text role)'], ['Ink soft', '--ink-soft', 'Secondary text'], ['Muted', '--muted', 'Tertiary/meta text'],
+  ] },
+  { title: 'Border', tokens: [
+    ['Line', '--line', 'Default 1px border everywhere'], ['Line strong', '--line-strong', 'Emphasized border, focus-adjacent'],
+  ] },
+  { title: 'Success', tokens: [
+    ['Green', '--green', 'Success text/icon'], ['Green bg', '--green-bg', 'Success fill'], ['Green line', '--green-line', 'Success border'],
+  ] },
+  { title: 'Warning', tokens: [
+    ['Amber', '--amber', 'Warning text/icon'], ['Amber bg', '--amber-bg', 'Warning fill'], ['Amber line', '--amber-line', 'Warning border'],
+  ] },
+  { title: 'Error / Danger', tokens: [
+    ['Red', '--red', 'Error/danger text/icon'], ['Red bg', '--red-bg', 'Error/danger fill'], ['Red line', '--red-line', 'Error/danger border'],
+  ] },
+  { title: 'Info', tokens: [
+    ['— none dedicated —', null, 'No separate info token — .status-banner .badge.navy reuses --active-bg/--brand for informational badges'],
+  ] },
+  { title: 'Disabled', tokens: [
+    ['— none dedicated —', null, 'No disabled color token — disabled state is opacity-based (.btn:disabled{opacity:.5}), not a separate color'],
   ] },
 ]
 
@@ -142,6 +172,22 @@ const TYPE_SCALE = [
   { role: 'Button label', size: '14–15px', weight: 700, cls: null, real: ['.btn · 14/700 (line 1116)', '.step .body h3 as a step title · 15/600'], proposed: '14px / 700 — matches .btn exactly, already consistent' },
 ]
 
+// Full token spec, one row per role: name, family, size, weight, line
+// height, letter spacing, text case. Every value is either read directly
+// off a real class (noted inline) or, where the app sets nothing
+// explicit, honestly marked "default" rather than inventing a number.
+const TYPE_TOKENS = [
+  { name: 'Display', family: 'Inclusive Sans', size: '44px', weight: 800, lineHeight: '1 (.rr2-hero-copy b)', letterSpacing: '-1px (.rr2-hero-copy b)', case: 'None' },
+  { name: 'H1 / Page title', family: 'Inclusive Sans', size: '34px (proposed) · real range 22–38px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '-.4px (.hi-bar h1)', case: 'None' },
+  { name: 'H2 / Section heading', family: 'Inclusive Sans', size: '26px (proposed) · real range 15–26px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '-.2px (.section-title)', case: 'None' },
+  { name: 'H3 / Card title', family: 'Inclusive Sans', size: '20px (proposed) · real range 15–20px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: '-.2px (.pc-name)', case: 'None' },
+  { name: 'Body', family: 'Inclusive Sans', size: '15px (proposed) · real range 13–15px', weight: 400, lineHeight: 'default (~1.4, not set)', letterSpacing: 'Normal', case: 'None' },
+  { name: 'Label', family: 'Inclusive Sans', size: '13.5px (proposed) · real range 12–13.5px', weight: 600, lineHeight: 'default (~1.3, not set)', letterSpacing: 'Normal', case: 'None' },
+  { name: 'Caption / micro', family: 'Inclusive Sans', size: '11.5px (proposed) · real range 9–12px', weight: 700, lineHeight: 'default (~1.3, not set)', letterSpacing: 'Normal', case: 'None' },
+  { name: 'Overline / eyebrow', family: 'Inclusive Sans', size: '12px (proposed) · real range 11–13px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '.3–.8px (.eyebrow, varies by page)', case: 'UPPERCASE (real: text-transform)' },
+  { name: 'Button label', family: 'Inclusive Sans', size: '14px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: 'Normal', case: 'None' },
+]
+
 // Verified via grep against styles/index.css — gap: and padding: value
 // frequency, cross-checked against the specific classes that use each one.
 const SPACE_SCALE = [
@@ -154,6 +200,50 @@ const SPACE_SCALE = [
   [32, 'Padding inside large modals/panels (.confirm-dialog top padding)'],
   [48, 'Rare — large empty-state vertical spacing'],
 ]
+// Every spacing usage, organized the way a token spec is asked for:
+// category → [token name, pixel value, intended usage]. Pixel-value
+// frequency grepped from index.css (margin-bottom:, gap:, padding:).
+const SPACING_TOKENS = [
+  { category: 'Margin', tokens: [
+    ['margin-2xs', '2px', 'Tightest vertical margin — between a value and its unit label'],
+    ['margin-xs', '4px', 'Between a heading and the text directly under it (6 real uses)'],
+    ['margin-sm', '6px', 'Between a label and its value (8 real uses) — most common margin in the app'],
+    ['margin-md', '8px', 'Between a title and its description (8 real uses)'],
+    ['margin-lg', '14px', 'Between a card\'s header block and its body'],
+    ['margin-xl', '16px', 'Between major blocks within a card'],
+  ] },
+  { category: 'Padding', tokens: [
+    ['padding-sm', '8px 12px', 'Form fields — .txn-field input'],
+    ['padding-md', '12px 14px', 'Table cells — .tx-table td/th'],
+    ['padding-lg', '16px 18px', 'Cards — .card, .plan-card'],
+    ['padding-xl', '18px 20px', 'Panels and banners — .panel, .status-banner'],
+    ['padding-2xl', '20px 22px', 'Larger panels — .panel (desktop)'],
+    ['padding-3xl', '26px 24px 22px', 'Dialogs — .confirm-dialog'],
+  ] },
+  { category: 'Gap', tokens: [
+    ['gap-xs', '4px', 'Icon-to-label, tight inline groups (.nav-cta, badge icon)'],
+    ['gap-sm', '8px', 'Default gap between related controls — button groups, .txn-field rows'],
+    ['gap-md', '12px', 'Between fields in a form; card internal spacing'],
+    ['gap-lg', '16px', 'Between unrelated form sections'],
+    ['gap-xl', '20px', 'Between a heading and the content below it'],
+  ] },
+  { category: 'Component spacing', tokens: [
+    ['component-gap-sm', '8px', 'Between a button and an adjacent icon or badge'],
+    ['component-gap-md', '14px', 'Between sibling cards in a grid — .plans-grid, .quick-grid'],
+    ['component-padding', '16–22px', 'Internal padding for any card-level component (see Padding above)'],
+  ] },
+  { category: 'Section spacing', tokens: [
+    ['section-gap', '20px', 'Between a section heading (.section-title) and its content'],
+    ['section-margin', '32px', 'Rare — large modal top padding (.confirm-dialog)'],
+  ] },
+  { category: 'Layout spacing', tokens: [
+    ['layout-padding', '24px 32px 48px', 'Page-level padding — .page-body (desktop)'],
+    ['layout-padding-tablet', '22px 18px 40px', '.page-body at ≤980px'],
+    ['layout-padding-mobile', '16px 14px 32px', '.page-body at ≤640px'],
+    ['layout-gap-empty', '48px', 'Rare — large empty-state vertical spacing'],
+  ] },
+]
+
 const RADIUS_SCALE = [
   [8, '.nav sidebar items on hover/active, small inline chips'],
   [9, 'Form fields — .txn-field input, .tx-plan-select (line 1315)'],
@@ -268,6 +358,22 @@ const EXAMPLE_PINS = [
   { n: 8, pos: { top: 302, left: 380 }, label: '.req-status.warn — --red / --red-bg' },
   { n: 9, pos: { top: 285, left: 120 }, label: 'tbody even row — --surface-2 zebra stripe' },
 ]
+
+// Converts a resolved #rrggbb (or rgb(...)) token value to "r, g, b" for
+// display alongside its hex — tokens are stored as hex in the stylesheet,
+// so this is derived at render time, never a second source of truth.
+function hexToRgb(hex) {
+  if (!hex || hex === '—') return '—'
+  if (hex.startsWith('rgb')) {
+    const m = hex.match(/[\d.]+/g)
+    return m ? m.slice(0, 3).join(', ') : hex
+  }
+  const clean = hex.replace('#', '')
+  const full = clean.length === 3 ? clean.split('').map((c) => c + c).join('') : clean
+  const num = parseInt(full, 16)
+  if (Number.isNaN(num) || full.length !== 6) return '—'
+  return [(num >> 16) & 255, (num >> 8) & 255, num & 255].join(', ')
+}
 
 function copyToClipboard(text) {
   if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text)
@@ -481,7 +587,7 @@ export default function DesignSystem() {
     : NAV
   const [openGroups, setOpenGroups] = useState(() => new Set(['Get started']))
   const toggleGroup = (g) => setOpenGroups((prev) => { const next = new Set(prev); next.has(g) ? next.delete(g) : next.add(g); return next })
-  const dualTokens = useDualThemeTokens(COLOR_GROUPS.flatMap((g) => g.tokens.map(([, v]) => v)))
+  const dualTokens = useDualThemeTokens(COLOR_GROUPS.flatMap((g) => g.tokens.map(([, v]) => v).filter(Boolean)))
   const primaryTokenValues = useResolvedTokens(PRIMARY_COLORS.map(([, v]) => v))
 
   useEffect(() => {
@@ -611,23 +717,45 @@ export default function DesignSystem() {
             </div>
 
             <h3 className="ds-sub">Full token reference</h3>
-            <p className="ds-lede">Every value below is read live from the running app's CSS custom properties — both light and dark, regardless of which theme this page is currently in.</p>
+            <p className="ds-lede">
+              Organized into the 13 categories a full color-token spec covers. Hex/RGB values are
+              read live from the running app's CSS custom properties — both light and dark,
+              regardless of which theme this page is currently in. Where a category has no
+              dedicated token (Secondary, Info, Disabled), that's stated plainly rather than
+              inventing one that doesn't exist in the app.
+            </p>
             {COLOR_GROUPS.map((g) => (
               <div key={g.title}>
                 <h3 className="ds-sub">{g.title}</h3>
                 <div className="ds-card">
                   <table className="ds-type-table">
-                    <thead><tr><th>Token</th><th>Variable</th><th>Light</th><th>Dark</th></tr></thead>
+                    <thead><tr><th>Token</th><th>Variable</th><th>Light (HEX / RGB)</th><th>Dark (HEX / RGB)</th><th>Usage</th></tr></thead>
                     <tbody>
-                      {g.tokens.map(([name, varName]) => {
+                      {g.tokens.map(([name, varName, usage]) => {
+                        if (!varName) {
+                          return (
+                            <tr key={name}>
+                              <td><b>{name}</b></td>
+                              <td colSpan={3} style={{ color: 'var(--muted)' }}>—</td>
+                              <td style={{ fontSize: 12.5 }}>{usage}</td>
+                            </tr>
+                          )
+                        }
                         const light = dualTokens.light[varName]
                         const dark = dualTokens.dark[varName]
                         return (
-                          <tr key={varName}>
+                          <tr key={varName + name}>
                             <td><b>{name}</b></td>
                             <td><code>{varName}</code></td>
-                            <td><button type="button" className="ds-hex-cell" onClick={() => light && copyToClipboard(light)}><span className="ds-hex-dot" style={{ background: light }} />{light}</button></td>
-                            <td><button type="button" className="ds-hex-cell" onClick={() => dark && copyToClipboard(dark)}><span className="ds-hex-dot" style={{ background: dark }} />{dark}</button></td>
+                            <td>
+                              <button type="button" className="ds-hex-cell" onClick={() => light && copyToClipboard(light)}><span className="ds-hex-dot" style={{ background: light }} />{light}</button>
+                              <div style={{ fontSize: 10.5, color: 'var(--muted)', marginLeft: 22 }}>rgb({hexToRgb(light)})</div>
+                            </td>
+                            <td>
+                              <button type="button" className="ds-hex-cell" onClick={() => dark && copyToClipboard(dark)}><span className="ds-hex-dot" style={{ background: dark }} />{dark}</button>
+                              <div style={{ fontSize: 10.5, color: 'var(--muted)', marginLeft: 22 }}>rgb({hexToRgb(dark)})</div>
+                            </td>
+                            <td style={{ fontSize: 12.5 }}>{usage}</td>
                           </tr>
                         )
                       })}
@@ -708,6 +836,32 @@ export default function DesignSystem() {
               </table>
             </div>
 
+            <h3 className="ds-sub">Full token spec</h3>
+            <p className="ds-lede">Every attribute a type token needs to be implemented from, in one row per role — font family, size, weight, line height, letter spacing, and text case.</p>
+            <div className="ds-card">
+              <table className="ds-type-table">
+                <thead>
+                  <tr>
+                    <th>Token name</th><th>Font family</th><th>Font size</th><th>Weight</th>
+                    <th>Line height</th><th>Letter spacing</th><th>Text case</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {TYPE_TOKENS.map((t) => (
+                    <tr key={t.name}>
+                      <td><b>{t.name}</b></td>
+                      <td style={{ fontSize: 12.5 }}>{t.family}</td>
+                      <td style={{ fontSize: 12.5 }}>{t.size}</td>
+                      <td><code>{t.weight}</code></td>
+                      <td style={{ fontSize: 12.5 }}>{t.lineHeight}</td>
+                      <td style={{ fontSize: 12.5 }}>{t.letterSpacing}</td>
+                      <td style={{ fontSize: 12.5 }}>{t.case}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
             <h3 className="ds-sub">Applied in context — the real Dashboard</h3>
             <p className="ds-lede">components/dashboard/*.jsx, assembled as it actually renders — every text size below is the real class, not the proposed scale.</p>
             <div className="ds-example-screen" style={{ maxWidth: 560 }}>
@@ -777,6 +931,28 @@ export default function DesignSystem() {
                 </tbody>
               </table>
             </div>
+
+            <h3 className="ds-sub">Full spacing token spec</h3>
+            <p className="ds-lede">Every spacing value the app actually uses, organized by category — Margin, Padding, Gap, Component spacing, Section spacing, Layout spacing — each with its real pixel value and intended usage.</p>
+            {SPACING_TOKENS.map((g) => (
+              <div key={g.category}>
+                <h4 style={{ fontSize: 13, fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.4px', margin: '18px 0 8px' }}>{g.category}</h4>
+                <div className="ds-card">
+                  <table className="ds-type-table">
+                    <thead><tr><th>Token name</th><th>Pixel value</th><th>Intended usage</th></tr></thead>
+                    <tbody>
+                      {g.tokens.map(([name, px, use]) => (
+                        <tr key={name}>
+                          <td><code>{name}</code></td>
+                          <td style={{ fontSize: 12.5 }}>{px}</td>
+                          <td style={{ fontSize: 12.5 }}>{use}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))}
 
             <h3 className="ds-sub">Radius scale</h3>
             <p className="ds-lede">Same corner radius applied to a large enough swatch that the curve itself is legible, not just implied.</p>
