@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
-import { isNotEligibleUser } from '../../data/participants'
+import { isNotEligibleUser, isOptedOutUser } from '../../data/participants'
 import { RISK_PROFILE_UPDATED_EVENT, getRiskLevel, getRiskProfileId } from '../../lib/riskProfile'
 
 // Investment Style sidebar widget: a typography-led risk identity card.
@@ -21,7 +21,10 @@ export default function RiskMeterV2() {
     return () => window.removeEventListener(RISK_PROFILE_UPDATED_EVENT, onUpdate)
   }, [participant.id])
 
-  if (isNotEligibleUser(participant)) return null
+  // Not eligible: nothing to show. Opted out: the participant has declined
+  // to invest, so an "Investment Style" widget has nothing meaningful to
+  // report either — same reasoning ReadinessScoreCard already applies.
+  if (isNotEligibleUser(participant) || isOptedOutUser(participant)) return null
 
   const level = getRiskLevel(levelId)
   const shortName = level.subtitle.replace(' risk', '')
