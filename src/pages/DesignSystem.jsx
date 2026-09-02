@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import {
   faArrowRight, faCheck, faChevronDown, faCopy, faDesktop, faGear, faLayerGroup, faMagnifyingGlass,
   faMoon, faPenRuler, faPrint, faPuzzlePiece, faRocket, faSun, faTriangleExclamation,
-  faUniversalAccess, faXmark,
+  faUniversalAccess, faXmark, faImage,
 } from '@fortawesome/free-solid-svg-icons'
+import * as fasIcons from '@fortawesome/free-solid-svg-icons'
 import { Icon } from '../lib/icons.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
 import '../styles/design-system.css'
@@ -27,6 +28,10 @@ const NAV = [
   { group: 'Examples', items: [
     { id: 'examples', label: 'Composed screen' },
   ] },
+  { group: 'Assets', items: [
+    { id: 'assets', label: 'Logo' },
+    { id: 'icons', label: 'Icons' },
+  ] },
   { group: 'Components', items: [
     { id: 'buttons', label: 'Buttons' },
     { id: 'forms', label: 'Forms & inputs' },
@@ -47,6 +52,7 @@ const GROUP_META = {
   'Get started': { icon: faRocket, desc: 'What this system is and how to read it.' },
   'Foundations': { icon: faLayerGroup, desc: 'Color, typography, spacing, and elevation.' },
   'Examples': { icon: faDesktop, desc: 'A full page built from real classes, fully annotated.' },
+  'Assets': { icon: faImage, desc: 'The real logo files, and the full Font Awesome Solid set.' },
   'Components': { icon: faPuzzlePiece, desc: 'Every UI building block, as it actually renders.' },
   'Accessibility': { icon: faUniversalAccess, desc: 'WCAG 2.2 AA checklist and keyboard contract.' },
 }
@@ -85,13 +91,38 @@ const COLOR_GROUPS = [
   ] },
 ]
 
+// IMPORTANT: unlike the color/shadow tokens, the app has no shared
+// h1/h2 utility classes — every page sizes its own heading ad hoc
+// (.hi-bar h1 is 26px/700, .login-brand-copy h1 is 36px/700, .page-head
+// h1 is 22px/700, .ds-hero h1 on this very page is 38px/800 — all
+// different, all real). This table is a PROPOSED consolidated scale
+// (its ds-type-* classes live only in design-system.css, nowhere in
+// the real app) meant to replace that drift going forward — not a
+// claim that it's already what's in use. See REAL_HEADING_SIZES below
+// for what's actually shipping today.
 const TYPE_SCALE = [
-  { tag: 'H1', cls: 'ds-type-h1', size: '34px', weight: 800, use: 'Page title (one per page)' },
-  { tag: 'H2', cls: 'ds-type-h2', size: '26px', weight: 800, use: 'Section heading' },
-  { tag: 'H3', cls: 'ds-type-h3', size: '20px', weight: 700, use: 'Subsection / card group heading' },
+  { tag: 'H1', cls: 'ds-type-h1', size: '34px', weight: 800, use: 'Page title (one per page) — proposed' },
+  { tag: 'H2', cls: 'ds-type-h2', size: '26px', weight: 800, use: 'Section heading — proposed' },
+  { tag: 'H3', cls: 'ds-type-h3', size: '20px', weight: 700, use: 'Subsection / card group heading — proposed' },
   { tag: 'Body', cls: 'ds-type-p2', size: '15px', weight: 400, use: 'Body text (app default)' },
   { tag: 'Label', cls: 'ds-type-p3', size: '13.5px', weight: 600, use: 'Form labels, body-soft text' },
   { tag: 'Caption', cls: 'ds-type-caption', size: '11.5px', weight: 700, use: 'Meta text, table headers, timestamps' },
+]
+
+// Grepped directly: every real h1/h2 rule in the app's stylesheets, as
+// they exist today, with no attempt to force them into one scale.
+const REAL_HEADING_SIZES = [
+  ['h1', '.login-brand-copy h1', '36px / 700', 'Login hero'],
+  ['h1', '.ds-hero h1', '38px / 800', 'This design system’s own hero (not app UI)'],
+  ['h1', '.page-intro h1', '28px / 700', 'Enrollment intro pages'],
+  ['h1', '.hi-bar h1', '26px / 700', 'Dashboard greeting ("Hi Jordan")'],
+  ['h1', '.steps h1', '22px / 700', 'Enrollment step pages'],
+  ['h1', '.page-head h1', '22px / 700', 'Portfolio page header'],
+  ['h2', '.login-card h2', '26px / 700', 'Login card heading'],
+  ['h2', '.detail-head h2', '22px / 700', 'Plan detail page'],
+  ['h2', '.section h2', '18px / 700', 'Portfolio section heading'],
+  ['h2', '.chart-top h2', '16px / 700', 'Chart card heading'],
+  ['h2', '.overview-row .chart-top h2', '15px / 700', 'Dense chart card heading'],
 ]
 
 // Verified via grep against styles/index.css — gap: and padding: value
@@ -584,7 +615,8 @@ export default function DesignSystem() {
               </div>
             </div>
 
-            <h3 className="ds-sub">Type scale</h3>
+            <h3 className="ds-sub">Type scale — proposed</h3>
+            <p className="ds-lede">A consolidated 6-level scale. Its <code>ds-type-*</code> classes live only in this design-system stylesheet today — the app itself has no shared heading utility yet (see below).</p>
             <div className="ds-card">
               <table className="ds-type-table">
                 <thead><tr><th>Style</th><th>Usage</th><th>Size</th><th>Weight</th></tr></thead>
@@ -601,35 +633,59 @@ export default function DesignSystem() {
               </table>
             </div>
 
-            <h3 className="ds-sub">Applied in context</h3>
-            <p className="ds-lede">Where each level actually lands on a real screen — numbered markers sit next to the real text, the legend spells each one out.</p>
+            <h3 className="ds-sub">Real heading sizes today</h3>
+            <p className="ds-lede">Every h1/h2 rule that actually ships, grepped page by page — no shared scale exists yet, which is exactly the gap the proposed scale above is meant to close.</p>
+            <div className="ds-card">
+              <table className="ds-type-table">
+                <thead><tr><th>Tag</th><th>Real class</th><th>Size / weight</th><th>Where</th></tr></thead>
+                <tbody>
+                  {REAL_HEADING_SIZES.map((r, i) => (
+                    <tr key={i}><td><code>{r[0]}</code></td><td><code>{r[1]}</code></td><td>{r[2]}</td><td>{r[3]}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3 className="ds-sub">Applied in context — the real Dashboard</h3>
+            <p className="ds-lede">components/dashboard/*.jsx, assembled as it actually renders — every text size below is the real class, not the proposed scale.</p>
             <div className="ds-example-screen" style={{ maxWidth: 560 }}>
-              <div style={{ padding: '22px 24px' }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 12 }}>
+              <div className="page-body" style={{ padding: '22px 24px', background: 'var(--bg)' }}>
+                <div className="hi-bar" style={{ marginBottom: 14 }}>
                   <Dot>1</Dot>
-                  <h4 className="ds-type-h1" style={{ margin: 0, fontSize: 26 }}>Retirement plan balance</h4>
+                  <h1 style={{ display: 'inline', marginLeft: 6 }}>Hi Jordan 👋</h1>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 10 }}>
-                  <Dot>2</Dot>
-                  <h5 className="ds-type-h2" style={{ margin: 0, fontSize: 18 }}>Recent requests</h5>
-                </div>
-                <div className="table-wrap">
-                  <table className="tx-table">
-                    <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
-                    <tbody><tr><td className="ds-type-p2"><Dot>3</Dot>Rollover</td><td><span className="req-status good">Approved</span></td><td className="num ds-type-p2">$18,400.00</td></tr></tbody>
-                  </table>
-                </div>
-                <div style={{ marginTop: 12 }}>
-                  <Dot>4</Dot>
-                  <span className="ds-type-p3" style={{ color: 'var(--ink-soft)' }}>Distribution plan type</span>
-                </div>
+                <section className="overall-balance" style={{ marginBottom: 16 }}>
+                  <div className="ob-top">
+                    <div className="ob-metrics">
+                      <div className="ob-block">
+                        <div className="ob-k"><Dot>2</Dot>Account balance</div>
+                        <div className="ob-v"><Dot>3</Dot>$284,900.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section>
+                  <h2 className="section-title"><Dot>4</Dot>My plans</h2>
+                  <article className="plan-card" style={{ maxWidth: 280 }}>
+                    <div className="pc-top">
+                      <div>
+                        <h3 className="pc-name"><Dot>5</Dot>401(k) Plan</h3>
+                        <div className="pc-type"><Dot>6</Dot>Traditional</div>
+                        <div className="pc-meta"><Dot>7</Dot>Employer: Acme Corp</div>
+                      </div>
+                    </div>
+                  </article>
+                </section>
               </div>
             </div>
             <DotLegend items={[
-              'H1 · Page title · 34px/800',
-              'H2 · Section heading · 26px/800',
-              'Body · table cell text · 15px/400',
-              'Label · secondary/meta text · 13.5px/600',
+              '.hi-bar h1 · 26px/700 — the real Dashboard "page title"',
+              '.ob-k · 13px/600, --muted — small label above a figure',
+              '.ob-v · 34px/700, tabular-nums — the actual 34px use in the app (a dollar figure, not a heading)',
+              '.section-title · 16px/700 — real "section heading"',
+              '.pc-name (h3) · 15px/700 — plan card title',
+              '.pc-type · 12px/600, --brand',
+              '.pc-meta · 12px/400, --ink-soft',
             ]} />
           </section>
 
