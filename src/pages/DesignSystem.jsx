@@ -49,6 +49,15 @@ const NAV = [
     { id: 'linechart', label: 'Line chart' },
     { id: 'empty', label: 'Empty state' },
     { id: 'skeleton', label: 'Skeleton loader' },
+    { id: 'avatar', label: 'Avatar' },
+    { id: 'inline-message', label: 'Inline & error message' },
+    { id: 'panel', label: 'Panel' },
+    { id: 'page', label: 'Page' },
+    { id: 'grid', label: 'Grid & responsive' },
+    { id: 'textarea', label: 'Text area' },
+    { id: 'focus-ring', label: 'Focus ring' },
+    { id: 'breadcrumb', label: 'Breadcrumb' },
+    { id: 'datepicker', label: 'Calendar & date picker' },
   ] },
   { group: 'Accessibility', items: [
     { id: 'wcag', label: 'WCAG 2.2 AA checklist' },
@@ -2248,6 +2257,344 @@ export default function DesignSystem() {
 }
 @keyframes skeleton-pulse{ 50%{ opacity:.5 } }`}
             colors={[['Fill', '--surface-3']]}
+          />
+
+          {/* ---------------- AVATAR ---------------- */}
+          {/* Verified: styles/index.css .user-chip img (28px, line 201),
+              .user-option img (36px, line 218) — real circular avatars. */}
+          <Component
+            id="avatar" title="Avatar"
+            desc="Circular user images — .user-chip img (topbar) and .user-option img (profile menu), both object-fit:cover."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 20, justifyContent: 'center', marginBottom: 16 }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                    <Dot>1</Dot>
+                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                    <Dot>2</Dot>
+                    <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                  </div>
+                </div>
+                <DotLegend items={['.user-chip img · 28×28px — topbar', '.user-option img · 36×36px — profile menu list']} />
+                <div className="ds-spec-facts">
+                  <span><b>Shape</b> border-radius:50%</span><span><b>Fit</b> object-fit:cover</span><span><b>Fallback</b> --active-bg fill when no photo</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Avatar (styles/index.css .user-chip img / .user-option img)</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="live" title="Real sizes — topbar (28px) and menu list (36px)">
+                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--active-bg)' }} />
+              </VariantGroup>
+              <VariantGroup tag="proposed" title="A larger size for a future profile page — not built yet">
+                <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--active-bg)' }} />
+              </VariantGroup>
+            </>}
+            dos={['Always pair with a text alt/label — a photo alone identifies no one to a screen reader.']}
+            code={`<img className="user-chip-img" src={user.photo} alt={user.name}
+  style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover' }} />`}
+            colors={[['Fallback fill', '--active-bg']]}
+          />
+
+          {/* ---------------- INLINE & ERROR MESSAGE ---------------- */}
+          {/* Verified: styles/index.css .status-banner (line 1093) — the
+              real inline-message/banner pattern, with 4 real badge color
+              variants (green/amber/navy/red). role="alert" error text is
+              already covered on Forms & inputs; red .status-banner is the
+              banner-level equivalent. */}
+          <Component
+            id="inline-message" title="Inline & error message"
+            desc=".status-banner (styles/index.css) — a badge + heading + body message, in 4 real color variants."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div className="status-banner" style={{ maxWidth: 400, margin: '0 auto 16px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}><Dot>1</Dot><span className="badge red">Action needed</span></div>
+                  <div className="copy">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Dot>2</Dot><h2 style={{ margin: 0 }}>Distribution on hold</h2></div>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 6, marginTop: 4 }}><Dot>3</Dot><p style={{ margin: 0 }}>We need one more document before this can proceed.</p></div>
+                  </div>
+                </div>
+                <DotLegend items={['Badge · 12px/700 pill, 4 real color variants (green/amber/navy/red)', 'Heading (h2) · 18px/700', 'Body · 14px/400, --ink-soft']} />
+                <div className="ds-spec-facts">
+                  <span><b>Padding</b> 18px 20px</span><span><b>Radius</b> 14px</span><span><b>Elevation</b> --shadow</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Inline message (styles/index.css .status-banner, line 1093)</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="live" title=".status-banner — all 4 real badge colors">
+                <div className="status-banner" style={{ width: '100%' }}><span className="badge green">On track</span><div className="copy"><h2>Contribution confirmed</h2><p>Your latest deferral change is active.</p></div></div>
+              </VariantGroup>
+              <VariantGroup tag="live" title="Error variant — same pattern, red badge">
+                <div className="status-banner" style={{ width: '100%' }}><span className="badge red">Action needed</span><div className="copy"><h2>Distribution on hold</h2><p>We need one more document before this can proceed.</p></div></div>
+              </VariantGroup>
+            </>}
+            dos={['Use role="alert" on the banner when it appears in response to a user action, so assistive tech announces it immediately.']}
+            code={`<div className="status-banner" role="alert">
+  <span className="badge red">Action needed</span>
+  <div className="copy">
+    <h2>Distribution on hold</h2>
+    <p>We need one more document before this can proceed.</p>
+  </div>
+</div>`}
+            colors={[['Success', '--green'], ['Warning', '--amber'], ['Info', '--brand (badge.navy)'], ['Error', '--red']]}
+          />
+
+          {/* ---------------- PANEL ---------------- */}
+          {/* Verified: styles/index.css .panel (line 1112) — a real,
+              simpler card pattern distinct from .plan-card / .ds-card. */}
+          <Component
+            id="panel" title="Panel"
+            desc=".panel (styles/index.css) — a heading + body + actions card, simpler than .plan-card."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div className="panel" style={{ maxWidth: 360, margin: '0 auto 16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Dot>1</Dot><h3 style={{ margin: 0 }}>Rebalance your portfolio</h3></div>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 6, margin: '4px 0 10px' }}><Dot>2</Dot><p style={{ margin: 0 }}>Your allocations have drifted 8% from target.</p></div>
+                  <div className="actions" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>3</Dot>
+                    <button type="button" className="btn btn-primary" tabIndex={-1} style={{ width: 'auto' }}>Rebalance now</button>
+                  </div>
+                </div>
+                <DotLegend items={['Heading (h3) · 16px/700', 'Body · 14px/400, --ink-soft', '.actions · flex row, 10px gap']} />
+                <div className="ds-spec-facts">
+                  <span><b>Padding</b> 20px 22px</span><span><b>Radius</b> 14px</span><span><b>Elevation</b> --shadow</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Panel (styles/index.css .panel, line 1112)</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="live" title=".panel — heading, body, actions">
+                <div className="panel" style={{ width: '100%', maxWidth: 360 }}>
+                  <h3>Rebalance your portfolio</h3>
+                  <p>Your allocations have drifted 8% from target.</p>
+                  <div className="actions"><button type="button" className="btn btn-primary" tabIndex={-1} style={{ width: 'auto' }}>Rebalance now</button></div>
+                </div>
+              </VariantGroup>
+            </>}
+            code={`<div className="panel">
+  <h3>Rebalance your portfolio</h3>
+  <p>Your allocations have drifted 8% from target.</p>
+  <div className="actions"><button className="btn btn-primary">Rebalance now</button></div>
+</div>`}
+            colors={[['Background', '--panel'], ['Border', '--line']]}
+          />
+
+          {/* ---------------- PAGE ---------------- */}
+          {/* Verified: styles/index.css .page-body (line 330) — the real
+              page-level content wrapper every authenticated route uses. */}
+          <Component
+            id="page" title="Page"
+            desc=".page-body (styles/index.css) — the content wrapper under the topbar, used by every authenticated route."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ border: '1px dashed var(--line)', borderRadius: 8, padding: '24px 32px 32px', maxWidth: 420, margin: '0 auto 16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}><Dot>1</Dot><span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>24px top, 32px sides</span></div>
+                  <div style={{ height: 60, borderRadius: 10, background: 'var(--surface-3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: 'var(--muted)', marginBottom: 12 }}>Page content, 20px gap between sections</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Dot>2</Dot><span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>48px bottom padding</span></div>
+                </div>
+                <DotLegend items={['Padding · 24px 32px 48px (desktop)', 'Responsive · 22px 18px 40px at ≤980px, 16px 14px 32px at ≤640px']} />
+                <div className="ds-spec-facts">
+                  <span><b>Layout</b> flex column</span><span><b>Gap between sections</b> 20px</span><span><b>Max-width</b> none — fills the routed area</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Page wrapper (styles/index.css .page-body, line 330)</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="live" title=".page-body — every authenticated route's outer wrapper">
+                <div className="page-body" style={{ width: '100%', border: '1px solid var(--line)', borderRadius: 12 }}>
+                  <div className="hi-bar"><h1 style={{ fontSize: 20 }}>Hi Jordan 👋</h1></div>
+                  <div style={{ height: 50, borderRadius: 10, background: 'var(--surface-3)' }} />
+                </div>
+              </VariantGroup>
+            </>}
+            code={`<div className="page-body">
+  <div className="hi-bar"><h1>Hi Jordan 👋</h1></div>
+  {/* page sections, 20px gap */}
+</div>`}
+          />
+
+          {/* ---------------- GRID & RESPONSIVE ---------------- */}
+          {/* Verified: grep of every @media(max-width:...) breakpoint
+              actually used across the stylesheets. No single shared
+              breakpoint list/variable exists — each page picks its own,
+              documented here as the real, if inconsistent, set. */}
+          <Component
+            id="grid" title="Grid & responsive"
+            desc="No shared breakpoint scale exists — every real @media(max-width:...) value used across the app's stylesheets, grepped directly."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div className="ds-card" style={{ maxWidth: 420, margin: '0 auto' }}>
+                  <table className="ds-type-table">
+                    <thead><tr><th>Breakpoint</th><th>Common use</th></tr></thead>
+                    <tbody>
+                      <tr><td><code>420px</code></td><td>Smallest phones — tightest layouts</td></tr>
+                      <tr><td><code>480px</code></td><td>Phone-width form/card stacking</td></tr>
+                      <tr><td><code>520px</code></td><td>Narrow card/table collapse</td></tr>
+                      <tr><td><code>640px</code></td><td>Page padding reduction (.page-body)</td></tr>
+                      <tr><td><code>760px</code></td><td>Two-column → one-column layout shift</td></tr>
+                      <tr><td><code>980px</code></td><td>Sidebar/main content stacking (.page-body)</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="ds-anatomy-caption" style={{ marginTop: 12 }}>Grepped from every @media(max-width:...) rule in styles/index.css</p>
+              </div>
+            }
+            dos={['Reach for one of these 6 real values when adding a new breakpoint, rather than picking an arbitrary new number.']}
+            donts={["Don't assume a shared responsive grid system (e.g. a 12-column grid) exists — layouts are hand-built per page with flexbox/CSS grid, not a shared utility."]}
+            code={`@media(max-width: 980px){ /* sidebar/main stack */ }
+@media(max-width: 760px){ /* two-column → one-column */ }
+@media(max-width: 640px){ /* page padding shrinks */ }`}
+          />
+
+          {/* ---------------- TEXT AREA ---------------- */}
+          {/* No dedicated .textarea class exists — only the global
+              textarea:focus-visible rule (line 1676). Proposed here using
+              the real .txn-field input's padding/radius/border as the base,
+              since that's the closest real analog. */}
+          <Component
+            id="textarea" title="Text area"
+            desc="Not built as its own class — only a global textarea:focus-visible rule exists. Proposed here using the real .txn-field input's padding/radius/border as the base."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                    <Dot>1</Dot>
+                    <textarea readOnly value="Additional notes for this request..." rows={3} style={{ minHeight: 80, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', width: 220, resize: 'vertical' }} />
+                  </div>
+                </div>
+                <DotLegend items={['Border/radius/padding match .txn-field input exactly — proposed, not yet a real class']} />
+                <p className="ds-anatomy-caption">a. Text area — proposed, not a real class</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="proposed" title="Matches .txn-field input styling — not yet a real class">
+                <textarea placeholder="Additional notes..." rows={3} style={{ minHeight: 80, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', width: 240, resize: 'vertical' }} />
+              </VariantGroup>
+            </>}
+            donts={["Don't assume a .textarea class exists to reach for — build one from .txn-field input's real values before shipping a multi-line field."]}
+            code={`<textarea className="txn-field-textarea" rows={3}
+  placeholder="Additional notes..." />
+/* proposed CSS, matching .txn-field input: */
+.txn-field-textarea{ border:1px solid var(--line); border-radius:9px; padding:8px 12px; }`}
+          />
+
+          {/* ---------------- FOCUS RING ---------------- */}
+          {/* Verified: styles/index.css line 1674-1679 — the real global
+              focus-visible rule shared by input/select/textarea/
+              [tabindex]/summary. Buttons/links use per-component rules
+              (already documented on their own pages) that follow the
+              same 2px --brand pattern. */}
+          <Component
+            id="focus-ring" title="Focus ring"
+            desc="A global :focus-visible rule (styles/index.css line 1674) plus per-component rules — all converge on the same 2px --brand outline."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>1</Dot>
+                    <input readOnly value="Focused field" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', outline: '2px solid var(--brand)', outlineOffset: 2 }} />
+                  </div>
+                </div>
+                <DotLegend items={['2px solid --brand outline, 2px offset (some components use -2px inset instead — see each component\'s own page)']} />
+                <div className="ds-spec-facts">
+                  <span><b>Width</b> 2px</span><span><b>Color</b> --brand</span><span><b>Selector</b> :focus-visible only, never plain :focus</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Focus ring (styles/index.css, line 1674)</p>
+              </div>
+            }
+            dos={['Always use :focus-visible, not :focus — a mouse click should never show the keyboard ring.']}
+            donts={["Don't remove the outline without replacing it — every interactive element must show some visible focus indicator (WCAG 2.4.7)."]}
+            code={`input:focus-visible, select:focus-visible, textarea:focus-visible,
+[tabindex]:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--brand);
+}`}
+            colors={[['Ring', '--brand']]}
+          />
+
+          {/* ---------------- BREADCRUMB ---------------- */}
+          {/* No breadcrumb class or usage exists anywhere in the app
+              (grepped: zero "breadcrumb" hits). Fully proposed, built
+              from real typography/color tokens only. */}
+          <Component
+            id="breadcrumb" title="Breadcrumb"
+            desc="Not built anywhere in the app (grep-verified: zero real usages) — fully proposed, using real typography and color tokens."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+                  <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>1</Dot>
+                    <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 13, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
+                    <Dot>2</Dot>
+                    <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
+                    <Dot>3</Dot>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
+                  </nav>
+                </div>
+                <DotLegend items={['Link · 13px/700, --brand', 'Separator · 10px chevron, --muted', 'Current page · 13px/700, --ink-soft, aria-current="page"']} />
+                <p className="ds-anatomy-caption">a. Breadcrumb — proposed, not a real component</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="proposed" title="Not built anywhere — proposed, using real .text-link color">
+                <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 13, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Dashboard</a>
+                  <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
+                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 13, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
+                  <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
+                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
+                </nav>
+              </VariantGroup>
+            </>}
+            dos={['Mark the current page with aria-current="page" — never just style it differently.']}
+            code={`<nav aria-label="Breadcrumb">
+  <a href="/dashboard">Dashboard</a>
+  <a href="/transactions">Transactions</a>
+  <span aria-current="page">Rollover request</span>
+</nav>`}
+            colors={[['Link', '--brand'], ['Current page', '--ink-soft']]}
+          />
+
+          {/* ---------------- CALENDAR & DATE PICKER ---------------- */}
+          {/* No calendar/date-picker component exists anywhere in the app
+              (grepped: zero "calendar"/"datepicker" hits, and no <input
+              type="date"> found either). Fully proposed. */}
+          <Component
+            id="datepicker" title="Calendar & date picker"
+            desc="Not built anywhere in the app (grep-verified: no calendar/date-picker markup or styling exists) — fully proposed, using real form-field and card tokens."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>1</Dot>
+                    <input readOnly value="09/02/2026" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', width: 140 }} />
+                  </div>
+                </div>
+                <DotLegend items={['Field · same as .txn-field input — proposed, no real date-field class exists']} />
+                <p className="ds-anatomy-caption">a. Date field — proposed, not a real component</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="proposed" title="Field styled like .txn-field input; calendar popover fully proposed">
+                <input readOnly value="09/02/2026" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', width: 140 }} />
+                <div className="ds-card" style={{ width: 220, padding: 12 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: 4, fontSize: 11, textAlign: 'center' }}>
+                    {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => <span key={i} style={{ color: 'var(--muted)', fontWeight: 700 }}>{d}</span>)}
+                    {Array.from({ length: 30 }, (_, i) => (
+                      <span key={i} style={{ padding: '4px 0', borderRadius: 6, background: i === 1 ? 'var(--brand-fill)' : 'transparent', color: i === 1 ? '#fff' : 'var(--ink)' }}>{i + 1}</span>
+                    ))}
+                  </div>
+                </div>
+              </VariantGroup>
+            </>}
+            donts={["Don't reach for a calendar library's default styling unchanged — none is installed yet, and this app has no established visual pattern for one. Design it from these tokens first."]}
+            code={`/* Proposed — no real component exists yet */
+<input className="date-field" type="text" readOnly value="09/02/2026" />
+{/* calendar popover: .ds-card-style panel, 7-column day grid */}`}
+            colors={[['Selected day', '--brand-fill'], ['Field', 'matches .txn-field input']]}
           />
 
           {/* ---------------- WCAG ---------------- */}
