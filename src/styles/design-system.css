@@ -161,8 +161,17 @@
 .ds-spec-tick{background:var(--line-strong)}
 .ds-spec-top .ds-spec-tick,.ds-spec-bottom .ds-spec-tick{width:1px;height:14px}
 .ds-spec-left .ds-spec-tick,.ds-spec-right .ds-spec-tick{width:14px;height:1px}
-.ds-spec-bottom{flex-direction:column-reverse}
+/* Each cell's DOM order is always [tick, label, value] — the
+   flex-direction below is what puts the tick on the side that actually
+   touches the real nav item, not floating away from it. Was backwards:
+   .ds-spec-top used the plain column order (tick ends up farthest from
+   the box, at the top), .ds-spec-bottom was reversed (tick ends up
+   farthest from the box, at the bottom) — exactly inverted — and
+   .ds-spec-right had no rule at all, so it fell back to a vertical
+   stack instead of sitting beside the box like .ds-spec-left. */
+.ds-spec-top{flex-direction:column-reverse}
 .ds-spec-left{flex-direction:row-reverse}
+.ds-spec-right{flex-direction:row}
 .ds-spec-facts{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;padding-top:6px;border-top:1px solid var(--line);width:100%;max-width:420px}
 .ds-spec-facts span{font-size:11.5px;color:var(--ink-soft)}
 .ds-spec-facts b{color:var(--ink);font-weight:700}

@@ -180,16 +180,21 @@ const COLOR_GROUPS = [
 // down to the smallest (table header labels). "ds-type-h1" etc. are this
 // page's own consolidation proposal for future use — marked as such,
 // never implied to already be in use.
+// Proposed sizes are a deliberate even-number-only ladder (12/14/16/20/26/
+// 34/44 — every step even, no decimals) so the scale itself is clean;
+// the messy real range (odd numbers, .5px steps — genuinely how the app
+// ships today, grepped, not invented) is kept as a separate reference
+// column rather than blended into the same pill.
 const TYPE_SCALE = [
-  { role: 'Display', size: '44px', weight: 800, cls: null, real: ['.rr2-hero-copy b — readiness score figure'], proposed: null },
+  { role: 'Display', size: '44px', weight: 800, cls: null, real: ['.rr2-hero-copy b — readiness score figure'], proposed: '44px / 800' },
   { role: 'H1 (page title)', size: '22–38px', weight: '700–800', cls: 'ds-type-h1 (proposed, 34px/800)', real: ['.login-brand-copy h1 · 36/700', '.hi-bar h1 · 26/700 (Dashboard)', '.page-head h1 · 22/700 (Portfolio)'], proposed: '34px / 800' },
   { role: 'H2 (section heading)', size: '15–26px', weight: 700, cls: 'ds-type-h2 (proposed, 26px/800)', real: ['.login-card h2 · 26/700', '.section-title · 16/700 (Dashboard)', '.chart-top h2 · 16/700'], proposed: '26px / 800' },
   { role: 'H3 (card title)', size: '15–20px', weight: 700, cls: 'ds-type-h3 (proposed, 20px/700)', real: ['.pc-name (PlanCard h3) · 15/700', '.summary .head h4 · 16/600'], proposed: '20px / 700' },
-  { role: 'Body', size: '13–15px', weight: '400–600', cls: 'ds-type-p2 (proposed, 14px/400)', real: ['table cells (.tx-table td) · 13.5/400', '.pr-intro · 14.5/500'], proposed: '14px / 400' },
-  { role: 'Label', size: '12–13.5px', weight: 600, cls: 'ds-type-p3 (proposed, 13px/600)', real: ['.ob-k · 13/600', 'form labels (.txn-field label) · 12.5/700'], proposed: '13px / 600' },
+  { role: 'Body', size: '13–15px', weight: '400–600', cls: 'ds-type-p2 (proposed, 16px/400)', real: ['table cells (.tx-table td) · 13.5/400', '.pr-intro · 14.5/500'], proposed: '16px / 400' },
+  { role: 'Label', size: '12–13.5px', weight: 600, cls: 'ds-type-p3 (proposed, 14px/600)', real: ['.ob-k · 13/600', 'form labels (.txn-field label) · 12.5/700'], proposed: '14px / 600' },
   { role: 'Caption / micro', size: '9–12px', weight: 700, cls: 'ds-type-caption (proposed, 12px/700)', real: ['.pc-type · 12/600', '.plan-badge · 11/700', 'table headers (.tx-table th) · 12/700'], proposed: '12px / 700' },
-  { role: 'Overline / eyebrow', size: '11–13px', weight: '700–800', cls: null, real: ['.eyebrow · 11–13px/600–800, uppercase (5 different page-scoped rules)', '.learn2-tag · 9.5/700, uppercase pill'], proposed: '12px / 800, uppercase, .4px tracking' },
-  { role: 'Button label', size: '14–15px', weight: 700, cls: null, real: ['.btn · 14/700 (line 1116)', '.step .body h3 as a step title · 15/600'], proposed: '14px / 700 — matches .btn exactly, already consistent' },
+  { role: 'Overline / eyebrow', size: '11–13px', weight: '700–800', cls: null, real: ['.eyebrow · 11–13px/600–800, uppercase (5 different page-scoped rules)', '.learn2-tag · 9.5/700, uppercase pill'], proposed: '12px / 800, uppercase, 2px tracking' },
+  { role: 'Button label', size: '14–15px', weight: 700, cls: null, real: ['.btn · 14/700 (line 1116)', '.step .body h3 as a step title · 15/600'], proposed: '14px / 700' },
 ]
 
 // Full token spec, one row per role: name, family, size, weight, line
@@ -209,8 +214,8 @@ const TYPE_TOKENS = [
   { name: 'H1 / Page title', family: 'Inclusive Sans', size: '34px (proposed) · real range 22–38px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px (proposed) · real -.4px (.hi-bar h1)', case: 'None' },
   { name: 'H2 / Section heading', family: 'Inclusive Sans', size: '26px (proposed) · real range 15–26px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px (proposed) · real -.2px (.section-title)', case: 'None' },
   { name: 'H3 / Card title', family: 'Inclusive Sans', size: '20px (proposed) · real range 15–20px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px (proposed) · real -.2px (.pc-name)', case: 'None' },
-  { name: 'Body', family: 'Inclusive Sans', size: '14px (proposed) · real range 13–15px', weight: 400, lineHeight: 'default (~1.4, not set)', letterSpacing: '0px', case: 'None' },
-  { name: 'Label', family: 'Inclusive Sans', size: '13px (proposed) · real range 12–13.5px', weight: 600, lineHeight: 'default (~1.3, not set)', letterSpacing: '0px', case: 'None' },
+  { name: 'Body', family: 'Inclusive Sans', size: '16px (proposed) · real range 13–15px', weight: 400, lineHeight: 'default (~1.4, not set)', letterSpacing: '0px', case: 'None' },
+  { name: 'Label', family: 'Inclusive Sans', size: '14px (proposed) · real range 12–13.5px', weight: 600, lineHeight: 'default (~1.3, not set)', letterSpacing: '0px', case: 'None' },
   { name: 'Caption / micro', family: 'Inclusive Sans', size: '12px (proposed) · real range 9–12px', weight: 700, lineHeight: 'default (~1.3, not set)', letterSpacing: '0px', case: 'None' },
   { name: 'Overline / eyebrow', family: 'Inclusive Sans', size: '12px (proposed) · real range 11–13px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '2px (proposed) · real .3–.8px (.eyebrow, varies by page)', case: 'UPPERCASE (real: text-transform)' },
   { name: 'Button label', family: 'Inclusive Sans', size: '14px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px', case: 'None' },
@@ -888,14 +893,14 @@ export default function DesignSystem() {
             </p>
             <div className="ds-card">
               <table className="ds-type-table">
-                <thead><tr><th>Role</th><th>Real range today</th><th>Real classes (examples)</th><th>Proposed standard</th></tr></thead>
+                <thead><tr><th>Role</th><th>Proposed standard (even px, no decimals)</th><th>Real classes today</th><th>Real range</th></tr></thead>
                 <tbody>
                   {TYPE_SCALE.map((t) => (
                     <tr key={t.role}>
                       <td><b>{t.role}</b></td>
-                      <td><code>{t.size}</code> / <code>{t.weight}</code></td>
+                      <td><code>{t.proposed}</code></td>
                       <td style={{ fontSize: 12.5 }}>{t.real.map((r, i) => <div key={i}><code>{r}</code></div>)}</td>
-                      <td>{t.proposed ? <code>{t.proposed}</code> : <span style={{ color: 'var(--muted)' }}>—</span>}</td>
+                      <td style={{ fontSize: 12.5, color: 'var(--muted)' }}><code>{t.size}</code> / <code>{t.weight}</code></td>
                     </tr>
                   ))}
                 </tbody>
