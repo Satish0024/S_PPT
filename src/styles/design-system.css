@@ -188,5 +188,14 @@
 .ds-space-row{display:flex;align-items:center;gap:14px;padding:8px 0}
 .ds-space-bar{background:var(--brand);height:14px;border-radius:3px}
 
+/* ---------- Composed example screen (Examples section) ---------- */
+.ds-example-screen{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg);box-shadow:var(--shadow-lg)}
+.ds-example-body{display:flex;min-height:360px}
+.ds-example-main{flex:1;min-width:0;padding:20px 24px;background:var(--bg)}
+.ds-example-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.ds-example-pin{position:absolute;pointer-events:none;z-index:2}
+.ds-example-pin .ds-pin{box-shadow:0 2px 8px rgba(0,0,0,.25)}
+@media(max-width:820px){.ds-example-pin{display:none}.ds-example-body{flex-direction:column}}
+
 @media(max-width:900px){.ds-nav{display:none}.ds-main{padding:0 18px 80px}}
 @media(max-width:640px){.ds-top{height:auto;flex-wrap:wrap;padding:12px 16px;gap:8px}.ds-meta{margin-left:0;width:100%;justify-content:space-between}}

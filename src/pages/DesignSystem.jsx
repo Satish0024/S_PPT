@@ -24,6 +24,9 @@ const NAV = [
     { id: 'space', label: 'Spacing & radius' },
     { id: 'elevation', label: 'Shadows' },
   ] },
+  { group: 'Examples', items: [
+    { id: 'examples', label: 'Composed screen' },
+  ] },
   { group: 'Components', items: [
     { id: 'buttons', label: 'Buttons' },
     { id: 'forms', label: 'Forms & inputs' },
@@ -43,6 +46,7 @@ const NAV = [
 const GROUP_META = {
   'Get started': { icon: faRocket, desc: 'What this system is and how to read it.' },
   'Foundations': { icon: faLayerGroup, desc: 'Color, typography, spacing, and elevation.' },
+  'Examples': { icon: faDesktop, desc: 'A full page built from real classes, fully annotated.' },
   'Components': { icon: faPuzzlePiece, desc: 'Every UI building block, as it actually renders.' },
   'Accessibility': { icon: faUniversalAccess, desc: 'WCAG 2.2 AA checklist and keyboard contract.' },
 }
@@ -535,6 +539,78 @@ export default function DesignSystem() {
             <div className="ds-usage-grid" style={{ padding: '20px 0 0' }}>
               <div className="ds-usage-box do"><span className="ds-usage-badge"><Icon icon={faCheck} size={12} /></span><p>Use --shadow for anything resting in the normal document flow (cards, panels).</p></div>
               <div className="ds-usage-box dont"><span className="ds-usage-badge"><Icon icon={faXmark} size={12} /></span><p>Don't invent a third, custom shadow value — only these two exist; a one-off box-shadow breaks the elevation system's meaning.</p></div>
+            </div>
+          </section>
+
+          {/* ---------------- EXAMPLES (composed screen) ---------------- */}
+          {/* One real page assembled from the exact same classes documented
+              below (.topbar, .nav, .tx-table, .req-status, .btn-primary,
+              type scale classes) so color, typography, and component
+              choices can be seen together the way the reference Figma
+              file's Usage tabs show them, not just in isolation. */}
+          <section id="examples" className="ds-section">
+            <h2>Composed screen</h2>
+            <p className="ds-lede">
+              A Transactions-style page assembled entirely from the classes documented on this
+              page — nothing here is a one-off mockup style. Pins call out which foundation or
+              component produced each piece.
+            </p>
+            <div className="ds-example-screen">
+              <header className="topbar" style={{ borderRadius: '12px 12px 0 0' }}>
+                <div className="brand"><div style={{ height: 24, width: 92, borderRadius: 4, background: 'var(--surface-3)' }} /></div>
+                <div className="top-right">
+                  <button type="button" className="icon-btn" aria-label="Switch theme" tabIndex={-1}><Icon icon={faMoon} size={18} /></button>
+                  <div className="user-chip">
+                    <div style={{ width: 26, height: 26, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                    <span className="chip-text"><span className="chip-name">Jordan Lee</span></span>
+                    <Icon icon={faChevronDown} size={13} className="chev" />
+                  </div>
+                </div>
+              </header>
+              <div className="ds-example-body">
+                <nav className="nav" aria-label="Primary (example)" style={{ position: 'static', width: 92, flex: '0 0 92px', borderRight: '1px solid var(--line)' }}>
+                  <a href="#examples" onClick={(e) => e.preventDefault()} className="active">
+                    <span className="ico" aria-hidden="true"><Icon icon={faGear} size={19} /></span>
+                    <span className="nav-label">Dashboard</span>
+                  </a>
+                  <a href="#examples" onClick={(e) => e.preventDefault()}>
+                    <span className="ico" aria-hidden="true"><Icon icon={faPrint} size={19} /></span>
+                    <span className="nav-label">Reports</span>
+                  </a>
+                </nav>
+                <div className="ds-example-main">
+                  <div className="ds-example-row">
+                    <h1 className="ds-type-h1" style={{ fontSize: 24, margin: 0 }}>Retirement plan balance</h1>
+                    <button type="button" className="btn btn-primary" tabIndex={-1}>New request</button>
+                  </div>
+                  <div style={{ padding: '16px 20px', borderRadius: 14, background: 'var(--panel)', border: '1px solid var(--line)', boxShadow: 'var(--shadow)', marginBottom: 18 }}>
+                    <span className="ds-type-p3" style={{ color: 'var(--ink-soft)' }}>Total balance</span>
+                    <div style={{ fontSize: 22, fontWeight: 800, marginTop: 4 }}>$284,900.00</div>
+                  </div>
+                  <h2 className="ds-type-h2" style={{ fontSize: 16, margin: '0 0 10px' }}>Recent requests</h2>
+                  <div className="table-wrap">
+                    <table className="tx-table">
+                      <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
+                      <tbody>
+                        <tr><td>Rollover</td><td><span className="req-status good">Approved</span></td><td className="num">$18,400.00</td></tr>
+                        <tr><td>Rebalance</td><td><span className="req-status ok">Pending</span></td><td className="num">—</td></tr>
+                        <tr><td>Distribution</td><td><span className="req-status warn">Action needed</span></td><td className="num">$2,000.00</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              {/* Pins, positioned over the composed screen above */}
+              <div className="ds-example-pin" style={{ top: 14, left: 110 }}><span className="ds-pin">.topbar · --panel bg, sticky</span></div>
+              <div className="ds-example-pin" style={{ top: 90, left: 8 }}><span className="ds-pin">.nav a.active · --brand / --active-bg</span></div>
+              <div className="ds-example-pin" style={{ top: 68, left: 130 }}><span className="ds-pin">H1 · 34px/800</span></div>
+              <div className="ds-example-pin" style={{ top: 68, right: 20 }}><span className="ds-pin">.btn-primary · --brand-fill</span></div>
+              <div className="ds-example-pin" style={{ top: 150, left: 130 }}><span className="ds-pin">--shadow · resting card</span></div>
+              <div className="ds-example-pin" style={{ top: 205, left: 130 }}><span className="ds-pin">H2 · 26px/800</span></div>
+              <div className="ds-example-pin" style={{ top: 250, left: 250 }}><span className="ds-pin">.req-status.good · --green/--green-bg</span></div>
+              <div className="ds-example-pin" style={{ top: 285, left: 250 }}><span className="ds-pin">.req-status.warn · --red/--red-bg</span></div>
+              <div className="ds-example-pin" style={{ top: 267, left: 130 }}><span className="ds-pin">tbody even row · --surface-2</span></div>
             </div>
           </section>
 
