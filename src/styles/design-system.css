@@ -107,7 +107,10 @@
    Scoped so this demo shows buttons at their real auto width without
    papering over the underlying app bug (documented in the Buttons Usage
    tab instead of silently fixed). */
-.ds-demo-row .btn,.ds-variant-row .btn{width:auto}
+/* .ds-demo-row .btn / .ds-variant-row .btn width:auto override removed —
+   no longer needed. It existed only to work around enrollment.css's
+   unscoped .btn{width:100%} bug, which has since been fixed at the
+   source (scoped to .summary .foot .btn). */
 
 .ds-code-wrap{position:relative}
 .ds-code{margin:0;padding:16px 20px;background:#12131f;color:#dfe3ff;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12.5px;line-height:1.6;overflow-x:auto;white-space:pre}
@@ -214,6 +217,22 @@
 .ds-swatch-meta b{display:block;font-size:12px;font-weight:700}
 .ds-swatch-meta span{display:block;font-size:11px;color:var(--muted);font-family:ui-monospace,monospace}
 .ds-swatch-hex{color:var(--ink-soft) !important;font-weight:700;text-transform:uppercase;margin-top:2px}
+
+/* ---------- Asset cards (Logo) ---------- */
+.ds-asset-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.ds-asset-card{padding:0;overflow:hidden}
+.ds-asset-preview{padding:28px 20px;display:grid;place-items:center;min-height:80px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.ds-asset-preview img{max-width:100%;max-height:44px}
+.ds-asset-preview.dark{background:#12141f}
+.ds-asset-meta{padding:12px 14px}
+.ds-asset-meta b{display:block;font-size:13px;font-weight:700;margin-bottom:3px}
+.ds-asset-meta > span{display:block;font-size:11.5px;color:var(--ink-soft);margin-bottom:8px}
+
+/* ---------- Icon grid (Icons) ---------- */
+.ds-icon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;max-height:640px;overflow-y:auto;padding:4px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.ds-icon-cell{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border:1px solid transparent;border-radius:8px;background:none;cursor:pointer;color:var(--ink);font:inherit}
+.ds-icon-cell:hover{background:var(--surface-2);border-color:var(--line)}
+.ds-icon-cell span{font-size:9.5px;color:var(--muted);font-family:ui-monospace,monospace;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 
 /* ---------- Typography / token table ---------- */
 .ds-type-table{width:100%;border-collapse:collapse}

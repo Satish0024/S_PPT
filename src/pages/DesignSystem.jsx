@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import {
   faArrowRight, faCheck, faChevronDown, faCopy, faDesktop, faGear, faLayerGroup, faMagnifyingGlass,
   faMoon, faPenRuler, faPrint, faPuzzlePiece, faRocket, faSun, faTriangleExclamation,
@@ -146,6 +145,26 @@ const RADIUS_SCALE = [
   [16, 'Dialogs and modals — .confirm-dialog, .txn-success-modal (line 1527)'],
   [999, 'Pills — .req-status badges, .a11y-switch track (fully rounded)'],
 ]
+
+// The real logo files this app actually ships and references — via
+// config/brand.js only, never hardcoded per-component. No illustrations:
+// this app has none in /public; only the logo lockups and the CORE mark
+// this design-system page itself uses in its own header.
+const LOGO_ASSETS = [
+  ['Logo lockup — light surfaces', '/logo-lockup-light.svg', 'config/brand.js BRAND.logo — topbar, login card'],
+  ['Logo lockup — dark surfaces', '/logo-lockup-dark.svg', 'config/brand.js BRAND.logoOnDark — login hero panel'],
+  ['CORE mark — light', '/core-logo.svg', "This design system's own header, light theme"],
+  ['CORE mark — dark', '/core-logo-dark.svg', "This design system's own header, dark theme"],
+]
+
+// Every icon Font Awesome (Free, Solid) ships — not a curated subset —
+// so a future need never has to go find and add a new icon package.
+// Pulled programmatically from the installed package rather than typed
+// out by hand, so it can never silently drift from what's installed.
+const ALL_SOLID_ICONS = Object.keys(fasIcons)
+  .filter((k) => k !== 'fas' && k !== 'prefix' && fasIcons[k] && fasIcons[k].iconName)
+  .map((k) => [k, fasIcons[k]])
+  .sort((a, b) => a[0].localeCompare(b[0]))
 
 const WCAG_CHECKS = [
   ['1.4.3', 'Contrast (Minimum)', 'Text vs. background meets 4.5:1 in both themes.'],
@@ -443,7 +462,9 @@ export default function DesignSystem() {
             <Icon icon={theme === 'dark' ? faSun : faMoon} size={16} />
             <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
           </button>
-          <Link to="/" className="ds-back">← Back to app</Link>
+          <a href="https://github.com/Satish0024/S_PPT/issues" target="_blank" rel="noreferrer" className="ds-back">
+            <Icon icon={faTriangleExclamation} size={13} /> Raise an issue
+          </a>
         </div>
       </header>
 
@@ -906,6 +927,57 @@ export default function DesignSystem() {
             </ol>
           </section>
 
+          {/* ---------------- ASSETS (logo only — no illustrations exist) ---------------- */}
+          <section id="assets" className="ds-section">
+            <h2>Logo</h2>
+            <p className="ds-lede">
+              The real files this app ships in <code>/public</code>, referenced only through{' '}
+              <code>config/brand.js</code> — component code never hardcodes a filename or brand
+              name, so a rebrand only has to swap these files, not touch JSX. No illustrations or
+              stock imagery exist in this app.
+            </p>
+            <div className="ds-asset-grid">
+              {LOGO_ASSETS.map(([name, src, use]) => (
+                <div key={src} className="ds-card ds-asset-card">
+                  <div className={`ds-asset-preview${src.includes('dark') ? ' dark' : ''}`}>
+                    <img src={src} alt={name} onError={(e) => { e.currentTarget.style.display = 'none' }} />
+                  </div>
+                  <div className="ds-asset-meta">
+                    <b>{name}</b>
+                    <span>{use}</span>
+                    <button type="button" className="ds-hex-cell" onClick={() => copyToClipboard(src)} title="Copy path">
+                      <code>{src}</code><Icon icon={faCopy} size={11} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ---------------- ICONS ---------------- */}
+          <section id="icons" className="ds-section">
+            <h2>Icons</h2>
+            <p className="ds-lede">
+              Font Awesome (Free, Solid) — the icon set adopted for this system, replacing the
+              app's earlier <code>lucide-react</code> icons. Every icon the package ships is listed
+              below, {ALL_SOLID_ICONS.length} in total, including ones not yet used anywhere in the
+              app — so a future need is a copy-paste away, not a new dependency. Click any icon to
+              copy its import name.
+            </p>
+            <div className="ds-icon-grid">
+              {ALL_SOLID_ICONS.map(([name, def]) => (
+                <button key={name} type="button" className="ds-icon-cell" onClick={() => copyToClipboard(name)} title={`Copy "${name}"`}>
+                  <Icon icon={def} size={18} />
+                  <span>{name.replace(/^fa/, '')}</span>
+                </button>
+              ))}
+            </div>
+            <div className="ds-usage-grid" style={{ padding: '16px 0 0' }}>
+              <div className="ds-usage-box do"><span className="ds-usage-badge"><Icon icon={faCheck} size={12} /></span><p>Icon-only controls must carry their own aria-label — the icon has no accessible name by itself.</p></div>
+              <div className="ds-usage-box do"><span className="ds-usage-badge"><Icon icon={faCheck} size={12} /></span><p>Icons paired with a visible text label need no extra markup.</p></div>
+            </div>
+          </section>
+
           {/* ---------------- BUTTONS ---------------- */}
           {/* Verified: styles/index.css .btn (11px 16px padding, radius 10px,
               14px/700 font — line 1116), .btn-primary/.btn-secondary/.btn-ghost
@@ -942,12 +1014,6 @@ export default function DesignSystem() {
               </div>
             }
             demo={<>
-              <VariantGroup tag="bug" title="How .btn-primary actually renders on most real pages today">
-                <div style={{ flex: '0 0 300px', width: 300 }}>
-                  <button type="button" className="btn btn-primary" style={{ width: '100%' }}>Submit request</button>
-                  <p style={{ fontSize: 11.5, color: 'var(--ink-soft)', margin: '8px 0 0' }}>enrollment.css's global .btn{'{'}width:100%{'}'} — see Usage tab.</p>
-                </div>
-              </VariantGroup>
               <VariantGroup tag="live" title="styles/index.css + enrollment.css — every button class actually in the app">
                 <button type="button" className="btn btn-primary">Primary</button>
                 <button type="button" className="btn btn-secondary">Secondary</button>
@@ -970,7 +1036,6 @@ export default function DesignSystem() {
             dos={['Give every icon-only button an aria-label.', 'Keep one primary button per view.']}
             donts={[
               "Don't combine .btn with .btn-sm — .btn-sm is dead CSS with zero real usages and its own padding loses the cascade to .btn.",
-              "Don't assume a page-scoped stylesheet (enrollment.css, transactions.css, etc.) only applies on that page — Vite bundles every statically-imported CSS file into one global stylesheet. enrollment.css's own .btn{width:100%} is live everywhere, all the time, including here, and wins over index.css's .btn on whichever loaded later.",
               "Don't treat the \"Proposed\" row as existing CSS — Destructive/Small/Large/Loading are inline-styled mockups for a variant that hasn't been built. Add a real .btn-danger / .btn-sm-v2 / .btn-lg / .btn-loading class before using one in a page.",
             ]}
             code={`<button type="button" className="btn btn-primary">Save changes</button>
@@ -978,13 +1043,14 @@ export default function DesignSystem() {
 <button type="button" className="icon-btn" aria-label="Print"><Icon icon={faPrint} /></button>`}
             colors={[['Brand fill', '--brand-fill'], ['Brand dark (hover)', '--brand-dark'], ['Line', '--line']]}
             extra={
-              <div className="ds-panel-row donts" style={{ borderTop: '1px solid var(--line)', padding: '14px 20px', fontSize: 13, lineHeight: 1.6 }}>
-                <b>Real bug found while building this page — </b> these standard buttons render full-width
-                by default. Root cause: <code>enrollment.css</code> (imported by <code>PlanDetails.jsx</code> and
-                <code> EnrollmentLayout.jsx</code>) defines its own <code>.btn{'{'}width:100%{'}'}</code>. Because
+              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '14px 20px', fontSize: 13, lineHeight: 1.6 }}>
+                <b style={{ color: 'var(--green)' }}>Fixed — </b> these buttons used to render full-width on most
+                real pages by default. Root cause: <code>enrollment.css</code>'s <code>.summary .foot</code>{' '}
+                button block was written as a bare, unscoped <code>.btn{'{'}width:100%{'}'}</code> rule. Because
                 every page component is statically imported from <code>App.jsx</code>, Vite bundles that CSS
-                globally — it is not actually scoped to enrollment pages, despite living in a file named for
-                them. The demo above works around it with a scoped override; the app itself does not.
+                globally, so the unscoped rule silently overrode <code>index.css</code>'s real <code>.btn</code>{' '}
+                everywhere, not just inside the summary panel it was meant for. Fixed by scoping both duplicate
+                copies of the rule to <code>.summary .foot .btn</code>, where they were always meant to apply.
               </div>
             }
           />

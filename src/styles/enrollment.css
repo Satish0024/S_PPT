@@ -273,10 +273,17 @@
   .sumrow.total .amt{color:var(--brand);font-size:19px}
   .sumrow .plus{color:var(--green)}
   .summary .foot{padding:18px 22px}
-  .btn{border:none;border-radius:10px;padding:13px 20px;font-weight:700;font-size:15px;cursor:pointer;transition:.15s;width:100%}
-  .btn-primary{background:var(--brand-fill);color:#fff}
-  .btn-primary:hover{background:var(--brand-dark)}
-  .btn-primary:active{transform:translateY(1px)}
+  /* Scoped to .summary .foot — this file's .btn used to be a bare,
+     unscoped selector that set width:100% globally. Because every page
+     component is statically imported from App.jsx, Vite bundles this
+     CSS file everywhere regardless of route, so the unscoped rule was
+     silently winning over index.css's real, non-full-width .btn on
+     every page in the app, not just here. Scoping it fixes that without
+     touching the intended full-width "Continue" button in this panel. */
+  .summary .foot .btn{border:none;border-radius:10px;padding:13px 20px;font-weight:700;font-size:15px;cursor:pointer;transition:.15s;width:100%}
+  .summary .foot .btn-primary{background:var(--brand-fill);color:#fff}
+  .summary .foot .btn-primary:hover{background:var(--brand-dark)}
+  .summary .foot .btn-primary:active{transform:translateY(1px)}
 
   @media(min-width:981px){
     .opt[data-mode="optout"]{flex-direction:row;align-items:center;gap:16px;padding:14px 18px}
@@ -418,12 +425,15 @@
   .sumrow.total .amt{color:var(--brand);font-size:19px}
   .sumrow .plus{color:var(--green)}
   .summary .foot{padding:18px 22px;display:flex;flex-direction:column;gap:10px}
-  .btn{border:none;border-radius:10px;padding:13px 20px;font-weight:700;font-size:15px;cursor:pointer;transition:.15s;width:100%}
-  .btn-primary{background:var(--brand-fill);color:#fff}
-  .btn-primary:hover{background:var(--brand-dark)}
-  .btn-primary:active{transform:translateY(1px)}
-  .btn.btn-ghost{background:transparent;color:var(--brand);border:1px solid var(--line)}
-  .btn.btn-ghost:hover{background:var(--hover-bg)}
+  /* Scoped to .summary .foot — see the matching comment above the first
+     occurrence of this block; this was the second unscoped copy of the
+     same bug, also globally overriding index.css's .btn everywhere. */
+  .summary .foot .btn{border:none;border-radius:10px;padding:13px 20px;font-weight:700;font-size:15px;cursor:pointer;transition:.15s;width:100%}
+  .summary .foot .btn-primary{background:var(--brand-fill);color:#fff}
+  .summary .foot .btn-primary:hover{background:var(--brand-dark)}
+  .summary .foot .btn-primary:active{transform:translateY(1px)}
+  .summary .foot .btn.btn-ghost{background:transparent;color:var(--brand);border:1px solid var(--line)}
+  .summary .foot .btn.btn-ghost:hover{background:var(--hover-bg)}
 
   .skip{padding:28px 8px 8px;text-align:left}
   .skip h3{font-size:20px;font-weight:700;margin-bottom:8px}
