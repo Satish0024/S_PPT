@@ -8,6 +8,10 @@ import * as fasIcons from '@fortawesome/free-solid-svg-icons'
 import { Icon } from '../lib/icons.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
 import '../styles/design-system.css'
+// Real classes documented below (.as-donut, .as-empty, .as-row-toggle,
+// .as-detail-grid, etc.) come from account-summary.css — imported so
+// they actually render styled here, not just referenced by name.
+import '../styles/account-summary.css'
 
 // The design system for the CORE Participant Portal. Every class/value
 // referenced below is grepped against the real app source before being
@@ -38,6 +42,7 @@ const NAV = [
     { id: 'selection', label: 'Checkbox, radio, switch' },
     { id: 'badges', label: 'Badges' },
     { id: 'table', label: 'Tables (zebra)' },
+    { id: 'accordion', label: 'Accordion (expandable row)' },
     { id: 'dialog', label: 'Dialogs & modals' },
     { id: 'header', label: 'Header' },
     { id: 'sidebar', label: 'Sidebar navigation' },
@@ -1759,6 +1764,111 @@ export default function DesignSystem() {
                 </div>
               </div>
             }
+          />
+
+          {/* ---------------- ACCORDION ---------------- */}
+          {/* Verified: styles/account-summary.css .as-row-toggle/
+              .as-row-chevron/.as-row-detail/.as-detail-grid — the
+              Account Summary table's expandable rows (Investments and
+              Asset class tabs). Chevron order matches the real class
+              today: swatch, name, then chevron (margin-left:auto pushes
+              it to the row's far right edge). */}
+          <Component
+            id="accordion" title="Accordion (expandable row)"
+            desc=".as-row-toggle / .as-row-detail (styles/account-summary.css) — Account Summary's expandable table rows."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div className="as-table-wrap" style={{ maxWidth: 380, margin: '0 auto 16px' }}>
+                  <table>
+                    <thead><tr><th><Dot>1</Dot>Investment</th><th className="num"><Dot>3</Dot>Balance</th></tr></thead>
+                    <tbody>
+                      <tr className="as-row-open">
+                        <td>
+                          <button type="button" className="as-row-toggle" tabIndex={-1}>
+                            <span className="as-swatch" style={{ background: '#e05a4f' }} aria-hidden="true" />
+                            U.S. Equity Fund
+                            <Icon icon={faChevronDown} size={13} className="as-row-chevron" />
+                          </button>
+                        </td>
+                        <td className="num">$6,934.00</td>
+                      </tr>
+                      <tr className="as-row-detail">
+                        <td colSpan={2}>
+                          <div className="as-detail-grid">
+                            <div><span>Asset class</span><b>U.S. Equity</b></div>
+                            <div><span>Category</span><b className="as-cat-badges"><span className="as-cat-badge is-stock">Stock</span></b></div>
+                            <div><span>Price per unit</span><b>$42.18</b></div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <DotLegend items={[
+                  'Toggle · .as-row-toggle, swatch + name + chevron (in that order — chevron sits at the row\'s far right, margin-left:auto)',
+                  'Open state · .as-row-open rotates the chevron 180°, .as-row-detail row renders below',
+                  'Detail grid · .as-detail-grid, 3 columns on desktop (2 at ≤640px)',
+                ]} />
+                <div className="ds-spec-facts">
+                  <span><b>Chevron</b> 15×15px, rotates 180° when open</span><span><b>Detail bg</b> --surface-2</span><span><b>Transition</b> transform .18s ease</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Expandable row (styles/account-summary.css .as-row-toggle, line 110)</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="live" title="account-summary.css .as-table-wrap — Investments tab, one row expanded">
+                <div className="as-table-wrap" style={{ width: '100%' }}>
+                  <table>
+                    <thead><tr><th>Investment</th><th className="num">Units</th><th className="num">Balance</th></tr></thead>
+                    <tbody>
+                      <tr className="as-row-open">
+                        <td>
+                          <button type="button" className="as-row-toggle" tabIndex={-1}>
+                            <span className="as-swatch" style={{ background: '#e05a4f' }} aria-hidden="true" />
+                            U.S. Equity Fund
+                            <Icon icon={faChevronDown} size={13} className="as-row-chevron" />
+                          </button>
+                        </td>
+                        <td className="num">164.324</td>
+                        <td className="num">$6,934.00</td>
+                      </tr>
+                      <tr className="as-row-detail">
+                        <td colSpan={3}>
+                          <div className="as-detail-grid">
+                            <div><span>Asset class</span><b>U.S. Equity</b></div>
+                            <div><span>Category</span><b className="as-cat-badges"><span className="as-cat-badge is-stock">Stock</span></b></div>
+                            <div><span>Price per unit</span><b>$42.18</b></div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <button type="button" className="as-row-toggle" tabIndex={-1}>
+                            <span className="as-swatch" style={{ background: '#5ba3d9' }} aria-hidden="true" />
+                            U.S. Bond Fund
+                            <Icon icon={faChevronDown} size={13} className="as-row-chevron" />
+                          </button>
+                        </td>
+                        <td className="num">220.010</td>
+                        <td className="num">$4,622.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </VariantGroup>
+            </>}
+            donts={["Don't rely on hover alone to show a row is expandable — .as-row-toggle has no visual affordance besides the chevron itself, so a row with a long name and no chevron would look identical to a non-expandable one. Keep the chevron visible at all times, not just on hover."]}
+            colors={[['Chevron (closed)', '--ink-soft'], ['Chevron (open)', '--brand'], ['Detail row bg', '--surface-2']]}
+            code={`<button className="as-row-toggle" aria-expanded={isOpen} aria-controls={\`\${row.id}-detail\`}>
+  <span className="as-swatch" style={{ background: row.color }} />
+  {row.name}
+  <ChevronDown className="as-row-chevron" />
+</button>
+{isOpen && (
+  <tr className="as-row-detail" id={\`\${row.id}-detail\`}>
+    <td colSpan={3}><div className="as-detail-grid">…</div></td>
+  </tr>
+)}`}
           />
 
           {/* ---------------- DIALOG ---------------- */}
