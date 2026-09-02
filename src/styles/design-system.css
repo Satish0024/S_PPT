@@ -151,6 +151,24 @@
 .ds-spec-facts span{font-size:11.5px;color:var(--ink-soft)}
 .ds-spec-facts b{color:var(--ink);font-weight:700}
 
+/* ---------- Numbered parts callout (Figma reference pattern: numbered
+   blue badge + connector line + label, pointing at a labeled region of
+   the anatomy diagram below it) ---------- */
+.ds-parts{width:100%;max-width:460px;display:flex;flex-direction:column;gap:2px}
+.ds-part{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0}
+.ds-part-badge{width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center;flex:0 0 auto}
+.ds-part-line{width:1px;flex:1 1 auto;min-height:16px;background:var(--brand)}
+.ds-part-label b{display:block;font-size:13px;font-weight:800;color:var(--ink);margin-top:6px}
+.ds-part-label p{margin:2px 0 0;font-size:12px;color:var(--ink-soft);max-width:320px}
+
+/* ---------- Ruler-style padding band (blue highlighted strip along an
+   edge, pixel value at each end) — visual upgrade of .ds-spec-cell to
+   match the reference's highlighted-band ruler rather than a bare tick ---------- */
+.ds-ruler{position:relative;width:100%;max-width:460px}
+.ds-ruler-band{position:absolute;background:rgba(2,132,199,.14);border-left:1px dashed var(--brand);border-right:1px dashed var(--brand);pointer-events:none}
+.ds-ruler-label{position:absolute;font-size:11px;font-weight:700;color:var(--brand)}
+.ds-ruler-caption{text-align:center;font-size:11.5px;font-weight:700;color:var(--ink-soft);margin-top:6px}
+
 /* ---------- Font card (name + about + weight ladder) ---------- */
 .ds-font-card{border:1px solid var(--line);border-radius:14px;background:var(--panel);box-shadow:var(--ds-elev-1);padding:24px;margin-bottom:22px}
 .ds-font-name{display:block;font-size:13px;font-weight:800;color:var(--brand);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px}

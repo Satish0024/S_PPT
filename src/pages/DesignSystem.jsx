@@ -125,6 +125,23 @@ function CopyButton({ text, label = 'Copy', className = '' }) {
   )
 }
 
+// Numbered parts callout — same pattern as the reference Figma file's
+// Anatomy tab: a numbered badge + connector line pointing at a labeled
+// region, listed above the measured spec diagram.
+function Parts({ items }) {
+  return (
+    <div className="ds-parts">
+      {items.map(([label, desc], i) => (
+        <div key={label} className="ds-part">
+          <span className="ds-part-badge">{i + 1}</span>
+          <span className="ds-part-line" />
+          <span className="ds-part-label"><b>{label}</b><p>{desc}</p></span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function Code({ children }) {
   return (
     <div className="ds-code-wrap">
@@ -391,6 +408,13 @@ export default function DesignSystem() {
 
             <h3 className="ds-sub">Applied in context</h3>
             <p className="ds-lede">The real Transactions table showing which token colors which piece — not swatches in isolation.</p>
+            <div className="ds-anatomy" style={{ background: 'transparent', padding: '0 0 18px' }}>
+              <Parts items={[
+                ['Brand accents', 'Primary buttons, links, active nav item, focus rings — the one color that says "interactive".'],
+                ['Status pairs', 'Each status (success/warning/danger) is a fill + a matching background tint, never fill alone.'],
+                ['Neutrals', 'Everything else — page background, panel surfaces, borders, and the 3-step text hierarchy (ink / ink-soft / muted).'],
+              ]} />
+            </div>
             <div className="ds-annotated-frame">
               <div className="table-wrap">
                 <table className="tx-table">
@@ -456,6 +480,14 @@ export default function DesignSystem() {
 
             <h3 className="ds-sub">Applied in context</h3>
             <p className="ds-lede">Where each level actually lands on a real screen, annotated against the Transactions page's own markup.</p>
+            <div className="ds-anatomy" style={{ background: 'transparent', padding: '0 0 18px' }}>
+              <Parts items={[
+                ['H1 — Page title', 'One per page, top of the content area. 34px/800.'],
+                ['H2 — Section heading', 'Introduces a card group or table. 26px/800.'],
+                ['Body', 'Default reading text everywhere — table cells, paragraphs. 15px/400.'],
+                ['Label', 'Form labels and secondary/meta text, --ink-soft. 13.5px/600.'],
+              ]} />
+            </div>
             <div className="ds-annotated-frame">
               <div className="ds-annotated-row">
                 <h4 className="ds-type-h1" style={{ margin: 0, fontSize: 26 }}>Retirement plan balance</h4>
@@ -525,6 +557,12 @@ export default function DesignSystem() {
 
             <h3 className="ds-sub">Applied in context</h3>
             <p className="ds-lede">Both shown together the way they actually stack: a resting card holding a raised dropdown.</p>
+            <div className="ds-anatomy" style={{ background: 'transparent', padding: '0 0 18px' }}>
+              <Parts items={[
+                ['--shadow', 'Resting elevation for anything in the normal document flow — cards, panels.'],
+                ['--shadow-lg', 'Raised elevation for anything floating above the flow — dropdowns, dialogs, the user menu.'],
+              ]} />
+            </div>
             <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
               <div style={{ position: 'relative', maxWidth: 320 }}>
                 <div style={{ padding: 20, borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>
@@ -626,6 +664,10 @@ export default function DesignSystem() {
             desc="The standard button used across Dashboard, Portfolio, Transactions, and Profile."
             anatomy={
               <div className="ds-anatomy">
+                <Parts items={[
+                  ['Label', 'Centered text, 14px/700 — the only required part.'],
+                  ['Icon (optional)', 'Leading icon, 16px, 6px gap from the label. Icon-only buttons use .icon-btn instead (36×36px circle).'],
+                ]} />
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 11px</div>
                   <div className="ds-spec-row">
@@ -681,6 +723,11 @@ export default function DesignSystem() {
             desc="Text fields and selects, from styles/transactions.css and styles/index.css."
             anatomy={
               <div className="ds-anatomy">
+                <Parts items={[
+                  ['Label', 'Above the field, 12.5px/700, --ink-soft — always present, never a placeholder-only field.'],
+                  ['Field', 'Bordered input/select, 40px min-height.'],
+                  ['Helper / error text', 'Below the field; error state switches to --red and role="alert".'],
+                ]} />
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 8px</div>
                   <div className="ds-spec-row">
@@ -750,6 +797,11 @@ export default function DesignSystem() {
             desc="Native inputs for checkbox/radio; .a11y-switch (styles/index.css) for the toggle."
             anatomy={
               <div className="ds-anatomy">
+                <Parts items={[
+                  ['Track', '36×20px pill, --surface-3 off / --brand on.'],
+                  ['Thumb', '16×16px white circle, 2px inset, slides +16px on check.'],
+                  ['Label', 'Adjacent text — the switch alone has no accessible name.'],
+                ]} />
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Track height</b> 20px</div>
                   <div className="ds-spec-row">
@@ -811,6 +863,10 @@ export default function DesignSystem() {
             desc=".req-status (styles/transactions.css) — the one reusable, unscoped status pill in the app."
             anatomy={
               <div className="ds-anatomy">
+                <Parts items={[
+                  ['Label', 'Status word, 11.5px/800 — never color alone, always paired with text.'],
+                  ['Pill background', 'One of 3 pairs: --green/--green-bg, --amber/--amber-bg, --red/--red-bg.'],
+                ]} />
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 3px</div>
                   <div className="ds-spec-row">
@@ -865,6 +921,11 @@ export default function DesignSystem() {
             desc=".table-wrap > table.tx-table (styles/index.css) — the Transactions page's own table."
             anatomy={
               <div className="ds-anatomy">
+                <Parts items={[
+                  ['Header row', 'Column labels, 12px/700, --surface-2 background.'],
+                  ['Body row', '13.5px/400 cells, 1px --line border between rows.'],
+                  ['Zebra stripe', 'Every even row tinted --surface-2 for scan-ability.'],
+                ]} />
                 <div className="table-wrap" style={{ width: '100%', maxWidth: 360, position: 'relative' }}>
                   <table className="tx-table">
                     <thead><tr><th>Type</th><th className="num">Amount</th></tr></thead>
@@ -929,6 +990,12 @@ export default function DesignSystem() {
             </div>}
             anatomy={
               <div className="ds-anatomy">
+                <Parts items={[
+                  ['Icon badge', '44×44px circle, --red-bg fill, warns before a destructive action.'],
+                  ['Title', '17px/800 question, always phrased as a question.'],
+                  ['Body', '13.5px/400, --ink-soft — states the consequence in plain language.'],
+                  ['Actions', 'Two buttons, equal width — safe choice on the left, destructive on the right.'],
+                ]} />
                 <div className="confirm-dialog" style={{ margin: '0 auto', position: 'relative' }}>
                   <span className="ds-spec-tick" style={{ position: 'absolute', top: -18, left: '50%' }} />
                   <div className="confirm-dialog-ico"><Icon icon={faTriangleExclamation} size={20} /></div>
@@ -991,6 +1058,11 @@ export default function DesignSystem() {
             </header>}
             anatomy={
               <div className="ds-anatomy">
+                <Parts items={[
+                  ['Brand', 'App logo, 26px tall, links home.'],
+                  ['Icon button', 'Theme toggle — 36×36px, --icon-btn circle.'],
+                  ['User chip', 'Avatar + name + chevron, opens the profile menu.'],
+                ]} />
                 <div className="ds-spec-frame" style={{ padding: 0 }}>
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Height</b> var(--header-h)</div>
                   <div className="ds-spec-row">
@@ -1049,6 +1121,11 @@ export default function DesignSystem() {
             desc="components/layout/Sidebar.jsx — the real frozen left rail."
             anatomy={
               <div className="ds-anatomy">
+                <Parts items={[
+                  ['Icon', '23×23px, centered above the label.'],
+                  ['Label', '13px/600 text, wraps to 2 lines on narrow rails.'],
+                  ['Active indicator', '4px --brand bar on the leading edge, --active-bg fill behind the whole item.'],
+                ]} />
                 <div className="ds-spec-frame" style={{ padding: 0 }}>
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Item padding-top</b> 15px</div>
                   <div className="ds-spec-row">
