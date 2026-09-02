@@ -7,6 +7,7 @@ import {
 import * as fasIcons from '@fortawesome/free-solid-svg-icons'
 import { Icon } from '../lib/icons.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
+import { BRAND } from '../config/brand.js'
 import '../styles/design-system.css'
 
 // Rebuilt from scratch (previous version had unverified claims — e.g.
@@ -42,6 +43,9 @@ const NAV = [
     { id: 'sidebar', label: 'Sidebar navigation' },
     { id: 'steps', label: 'Steps' },
     { id: 'spinner', label: 'Spinner' },
+    { id: 'content-card', label: 'Content card' },
+    { id: 'slideover', label: 'Slideover' },
+    { id: 'donut', label: 'Donut chart' },
   ] },
   { group: 'Accessibility', items: [
     { id: 'wcag', label: 'WCAG 2.2 AA checklist' },
@@ -135,14 +139,12 @@ const RADIUS_SCALE = [
 ]
 
 // The real logo files this app actually ships and references — via
-// config/brand.js only, never hardcoded per-component. No illustrations:
-// this app has none in /public; only the logo lockups and the CORE mark
-// this design-system page itself uses in its own header.
+// config/brand.js only, never hardcoded per-component. Illustrations do
+// exist too (see the Content card component) but aren't catalogued here —
+// this list is scoped to the logo only.
 const LOGO_ASSETS = [
-  ['Logo lockup — light surfaces', '/logo-lockup-light.svg', 'config/brand.js BRAND.logo — topbar, login card'],
-  ['Logo lockup — dark surfaces', '/logo-lockup-dark.svg', 'config/brand.js BRAND.logoOnDark — login hero panel'],
-  ['CORE mark — light', '/core-logo.svg', "This design system's own header, light theme"],
-  ['CORE mark — dark', '/core-logo-dark.svg', "This design system's own header, dark theme"],
+  ['Logo lockup — light surfaces', '/logo-lockup-light.svg', 'config/brand.js BRAND.logo — topbar, login card, this page\'s own header'],
+  ['Logo lockup — dark surfaces', '/logo-lockup-dark.svg', 'config/brand.js BRAND.logoOnDark — login hero panel, this page\'s own header in dark theme'],
 ]
 
 // Every icon Font Awesome (Free, Solid) ships — not a curated subset —
@@ -412,6 +414,8 @@ export default function DesignSystem() {
     <div className="ds">
       <header className="ds-top">
         <div className="ds-logo">
+          <img src={theme === 'dark' ? '/logo-lockup-dark.svg' : '/logo-lockup-light.svg'} alt={BRAND.name} className="ds-logo-mark" />
+          <span className="ds-logo-div" />
           Participant Portal Design System
         </div>
         <div className="ds-meta">
@@ -915,14 +919,16 @@ export default function DesignSystem() {
             </ol>
           </section>
 
-          {/* ---------------- ASSETS (logo only — no illustrations exist) ---------------- */}
+          {/* ---------------- ASSETS (logo only, by request) ---------------- */}
           <section id="assets" className="ds-section">
             <h2>Logo</h2>
             <p className="ds-lede">
-              The real files this app ships in <code>/public</code>, referenced only through{' '}
+              The real logo files this app ships in <code>/public</code>, referenced only through{' '}
               <code>config/brand.js</code> — component code never hardcodes a filename or brand
-              name, so a rebrand only has to swap these files, not touch JSX. No illustrations or
-              stock imagery exist in this app.
+              name, so a rebrand only has to swap these files, not touch JSX. Illustrations exist
+              too (e.g. <code>learning-illustration.png</code>, used on the{' '}
+              <a href="#content-card">Content card</a>) but aren't catalogued here — this section
+              is scoped to the logo only.
             </p>
             <div className="ds-asset-grid">
               {LOGO_ASSETS.map(([name, src, use]) => (
@@ -1767,6 +1773,148 @@ export default function DesignSystem() {
   Saving…
 </span>`}
             colors={[['Spin color', '--brand'], ['Track', '--line-strong']]}
+          />
+
+          {/* ---------------- CONTENT CARD ---------------- */}
+          {/* Verified: styles/index.css .learn2/.learn2-field/.learn2-body/
+              .learn2-tag/.learn2-title/.learn2-desc/.learn2-cta (line 2264)
+              — components/dashboard/LearningPortal.jsx's real markup. Uses
+              a real illustration (public/learning-illustration.png) —
+              confirmed present; the earlier claim in the Logo section that
+              "no illustrations exist" was wrong and has been corrected. */}
+          <Component
+            id="content-card" title="Content card"
+            desc=".learn2 (styles/index.css) — the Financial Wellness dashboard widget: tag, title, description, CTA, and a full-color illustration."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div className="learn2" style={{ maxWidth: 380, margin: '0 auto 16px' }}>
+                  <img className="learn2-field" src="/learning-illustration.png" alt="" aria-hidden="true" />
+                  <div className="learn2-body">
+                    <span className="learn2-tag">Learning</span>
+                    <h3 className="learn2-title">Financial Wellness</h3>
+                    <p className="learn2-desc">Learn about planning, saving, investing wisely</p>
+                    <span className="learn2-cta">Know More <Icon icon={faArrowRight} size={12} /></span>
+                  </div>
+                </div>
+                <div className="ds-spec-facts">
+                  <span><b>Padding</b> 20px</span><span><b>Tag</b> 9.5px/700, pill</span><span><b>Title</b> 21px/700</span><span><b>Desc</b> 12.5px/400</span><span><b>Illustration width</b> 56% (max 230px), floats via a 6s ease loop</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Content card (styles/index.css .learn2, line 2264)</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="live" title=".learn2 — the real Financial Wellness widget">
+                <div className="learn2" style={{ maxWidth: 380 }}>
+                  <img className="learn2-field" src="/learning-illustration.png" alt="" aria-hidden="true" />
+                  <div className="learn2-body">
+                    <span className="learn2-tag">Learning</span>
+                    <h3 className="learn2-title">Financial Wellness</h3>
+                    <p className="learn2-desc">Learn about planning, saving, investing wisely</p>
+                    <a className="learn2-cta" href="#content-card" onClick={(e) => e.preventDefault()}>Know More <Icon icon={faArrowRight} size={12} /></a>
+                  </div>
+                </div>
+              </VariantGroup>
+            </>}
+            dos={['Keep the illustration full-color and un-tinted — the source colors are the point, not a design token.']}
+            code={`<section className="learn2">
+  <img className="learn2-field" src="/learning-illustration.png" alt="" aria-hidden="true" />
+  <div className="learn2-body">
+    <span className="learn2-tag">Learning</span>
+    <h3 className="learn2-title">Financial Wellness</h3>
+    <p className="learn2-desc">...</p>
+    <Link className="learn2-cta" to="/enrich">Know More<ArrowRight /></Link>
+  </div>
+</section>`}
+            colors={[['Accent', '--learn-accent'], ['Accent bg (tag)', '--learn-accent-bg']]}
+          />
+
+          {/* ---------------- SLIDEOVER ---------------- */}
+          {/* Verified: styles/index.css .slideover-bg/.slideover-panel/
+              .slideover-head/.slideover-close/.slideover-body (line 1509)
+              — the real-side panel used for the loan calculator and
+              other in-context flows. Not previously documented. */}
+          <Component
+            id="slideover" title="Slideover"
+            desc=".slideover-panel (styles/index.css) — a right-edge panel over a dimmed backdrop, for in-context tasks that don't need a full page."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ position: 'relative', height: 220, borderRadius: 12, overflow: 'hidden', background: 'var(--surface-3)' }}>
+                  <div style={{ position: 'absolute', inset: 0, background: 'rgba(20,21,31,.46)' }} />
+                  <div className="slideover-panel" style={{ position: 'absolute', right: 0, top: 0, height: '100%', width: 240, maxWidth: 240 }}>
+                    <div className="slideover-head">
+                      <h3>Loan calculator</h3>
+                      <button type="button" className="slideover-close" tabIndex={-1}><Icon icon={faXmark} size={14} /></button>
+                    </div>
+                    <div className="slideover-body" style={{ fontSize: 12, color: 'var(--ink-soft)' }}>Body content scrolls independently</div>
+                  </div>
+                </div>
+                <div className="ds-spec-facts" style={{ marginTop: 16 }}>
+                  <span><b>Width</b> 420px (680px .slideover-wide)</span><span><b>Head padding</b> 20px 24px</span><span><b>Body padding</b> 22px 24px</span><span><b>Close button</b> 32×32px circle</span><span><b>Backdrop</b> rgba(20,21,31,.46)</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Slideover (styles/index.css .slideover-panel, line 1509)</p>
+              </div>
+            }
+            dos={['Trap focus inside the panel while open; Escape closes it, same as a dialog.']}
+            code={`<div className="slideover-bg" role="dialog" aria-modal="true">
+  <div className="slideover-panel">
+    <div className="slideover-head">
+      <h3>Loan calculator</h3>
+      <button className="slideover-close" aria-label="Close"><X /></button>
+    </div>
+    <div className="slideover-body">...</div>
+  </div>
+</div>`}
+            colors={[['Panel bg', '--panel'], ['Body bg', '--surface-2'], ['Border', '--line']]}
+          />
+
+          {/* ---------------- DONUT CHART ---------------- */}
+          {/* Verified: components/dashboard/ReadinessVisuals.jsx GoalDonut
+              — a hand-built SVG donut (circle + stroke-dasharray), not a
+              charting library. styles/index.css .rr-donut/.rr-track/
+              .rr-arc/.rr-score (line 413). Not previously documented. */}
+          <Component
+            id="donut" title="Donut chart"
+            desc=".rr-donut (styles/index.css) — the readiness-score ring: a hand-built SVG circle with stroke-dasharray, not a charting library."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+                  <div className="rr-donut large">
+                    <svg viewBox="0 0 100 100" role="img" aria-label="72 percent">
+                      <circle className="rr-track" cx="50" cy="50" r="42" strokeWidth="6.5" />
+                      <circle className="rr-arc" cx="50" cy="50" r="42" stroke="currentColor" strokeWidth="6.5" strokeDasharray={`${(72 / 100) * 2 * Math.PI * 42} ${2 * Math.PI * 42}`} />
+                    </svg>
+                    <div className="rr-score"><b>72%</b><span>Goal reached</span></div>
+                  </div>
+                </div>
+                <div className="ds-spec-facts">
+                  <span><b>Size</b> 108 / 168 (.large) / 176 (.rr-card) px</span><span><b>Stroke</b> 5–6.5px, round linecap</span><span><b>Track</b> #eceef4</span><span><b>Arc</b> currentColor (--brand)</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Donut / ring chart (styles/index.css .rr-donut, line 413)</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="live" title=".rr-donut — three real sizes">
+                <div className="rr-donut">
+                  <svg viewBox="0 0 100 100"><circle className="rr-track" cx="50" cy="50" r="42" strokeWidth="5" /><circle className="rr-arc" cx="50" cy="50" r="42" stroke="currentColor" strokeWidth="5" strokeDasharray={`${(45 / 100) * 2 * Math.PI * 42} ${2 * Math.PI * 42}`} /></svg>
+                  <div className="rr-score"><b>45%</b><span>Goal reached</span></div>
+                </div>
+                <div className="rr-donut large">
+                  <svg viewBox="0 0 100 100"><circle className="rr-track" cx="50" cy="50" r="42" strokeWidth="6.5" /><circle className="rr-arc" cx="50" cy="50" r="42" stroke="currentColor" strokeWidth="6.5" strokeDasharray={`${(72 / 100) * 2 * Math.PI * 42} ${2 * Math.PI * 42}`} /></svg>
+                  <div className="rr-score"><b>72%</b><span>Goal reached</span></div>
+                </div>
+              </VariantGroup>
+            </>}
+            dos={['Give the <svg> an aria-label stating the percentage in words — the visual arc alone conveys nothing to a screen reader.']}
+            code={`const CIRC = 2 * Math.PI * 42
+<div className="rr-donut">
+  <svg viewBox="0 0 100 100" role="img" aria-label={\`\${score}% funded\`}>
+    <circle className="rr-track" cx="50" cy="50" r="42" strokeWidth="5" />
+    <circle className="rr-arc" cx="50" cy="50" r="42" stroke="currentColor"
+      strokeWidth="5" strokeDasharray={\`\${(score/100)*CIRC} \${CIRC}\`} />
+  </svg>
+  <div className="rr-score"><b>{score}%</b><span>Goal reached</span></div>
+</div>`}
+            colors={[['Arc', '--brand'], ['Score text', '--ink']]}
           />
 
           {/* ---------------- WCAG ---------------- */}
