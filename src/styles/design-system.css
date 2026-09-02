@@ -79,7 +79,15 @@
 .ds-category-card:hover .ds-category-arrow{color:var(--brand);transform:translateX(3px)}
 
 /* ---------- Section ---------- */
-.ds-section{max-width:var(--ds-content-max);margin-bottom:64px;scroll-margin-top:76px}
+.ds-section{max-width:var(--ds-content-max);margin-bottom:64px;scroll-margin-top:76px;padding-top:40px;border-top:1px solid var(--line)}
+.ds-section:first-of-type{padding-top:0;border-top:none}
+.ds-group-title{max-width:var(--ds-content-max);margin:0 0 20px;padding-top:40px;border-top:1px solid var(--line)}
+.ds-group-title h2{margin-bottom:6px}
+/* Component() cards aren't wrapped in .ds-section, so they need their
+   own visible boundary too — a slightly heavier gap than the 22px
+   between a card's own internal parts, so scrolling past one and into
+   the next reads as a clear break, not a continuous blur. */
+.ds-main > .ds-card{margin-bottom:40px}
 .ds-section h2{font-size:26px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px}
 .ds-section > p.ds-lede{font-size:14.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:24px;max-width:640px}
 .ds-sub{font-size:16px;font-weight:700;margin:28px 0 12px}
@@ -158,13 +166,14 @@
    floats directly above the real element it labels, connected to it by
    a short line — the pin visibly touches the pixel it describes,
    instead of sitting in a disconnected list. ---------- */
-.ds-anatomy-pins{width:100%;padding-top:56px}
-.ds-anatomy-pins-row{display:flex;align-items:flex-end;justify-content:center;gap:28px;flex-wrap:wrap}
-.ds-anno{position:relative;display:inline-flex}
-.ds-anno-callout{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;padding-bottom:0;z-index:2}
+/* .ds-anno-badge stays — reused by <DotLegend>'s numbered marker.
+   .ds-anno/.ds-anno-callout/.ds-anno-text/.ds-anno-line/.ds-anatomy-pins*
+   (the floating-callout-above-target mechanism) removed: absolutely
+   positioning wide text labels above narrow, closely-spaced targets
+   made adjacent callouts overlap each other and the content below.
+   Replaced everywhere with <Dot>/<DotLegend> — in-flow, so it cannot
+   overlap by construction. */
 .ds-anno-badge{width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:10.5px;font-weight:700;display:grid;place-items:center;margin-bottom:5px;flex:0 0 auto}
-.ds-anno-text{font-size:11px;font-weight:600;color:var(--ink-soft);white-space:nowrap;margin-bottom:5px}
-.ds-anno-line{width:1px;height:14px;background:var(--line-strong)}
 .ds-pin-num{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:9px;font-weight:700;flex:0 0 auto}
 
 /* ---------- Variant groups (Preview tab): separates what's already

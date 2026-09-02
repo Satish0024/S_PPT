@@ -40,6 +40,8 @@ const NAV = [
     { id: 'dialog', label: 'Dialogs & modals' },
     { id: 'header', label: 'Header' },
     { id: 'sidebar', label: 'Sidebar navigation' },
+    { id: 'steps', label: 'Steps' },
+    { id: 'spinner', label: 'Spinner' },
   ] },
   { group: 'Accessibility', items: [
     { id: 'wcag', label: 'WCAG 2.2 AA checklist' },
@@ -210,24 +212,6 @@ function CopyButton({ text, label = 'Copy', className = '' }) {
   )
 }
 
-// Pin callout — same pattern as the reference Figma file's Anatomy tab:
-// a numbered badge sits directly above the real element it describes,
-// connected to it by a short line, so the number visibly points at a
-// specific pixel rather than floating in an unrelated list.
-function Anno({ n, label, children, wrap }) {
-  const Tag = wrap || 'span'
-  return (
-    <Tag className="ds-anno">
-      <span className="ds-anno-callout">
-        <span className="ds-anno-badge">{n}</span>
-        <span className="ds-anno-text">{label}</span>
-        <span className="ds-anno-line" />
-      </span>
-      {children}
-    </Tag>
-  )
-}
-
 // Groups a Preview tab's variants into "Live in the app" vs "Proposed"
 // so a new, not-yet-built variant is never mistaken for a real class —
 // the exact mistake .btn-sm caused earlier on this branch.
@@ -266,17 +250,6 @@ function DotLegend({ items }) {
         <li key={i}><span className="ds-anno-badge" style={{ margin: 0 }}>{i + 1}</span>{label}</li>
       ))}
     </ol>
-  )
-}
-
-// Wraps a set of Anno-pinned elements with the top padding they need to
-// float their callouts above the content, plus the caption row below.
-function AnatomyPins({ children, caption }) {
-  return (
-    <div className="ds-anatomy-pins">
-      <div className="ds-anatomy-pins-row">{children}</div>
-      {caption && <p className="ds-anatomy-caption" style={{ marginTop: 6 }}>{caption}</p>}
-    </div>
   )
 }
 
@@ -694,13 +667,20 @@ export default function DesignSystem() {
             <p className="ds-lede">A 4px-based spacing scale, verified against real gap/padding usage across the app — every step below names where it's actually used, not just its size.</p>
 
             <h3 className="ds-sub">Spacing scale</h3>
+            <p className="ds-lede">Each row shows the <b>actual gap</b> as a live gap between two real boxes — not a bar standing in for it.</p>
             <div className="ds-card">
               <table className="ds-type-table">
-                <thead><tr><th>Step</th><th>Used for</th></tr></thead>
+                <thead><tr><th>Step</th><th>The gap itself</th><th>Used for</th></tr></thead>
                 <tbody>
                   {SPACE_SCALE.map(([s, use]) => (
                     <tr key={s}>
-                      <td style={{ width: 180 }}><div className="ds-space-row"><code>{s}px</code><div className="ds-space-bar" style={{ width: s * 3 }} /></div></td>
+                      <td style={{ width: 60 }}><code>{s}px</code></td>
+                      <td style={{ width: 160 }}>
+                        <div style={{ display: 'flex', gap: s, alignItems: 'center' }}>
+                          <div style={{ width: 22, height: 22, borderRadius: 5, background: 'var(--brand)', flex: '0 0 auto' }} />
+                          <div style={{ width: 22, height: 22, borderRadius: 5, background: 'var(--brand)', flex: '0 0 auto' }} />
+                        </div>
+                      </td>
                       <td>{use}</td>
                     </tr>
                   ))}
@@ -709,21 +689,54 @@ export default function DesignSystem() {
             </div>
 
             <h3 className="ds-sub">Radius scale</h3>
+            <p className="ds-lede">Same corner radius applied to a large enough swatch that the curve itself is legible, not just implied.</p>
             <div className="ds-card">
               <table className="ds-type-table">
-                <thead><tr><th>Radius</th><th>Used for</th></tr></thead>
+                <thead><tr><th>Radius</th><th>Swatch</th><th>Used for</th></tr></thead>
                 <tbody>
                   {RADIUS_SCALE.map(([r, use]) => (
                     <tr key={r}>
-                      <td style={{ width: 140 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                          <div style={{ width: 34, height: 34, borderRadius: r, background: 'var(--brand)', flex: '0 0 auto' }} />
-                          <code>{r}px</code>
-                        </div>
+                      <td style={{ width: 70 }}><code>{r}px</code></td>
+                      <td style={{ width: 90 }}>
+                        <div style={{ width: 56, height: 56, borderRadius: r, background: 'var(--brand)' }} />
                       </td>
                       <td>{use}</td>
                     </tr>
                   ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3 className="ds-sub">Border width</h3>
+            <p className="ds-lede">The other half of a "corner + edge" system, alongside radius above. Grepped: 58 rules use 1px, 4 use 2px — nothing else appears.</p>
+            <div className="ds-card">
+              <table className="ds-type-table">
+                <thead><tr><th>Width</th><th>Swatch</th><th>Used for</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td style={{ width: 70 }}><code>1px</code></td>
+                    <td style={{ width: 90 }}><div style={{ width: 56, height: 32, borderRadius: 8, border: '1px solid var(--ink)' }} /></td>
+                    <td>The default everywhere — cards, inputs, dividers, table rows</td>
+                  </tr>
+                  <tr>
+                    <td style={{ width: 70 }}><code>2px</code></td>
+                    <td style={{ width: 90 }}><div style={{ width: 56, height: 32, borderRadius: 8, border: '2px solid var(--ink)' }} /></td>
+                    <td>Focus rings and the switch thumb's outline — always draws attention, never decorative</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 className="ds-sub">Icon size</h3>
+            <p className="ds-lede">Grepped inline SVG dimensions — icons are not on one shared scale either, sized per context.</p>
+            <div className="ds-card">
+              <table className="ds-type-table">
+                <thead><tr><th>Size</th><th>Icon</th><th>Used for</th></tr></thead>
+                <tbody>
+                  <tr><td style={{ width: 70 }}><code>16px</code></td><td style={{ width: 60 }}><Icon icon={faCheck} size={16} /></td><td>Dense inline icons (.empty-side)</td></tr>
+                  <tr><td style={{ width: 70 }}><code>18px</code></td><td style={{ width: 60 }}><Icon icon={faCheck} size={18} /></td><td>Quick-link cards (.quick-link)</td></tr>
+                  <tr><td style={{ width: 70 }}><code>20px</code></td><td style={{ width: 60 }}><Icon icon={faCheck} size={20} /></td><td>Inside .icon-btn's 36×36px circle</td></tr>
+                  <tr><td style={{ width: 70 }}><code>23px</code></td><td style={{ width: 60 }}><Icon icon={faCheck} size={23} /></td><td>Sidebar nav item icons (.nav .ico svg)</td></tr>
                 </tbody>
               </table>
             </div>
@@ -936,11 +949,13 @@ export default function DesignSystem() {
           <section id="icons" className="ds-section">
             <h2>Icons</h2>
             <p className="ds-lede">
-              Font Awesome (Free, Solid) — the icon set adopted for this system, replacing the
-              app's earlier <code>lucide-react</code> icons. Every icon the package ships is listed
+              <a href="https://fontawesome.com/" target="_blank" rel="noreferrer">Font Awesome 6</a>,
+              Free/Solid — the icon set adopted for this system, replacing the app's earlier{' '}
+              <code>lucide-react</code> icons. Every icon the installed package ships is listed
               below, {ALL_SOLID_ICONS.length} in total, including ones not yet used anywhere in the
               app — so a future need is a copy-paste away, not a new dependency. Click any icon to
-              copy its import name.
+              copy its import name, or{' '}
+              <a href="https://fontawesome.com/download" target="_blank" rel="noreferrer">get the full Font Awesome 6 kit</a>.
             </p>
             <div className="ds-icon-grid">
               {ALL_SOLID_ICONS.map(([name, def]) => (
@@ -975,15 +990,14 @@ export default function DesignSystem() {
             id="buttons" title="Buttons"
             desc="The standard button used across Dashboard, Portfolio, Transactions, and Profile."
             anatomy={
-              <div className="ds-anatomy">
-                <AnatomyPins>
-                  <Anno n={1} label="Label — 14px/700">
-                    <button type="button" className="btn btn-primary" tabIndex={-1}>Save changes</button>
-                  </Anno>
-                  <Anno n={2} label="Icon-only · .icon-btn, 36×36px">
-                    <button type="button" className="icon-btn" tabIndex={-1} aria-label="Settings"><Icon icon={faGear} size={18} /></button>
-                  </Anno>
-                </AnatomyPins>
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', gap: 20, alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
+                  <Dot>1</Dot>
+                  <button type="button" className="btn btn-primary" tabIndex={-1}>Save changes</button>
+                  <Dot>2</Dot>
+                  <button type="button" className="icon-btn" tabIndex={-1} aria-label="Settings"><Icon icon={faGear} size={18} /></button>
+                </div>
+                <DotLegend items={['Label — 14px/700', 'Icon-only · .icon-btn, 36×36px']} />
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 11px</div>
                   <div className="ds-spec-row">
@@ -1240,15 +1254,14 @@ export default function DesignSystem() {
             id="badges" title="Badges"
             desc=".req-status (styles/transactions.css) — the one reusable, unscoped status pill in the app."
             anatomy={
-              <div className="ds-anatomy">
-                <AnatomyPins>
-                  <Anno n={1} label="Label · 11.5px/800">
-                    <span className="req-status good" style={{ position: 'relative' }}>Approved</span>
-                  </Anno>
-                  <Anno n={2} label="Fill · --green/--green-bg">
-                    <span className="req-status good">Approved</span>
-                  </Anno>
-                </AnatomyPins>
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', gap: 20, alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
+                  <Dot>1</Dot>
+                  <span className="req-status good">Approved</span>
+                  <Dot>2</Dot>
+                  <span className="req-status good">Approved</span>
+                </div>
+                <DotLegend items={['Label · 11.5px/800', 'Fill · --green/--green-bg']} />
                 <div className="ds-spec-frame">
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 3px</div>
                   <div className="ds-spec-row">
@@ -1507,23 +1520,23 @@ export default function DesignSystem() {
             </>}
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
-                <div className="ds-anatomy-pins" style={{ paddingTop: 56, marginBottom: 16 }}>
-                  <div className="ds-anatomy-pins-row" style={{ justifyContent: 'space-between', maxWidth: 420, margin: '0 auto' }}>
-                    <Anno n={1} label="Brand · 26px logo">
-                      <div style={{ height: 26, width: 80, borderRadius: 4, background: 'var(--surface-3)' }} />
-                    </Anno>
-                    <Anno n={2} label="Icon button · 36×36px">
-                      <button type="button" className="icon-btn" tabIndex={-1} aria-label="Switch theme"><Icon icon={faMoon} size={18} /></button>
-                    </Anno>
-                    <Anno n={3} label="User chip · avatar + name + chevron">
-                      <div className="user-chip">
-                        <div style={{ width: 26, height: 26, borderRadius: '50%', background: 'var(--active-bg)' }} />
-                        <span className="chip-text"><span className="chip-name">Jordan Lee</span></span>
-                        <Icon icon={faChevronDown} size={13} className="chev" />
-                      </div>
-                    </Anno>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: 420, margin: '0 auto 16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <Dot>1</Dot>
+                    <div style={{ height: 26, width: 80, borderRadius: 4, background: 'var(--surface-3)' }} />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <Dot>2</Dot>
+                    <button type="button" className="icon-btn" tabIndex={-1} aria-label="Switch theme"><Icon icon={faMoon} size={18} /></button>
+                    <Dot>3</Dot>
+                    <div className="user-chip">
+                      <div style={{ width: 26, height: 26, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                      <span className="chip-text"><span className="chip-name">Jordan Lee</span></span>
+                      <Icon icon={faChevronDown} size={13} className="chev" />
+                    </div>
                   </div>
                 </div>
+                <DotLegend items={['Brand · 26px logo', 'Icon button · 36×36px', 'User chip · avatar + name + chevron']} />
                 <div className="ds-spec-frame" style={{ padding: 0 }}>
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Height</b> var(--header-h)</div>
                   <div className="ds-spec-row">
@@ -1668,6 +1681,91 @@ export default function DesignSystem() {
                 </div>
               </div>
             }
+          />
+
+          {/* ---------------- STEPS ---------------- */}
+          {/* Verified: styles/enrollment.css .steps/.step/.rail/.num/
+              .rail-line/.body (lines 77-101) — the enrollment flow's real
+              progress stepper. Not previously documented anywhere on this
+              page, despite existing and being used on every enrollment
+              screen. */}
+          <Component
+            id="steps" title="Steps"
+            desc=".step (styles/enrollment.css) — the enrollment flow's vertical progress stepper."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start', justifyContent: 'center', marginBottom: 16 }}>
+                  <div style={{ width: 220 }}>
+                    <div className="step complete">
+                      <div className="rail"><div className="num"><Icon icon={faCheck} size={13} /></div><div className="rail-line" /></div>
+                      <div className="body"><h3>Personal info</h3></div>
+                    </div>
+                    <div className="step current">
+                      <div className="rail"><div className="num">2</div><div className="rail-line" /></div>
+                      <div className="body"><h3>Investment elections</h3></div>
+                    </div>
+                  </div>
+                  <div className="ds-annotated-frame" style={{ maxWidth: 240, gap: 10 }}>
+                    <span className="ds-pin"><Num>1</Num>Number badge · 32×32px circle</span>
+                    <span className="ds-pin"><Num>2</Num>Rail line · 2px, connects steps</span>
+                    <span className="ds-pin"><Num>3</Num>Title (h3) · 15px/600</span>
+                  </div>
+                </div>
+                <div className="ds-spec-facts">
+                  <span><b>Complete</b> --green num, check icon</span><span><b>Current</b> --brand-fill num, --brand title</span><span><b>Upcoming</b> --surface-3 num, default text</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Progress step (styles/enrollment.css .step, line 83)</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="live" title=".steps (enrollment.css) — complete / current / upcoming">
+                <div style={{ width: 240 }}>
+                  <div className="step complete">
+                    <div className="rail"><div className="num"><Icon icon={faCheck} size={13} /></div><div className="rail-line" /></div>
+                    <div className="body"><h3>Personal info</h3><p>Confirmed</p></div>
+                  </div>
+                  <div className="step current">
+                    <div className="rail"><div className="num">2</div><div className="rail-line" /></div>
+                    <div className="body"><h3>Investment elections</h3><p>In progress</p></div>
+                  </div>
+                  <div className="step">
+                    <div className="rail"><div className="num">3</div><div className="rail-line" /></div>
+                    <div className="body"><h3>Review & submit</h3></div>
+                  </div>
+                  <div className="step">
+                    <div className="rail"><div className="num">4</div></div>
+                    <div className="body"><h3>Confirmation</h3></div>
+                  </div>
+                </div>
+              </VariantGroup>
+            </>}
+            dos={['Keep the current step visually distinct (brand fill) — never rely on position alone.']}
+            code={`<div className="step current">
+  <div className="rail"><div className="num">2</div><div className="rail-line" /></div>
+  <div className="body"><h3>Investment elections</h3></div>
+</div>`}
+            colors={[['Current', '--brand-fill'], ['Complete', '--green'], ['Upcoming', '--surface-3']]}
+          />
+
+          {/* ---------------- SPINNER ---------------- */}
+          {/* Verified: styles/enrollment.css .spinner (line 101) — the
+              real loading indicator, paired with .step-status. Also not
+              previously documented. */}
+          <Component
+            id="spinner" title="Spinner"
+            desc=".spinner (styles/enrollment.css) — the loading indicator, used inside .step-status."
+            demo={<>
+              <VariantGroup tag="live" title=".spinner — 11×11px, 2px border, spins 1s linear infinite">
+                <span className="spinner" />
+                <span className="step-status"><span className="spinner" />Saving…</span>
+              </VariantGroup>
+            </>}
+            dos={['Pair with visible text ("Saving…") — a spinner alone has no accessible meaning.']}
+            code={`<span className="step-status">
+  <span className="spinner" />
+  Saving…
+</span>`}
+            colors={[['Spin color', '--brand'], ['Track', '--line-strong']]}
           />
 
           {/* ---------------- WCAG ---------------- */}
