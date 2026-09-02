@@ -182,6 +182,24 @@ function Num({ children }) {
   return <span className="ds-pin-num">{children}</span>
 }
 
+// A tiny inline numbered marker that sits directly next to (never on
+// top of) a real element inside a screen mockup — no absolute-position
+// coordinate math, so it can never end up covering the content it's
+// labeling. Pair with <DotLegend> below the mockup for the full text.
+function Dot({ children }) {
+  return <span className="ds-example-dot-inline">{children}</span>
+}
+
+function DotLegend({ items }) {
+  return (
+    <ol className="ds-example-legend">
+      {items.map((label, i) => (
+        <li key={i}><span className="ds-anno-badge" style={{ margin: 0 }}>{i + 1}</span>{label}</li>
+      ))}
+    </ol>
+  )
+}
+
 // Wraps a set of Anno-pinned elements with the top padding they need to
 // float their callouts above the content, plus the caption row below.
 function AnatomyPins({ children, caption }) {
@@ -458,34 +476,30 @@ export default function DesignSystem() {
             ))}
 
             <h3 className="ds-sub">Applied in context</h3>
-            <p className="ds-lede">The real Transactions table showing which token colors which piece — pins point straight at the pixel, not swatches in isolation.</p>
-            <div className="ds-annotated-frame">
-              <div className="table-wrap">
-                <table className="tx-table">
-                  <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
-                  <tbody>
-                    <tr><td>Rollover</td><td><span className="req-status good">Approved</span></td><td className="num">$18,400.00</td></tr>
-                    <tr><td>Rebalance</td><td><span className="req-status ok">Pending</span></td><td className="num">—</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="ds-annotated-row">
-                <span className="req-status good">Approved</span>
-                <span className="ds-pin">--green text / --green-bg fill</span>
-              </div>
-              <div className="ds-annotated-row">
-                <span className="req-status ok">Pending</span>
-                <span className="ds-pin">--amber text / --amber-bg fill</span>
-              </div>
-              <div className="ds-annotated-row">
-                <span style={{ background: 'var(--surface-2)', padding: '4px 10px', borderRadius: 6, fontSize: 12.5 }}>Even row</span>
-                <span className="ds-pin">--surface-2 (zebra stripe)</span>
-              </div>
-              <div className="ds-annotated-row">
-                <button type="button" className="btn btn-primary" tabIndex={-1} style={{ pointerEvents: 'none' }}>Primary action</button>
-                <span className="ds-pin">--brand-fill (the one "interactive" color)</span>
+            <p className="ds-lede">The real Transactions screen — each numbered marker sits next to the real element it colors; the legend below spells out the token.</p>
+            <div className="ds-example-screen" style={{ maxWidth: 560 }}>
+              <div style={{ padding: '22px 24px' }}>
+                <div className="table-wrap">
+                  <table className="tx-table">
+                    <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
+                    <tbody>
+                      <tr><td>Rollover</td><td><Dot>1</Dot><span className="req-status good">Approved</span></td><td className="num">$18,400.00</td></tr>
+                      <tr><td><Dot>3</Dot>Rebalance</td><td><Dot>2</Dot><span className="req-status ok">Pending</span></td><td className="num">—</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Dot>4</Dot>
+                  <button type="button" className="btn btn-primary" tabIndex={-1} style={{ width: 'auto', pointerEvents: 'none' }}>Primary action</button>
+                </div>
               </div>
             </div>
+            <DotLegend items={[
+              '--green text / --green-bg fill',
+              '--amber text / --amber-bg fill',
+              '--surface-2 (zebra stripe on this row)',
+              '--brand-fill (the one "interactive" color)',
+            ]} />
           </section>
 
           {/* ---------------- TYPE ---------------- */}
@@ -527,31 +541,35 @@ export default function DesignSystem() {
             </div>
 
             <h3 className="ds-sub">Applied in context</h3>
-            <p className="ds-lede">Where each level actually lands on a real screen — every pin sits directly on the real text it's labeling.</p>
-            <div className="ds-annotated-frame">
-              <div className="ds-annotated-row">
-                <h4 className="ds-type-h1" style={{ margin: 0, fontSize: 26 }}>Retirement plan balance</h4>
-                <span className="ds-pin">H1 · Page title</span>
-              </div>
-              <div className="ds-annotated-row">
-                <h5 className="ds-type-h2" style={{ margin: 0, fontSize: 18 }}>Recent requests</h5>
-                <span className="ds-pin">H2 · Section heading</span>
-              </div>
-              <div className="table-wrap">
-                <table className="tx-table">
-                  <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
-                  <tbody><tr><td className="ds-type-p2">Rollover</td><td><span className="req-status good">Approved</span></td><td className="num ds-type-p2">$18,400.00</td></tr></tbody>
-                </table>
-              </div>
-              <div className="ds-annotated-row" style={{ marginTop: 4 }}>
-                <span className="ds-type-p2">Table body text</span>
-                <span className="ds-pin">Body · 15px/400</span>
-              </div>
-              <div className="ds-annotated-row">
-                <span className="ds-type-p3" style={{ color: 'var(--ink-soft)' }}>Distribution plan type</span>
-                <span className="ds-pin">Label · 13.5px/600</span>
+            <p className="ds-lede">Where each level actually lands on a real screen — numbered markers sit next to the real text, the legend spells each one out.</p>
+            <div className="ds-example-screen" style={{ maxWidth: 560 }}>
+              <div style={{ padding: '22px 24px' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 12 }}>
+                  <Dot>1</Dot>
+                  <h4 className="ds-type-h1" style={{ margin: 0, fontSize: 26 }}>Retirement plan balance</h4>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 10 }}>
+                  <Dot>2</Dot>
+                  <h5 className="ds-type-h2" style={{ margin: 0, fontSize: 18 }}>Recent requests</h5>
+                </div>
+                <div className="table-wrap">
+                  <table className="tx-table">
+                    <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
+                    <tbody><tr><td className="ds-type-p2"><Dot>3</Dot>Rollover</td><td><span className="req-status good">Approved</span></td><td className="num ds-type-p2">$18,400.00</td></tr></tbody>
+                  </table>
+                </div>
+                <div style={{ marginTop: 12 }}>
+                  <Dot>4</Dot>
+                  <span className="ds-type-p3" style={{ color: 'var(--ink-soft)' }}>Distribution plan type</span>
+                </div>
               </div>
             </div>
+            <DotLegend items={[
+              'H1 · Page title · 34px/800',
+              'H2 · Section heading · 26px/800',
+              'Body · table cell text · 15px/400',
+              'Label · secondary/meta text · 13.5px/600',
+            ]} />
           </section>
 
           {/* ---------------- SPACE ---------------- */}
