@@ -164,6 +164,17 @@
 .ds-anno-line{width:1px;height:14px;background:var(--brand)}
 .ds-pin-num{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#fff;color:var(--brand);font-size:9.5px;font-weight:800;flex:0 0 auto}
 
+/* ---------- Variant groups (Preview tab): separates what's already
+   live in the app from proposed-but-unbuilt variants, so nothing here
+   is ever mistaken for a real class the way .btn-sm was. ---------- */
+.ds-variant-group{width:100%}
+.ds-variant-group + .ds-variant-group{margin-top:22px;padding-top:20px;border-top:1px dashed var(--line)}
+.ds-variant-heading{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--muted)}
+.ds-variant-tag{font-size:10px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;padding:2px 8px;border-radius:999px}
+.ds-variant-tag.live{background:var(--green-bg);color:var(--green)}
+.ds-variant-tag.proposed{background:var(--amber-bg);color:var(--amber)}
+.ds-variant-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+
 /* ---------- Ruler-style padding band (blue highlighted strip along an
    edge, pixel value at each end) — visual upgrade of .ds-spec-cell to
    match the reference's highlighted-band ruler rather than a bare tick ---------- */

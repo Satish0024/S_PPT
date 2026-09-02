@@ -143,6 +143,21 @@ function Anno({ n, label, children, wrap }) {
   )
 }
 
+// Groups a Preview tab's variants into "Live in the app" vs "Proposed"
+// so a new, not-yet-built variant is never mistaken for a real class —
+// the exact mistake .btn-sm caused earlier on this branch.
+function VariantGroup({ tag = 'live', title, children }) {
+  return (
+    <div className="ds-variant-group">
+      <div className="ds-variant-heading">
+        <span className={`ds-variant-tag ${tag}`}>{tag === 'live' ? 'Live in the app' : 'Proposed'}</span>
+        <span>{title}</span>
+      </div>
+      <div className="ds-variant-row">{children}</div>
+    </div>
+  )
+}
+
 // Small numbered circle used inside a .ds-pin label, so a side-by-side
 // pin (real element + pin text) still carries the same numbered-part
 // identity as the floating callouts above horizontally-laid-out parts.
@@ -689,18 +704,31 @@ export default function DesignSystem() {
                 <p className="ds-anatomy-caption">a. Standard button (styles/index.css .btn.btn-primary)</p>
               </div>
             }
-            demo={<div className="ds-demo-row" style={{ alignItems: 'center' }}>
-              <button type="button" className="btn btn-primary">Primary</button>
-              <button type="button" className="btn btn-secondary">Secondary</button>
-              <button type="button" className="btn btn-ghost">Ghost</button>
-              <button type="button" className="btn btn-primary" disabled>Disabled</button>
-              <button type="button" className="icon-btn" aria-label="Settings"><Icon icon={faGear} size={18} /></button>
-              <button type="button" className="icon-btn" aria-label="Print"><Icon icon={faPrint} size={18} /></button>
-            </div>}
+            demo={<>
+              <VariantGroup tag="live" title="styles/index.css + enrollment.css — every button class actually in the app">
+                <button type="button" className="btn btn-primary">Primary</button>
+                <button type="button" className="btn btn-secondary">Secondary</button>
+                <button type="button" className="btn btn-ghost">Ghost</button>
+                <button type="button" className="btn btn-primary" disabled>Disabled</button>
+                <button type="button" className="btn-tertiary" style={{ width: 'auto' }}>Tertiary (enrollment.css)</button>
+                <button type="button" className="icon-btn" aria-label="Settings"><Icon icon={faGear} size={18} /></button>
+                <button type="button" className="icon-btn" aria-label="Print"><Icon icon={faPrint} size={18} /></button>
+              </VariantGroup>
+              <VariantGroup tag="proposed" title="Not built yet — inline styles only, for when these are needed">
+                <button type="button" className="btn btn-primary" style={{ background: 'var(--red)', borderColor: 'var(--red)' }}>Destructive</button>
+                <button type="button" className="btn btn-primary" style={{ padding: '7px 12px', fontSize: 12.5 }}>Small</button>
+                <button type="button" className="btn btn-primary" style={{ padding: '15px 22px', fontSize: 15.5 }}>Large</button>
+                <button type="button" className="btn btn-primary" disabled style={{ display: 'inline-flex', gap: 8, alignItems: 'center', opacity: .75 }}>
+                  <span style={{ width: 13, height: 13, borderRadius: '50%', border: '2px solid rgba(255,255,255,.4)', borderTopColor: '#fff', display: 'inline-block' }} />
+                  Loading…
+                </button>
+              </VariantGroup>
+            </>}
             dos={['Give every icon-only button an aria-label.', 'Keep one primary button per view.']}
             donts={[
               "Don't combine .btn with .btn-sm — .btn-sm is dead CSS with zero real usages and its own padding loses the cascade to .btn.",
               "Don't assume a page-scoped stylesheet (enrollment.css, transactions.css, etc.) only applies on that page — Vite bundles every statically-imported CSS file into one global stylesheet. enrollment.css's own .btn{width:100%} is live everywhere, all the time, including here, and wins over index.css's .btn on whichever loaded later.",
+              "Don't treat the \"Proposed\" row as existing CSS — Destructive/Small/Large/Loading are inline-styled mockups for a variant that hasn't been built. Add a real .btn-danger / .btn-sm-v2 / .btn-lg / .btn-loading class before using one in a page.",
             ]}
             code={`<button type="button" className="btn btn-primary">Save changes</button>
 <button type="button" className="btn btn-ghost">Ghost</button>
@@ -760,23 +788,43 @@ export default function DesignSystem() {
                 <p className="ds-anatomy-caption">a. Text input (styles/transactions.css .txn-field input, line 107)</p>
               </div>
             }
-            demo={<div style={{ display: 'grid', gap: 12, width: '100%', maxWidth: 340 }}>
-              <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname
-                <input
-                  style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, color: 'var(--ink)', background: 'var(--panel)' }}
-                  placeholder="e.g. My 401(k)"
-                />
-              </label>
-              <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Distribution plan type
-                <select className="tx-plan-select" style={{ marginTop: 6, width: '100%' }}>
-                  <option>401(k)</option><option>403(b)</option>
-                </select>
-              </label>
-              <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5, color: 'var(--red)', fontWeight: 600 }}>
-                <Icon icon={faTriangleExclamation} size={14} /> Target percentages must add up to 100%.
-              </p>
-            </div>}
+            demo={<>
+              <VariantGroup tag="live" title="transactions.css .txn-field — every real input state">
+                <div style={{ display: 'grid', gap: 12, width: '100%', maxWidth: 340 }}>
+                  <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname
+                    <input
+                      style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, color: 'var(--ink)', background: 'var(--panel)' }}
+                      placeholder="e.g. My 401(k)"
+                    />
+                  </label>
+                  <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Distribution plan type
+                    <select className="tx-plan-select" style={{ marginTop: 6, width: '100%' }}>
+                      <option>401(k)</option><option>403(b)</option>
+                    </select>
+                  </label>
+                  <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Locked field (disabled)
+                    <input
+                      disabled value="Direct deposit"
+                      style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--surface-2)', color: 'var(--ink-soft)' }}
+                    />
+                  </label>
+                  <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5, color: 'var(--red)', fontWeight: 600 }}>
+                    <Icon icon={faTriangleExclamation} size={14} /> Target percentages must add up to 100%.
+                  </p>
+                </div>
+              </VariantGroup>
+              <VariantGroup tag="proposed" title="Not built yet — for a future search/filter field">
+                <div style={{ position: 'relative', width: '100%', maxWidth: 260 }}>
+                  <Icon icon={faMagnifyingGlass} size={13} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--muted)' }} />
+                  <input
+                    placeholder="Search investments…"
+                    style={{ width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px 8px 34px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)' }}
+                  />
+                </div>
+              </VariantGroup>
+            </>}
             dos={['Associate every input with a <label>.', 'Announce validation errors with role="alert".']}
+            donts={["Don't trust the focus-ring color to always equal --brand — transactions.css line 111 hard-codes rgba(46,49,146,.12) (the old CORE purple) instead of using the token, so on this LendGuard-themed branch the focus ring is subtly the wrong hue. Real, pre-existing bug, not a design choice."]}
             code={`<label>Account nickname
   <input placeholder="e.g. My 401(k)" />
 </label>
@@ -845,18 +893,27 @@ export default function DesignSystem() {
                 <p className="ds-anatomy-caption">a. Toggle switch (styles/index.css .a11y-switch, line 266)</p>
               </div>
             }
-            demo={<div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
-              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="checkbox" defaultChecked /> Email statements</label>
-              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5, opacity: .5 }}><input type="checkbox" disabled /> Paper statements (disabled)</label>
-              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="radio" name="ds-r" defaultChecked /> Direct deposit</label>
-              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="radio" name="ds-r" /> Mailed check</label>
-              <label className="a11y-switch" style={{ display: 'inline-flex' }}>
-                <input type="checkbox" defaultChecked /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
-              </label>
-              <label className="a11y-switch" style={{ display: 'inline-flex' }}>
-                <input type="checkbox" /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
-              </label>
-            </div>}
+            demo={<>
+              <VariantGroup tag="live" title="Checkbox &amp; radio — native inputs, every state used in the app">
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="checkbox" defaultChecked /> Email statements</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="checkbox" /> Unchecked</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5, opacity: .5 }}><input type="checkbox" disabled /> Paper statements (disabled)</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="radio" name="ds-r" defaultChecked /> Direct deposit</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="radio" name="ds-r" /> Mailed check</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5, opacity: .5 }}><input type="radio" name="ds-r" disabled /> Wire (disabled)</label>
+              </VariantGroup>
+              <VariantGroup tag="live" title=".a11y-switch — on / off / disabled">
+                <label className="a11y-switch" style={{ display: 'inline-flex' }}>
+                  <input type="checkbox" defaultChecked /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
+                </label>
+                <label className="a11y-switch" style={{ display: 'inline-flex' }}>
+                  <input type="checkbox" /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
+                </label>
+                <label className="a11y-switch" style={{ display: 'inline-flex', opacity: .5 }}>
+                  <input type="checkbox" disabled /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
+                </label>
+              </VariantGroup>
+            </>}
             dos={['Use native <input> elements so keyboard and screen-reader support come for free.']}
             code={`<label className="a11y-switch">
   <input type="checkbox" checked={on} onChange={toggle} />
@@ -912,11 +969,16 @@ export default function DesignSystem() {
                 <p className="ds-anatomy-caption">a. Status pill (styles/transactions.css .req-status, line 56)</p>
               </div>
             }
-            demo={<div style={{ display: 'flex', gap: 10 }}>
-              <span className="req-status good">Active</span>
-              <span className="req-status ok">Pending</span>
-              <span className="req-status warn">Action needed</span>
-            </div>}
+            demo={<>
+              <VariantGroup tag="live" title="transactions.css .req-status — all 3 real states">
+                <span className="req-status good">Active</span>
+                <span className="req-status ok">Pending</span>
+                <span className="req-status warn">Action needed</span>
+              </VariantGroup>
+              <VariantGroup tag="proposed" title="Not built yet — a 4th, neutral state for e.g. Draft">
+                <span className="req-status" style={{ background: 'var(--surface-3)', color: 'var(--ink-soft)' }}>Draft</span>
+              </VariantGroup>
+            </>}
             dos={['Pair every status color with a text label — never color alone.']}
             donts={["Don't reach for a bare .badge class — it isn't a real standalone rule; it's redefined 3 separate times under different page scopes."]}
             code={`<span className="req-status good">Active</span>
@@ -980,15 +1042,35 @@ export default function DesignSystem() {
                 <p className="ds-anatomy-caption">a. Data table (styles/index.css .tx-table)</p>
               </div>
             }
-            demo={<div className="table-wrap" style={{ width: '100%' }}>
-              <table className="tx-table">
-                <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
-                <tbody>
-                  <tr><td>Rollover</td><td><span className="req-status good">Approved</span></td><td className="num">$18,400.00</td></tr>
-                  <tr><td>Rebalance</td><td><span className="req-status ok">Pending</span></td><td className="num">—</td></tr>
-                </tbody>
-              </table>
-            </div>}
+            demo={<>
+              <VariantGroup tag="live" title="index.css .tx-table — populated, zebra-striped">
+                <div className="table-wrap" style={{ width: '100%' }}>
+                  <table className="tx-table">
+                    <thead><tr><th>Type</th><th>Status</th><th className="num">Amount</th></tr></thead>
+                    <tbody>
+                      <tr><td>Rollover</td><td><span className="req-status good">Approved</span></td><td className="num">$18,400.00</td></tr>
+                      <tr><td>Rebalance</td><td><span className="req-status ok">Pending</span></td><td className="num">—</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </VariantGroup>
+              <VariantGroup tag="proposed" title="Not built yet — loading and empty states">
+                <div className="table-wrap" style={{ width: '100%', maxWidth: 300 }}>
+                  <table className="tx-table">
+                    <thead><tr><th>Type</th><th className="num">Amount</th></tr></thead>
+                    <tbody>
+                      <tr><td><span style={{ display: 'inline-block', width: 70, height: 12, borderRadius: 4, background: 'var(--surface-3)' }} /></td><td className="num"><span style={{ display: 'inline-block', width: 50, height: 12, borderRadius: 4, background: 'var(--surface-3)' }} /></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="table-wrap" style={{ width: '100%', maxWidth: 300 }}>
+                  <table className="tx-table">
+                    <thead><tr><th>Type</th><th className="num">Amount</th></tr></thead>
+                    <tbody><tr><td colSpan={2} style={{ textAlign: 'center', color: 'var(--muted)', padding: '20px 12px' }}>No requests yet</td></tr></tbody>
+                  </table>
+                </div>
+              </VariantGroup>
+            </>}
             code={`tbody tr:nth-child(even){ background: var(--surface-2); }`}
             colors={[['Zebra row', '--surface-2'], ['Row border', '--line']]}
             extra={
@@ -1021,15 +1103,27 @@ export default function DesignSystem() {
           <Component
             id="dialog" title="Dialogs & modals"
             desc=".confirm-dialog (styles/index.css) — used for every destructive confirmation prompt."
-            demo={<div className="confirm-dialog" style={{ margin: '0 auto' }}>
-              <div className="confirm-dialog-ico"><Icon icon={faTriangleExclamation} size={20} /></div>
-              <h4>Cancel this request?</h4>
-              <p>This rollover request will be withdrawn.</p>
-              <div className="confirm-dialog-actions">
-                <button type="button" className="btn btn-secondary">Keep it</button>
-                <button type="button" className="btn btn-primary">Cancel request</button>
-              </div>
-            </div>}
+            demo={<>
+              <VariantGroup tag="live" title="index.css .confirm-dialog — destructive confirmation">
+                <div className="confirm-dialog" style={{ margin: '0 auto' }}>
+                  <div className="confirm-dialog-ico"><Icon icon={faTriangleExclamation} size={20} /></div>
+                  <h4>Cancel this request?</h4>
+                  <p>This rollover request will be withdrawn.</p>
+                  <div className="confirm-dialog-actions">
+                    <button type="button" className="btn btn-secondary">Keep it</button>
+                    <button type="button" className="btn btn-primary">Cancel request</button>
+                  </div>
+                </div>
+              </VariantGroup>
+              <VariantGroup tag="live" title="index.css .txn-success-modal — real success confirmation">
+                <div className="txn-success-modal" style={{ margin: '0 auto' }}>
+                  <div className="confirm-dialog-ico" style={{ background: 'var(--green-bg)', color: 'var(--green)', margin: '0 auto 12px' }}><Icon icon={faCheck} size={20} /></div>
+                  <h3>Request submitted</h3>
+                  <p className="hint" style={{ color: 'var(--ink-soft)', fontSize: 13.5 }}>You'll get a confirmation email shortly.</p>
+                  <button type="button" className="btn btn-primary" style={{ width: 'auto', marginTop: 12 }}>Done</button>
+                </div>
+              </VariantGroup>
+            </>}
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
                 <div style={{ display: 'flex', gap: 28, alignItems: 'flex-start', justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
@@ -1088,17 +1182,34 @@ export default function DesignSystem() {
           <Component
             id="header" title="Header"
             desc="components/layout/Header.jsx — the real app-wide top bar."
-            demo={<header className="topbar" style={{ width: '100%', borderRadius: 12, border: '1px solid var(--line)' }}>
-              <div className="brand"><div style={{ height: 26, width: 100, borderRadius: 4, background: 'var(--surface-3)' }} /></div>
-              <div className="top-right">
-                <button type="button" className="icon-btn" aria-label="Switch theme"><Icon icon={faMoon} size={19} /></button>
-                <div className="user-chip">
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--active-bg)' }} />
-                  <span className="chip-text"><span className="chip-name">Jordan Lee</span></span>
-                  <Icon icon={faChevronDown} size={14} className="chev" />
-                </div>
-              </div>
-            </header>}
+            demo={<>
+              <VariantGroup tag="live" title="components/layout/Header.jsx — light-mode toggle state">
+                <header className="topbar" style={{ width: '100%', borderRadius: 12, border: '1px solid var(--line)' }}>
+                  <div className="brand"><div style={{ height: 26, width: 100, borderRadius: 4, background: 'var(--surface-3)' }} /></div>
+                  <div className="top-right">
+                    <button type="button" className="icon-btn" aria-label="Switch theme"><Icon icon={faMoon} size={19} /></button>
+                    <div className="user-chip">
+                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                      <span className="chip-text"><span className="chip-name">Jordan Lee</span></span>
+                      <Icon icon={faChevronDown} size={14} className="chev" />
+                    </div>
+                  </div>
+                </header>
+              </VariantGroup>
+              <VariantGroup tag="live" title="Same .topbar — dark-mode toggle state (icon flips sun/moon)">
+                <header className="topbar" style={{ width: '100%', borderRadius: 12, border: '1px solid var(--line)' }}>
+                  <div className="brand"><div style={{ height: 26, width: 100, borderRadius: 4, background: 'var(--surface-3)' }} /></div>
+                  <div className="top-right">
+                    <button type="button" className="icon-btn" aria-label="Switch theme"><Icon icon={faSun} size={19} /></button>
+                    <div className="user-chip">
+                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                      <span className="chip-text"><span className="chip-name">Jordan Lee</span></span>
+                      <Icon icon={faChevronDown} size={14} className="chev" />
+                    </div>
+                  </div>
+                </header>
+              </VariantGroup>
+            </>}
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
                 <div className="ds-anatomy-pins" style={{ paddingTop: 56, marginBottom: 16 }}>
@@ -1205,20 +1316,31 @@ export default function DesignSystem() {
                 <p className="ds-anatomy-caption">a. Nav item (styles/index.css .nav a / .nav a.active, line 311)</p>
               </div>
             }
-            demo={<nav className="nav" aria-label="Primary (sample)" style={{ width: 110, height: 260, border: '1px solid var(--line)', borderRadius: 12, position: 'static' }}>
-              <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active">
-                <span className="ico" aria-hidden="true"><Icon icon={faGear} size={20} /></span>
-                <span className="nav-label">Dashboard</span>
-              </a>
-              <a href="#sidebar" onClick={(e) => e.preventDefault()}>
-                <span className="ico" aria-hidden="true"><Icon icon={faPrint} size={20} /></span>
-                <span className="nav-label">Reports</span>
-              </a>
-              <a href="#sidebar" onClick={(e) => e.preventDefault()} style={{ opacity: .5 }}>
-                <span className="ico" aria-hidden="true"><Icon icon={faMagnifyingGlass} size={20} /></span>
-                <span className="nav-label">Search (disabled)</span>
-              </a>
-            </nav>}
+            demo={<>
+              <VariantGroup tag="live" title="index.css .nav — active / inactive / disabled items">
+                <nav className="nav" aria-label="Primary (sample)" style={{ width: 110, height: 260, border: '1px solid var(--line)', borderRadius: 12, position: 'static' }}>
+                  <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active">
+                    <span className="ico" aria-hidden="true"><Icon icon={faGear} size={20} /></span>
+                    <span className="nav-label">Dashboard</span>
+                  </a>
+                  <a href="#sidebar" onClick={(e) => e.preventDefault()}>
+                    <span className="ico" aria-hidden="true"><Icon icon={faPrint} size={20} /></span>
+                    <span className="nav-label">Reports</span>
+                  </a>
+                  <a href="#sidebar" onClick={(e) => e.preventDefault()} style={{ opacity: .5 }}>
+                    <span className="ico" aria-hidden="true"><Icon icon={faMagnifyingGlass} size={20} /></span>
+                    <span className="nav-label">Search (disabled)</span>
+                  </a>
+                </nav>
+              </VariantGroup>
+              <VariantGroup tag="live" title="index.css .nav-cta (line 1421) — the rail's bottom circular CTA">
+                <div className="nav-bottom" style={{ position: 'static', alignItems: 'center' }}>
+                  <a href="#sidebar" onClick={(e) => e.preventDefault()} className="nav-cta" aria-label="Get help" style={{ position: 'static' }}>
+                    <Icon icon={faUniversalAccess} size={18} />
+                  </a>
+                </div>
+              </VariantGroup>
+            </>}
             code={`<nav className="nav" aria-label="Primary">
   <NavLink to="/" className={({isActive}) => isActive ? 'active' : ''}>
     <span className="ico"><Icon icon={faGear} /></span>
