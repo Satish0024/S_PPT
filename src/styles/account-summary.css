@@ -112,7 +112,11 @@
 .as-row-toggle:hover{color:var(--brand)}
 .as-row-toggle:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 .as-row-chevron{
-  margin-left:auto;color:var(--ink-soft);transition:transform .18s ease}
+  /* Was margin-left:auto, pushing it to the far right edge of the (often
+     much wider than its content) name cell -- floated in the middle of
+     the row instead of reading as part of the name. Now the first
+     element in .as-row-toggle (JSX order), at the front of the row. */
+  margin-right:6px;color:var(--ink-soft);transition:transform .18s ease;flex:0 0 auto}
 .as-row-open .as-row-chevron{transform:rotate(180deg);color:var(--brand)}
 .as-row-detail td{background:var(--surface-2);padding:0;border-bottom:1px solid var(--line)}
 .as-row-detail:hover{background:transparent}

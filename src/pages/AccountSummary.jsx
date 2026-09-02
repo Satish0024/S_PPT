@@ -287,14 +287,14 @@ export default function AccountSummary() {
                                   aria-expanded={isOpen}
                                   aria-controls={`${row.id}-detail`}
                                 >
-                                  <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
-                                  {row.name}
                                   <ChevronDown
                                     size={15}
                                     strokeWidth={2.2}
                                     className="as-row-chevron"
                                     aria-hidden="true"
                                   />
+                                  <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
+                                  {row.name}
                                 </button>
                               ) : (
                                 <>

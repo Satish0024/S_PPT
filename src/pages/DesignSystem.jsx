@@ -1770,9 +1770,10 @@ export default function DesignSystem() {
           {/* Verified: styles/account-summary.css .as-row-toggle/
               .as-row-chevron/.as-row-detail/.as-detail-grid — the
               Account Summary table's expandable rows (Investments and
-              Asset class tabs). Chevron order matches the real class
-              today: swatch, name, then chevron (margin-left:auto pushes
-              it to the row's far right edge). */}
+              Asset class tabs). Chevron is the first element in
+              .as-row-toggle, before the swatch/name — was margin-left:auto
+              (last, pushed to the row's far right edge, floating away
+              from the name it belongs to); fixed to sit at the front. */}
           <Component
             id="accordion" title="Accordion (expandable row)"
             desc=".as-row-toggle / .as-row-detail (styles/account-summary.css) — Account Summary's expandable table rows."
@@ -1785,9 +1786,9 @@ export default function DesignSystem() {
                       <tr className="as-row-open">
                         <td>
                           <button type="button" className="as-row-toggle" tabIndex={-1}>
+                            <Icon icon={faChevronDown} size={13} className="as-row-chevron" />
                             <span className="as-swatch" style={{ background: '#e05a4f' }} aria-hidden="true" />
                             U.S. Equity Fund
-                            <Icon icon={faChevronDown} size={13} className="as-row-chevron" />
                           </button>
                         </td>
                         <td className="num">$6,934.00</td>
@@ -1805,7 +1806,7 @@ export default function DesignSystem() {
                   </table>
                 </div>
                 <DotLegend items={[
-                  'Toggle · .as-row-toggle, swatch + name + chevron (in that order — chevron sits at the row\'s far right, margin-left:auto)',
+                  'Toggle · .as-row-toggle, chevron + swatch + name (in that order — chevron sits at the front of the row)',
                   'Open state · .as-row-open rotates the chevron 180°, .as-row-detail row renders below',
                   'Detail grid · .as-detail-grid, 3 columns on desktop (2 at ≤640px)',
                 ]} />
@@ -1824,9 +1825,9 @@ export default function DesignSystem() {
                       <tr className="as-row-open">
                         <td>
                           <button type="button" className="as-row-toggle" tabIndex={-1}>
+                            <Icon icon={faChevronDown} size={13} className="as-row-chevron" />
                             <span className="as-swatch" style={{ background: '#e05a4f' }} aria-hidden="true" />
                             U.S. Equity Fund
-                            <Icon icon={faChevronDown} size={13} className="as-row-chevron" />
                           </button>
                         </td>
                         <td className="num">164.324</td>
@@ -1844,9 +1845,9 @@ export default function DesignSystem() {
                       <tr>
                         <td>
                           <button type="button" className="as-row-toggle" tabIndex={-1}>
+                            <Icon icon={faChevronDown} size={13} className="as-row-chevron" />
                             <span className="as-swatch" style={{ background: '#5ba3d9' }} aria-hidden="true" />
                             U.S. Bond Fund
-                            <Icon icon={faChevronDown} size={13} className="as-row-chevron" />
                           </button>
                         </td>
                         <td className="num">220.010</td>
@@ -1860,9 +1861,9 @@ export default function DesignSystem() {
             donts={["Don't rely on hover alone to show a row is expandable — .as-row-toggle has no visual affordance besides the chevron itself, so a row with a long name and no chevron would look identical to a non-expandable one. Keep the chevron visible at all times, not just on hover."]}
             colors={[['Chevron (closed)', '--ink-soft'], ['Chevron (open)', '--brand'], ['Detail row bg', '--surface-2']]}
             code={`<button className="as-row-toggle" aria-expanded={isOpen} aria-controls={\`\${row.id}-detail\`}>
+  <ChevronDown className="as-row-chevron" />
   <span className="as-swatch" style={{ background: row.color }} />
   {row.name}
-  <ChevronDown className="as-row-chevron" />
 </button>
 {isOpen && (
   <tr className="as-row-detail" id={\`\${row.id}-detail\`}>
