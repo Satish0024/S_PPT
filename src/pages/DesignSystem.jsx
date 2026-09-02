@@ -162,10 +162,11 @@ const COLOR_GROUPS = [
     ['Red', '--red', 'Error/danger text/icon'], ['Red bg', '--red-bg', 'Error/danger fill'], ['Red line', '--red-line', 'Error/danger border'],
   ] },
   { title: 'Info', tokens: [
-    ['— none dedicated —', null, 'No separate info token — .status-banner .badge.navy reuses --active-bg/--brand for informational badges'],
+    ['Info bg', '--active-bg', '.status-banner .badge.navy background — reuses Active bg, no separate info fill token'],
+    ['Info text', '--brand', '.status-banner .badge.navy text — reuses Primary, no separate info text token'],
   ] },
   { title: 'Disabled', tokens: [
-    ['— none dedicated —', null, 'No disabled color token — disabled state is opacity-based (.btn:disabled{opacity:.5}), not a separate color'],
+    ['Disabled', '--brand-fill', 'No dedicated color — .btn:disabled{opacity:.5} fades whatever fill/text it already has (shown at 50%)', 0.5],
   ] },
 ]
 
@@ -204,15 +205,15 @@ const TYPE_SCALE = [
 const ACCOUNT_SUMMARY_COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#2e3192', '#d4a017']
 
 const TYPE_TOKENS = [
-  { name: 'Display', family: 'Inclusive Sans', size: '44px', weight: 800, lineHeight: '1 (.rr2-hero-copy b)', letterSpacing: '-1px (.rr2-hero-copy b)', case: 'None' },
-  { name: 'H1 / Page title', family: 'Inclusive Sans', size: '34px (proposed) · real range 22–38px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '-.4px (.hi-bar h1)', case: 'None' },
-  { name: 'H2 / Section heading', family: 'Inclusive Sans', size: '26px (proposed) · real range 15–26px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '-.2px (.section-title)', case: 'None' },
-  { name: 'H3 / Card title', family: 'Inclusive Sans', size: '20px (proposed) · real range 15–20px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: '-.2px (.pc-name)', case: 'None' },
-  { name: 'Body', family: 'Inclusive Sans', size: '14px (proposed) · real range 13–15px', weight: 400, lineHeight: 'default (~1.4, not set)', letterSpacing: 'Normal', case: 'None' },
-  { name: 'Label', family: 'Inclusive Sans', size: '13px (proposed) · real range 12–13.5px', weight: 600, lineHeight: 'default (~1.3, not set)', letterSpacing: 'Normal', case: 'None' },
-  { name: 'Caption / micro', family: 'Inclusive Sans', size: '12px (proposed) · real range 9–12px', weight: 700, lineHeight: 'default (~1.3, not set)', letterSpacing: 'Normal', case: 'None' },
-  { name: 'Overline / eyebrow', family: 'Inclusive Sans', size: '12px (proposed) · real range 11–13px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '.3–.8px (.eyebrow, varies by page)', case: 'UPPERCASE (real: text-transform)' },
-  { name: 'Button label', family: 'Inclusive Sans', size: '14px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: 'Normal', case: 'None' },
+  { name: 'Display', family: 'Inclusive Sans', size: '44px', weight: 800, lineHeight: '1 (.rr2-hero-copy b)', letterSpacing: '0px (proposed) · real -1px (.rr2-hero-copy b)', case: 'None' },
+  { name: 'H1 / Page title', family: 'Inclusive Sans', size: '34px (proposed) · real range 22–38px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px (proposed) · real -.4px (.hi-bar h1)', case: 'None' },
+  { name: 'H2 / Section heading', family: 'Inclusive Sans', size: '26px (proposed) · real range 15–26px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px (proposed) · real -.2px (.section-title)', case: 'None' },
+  { name: 'H3 / Card title', family: 'Inclusive Sans', size: '20px (proposed) · real range 15–20px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px (proposed) · real -.2px (.pc-name)', case: 'None' },
+  { name: 'Body', family: 'Inclusive Sans', size: '14px (proposed) · real range 13–15px', weight: 400, lineHeight: 'default (~1.4, not set)', letterSpacing: '0px', case: 'None' },
+  { name: 'Label', family: 'Inclusive Sans', size: '13px (proposed) · real range 12–13.5px', weight: 600, lineHeight: 'default (~1.3, not set)', letterSpacing: '0px', case: 'None' },
+  { name: 'Caption / micro', family: 'Inclusive Sans', size: '12px (proposed) · real range 9–12px', weight: 700, lineHeight: 'default (~1.3, not set)', letterSpacing: '0px', case: 'None' },
+  { name: 'Overline / eyebrow', family: 'Inclusive Sans', size: '12px (proposed) · real range 11–13px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '2px (proposed) · real .3–.8px (.eyebrow, varies by page)', case: 'UPPERCASE (real: text-transform)' },
+  { name: 'Button label', family: 'Inclusive Sans', size: '14px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px', case: 'None' },
 ]
 
 // Verified via grep against styles/index.css — gap: and padding: value
@@ -796,7 +797,7 @@ export default function DesignSystem() {
                   <table className="ds-type-table">
                     <thead><tr><th>Token</th><th>Variable</th><th>Light (HEX / RGB)</th><th>Dark (HEX / RGB)</th><th>Usage</th></tr></thead>
                     <tbody>
-                      {g.tokens.map(([name, varName, usage]) => {
+                      {g.tokens.map(([name, varName, usage, opacity]) => {
                         if (!varName) {
                           return (
                             <tr key={name}>
@@ -811,13 +812,13 @@ export default function DesignSystem() {
                         return (
                           <tr key={varName + name}>
                             <td><b>{name}</b></td>
-                            <td><code>{varName}</code></td>
+                            <td><code>{varName}</code>{opacity && <div style={{ fontSize: 10.5, color: 'var(--muted)' }}>@ {opacity * 100}% opacity</div>}</td>
                             <td>
-                              <button type="button" className="ds-hex-cell" onClick={() => light && copyToClipboard(light)}><span className="ds-hex-dot" style={{ background: light }} />{light}</button>
+                              <button type="button" className="ds-hex-cell" onClick={() => light && copyToClipboard(light)}><span className="ds-hex-dot" style={{ background: light, opacity: opacity || 1 }} />{light}</button>
                               <div style={{ fontSize: 10.5, color: 'var(--muted)', marginLeft: 22 }}>rgb({hexToRgb(light)})</div>
                             </td>
                             <td>
-                              <button type="button" className="ds-hex-cell" onClick={() => dark && copyToClipboard(dark)}><span className="ds-hex-dot" style={{ background: dark }} />{dark}</button>
+                              <button type="button" className="ds-hex-cell" onClick={() => dark && copyToClipboard(dark)}><span className="ds-hex-dot" style={{ background: dark, opacity: opacity || 1 }} />{dark}</button>
                               <div style={{ fontSize: 10.5, color: 'var(--muted)', marginLeft: 22 }}>rgb({hexToRgb(dark)})</div>
                             </td>
                             <td style={{ fontSize: 12.5 }}>{usage}</td>
@@ -1087,11 +1088,18 @@ export default function DesignSystem() {
                   </div>
                   <input readOnly value="My 401(k)" style={{ marginTop: 8, minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--bg)', width: '100%' }} />
                 </div>
+                {/* The real 8px gap, undisturbed — a pin dot sitting
+                    in the flex row between the buttons was doubling
+                    the visible gap (Save-8px-dot-8px-Cancel = 16px),
+                    misrepresenting the actual spacing. Point at it
+                    from outside instead, same fix as Sidebar anatomy. */}
                 <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                  <Dot>4</Dot>
                   <button type="button" className="btn btn-primary" tabIndex={-1} style={{ width: 'auto' }}>Save</button>
-                  <Dot>5</Dot>
                   <button type="button" className="btn btn-secondary" tabIndex={-1} style={{ width: 'auto' }}>Cancel</button>
+                </div>
+                <div className="ds-annotated-frame" style={{ marginTop: 10, gap: 10 }}>
+                  <span className="ds-pin"><Num>4</Num>Button radius · 10px</span>
+                  <span className="ds-pin"><Num>5</Num>Gap between buttons · 8px (real, not doubled by an annotation)</span>
                 </div>
               </div>
             </div>
@@ -1099,8 +1107,6 @@ export default function DesignSystem() {
               'Page padding · 24px',
               'Card padding · 16px, card radius · 14px',
               'Gap between label and field · 8px (implicit via margin)',
-              'Button radius · 10px, gap between buttons · 8px',
-              'Same .btn radius, secondary variant',
             ]} />
           </section>
 
