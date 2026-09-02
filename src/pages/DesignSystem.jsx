@@ -146,11 +146,12 @@ function Anno({ n, label, children, wrap }) {
 // Groups a Preview tab's variants into "Live in the app" vs "Proposed"
 // so a new, not-yet-built variant is never mistaken for a real class —
 // the exact mistake .btn-sm caused earlier on this branch.
+const VARIANT_TAG_LABEL = { live: 'Live in the app', proposed: 'Proposed', bug: 'Real bug' }
 function VariantGroup({ tag = 'live', title, children }) {
   return (
     <div className="ds-variant-group">
       <div className="ds-variant-heading">
-        <span className={`ds-variant-tag ${tag}`}>{tag === 'live' ? 'Live in the app' : 'Proposed'}</span>
+        <span className={`ds-variant-tag ${tag}`}>{VARIANT_TAG_LABEL[tag]}</span>
         <span>{title}</span>
       </div>
       <div className="ds-variant-row">{children}</div>
@@ -705,6 +706,12 @@ export default function DesignSystem() {
               </div>
             }
             demo={<>
+              <VariantGroup tag="bug" title="How .btn-primary actually renders on most real pages today">
+                <div style={{ flex: '0 0 300px', width: 300 }}>
+                  <button type="button" className="btn btn-primary" style={{ width: '100%' }}>Submit request</button>
+                  <p style={{ fontSize: 11.5, color: 'var(--ink-soft)', margin: '8px 0 0' }}>enrollment.css's global .btn{'{'}width:100%{'}'} — see Usage tab.</p>
+                </div>
+              </VariantGroup>
               <VariantGroup tag="live" title="styles/index.css + enrollment.css — every button class actually in the app">
                 <button type="button" className="btn btn-primary">Primary</button>
                 <button type="button" className="btn btn-secondary">Secondary</button>

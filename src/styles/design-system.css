@@ -107,7 +107,7 @@
    Scoped so this demo shows buttons at their real auto width without
    papering over the underlying app bug (documented in the Buttons Usage
    tab instead of silently fixed). */
-.ds-demo-row .btn{width:auto}
+.ds-demo-row .btn,.ds-variant-row .btn{width:auto}
 
 .ds-code-wrap{position:relative}
 .ds-code{margin:0;padding:16px 20px;background:#12131f;color:#dfe3ff;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12.5px;line-height:1.6;overflow-x:auto;white-space:pre}
@@ -159,10 +159,10 @@
 .ds-anatomy-pins-row{display:flex;align-items:flex-end;justify-content:center;gap:28px;flex-wrap:wrap}
 .ds-anno{position:relative;display:inline-flex}
 .ds-anno-callout{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;padding-bottom:0;z-index:2}
-.ds-anno-badge{width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;margin-bottom:6px;flex:0 0 auto;box-shadow:0 0 0 3px var(--surface-2)}
-.ds-anno-text{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--ink);white-space:nowrap;box-shadow:var(--shadow);margin-bottom:6px}
-.ds-anno-line{width:1px;height:14px;background:var(--brand)}
-.ds-pin-num{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#fff;color:var(--brand);font-size:9.5px;font-weight:800;flex:0 0 auto}
+.ds-anno-badge{width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:10.5px;font-weight:700;display:grid;place-items:center;margin-bottom:5px;flex:0 0 auto}
+.ds-anno-text{font-size:11px;font-weight:600;color:var(--ink-soft);white-space:nowrap;margin-bottom:5px}
+.ds-anno-line{width:1px;height:14px;background:var(--line-strong)}
+.ds-pin-num{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:9px;font-weight:700;flex:0 0 auto}
 
 /* ---------- Variant groups (Preview tab): separates what's already
    live in the app from proposed-but-unbuilt variants, so nothing here
@@ -173,6 +173,7 @@
 .ds-variant-tag{font-size:10px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;padding:2px 8px;border-radius:999px}
 .ds-variant-tag.live{background:var(--green-bg);color:var(--green)}
 .ds-variant-tag.proposed{background:var(--amber-bg);color:var(--amber)}
+.ds-variant-tag.bug{background:var(--red-bg);color:var(--red)}
 .ds-variant-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 
 /* ---------- Ruler-style padding band (blue highlighted strip along an
@@ -196,8 +197,8 @@
 /* ---------- Annotated "applied in context" frame ---------- */
 .ds-annotated-frame{border:1px solid var(--line);border-radius:16px;background:var(--panel);box-shadow:var(--shadow);padding:24px 28px;display:flex;flex-direction:column;gap:16px}
 .ds-annotated-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.ds-pin{display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;padding:5px 12px;border-radius:999px;background:var(--brand);color:#fff;font-size:11.5px;font-weight:800;white-space:nowrap}
-.ds-pin::before{content:"";width:26px;height:1px;background:var(--line-strong);margin-right:2px}
+.ds-pin{display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;padding:5px 10px 5px 4px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink);font-size:11.5px;font-weight:600;white-space:nowrap}
+.ds-pin::before{content:"";width:20px;height:1px;background:var(--line-strong);margin-right:2px}
 
 /* ---------- Typography / token table ---------- */
 .ds-type-table{width:100%;border-collapse:collapse}
