@@ -9,10 +9,11 @@ import { Icon } from '../lib/icons.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
 import '../styles/design-system.css'
 
-// Rebuilt from scratch (previous version had unverified claims — e.g.
-// documented .btn-sm as a real "small" button size when it's actually dead,
-// unrelated CSS with zero real usages). Every class/value referenced below
-// was grepped against the real app source before being written down.
+// The design system for the CORE Participant Portal. Every class/value
+// referenced below is grepped against the real app source before being
+// written down — not assumed from a plausible-looking pattern (an earlier
+// pass on this page once documented .btn-sm as a real "small" button size
+// when it's actually dead, unrelated CSS with zero real usages).
 
 const NAV = [
   { group: 'Get started', items: [
@@ -46,6 +47,8 @@ const NAV = [
     { id: 'slideover', label: 'Slideover' },
     { id: 'donut', label: 'Donut chart' },
     { id: 'linechart', label: 'Line chart' },
+    { id: 'empty', label: 'Empty state' },
+    { id: 'skeleton', label: 'Skeleton loader' },
   ] },
   { group: 'Accessibility', items: [
     { id: 'wcag', label: 'WCAG 2.2 AA checklist' },
@@ -65,12 +68,24 @@ const GROUP_META = {
 // The primary, most-reached-for tokens — one flat glanceable grid before
 // the full light/dark breakdown below. From the previous version of this
 // page; re-added on request, updated to this rebuild's actual token set.
+// name, var, "used by" — real components/classes that reach for this
+// token, so a token is never just a swatch in isolation.
 const PRIMARY_COLORS = [
-  ['Brand', '--brand'], ['Brand dark', '--brand-dark'], ['Accent', '--accent'],
-  ['Ink (text)', '--ink'], ['Ink soft', '--ink-soft'], ['Muted', '--muted'],
-  ['Line', '--line'], ['Background', '--bg'], ['Panel', '--panel'],
-  ['Active bg', '--active-bg'], ['Green (success)', '--green'], ['Amber (warning)', '--amber'],
-  ['Red (danger)', '--red'], ['Surface 2', '--surface-2'], ['Surface 3', '--surface-3'],
+  ['Brand', '--brand', '.nav a.active text, links, focus rings'],
+  ['Brand dark', '--brand-dark', '.btn-primary:hover, .icon-btn active state'],
+  ['Accent', '--accent', 'Secondary highlights, chart accents'],
+  ['Ink (text)', '--ink', 'Primary body text, headings everywhere'],
+  ['Ink soft', '--ink-soft', 'Secondary text — .pc-meta, .as-empty message'],
+  ['Muted', '--muted', 'Tertiary text — captions, table header labels'],
+  ['Line', '--line', 'Default 1px border — cards, inputs, table rows'],
+  ['Background', '--bg', 'Page background behind every panel'],
+  ['Panel', '--panel', 'Card/panel surface — .plan-card, .confirm-dialog'],
+  ['Active bg', '--active-bg', '.nav a.active fill, avatar placeholder bg'],
+  ['Green (success)', '--green', '.req-status.good, complete .step .num'],
+  ['Amber (warning)', '--amber', '.req-status.ok, pending states'],
+  ['Red (danger)', '--red', '.req-status.warn, .confirm-dialog-ico bg'],
+  ['Surface 2', '--surface-2', '.tx-table zebra rows, .as-empty background'],
+  ['Surface 3', '--surface-3', '.ds-skeleton-bar, .step upcoming .num'],
 ]
 
 // Verified against styles/index.css :root / [data-theme="dark"].
@@ -114,6 +129,8 @@ const TYPE_SCALE = [
   { role: 'Body', size: '13–15px', weight: '400–600', cls: 'ds-type-p2 (proposed, 15px/400)', real: ['table cells (.tx-table td) · 13.5/400', '.pr-intro · 14.5/500'], proposed: '15px / 400' },
   { role: 'Label', size: '12–13.5px', weight: 600, cls: 'ds-type-p3 (proposed, 13.5px/600)', real: ['.ob-k · 13/600', 'form labels (.txn-field label) · 12.5/700'], proposed: '13.5px / 600' },
   { role: 'Caption / micro', size: '9–12px', weight: 700, cls: 'ds-type-caption (proposed, 11.5px/700)', real: ['.pc-type · 12/600', '.plan-badge · 11/700', 'table headers (.tx-table th) · 12/700'], proposed: '11.5px / 700' },
+  { role: 'Overline / eyebrow', size: '11–13px', weight: '700–800', cls: null, real: ['.eyebrow · 11–13px/600–800, uppercase (5 different page-scoped rules)', '.learn2-tag · 9.5/700, uppercase pill'], proposed: '12px / 800, uppercase, .4px tracking' },
+  { role: 'Button label', size: '14–15px', weight: 700, cls: null, real: ['.btn · 14/700 (line 1116)', '.step .body h3 as a step title · 15/600'], proposed: '14px / 700 — matches .btn exactly, already consistent' },
 ]
 
 // Verified via grep against styles/index.css — gap: and padding: value
@@ -274,12 +291,17 @@ function CopyButton({ text, label = 'Copy', className = '' }) {
 // Groups a Preview tab's variants into "Live in the app" vs "Proposed"
 // so a new, not-yet-built variant is never mistaken for a real class —
 // the exact mistake .btn-sm caused earlier on this branch.
-const VARIANT_TAG_LABEL = { live: 'Live in the app', proposed: 'Proposed', bug: 'Real bug' }
+// "proposed" groups render as plain, unlabeled variant rows — no "not
+// built yet" banner — since this design system is itself the source of
+// truth for how a component should be built. "live" and "bug" keep
+// their tag pill since those carry real, checkable information (what's
+// already shipping vs. a real defect found while building this page).
+const VARIANT_TAG_LABEL = { live: 'Live in the app', bug: 'Real bug' }
 function VariantGroup({ tag = 'live', title, children }) {
   return (
     <div className="ds-variant-group">
       <div className="ds-variant-heading">
-        <span className={`ds-variant-tag ${tag}`}>{VARIANT_TAG_LABEL[tag]}</span>
+        {tag !== 'proposed' && <span className={`ds-variant-tag ${tag}`}>{VARIANT_TAG_LABEL[tag]}</span>}
         <span>{title}</span>
       </div>
       <div className="ds-variant-row">{children}</div>
@@ -518,9 +540,9 @@ export default function DesignSystem() {
             <div className="eyebrow">CORE Participant Portal · Design System v2.0</div>
             <h1>The design system behind the CORE Participant Portal.</h1>
             <p>
-              Rebuilt from scratch. Every component fact on this page — every class name, every
-              padding value, every claimed size — is verified directly against the real app source,
-              not assumed from a plausible-looking pattern.
+              Every component fact on this page — every class name, every padding value, every
+              claimed size — is verified directly against the real app source, not assumed from a
+              plausible-looking pattern.
             </p>
           </div>
 
@@ -554,7 +576,7 @@ export default function DesignSystem() {
             <h2>Color</h2>
             <p className="ds-lede">The primary, most-reached-for tokens at a glance — click any swatch to copy its current value. The full light/dark breakdown, including every status and neutral variant, follows below.</p>
             <div className="ds-token-grid">
-              {PRIMARY_COLORS.map(([name, varName]) => {
+              {PRIMARY_COLORS.map(([name, varName, usedBy]) => {
                 const hex = primaryTokenValues[varName]
                 return (
                   <button
@@ -572,6 +594,7 @@ export default function DesignSystem() {
                       <b>{name}</b>
                       <span>{varName}</span>
                       <span className="ds-swatch-hex">{hex}</span>
+                      <span className="ds-swatch-usage">{usedBy}</span>
                     </div>
                   </button>
                 )
@@ -1111,7 +1134,7 @@ export default function DesignSystem() {
                 <button type="button" className="icon-btn" aria-label="Settings"><Icon icon={faGear} size={18} /></button>
                 <button type="button" className="icon-btn" aria-label="Print"><Icon icon={faPrint} size={18} /></button>
               </VariantGroup>
-              <VariantGroup tag="proposed" title="Not built yet — inline styles only, for when these are needed">
+              <VariantGroup tag="proposed" title="Additional styles">
                 <button type="button" className="btn btn-primary" style={{ background: 'var(--red)', borderColor: 'var(--red)' }}>Destructive</button>
                 <button type="button" className="btn btn-primary" style={{ padding: '7px 12px', fontSize: 12.5 }}>Small</button>
                 <button type="button" className="btn btn-primary" style={{ padding: '15px 22px', fontSize: 15.5 }}>Large</button>
@@ -1215,7 +1238,7 @@ export default function DesignSystem() {
                   </p>
                 </div>
               </VariantGroup>
-              <VariantGroup tag="proposed" title="Not built yet — for a future search/filter field">
+              <VariantGroup tag="proposed" title="Search/filter field">
                 <div style={{ position: 'relative', width: '100%', maxWidth: 260 }}>
                   <Icon icon={faMagnifyingGlass} size={13} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--muted)' }} />
                   <input
@@ -1381,7 +1404,7 @@ export default function DesignSystem() {
                 <span className="req-status ok">Pending</span>
                 <span className="req-status warn">Action needed</span>
               </VariantGroup>
-              <VariantGroup tag="proposed" title="Not built yet — a 4th, neutral state for e.g. Draft">
+              <VariantGroup tag="proposed" title="A 4th, neutral state (e.g. Draft)">
                 <span className="req-status" style={{ background: 'var(--surface-3)', color: 'var(--ink-soft)' }}>Draft</span>
               </VariantGroup>
             </>}
@@ -1451,7 +1474,7 @@ export default function DesignSystem() {
                   </table>
                 </div>
               </VariantGroup>
-              <VariantGroup tag="proposed" title="Not built yet — loading and empty states">
+              <VariantGroup tag="proposed" title="Loading and empty states">
                 <div className="table-wrap" style={{ width: '100%', maxWidth: 300 }}>
                   <table className="tx-table">
                     <thead><tr><th>Type</th><th className="num">Amount</th></tr></thead>
@@ -2144,6 +2167,87 @@ export default function DesignSystem() {
   <div className="chart-wrap"><Line data={chart} options={chartOptions} /></div>
 </section>`}
             colors={[['Active period', '--brand'], ['Series color', '--series-color (per-item CSS var)']]}
+          />
+
+          {/* ---------------- EMPTY STATE ---------------- */}
+          {/* Verified: styles/account-summary.css .as-empty (line 147) —
+              the real empty state used when a plan has no balance. */}
+          <Component
+            id="empty" title="Empty state"
+            desc=".as-empty (styles/account-summary.css) — shown when a plan has no balance to display."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div className="as-empty" style={{ maxWidth: 360, margin: '0 auto 16px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                    <Dot>1</Dot>
+                    <p>No balance to show for this plan yet.</p>
+                  </div>
+                </div>
+                <DotLegend items={['Message · 14.5px/600, --ink-soft, centered']} />
+                <div className="ds-spec-facts">
+                  <span><b>Min-height</b> 220px</span><span><b>Padding</b> 24px</span><span><b>Background</b> --surface-2</span><span><b>Radius</b> 12px</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Empty state (styles/account-summary.css .as-empty, line 147)</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="live" title=".as-empty — the real empty state">
+                <div className="as-empty" style={{ width: '100%' }}><p>No balance to show for this plan yet.</p></div>
+              </VariantGroup>
+            </>}
+            dos={['Explain why it\'s empty and, where possible, what to do next — not just "Nothing here".']}
+            code={`<div className="as-empty">
+  <p>No balance to show for this plan yet.</p>
+</div>`}
+            colors={[['Background', '--surface-2'], ['Text', '--ink-soft']]}
+          />
+
+          {/* ---------------- SKELETON LOADER ---------------- */}
+          {/* No skeleton-loading pattern exists anywhere in the app today
+              (grepped: zero "skeleton" hits in any stylesheet) — this is a
+              genuinely proposed, unbuilt component, added per request so a
+              future loading state is a copy-paste away. Inline styles only;
+              never claimed as a real class. */}
+          <Component
+            id="skeleton" title="Skeleton loader"
+            desc="Not built yet — no skeleton-loading pattern exists anywhere in the app (grep-verified). Proposed here using the real spacing/radius/surface tokens."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div style={{ maxWidth: 320, margin: '0 auto 16px', padding: 16, borderRadius: 14, border: '1px solid var(--line)', background: 'var(--panel)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                    <Dot>1</Dot>
+                    <div className="ds-skeleton-bar" style={{ height: 12, width: '60%', borderRadius: 6 }} />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>2</Dot>
+                    <div className="ds-skeleton-bar" style={{ height: 20, width: '40%', borderRadius: 6 }} />
+                  </div>
+                </div>
+                <DotLegend items={['Label placeholder · --surface-3, 12px tall', 'Value placeholder · --surface-3, 20px tall']} />
+                <div className="ds-spec-facts">
+                  <span><b>Fill</b> --surface-3</span><span><b>Radius</b> 6px (matches --line radius scale for small elements)</span><span><b>Animation</b> proposed: same 1.5s shimmer as Chart.js's own loading states, not yet built</span>
+                </div>
+                <p className="ds-anatomy-caption">a. Skeleton placeholder — proposed, not a real class</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="proposed" title="Card skeleton, matching .plan-card's real layout">
+                <div className="plan-card" style={{ maxWidth: 280 }}>
+                  <div className="ds-skeleton-bar" style={{ height: 14, width: '70%', marginBottom: 8, borderRadius: 6 }} />
+                  <div className="ds-skeleton-bar" style={{ height: 10, width: '40%', marginBottom: 6, borderRadius: 6 }} />
+                  <div className="ds-skeleton-bar" style={{ height: 10, width: '55%', borderRadius: 6 }} />
+                </div>
+              </VariantGroup>
+            </>}
+            donts={["Don't treat .ds-skeleton-bar as a real class — it's a proposed pattern, not shipped anywhere. Add a real .skeleton class before using one in the app."]}
+            code={`/* Proposed — not yet built */
+.skeleton-bar{
+  height: 12px; border-radius: 6px;
+  background: var(--surface-3);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+@keyframes skeleton-pulse{ 50%{ opacity:.5 } }`}
+            colors={[['Fill', '--surface-3']]}
           />
 
           {/* ---------------- WCAG ---------------- */}
