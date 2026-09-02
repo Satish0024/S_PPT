@@ -97,6 +97,22 @@ const KEYBOARD_ROWS = [
   ['Escape', 'Close an open dialog or menu'],
 ]
 
+// Composed-screen dots: small numbered markers only (no text on the
+// screen itself — the earlier version put full text pins on top of
+// real content and made both unreadable). Full descriptions live in
+// the legend list below the screen instead.
+const EXAMPLE_PINS = [
+  { n: 1, pos: { top: 24, left: 100 }, label: '.topbar — sticky, --panel background' },
+  { n: 2, pos: { top: 100, left: 46 }, label: '.nav a.active — --brand text, --active-bg fill' },
+  { n: 3, pos: { top: 76, left: 120 }, label: 'H1 — 34px/800' },
+  { n: 4, pos: { top: 76, right: 24 }, label: '.btn-primary — --brand-fill' },
+  { n: 5, pos: { top: 160, left: 120 }, label: '--shadow — resting card elevation' },
+  { n: 6, pos: { top: 216, left: 120 }, label: 'H2 — 26px/800' },
+  { n: 7, pos: { top: 268, left: 380 }, label: '.req-status.good — --green / --green-bg' },
+  { n: 8, pos: { top: 302, left: 380 }, label: '.req-status.warn — --red / --red-bg' },
+  { n: 9, pos: { top: 285, left: 120 }, label: 'tbody even row — --surface-2 zebra stripe' },
+]
+
 function copyToClipboard(text) {
   if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text)
   const ta = document.createElement('textarea')
@@ -657,17 +673,18 @@ export default function DesignSystem() {
                 </div>
               </div>
 
-              {/* Pins, positioned over the composed screen above */}
-              <div className="ds-example-pin" style={{ top: 14, left: 110 }}><span className="ds-pin">.topbar · --panel bg, sticky</span></div>
-              <div className="ds-example-pin" style={{ top: 90, left: 8 }}><span className="ds-pin">.nav a.active · --brand / --active-bg</span></div>
-              <div className="ds-example-pin" style={{ top: 68, left: 130 }}><span className="ds-pin">H1 · 34px/800</span></div>
-              <div className="ds-example-pin" style={{ top: 68, right: 20 }}><span className="ds-pin">.btn-primary · --brand-fill</span></div>
-              <div className="ds-example-pin" style={{ top: 150, left: 130 }}><span className="ds-pin">--shadow · resting card</span></div>
-              <div className="ds-example-pin" style={{ top: 205, left: 130 }}><span className="ds-pin">H2 · 26px/800</span></div>
-              <div className="ds-example-pin" style={{ top: 250, left: 250 }}><span className="ds-pin">.req-status.good · --green/--green-bg</span></div>
-              <div className="ds-example-pin" style={{ top: 285, left: 250 }}><span className="ds-pin">.req-status.warn · --red/--red-bg</span></div>
-              <div className="ds-example-pin" style={{ top: 267, left: 130 }}><span className="ds-pin">tbody even row · --surface-2</span></div>
+              {/* Small numbered dots only — never full text on top of real
+                  content, which is what made this unreadable before. Each
+                  dot's description lives in the legend list below instead. */}
+              {EXAMPLE_PINS.map((p) => (
+                <span key={p.n} className="ds-example-dot" style={p.pos} title={p.label}>{p.n}</span>
+              ))}
             </div>
+            <ol className="ds-example-legend">
+              {EXAMPLE_PINS.map((p) => (
+                <li key={p.n}><span className="ds-anno-badge" style={{ margin: 0 }}>{p.n}</span>{p.label}</li>
+              ))}
+            </ol>
           </section>
 
           {/* ---------------- BUTTONS ---------------- */}
