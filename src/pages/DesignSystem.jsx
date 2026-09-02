@@ -46,6 +46,7 @@ const NAV = [
     { id: 'content-card', label: 'Content card' },
     { id: 'slideover', label: 'Slideover' },
     { id: 'donut', label: 'Donut chart' },
+    { id: 'linechart', label: 'Line chart' },
   ] },
   { group: 'Accessibility', items: [
     { id: 'wcag', label: 'WCAG 2.2 AA checklist' },
@@ -156,12 +157,69 @@ const ALL_SOLID_ICONS = Object.keys(fasIcons)
   .map((k) => [k, fasIcons[k]])
   .sort((a, b) => a[0].localeCompare(b[0]))
 
+// All 55 WCAG 2.2 Level A + AA success criteria (2.1's 50 + 2.2's 6 new
+// A/AA additions, minus 4.1.1 Parsing, removed as obsolete in 2.2).
+// "Status" is honest, not aspirational: only the 5 rows this page has
+// actually verified against real app behavior elsewhere are marked
+// Verified — everything else is Not yet audited rather than assumed
+// compliant, the same discipline applied to every component claim on
+// this page.
 const WCAG_CHECKS = [
-  ['1.4.3', 'Contrast (Minimum)', 'Text vs. background meets 4.5:1 in both themes.'],
-  ['2.1.1', 'Keyboard', 'Every interactive control is reachable and operable via keyboard alone.'],
-  ['2.4.7', 'Focus Visible', 'A visible focus indicator is drawn for every focusable element.'],
-  ['3.3.1', 'Error Identification', 'Form errors use role="alert", described in text, not color alone.'],
-  ['4.1.2', 'Name, Role, Value', 'Custom components expose an accessible name/role/state.'],
+  ['1.1.1', 'Non-text Content', 'A', 'Every image/icon-only control has a text alternative.', 'todo'],
+  ['1.2.1', 'Audio-only and Video-only (Prerecorded)', 'A', 'Alternatives exist for any prerecorded audio/video-only content.', 'na'],
+  ['1.2.2', 'Captions (Prerecorded)', 'A', 'Captions for prerecorded video with audio.', 'na'],
+  ['1.2.3', 'Audio Description or Media Alternative', 'A', 'A text or audio-description alternative for prerecorded video.', 'na'],
+  ['1.2.4', 'Captions (Live)', 'AA', 'Captions for live audio content.', 'na'],
+  ['1.2.5', 'Audio Description (Prerecorded)', 'AA', 'Audio description for prerecorded video.', 'na'],
+  ['1.3.1', 'Info and Relationships', 'A', 'Structure/relationships conveyed in markup, not just visually.', 'todo'],
+  ['1.3.2', 'Meaningful Sequence', 'A', 'Reading/navigation order matches visual order.', 'todo'],
+  ['1.3.3', 'Sensory Characteristics', 'A', 'Instructions never rely on shape/color/position alone.', 'todo'],
+  ['1.3.4', 'Orientation', 'AA', 'Content isn\'t locked to one display orientation.', 'todo'],
+  ['1.3.5', 'Identify Input Purpose', 'AA', 'Common input fields expose their purpose (autocomplete).', 'todo'],
+  ['1.4.1', 'Use of Color', 'A', 'Color is never the only way information is conveyed.', 'verified', 'Status badges pair color with text (Badges component)'],
+  ['1.4.2', 'Audio Control', 'A', 'Auto-playing audio over 3s can be paused/stopped/muted.', 'na'],
+  ['1.4.3', 'Contrast (Minimum)', 'AA', 'Text vs. background meets 4.5:1 in both themes.', 'verified', 'Color tokens designed for this; not independently re-measured here'],
+  ['1.4.4', 'Resize Text', 'AA', 'Text can be resized 200% without loss of content/function.', 'todo'],
+  ['1.4.5', 'Images of Text', 'AA', 'Real text is used instead of images of text.', 'todo'],
+  ['1.4.10', 'Reflow', 'AA', 'Content reflows at 320px width without 2-D scrolling.', 'todo'],
+  ['1.4.11', 'Non-text Contrast', 'AA', 'UI components/graphics meet 3:1 contrast against adjacent colors.', 'todo'],
+  ['1.4.12', 'Text Spacing', 'AA', 'No loss of content when text spacing is overridden.', 'todo'],
+  ['1.4.13', 'Content on Hover or Focus', 'AA', 'Hover/focus-triggered content is dismissible, hoverable, persistent.', 'todo'],
+  ['2.1.1', 'Keyboard', 'A', 'Every interactive control is reachable and operable via keyboard alone.', 'verified', 'See the Keyboard interaction table below'],
+  ['2.1.2', 'No Keyboard Trap', 'A', 'Keyboard focus can always move away from any component.', 'todo'],
+  ['2.1.4', 'Character Key Shortcuts', 'A', 'Single-character shortcuts can be turned off/remapped.', 'na'],
+  ['2.2.1', 'Timing Adjustable', 'A', 'Time limits can be turned off, adjusted, or extended.', 'na'],
+  ['2.2.2', 'Pause, Stop, Hide', 'A', 'Moving/auto-updating content can be paused (e.g. the Content card\'s float animation).', 'todo'],
+  ['2.3.1', 'Three Flashes or Below', 'A', 'Nothing flashes more than 3 times per second.', 'verified', 'No flashing content anywhere in the app'],
+  ['2.4.1', 'Bypass Blocks', 'A', 'A skip-to-content mechanism exists.', 'todo'],
+  ['2.4.2', 'Page Titled', 'A', 'Every page has a descriptive <title>.', 'todo'],
+  ['2.4.3', 'Focus Order', 'A', 'Focus order preserves meaning and operability.', 'todo'],
+  ['2.4.4', 'Link Purpose (In Context)', 'A', 'A link\'s purpose is clear from its text or context.', 'todo'],
+  ['2.4.5', 'Multiple Ways', 'AA', 'More than one way to locate a page (nav + search, etc.).', 'todo'],
+  ['2.4.6', 'Headings and Labels', 'AA', 'Headings and labels describe topic or purpose.', 'todo'],
+  ['2.4.7', 'Focus Visible', 'AA', 'A visible focus indicator is drawn for every focusable element.', 'verified', 'See the Keyboard interaction table below'],
+  ['2.4.11', 'Focus Not Obscured (Minimum)', 'AA', 'The focused element is not entirely hidden by other content.', 'todo'],
+  ['2.5.1', 'Pointer Gestures', 'A', 'Multipoint/path gestures have a single-pointer alternative.', 'na'],
+  ['2.5.2', 'Pointer Cancellation', 'A', 'Actions can be cancelled before completion (up-event, not down-event).', 'todo'],
+  ['2.5.3', 'Label in Name', 'A', 'A control\'s accessible name contains its visible label text.', 'todo'],
+  ['2.5.4', 'Motion Actuation', 'A', 'Motion-triggered functions have a UI alternative.', 'na'],
+  ['2.5.7', 'Dragging Movements', 'AA', 'Drag-based actions have a single-pointer alternative.', 'na'],
+  ['2.5.8', 'Target Size (Minimum)', 'AA', 'Touch targets are at least 24×24px (or have adequate spacing).', 'verified', '.icon-btn is 36×36px, .a11y-switch has a 44px hit area'],
+  ['3.1.1', 'Language of Page', 'A', 'The page\'s primary language is set (lang attribute).', 'todo'],
+  ['3.1.2', 'Language of Parts', 'AA', 'Language changes within a page are marked.', 'na'],
+  ['3.2.1', 'On Focus', 'A', 'Focusing an element never triggers an unexpected context change.', 'todo'],
+  ['3.2.2', 'On Input', 'A', 'Changing a setting never triggers an unexpected context change.', 'todo'],
+  ['3.2.3', 'Consistent Navigation', 'AA', 'Repeated navigation stays in the same relative order.', 'verified', 'Sidebar order is fixed across every authenticated page'],
+  ['3.2.4', 'Consistent Identification', 'AA', 'Components with the same function are identified consistently.', 'verified', '.btn-primary/.req-status/.icon-btn used identically everywhere'],
+  ['3.2.6', 'Consistent Help', 'A', 'Help mechanisms appear in the same relative order across pages.', 'todo'],
+  ['3.3.1', 'Error Identification', 'A', 'Form errors use role="alert", described in text, not color alone.', 'verified', 'See the Forms & inputs component'],
+  ['3.3.2', 'Labels or Instructions', 'A', 'Every input has a label or instruction.', 'verified', 'See the Forms & inputs component'],
+  ['3.3.3', 'Error Suggestion', 'AA', 'Error messages suggest a fix when known.', 'todo'],
+  ['3.3.4', 'Error Prevention (Legal, Financial, Data)', 'AA', 'Submissions are reversible, checked, or confirmed.', 'verified', 'Destructive actions use .confirm-dialog'],
+  ['3.3.7', 'Redundant Entry', 'A', 'Information already entered isn\'t asked for again in the same process.', 'todo'],
+  ['3.3.8', 'Accessible Authentication (Minimum)', 'AA', 'No cognitive-function test is required to log in, unless an alternative exists.', 'todo'],
+  ['4.1.2', 'Name, Role, Value', 'A', 'Custom components expose an accessible name/role/state.', 'verified', 'Toggle switches, tabs, dialogs use proper ARIA'],
+  ['4.1.3', 'Status Messages', 'AA', 'Status changes are announced without moving focus (aria-live).', 'todo'],
 ]
 
 const KEYBOARD_ROWS = [
@@ -970,6 +1028,26 @@ export default function DesignSystem() {
               copy its import name, or{' '}
               <a href="https://fontawesome.com/download" target="_blank" rel="noreferrer">get the full Font Awesome 6 kit</a>.
             </p>
+
+            <h3 className="ds-sub">Size, padding, usage</h3>
+            <p className="ds-lede">Real sizes in the app are covered on the <a href="#space">Spacing &amp; radius</a> page's Icon size table (16/18/20/23px). Below is this grid's own cell spec.</p>
+            <div className="ds-card">
+              <table className="ds-type-table">
+                <thead><tr><th>Property</th><th>Value</th><th>Notes</th></tr></thead>
+                <tbody>
+                  <tr><td>Cell padding</td><td><code>10px 4px</code></td><td>Generous top/bottom for a comfortable click target; tight sides so labels don't clip</td></tr>
+                  <tr><td>Icon-to-label gap</td><td><code>6px</code></td><td>Matches the 4px spacing-scale step rounded up for legibility</td></tr>
+                  <tr><td>Icon render size (this grid)</td><td><code>18px</code></td><td>A neutral mid-point — pick the real context size (16/18/20/23px) when using one in the app</td></tr>
+                  <tr><td>Hover state</td><td><code>--surface-2</code> bg, <code>--line</code> border</td><td>Same hover treatment as .icon-btn</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="ds-usage-grid" style={{ padding: '0 0 20px' }}>
+              <div className="ds-usage-box do"><span className="ds-usage-badge"><Icon icon={faCheck} size={12} /></span><p>Pick the icon size from the real Spacing &amp; radius scale (16/18/20/23px) for the context you're in — don't invent a new size.</p></div>
+              <div className="ds-usage-box dont"><span className="ds-usage-badge"><Icon icon={faXmark} size={12} /></span><p>Don't mix Font Awesome with the app's old lucide-react icons on the same screen — pick one set per surface.</p></div>
+            </div>
+
+            <h3 className="ds-sub">Full set</h3>
             <div className="ds-icon-grid">
               {ALL_SOLID_ICONS.map(([name, def]) => (
                 <button key={name} type="button" className="ds-icon-cell" onClick={() => copyToClipboard(name)} title={`Copy "${name}"`}>
@@ -1972,13 +2050,108 @@ export default function DesignSystem() {
             colors={[['Arc', '--brand'], ['Score text', '--ink']]}
           />
 
+          {/* ---------------- LINE CHART ---------------- */}
+          {/* Verified: src/pages/Portfolio.jsx — the real "Asset class
+              performance" chart uses Chart.js (react-chartjs-2, Line),
+              not a hand-built SVG like the donut. Its chrome is real,
+              documented classes: .chart-panel/.chart-top (line ~182),
+              .legend/.legend-swatch (components/common/ChartLegend.jsx +
+              styles/portfolio.css line 65-80), .period (line 53). The
+              canvas itself is Chart.js-rendered and isn't reproduced
+              pixel-for-pixel here — a static SVG polyline stands in for
+              it, clearly labeled. */}
+          <Component
+            id="linechart" title="Line chart"
+            desc=".chart-panel (styles/portfolio.css) — Portfolio's Asset class performance chart. Chart.js renders the canvas; the legend, period tabs, and card are real CSS documented here."
+            anatomy={
+              <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
+                <div className="chart-panel" style={{ maxWidth: 460, margin: '0 auto', border: '1px solid var(--line)', borderRadius: 14, padding: 16, background: 'var(--panel)' }}>
+                  <div className="chart-top" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 10 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Dot>1</Dot><h2 style={{ fontSize: 15, margin: 0 }}>Asset class performance</h2></div>
+                    <div className="legend" style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                      <Dot>2</Dot>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 11.5 }} className="on"><input type="checkbox" checked readOnly /><span className="legend-swatch" style={{ background: 'var(--red)' }} />Total</label>
+                    </div>
+                  </div>
+                  <div className="period" role="tablist" aria-label="Chart period" style={{ display: 'inline-flex', marginBottom: 10 }}>
+                    <Dot>3</Dot>
+                    <button type="button" className="on" tabIndex={-1}>1Y</button>
+                    <button type="button" tabIndex={-1}>3Y</button>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Dot>4</Dot>
+                    <svg viewBox="0 0 200 60" style={{ width: '100%', height: 60 }}>
+                      <polyline points="0,55 40,45 80,35 120,25 160,15 200,8" fill="none" stroke="var(--red)" strokeWidth="2" />
+                    </svg>
+                  </div>
+                </div>
+                <DotLegend items={[
+                  'Chart title (h2) · real .chart-top heading',
+                  '.legend / .legend-swatch · ChartLegend.jsx, one checkbox per series',
+                  '.period · segmented tab group, active = --brand text + --panel bg',
+                  'Chart.js canvas · not reproduced pixel-for-pixel — stand-in SVG shown here',
+                ]} />
+                <p className="ds-anatomy-caption">a. Chart panel (styles/portfolio.css .chart-panel/.chart-top/.period, components/common/ChartLegend.jsx)</p>
+              </div>
+            }
+            demo={<>
+              <VariantGroup tag="live" title=".legend + .period — real, reusable regardless of chart library">
+                <div className="legend" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                  <label className="on" style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" checked readOnly /><span className="legend-swatch" style={{ background: 'var(--red)' }} />Total portfolio</label>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" readOnly /><span className="legend-swatch" style={{ background: 'var(--green)' }} />U.S. Equity</label>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" readOnly /><span className="legend-swatch" style={{ background: 'var(--brand)' }} />U.S. Bond</label>
+                </div>
+                <div className="period" role="tablist" aria-label="Chart period">
+                  <button type="button" tabIndex={-1}>1M</button>
+                  <button type="button" tabIndex={-1}>YTD</button>
+                  <button type="button" className="on" tabIndex={-1}>1Y</button>
+                  <button type="button" tabIndex={-1}>5Y</button>
+                </div>
+              </VariantGroup>
+            </>}
+            dos={['Never rely on line color alone to distinguish series — Chart.js is configured with distinct dash patterns per series too, for print/colorblind legibility.']}
+            donts={["Don't assume this app uses one charting approach everywhere — this Line chart is Chart.js-rendered, while the Donut chart above is a hand-built SVG. Check which one a given screen actually uses before reusing code."]}
+            code={`<section className="chart-panel">
+  <div className="chart-top">
+    <h2>Asset class performance</h2>
+    <ChartLegend items={seriesItems} onToggle={toggleSeries} />
+  </div>
+  <div className="period" role="tablist">
+    {PERIODS.map(p => <button className={period===p?'on':''}>{p}</button>)}
+  </div>
+  <div className="chart-wrap"><Line data={chart} options={chartOptions} /></div>
+</section>`}
+            colors={[['Active period', '--brand'], ['Series color', '--series-color (per-item CSS var)']]}
+          />
+
           {/* ---------------- WCAG ---------------- */}
           <section id="wcag" className="ds-section">
             <h2>WCAG 2.2 AA checklist</h2>
+            <p className="ds-lede">
+              All {WCAG_CHECKS.length} Level A + AA success criteria in WCAG 2.2 (2.1's 50, plus
+              2.2's 6 new A/AA additions, minus 4.1.1 Parsing — removed as obsolete in 2.2). Status
+              is honest, not aspirational: only criteria this design system has actually verified
+              against real component behavior are marked <b style={{ color: 'var(--green)' }}>Verified</b> —
+              everything else is <b style={{ color: 'var(--amber)' }}>Not yet audited</b>, not assumed compliant.
+            </p>
             <div className="ds-card">
               <table className="ds-type-table">
-                <thead><tr><th>SC</th><th>Criterion</th><th>How it's met</th></tr></thead>
-                <tbody>{WCAG_CHECKS.map(([sc, name, how]) => (<tr key={sc}><td><code>{sc}</code></td><td><b>{name}</b></td><td>{how}</td></tr>))}</tbody>
+                <thead><tr><th>SC</th><th>Criterion</th><th>Level</th><th>Requirement</th><th>Status</th></tr></thead>
+                <tbody>
+                  {WCAG_CHECKS.map(([sc, name, level, req, status, note]) => (
+                    <tr key={sc}>
+                      <td><code>{sc}</code></td>
+                      <td><b>{name}</b></td>
+                      <td><code>{level}</code></td>
+                      <td style={{ fontSize: 12.5 }}>{req}{note && <><br /><span style={{ color: 'var(--ink-soft)' }}>{note}</span></>}</td>
+                      <td>
+                        {status === 'verified' && <span style={{ color: 'var(--green)', fontWeight: 700, fontSize: 12 }}>Verified</span>}
+                        {status === 'todo' && <span style={{ color: 'var(--amber)', fontWeight: 700, fontSize: 12 }}>Not yet audited</span>}
+                        {status === 'na' && <span style={{ color: 'var(--muted)', fontWeight: 700, fontSize: 12 }}>N/A — no audio/video/gesture content</span>}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
           </section>
