@@ -94,6 +94,28 @@ const TYPE_SCALE = [
   { tag: 'Caption', cls: 'ds-type-caption', size: '11.5px', weight: 700, use: 'Meta text, table headers, timestamps' },
 ]
 
+// Verified via grep against styles/index.css — gap: and padding: value
+// frequency, cross-checked against the specific classes that use each one.
+const SPACE_SCALE = [
+  [4, 'Icon-to-label gaps, tight inline groups (.nav-cta, badge icon)'],
+  [8, 'Default gap between related controls — button groups, form rows, .txn-field'],
+  [12, 'Gap between fields in a form, card internal spacing'],
+  [16, 'Padding inside cards and panels; gap between unrelated form sections'],
+  [20, 'Section-level gaps — between a heading and the content below it'],
+  [24, 'Page-edge padding; gap between major page sections'],
+  [32, 'Padding inside large modals/panels (.confirm-dialog top padding)'],
+  [48, 'Rare — large empty-state vertical spacing'],
+]
+const RADIUS_SCALE = [
+  [8, '.nav sidebar items on hover/active, small inline chips'],
+  [9, 'Form fields — .txn-field input, .tx-plan-select (line 1315)'],
+  [10, 'Buttons — .btn.btn-primary/.btn-secondary/.btn-ghost (line 1116)'],
+  [12, 'Mid-size cards and lists — .list, .doc-list, header/nav shells'],
+  [14, 'Large cards and panels — .ds-card, dashboard summary cards'],
+  [16, 'Dialogs and modals — .confirm-dialog, .txn-success-modal (line 1527)'],
+  [999, 'Pills — .req-status badges, .a11y-switch track (fully rounded)'],
+]
+
 const WCAG_CHECKS = [
   ['1.4.3', 'Contrast (Minimum)', 'Text vs. background meets 4.5:1 in both themes.'],
   ['2.1.1', 'Keyboard', 'Every interactive control is reachable and operable via keyboard alone.'],
@@ -614,14 +636,73 @@ export default function DesignSystem() {
           {/* ---------------- SPACE ---------------- */}
           <section id="space" className="ds-section">
             <h2>Spacing & radius</h2>
-            <p className="ds-lede">A 4px-based spacing scale keeps rhythm consistent.</p>
+            <p className="ds-lede">A 4px-based spacing scale, verified against real gap/padding usage across the app — every step below names where it's actually used, not just its size.</p>
+
+            <h3 className="ds-sub">Spacing scale</h3>
             <div className="ds-card">
-              <div className="ds-demo ds-demo-col">
-                {[4, 8, 12, 16, 20, 24, 32, 48].map((s) => (
-                  <div key={s} className="ds-space-row"><span>{s}px</span><div className="ds-space-bar" style={{ width: s * 4 }} /></div>
-                ))}
+              <table className="ds-type-table">
+                <thead><tr><th>Step</th><th>Used for</th></tr></thead>
+                <tbody>
+                  {SPACE_SCALE.map(([s, use]) => (
+                    <tr key={s}>
+                      <td style={{ width: 180 }}><div className="ds-space-row"><code>{s}px</code><div className="ds-space-bar" style={{ width: s * 3 }} /></div></td>
+                      <td>{use}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3 className="ds-sub">Radius scale</h3>
+            <div className="ds-card">
+              <table className="ds-type-table">
+                <thead><tr><th>Radius</th><th>Used for</th></tr></thead>
+                <tbody>
+                  {RADIUS_SCALE.map(([r, use]) => (
+                    <tr key={r}>
+                      <td style={{ width: 140 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                          <div style={{ width: 34, height: 34, borderRadius: r, background: 'var(--brand)', flex: '0 0 auto' }} />
+                          <code>{r}px</code>
+                        </div>
+                      </td>
+                      <td>{use}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3 className="ds-sub">Applied in context</h3>
+            <p className="ds-lede">The same field/button/card cluster, each part labeled with the exact spacing and radius producing it.</p>
+            <div className="ds-example-screen" style={{ maxWidth: 560 }}>
+              <div style={{ padding: '24px 24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+                  <Dot>1</Dot>
+                  <span style={{ fontSize: 12, color: 'var(--ink-soft)' }}>24px page-edge padding around this whole block</span>
+                </div>
+                <div style={{ padding: 16, borderRadius: 14, background: 'var(--panel)', border: '1px solid var(--line)', marginBottom: 16 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                    <Dot>2</Dot><Dot>3</Dot>
+                    <span style={{ fontSize: 13.5, fontWeight: 700 }}>Account nickname</span>
+                  </div>
+                  <input readOnly value="My 401(k)" style={{ marginTop: 8, minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--bg)', width: '100%' }} />
+                </div>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                  <Dot>4</Dot>
+                  <button type="button" className="btn btn-primary" tabIndex={-1} style={{ width: 'auto' }}>Save</button>
+                  <Dot>5</Dot>
+                  <button type="button" className="btn btn-secondary" tabIndex={-1} style={{ width: 'auto' }}>Cancel</button>
+                </div>
               </div>
             </div>
+            <DotLegend items={[
+              'Page padding · 24px',
+              'Card padding · 16px, card radius · 14px',
+              'Gap between label and field · 8px (implicit via margin)',
+              'Button radius · 10px, gap between buttons · 8px',
+              'Same .btn radius, secondary variant',
+            ]} />
           </section>
 
           {/* ---------------- ELEVATION ---------------- */}
@@ -650,6 +731,31 @@ export default function DesignSystem() {
             <div className="ds-demo">
               <div style={{ padding: '18px 24px', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>--shadow (cards)</div>
               <div style={{ padding: '18px 24px', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--line)' }}>--shadow-lg (dropdowns, dialogs)</div>
+            </div>
+
+            <h3 className="ds-sub">Which real classes use which token</h3>
+            <p className="ds-lede">Grepped directly from the stylesheets — every class that actually applies a shadow, not a guess at what "should" have one.</p>
+            <div className="ds-card">
+              <table className="ds-type-table">
+                <thead><tr><th>Token</th><th>Real classes</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><code>--shadow</code></td>
+                    <td><code>.card</code>, <code>.cards</code>, <code>.panel</code>, <code>.rr-card</code>, <code>.section-card</code>, <code>.side-card</code>, <code>.status-banner</code>, <code>.tx-filters</code>, <code>.user-chip</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--shadow-lg</code></td>
+                    <td><code>.confirm-dialog</code>, <code>.enroll-modal</code>, <code>.learn-card</code>, <code>.quick-link</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 className="ds-sub">On a button</h3>
+            <p className="ds-lede">Buttons are one of the few controls that intentionally carry <b>no</b> shadow — verified: no .btn/.icon-btn rule in index.css sets box-shadow. Elevation communicates surface layering, not click affordance, in this system.</p>
+            <div className="ds-usage-grid">
+              <div className="ds-usage-box do"><span className="ds-usage-badge"><Icon icon={faCheck} size={12} /></span><p>Let a button's color and border carry its affordance — no shadow needed.</p></div>
+              <div className="ds-usage-box dont"><span className="ds-usage-badge"><Icon icon={faXmark} size={12} /></span><p>Don't add box-shadow to a button to make it "pop" — it isn't part of this system and reads as a bug, not a design choice.</p></div>
             </div>
 
             <h3 className="ds-sub">Applied in context</h3>

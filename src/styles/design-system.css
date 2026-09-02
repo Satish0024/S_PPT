@@ -175,6 +175,7 @@
 .ds-variant-tag.proposed{background:var(--amber-bg);color:var(--amber)}
 .ds-variant-tag.bug{background:var(--red-bg);color:var(--red)}
 .ds-variant-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.ds-variant-row > *{flex-shrink:0}
 
 /* ---------- Ruler-style padding band (blue highlighted strip along an
    edge, pixel value at each end) — visual upgrade of .ds-spec-cell to
