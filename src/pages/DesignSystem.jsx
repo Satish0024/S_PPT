@@ -2804,10 +2804,7 @@ export default function DesignSystem() {
             <h2>WCAG 2.2 AA checklist</h2>
             <p className="ds-lede">
               All {WCAG_CHECKS.length} Level A + AA success criteria in WCAG 2.2 (2.1's 50, plus
-              2.2's 6 new A/AA additions, minus 4.1.1 Parsing — removed as obsolete in 2.2). Status
-              is honest, not aspirational: only criteria this design system has actually verified
-              against real component behavior are marked <b style={{ color: 'var(--green)' }}>Verified</b> —
-              everything else is <b style={{ color: 'var(--amber)' }}>Not yet audited</b>, not assumed compliant.
+              2.2's 6 new A/AA additions, minus 4.1.1 Parsing — removed as obsolete in 2.2).
             </p>
             <div className="ds-card">
               <table className="ds-type-table">
