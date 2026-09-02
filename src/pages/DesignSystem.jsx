@@ -90,38 +90,24 @@ const COLOR_GROUPS = [
   ] },
 ]
 
-// IMPORTANT: unlike the color/shadow tokens, the app has no shared
-// h1/h2 utility classes — every page sizes its own heading ad hoc
-// (.hi-bar h1 is 26px/700, .login-brand-copy h1 is 36px/700, .page-head
-// h1 is 22px/700, .ds-hero h1 on this very page is 38px/800 — all
-// different, all real). This table is a PROPOSED consolidated scale
-// (its ds-type-* classes live only in design-system.css, nowhere in
-// the real app) meant to replace that drift going forward — not a
-// claim that it's already what's in use. See REAL_HEADING_SIZES below
-// for what's actually shipping today.
+// ONE table, not two. The app has no shared type-scale utility classes —
+// every page sizes its own text ad hoc (.hi-bar h1 is 26px/700,
+// .login-brand-copy h1 is 36px/700, .page-head h1 is 22px/700 — genuinely
+// different, all real, grepped from font-size: frequency across
+// index.css). Rather than inventing a clean fiction, this groups that
+// real range into roles and names the real classes at each one, from the
+// largest text in the app (.rr2-hero-copy b, a readiness-score figure)
+// down to the smallest (table header labels). "ds-type-h1" etc. are this
+// page's own consolidation proposal for future use — marked as such,
+// never implied to already be in use.
 const TYPE_SCALE = [
-  { tag: 'H1', cls: 'ds-type-h1', size: '34px', weight: 800, use: 'Page title (one per page) — proposed' },
-  { tag: 'H2', cls: 'ds-type-h2', size: '26px', weight: 800, use: 'Section heading — proposed' },
-  { tag: 'H3', cls: 'ds-type-h3', size: '20px', weight: 700, use: 'Subsection / card group heading — proposed' },
-  { tag: 'Body', cls: 'ds-type-p2', size: '15px', weight: 400, use: 'Body text (app default)' },
-  { tag: 'Label', cls: 'ds-type-p3', size: '13.5px', weight: 600, use: 'Form labels, body-soft text' },
-  { tag: 'Caption', cls: 'ds-type-caption', size: '11.5px', weight: 700, use: 'Meta text, table headers, timestamps' },
-]
-
-// Grepped directly: every real h1/h2 rule in the app's stylesheets, as
-// they exist today, with no attempt to force them into one scale.
-const REAL_HEADING_SIZES = [
-  ['h1', '.login-brand-copy h1', '36px / 700', 'Login hero'],
-  ['h1', '.ds-hero h1', '38px / 800', 'This design system’s own hero (not app UI)'],
-  ['h1', '.page-intro h1', '28px / 700', 'Enrollment intro pages'],
-  ['h1', '.hi-bar h1', '26px / 700', 'Dashboard greeting ("Hi Jordan")'],
-  ['h1', '.steps h1', '22px / 700', 'Enrollment step pages'],
-  ['h1', '.page-head h1', '22px / 700', 'Portfolio page header'],
-  ['h2', '.login-card h2', '26px / 700', 'Login card heading'],
-  ['h2', '.detail-head h2', '22px / 700', 'Plan detail page'],
-  ['h2', '.section h2', '18px / 700', 'Portfolio section heading'],
-  ['h2', '.chart-top h2', '16px / 700', 'Chart card heading'],
-  ['h2', '.overview-row .chart-top h2', '15px / 700', 'Dense chart card heading'],
+  { role: 'Display', size: '44px', weight: 800, cls: null, real: ['.rr2-hero-copy b — readiness score figure'], proposed: null },
+  { role: 'H1 (page title)', size: '22–38px', weight: '700–800', cls: 'ds-type-h1 (proposed, 34px/800)', real: ['.login-brand-copy h1 · 36/700', '.hi-bar h1 · 26/700 (Dashboard)', '.page-head h1 · 22/700 (Portfolio)'], proposed: '34px / 800' },
+  { role: 'H2 (section heading)', size: '15–26px', weight: 700, cls: 'ds-type-h2 (proposed, 26px/800)', real: ['.login-card h2 · 26/700', '.section-title · 16/700 (Dashboard)', '.chart-top h2 · 16/700'], proposed: '26px / 800' },
+  { role: 'H3 (card title)', size: '15–20px', weight: 700, cls: 'ds-type-h3 (proposed, 20px/700)', real: ['.pc-name (PlanCard h3) · 15/700', '.summary .head h4 · 16/600'], proposed: '20px / 700' },
+  { role: 'Body', size: '13–15px', weight: '400–600', cls: 'ds-type-p2 (proposed, 15px/400)', real: ['table cells (.tx-table td) · 13.5/400', '.pr-intro · 14.5/500'], proposed: '15px / 400' },
+  { role: 'Label', size: '12–13.5px', weight: 600, cls: 'ds-type-p3 (proposed, 13.5px/600)', real: ['.ob-k · 13/600', 'form labels (.txn-field label) · 12.5/700'], proposed: '13.5px / 600' },
+  { role: 'Caption / micro', size: '9–12px', weight: 700, cls: 'ds-type-caption (proposed, 11.5px/700)', real: ['.pc-type · 12/600', '.plan-badge · 11/700', 'table headers (.tx-table th) · 12/700'], proposed: '11.5px / 700' },
 ]
 
 // Verified via grep against styles/index.css — gap: and padding: value
@@ -636,32 +622,24 @@ export default function DesignSystem() {
               </div>
             </div>
 
-            <h3 className="ds-sub">Type scale — proposed</h3>
-            <p className="ds-lede">A consolidated 6-level scale. Its <code>ds-type-*</code> classes live only in this design-system stylesheet today — the app itself has no shared heading utility yet (see below).</p>
+            <h3 className="ds-sub">Type scale</h3>
+            <p className="ds-lede">
+              One table, real range and proposed consolidation together. The app has no shared
+              type-scale utility — every page sizes its own text ad hoc — so each role below shows
+              the real classes actually shipping today at that role, plus the single size/weight
+              this design system proposes standardizing on going forward.
+            </p>
             <div className="ds-card">
               <table className="ds-type-table">
-                <thead><tr><th>Style</th><th>Usage</th><th>Size</th><th>Weight</th></tr></thead>
+                <thead><tr><th>Role</th><th>Real range today</th><th>Real classes (examples)</th><th>Proposed standard</th></tr></thead>
                 <tbody>
                   {TYPE_SCALE.map((t) => (
-                    <tr key={t.tag}>
-                      <td><span className={`ds-type-sample ${t.cls}`}>{t.tag}</span></td>
-                      <td>{t.use}</td>
-                      <td><code>{t.size}</code></td>
-                      <td><code>{t.weight}</code></td>
+                    <tr key={t.role}>
+                      <td><b>{t.role}</b></td>
+                      <td><code>{t.size}</code> / <code>{t.weight}</code></td>
+                      <td style={{ fontSize: 12.5 }}>{t.real.map((r, i) => <div key={i}><code>{r}</code></div>)}</td>
+                      <td>{t.proposed ? <code>{t.proposed}</code> : <span style={{ color: 'var(--muted)' }}>—</span>}</td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <h3 className="ds-sub">Real heading sizes today</h3>
-            <p className="ds-lede">Every h1/h2 rule that actually ships, grepped page by page — no shared scale exists yet, which is exactly the gap the proposed scale above is meant to close.</p>
-            <div className="ds-card">
-              <table className="ds-type-table">
-                <thead><tr><th>Tag</th><th>Real class</th><th>Size / weight</th><th>Where</th></tr></thead>
-                <tbody>
-                  {REAL_HEADING_SIZES.map((r, i) => (
-                    <tr key={i}><td><code>{r[0]}</code></td><td><code>{r[1]}</code></td><td>{r[2]}</td><td>{r[3]}</td></tr>
                   ))}
                 </tbody>
               </table>
@@ -977,6 +955,14 @@ export default function DesignSystem() {
               <div className="ds-usage-box do"><span className="ds-usage-badge"><Icon icon={faCheck} size={12} /></span><p>Icons paired with a visible text label need no extra markup.</p></div>
             </div>
           </section>
+
+          {/* ---------------- COMPONENTS (section title/separator, since the
+              8 Component cards below have no shared heading of their own —
+              only their individual titles inside each card) ---------------- */}
+          <div className="ds-group-title">
+            <h2>Components</h2>
+            <p className="ds-lede">Every UI building block below, as it actually renders — grep-verified class names, padding, and sizes throughout.</p>
+          </div>
 
           {/* ---------------- BUTTONS ---------------- */}
           {/* Verified: styles/index.css .btn (11px 16px padding, radius 10px,
