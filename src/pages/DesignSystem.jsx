@@ -1920,15 +1920,21 @@ export default function DesignSystem() {
             desc="components/layout/Sidebar.jsx — the real frozen left rail."
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
-                  <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active" style={{ width: 140 }}>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}><Dot>1</Dot></div>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: 28, marginBottom: 20 }}>
+                  {/* The real item on its own — nesting <Dot> inside .nav a
+                      (a flex-column with its own fixed gap/alignment) had
+                      been squeezing all 3 dots into the same tight column,
+                      overlapping the icon. Point at it from outside instead. */}
+                  <a href="#sidebar" onClick={(e) => e.preventDefault()} className="active" style={{ width: 90 }}>
                     <span className="ico" aria-hidden="true"><Icon icon={faGear} size={23} /></span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center' }}><Dot>2</Dot><span className="nav-label">Dashboard</span></div>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}><Dot>3</Dot></div>
+                    <span className="nav-label">Dashboard</span>
                   </a>
+                  <div className="ds-annotated-frame" style={{ maxWidth: 260, gap: 10 }}>
+                    <span className="ds-pin"><Num>1</Num>Icon · 23×23px, centered</span>
+                    <span className="ds-pin"><Num>2</Num>Label · 13px/600</span>
+                    <span className="ds-pin"><Num>3</Num>Active bar · 4px --brand, leading edge</span>
+                  </div>
                 </div>
-                <DotLegend items={['Icon · 23×23px, centered', 'Label · 13px/600', 'Active bar · 4px --brand, leading edge']} />
                 <div className="ds-spec-frame" style={{ padding: 0 }}>
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Item padding-top</b> 15px</div>
                   <div className="ds-spec-row">
@@ -2472,27 +2478,30 @@ export default function DesignSystem() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 20, justifyContent: 'center', marginBottom: 16 }}>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
                     <Dot>1</Dot>
-                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                    <img src="https://i.pravatar.cc/72?img=12" alt="" style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover' }} />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
                     <Dot>2</Dot>
-                    <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                    <img src="https://i.pravatar.cc/72?img=12" alt="" style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover' }} />
                   </div>
                 </div>
                 <DotLegend items={['.user-chip img · 28×28px — topbar', '.user-option img · 36×36px — profile menu list']} />
                 <div className="ds-spec-facts">
                   <span><b>Shape</b> border-radius:50%</span><span><b>Fit</b> object-fit:cover</span><span><b>Fallback</b> --active-bg fill when no photo</span>
                 </div>
-                <p className="ds-anatomy-caption">a. Avatar (styles/index.css .user-chip img / .user-option img)</p>
+                <p className="ds-anatomy-caption">a. Avatar (styles/index.css .user-chip img / .user-option img — real photo source: https://i.pravatar.cc, same as data/participants.js)</p>
               </div>
             }
             demo={<>
               <VariantGroup tag="live" title="Real sizes — topbar (28px) and menu list (36px)">
-                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                <img src="https://i.pravatar.cc/72?img=12" alt="Jordan Hale" style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover' }} />
+                <img src="https://i.pravatar.cc/72?img=47" alt="Ava Sullivan" style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover' }} />
+              </VariantGroup>
+              <VariantGroup tag="live" title="Fallback — no photo available">
                 <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--active-bg)' }} />
               </VariantGroup>
               <VariantGroup tag="proposed" title="A larger size for a future profile page — not built yet">
-                <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--active-bg)' }} />
+                <img src="https://i.pravatar.cc/72?img=12" alt="Jordan Hale" style={{ width: 64, height: 64, borderRadius: '50%', objectFit: 'cover' }} />
               </VariantGroup>
             </>}
             dos={['Always pair with a text alt/label — a photo alone identifies no one to a screen reader.']}
