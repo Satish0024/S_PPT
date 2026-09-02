@@ -622,6 +622,11 @@ export default function DesignSystem() {
     : NAV
   const [openGroups, setOpenGroups] = useState(() => new Set(['Get started']))
   const toggleGroup = (g) => setOpenGroups((prev) => { const next = new Set(prev); next.has(g) ? next.delete(g) : next.add(g); return next })
+  // Below 900px design-system.css sets .ds-nav{display:none} with no
+  // replacement — the entire section list, and the only way to jump to
+  // a component, disappeared on mobile. mobileNavOpen + .ds-nav.open
+  // (see CSS) gives it back as a toggleable overlay.
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const dualTokens = useDualThemeTokens(COLOR_GROUPS.flatMap((g) => g.tokens.map(([, v]) => v).filter(Boolean)))
   const primaryTokenValues = useResolvedTokens(PRIMARY_COLOR_GROUPS.flatMap((g) => g.items.map(([, v]) => v)))
 
@@ -648,6 +653,12 @@ export default function DesignSystem() {
           Participant Portal Design System
         </div>
         <div className="ds-meta">
+          {/* Only visible ≤900px (CSS) — the point at which .ds-nav
+              itself is hidden, so this is the only way in at that width. */}
+          <button type="button" className="ds-mobile-nav-toggle" onClick={() => setMobileNavOpen((v) => !v)} aria-expanded={mobileNavOpen} aria-controls="ds-mobile-nav">
+            <Icon icon={faLayerGroup} size={14} />
+            <span>Sections</span>
+          </button>
           <button type="button" className="ds-theme-toggle" onClick={toggle} aria-pressed={theme === 'dark'} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
             <Icon icon={theme === 'dark' ? faSun : faMoon} size={16} />
             <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
@@ -658,8 +669,9 @@ export default function DesignSystem() {
         </div>
       </header>
 
+      {mobileNavOpen && <div className="ds-mobile-nav-backdrop" onClick={() => setMobileNavOpen(false)} />}
       <div className="ds-shell">
-        <nav className="ds-nav" aria-label="Design system sections">
+        <nav id="ds-mobile-nav" className={`ds-nav${mobileNavOpen ? ' open' : ''}`} aria-label="Design system sections">
           <div className="ds-nav-search">
             <Icon icon={faMagnifyingGlass} size={13} />
             <input ref={searchRef} type="search" placeholder="Search sections…" aria-label="Search design system sections" value={query} onChange={(e) => setQuery(e.target.value)} />
@@ -677,7 +689,7 @@ export default function DesignSystem() {
                 </button>
                 {isOpen && (
                   <div className="ds-nav-group-items">
-                    {g.items.map((i) => <a key={i.id} href={`#${i.id}`} className={active === i.id ? 'active' : ''}>{i.label}</a>)}
+                    {g.items.map((i) => <a key={i.id} href={`#${i.id}`} className={active === i.id ? 'active' : ''} onClick={() => setMobileNavOpen(false)}>{i.label}</a>)}
                   </div>
                 )}
               </div>
