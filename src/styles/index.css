@@ -1179,6 +1179,9 @@
 
   /* My Plans */
   .plans-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  /* A single plan shouldn't sit in one column with the other left empty --
+     let it span the full row instead. */
+  .plans-grid > *:only-child{grid-column:1 / -1}
   .plan-card{
     background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
     box-shadow:var(--shadow);display:flex;flex-direction:column;gap: var(--space-3-5);min-width:0}
@@ -1405,6 +1408,9 @@
     display:grid;grid-template-columns:88px minmax(0,1fr) auto;gap: var(--space-2) var(--space-3);
     align-items:center;padding:7px 10px;background:var(--panel);border-bottom:1px solid var(--line)}
   .tx-row:last-child{border-bottom:none}
+  /* Zebra striping — alternate rows get a faint tint so a dense list of
+     same-height rows stays scannable without adding more borders. */
+  .tx-row:nth-child(even){background:var(--surface-2, var(--hover-bg))}
   .tx-row .tx-date{font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap}
   .tx-row .tx-type{font-size:12px;font-weight:700;color:var(--ink);line-height:1.2}
   .tx-row .tx-plan{font-size:12px;color:var(--muted);margin-top: var(--space-0);display:inline;font-weight:500}

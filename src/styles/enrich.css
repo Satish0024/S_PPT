@@ -70,6 +70,9 @@
   .cat.on{background:var(--brand-fill);border-color:var(--brand-fill);color:var(--brand-text-primary-oncolor)}
 
   .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  /* A single filtered/searched result shouldn't sit in one column with
+     the other left empty -- let it span the full row instead. */
+  .grid > *:only-child{grid-column:1 / -1}
   .card{
     background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;
     box-shadow:var(--shadow);transition:box-shadow .2s,border-color .2s;display:flex;flex-direction:column}
