@@ -378,7 +378,7 @@ export default function DesignSystem() {
               ].map(([t, d]) => (
                 <div key={t} className="ds-swatch" style={{ padding: 14 }}>
                   <b style={{ fontSize: 13, fontWeight: 700 }}>{t}</b>
-                  <span style={{ display: 'block', fontSize: 12, color: 'var(--ink-soft)', marginTop: 6, fontFamily: 'inherit' }}>{d}</span>
+                  <span style={{ display: 'block', fontSize: 'var(--text-body-xs-size)', color: 'var(--ink-soft)', marginTop: 6, fontFamily: 'inherit' }}>{d}</span>
                 </div>
               ))}
             </div>
@@ -616,15 +616,15 @@ export default function DesignSystem() {
             desc="Text fields, selects, and search inputs with a visible focus ring on the wrapper."
             tags={['WCAG 2.2 AA']}
             demo={<div style={{ display: 'grid', gap: 12, width: '100%', maxWidth: 360 }}>
-              <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname
+              <label style={{ fontSize: 'var(--text-caption-size)', fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname
                 <input style={{ marginTop: 6, width: '100%', padding: '10px 12px', borderRadius: 10, border: '1px solid var(--line)', background: 'var(--panel)', color: 'var(--ink)' }} placeholder="e.g. My 401(k)" />
               </label>
-              <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Distribution plan type
+              <label style={{ fontSize: 'var(--text-caption-size)', fontWeight: 700, color: 'var(--ink-soft)' }}>Distribution plan type
                 <select style={{ marginTop: 6, width: '100%', padding: '10px 12px', borderRadius: 10, border: '1px solid var(--line)', background: 'var(--panel)', color: 'var(--ink)' }}>
                   <option>401(k)</option><option>403(b)</option><option>IRA — Traditional</option>
                 </select>
               </label>
-              <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5, color: 'var(--red)', fontWeight: 600 }}>
+              <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)', color: 'var(--red)', fontWeight: 600 }}>
                 <AlertTriangle size={14} /> Target percentages must add up to 100%.
               </p>
             </div>}
@@ -754,7 +754,7 @@ export default function DesignSystem() {
             tags={['WCAG 2.2 AA', 'Keyboard']}
             demo={<div style={{ width: 320, border: '1px solid var(--line)', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow-lg)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 16px', borderBottom: '1px solid var(--line)' }}>
-                <b style={{ fontSize: 14 }}>Confirm rollover request</b>
+                <b style={{ fontSize: 'var(--text-body-md-size)' }}>Confirm rollover request</b>
                 <X size={16} />
               </div>
               <div style={{ padding: 16, fontSize: 13, color: 'var(--ink-soft)' }}>This will submit your rollover request for processing.</div>
@@ -780,11 +780,11 @@ export default function DesignSystem() {
             tags={['New pattern']}
             demo={<div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
               {['Total', 'Equity', 'Bond', 'Target'].map((l, i) => (
-                <span key={l} style={{ display: 'inline-flex', gap: 6, alignItems: 'center', fontSize: 12.5, fontWeight: 600 }}>
+                <span key={l} style={{ display: 'inline-flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)', fontWeight: 600 }}>
                   <span style={{ width: 10, height: 10, borderRadius: 3, background: ['var(--brand)', 'var(--green)', 'var(--amber)', 'var(--accent)'][i] }} /> {l}
                 </span>
               ))}
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, border: '1px dashed var(--line-strong)', borderRadius: 999, padding: '5px 10px', fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>+6 more</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, border: '1px dashed var(--line-strong)', borderRadius: 999, padding: '5px 10px', fontSize: 'var(--text-caption-size)', fontWeight: 700, color: 'var(--ink-soft)' }}>+6 more</span>
             </div>}
             code={`<ChartLegend items={series} onToggle={toggleSeries} maxInline={6} />`}
           />
@@ -795,10 +795,10 @@ export default function DesignSystem() {
             desc="Header-level menu (next to theme toggle) offering profiles, screen-reader read-aloud, voice navigation, and display adjustments — entirely on-device via the native Web Speech API, no network calls."
             tags={['WCAG 2.2 AA', 'main branch']}
             demo={<div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5 }}><Eye size={15} /> Vision profile</div>
-              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5 }}><Volume2 size={15} /> Read aloud</div>
-              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5 }}><Mic size={15} /> Voice navigation</div>
-              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5 }}><TypeIcon size={15} /> Bigger text</div>
+              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><Eye size={15} /> Vision profile</div>
+              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><Volume2 size={15} /> Read aloud</div>
+              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><Mic size={15} /> Voice navigation</div>
+              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><TypeIcon size={15} /> Bigger text</div>
             </div>}
             dos={['Persist settings to localStorage only — never send accessibility preferences to a server.', 'Feature-detect SpeechRecognition and disable voice input gracefully in unsupported browsers (e.g. Firefox).']}
             donts={['Never let a voice command submit a form or move money — the command set is read/navigate/scroll only.']}
@@ -904,7 +904,7 @@ const { listening, start, stop: stopListening } = useVoiceNav(navigate)
             <div className="ds-token-grid">
               {['Default', 'Hover', 'Focus-visible', 'Active/pressed', 'Disabled', 'Loading', 'Error', 'Empty'].map((s) => (
                 <div key={s} className="ds-swatch" style={{ padding: 12, textAlign: 'center' }}>
-                  <b style={{ fontSize: 12.5 }}>{s}</b>
+                  <b style={{ fontSize: 'var(--text-caption-size)' }}>{s}</b>
                 </div>
               ))}
             </div>
@@ -924,7 +924,7 @@ const { listening, start, stop: stopListening } = useVoiceNav(navigate)
             </div>
           </section>
 
-          <div style={{ borderTop: '1px solid var(--line)', paddingTop: 24, fontSize: 12.5, color: 'var(--muted)', maxWidth: 'var(--ds-content-max)' }}>
+          <div style={{ borderTop: '1px solid var(--line)', paddingTop: 24, fontSize: 'var(--text-caption-size)', color: 'var(--muted)', maxWidth: 'var(--ds-content-max)' }}>
             <MousePointerClick size={14} style={{ verticalAlign: -2, marginRight: 6 }} />
             Generated from the live application codebase. Available at <code>/design-system</code> on every brand build.
           </div>
