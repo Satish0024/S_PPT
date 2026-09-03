@@ -217,13 +217,26 @@ const RAMP_STEPS = [100, 200, 300, 400, 500, 600, 700, 800, 900]
 // Account Summary's holdings donut, RetirementGoal's confetti burst) --
 // see lib/accountSummary.js colorPalette() and Portfolio.jsx SERIES_META.
 const CHART_COLORS = [
-  { token: '--chart-1', usage: 'var(--red) — "total" / negative series' },
-  { token: '--chart-2', usage: 'var(--brand) — primary series' },
-  { token: '--chart-3', usage: 'var(--green) — positive / growth series' },
-  { token: '--chart-4', usage: 'var(--amber) — caution / secondary series' },
-  { token: '--chart-5', usage: 'color-mix(brand 55%, black) — overflow slot 5' },
-  { token: '--chart-6', usage: 'color-mix(brand 60%, white) — overflow slot 6' },
-  { token: '--chart-7', usage: 'color-mix(green 60%, black) — overflow slot 7' },
+  { token: '--chart-1', usage: 'var(--red) — full strength' },
+  { token: '--chart-2', usage: 'var(--brand) — full strength' },
+  { token: '--chart-3', usage: 'var(--green) — full strength' },
+  { token: '--chart-4', usage: 'var(--amber) — full strength' },
+  { token: '--chart-5', usage: 'red, 82% + white' },
+  { token: '--chart-6', usage: 'brand, 82% + white' },
+  { token: '--chart-7', usage: 'green, 82% + white' },
+  { token: '--chart-8', usage: 'amber, 82% + white' },
+  { token: '--chart-9', usage: 'red, 65% + white' },
+  { token: '--chart-10', usage: 'brand, 65% + white' },
+  { token: '--chart-11', usage: 'green, 65% + white' },
+  { token: '--chart-12', usage: 'amber, 65% + white' },
+  { token: '--chart-13', usage: 'red, 82% + black' },
+  { token: '--chart-14', usage: 'brand, 82% + black' },
+  { token: '--chart-15', usage: 'green, 82% + black' },
+  { token: '--chart-16', usage: 'amber, 82% + black' },
+  { token: '--chart-17', usage: 'red, 62% + black' },
+  { token: '--chart-18', usage: 'brand, 62% + black' },
+  { token: '--chart-19', usage: 'green, 62% + black' },
+  { token: '--chart-20', usage: 'amber, 62% + black' },
 ]
 
 // ONE table, not two. The app has no shared type-scale utility classes —
@@ -964,7 +977,7 @@ export default function DesignSystem() {
               independent hex, so a chart's colors re-tone with --brand on any tenant — the same
               rule as every other color in this system.
             </p>
-            <div className="ds-card">
+            <div className="ds-card" style={{ padding: 20 }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
                 {CHART_COLORS.map((c) => (
                   <button
@@ -2565,7 +2578,7 @@ export default function DesignSystem() {
                   </ul>
                 </div>
               </VariantGroup>
-              <VariantGroup tag="live" title="lib/accountSummary.js COLORS — the full 7-color cycle behind every .as-donut slice">
+              <VariantGroup tag="live" title="lib/accountSummary.js colorPalette() — the full 20-color cycle behind every .as-donut slice">
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
                   {ACCOUNT_SUMMARY_COLORS.map((c, i) => (
                     <div key={c} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, fontSize: 10, color: 'var(--ink-soft)' }}>
