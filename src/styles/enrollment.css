@@ -613,7 +613,7 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 .enroll-form .totalbar .text-btn{font-size:13px}
 .tval-wrap{display:flex;align-items:baseline;gap:10px}
 .enroll-form .totalbar .tval{margin:0}
-.enroll-modal-bg{position:fixed;inset:0;background:rgba(20,21,31,.46);z-index:80;display:grid;place-items:center;padding:20px}
+.enroll-modal-bg{position:fixed;inset:0;background:color-mix(in srgb, var(--ink) 46%, transparent);z-index:80;display:grid;place-items:center;padding:20px}
 .enroll-modal{width:min(440px,100%);background:var(--panel);border-radius:16px;padding:24px 20px 20px;box-shadow:var(--shadow-lg)}
 .enroll-modal h4{font-size:18px;font-weight:800;margin-bottom:8px;letter-spacing:-.2px}
 .enroll-modal p{font-size:14.5px;line-height:1.55;color:var(--ink-soft);margin-bottom:16px}
