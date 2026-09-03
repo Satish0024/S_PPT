@@ -13,7 +13,7 @@
 }
 .ds-top .ds-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;letter-spacing:-.2px}
 .ds-top .ds-logo .dot{width:10px;height:10px;border-radius:50%;background:var(--brand)}
-.ds-top .ds-meta{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--muted)}
+.ds-top .ds-meta{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:var(--text-caption-size);color:var(--muted)}
 .ds-top .ds-badge{
   display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;
   background:var(--active-bg);color:var(--brand);font-weight:700;font-size:11.5px
@@ -22,7 +22,7 @@
 .ds-top a.ds-back:hover{text-decoration:underline}
 .ds-theme-toggle{
   display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface-2);
-  color:var(--ink-soft);border-radius:999px;padding:6px 12px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer
+  color:var(--ink-soft);border-radius:999px;padding:6px 12px;font:inherit;font-size:var(--text-caption-size);font-weight:700;cursor:pointer
 }
 .ds-theme-toggle:hover{border-color:var(--brand);color:var(--brand)}
 
@@ -51,12 +51,12 @@
 .ds-hero{
   padding:56px 8px 40px;max-width:var(--ds-content-max);border-bottom:1px solid var(--line);margin-bottom:40px
 }
-.ds-hero .eyebrow{font-size:12.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--brand)}
+.ds-hero .eyebrow{font-size:var(--text-caption-size);font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--brand)}
 .ds-hero h1{font-size:38px;font-weight:800;letter-spacing:-.8px;margin:10px 0 14px}
-.ds-hero p{font-size:16px;color:var(--ink-soft);line-height:1.6;max-width:680px}
+.ds-hero p{font-size:var(--text-body-lg-size);color:var(--ink-soft);line-height:1.6;max-width:680px}
 .ds-hero .ds-hero-stats{display:flex;gap:28px;margin-top:24px;flex-wrap:wrap}
 .ds-hero .ds-hero-stats div b{display:block;font-size:22px;font-weight:800}
-.ds-hero .ds-hero-stats div span{font-size:12.5px;color:var(--muted)}
+.ds-hero .ds-hero-stats div span{font-size:var(--text-caption-size);color:var(--muted)}
 .ds-hero .ds-source{
   margin-top:20px;padding:14px 16px;border-radius:12px;background:var(--surface-2);
   border:1px solid var(--line);font-size:13.5px;color:var(--ink-soft);line-height:1.6
@@ -67,7 +67,7 @@
 .ds-section{max-width:var(--ds-content-max);margin-bottom:64px;scroll-margin-top:72px}
 .ds-section h2{font-size:26px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px}
 .ds-section > p.ds-lede{font-size:14.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:24px;max-width:640px}
-.ds-sub{font-size:16px;font-weight:700;margin:28px 0 12px}
+.ds-sub{font-size:var(--text-h5-size);font-weight:700;margin:28px 0 12px}
 
 /* ---------- Component card ---------- */
 .ds-card{
@@ -75,7 +75,7 @@
   margin-bottom:20px;overflow:hidden
 }
 .ds-card-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.ds-card-head h3{font-size:16px;font-weight:700}
+.ds-card-head h3{font-size:var(--text-h5-size);font-weight:700}
 .ds-card-head p{font-size:var(--text-body-sm-size);color:var(--ink-soft);margin-top:2px}
 .ds-card-tags{display:flex;gap:6px;flex-wrap:wrap}
 .ds-tag{font-size:10.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)}
@@ -98,7 +98,7 @@
 .ds-code-wrap{position:relative}
 .ds-code{
   margin:0;padding:16px 20px;background:#12131f;color:#dfe3ff;font-family:ui-monospace,"SF Mono",Menlo,monospace;
-  font-size:12.5px;line-height:1.6;overflow-x:auto;white-space:pre
+  font-size:var(--text-caption-size);line-height:1.6;overflow-x:auto;white-space:pre
 }
 :root[data-theme="dark"] .ds-code,
 .ds[data-theme] .ds-code{background:#0b0c14}
@@ -107,7 +107,7 @@
 .ds-copy-btn{
   display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.14);
   background:rgba(255,255,255,.06);color:#dfe3ff;border-radius:var(--radius-sm);padding:6px 10px;
-  font:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:.15s
+  font:inherit;font-size:var(--text-body-xs-size);font-weight:700;cursor:pointer;transition:.15s
 }
 .ds-copy-btn:hover{background:rgba(255,255,255,.14)}
 .ds-copy-btn.copied{background:var(--green);color:#06180f;border-color:var(--green)}
@@ -127,7 +127,7 @@
 }
 .ds-swatch-btn:hover .ds-swatch-copy-ico,.ds-swatch-btn:focus-visible .ds-swatch-copy-ico{opacity:1}
 .ds-swatch-meta{padding:8px 10px}
-.ds-swatch-meta b{display:block;font-size:12px;font-weight:700}
+.ds-swatch-meta b{display:block;font-size:var(--text-body-xs-size);font-weight:700}
 .ds-swatch-meta span{display:block;font-size:11px;color:var(--muted);font-family:ui-monospace,monospace}
 .ds-swatch-hex{color:var(--ink-soft) !important;font-weight:700;text-transform:uppercase;margin-top:2px}
 
@@ -137,7 +137,7 @@
 .ds-comp-colors-list{display:flex;flex-wrap:wrap;gap:8px}
 .ds-color-chip{
   display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;
-  padding:4px 10px;background:var(--surface-2);font:inherit;font-size:12px;font-weight:600;color:var(--ink-soft);cursor:pointer
+  padding:4px 10px;background:var(--surface-2);font:inherit;font-size:var(--text-body-xs-size);font-weight:600;color:var(--ink-soft);cursor:pointer
 }
 .ds-color-chip:hover{border-color:var(--brand);color:var(--brand)}
 .ds-color-chip code{font-family:ui-monospace,monospace;font-size:11px;color:var(--muted)}
@@ -149,7 +149,7 @@
 
 .ds-space-row{display:flex;align-items:center;gap:14px;padding:8px 0}
 .ds-space-bar{background:var(--brand);height:14px;border-radius:2px}
-.ds-space-row span{font-size:12.5px;color:var(--ink-soft);width:70px}
+.ds-space-row span{font-size:var(--text-caption-size);color:var(--ink-soft);width:70px}
 
 /* ---------- Checklist / table ---------- */
 .ds-table{width:100%;border-collapse:collapse;font-size:13.5px}
@@ -157,7 +157,7 @@
 .ds-table td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-soft)}
 .ds-table tr:nth-child(even) td{background:var(--surface-2)}
 .ds-table td.ok{color:var(--green);font-weight:700}
-.ds-table code{font-family:ui-monospace,monospace;font-size:12px;background:var(--surface-3);padding:1px 4px;border-radius:4px}
+.ds-table code{font-family:ui-monospace,monospace;font-size:var(--text-body-xs-size);background:var(--surface-3);padding:1px 4px;border-radius:4px}
 
 .ds-check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
 .ds-check:last-child{border-bottom:none}
@@ -195,7 +195,7 @@
 .ds-token-table td{vertical-align:middle}
 .ds-hex-cell{
   display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;
-  font:inherit;font-family:ui-monospace,monospace;font-size:12px;color:var(--ink-soft);padding:4px 6px;border-radius:6px
+  font:inherit;font-family:ui-monospace,monospace;font-size:var(--text-body-xs-size);color:var(--ink-soft);padding:4px 6px;border-radius:6px
 }
 .ds-hex-cell:hover{background:var(--surface-2);color:var(--ink)}
 .ds-hex-dot{width:16px;height:16px;border-radius:4px;flex:0 0 auto;border:1px solid var(--line)}
@@ -204,22 +204,22 @@
 .ds-type-row2{display:grid;grid-template-columns:150px 1fr;gap:2px 16px;padding:16px 20px;border-bottom:1px solid var(--line);align-items:baseline}
 .ds-type-row2:last-child{border-bottom:none}
 .ds-type-row2-meta{display:flex;flex-direction:column;gap:2px}
-.ds-type-row2-meta b{font-size:12.5px;font-weight:800;color:var(--brand)}
+.ds-type-row2-meta b{font-size:var(--text-caption-size);font-weight:800;color:var(--brand)}
 .ds-type-row2-meta span{font-size:10.5px;color:var(--muted);font-family:ui-monospace,monospace}
 .ds-type-sample{grid-column:2;color:var(--ink)}
-.ds-type-row2-use{grid-column:2;font-size:12px;color:var(--muted);margin-top:4px}
+.ds-type-row2-use{grid-column:2;font-size:var(--text-body-xs-size);color:var(--muted);margin-top:4px}
 
 .ds-type-h1{font-size:34px;font-weight:800;line-height:1.15;letter-spacing:-.6px}
 .ds-type-h2{font-size:26px;font-weight:800;line-height:1.2;letter-spacing:-.4px}
-.ds-type-h3{font-size:20px;font-weight:700;line-height:1.25;letter-spacing:-.3px}
+.ds-type-h3{font-size:var(--text-h3-size);font-weight:700;line-height:1.25;letter-spacing:-.3px}
 .ds-type-h4{font-size:16px;font-weight:700;line-height:1.3}
 .ds-type-h5{font-size:14px;font-weight:700;line-height:1.35}
 .ds-type-h6{font-size:12px;font-weight:800;line-height:1.3;letter-spacing:.4px;text-transform:uppercase}
-.ds-type-p1{font-size:16px;font-weight:400;line-height:1.6}
+.ds-type-p1{font-size:var(--text-body-lg-size);font-weight:400;line-height:1.6}
 .ds-type-p2{font-size:15px;font-weight:400;line-height:1.55}
 .ds-type-p3{font-size:13.5px;font-weight:600;line-height:1.5}
 .ds-type-caption{font-size:11.5px;font-weight:700;line-height:1.4;letter-spacing:.3px}
-.ds-type-code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12.5px;line-height:1.6}
+.ds-type-code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:var(--text-caption-size);line-height:1.6}
 
 @media(max-width:560px){
   .ds-type-row2{grid-template-columns:1fr}
