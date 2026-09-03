@@ -1,6 +1,144 @@
 @import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,400..700;1,400..700&display=swap');
 
   :root{
+    /* ============================================================
+       PHASE 1 — token foundation (primitive -> semantic), added per
+       the reference variables.scss (Bootstrap/Tailwind-style rem
+       scales + a primitive color ramp feeding named semantic roles).
+       This layer is additive: every existing --brand/--ink/etc. token
+       below is untouched, and every page still reads those directly —
+       nothing in the app was repointed at these new names yet. That's
+       a deliberate, separate follow-up pass (touching ~40 files is a
+       real review, not a one-shot find/replace), not skipped by
+       accident. What's real starting today:
+         - the primitive-color-primary-* ramp is *generated* from
+           --brand via color-mix(), not hand-picked hex — the actual
+           definition of "white-label": change one value, the whole
+           ramp (and everything the semantic layer below reads from
+           it) updates with it.
+         - --fs-* / --spacing-* are copied verbatim from the reference
+           file (rem-based, Bootstrap-style steps) so any new/updated
+           component work can start using them immediately.
+       ============================================================ */
+
+    /* Primitive color ramp — derived from --brand two lines below.
+       50-400 lighten toward white, 500 is --brand itself, 600-900
+       darken toward black. color-mix() percentages chosen so 500 is
+       visually centered, matching how the reference primitive scale
+       is used (500 = base brand, 600 = hover, 700 = active). */
+    --theme-primitive-color-primary-50: color-mix(in srgb, var(--brand) 8%, white);
+    --theme-primitive-color-primary-100: color-mix(in srgb, var(--brand) 16%, white);
+    --theme-primitive-color-primary-200: color-mix(in srgb, var(--brand) 32%, white);
+    --theme-primitive-color-primary-300: color-mix(in srgb, var(--brand) 48%, white);
+    --theme-primitive-color-primary-400: color-mix(in srgb, var(--brand) 72%, white);
+    --theme-primitive-color-primary-500: var(--brand);
+    --theme-primitive-color-primary-600: color-mix(in srgb, var(--brand) 85%, black);
+    --theme-primitive-color-primary-700: color-mix(in srgb, var(--brand) 70%, black);
+    --theme-primitive-color-primary-800: color-mix(in srgb, var(--brand) 55%, black);
+    --theme-primitive-color-primary-900: color-mix(in srgb, var(--brand) 40%, black);
+
+    /* Primitive neutral ramp — a true grey scale (not brand-derived,
+       same as Bootstrap/Tailwind's own greys), used for surfaces,
+       borders, and body text regardless of brand. */
+    --theme-colors-neutral-lightgrey-white: #ffffff;
+    --theme-colors-neutral-lightgrey-50: #f7f8fc;
+    --theme-colors-neutral-lightgrey-200: #eef0f5;
+    --theme-colors-neutral-lightgrey-300: #e4e5ee;
+    --theme-colors-neutral-lightgrey-400: #c5c9e0;
+    --theme-colors-neutral-lightgrey-700: #4a4d63;
+    --theme-colors-neutral-100: #666a83;
+    --theme-colors-neutral-800: #14151f;
+    --theme-colors-neutral-grey-400: rgba(20,30,60,.10);
+    --theme-colors-neutral-grey-600: rgba(20,30,60,.10);
+    --theme-colors-neutral-grey-700: rgba(20,30,60,.06);
+
+    /* Primitive status ramps — each derived from this app's real
+       status color (green/amber/red), same color-mix() approach as
+       primary above. Teal reused for "highlight" since no separate
+       highlight color exists in the app yet (grep-verified). */
+    --theme-colors-green-100: color-mix(in srgb, #147a4c 14%, white);
+    --theme-colors-green-500: color-mix(in srgb, #147a4c 80%, white);
+    --theme-colors-green-600: #147a4c;
+    --theme-colors-yellow-100: color-mix(in srgb, #8a5a12 14%, white);
+    --theme-colors-yellow-500: color-mix(in srgb, #8a5a12 65%, white);
+    --theme-colors-yellow-600: #8a5a12;
+    --theme-colors-red-100: color-mix(in srgb, #c0392b 14%, white);
+    --theme-colors-red-300: color-mix(in srgb, #c0392b 45%, white);
+    --theme-colors-red-500: color-mix(in srgb, #c0392b 80%, white);
+    --theme-colors-red-600: #c0392b;
+    --theme-colors-teal-100: color-mix(in srgb, #0e7490 14%, white);
+    --theme-colors-teal-500: color-mix(in srgb, #0e7490 80%, white);
+    --theme-colors-teal-600: #0e7490;
+
+    /* Semantic layer — named by role, reading only from the
+       primitives above (never a literal hex), matching the reference
+       file's brand-, neutral-, and semantics- naming exactly. */
+    --brand-border-primary-default: var(--theme-primitive-color-primary-500);
+    --brand-border-primary-hover: var(--theme-primitive-color-primary-600);
+    --brand-border-primary-disabled: var(--theme-primitive-color-primary-300);
+    --brand-text-primary-default: var(--theme-primitive-color-primary-500);
+    --brand-text-primary-hover: var(--theme-primitive-color-primary-600);
+    --brand-text-primary-active: var(--theme-primitive-color-primary-600);
+    --brand-text-primary-disabled: var(--theme-primitive-color-primary-300);
+    --brand-text-primary-oncolor: var(--theme-colors-neutral-lightgrey-white);
+    --brand-background-primary-strong: var(--theme-primitive-color-primary-500);
+    --brand-background-primary-hover: var(--theme-primitive-color-primary-600);
+    --brand-background-primary-active: var(--theme-primitive-color-primary-700);
+    --brand-background-primary-disabled: var(--theme-primitive-color-primary-200);
+    --brand-background-primary-light: var(--theme-primitive-color-primary-50);
+
+    --neutral-surface-layer-01: var(--theme-colors-neutral-lightgrey-white);
+    --neutral-surface-layer-02: var(--theme-colors-neutral-lightgrey-50);
+    --neutral-surface-layer-03: var(--theme-colors-neutral-lightgrey-200);
+    --neutral-surface-layer-04: var(--theme-colors-neutral-lightgrey-300);
+    --neutral-surface-layer-05: var(--theme-colors-neutral-lightgrey-400);
+    --neutral-surface-high-contrast: var(--theme-colors-neutral-800);
+    --neutral-text-subtle: var(--theme-colors-neutral-lightgrey-700);
+    --neutral-text-subtle-least: var(--theme-colors-neutral-100);
+    --neutral-text-default: var(--theme-colors-neutral-800);
+    --neutral-text-on-color: var(--theme-colors-neutral-lightgrey-white);
+    --neutral-border-light: var(--theme-colors-neutral-lightgrey-400);
+    --neutral-border-subtle: var(--theme-colors-neutral-lightgrey-300);
+    --neutral-border-strong: var(--theme-colors-neutral-lightgrey-700);
+    --neutral-border-inverse: var(--theme-colors-neutral-lightgrey-white);
+
+    --semantics-critical-border: var(--theme-colors-red-600);
+    --semantics-critical-text: var(--theme-colors-red-600);
+    --semantics-critical-background-light: var(--theme-colors-red-100);
+    --semantics-critical-background-strong: var(--theme-colors-red-500);
+    --semantics-success-border: var(--theme-colors-green-600);
+    --semantics-success-text: var(--theme-colors-green-600);
+    --semantics-success-background-light: var(--theme-colors-green-100);
+    --semantics-success-background-strong: var(--theme-colors-green-500);
+    --semantics-warning-border: var(--theme-colors-yellow-600);
+    --semantics-warning-text: var(--theme-colors-yellow-600);
+    --semantics-warning-background-light: var(--theme-colors-yellow-100);
+    --semantics-warning-background-strong: var(--theme-colors-yellow-600);
+    --semantics-highlight-border: var(--theme-colors-teal-600);
+    --semantics-highlight-text: var(--theme-colors-teal-500);
+    --semantics-highlight-background-light: var(--theme-colors-teal-100);
+    --semantics-highlight-background-strong: var(--theme-colors-teal-500);
+    --semantics-disabled-background: var(--theme-colors-neutral-lightgrey-50);
+    --semantics-disabled-border: var(--theme-colors-neutral-lightgrey-700);
+    --semantics-disabled-text: var(--theme-colors-neutral-100);
+
+    --elevation-01: 0px 2px 5px 0px var(--theme-colors-neutral-grey-700);
+    --elevation-02: 0px 5px 18px -2px var(--theme-colors-neutral-grey-600);
+    --elevation-03: 0px 8px 29px 1px var(--theme-colors-neutral-grey-400);
+
+    /* Type scale — rem-based, copied verbatim from the reference
+       variables.scss (a fixed px-equivalent ladder, same idea as
+       Bootstrap's $font-size-* map). */
+    --fs-11: 0.6875rem; --fs-12: 0.75rem; --fs-13: 0.8125rem; --fs-14: 0.875rem;
+    --fs-15: 0.9375rem; --fs-16: 1rem; --fs-17: 1.0625rem; --fs-18: 1.125rem;
+    --fs-20: 1.25rem; --fs-22: 1.375rem; --fs-24: 1.5rem; --fs-26: 1.625rem;
+    --fs-28: 1.75rem; --fs-32: 2rem; --fs-36: 2.25rem; --fs-40: 2.5rem;
+
+    /* Spacing scale — rem-based, copied verbatim from the reference. */
+    --spacing-4: 0.25rem; --spacing-6: 0.375rem; --spacing-8: 0.5rem;
+    --spacing-10: 0.625rem; --spacing-12: 0.75rem; --spacing-16: 1rem;
+    --spacing-24: 1.5rem; --spacing-32: 2rem;
+
     --brand:#2e3192;
     --brand-dark:#1f2268;
     /* Solid-fill buttons/chips need white text at >=4.5:1. --brand itself
