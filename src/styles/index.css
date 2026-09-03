@@ -39,6 +39,28 @@
     --shadow-lg:0 8px 30px rgba(20,30,60,.10);
     --header-h:56px;
 
+    /* Spacing — Tailwind's canonical scale (tailwindcss.com/docs/spacing),
+       exact values, not invented. Additive: not yet wired into any real
+       class, since remapping ~400 existing gap/padding declarations to
+       this scale is a visual-risk change (every value is at most ~2px
+       off Tailwind's nearest step, but that's still hundreds of layouts
+       to individually verify) that needs sign-off before touching, not
+       silently rewritten. */
+    --space-0: 0px; --space-px: 1px; --space-0-5: 0.125rem; --space-1: 0.25rem;
+    --space-1-5: 0.375rem; --space-2: 0.5rem; --space-2-5: 0.625rem; --space-3: 0.75rem;
+    --space-3-5: 0.875rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem;
+    --space-7: 1.75rem; --space-8: 2rem; --space-9: 2.25rem; --space-10: 2.5rem;
+    --space-11: 2.75rem; --space-12: 3rem; --space-14: 3.5rem; --space-16: 4rem;
+    --space-20: 5rem; --space-24: 6rem;
+
+    /* Radius — this app's own dominant real values (10px buttons, 14px
+       cards, 9px inputs — grep-verified frequency) don't match a
+       Tailwind/Bootstrap default scale (4/8/12/16px) at all. Named here
+       as its own small scale rather than forced onto Tailwind's numbers,
+       which would change the visual identity of every button/card/input
+       in the app for no functional reason. */
+    --radius-sm: 8px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 16px; --radius-full: 999px;
+
     /* Surfaces layered above --panel, and the border ramp. Added when the
        palette was consolidated for dark mode: the light theme previously
        used a dozen near-identical greys inline. */
