@@ -74,6 +74,12 @@ const COLOR_GROUPS = [
   { title: 'Status — danger', tokens: [
     ['Red', '--red'], ['Red bg', '--red-bg'], ['Red line', '--red-line'],
   ] },
+  { title: 'Chart colors', tokens: [
+    ['Chart 1 (total / negative)', '--chart-1'], ['Chart 2 (primary series)', '--chart-2'],
+    ['Chart 3 (positive / growth)', '--chart-3'], ['Chart 4 (caution / secondary)', '--chart-4'],
+    ['Chart 5 (overflow)', '--chart-5'], ['Chart 6 (overflow)', '--chart-6'],
+    ['Chart 7 (overflow)', '--chart-7'],
+  ] },
 ]
 
 // Illustrative tint/shade ramp derived live from --brand via CSS color-mix —

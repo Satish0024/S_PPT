@@ -33,10 +33,10 @@ const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1
 // browser-resolved value, but the value itself still tracks --brand/
 // --green/--red/--amber like everything else in the app.
 const SERIES_META = [
-  { key: 'total', label: 'Total portfolio', token: '--red', dash: [], pointStyle: 'circle' },
-  { key: 'equity', label: 'U.S. Equity', token: '--green', dash: [7, 4], pointStyle: 'triangle' },
-  { key: 'bond', label: 'U.S. Bond', token: '--brand', dash: [2, 3], pointStyle: 'rect' },
-  { key: 'target', label: 'Target-Date', token: '--amber', dash: [9, 3, 2, 3], pointStyle: 'star' }
+  { key: 'total', label: 'Total portfolio', token: '--chart-1', dash: [], pointStyle: 'circle' },
+  { key: 'equity', label: 'U.S. Equity', token: '--chart-3', dash: [7, 4], pointStyle: 'triangle' },
+  { key: 'bond', label: 'U.S. Bond', token: '--chart-2', dash: [2, 3], pointStyle: 'rect' },
+  { key: 'target', label: 'Target-Date', token: '--chart-4', dash: [9, 3, 2, 3], pointStyle: 'star' }
 ]
 
 const COLS = {

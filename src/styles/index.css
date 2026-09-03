@@ -89,6 +89,26 @@
     --text-placeholder-weight: 400;
     --font-family-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace; /* design-system.css (routed at /design-system) hardcodes this stack in several rules today — token added for future wiring */
 
+    /* Chart / data-visualization palette — the set every multi-series
+       chart or donut in the app draws from, so a "3rd/4th/5th indicator"
+       question always has one answer instead of each screen picking its
+       own hex. 4 real hues (brand/green/red/amber, already the app's
+       existing semantic tokens) plus 3 brand-derived tint/shade steps for
+       when a chart needs more than 4 slices (the holdings donut needs up
+       to 7) — every step is still color-mix() of --brand/--green, not an
+       independent color, so the whole palette re-tones with --brand on
+       any tenant. Order is deliberate: --chart-1/2/3/4 are the "first 4"
+       most charts actually use (Portfolio's total/bond/equity/target
+       line chart), --chart-5/6/7 are the overflow steps only the 7-slot
+       donut needs. */
+    --chart-1: var(--red);
+    --chart-2: var(--brand);
+    --chart-3: var(--green);
+    --chart-4: var(--amber);
+    --chart-5: color-mix(in srgb, var(--brand) 55%, black);
+    --chart-6: color-mix(in srgb, var(--brand) 60%, white);
+    --chart-7: color-mix(in srgb, var(--green) 60%, black);
+
     /* Spacing — Tailwind's canonical scale (tailwindcss.com/docs/spacing),
        exact values, not invented. Additive: not yet wired into any real
        class, since remapping ~400 existing gap/padding declarations to
