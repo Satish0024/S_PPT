@@ -139,16 +139,21 @@
     --spacing-10: 0.625rem; --spacing-12: 0.75rem; --spacing-16: 1rem;
     --spacing-24: 1.5rem; --spacing-32: 2rem;
 
+    /* One true primary. --brand-dark/--accent/--link below are all
+       color-mix() tones of this single value, not independent hex --
+       change --brand and every one of them (plus the whole primitive
+       ramp above) moves with it. That's the actual mechanism a
+       white-label product needs: one color in, everything derives. */
     --brand:#2e3192;
-    --brand-dark:#1f2268;
+    --brand-dark: color-mix(in srgb, var(--brand) 70%, black);
     /* Solid-fill buttons/chips need white text at >=4.5:1. --brand itself
        has to stay light enough to read as text on dark panels once the
        dark theme lightens it, so filled surfaces use this separate token
        instead — equal to --brand in light mode, deliberately darker than
        it in dark mode. */
     --brand-fill:#2e3192;
-    --accent:#4a63c7;
-    --link:#2e3192;
+    --accent: color-mix(in srgb, var(--brand) 65%, white);
+    --link: var(--brand);
     --ink:#14151f;
     --ink-soft:#4a4d63;
     --muted:#666a83;
@@ -185,10 +190,13 @@
      through them, so there is no duplicated dark-mode stylesheet. */
   :root[data-theme="dark"]{
     --brand:#868df0;
-    --brand-dark:#9aa0f0;
+    /* Dark mode lightens toward white instead of darkening toward black
+       (a light hover/accent tone needs to stay visible against a dark
+       page) -- still one derivation, just the other direction. */
+    --brand-dark: color-mix(in srgb, var(--brand) 80%, white);
     --brand-fill:#555fdb;
-    --accent:#8f9df0;
-    --link:#9aa0f0;
+    --accent: color-mix(in srgb, var(--brand) 90%, white);
+    --link: var(--brand-dark);
     --ink:#eceef7;
     --ink-soft:#b3b7cc;
     --muted:#8f93aa;
