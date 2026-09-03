@@ -2114,9 +2114,16 @@ export default function DesignSystem() {
                   </a>
                 </nav>
               </VariantGroup>
-              <VariantGroup tag="live" title="index.css .nav-cta (line 1421) — the rail's bottom circular CTA">
+              {/* .nav-cta was the Risk check-in shortcut's class — that
+                  link was removed from Sidebar.jsx (per explicit
+                  request), so this CSS rule is now orphaned: it still
+                  exists in index.css but nothing in the app renders it
+                  anymore. Kept documented (not deleted) since the class
+                  itself wasn't removed, but honestly re-labeled rather
+                  than shown as a "live" pattern. */}
+              <VariantGroup tag="bug" title="index.css .nav-cta (line 1421) — no longer used anywhere; the Risk check-in link that rendered it was removed">
                 <div className="nav-bottom" style={{ position: 'static', alignItems: 'center' }}>
-                  <a href="#sidebar" onClick={(e) => e.preventDefault()} className="nav-cta" aria-label="Get help" style={{ position: 'static' }}>
+                  <a href="#sidebar" onClick={(e) => e.preventDefault()} className="nav-cta" aria-label="Example only — not a real control" style={{ position: 'static' }}>
                     <Icon icon={faUniversalAccess} size={18} />
                   </a>
                 </div>
