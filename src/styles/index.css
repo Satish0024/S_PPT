@@ -1220,7 +1220,7 @@
      let it span the full row instead. */
   .plans-grid > *:only-child{grid-column:1 / -1}
   .plan-card{
-    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding: var(--space-5) var(--space-5) var(--space-4);
     box-shadow:var(--shadow);display:flex;flex-direction:column;gap: var(--space-3-5);min-width:0}
   .plan-card.ineligible{background:var(--surface-2);border-style:dashed}
   .plan-card.eligible-not{background:var(--panel)}
@@ -1471,7 +1471,7 @@
   .quick-link .q-ico svg{width:18px;height:18px}
   .quick-link .q-label{font-size:14px;font-weight:700;color:var(--ink);line-height:1.25}
 
-  .status-banner{display:flex;gap: var(--space-3-5);align-items:flex-start;padding:18px 20px;border-radius:14px;
+  .status-banner{display:flex;gap: var(--space-3-5);align-items:flex-start;padding: var(--space-5);border-radius:14px;
     border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow)}
   .status-banner .badge{flex:0 0 auto;padding: var(--space-1-5) var(--space-2-5);border-radius:999px;font-size:var(--text-paragraph-xs-size);font-weight:var(--font-weight-bold);
     letter-spacing:.2px;white-space:nowrap}
@@ -1484,13 +1484,13 @@
   .status-banner p{color:var(--ink-soft);font-size:var(--text-description-size);line-height:1.5}
 
   .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding: var(--space-4) var(--space-5);box-shadow:var(--shadow)}
   .card .k{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px}
   .card .v{font-size:22px;font-weight:700;letter-spacing:-.4px;line-height:1.15}
   .card .s{margin-top: var(--space-1-5);font-size:14px;color:var(--ink-soft);line-height:1.4}
   .card .v.pos{color:var(--green)}
 
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding: var(--space-5) var(--space-6);box-shadow:var(--shadow)}
   .panel h3{font-size:var(--text-h5-size);font-weight:700;margin-bottom:6px}
   .panel p{color:var(--ink-soft);font-size:var(--text-description-size);line-height:1.5;margin-bottom:14px}
   .actions{display:flex;flex-wrap:wrap;gap:10px}
@@ -1911,7 +1911,7 @@
 
   /* ---------- Confirm dialog (centered, distinct from Slideover) ---------- */
   .confirm-dialog{
-    width:min(360px,100%);background:var(--panel);border-radius:16px;padding:26px 24px 22px;box-shadow:var(--shadow-lg);
+    width:min(360px,100%);background:var(--panel);border-radius:16px;padding: var(--space-7) var(--space-6) var(--space-6);box-shadow:var(--shadow-lg);
     text-align:center;display:flex;flex-direction:column;align-items:center;animation:rq-modal-in .22s ease}
   /* .txn-field's flex:1 1 200px is meant for side-by-side fields in a
      .txn-row — inside this dialog's vertical flex column that flex-grow

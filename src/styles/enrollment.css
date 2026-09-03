@@ -178,7 +178,7 @@
   /* Editor + match */
   .work-row{display:grid;grid-template-columns:1fr;gap: var(--space-3-5);align-items:start}
   .work-row.split{grid-template-columns:minmax(0,1.2fr) minmax(200px,.8fr)}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin-bottom:0}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding: var(--space-4) var(--space-5);margin-bottom:0}
   .card h4{font-size:14px;font-weight:600;margin-bottom: var(--space-2-5);display:flex;align-items:center;gap:8px}
   .editor.locked{opacity:.5;pointer-events:none;filter:grayscale(.3)}
 

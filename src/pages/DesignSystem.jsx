@@ -333,12 +333,12 @@ const SPACING_TOKENS = [
     ['margin-xl', '16px', 'Between major blocks within a card'],
   ] },
   { category: 'Padding', tokens: [
-    ['padding-sm', '8px 12px', 'Form fields — .txn-field input'],
-    ['padding-md', '12px 14px', 'Table cells — .tx-table td/th'],
-    ['padding-lg', '16px 18px', 'Cards — .card, .plan-card'],
-    ['padding-xl', '18px 20px', 'Panels and banners — .panel, .status-banner'],
-    ['padding-2xl', '20px 22px', 'Larger panels — .panel (desktop)'],
-    ['padding-3xl', '26px 24px 22px', 'Dialogs — .confirm-dialog'],
+    ['padding-sm', '8px 12px', 'Form fields — .txn-field input (var(--space-2) var(--space-3))'],
+    ['padding-md', '12px 14px', 'Table cells — .tx-table td/th (var(--space-3) var(--space-3-5))'],
+    ['padding-lg', '20px 20px 16px', 'Cards — .plan-card (var(--space-5) var(--space-5) var(--space-4)); .card is 16px 20px, var(--space-4) var(--space-5)'],
+    ['padding-xl', '20px', 'Banners — .status-banner (var(--space-5), uniform)'],
+    ['padding-2xl', '20px 24px', 'Panels — .panel (var(--space-5) var(--space-6))'],
+    ['padding-3xl', '28px 24px 24px', 'Dialogs — .confirm-dialog (var(--space-7) var(--space-6) var(--space-6))'],
   ] },
   { category: 'Gap', tokens: [
     ['gap-xs', '4px', 'Icon-to-label, tight inline groups (.nav-cta, badge icon)'],
