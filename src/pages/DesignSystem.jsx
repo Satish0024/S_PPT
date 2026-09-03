@@ -285,7 +285,7 @@ const TYPE_TOKENS = [
   { name: 'Heading', cls: null, family: 'Inclusive Sans', size: '20px', weight: '500–700', lineHeight: '28px (1.4x)', letterSpacing: '-0.2px', case: 'None', real: ['.section-title · 16/700, -.2px tracking'] },
   { name: 'Body Large', cls: null, family: 'Inclusive Sans', size: '16px', weight: '400–600', lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.pr-intro · 14/500, no tracking'] },
   { name: 'Body Regular', cls: 'ds-type-p2', family: 'Inclusive Sans', size: '14px', weight: '400–600', lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None', real: ['table cells (.tx-table td) · 14/400, no tracking'] },
-  { name: 'Body Small', cls: 'ds-type-p3', family: 'Inclusive Sans', size: '13px', weight: 600, lineHeight: '20px (1.54x)', letterSpacing: '0px', case: 'None', real: ['.ob-k · 14/600, no tracking'] },
+  { name: 'Body Small', cls: 'ds-type-p3', family: 'Inclusive Sans', size: '14px', weight: 600, lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.ob-k · 14/600, no tracking'] },
   { name: 'Body Extra Small', cls: 'ds-type-caption', family: 'Inclusive Sans', size: '12px', weight: 700, lineHeight: '18px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.pc-type · 12/600, no tracking', '.plan-badge · 12/700, no tracking'] },
   { name: 'Paragraph Small', cls: null, family: 'Inclusive Sans', size: '14px', weight: '400–600', lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.pr-intro · 14/500, no tracking'] },
   { name: 'Paragraph Extra Small', cls: null, family: 'Inclusive Sans', size: '12px', weight: 700, lineHeight: '18px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.plan-badge · 12/700, no tracking'] },
