@@ -191,7 +191,7 @@
     --bg:#f4f5f9;
     --panel:#ffffff;
     --sidebar:#ffffff;
-    --active-bg:#eef1ff;
+    --active-bg: color-mix(in srgb, var(--brand) 12%, white);
     --hover-bg:#f4f5f9;
     /* Added — enrollment.css used to define its own local :root with
        these 3 plus a drifted green/amber/muted, and no dark-mode
@@ -246,7 +246,7 @@
     --sidebar:#181b2b;
     --surface-2:#1f2234;
     --surface-3:#272b3f;
-    --active-bg:#23274a;
+    --active-bg: color-mix(in srgb, var(--brand) 22%, black);
     --hover-bg:#22263a;
     --brand-soft: var(--active-bg);
     --info: color-mix(in srgb, var(--brand) 18%, black);
