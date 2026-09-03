@@ -22,13 +22,13 @@
    different color. */
 .login-brand-copy img{height:38px;display:block;margin-bottom:28px}
 .login-brand-copy h1{font-size:36px;font-weight:700;letter-spacing:-.6px;line-height:1.15;margin:0 0 12px}
-.login-brand-copy p{font-size:16px;line-height:1.55;opacity:.9;margin:0;max-width:36ch}
+.login-brand-copy p{font-size:var(--text-body-lg-size);line-height:1.55;opacity:.9;margin:0;max-width:36ch}
 .login-panel{display:flex;align-items:center;justify-content:center;padding:40px 28px;background:var(--bg)}
 .login-card{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:20px;
   box-shadow:var(--shadow-lg);padding:32px 32px 28px}
 .login-logo{height:38px;display:block;margin-bottom:22px}
 .login-card h2{font-size:26px;font-weight:700;letter-spacing:-.4px;margin:0 0 6px}
-.login-lead{color:var(--ink-soft);font-size:14px;margin:0 0 22px}
+.login-lead{color:var(--ink-soft);font-size:var(--text-description-size);margin:0 0 22px}
 .login-field{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:700;margin-bottom:14px}
 .login-input{display:flex;align-items:center;gap:8px;border:1px solid var(--line-strong);border-radius:12px;padding:0 12px;
   background:var(--panel);transition:border-color .15s,box-shadow .15s}

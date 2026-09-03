@@ -19,7 +19,7 @@
   position:sticky;top:0;z-index:40;height:60px;display:flex;align-items:center;gap:14px;
   padding:0 24px;background:var(--panel);border-bottom:1px solid var(--line);box-shadow:var(--shadow)
 }
-.ds-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;letter-spacing:-.2px}
+.ds-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:var(--text-h5-size);letter-spacing:-.2px}
 .ds-logo-mark{height:24px;width:auto;object-fit:contain;flex:0 0 auto}
 .ds-logo-div{width:1px;height:20px;background:var(--line);flex:0 0 auto}
 .ds-meta{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--muted)}
@@ -60,7 +60,7 @@
 .ds-hero{padding:56px 8px 40px;max-width:var(--ds-content-max);border-bottom:1px solid var(--line);margin-bottom:40px}
 .ds-hero .eyebrow{font-size:12.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--brand)}
 .ds-hero h1{font-size:38px;font-weight:800;letter-spacing:-.8px;margin:10px 0 14px}
-.ds-hero p{font-size:16px;color:var(--ink-soft);line-height:1.6;max-width:680px}
+.ds-hero p{font-size:var(--text-body-lg-size);color:var(--ink-soft);line-height:1.6;max-width:680px}
 
 /* ---------- Landing category cards ---------- */
 .ds-category-grid{max-width:var(--ds-content-max);margin:0 0 56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
@@ -90,7 +90,7 @@
 .ds-main > .ds-card{margin-bottom:40px}
 .ds-section h2{font-size:26px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px}
 .ds-section > p.ds-lede{font-size:14.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:24px;max-width:640px}
-.ds-sub{font-size:16px;font-weight:700;margin:28px 0 12px}
+.ds-sub{font-size:var(--text-h5-size);font-weight:700;margin:28px 0 12px}
 
 /* ---------- Component card ---------- */
 .ds-card{border:1px solid var(--line);border-radius:14px;background:var(--panel);box-shadow:var(--ds-elev-1);margin-bottom:22px;overflow:hidden;transition:box-shadow .18s ease,border-color .18s ease}
@@ -128,7 +128,7 @@
 .ds-code-wrap{position:relative}
 .ds-code{margin:0;padding:16px 20px;background:#12131f;color:#dfe3ff;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12.5px;line-height:1.6;overflow-x:auto;white-space:pre}
 :root[data-theme="dark"] .ds-code,.ds[data-theme] .ds-code{background:#0b0c14}
-.ds-copy-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#dfe3ff;border-radius:8px;padding:6px 10px;font:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:.15s}
+.ds-copy-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#dfe3ff;border-radius:8px;padding:6px 10px;font:inherit;font-size:var(--text-paragraph-xs-size);font-weight:var(--font-weight-bold);cursor:pointer;transition:.15s}
 .ds-copy-btn:hover{background:rgba(255,255,255,.14)}
 .ds-copy-btn.copied{background:var(--green);color:#06180f;border-color:var(--green)}
 .ds-code-copy{position:absolute;top:10px;right:10px;opacity:0;transition:opacity .15s}
@@ -146,7 +146,7 @@
 
 /* ---------- Tokens tab ---------- */
 .ds-comp-colors{padding:20px;display:flex;flex-wrap:wrap;gap:8px}
-.ds-color-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:var(--surface-2);font:inherit;font-size:12px;font-weight:600;color:var(--ink-soft);cursor:pointer}
+.ds-color-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:var(--surface-2);font:inherit;font-size:var(--text-paragraph-xs-size);font-weight:var(--font-weight-semibold);color:var(--ink-soft);cursor:pointer}
 .ds-color-chip:hover{border-color:var(--brand);color:var(--brand)}
 .ds-color-chip code{font-family:ui-monospace,monospace;font-size:11px;color:var(--muted)}
 .ds-color-chip-dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto;border:1px solid rgba(0,0,0,.1)}
@@ -218,7 +218,7 @@
 .ds-font-about{font-size:13.5px;line-height:1.6;color:var(--ink-soft);max-width:640px;margin-bottom:16px}
 .ds-font-about code{font-family:ui-monospace,monospace;font-size:12px;background:var(--surface-3);padding:2px 6px;border-radius:5px}
 .ds-font-weights{display:flex;flex-wrap:wrap;gap:20px;padding-top:14px;border-top:1px solid var(--line)}
-.ds-font-weights span{font-size:16px;color:var(--ink)}
+.ds-font-weights span{font-size:var(--text-body-lg-size);color:var(--ink)}
 .ds-font-weights em{font-style:normal;font-size:11px;color:var(--muted);margin-left:4px}
 
 /* ---------- Annotated "applied in context" frame ---------- */
@@ -237,7 +237,7 @@
 .ds-swatch-copy-ico{position:absolute;top:6px;right:6px;opacity:0;transition:opacity .15s;background:rgba(0,0,0,.35);color:#fff;border-radius:6px;padding:4px}
 .ds-swatch-btn:hover .ds-swatch-copy-ico,.ds-swatch-btn:focus-visible .ds-swatch-copy-ico{opacity:1}
 .ds-swatch-meta{padding:8px 10px}
-.ds-swatch-meta b{display:block;font-size:12px;font-weight:700}
+.ds-swatch-meta b{display:block;font-size:var(--text-paragraph-xs-size);font-weight:var(--font-weight-bold)}
 .ds-swatch-meta span{display:block;font-size:11px;color:var(--muted);font-family:ui-monospace,monospace}
 .ds-swatch-hex{color:var(--ink-soft) !important;font-weight:700;text-transform:uppercase;margin-top:2px}
 .ds-swatch-usage{color:var(--muted) !important;font-family:inherit !important;font-size:10.5px !important;font-weight:600 !important;text-transform:none !important;margin-top:6px;padding-top:6px;border-top:1px solid var(--line);line-height:1.4}
@@ -266,7 +266,7 @@
 .ds-type-table td code{font-family:ui-monospace,monospace;font-size:12px;color:var(--ink-soft);background:var(--surface-3);padding:2px 6px;border-radius:5px}
 .ds-type-h1{font-size:34px;font-weight:800;letter-spacing:-.6px;color:var(--ink)}
 .ds-type-h2{font-size:26px;font-weight:800;letter-spacing:-.4px;color:var(--ink)}
-.ds-type-h3{font-size:20px;font-weight:700;letter-spacing:-.3px;color:var(--ink)}
+.ds-type-h3{font-size:var(--text-h3-size);font-weight:700;letter-spacing:-.3px;color:var(--ink)}
 .ds-type-p2{font-size:15px;font-weight:400;color:var(--ink)}
 .ds-type-p3{font-size:13.5px;font-weight:600;color:var(--ink)}
 .ds-type-caption{font-size:11.5px;font-weight:700;letter-spacing:.3px;color:var(--ink)}

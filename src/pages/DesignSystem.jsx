@@ -1210,7 +1210,7 @@ export default function DesignSystem() {
                     <Dot>2</Dot><Dot>3</Dot>
                     <span style={{ fontSize: 13.5, fontWeight: 700 }}>Account nickname</span>
                   </div>
-                  <input readOnly value="My 401(k)" style={{ marginTop: 8, minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--bg)', width: '100%' }} />
+                  <input readOnly value="My 401(k)" style={{ marginTop: 8, minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--bg)', width: '100%' }} />
                 </div>
                 {/* The real 8px gap, undisturbed — a pin dot sitting
                     in the flex row between the buttons was doubling
@@ -1539,7 +1539,7 @@ export default function DesignSystem() {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>2</Dot>
-                    <input readOnly value="e.g. My 401(k)" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', width: 180 }} />
+                    <input readOnly value="e.g. My 401(k)" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)', width: 180 }} />
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>3</Dot>
@@ -1553,7 +1553,7 @@ export default function DesignSystem() {
                   <div className="ds-spec-cell ds-spec-top"><span className="ds-spec-tick" /><b>Padding-top</b> 8px</div>
                   <div className="ds-spec-row">
                     <div className="ds-spec-cell ds-spec-left"><span className="ds-spec-tick" /><b>Padding-left</b> 12px</div>
-                    <input readOnly value="e.g. My 401(k)" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, color: 'var(--ink)', background: 'var(--panel)', width: 200 }} />
+                    <input readOnly value="e.g. My 401(k)" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--ink)', background: 'var(--panel)', width: 200 }} />
                     <div className="ds-spec-cell ds-spec-right"><span className="ds-spec-tick" /><b>Padding-right</b> 12px</div>
                   </div>
                   <div className="ds-spec-cell ds-spec-bottom"><span className="ds-spec-tick" /><b>Padding-bottom</b> 8px</div>
@@ -1569,7 +1569,7 @@ export default function DesignSystem() {
                 <div style={{ display: 'grid', gap: 12, width: '100%', maxWidth: 340 }}>
                   <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname
                     <input
-                      style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, color: 'var(--ink)', background: 'var(--panel)' }}
+                      style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--ink)', background: 'var(--panel)' }}
                       placeholder="e.g. My 401(k)"
                     />
                   </label>
@@ -1581,7 +1581,7 @@ export default function DesignSystem() {
                   <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Locked field (disabled)
                     <input
                       disabled value="Direct deposit"
-                      style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--surface-2)', color: 'var(--ink-soft)' }}
+                      style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--surface-2)', color: 'var(--ink-soft)' }}
                     />
                   </label>
                   <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5, color: 'var(--red)', fontWeight: 600 }}>
@@ -1594,7 +1594,7 @@ export default function DesignSystem() {
                   <Icon icon={faMagnifyingGlass} size={13} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--muted)' }} />
                   <input
                     placeholder="Search investments…"
-                    style={{ width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px 8px 34px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)' }}
+                    style={{ width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px 8px 34px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)' }}
                   />
                 </div>
               </VariantGroup>
@@ -1614,7 +1614,7 @@ export default function DesignSystem() {
                 <div className="ds-annotated-frame">
                   <div className="ds-annotated-row">
                     <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)', flex: '1 1 200px' }}>Target amount
-                      <input readOnly value="$5,000.00" style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)' }} />
+                      <input readOnly value="$5,000.00" style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)' }} />
                     </label>
                     <span className="ds-pin">.txn-field input</span>
                   </div>
@@ -2466,7 +2466,7 @@ export default function DesignSystem() {
                     <div className="slideover-body">
                       <p style={{ margin: '0 0 12px', fontSize: 13.5, color: 'var(--ink-soft)' }}>Estimate a loan against your vested balance.</p>
                       <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Loan amount
-                        <input readOnly value="$10,000" style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)' }} />
+                        <input readOnly value="$10,000" style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)' }} />
                       </label>
                     </div>
                   </div>
@@ -2895,7 +2895,7 @@ export default function DesignSystem() {
             demo={<>
               <VariantGroup tag="live" title=".page-body — every authenticated route's outer wrapper">
                 <div className="page-body" style={{ width: '100%', border: '1px solid var(--line)', borderRadius: 12 }}>
-                  <div className="hi-bar"><h1 style={{ fontSize: 20 }}>Hi Jordan 👋</h1></div>
+                  <div className="hi-bar"><h1 style={{ fontSize: 'var(--text-h3-size)' }}>Hi Jordan 👋</h1></div>
                   <div style={{ height: 50, borderRadius: 10, background: 'var(--surface-3)' }} />
                 </div>
               </VariantGroup>
@@ -2952,7 +2952,7 @@ export default function DesignSystem() {
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
                     <Dot>1</Dot>
-                    <textarea readOnly value="Additional notes for this request..." rows={3} style={{ minHeight: 80, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', width: 220, resize: 'vertical' }} />
+                    <textarea readOnly value="Additional notes for this request..." rows={3} style={{ minHeight: 80, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)', width: 220, resize: 'vertical' }} />
                   </div>
                 </div>
                 <DotLegend items={['Border/radius/padding match .txn-field input exactly — proposed, not yet a real class']} />
@@ -2961,7 +2961,7 @@ export default function DesignSystem() {
             }
             demo={<>
               <VariantGroup tag="proposed" title="Matches .txn-field input styling — not yet a real class">
-                <textarea placeholder="Additional notes..." rows={3} style={{ minHeight: 80, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', width: 240, resize: 'vertical' }} />
+                <textarea placeholder="Additional notes..." rows={3} style={{ minHeight: 80, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)', width: 240, resize: 'vertical' }} />
               </VariantGroup>
             </>}
             donts={["Don't assume a .textarea class exists to reach for — build one from .txn-field input's real values before shipping a multi-line field."]}
@@ -2985,7 +2985,7 @@ export default function DesignSystem() {
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>1</Dot>
-                    <input readOnly value="Focused field" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', outline: '2px solid var(--brand)', outlineOffset: 2 }} />
+                    <input readOnly value="Focused field" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)', outline: '2px solid var(--brand)', outlineOffset: 2 }} />
                   </div>
                 </div>
                 <DotLegend items={['2px solid --brand outline, 2px offset (some components use -2px inset instead — see each component\'s own page)']} />
@@ -3059,7 +3059,7 @@ export default function DesignSystem() {
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>1</Dot>
-                    <input readOnly value="09/02/2026" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', width: 140 }} />
+                    <input readOnly value="09/02/2026" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)', width: 140 }} />
                   </div>
                 </div>
                 <DotLegend items={['Field · same as .txn-field input — proposed, no real date-field class exists']} />
@@ -3068,7 +3068,7 @@ export default function DesignSystem() {
             }
             demo={<>
               <VariantGroup tag="proposed" title="Field styled like .txn-field input; calendar popover fully proposed">
-                <input readOnly value="09/02/2026" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 14, fontWeight: 600, background: 'var(--panel)', width: 140 }} />
+                <input readOnly value="09/02/2026" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)', width: 140 }} />
                 <div className="ds-card" style={{ width: 220, padding: 12 }}>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: 4, fontSize: 11, textAlign: 'center' }}>
                     {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => <span key={i} style={{ color: 'var(--muted)', fontWeight: 700 }}>{d}</span>)}
@@ -3104,9 +3104,9 @@ export default function DesignSystem() {
                       <td><code>{level}</code></td>
                       <td style={{ fontSize: 12.5 }}>{req}{note && <><br /><span style={{ color: 'var(--ink-soft)' }}>{note}</span></>}</td>
                       <td>
-                        {status === 'verified' && <span style={{ color: 'var(--green)', fontWeight: 700, fontSize: 12 }}>Verified</span>}
-                        {status === 'todo' && <span style={{ color: 'var(--amber)', fontWeight: 700, fontSize: 12 }}>Not yet audited</span>}
-                        {status === 'na' && <span style={{ color: 'var(--muted)', fontWeight: 700, fontSize: 12 }}>N/A — no audio/video/gesture content</span>}
+                        {status === 'verified' && <span style={{ color: 'var(--green)', fontWeight: 'var(--font-weight-bold)', fontSize: 'var(--text-paragraph-xs-size)' }}>Verified</span>}
+                        {status === 'todo' && <span style={{ color: 'var(--amber)', fontWeight: 'var(--font-weight-bold)', fontSize: 'var(--text-paragraph-xs-size)' }}>Not yet audited</span>}
+                        {status === 'na' && <span style={{ color: 'var(--muted)', fontWeight: 'var(--font-weight-bold)', fontSize: 'var(--text-paragraph-xs-size)' }}>N/A — no audio/video/gesture content</span>}
                       </td>
                     </tr>
                   ))}
