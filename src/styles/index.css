@@ -255,7 +255,11 @@
     /* Corner tint + atmosphere strength. Light keeps only a whisper of
        tint and switches the dotted/wave layers off entirely. */
     --rgs-glow-a: .05; --rgs-glow-b: .035; --rgs-decor: 0;
-    --rgs-cta-bg: var(--ink); --rgs-cta-ink: #ffffff;
+    /* Was var(--ink) — the CTA's background was wired to the *text*
+       color token, not the brand color, so "Get started" rendered
+       near-black instead of the app's actual primary. Every other
+       CTA in the app uses --brand-fill; this one should too. */
+    --rgs-cta-bg: var(--brand-fill); --rgs-cta-ink: #ffffff;
     --rgs-elevation: 0 1px 2px rgba(20,28,60,.05), 0 12px 28px -12px rgba(20,28,60,.18);
 
     /* Financial Wellness — light: warm white, lavender only as accent.
@@ -292,7 +296,9 @@
     --rgs-track: rgba(255,255,255,.10);
     --rgs-arc-1:#8fa0ff; --rgs-arc-2:#6f86ff;
     --rgs-glow-a: .34; --rgs-glow-b: .16; --rgs-decor: .5;
-    --rgs-cta-bg: #ffffff; --rgs-cta-ink: var(--rgs-base-1);
+    /* Same fix as light mode — was a plain white pill instead of the
+       brand color. */
+    --rgs-cta-bg: var(--brand-fill); --rgs-cta-ink: #ffffff;
     --rgs-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.6);
 
     /* Financial Wellness — dark: charcoal with a faint lavender cast. */
