@@ -5,15 +5,31 @@
        color-mix() tones of this single value, not independent hex --
        change --brand and every one of them updates with it (the
        white-label mechanism). */
-    --brand:#0284c7;
+    /* Was #0284c7 -- a real WCAG failure, not a style preference: white
+       text on that fill is 4.10:1 (needs 4.5:1), and the same hex used
+       directly as link/text color on --panel is 4.10:1/3.76:1 on --bg.
+       Darkened to #0270a9 (color-mix(#0284c7, 85%, black)), which clears
+       4.5:1 in both directions with margin (~5.4:1) -- still clearly the
+       same blue, just one step deeper. Same fix already shipped on
+       journey-retirement. */
+    --brand:#0270a9;
     --brand-dark: color-mix(in srgb, var(--brand) 70%, black);
     /* Solid-fill buttons/chips need white text at >=4.5:1. --brand itself
        has to stay light enough to read as text on dark panels once the
        dark theme lightens it, so filled surfaces use this separate token
        instead — equal to --brand in light mode, deliberately darker than
        it in dark mode. */
-    --brand-fill:#0284c7;
-    --accent: color-mix(in srgb, var(--brand) 65%, white);
+    --brand-fill:#0270a9;
+    /* Was color-mix(--brand, 65%, white) -- a light tint meant as a
+       background accent, but it's also used as TEXT for eyebrow labels/
+       tags, where that tint was 2.44:1 (needs 3:1 even for large text).
+       Reusing --brand-dark (already exists, already the app's "text-safe
+       darker brand" token) fixes it outright (~8.9:1) at the cost of
+       --accent no longer reading as a distinct lighter highlight from
+       --brand-dark -- a real trade-off, not a hidden side effect; a
+       dedicated lighter-but-still-compliant accent tone is a fair follow
+       -up if the visual distinction turns out to matter. */
+    --accent: var(--brand-dark);
     --link: var(--brand);
     --ink:#14151f;
     --ink-soft:#4a4d63;
@@ -293,7 +309,9 @@
   :root[data-theme="dark"]{
     --brand:#38bdf8;
     --brand-dark: color-mix(in srgb, var(--brand) 80%, white);
-    --brand-fill:#0284c7;
+    /* Same white-on-fill failure as light mode (both themes shared this
+       exact hex) -- darkened to match. */
+    --brand-fill:#0270a9;
     --accent: color-mix(in srgb, var(--brand) 90%, white);
     --link: var(--brand-dark);
     --ink:#eceef7;
