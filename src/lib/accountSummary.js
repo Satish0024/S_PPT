@@ -35,7 +35,16 @@ export function hasAccountSummary(participant) {
   return (participant?.plans || []).some(isSummaryPlan)
 }
 
-const COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#2e3192', '#d4a017']
+// The app's one shared chart palette (styles/index.css --chart-1..7) --
+// same 7 colors every multi-series chart draws from, so this donut and
+// Portfolio's line chart never drift into their own one-off hex sets.
+// Resolved lazily (not at module load) since it reads the live
+// document's CSS custom properties.
+function colorPalette() {
+  const css = getComputedStyle(document.documentElement)
+  const v = (name, fallback) => css.getPropertyValue(name).trim() || fallback
+  return [1, 2, 3, 4, 5, 6, 7].map((n, i) => v(`--chart-${n}`, ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#2e3192', '#d4a017'][i]))
+}
 
 // Some funds hold more than one asset type (e.g. a target-date or balanced
 // fund blends stock and bond), so each asset class maps to an array of the
@@ -55,6 +64,7 @@ export function assetCategory(asset) {
 
 function toRows(items, total) {
   if (!items?.length || total <= 0) return []
+  const colors = colorPalette()
   return items
     .filter((item) => item.amount > 0)
     .map((item, i) => ({
@@ -65,7 +75,7 @@ function toRows(items, total) {
       vested: item.vested ?? 0,
       price: item.price ?? null,
       units: item.units ?? null,
-      color: COLORS[i % COLORS.length],
+      color: colors[i % colors.length],
       pct: total ? (item.amount / total) * 100 : 0
     }))
 }
@@ -77,6 +87,7 @@ function toRows(items, total) {
 function toAssetClassRows(investments, total) {
   const rows = toRows(investments, total)
   if (!rows.length) return []
+  const colors = colorPalette()
   const byClass = new Map()
   rows.forEach((row) => {
     const key = row.asset || 'Other'
@@ -90,7 +101,7 @@ function toAssetClassRows(investments, total) {
       name: asset,
       asset,
       amount,
-      color: COLORS[i % COLORS.length],
+      color: colors[i % colors.length],
       pct: total ? (amount / total) * 100 : 0,
       members
     }

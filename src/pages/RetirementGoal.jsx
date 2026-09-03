@@ -93,7 +93,11 @@ function Confetti() {
           left: `${(i * 17 + (i % 5) * 4) % 100}%`,
           delay: `${(i % 12) * 0.08}s`,
           duration: `${2.2 + (i % 5) * 0.25}s`,
-          color: ['#2e3192', '#1a9d63', '#d4a017', '#4a63c7'][i % 4],
+          // Same shared chart palette as everywhere else (styles/
+          // index.css --chart-1..7) -- var() resolves fine in inline
+          // style values, same as in CSS, so this stays in sync with
+          // --brand on any tenant.
+          color: ['var(--chart-2)', 'var(--chart-3)', 'var(--chart-4)', 'var(--chart-5)'][i % 4],
           size: 6 + (i % 4) * 2,
           round: i % 3 === 0,
           spin: (i % 2 === 0 ? 1 : -1) * (200 + (i % 7) * 36),

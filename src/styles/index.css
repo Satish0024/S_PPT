@@ -84,6 +84,26 @@
     --text-placeholder-weight: 400;
     --font-family-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
 
+    /* Chart / data-visualization palette — the set every multi-series
+       chart or donut in the app draws from, so a "3rd/4th/5th indicator"
+       question always has one answer instead of each screen picking its
+       own hex. 4 real hues (brand/green/red/amber, already the app's
+       existing semantic tokens) plus 3 brand-derived tint/shade steps for
+       when a chart needs more than 4 slices (the holdings donut needs up
+       to 7) — every step is still color-mix() of --brand/--green, not an
+       independent color, so the whole palette re-tones with --brand on
+       any tenant. Order is deliberate: --chart-1/2/3/4 are the "first 4"
+       most charts actually use (Portfolio's total/bond/equity/target
+       line chart), --chart-5/6/7 are the overflow steps only the 7-slot
+       donut needs. */
+    --chart-1: var(--red);
+    --chart-2: var(--brand);
+    --chart-3: var(--green);
+    --chart-4: var(--amber);
+    --chart-5: color-mix(in srgb, var(--brand) 55%, black);
+    --chart-6: color-mix(in srgb, var(--brand) 60%, white);
+    --chart-7: color-mix(in srgb, var(--green) 60%, black);
+
     --space-0: 0px; --space-px: 1px; --space-0-5: 0.125rem; --space-1: 0.25rem;
     --space-1-5: 0.375rem; --space-2: 0.5rem; --space-2-5: 0.625rem; --space-3: 0.75rem;
     --space-3-5: 0.875rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem;

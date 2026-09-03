@@ -212,6 +212,20 @@ const THEME_COLOR_RAMPS = [
 ]
 const RAMP_STEPS = [100, 200, 300, 400, 500, 600, 700, 800, 900]
 
+// Verified: styles/index.css --chart-1..7. The one palette every real
+// multi-series chart in the app draws from (Portfolio's line chart,
+// Account Summary's holdings donut, RetirementGoal's confetti burst) --
+// see lib/accountSummary.js colorPalette() and Portfolio.jsx SERIES_META.
+const CHART_COLORS = [
+  { token: '--chart-1', usage: 'var(--red) — "total" / negative series' },
+  { token: '--chart-2', usage: 'var(--brand) — primary series' },
+  { token: '--chart-3', usage: 'var(--green) — positive / growth series' },
+  { token: '--chart-4', usage: 'var(--amber) — caution / secondary series' },
+  { token: '--chart-5', usage: 'color-mix(brand 55%, black) — overflow slot 5' },
+  { token: '--chart-6', usage: 'color-mix(brand 60%, white) — overflow slot 6' },
+  { token: '--chart-7', usage: 'color-mix(green 60%, black) — overflow slot 7' },
+]
+
 // ONE table, not two. The app has no shared type-scale utility classes —
 // every page sizes its own text ad hoc (.hi-bar h1 is 26px/700,
 // .login-brand-copy h1 is 36px/700, .page-head h1 is 22px/700 — genuinely
@@ -274,7 +288,11 @@ const TYPE_TOKENS = [
 // fixed array indexed by `COLORS[i % COLORS.length]`, so any number of
 // investments is supported: past 7, colors repeat rather than the app
 // running out or falling back to a default.
-const ACCOUNT_SUMMARY_COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#2e3192', '#d4a017']
+// The app's one shared chart palette (styles/index.css --chart-1..7) --
+// var() works fine as an SVG stroke/CSS background value, same as in a
+// stylesheet, so this demo donut tracks --brand exactly like the real
+// Account Summary donut does (lib/accountSummary.js's colorPalette()).
+const ACCOUNT_SUMMARY_COLORS = ['var(--chart-1)', 'var(--chart-2)', 'var(--chart-3)', 'var(--chart-4)', 'var(--chart-5)', 'var(--chart-6)', 'var(--chart-7)']
 
 // Verified via grep against styles/index.css — gap: and padding: value
 // frequency, cross-checked against the specific classes that use each one.
@@ -934,6 +952,41 @@ export default function DesignSystem() {
                 </div>
               </div>
             ))}
+
+            <h3 className="ds-sub">Chart colors</h3>
+            <p className="ds-lede">
+              The one palette every multi-series chart or donut in the app draws from —{' '}
+              <code>--chart-1</code> through <code>--chart-7</code>, verified from styles/index.css.
+              4 real hues (brand/green/red/amber — the app's existing semantic tokens) cover most
+              charts; 3 more brand-derived tint/shade steps exist for the rare chart that needs
+              more than 4 series (the Account Summary holdings donut can show up to 7). Every step
+              is <code>var()</code>/<code>color-mix()</code> of --brand or --green, not an
+              independent hex, so a chart's colors re-tone with --brand on any tenant — the same
+              rule as every other color in this system.
+            </p>
+            <div className="ds-card">
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+                {CHART_COLORS.map((c) => (
+                  <button
+                    key={c.token}
+                    type="button"
+                    onClick={() => copyToClipboard(`var(${c.token})`)}
+                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6, border: 'none', background: 'none', cursor: 'pointer', font: 'inherit', width: 160 }}
+                    title={`${c.token} — click to copy`}
+                  >
+                    <div style={{ width: '100%', height: 40, borderRadius: 8, background: `var(${c.token})`, border: '1px solid var(--line)' }} />
+                    <code style={{ fontSize: 12, fontWeight: 700 }}>{c.token}</code>
+                    <span style={{ fontSize: 12, color: 'var(--muted)' }}>{c.usage}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <p className="ds-lede" style={{ marginTop: 12 }}>
+              Used identically by: Portfolio's line chart (<code>--chart-1</code> total,{' '}
+              <code>--chart-2</code> bond, <code>--chart-3</code> equity, <code>--chart-4</code>{' '}
+              target-date), Account Summary's holdings donut (all 7, cycling by row index), and the
+              Retirement Goal confetti burst (<code>--chart-2</code>–<code>--chart-5</code>).
+            </p>
 
             <h3 className="ds-sub">Applied in context</h3>
             <p className="ds-lede">The real Transactions screen — each numbered marker sits next to the real element it colors; the legend below spells out the token.</p>
