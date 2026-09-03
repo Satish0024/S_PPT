@@ -114,7 +114,7 @@
 
 .field-tip{position:relative;display:inline-flex;vertical-align:middle;margin-left:4px}
 .field-tip-btn{
-  display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;
   border:none;padding:var(--space-0);background:var(--surface-3);color:var(--ink-soft);cursor:help}
 .field-tip-btn:hover,.field-tip-btn:focus-visible{background:var(--brand);color:var(--brand-text-primary-oncolor);outline:none}
 .field-tip-bubble{

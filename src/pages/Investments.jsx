@@ -421,6 +421,7 @@ function AllocPanel({ title, funds, alloc, locked, showReset, onChange, onReset 
                   max={100}
                   readOnly={locked}
                   disabled={locked}
+                  aria-label={`${f.name} election percentage`}
                   onChange={(e) => onChange?.(f.name, e.target.value)}
                 />
                 <span className="pct">%</span>

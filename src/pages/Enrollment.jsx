@@ -382,7 +382,7 @@ function SourceRow({ label, help, value, onChange, unit }) {
         </span>
         <span className="sval">
           {unit === '$' && <span className="pct">$</span>}
-          <input type="number" value={value} min={0} onChange={(e) => onChange(e.target.value)} />
+          <input type="number" value={value} min={0} aria-label={label} onChange={(e) => onChange(e.target.value)} />
           {unit === '%' && <span className="pct">%</span>}
         </span>
       </div>
@@ -407,6 +407,7 @@ function AiSourceRow({ label, current, unit, inc, cap, onInc, onCap, nextLabel }
           value={inc}
           min={1}
           max={5}
+          aria-label={`${label} annual increase percentage`}
           onChange={(e) => onInc(Math.min(5, Math.max(1, Math.round(+e.target.value || 1))))}
         />
         <span className="pct">%</span>
@@ -417,6 +418,7 @@ function AiSourceRow({ label, current, unit, inc, cap, onInc, onCap, nextLabel }
           value={cap}
           min={1}
           max={15}
+          aria-label={`${label} maximum cap percentage`}
           onChange={(e) => onCap(Math.min(15, Math.max(capMin, Math.round(+e.target.value || capMin))))}
         />
         <span className="pct">%</span>

@@ -56,6 +56,7 @@ export default function BuySellDetailsSlideover({ sourceName, rows, sourceTotal,
         <input
           type="search"
           placeholder="Search Investment name"
+          aria-label="Search investment name"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

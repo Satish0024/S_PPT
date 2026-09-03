@@ -250,8 +250,9 @@ export default function EditAllocationSlideover({
               <h4>Recipient</h4>
               <div className="txn-row">
                 <div className="txn-field">
-                  <label>Recipient name</label>
+                  <label htmlFor="edit-alloc-recipient-name">Recipient name</label>
                   <input
+                    id="edit-alloc-recipient-name"
                     type="text"
                     placeholder="e.g. Taylor Hale"
                     value={draft.name}
@@ -265,8 +266,8 @@ export default function EditAllocationSlideover({
           <h4>Withdrawal details</h4>
           <div className="txn-row">
             <div className="txn-field">
-              <label>Select distribution mode</label>
-              <select value={draft.mode} onChange={(e) => patch({ mode: e.target.value })}>
+              <label htmlFor="edit-alloc-mode">Select distribution mode</label>
+              <select id="edit-alloc-mode" value={draft.mode} onChange={(e) => patch({ mode: e.target.value })}>
                 <option value="">Select</option>
                 {DISTRIBUTION_MODES.map((m) => (
                   <option key={m.id} value={m.id}>
@@ -276,8 +277,8 @@ export default function EditAllocationSlideover({
               </select>
             </div>
             <div className="txn-field">
-              <label>Withdrawal amount</label>
-              <input type="number" value={draft.amount} onChange={(e) => patch({ amount: e.target.value })} />
+              <label htmlFor="edit-alloc-amount">Withdrawal amount</label>
+              <input id="edit-alloc-amount" type="number" value={draft.amount} onChange={(e) => patch({ amount: e.target.value })} />
             </div>
           </div>
 
@@ -335,8 +336,9 @@ export default function EditAllocationSlideover({
               {draft.addressOption === 'custom' && (
                 <div className="txn-row">
                   <div className="txn-field">
-                    <label>Address</label>
+                    <label htmlFor="edit-alloc-custom-address">Address</label>
                     <input
+                      id="edit-alloc-custom-address"
                       type="text"
                       placeholder={originalAddress}
                       value={draft.customAddress}
@@ -392,16 +394,18 @@ export default function EditAllocationSlideover({
                 <>
                   <div className="txn-row">
                     <div className="txn-field">
-                      <label>Name of the Financial Institution</label>
+                      <label htmlFor="edit-alloc-bank-name">Name of the Financial Institution</label>
                       <input
+                        id="edit-alloc-bank-name"
                         type="text"
                         value={draft.bankName || ''}
                         onChange={(e) => patch({ bankName: e.target.value })}
                       />
                     </div>
                     <div className="txn-field">
-                      <label>Account holder name</label>
+                      <label htmlFor="edit-alloc-account-holder">Account holder name</label>
                       <input
+                        id="edit-alloc-account-holder"
                         type="text"
                         value={draft.accountHolder || ''}
                         onChange={(e) => patch({ accountHolder: e.target.value })}
@@ -430,16 +434,18 @@ export default function EditAllocationSlideover({
                   </div>
                   <div className="txn-row">
                     <div className="txn-field">
-                      <label>Account Number</label>
+                      <label htmlFor="edit-alloc-account-number">Account Number</label>
                       <input
+                        id="edit-alloc-account-number"
                         type="text"
                         value={draft.accountNumber || ''}
                         onChange={(e) => patch({ accountNumber: e.target.value })}
                       />
                     </div>
                     <div className="txn-field">
-                      <label>Routing Number</label>
+                      <label htmlFor="edit-alloc-routing-number">Routing Number</label>
                       <input
+                        id="edit-alloc-routing-number"
                         type="text"
                         value={draft.routingNo || ''}
                         onChange={(e) => patch({ routingNo: e.target.value })}

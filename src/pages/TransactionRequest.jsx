@@ -843,7 +843,7 @@ function AddBankDialog({ bank, onCancel, onSave }) {
   const [routingNo, setRoutingNo] = useState(bank?.routingNo || '')
 
   return (
-    <div className="enroll-modal-bg" onClick={onCancel}>
+    <div className="enroll-modal-bg" role="presentation" onClick={onCancel}>
       <div
         className="confirm-dialog"
         role="dialog"
