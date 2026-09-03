@@ -33,7 +33,7 @@
 .doc-results-head .btn{width:auto;flex:0 0 auto}
 .doc-count{font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink-soft)}
 
-.doc-plan{font-size:12.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+.doc-plan{font-size:var(--text-caption-size);font-weight:600;color:var(--ink-soft);white-space:nowrap}
 
 @media(max-width:760px){
   .doc-filters{flex-direction:column;align-items:stretch}

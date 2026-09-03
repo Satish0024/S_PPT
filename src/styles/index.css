@@ -72,6 +72,23 @@
     --text-paragraph-sm-size: 0.875rem; --text-paragraph-sm-lh: 1.3125rem; /* 14/21, 1.5x */
     --text-paragraph-xs-size: 0.75rem; --text-paragraph-xs-lh: 1.125rem;   /* 12/18, 1.5x */
 
+    /* New additions from the typography-spacing-proposal.md doc (approved).
+       These are additive only in this pass — tokens defined here but not
+       yet wired into any usage site; wiring happens file-by-file in a
+       follow-up pass per the execution checklist. Font weights are
+       theme-independent (size/weight, not color), so defined once here
+       and inherited by the dark theme block below with no override. */
+    --font-weight-regular: 400; --font-weight-medium: 500; --font-weight-semibold: 600;
+    --font-weight-bold: 700; --font-weight-extrabold: 800;
+    --text-label-size: 0.8125rem; --text-label-lh: 1rem; --text-label-weight: 700; /* 13/16, form field labels */
+    --text-eyebrow-size: 0.75rem; --text-eyebrow-lh: 1rem; --text-eyebrow-weight: 700; /* 12/16, section eyebrows — uppercase/letter-spacing applied at usage site, not baked into the token */
+    --text-caption-size: 0.75rem; --text-caption-lh: 1.125rem; --text-caption-weight: 500; /* 12/18, helper/hint/caption text */
+    --text-button-lg-size: 1rem; --text-button-lg-lh: 1.5rem; --text-button-lg-weight: 700;       /* 16/24 */
+    --text-button-md-size: 0.875rem; --text-button-md-lh: 1.3125rem; --text-button-md-weight: 700; /* 14/21 */
+    --text-button-sm-size: 0.8125rem; --text-button-sm-lh: 1.25rem; --text-button-sm-weight: 700;  /* 13/20 */
+    --text-placeholder-weight: 400;
+    --font-family-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace; /* design-system.css (routed at /design-system) hardcodes this stack in several rules today — token added for future wiring */
+
     /* Spacing — Tailwind's canonical scale (tailwindcss.com/docs/spacing),
        exact values, not invented. Additive: not yet wired into any real
        class, since remapping ~400 existing gap/padding declarations to
