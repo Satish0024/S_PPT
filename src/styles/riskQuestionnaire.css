@@ -32,7 +32,15 @@
   display:inline-flex;align-items:center;gap:6px;border:none;background:none;color:var(--ink-soft);
   font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;padding:0;flex:0 0 auto}
 .rqp-leave:hover{color:var(--ink)}
-.rqp-body{flex:1;display:flex;flex-direction:column;justify-content:center}
+/* Was flex:1 + justify-content:center -- a short question (a few answer
+   rows) got centered inside a box that filled the entire remaining
+   viewport height, leaving a large blank gap both above the question
+   and below it before .rqp-actions (appended right after, still inside
+   that same oversized box). flex:1 alone (no longer forcing a min-height
+   via the flex grow, and no centering) lets the body size to its actual
+   content, so .rqp-actions sits right after the content instead of
+   after a viewport-tall gap. */
+.rqp-body{display:flex;flex-direction:column}
 .rqp-actions{margin-top:32px}
 
 @media(max-width:900px){

@@ -17,14 +17,17 @@
 .login-brand-copy{position:relative;z-index:1;max-width:420px}
 /* No background chip here — the dark-surface logo variant is designed to
    sit directly on the hero's own blue gradient; wrapping it in a white
-   chip made its white glyphs invisible against the white background. */
-.login-brand-copy img{height:42px;margin-bottom:28px}
+   chip made its white glyphs invisible against the white background.
+   Was 42px vs .login-logo's 36px below — same lockup mark (both switch
+   to the same dark-surface SVG in dark mode), rendered at two different
+   sizes, which read as the dark-mode logo being "bigger". Matched. */
+.login-brand-copy img{height:38px;margin-bottom:28px}
 .login-brand-copy h1{font-size:36px;font-weight:700;letter-spacing:-.6px;line-height:1.15;margin:0 0 12px}
 .login-brand-copy p{font-size:16px;line-height:1.55;opacity:.9;margin:0;max-width:36ch}
 .login-panel{display:flex;align-items:center;justify-content:center;padding:40px 28px;background:var(--bg)}
 .login-card{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:20px;
   box-shadow:var(--shadow-lg);padding:32px 32px 28px}
-.login-logo{height:36px;display:block;margin-bottom:22px}
+.login-logo{height:38px;display:block;margin-bottom:22px}
 .login-card h2{font-size:26px;font-weight:700;letter-spacing:-.4px;margin:0 0 6px}
 .login-lead{color:var(--ink-soft);font-size:14px;margin:0 0 22px}
 .login-field{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:700;margin-bottom:14px}
@@ -74,6 +77,7 @@
   .login-brand{min-height:220px;padding:28px 24px;align-items:flex-end}
   .login-brand-copy h1{font-size:26px}
   .login-brand-copy img{height:34px;margin-bottom:16px}
+  .login-logo{height:34px}
   .login-panel{padding:24px 16px 40px}
   .login-card{padding:24px 20px}
 }
