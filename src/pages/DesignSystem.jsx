@@ -91,18 +91,24 @@ const BRAND_SCALE = [
   [600, 'black', 15], [700, 'black', 30], [800, 'black', 45], [900, 'black', 60],
 ]
 
+// size/lh/ls below are the REAL current --text-*-size/-lh values (read
+// live from index.css), not hand-typed guesses -- this table used to
+// show stale pre-tokenization numbers (34px/1.15, 13.5px, 11.5px,
+// 12.5px) that no longer matched what the ds-type-* classes actually
+// render, since those classes were wired to var() separately without
+// this table being updated to match.
 const TYPE_SCALE = [
-  { tag: 'H1', cls: 'ds-type-h1', size: '34px', weight: 800, lh: '1.15', ls: '-0.6px', use: 'Page title (one per page)' },
-  { tag: 'H2', cls: 'ds-type-h2', size: '26px', weight: 800, lh: '1.2', ls: '-0.4px', use: 'Section heading' },
-  { tag: 'H3', cls: 'ds-type-h3', size: '20px', weight: 700, lh: '1.25', ls: '-0.3px', use: 'Subsection / card group heading' },
-  { tag: 'H4', cls: 'ds-type-h4', size: '16px', weight: 700, lh: '1.3', ls: '0px', use: 'Card title, widget heading (defined for consistency — not yet used standalone)' },
-  { tag: 'H5', cls: 'ds-type-h5', size: '14px', weight: 700, lh: '1.35', ls: '0px', use: 'Dense list/group heading (defined for consistency — not yet used standalone)' },
-  { tag: 'H6', cls: 'ds-type-h6', size: '12px', weight: 800, lh: '1.3', ls: '0.4px', use: 'Eyebrow / overline label (defined for consistency — not yet used standalone)' },
-  { tag: 'P1', cls: 'ds-type-p1', size: '16px', weight: 400, lh: '1.6', ls: '0px', use: 'Lead paragraph / intro copy (defined for consistency — not yet used standalone)' },
-  { tag: 'P2', cls: 'ds-type-p2', size: '15px', weight: 400, lh: '1.55', ls: '0px', use: 'Body text (the app default)' },
-  { tag: 'P3', cls: 'ds-type-p3', size: '13.5px', weight: 600, lh: '1.5', ls: '0px', use: 'Body soft, form labels' },
-  { tag: 'Caption', cls: 'ds-type-caption', size: '11.5px', weight: 700, lh: '1.4', ls: '0.3px', use: 'Meta text, table headers, timestamps' },
-  { tag: 'Code', cls: 'ds-type-code', size: '12.5px', weight: 400, lh: '1.6', ls: '0px', use: 'Inline code, token names (defined for consistency — not yet used standalone)' },
+  { tag: 'H1', cls: 'ds-type-h1', size: '32px', weight: 800, lh: '1.25 (40px)', ls: '-0.4px', use: 'Page title (one per page)' },
+  { tag: 'H2', cls: 'ds-type-h2', size: '24px', weight: 800, lh: '1.33 (32px)', ls: '-0.3px', use: 'Section heading' },
+  { tag: 'H3', cls: 'ds-type-h3', size: '20px', weight: 700, lh: '1.4 (28px)', ls: '-0.2px', use: 'Subsection / card group heading' },
+  { tag: 'H4', cls: 'ds-type-h4', size: '18px', weight: 700, lh: '1.33 (24px)', ls: '-0.1px', use: 'Card title, widget heading (defined for consistency — not yet used standalone)' },
+  { tag: 'H5', cls: 'ds-type-h5', size: '16px', weight: 700, lh: '1.5 (24px)', ls: '0px', use: 'Dense list/group heading (defined for consistency — not yet used standalone)' },
+  { tag: 'H6', cls: 'ds-type-h6', size: '14px', weight: 800, lh: '1.43 (20px)', ls: '0.4px', use: 'Eyebrow / overline label (defined for consistency — not yet used standalone)' },
+  { tag: 'P1', cls: 'ds-type-p1', size: '16px', weight: 400, lh: '1.5 (24px)', ls: '0px', use: 'Lead paragraph / intro copy (defined for consistency — not yet used standalone)' },
+  { tag: 'P2', cls: 'ds-type-p2', size: '14px', weight: 400, lh: '1.5 (21px)', ls: '0px', use: 'Body text (the app default)' },
+  { tag: 'P3', cls: 'ds-type-p3', size: '14px', weight: 600, lh: '1.5 (21px)', ls: '0px', use: 'Body soft, form labels (numerically equal to P2 now -- both landed on the same even-px step, see index.css)' },
+  { tag: 'Caption', cls: 'ds-type-caption', size: '12px', weight: 700, lh: '1.5 (18px)', ls: '0.3px', use: 'Meta text, table headers, timestamps' },
+  { tag: 'Code', cls: 'ds-type-code', size: '12px', weight: 400, lh: '1.5 (18px)', ls: '0px', use: 'Inline code, token names (defined for consistency — not yet used standalone)' },
 ]
 
 const KEYBOARD_ROWS = [
