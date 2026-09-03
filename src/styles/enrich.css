@@ -9,16 +9,16 @@
   .topbar{height:56px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;
     justify-content:space-between;padding:var(--space-0) var(--space-6);position:sticky;top:0;z-index:10}
   .brand img{height:32px}
-  .back{font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--brand);display:inline-flex;align-items:center;gap:6px}
+  .back{font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--brand);display:inline-flex;align-items:center;gap:var(--space-1-5)}
   .back:hover{text-decoration:underline}
   .back svg{width:16px;height:16px}
 
-  .page{max-width:960px;margin:0 auto;padding:32px 24px 56px}
+  .page{max-width:960px;margin:0 auto;padding:var(--space-8) var(--space-6) var(--space-14)}
 
-  .page-intro{margin-bottom:28px}
-  .page-intro .eyebrow{font-size:var(--text-eyebrow-size);font-weight:var(--text-eyebrow-weight);color:var(--accent);text-transform:uppercase;letter-spacing:.45px;margin-bottom:8px}
-  .page-intro h1{font-size:28px;font-weight:700;letter-spacing:-.5px;margin-bottom:8px}
-  .page-intro p{font-size: 16px;color:var(--ink-soft);line-height:1.55;max-width:540px}
+  .page-intro{margin-bottom:var(--space-7)}
+  .page-intro .eyebrow{font-size:var(--text-eyebrow-size);font-weight:var(--text-eyebrow-weight);color:var(--accent);text-transform:uppercase;letter-spacing:.45px;margin-bottom:var(--space-2)}
+  .page-intro h1{font-size:28px;font-weight:700;letter-spacing:-.5px;margin-bottom:var(--space-2)}
+  .page-intro p{font-size:var(--text-body-lg-size);color:var(--ink-soft);line-height:1.55;max-width:540px}
 
   .search-bar{
     display:flex;align-items:center;gap:var(--space-2-5);padding:var(--space-3) var(--space-4);background:var(--panel);
@@ -36,7 +36,7 @@
     transition:box-shadow .2s}
   .featured:hover{box-shadow:var(--shadow-lg)}
   .featured .f-visual{
-    background:var(--brand);position:relative;min-height:220px;display:flex;align-items:flex-end;padding:24px}
+    background:var(--brand);position:relative;min-height:220px;display:flex;align-items:flex-end;padding:var(--space-6)}
   .featured .f-visual .bg{
     position:absolute;inset:0;
     background:
@@ -44,14 +44,14 @@
       radial-gradient(ellipse 50% 50% at 20% 80%,color-mix(in srgb, var(--brand-dark) 40%, transparent),transparent),
       linear-gradient(160deg,var(--brand),var(--accent))}
   .featured .f-visual .label{
-    position:relative;z-index:1;font-size: 12px;font-weight:700;text-transform:uppercase;
-    letter-spacing:.4px;color:color-mix(in srgb, var(--brand-text-primary-oncolor) 85%, transparent);margin-bottom:6px}
+    position:relative;z-index:1;font-size:var(--text-caption-size);font-weight:700;text-transform:uppercase;
+    letter-spacing:.4px;color:color-mix(in srgb, var(--brand-text-primary-oncolor) 85%, transparent);margin-bottom:var(--space-1-5)}
   .featured .f-visual h2{
     position:relative;z-index:1;font-size:22px;font-weight:700;color:var(--brand-text-primary-oncolor);line-height:1.25;letter-spacing:-.3px}
   .featured .f-body{padding:var(--space-7) var(--space-7) var(--space-6);display:flex;flex-direction:column;justify-content:center}
-  .featured .f-body p{font-size:var(--text-body-md-size);color:var(--ink-soft);line-height:1.55;margin-bottom:16px}
-  .featured .f-meta{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:20px}
-  .featured .f-meta span{font-size:var(--text-body-xs-size);font-weight:var(--font-weight-semibold);color:var(--muted);display:inline-flex;align-items:center;gap:4px}
+  .featured .f-body p{font-size:var(--text-body-md-size);color:var(--ink-soft);line-height:1.55;margin-bottom:var(--space-4)}
+  .featured .f-meta{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-5)}
+  .featured .f-meta span{font-size:var(--text-body-xs-size);font-weight:var(--font-weight-semibold);color:var(--muted);display:inline-flex;align-items:center;gap:var(--space-1)}
   .featured .f-meta span svg{width:14px;height:14px}
   .btn-go{
     display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2-5) var(--space-4);border-radius:var(--radius-sm);
@@ -63,14 +63,14 @@
 
   .section-label{font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink);margin-bottom:var(--space-3-5);letter-spacing:-.1px}
 
-  .cats{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:20px}
+  .cats{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-5)}
   .cat{
     padding:var(--space-1-5) var(--space-3-5);border-radius:999px;font-size:var(--text-body-sm-size);font-weight:600;border:1px solid var(--line);
     background:var(--panel);color:var(--ink-soft);cursor:pointer;transition:all .15s}
   .cat:hover{border-color:var(--line-strong);color:var(--ink)}
   .cat.on{background:var(--brand-fill);border-color:var(--brand-fill);color:var(--brand-text-primary-oncolor)}
 
-  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-4)}
   /* A single filtered/searched result shouldn't sit in one column with
      the other left empty -- let it span the full row instead. */
   .grid > *:only-child{grid-column:1 / -1}
@@ -93,12 +93,12 @@
   .card.t3 .thumb .t-ico{color:var(--amber)}
   .card.t4 .thumb .t-ico{color:var(--red)}
   .card .c-body{padding:var(--space-6) var(--space-4) var(--space-4);flex:1;display:flex;flex-direction:column}
-  .card .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+  .card .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:var(--space-1-5)}
   .card.t1 .tag{color:var(--accent)}
   .card.t2 .tag{color:var(--green)}
   .card.t3 .tag{color:var(--amber)}
   .card.t4 .tag{color:var(--red)}
-  .card h3{font-size: 16px;font-weight:700;margin-bottom:var(--space-1-5);letter-spacing:-.15px;line-height:1.3}
+  .card h3{font-size:var(--text-h5-size);font-weight:700;margin-bottom:var(--space-1-5);letter-spacing:-.15px;line-height:1.3}
   .card p{font-size:var(--text-body-sm-size);color:var(--ink-soft);line-height:1.45;flex:1}
   .card .foot{
     display:flex;align-items:center;justify-content:space-between;margin-top:var(--space-3-5);

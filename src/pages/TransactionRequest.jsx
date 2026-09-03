@@ -178,7 +178,7 @@ export default function TransactionRequest() {
         <div className="hi-bar">
           <h1>Request not available</h1>
         </div>
-        <p style={{ padding: '0 20px' }}>
+        <p style={{ padding: '0 var(--space-5)' }}>
           <Link to="/transactions" className="text-link">
             Back to Transactions
           </Link>
@@ -362,7 +362,7 @@ function SubmittedPanel({ type, transactionId, navigate }) {
         aria-labelledby={titleId}
         tabIndex={-1}
       >
-        <div className="success-mark" aria-hidden="true" style={{ margin: '0 auto 12px' }}>
+        <div className="success-mark" aria-hidden="true" style={{ margin: '0 auto var(--space-3)' }}>
           <svg viewBox="0 0 52 52" width="52" height="52">
             <circle className="success-ring" cx="26" cy="26" r="24" />
             <path className="success-check" d="M15.5 27.2l7.2 7.2 14.6-16" />
@@ -466,7 +466,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
         </div>
 
         <div className="txn-card txn-card-nested" style={{ marginTop: 18, marginBottom: 0 }}>
-          <h4 style={{ margin: '0 0 4px' }}>Loan calculator</h4>
+          <h4 style={{ margin: '0 0 var(--space-1)' }}>Loan calculator</h4>
           <p className="hint" style={{ marginTop: 0 }}>
             Enter any two of Loan Request Amount, Periodic Payment, Tenure to auto-compute the third value.
           </p>
@@ -477,7 +477,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
             </Field>
           </div>
 
-          <div className="txn-row" style={{ marginTop: 14 }}>
+          <div className="txn-row" style={{ marginTop: 'var(--space-3-5)' }}>
             <FieldGroup label="Take entire loan amount" required>
               <div className="txn-radio-row">
                 <label className="txn-radio">
@@ -502,7 +502,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
             </FieldGroup>
           </div>
 
-          <div className="txn-row" style={{ marginTop: 14 }}>
+          <div className="txn-row" style={{ marginTop: 'var(--space-3-5)' }}>
             <Field
               label="Loan amount"
               required
@@ -522,7 +522,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
             </Field>
           </div>
 
-          <div className="txn-summary-head" style={{ marginTop: 24 }}>
+          <div className="txn-summary-head" style={{ marginTop: 'var(--space-6)' }}>
             <h4 style={{ margin: 0 }}>Repayment details</h4>
             <button
               type="button"
@@ -534,7 +534,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
             </button>
           </div>
 
-          <div className="txn-row" style={{ marginTop: 8 }}>
+          <div className="txn-row" style={{ marginTop: 'var(--space-2)' }}>
             <FieldGroup label="Loan repayment method" required note={repaymentMethod?.hint}>
               <div className="txn-radio-row txn-radio-col">
                 {LOAN_REPAYMENT_METHODS.map((m) => (
@@ -702,7 +702,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
             {/* Scenario 5: no bank on file — show an empty state with an
                 add-bank action instead of the read-only bank card. */}
             {bank ? (
-              <div className="edit-alloc-readcard" style={{ display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+              <div className="edit-alloc-readcard" style={{ display: 'flex', justifyContent: 'space-between', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
                 <div>
                   <b>Bank name</b>
                   <span>{bank.bankName}</span>
@@ -740,11 +740,11 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
             <span>Transaction Fee</span>
             <b>{formatMoney(gross.transactionFee)}</b>
           </div>
-          <div className="wd-fee-row" style={{ paddingLeft: 16 }}>
+          <div className="wd-fee-row" style={{ paddingLeft: 'var(--space-4)' }}>
             <span>TPA Fee</span>
             <b>{formatMoney(gross.tpaFee)}</b>
           </div>
-          <div className="wd-fee-row" style={{ paddingLeft: 16 }}>
+          <div className="wd-fee-row" style={{ paddingLeft: 'var(--space-4)' }}>
             <span>EFT Fee</span>
             <b>{formatMoney(gross.eftFee)}</b>
           </div>
@@ -930,7 +930,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
           </Field>
         </div>
 
-        <div className="txn-row" style={{ marginTop: 14 }}>
+        <div className="txn-row" style={{ marginTop: 'var(--space-3-5)' }}>
           <FieldGroup label="Withdraw" required>
             <div className="txn-radio-row txn-radio-col">
               <label className="txn-radio">
@@ -1134,7 +1134,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
       onSubmit={onSubmit}
       submitDisabled={!form.termsAccepted}
     >
-      <h4 style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 800 }}>Withdrawal details</h4>
+      <h4 style={{ margin: '0 0 var(--space-2)', fontSize: 'var(--text-body-md-size)', fontWeight: 800 }}>Withdrawal details</h4>
       <SummaryRow label="Withdrawal type" value={withdrawalType?.label || '—'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Withdraw" value={form.withdrawAs === 'periodic' ? 'As periodic payment' : 'As one time payment'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Withdraw entire balance" value={form.entireBalance === 'yes' ? 'Yes' : 'No'} onEdit={() => onEdit(0)} />
@@ -1143,7 +1143,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         <span>The processing time for your withdrawal is 10 days.</span>
       </div>
 
-      <h4 style={{ margin: '20px 0 8px', fontSize: 14, fontWeight: 800 }}>Withdrawal allocation</h4>
+      <h4 style={{ margin: 'var(--space-5) 0 var(--space-2)', fontSize: 'var(--text-body-md-size)', fontWeight: 800 }}>Withdrawal allocation</h4>
       <AllocationTable allocations={allocations} withdrawalTypeId={form.withdrawalType} onEdit={() => onEdit(1)} />
 
       {allocations.map((a) => {
@@ -1185,7 +1185,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         return null
       })}
 
-      <div className="wd-fee-card" style={{ marginTop: 20 }}>
+      <div className="wd-fee-card" style={{ marginTop: 'var(--space-5)' }}>
         <FeeAndTaxPanel fees={fees} title="Fee Details" />
       </div>
 
@@ -1594,7 +1594,7 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
             </select>
           </Field>
         </div>
-        <div className="txn-row" style={{ marginTop: 14 }}>
+        <div className="txn-row" style={{ marginTop: 'var(--space-3-5)' }}>
           <Field label="Distributing account number" required>
             <input
               type="text"
@@ -1604,7 +1604,7 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
           </Field>
         </div>
 
-        <h4 style={{ marginTop: 24 }}>Trustee / Custodian details</h4>
+        <h4 style={{ marginTop: 'var(--space-6)' }}>Trustee / Custodian details</h4>
         <div className="txn-row">
           <Field label="Trustee / Custodian name" required>
             <input type="text" value={form.trusteeName} onChange={(e) => set({ trusteeName: e.target.value })} />
@@ -1613,7 +1613,7 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
             <input type="tel" value={form.trusteePhone} onChange={(e) => set({ trusteePhone: e.target.value })} />
           </Field>
         </div>
-        <div className="txn-row" style={{ marginTop: 14 }}>
+        <div className="txn-row" style={{ marginTop: 'var(--space-3-5)' }}>
           <Field label="Trustee address" required>
             <input type="text" value={form.trusteeAddress} onChange={(e) => set({ trusteeAddress: e.target.value })} />
           </Field>
@@ -1648,7 +1648,7 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
         <h4>Sources Mapping</h4>
         <RolloverSourcesTable form={form} set={set} editable />
 
-        <h4 style={{ marginTop: 24 }}>Investment Mapping</h4>
+        <h4 style={{ marginTop: 'var(--space-6)' }}>Investment Mapping</h4>
         <p className="hint" style={{ marginTop: 0 }}>
           Investment mapping has been allocated already. You can configure the investment details below.
         </p>
@@ -1713,7 +1713,7 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
           <>
             <h4>Select bank</h4>
             {bank ? (
-              <div className="edit-alloc-readcard" style={{ display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+              <div className="edit-alloc-readcard" style={{ display: 'flex', justifyContent: 'space-between', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
                 <div>
                   <b>Bank name</b>
                   <span>{bank.bankName}</span>
@@ -1843,7 +1843,7 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
       </div>
       <RolloverSourcesTable form={form} set={set} editable={false} />
       {investments.length > 0 && (
-        <div style={{ marginTop: 14 }}>
+        <div style={{ marginTop: 'var(--space-3-5)' }}>
           <RolloverInvestmentTable plan={plan} form={form} set={set} editable={false} />
         </div>
       )}
@@ -1899,7 +1899,7 @@ function DocumentsStep({ type, extraDocs = [], form, set, onNext, onBack }) {
 function DocumentUploadBlock({ doc, uploaded, onUploaded }) {
   const [mode, setMode] = useState('manual')
   return (
-    <div style={{ marginBottom: 16 }}>
+    <div style={{ marginBottom: 'var(--space-4)' }}>
       <span className="txn-doc-required">{doc.required ? 'Required' : 'Not required'}</span>
       <div className="txn-upload">
         <div className="tabs2">
@@ -2015,7 +2015,7 @@ function SummaryRow({ label, value, onEdit }) {
       <b>
         {value}
         {onEdit && (
-          <button type="button" className="txn-summary-edit" onClick={onEdit} style={{ marginLeft: 10 }}>
+          <button type="button" className="txn-summary-edit" onClick={onEdit} style={{ marginLeft: 'var(--space-2-5)' }}>
             Edit
           </button>
         )}
