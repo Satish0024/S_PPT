@@ -22,7 +22,7 @@
     --bg:#f4f5f9;
     --panel:#ffffff;
     --sidebar:#ffffff;
-    --active-bg:#e0f2fe;
+    --active-bg: color-mix(in srgb, var(--brand) 12%, white);
     --hover-bg:#f4f5f9;
     --brand-soft: var(--active-bg);
     --info: color-mix(in srgb, var(--brand) 12%, white);
@@ -241,7 +241,7 @@
     --sidebar:#181b2b;
     --surface-2:#1f2234;
     --surface-3:#272b3f;
-    --active-bg:#23274a;
+    --active-bg: color-mix(in srgb, var(--brand) 22%, black);
     --hover-bg:#22263a;
     --brand-soft: var(--active-bg);
     --info: color-mix(in srgb, var(--brand) 18%, black);
