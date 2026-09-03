@@ -43,7 +43,7 @@ export function hasAccountSummary(participant) {
 function colorPalette() {
   const css = getComputedStyle(document.documentElement)
   const v = (name, fallback) => css.getPropertyValue(name).trim() || fallback
-  return [1, 2, 3, 4, 5, 6, 7].map((n, i) => v(`--chart-${n}`, ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#2e3192', '#d4a017'][i]))
+  return Array.from({ length: 20 }, (_, i) => v(`--chart-${i + 1}`, '#8a8da3'))
 }
 
 // Some funds hold more than one asset type (e.g. a target-date or balanced

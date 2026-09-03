@@ -74,11 +74,12 @@ const COLOR_GROUPS = [
   { title: 'Status — danger', tokens: [
     ['Red', '--red'], ['Red bg', '--red-bg'], ['Red line', '--red-line'],
   ] },
-  { title: 'Chart colors', tokens: [
-    ['Chart 1 (total / negative)', '--chart-1'], ['Chart 2 (primary series)', '--chart-2'],
-    ['Chart 3 (positive / growth)', '--chart-3'], ['Chart 4 (caution / secondary)', '--chart-4'],
-    ['Chart 5 (overflow)', '--chart-5'], ['Chart 6 (overflow)', '--chart-6'],
-    ['Chart 7 (overflow)', '--chart-7'],
+  { title: 'Chart colors (20 — enough for a portfolio with many stock/fund lines)', tokens: [
+    ['Chart 1', '--chart-1'], ['Chart 2', '--chart-2'], ['Chart 3', '--chart-3'], ['Chart 4', '--chart-4'],
+    ['Chart 5', '--chart-5'], ['Chart 6', '--chart-6'], ['Chart 7', '--chart-7'], ['Chart 8', '--chart-8'],
+    ['Chart 9', '--chart-9'], ['Chart 10', '--chart-10'], ['Chart 11', '--chart-11'], ['Chart 12', '--chart-12'],
+    ['Chart 13', '--chart-13'], ['Chart 14', '--chart-14'], ['Chart 15', '--chart-15'], ['Chart 16', '--chart-16'],
+    ['Chart 17', '--chart-17'], ['Chart 18', '--chart-18'], ['Chart 19', '--chart-19'], ['Chart 20', '--chart-20'],
   ] },
 ]
 

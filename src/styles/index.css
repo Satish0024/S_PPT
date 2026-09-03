@@ -90,24 +90,41 @@
     --font-family-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace; /* design-system.css (routed at /design-system) hardcodes this stack in several rules today — token added for future wiring */
 
     /* Chart / data-visualization palette — the set every multi-series
-       chart or donut in the app draws from, so a "3rd/4th/5th indicator"
-       question always has one answer instead of each screen picking its
-       own hex. 4 real hues (brand/green/red/amber, already the app's
-       existing semantic tokens) plus 3 brand-derived tint/shade steps for
-       when a chart needs more than 4 slices (the holdings donut needs up
-       to 7) — every step is still color-mix() of --brand/--green, not an
-       independent color, so the whole palette re-tones with --brand on
-       any tenant. Order is deliberate: --chart-1/2/3/4 are the "first 4"
-       most charts actually use (Portfolio's total/bond/equity/target
-       line chart), --chart-5/6/7 are the overflow steps only the 7-slot
-       donut needs. */
+       chart or donut in the app draws from, so a portfolio with a dozen
+       or more individual stock/fund lines still has one answer for "what
+       color is line #14" instead of the chart running out of colors and
+       repeating (or falling back to some page's own one-off hex). 20
+       steps: 4 real hues (red/brand/green/amber, the app's existing
+       semantic tokens) x 5 tint/shade variants of each, INTERLEAVED by
+       hue rather than grouped -- --chart-1..4 cycle through all 4 hues
+       at full strength first, --chart-5..8 the same 4 hues one step
+       lighter, --chart-9..12 one step lighter still, --chart-13..16 one
+       step darker, --chart-17..20 darker still. That ordering matters:
+       a chart that only ever uses the first N tokens (N<20) still gets
+       maximum hue variety instead of 5 near-identical reds before it
+       ever reaches brand. Every step is color-mix() of --brand/--green/
+       --red/--amber, not an independent color, so the whole palette
+       re-tones with --brand on any tenant. */
     --chart-1: var(--red);
     --chart-2: var(--brand);
     --chart-3: var(--green);
     --chart-4: var(--amber);
-    --chart-5: color-mix(in srgb, var(--brand) 55%, black);
-    --chart-6: color-mix(in srgb, var(--brand) 60%, white);
-    --chart-7: color-mix(in srgb, var(--green) 60%, black);
+    --chart-5: color-mix(in srgb, var(--red) 82%, white);
+    --chart-6: color-mix(in srgb, var(--brand) 82%, white);
+    --chart-7: color-mix(in srgb, var(--green) 82%, white);
+    --chart-8: color-mix(in srgb, var(--amber) 82%, white);
+    --chart-9: color-mix(in srgb, var(--red) 65%, white);
+    --chart-10: color-mix(in srgb, var(--brand) 65%, white);
+    --chart-11: color-mix(in srgb, var(--green) 65%, white);
+    --chart-12: color-mix(in srgb, var(--amber) 65%, white);
+    --chart-13: color-mix(in srgb, var(--red) 82%, black);
+    --chart-14: color-mix(in srgb, var(--brand) 82%, black);
+    --chart-15: color-mix(in srgb, var(--green) 82%, black);
+    --chart-16: color-mix(in srgb, var(--amber) 82%, black);
+    --chart-17: color-mix(in srgb, var(--red) 62%, black);
+    --chart-18: color-mix(in srgb, var(--brand) 62%, black);
+    --chart-19: color-mix(in srgb, var(--green) 62%, black);
+    --chart-20: color-mix(in srgb, var(--amber) 62%, black);
 
     /* Spacing — Tailwind's canonical scale (tailwindcss.com/docs/spacing),
        exact values, not invented. Additive: not yet wired into any real
