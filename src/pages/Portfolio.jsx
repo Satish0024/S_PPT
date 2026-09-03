@@ -27,11 +27,16 @@ const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1
 // printout) can still tell the lines apart. Chart.js applies `dash` as
 // `borderDash` and `pointStyle` as-is; the legend swatches below draw the
 // same dash pattern in CSS so the key matches the chart.
-const SERIES = [
-  { key: 'total', label: 'Total portfolio', color: '#e05a4f', dash: [], pointStyle: 'circle' },
-  { key: 'equity', label: 'U.S. Equity', color: '#1a9d63', dash: [7, 4], pointStyle: 'triangle' },
-  { key: 'bond', label: 'U.S. Bond', color: '#0284c7', dash: [2, 3], pointStyle: 'rect' },
-  { key: 'target', label: 'Target-Date', color: '#d4a017', dash: [9, 3, 2, 3], pointStyle: 'star' }
+// Color is resolved from the live CSS custom properties at render time
+// (see the `chartOptions`-style useMemo below) instead of being a fixed
+// hex here -- Chart.js/canvas can't read var() directly, so it needs the
+// browser-resolved value, but the value itself still tracks --brand/
+// --green/--red/--amber like everything else in the app.
+const SERIES_META = [
+  { key: 'total', label: 'Total portfolio', token: '--red', dash: [], pointStyle: 'circle' },
+  { key: 'equity', label: 'U.S. Equity', token: '--green', dash: [7, 4], pointStyle: 'triangle' },
+  { key: 'bond', label: 'U.S. Bond', token: '--brand', dash: [2, 3], pointStyle: 'rect' },
+  { key: 'target', label: 'Target-Date', token: '--amber', dash: [9, 3, 2, 3], pointStyle: 'star' }
 ]
 
 const COLS = {
@@ -69,6 +74,13 @@ export default function Portfolio() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme])
 
+  // Same brand-derived-not-fixed-hex reasoning as chartOptions above.
+  const SERIES = useMemo(() => {
+    const css = getComputedStyle(document.documentElement)
+    return SERIES_META.map((s) => ({ ...s, color: css.getPropertyValue(s.token).trim() || '#666' }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [theme])
+
   const holdings = useMemo(() => {
     const rows = [...HOLDINGS]
     if (!sort.key) return rows
@@ -102,7 +114,7 @@ export default function Portfolio() {
       labels: labs,
       datasets: SERIES.map((s) => line(s, dataByKey[s.key], s.key === 'total' ? 0 : undefined, !visible[s.key]))
     }
-  }, [period, visible])
+  }, [period, visible, SERIES])
 
   // Total portfolio is an aggregate of the other three — showing it next
   // to its own components reads as noise, not signal, so picking it

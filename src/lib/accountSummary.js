@@ -35,7 +35,26 @@ export function hasAccountSummary(participant) {
   return (participant?.plans || []).some(isSummaryPlan)
 }
 
-const COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#0284c7', '#d4a017']
+// A 7-slot categorical palette for the holdings donut/legend needs more
+// distinct tones than the app's semantic tokens alone (--brand/--green/
+// --red/--amber = 4 hues) -- the extra 3 slots are color-mix() tints/
+// shades of those same tokens, not independent hex, so the whole palette
+// still tracks a single tenant's --brand instead of a frozen set of
+// colors that would clash on a different tenant. Resolved lazily (not at
+// module load) since it reads the live document's CSS custom properties.
+function colorPalette() {
+  const css = getComputedStyle(document.documentElement)
+  const v = (name, fallback) => css.getPropertyValue(name).trim() || fallback
+  return [
+    v('--red', '#e05a4f'),
+    v('--brand', '#5ba3d9'),
+    v('--green', '#1a9d63'),
+    `color-mix(in srgb, ${v('--brand', '#0284c7')} 55%, black)`,
+    v('--amber', '#e08a3a'),
+    `color-mix(in srgb, ${v('--brand', '#0284c7')} 60%, white)`,
+    `color-mix(in srgb, ${v('--green', '#1a9d63')} 60%, black)`
+  ]
+}
 
 // Some funds hold more than one asset type (e.g. a target-date or balanced
 // fund blends stock and bond), so each asset class maps to an array of the
@@ -55,6 +74,7 @@ export function assetCategory(asset) {
 
 function toRows(items, total) {
   if (!items?.length || total <= 0) return []
+  const colors = colorPalette()
   return items
     .filter((item) => item.amount > 0)
     .map((item, i) => ({
@@ -65,7 +85,7 @@ function toRows(items, total) {
       vested: item.vested ?? 0,
       price: item.price ?? null,
       units: item.units ?? null,
-      color: COLORS[i % COLORS.length],
+      color: colors[i % colors.length],
       pct: total ? (item.amount / total) * 100 : 0
     }))
 }
@@ -77,6 +97,7 @@ function toRows(items, total) {
 function toAssetClassRows(investments, total) {
   const rows = toRows(investments, total)
   if (!rows.length) return []
+  const colors = colorPalette()
   const byClass = new Map()
   rows.forEach((row) => {
     const key = row.asset || 'Other'
@@ -90,7 +111,7 @@ function toAssetClassRows(investments, total) {
       name: asset,
       asset,
       amount,
-      color: COLORS[i % COLORS.length],
+      color: colors[i % colors.length],
       pct: total ? (amount / total) * 100 : 0,
       members
     }

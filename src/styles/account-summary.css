@@ -6,11 +6,11 @@
   display:flex;flex-direction:column;gap:16px;background:transparent;border:none;
   border-radius:0;padding:0;box-shadow:none;position:sticky;top:20px}
 .as-plans-empty{
-  margin:0;padding:16px 16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;
+  margin:0;padding:16px 16px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-xl);
   box-shadow:var(--shadow);font-size:14px;font-weight:600;color:var(--ink-soft)}
 .as-plans button{
   display:flex;flex-direction:column;align-items:stretch;gap:8px;width:100%;
-  border:1px solid var(--line);background:var(--panel);padding:14px 14px 14px 16px;border-radius:16px;
+  border:1px solid var(--line);background:var(--panel);padding:14px 14px 14px 16px;border-radius:var(--radius-xl);
   cursor:pointer;text-align:left;font:inherit;color:inherit;position:relative;box-shadow:var(--shadow)}
 .as-plans button:hover{background:var(--surface-2);border-color:var(--line-strong)}
 .as-plans button.on{background:var(--active-bg);border-color:var(--line-strong)}
@@ -38,14 +38,14 @@
 .as-main-h{
   display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;
   gap:8px 16px;margin:0 0 16px;padding:0 0 14px;border-bottom:1px solid var(--line)}
-.as-main-h h2{margin:0;font-size:18px;font-weight:800;letter-spacing:-.25px}
+.as-main-h h2{margin:0;font-size:var(--text-h4-size);font-weight:800;letter-spacing:-.25px}
 .as-main-h p{margin:4px 0 0;font-size:13.5px;font-weight:600;color:var(--ink-soft)}
 
 .as-tabs{
   display:inline-flex;gap:4px;padding:4px;background:var(--surface-2);border-radius:12px;margin-bottom:16px}
 .as-tabs button{
   display:flex;align-items:center;gap:8px;border:none;background:transparent;
-  padding:8px 12px;border-radius:8px;font:inherit;font-size:13.5px;font-weight:700;
+  padding:8px 12px;border-radius:var(--radius-sm);font:inherit;font-size:13.5px;font-weight:700;
   color:var(--ink-soft);cursor:pointer}
 .as-tabs button:hover{color:var(--ink);background:var(--panel)}
 .as-tabs button.on{background:var(--active-bg);color:var(--brand)}
@@ -62,7 +62,7 @@
 .as-legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;min-width:0}
 .as-legend button{
   display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:10px;align-items:center;
-  width:100%;border:none;background:transparent;padding:6px 10px;border-radius:8px;
+  width:100%;border:none;background:transparent;padding:6px 10px;border-radius:var(--radius-sm);
   cursor:pointer;text-align:left;font:inherit;color:inherit}
 .as-legend button:hover,.as-legend button.on{background:var(--surface-2)}
 .as-legend i{width:10px;height:10px;border-radius:2px;display:block}
@@ -83,7 +83,7 @@
   font-size:11px;font-weight:700;color:var(--muted);max-width:140px;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .as-donut-center b{
-  font-size:18px;font-weight:800;letter-spacing:-.4px;margin:4px 0 2px;
+  font-size:var(--text-h4-size);font-weight:800;letter-spacing:-.4px;margin:4px 0 2px;
   font-variant-numeric:tabular-nums;color:var(--ink)}
 .as-donut-center em{font-style:normal;font-size:12.5px;font-weight:700;color:var(--ink-soft)}
 
