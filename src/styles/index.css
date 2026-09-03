@@ -577,11 +577,11 @@
   .rr-legend li::before{
     content:"";width:8px;height:8px;border-radius:50%;flex:0 0 auto;background:var(--surface-3);position:relative;top:-1px}
   .rr-legend .income::before{background:#1a9d63}
-  .rr-legend .short::before{background:#c0392b}
+  .rr-legend .short::before{background:var(--red)}
   .rr-legend b{
     margin-left:auto;font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.2px;font-variant-numeric:tabular-nums}
   .rr-legend .income b{color:#1a9d63}
-  .rr-legend .short b{color:#c0392b}
+  .rr-legend .short b{color:var(--red)}
   .rr-status-go{
     flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
     border:none;background:var(--panel);color:var(--brand);border-radius:9px;text-decoration:none;
@@ -885,13 +885,13 @@
     font-size:12px;font-weight:800;letter-spacing:.2px;border-radius:999px;padding:6px 12px}
   .rg-level.good,.rg-level.max{background:var(--green-bg);color:#1a9d63}
   .rg-level.ok{background:var(--amber-bg);color:#b7791f}
-  .rg-level.warn{background:var(--red-bg);color:#c0392b}
+  .rg-level.warn{background:var(--red-bg);color:var(--red)}
   .rg-donut-wrap{position:relative;display:grid;place-items:center;min-height:196px}
   .rg-delta{
     position:absolute;top:12px;right:18%;font-size:18px;font-weight:800;
     animation:rg-float .9s ease forwards;pointer-events:none}
   .rg-delta.up{color:#1a9d63}
-  .rg-delta.down{color:#c0392b}
+  .rg-delta.down{color:var(--red)}
   @keyframes rg-float{
     0%{opacity:0;transform:translateY(10px) scale(.8)}
     18%{opacity:1;transform:translateY(0) scale(1.08)}
@@ -901,19 +901,19 @@
     position:relative;height:8px;border-radius:999px;background:var(--surface-3);overflow:hidden;margin:0 8px}
   .rg-meter i{
     position:absolute;left:0;top:0;bottom:0;border-radius:inherit;
-    background:linear-gradient(90deg,#c0392b,#d4a017 55%,#1a9d63);
+    background:linear-gradient(90deg,var(--red),#d4a017 55%,#1a9d63);
     transition:width .55s ease}
   .rg-meter em{
     position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--panel);opacity:.85;border-radius:2px}
   .rg-burst span{
     position:absolute;width:8px;height:8px;border-radius:50%;
     animation:rg-burst .9s ease-out forwards}
-  .rg-burst span:nth-child(1){background:#2e3192;left:18%;top:18%;animation-delay:.02s}
+  .rg-burst span:nth-child(1){background:var(--brand);left:18%;top:18%;animation-delay:.02s}
   .rg-burst span:nth-child(2){background:#1a9d63;left:78%;top:16%;animation-delay:.08s}
   .rg-burst span:nth-child(3){background:#d4a017;left:12%;top:62%;animation-delay:.12s}
-  .rg-burst span:nth-child(4){background:#4a63c7;left:84%;top:58%;animation-delay:.05s}
+  .rg-burst span:nth-child(4){background:var(--accent);left:84%;top:58%;animation-delay:.05s}
   .rg-burst span:nth-child(5){background:#1a9d63;left:48%;top:6%;animation-delay:.14s}
-  .rg-burst span:nth-child(6){background:#c0392b;left:52%;top:86%;animation-delay:.1s}
+  .rg-burst span:nth-child(6){background:var(--red);left:52%;top:86%;animation-delay:.1s}
   @keyframes rg-burst{
     0%{opacity:0;transform:scale(.4) translateY(0)}
     25%{opacity:1}
@@ -933,7 +933,7 @@
     width:56px;height:56px;border-radius:50%;background:var(--active-bg);color:var(--brand);
     display:grid;place-items:center;margin:0 auto 12px}
   .rg-save.good .rg-save-mark{background:var(--green-bg);color:#1a9d63}
-  .rg-save.warn .rg-save-mark{background:var(--red-bg);color:#c0392b}
+  .rg-save.warn .rg-save-mark{background:var(--red-bg);color:var(--red)}
   .rg-save.ok .rg-save-mark{background:var(--active-bg);color:var(--brand)}
   .rg-save.good{box-shadow:0 0 0 1px var(--green-line),var(--shadow-lg)}
   .rg-save.warn{box-shadow:0 0 0 1px var(--red-line),var(--shadow-lg)}
@@ -951,7 +951,7 @@
   .rg-save-score-row em{font-style:normal;font-size:18px;font-weight:700;color:var(--ink-soft)}
   .rg-save-score-row b{font-size:36px;font-weight:800;letter-spacing:-1px;color:var(--ink);line-height:1}
   .rg-save.good .rg-save-score-row b{color:#1a9d63}
-  .rg-save.warn .rg-save-score-row b{color:#c0392b}
+  .rg-save.warn .rg-save-score-row b{color:var(--red)}
   .rg-save.ok .rg-save-score-row b{color:var(--brand)}
   .rg-save-score small{font-size:13px;font-weight:700;color:var(--ink-soft)}
   .rg-changes{
