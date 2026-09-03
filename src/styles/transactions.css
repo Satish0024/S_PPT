@@ -1,4 +1,4 @@
-.tx-page .tabs{padding:0;margin:0 0 18px;background:transparent}
+.tx-page .tabs{padding:0;margin:0 0 16px;background:transparent}
 
 .tx-new-request{position:relative}
 .tx-new-request .btn{width:auto}
@@ -7,18 +7,18 @@
   padding:6px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow)}
 .tx-new-request-item{
   display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;border:none;background:transparent;
-  border-radius:10px;padding:10px 12px;cursor:pointer;font:inherit;color:inherit}
+  border-radius:8px;padding:10px 12px;cursor:pointer;font:inherit;color:inherit}
 .tx-new-request-item:hover:not(:disabled){background:var(--active-bg)}
 .tx-new-request-item:disabled{opacity:.45;cursor:not-allowed}
 .tx-new-request-item b{display:block;font-size:13.5px;font-weight:700;color:var(--ink)}
 .tx-new-request-item small{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px;line-height:1.35}
-.tx-new-request-item .quick-action-ico{width:32px;height:32px;border-radius:9px}
+.tx-new-request-item .quick-action-ico{width:32px;height:32px;border-radius:8px}
 
 /* Requests tab */
 .req-plan-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
 .req-plan-tabs button{
   display:flex;flex-direction:column;align-items:flex-start;gap:4px;border:1px solid var(--line);
-  background:var(--panel);border-radius:10px;padding:9px 14px;font:inherit;font-size:13.5px;font-weight:700;
+  background:var(--panel);border-radius:8px;padding:8px 14px;font:inherit;font-size:13.5px;font-weight:700;
   color:var(--ink-soft);cursor:pointer;transition:.15s}
 .req-plan-tabs button:hover{border-color:var(--line-strong)}
 .req-plan-tabs button.on{border-color:var(--brand);background:var(--active-bg);color:var(--brand)}
@@ -26,7 +26,7 @@
 .req-plan-tabs button.on .req-plan-badge{color:var(--brand)}
 
 .req-plan-strip{
-  display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding:16px 18px;margin-bottom:20px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding:16px 16px;margin-bottom:20px;
   border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
 .req-plan-strip .btn{width:auto;flex:0 0 auto}
 .req-plan-strip .eyebrow{font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
@@ -37,7 +37,7 @@
 .req-plan-stats span{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.2px}
 .req-plan-stats b{font-size:16px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
 
-.quick-actions{margin-bottom:22px}
+.quick-actions{margin-bottom:20px}
 .quick-actions-label{
   display:block;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
   color:var(--muted);margin-bottom:10px}
@@ -50,11 +50,11 @@
 .quick-action b{display:block;font-size:14px;font-weight:700;color:var(--ink)}
 .quick-action small{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px;line-height:1.35}
 .quick-action-ico{
-  width:36px;height:36px;border-radius:10px;flex:0 0 auto;background:var(--active-bg);color:var(--brand);
+  width:36px;height:36px;border-radius:8px;flex:0 0 auto;background:var(--active-bg);color:var(--brand);
   display:grid;place-items:center}
 
 .req-status{
-  display:inline-flex;align-items:center;border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:800}
+  display:inline-flex;align-items:center;border-radius:999px;padding:2px 10px;font-size:11.5px;font-weight:800}
 .req-status.good{background:var(--green-bg);color:var(--green)}
 .req-status.ok{background:var(--amber-bg);color:var(--amber)}
 .req-status.warn{background:var(--red-bg);color:var(--red)}
@@ -93,7 +93,7 @@
 .txn-plan-head h2{margin:0;font-size:18px;font-weight:800}
 .txn-plan-head .req-plan-stats{margin-left:0}
 
-.txn-card{border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px;background:var(--panel)}
+.txn-card{border:1px solid var(--line);border-radius:12px;padding:20px 20px;margin-bottom:16px;background:var(--panel)}
 .txn-card-nested{background:var(--surface-2)}
 .txn-card h3{margin:0 0 4px;font-size:15px;font-weight:800}
 .txn-summary-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
@@ -105,14 +105,14 @@
 .txn-field label{font-size:12.5px;font-weight:700;color:var(--ink-soft)}
 .txn-field label i{color:var(--red);font-style:normal;margin-left:2px}
 .txn-field input,.txn-field select{
-  min-height:40px;border:1px solid var(--line);border-radius:9px;padding:8px 12px;font:inherit;
+  min-height:40px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:inherit;
   font-size:14px;font-weight:600;color:var(--ink);background:var(--panel)}
 .txn-field input:disabled{background:var(--surface-2);color:var(--ink-soft)}
 .txn-field input:focus,.txn-field select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(2,132,199,.12)}
 .txn-field .note{font-size:12px;color:var(--ink-soft)}
 .txn-field .note.warn{color:var(--amber)}
 
-.field-tip{position:relative;display:inline-flex;vertical-align:middle;margin-left:5px}
+.field-tip{position:relative;display:inline-flex;vertical-align:middle;margin-left:4px}
 .field-tip-btn{
   display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;
   border:none;padding:0;background:var(--surface-3);color:var(--ink-soft);cursor:help}
@@ -133,7 +133,7 @@
 
 .txn-choice-list{display:flex;flex-direction:column;gap:10px}
 .txn-choice{
-  display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;
+  display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:8px;
   padding:14px 16px;cursor:pointer;transition:.15s}
 .txn-choice:hover{border-color:var(--line-strong)}
 .txn-choice.on{border-color:var(--brand);background:var(--active-bg)}
@@ -148,8 +148,8 @@
 .txn-upload{
   border:1.5px dashed var(--line);border-radius:12px;padding:24px;text-align:center;background:var(--surface-2)}
 .txn-upload p{margin:6px 0 0;font-size:12.5px;color:var(--ink-soft)}
-.txn-upload .tabs2{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;margin-bottom:14px}
-.txn-upload .tabs2 button{border:none;background:var(--panel);padding:7px 14px;font:inherit;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer}
+.txn-upload .tabs2{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.txn-upload .tabs2 button{border:none;background:var(--panel);padding:6px 14px;font:inherit;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer}
 .txn-upload .tabs2 button.on{background:var(--brand-fill);color:#fff}
 .txn-doc-required{font-size:11px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--red);margin-bottom:8px;display:block}
 
@@ -164,7 +164,7 @@
 
 .address-banner{
   display:flex;gap:10px;align-items:flex-start;background:var(--amber-bg);border:1px solid var(--amber-line);
-  border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:12.5px;color:var(--amber);line-height:1.5}
+  border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:12.5px;color:var(--amber);line-height:1.5}
 .address-banner b{display:block;margin-bottom:2px;color:var(--amber)}
 
 @media(max-width:860px){
@@ -196,7 +196,7 @@
 .alloc-sources .hint{margin:2px 0 12px}
 .alloc-source-grid{display:flex;flex-wrap:wrap;gap:12px}
 .alloc-source{
-  display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;
+  display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:8px;
   padding:12px 16px;cursor:pointer;transition:.15s;min-width:170px;background:var(--panel)}
 .alloc-source:hover{border-color:var(--line-strong)}
 .alloc-source.on{border-color:var(--brand);background:var(--active-bg)}
@@ -212,7 +212,7 @@
 .alloc-apply-all input:disabled{cursor:not-allowed}
 .alloc-apply-all input:disabled + span{opacity:.5}
 
-.alloc-panel{border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:16px;background:var(--panel)}
+.alloc-panel{border:1px solid var(--line);border-radius:12px;padding:16px 16px;margin-bottom:16px;background:var(--panel)}
 .alloc-panel-head{
   display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
   padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:12px}
@@ -236,7 +236,7 @@
 .fund-link.alloc-name{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
 .fund-link.alloc-name:hover{color:var(--brand-dark)}
 .alloc-nav{
-  display:inline-block;margin-top:4px;background:var(--surface-3);border-radius:5px;padding:2px 7px;
+  display:inline-block;margin-top:4px;background:var(--surface-3);border-radius:4px;padding:2px 6px;
   font-size:11.5px;color:var(--ink-soft)}
 .alloc-nav b{font-weight:700;color:var(--ink)}
 .alloc-table tr.alloc-total td{border-bottom:none;font-weight:800;color:var(--ink);background:var(--surface-2)}
@@ -277,18 +277,18 @@
 .add-inv-list b{font-size:13.5px;font-weight:700;color:var(--ink)}
 .add-inv-list li.restricted b{color:var(--muted)}
 .add-inv-list small{
-  display:flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;color:var(--amber);margin-top:3px}
+  display:flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;color:var(--amber);margin-top:2px}
 .add-inv-empty{padding:16px 2px;font-size:13px;color:var(--muted);border-bottom:none}
 
 /* ---------- Buy/Sell details panel ---------- */
 .buysell-banner{
   display:flex;align-items:flex-start;gap:8px;background:var(--amber-bg);border:1px solid var(--amber-line);
-  border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:12.5px;font-weight:600;
+  border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:12.5px;font-weight:600;
   color:var(--amber);line-height:1.5}
 .buysell-summary{
-  display:flex;flex-wrap:wrap;gap:24px;border:1px solid var(--line);border-radius:10px;
-  padding:14px 18px;margin-bottom:16px;background:var(--panel)}
-.buysell-summary div{display:flex;flex-direction:column;gap:3px}
+  display:flex;flex-wrap:wrap;gap:24px;border:1px solid var(--line);border-radius:8px;
+  padding:14px 16px;margin-bottom:16px;background:var(--panel)}
+.buysell-summary div{display:flex;flex-direction:column;gap:2px}
 .buysell-summary span{font-size:12px;font-weight:600;color:var(--ink-soft)}
 .buysell-summary b{font-size:14px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
 .buysell-summary .buy,.buysell-table .buy{color:var(--brand);font-weight:700}

@@ -31,21 +31,21 @@
 
 .ds-nav{
   width:var(--ds-sidebar-w);flex:0 0 var(--ds-sidebar-w);position:sticky;top:60px;
-  height:calc(100vh - 60px);overflow-y:auto;padding:24px 12px 60px;border-right:1px solid var(--line)
+  height:calc(100vh - 60px);overflow-y:auto;padding:24px 12px 56px;border-right:1px solid var(--line)
 }
-.ds-nav-group{margin-bottom:18px}
+.ds-nav-group{margin-bottom:16px}
 .ds-nav-group h4{
   font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);
   padding:0 12px;margin-bottom:6px
 }
 .ds-nav a{
-  display:block;padding:7px 12px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--ink-soft);
+  display:block;padding:6px 12px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--ink-soft);
   text-decoration:none;line-height:1.3
 }
 .ds-nav a:hover{background:var(--hover-bg);color:var(--ink)}
 .ds-nav a.active{background:var(--active-bg);color:var(--brand)}
 
-.ds-main{flex:1;min-width:0;padding:0 32px 100px}
+.ds-main{flex:1;min-width:0;padding:0 32px 96px}
 
 /* ---------- Hero ---------- */
 .ds-hero{
@@ -54,17 +54,17 @@
 .ds-hero .eyebrow{font-size:12.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--brand)}
 .ds-hero h1{font-size:38px;font-weight:800;letter-spacing:-.8px;margin:10px 0 14px}
 .ds-hero p{font-size:16px;color:var(--ink-soft);line-height:1.6;max-width:680px}
-.ds-hero .ds-hero-stats{display:flex;gap:28px;margin-top:26px;flex-wrap:wrap}
+.ds-hero .ds-hero-stats{display:flex;gap:28px;margin-top:24px;flex-wrap:wrap}
 .ds-hero .ds-hero-stats div b{display:block;font-size:22px;font-weight:800}
 .ds-hero .ds-hero-stats div span{font-size:12.5px;color:var(--muted)}
 .ds-hero .ds-source{
-  margin-top:22px;padding:14px 16px;border-radius:12px;background:var(--surface-2);
+  margin-top:20px;padding:14px 16px;border-radius:12px;background:var(--surface-2);
   border:1px solid var(--line);font-size:13.5px;color:var(--ink-soft);line-height:1.6
 }
 .ds-hero .ds-source b{color:var(--ink)}
 
 /* ---------- Section ---------- */
-.ds-section{max-width:var(--ds-content-max);margin-bottom:64px;scroll-margin-top:76px}
+.ds-section{max-width:var(--ds-content-max);margin-bottom:64px;scroll-margin-top:72px}
 .ds-section h2{font-size:26px;font-weight:800;letter-spacing:-.4px;margin-bottom:6px}
 .ds-section > p.ds-lede{font-size:14.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:24px;max-width:640px}
 .ds-sub{font-size:16px;font-weight:700;margin:28px 0 12px}
@@ -72,16 +72,16 @@
 /* ---------- Component card ---------- */
 .ds-card{
   border:1px solid var(--line);border-radius:16px;background:var(--panel);box-shadow:var(--shadow);
-  margin-bottom:22px;overflow:hidden
+  margin-bottom:20px;overflow:hidden
 }
 .ds-card-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .ds-card-head h3{font-size:16px;font-weight:700}
-.ds-card-head p{font-size:13px;color:var(--ink-soft);margin-top:3px}
+.ds-card-head p{font-size:13px;color:var(--ink-soft);margin-top:2px}
 .ds-card-tags{display:flex;gap:6px;flex-wrap:wrap}
-.ds-tag{font-size:10.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)}
+.ds-tag{font-size:10.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--surface-3);color:var(--muted)}
 .ds-tag.wcag{background:var(--green-bg);color:var(--green)}
 
-.ds-demo{padding:22px 20px;background:var(--surface-2);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.ds-demo{padding:20px 20px;background:var(--surface-2);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .ds-demo.ds-demo-col{flex-direction:column;align-items:stretch}
 
 .ds-panel{border-top:1px solid var(--line)}
@@ -137,18 +137,18 @@
 .ds-comp-colors-list{display:flex;flex-wrap:wrap;gap:8px}
 .ds-color-chip{
   display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;
-  padding:5px 10px;background:var(--surface-2);font:inherit;font-size:12px;font-weight:600;color:var(--ink-soft);cursor:pointer
+  padding:4px 10px;background:var(--surface-2);font:inherit;font-size:12px;font-weight:600;color:var(--ink-soft);cursor:pointer
 }
 .ds-color-chip:hover{border-color:var(--brand);color:var(--brand)}
 .ds-color-chip code{font-family:ui-monospace,monospace;font-size:11px;color:var(--muted)}
 .ds-color-chip-dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto;border:1px solid rgba(0,0,0,.1)}
 
-.ds-type-row{display:flex;align-items:baseline;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}
+.ds-type-row{display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
 .ds-type-row:last-child{border-bottom:none}
 .ds-type-row .ds-type-label{width:120px;flex:0 0 120px;font-size:11.5px;color:var(--muted);font-weight:700}
 
 .ds-space-row{display:flex;align-items:center;gap:14px;padding:8px 0}
-.ds-space-bar{background:var(--brand);height:14px;border-radius:3px}
+.ds-space-bar{background:var(--brand);height:14px;border-radius:2px}
 .ds-space-row span{font-size:12.5px;color:var(--ink-soft);width:70px}
 
 /* ---------- Checklist / table ---------- */
@@ -157,7 +157,7 @@
 .ds-table td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-soft)}
 .ds-table tr:nth-child(even) td{background:var(--surface-2)}
 .ds-table td.ok{color:var(--green);font-weight:700}
-.ds-table code{font-family:ui-monospace,monospace;font-size:12px;background:var(--surface-3);padding:1px 5px;border-radius:4px}
+.ds-table code{font-family:ui-monospace,monospace;font-size:12px;background:var(--surface-3);padding:1px 4px;border-radius:4px}
 
 .ds-check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
 .ds-check:last-child{border-bottom:none}
@@ -174,7 +174,7 @@
 
 @media(max-width:900px){
   .ds-nav{display:none}
-  .ds-main{padding:0 18px 80px}
+  .ds-main{padding:0 16px 80px}
 }
 
 @media(max-width:640px){
@@ -185,11 +185,11 @@
 /* ---------- Brand scale ramp ---------- */
 .ds-scale-row{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
 .ds-scale-chip{
-  flex:1 1 64px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel);
+  flex:1 1 64px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel);
   cursor:pointer;padding:0;display:flex;flex-direction:column
 }
 .ds-scale-chip-fill{display:block;height:44px}
-.ds-scale-chip-label{padding:5px 0;font-size:11px;font-weight:800;color:var(--ink-soft);text-align:center}
+.ds-scale-chip-label{padding:4px 0;font-size:11px;font-weight:800;color:var(--ink-soft);text-align:center}
 
 /* ---------- Token light/dark table ---------- */
 .ds-token-table td{vertical-align:middle}
@@ -198,10 +198,10 @@
   font:inherit;font-family:ui-monospace,monospace;font-size:12px;color:var(--ink-soft);padding:4px 6px;border-radius:6px
 }
 .ds-hex-cell:hover{background:var(--surface-2);color:var(--ink)}
-.ds-hex-dot{width:16px;height:16px;border-radius:5px;flex:0 0 auto;border:1px solid var(--line)}
+.ds-hex-dot{width:16px;height:16px;border-radius:4px;flex:0 0 auto;border:1px solid var(--line)}
 
 /* ---------- Typography scale rows ---------- */
-.ds-type-row2{display:grid;grid-template-columns:150px 1fr;gap:2px 18px;padding:16px 20px;border-bottom:1px solid var(--line);align-items:baseline}
+.ds-type-row2{display:grid;grid-template-columns:150px 1fr;gap:2px 16px;padding:16px 20px;border-bottom:1px solid var(--line);align-items:baseline}
 .ds-type-row2:last-child{border-bottom:none}
 .ds-type-row2-meta{display:flex;flex-direction:column;gap:2px}
 .ds-type-row2-meta b{font-size:12.5px;font-weight:800;color:var(--brand)}
@@ -228,14 +228,14 @@
 
 /* ---------- Demo grouping (sizes/variants rows inside a component demo) ---------- */
 .ds-demo-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:8px}
-.ds-demo-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.ds-demo-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
 .ds-demo-row:last-child{margin-bottom:0}
 
 /* Specified-but-not-yet-implemented button/icon-button sizes & variants —
    prefixed ds- so they're clearly this document's own illustration, not a
    real class from the app stylesheet (see the spec table for the actual
    class name each is proposing, e.g. .btn-lg, .btn-danger). */
-.ds-btn-lg{padding:14px 22px !important;font-size:15.5px !important}
+.ds-btn-lg{padding:14px 20px !important;font-size:15.5px !important}
 .ds-btn-danger{background:var(--red);color:#fff;border-color:transparent}
 .ds-btn-danger:hover{filter:brightness(.92)}
 .ds-icon-btn-sm{width:28px !important;height:28px !important}
