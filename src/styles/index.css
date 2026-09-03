@@ -35,8 +35,12 @@
     --amber-bg:#fdf3e1;
     --red:#c0392b;
     --red-bg:#fdeeee;
-    --shadow:0 1px 2px rgba(20,30,60,.06);
-    --shadow-lg:0 8px 30px rgba(20,30,60,.10);
+    /* Raw RGB triplet backing every drop-shadow in the app. Individual
+       rules vary offset/blur/spread/alpha per surface, but all of them
+       share this one shadow color — rgba(var(--shadow-color),X). */
+    --shadow-color: 20,30,60;
+    --shadow:0 1px 2px rgba(var(--shadow-color),.06);
+    --shadow-lg:0 8px 30px rgba(var(--shadow-color),.10);
     --header-h:56px;
     /* Named text styles — designed for this app, not copied verbatim
        from Figma. The Figma Text Styles panel was used for role names
@@ -136,8 +140,9 @@
     --red:#f2887c;
     --red-bg:#3a1c1a;
     --red-line:#5c2d29;
-    --shadow:0 1px 2px rgba(0,0,0,.4);
-    --shadow-lg:0 8px 30px rgba(0,0,0,.55);
+    --shadow-color: 0,0,0;
+    --shadow:0 1px 2px rgba(var(--shadow-color),.4);
+    --shadow-lg:0 8px 30px rgba(var(--shadow-color),.55);
     --scene-sky:#232a45;
     --scene-ground:#1e2338;
     color-scheme:dark;
@@ -482,7 +487,7 @@
 
   /* ---------- Retirement Readiness widget v2 ---------- */
   .rr2-card{
-    background:var(--panel);border-radius:20px;overflow:hidden;box-shadow:0 12px 16px rgba(20,30,60,.05);
+    background:var(--panel);border-radius:20px;overflow:hidden;box-shadow:0 12px 16px rgba(var(--shadow-color),.05);
     padding:24px;display:flex;flex-direction:column;gap:20px}
   .rr2-head{display:flex;align-items:center;gap:12px}
   .rr2-ico{
@@ -757,7 +762,7 @@
     position:relative;height:8px;border-radius:999px;background:var(--surface-3);overflow:hidden;margin:0 8px}
   .rg-meter i{
     position:absolute;left:0;top:0;bottom:0;border-radius:inherit;
-    background:linear-gradient(90deg,var(--red),#d4a017 55%,var(--green));
+    background:linear-gradient(90deg,var(--red),var(--amber) 55%,var(--green));
     transition:width .55s ease}
   .rg-meter em{
     position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--panel);opacity:.85;border-radius:2px}
@@ -766,7 +771,7 @@
     animation:rg-burst .9s ease-out forwards}
   .rg-burst span:nth-child(1){background:var(--brand);left:18%;top:18%;animation-delay:.02s}
   .rg-burst span:nth-child(2){background:var(--green);left:78%;top:16%;animation-delay:.08s}
-  .rg-burst span:nth-child(3){background:#d4a017;left:12%;top:62%;animation-delay:.12s}
+  .rg-burst span:nth-child(3){background:var(--amber);left:12%;top:62%;animation-delay:.12s}
   .rg-burst span:nth-child(4){background:var(--accent);left:84%;top:58%;animation-delay:.05s}
   .rg-burst span:nth-child(5){background:var(--green);left:48%;top:6%;animation-delay:.14s}
   .rg-burst span:nth-child(6){background:var(--red);left:52%;top:86%;animation-delay:.1s}
@@ -897,7 +902,7 @@
   .learn-card{
     display:flex;flex-direction:column;gap:14px;text-decoration:none;color:inherit;
     background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px 20px 20px;
-    box-shadow:0 12px 16px rgba(20,30,60,.05);position:relative;overflow:hidden;
+    box-shadow:0 12px 16px rgba(var(--shadow-color),.05);position:relative;overflow:hidden;
     transition:box-shadow .2s ease,border-color .2s ease,transform .2s ease}
   .learn-card:hover{box-shadow:var(--shadow-lg);border-color:var(--line-strong);transform:translateY(-1px)}
   .learn-card-top{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
@@ -944,7 +949,7 @@
   /* ---------- Investment risk meter ---------- */
   .risk-card{
     background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px;
-    box-shadow:0 12px 16px rgba(20,30,60,.05);display:flex;flex-direction:column;gap:16px}
+    box-shadow:0 12px 16px rgba(var(--shadow-color),.05);display:flex;flex-direction:column;gap:16px}
   .risk-head{display:flex;align-items:center;gap:12px}
   .risk-ico{
     width:48px;height:48px;border-radius:12px;flex:0 0 auto;
@@ -961,7 +966,7 @@
     position:absolute;left:50%;top:85px;transform:translate(-50%,-50%);width:112px;height:112px;
     border-radius:50%;background:radial-gradient(circle,color-mix(in srgb, var(--amber) 3%, white),color-mix(in srgb, var(--amber) 12%, white));
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
-    box-shadow:inset 0 0 0 1px rgba(20,30,60,.05)}
+    box-shadow:inset 0 0 0 1px rgba(var(--shadow-color),.05)}
   .risk-center-ico{display:grid;place-items:center;animation:risk-pop .5s ease}
   .risk-center b{font-size:14px;font-weight:800;letter-spacing:.3px;margin-top:2px}
   .risk-center span{font-size:10.5px;font-weight:600;color:var(--muted)}
@@ -1019,7 +1024,7 @@
   @keyframes risk2-fade-in{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
   @media(prefers-reduced-motion:reduce){.risk2-subtitle{animation:none}}
 
-  .risk2-caption{font-size:13px;color:var(--ink-soft);margin:0;padding-top:14px;border-top:1px solid rgba(20,30,60,.06)}
+  .risk2-caption{font-size:13px;color:var(--ink-soft);margin:0;padding-top:14px;border-top:1px solid rgba(var(--shadow-color),.06)}
   .risk2-edit-btn{
     display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
     background:var(--brand-fill);color:var(--brand-text-primary-oncolor);border:none;border-radius:12px;padding:12px 16px;
@@ -1496,7 +1501,7 @@
   /* ---------- Slideover (right-side panel) ---------- */
   .slideover-bg{position:fixed;inset:0;background:color-mix(in srgb, var(--ink) 46%, transparent);z-index:95;display:flex;justify-content:flex-end}
   .slideover-panel{
-    width:100%;max-width:420px;height:100%;background:var(--panel);box-shadow:-8px 0 30px rgba(20,30,60,.12);
+    width:100%;max-width:420px;height:100%;background:var(--panel);box-shadow:-8px 0 30px rgba(var(--shadow-color),.12);
     display:flex;flex-direction:column;animation:slideover-in .28s cubic-bezier(.2,.9,.3,1)}
   .slideover-panel.slideover-wide{max-width:680px}
   @keyframes slideover-in{from{transform:translateX(100%)}to{transform:translateX(0)}}
@@ -1552,7 +1557,7 @@
     background:var(--active-bg);border-radius:12px;padding:16px 16px;display:flex;flex-direction:column;gap:2px}
   .loan-calc-result-title{font-size:12px;font-weight:700;color:var(--ink-soft)}
   .loan-calc-result > b{font-size:24px;font-weight:800;color:var(--brand);letter-spacing:-.3px;margin:2px 0 10px}
-  .loan-calc-breakdown{display:flex;gap:20px;padding-top:10px;border-top:1px solid rgba(20,30,60,.08)}
+  .loan-calc-breakdown{display:flex;gap:20px;padding-top:10px;border-top:1px solid rgba(var(--shadow-color),.08)}
   .loan-calc-breakdown div{display:flex;flex-direction:column;gap:2px}
   .loan-calc-breakdown span{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.2px}
   .loan-calc-breakdown b{font-size:14px;font-weight:800;color:var(--ink)}
@@ -1644,7 +1649,7 @@
     background:var(--active-bg);border-radius:12px;padding:16px 16px;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
   .wd-fee-row{display:flex;justify-content:space-between;font-size:13px;color:var(--ink-soft)}
   .wd-fee-row b{color:var(--ink);font-weight:700}
-  .wd-fee-row.total{padding-top:8px;border-top:1px solid rgba(20,30,60,.08)}
+  .wd-fee-row.total{padding-top:8px;border-top:1px solid rgba(var(--shadow-color),.08)}
   .wd-fee-row.total b{color:var(--brand);font-size:15px;font-weight:800}
   .wd-terms{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink-soft);margin:16px 0}
   .wd-terms input{margin-top:2px}

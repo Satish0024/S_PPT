@@ -236,7 +236,7 @@
    real class from the app stylesheet (see the spec table for the actual
    class name each is proposing, e.g. .btn-lg, .btn-danger). */
 .ds-btn-lg{padding:14px 20px !important;font-size:15.5px !important}
-.ds-btn-danger{background:var(--red);color:#fff;border-color:transparent}
+.ds-btn-danger{background:var(--red);color:var(--brand-text-primary-oncolor);border-color:transparent}
 .ds-btn-danger:hover{filter:brightness(.92)}
 .ds-icon-btn-sm{width:28px !important;height:28px !important}
 .ds-icon-btn-sm svg{width:15px;height:15px}
