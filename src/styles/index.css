@@ -726,7 +726,7 @@
   .hi-bar{
     display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap: var(--space-3) var(--space-4);
     padding:4px 0 4px}
-  .hi-bar h1{font-size:26px;font-weight:700;letter-spacing:-.4px;margin: var(--space-0);color:var(--ink)}
+  .hi-bar h1{font-size:var(--text-h1-size);font-weight:700;letter-spacing:-.4px;margin: var(--space-0);color:var(--ink)}
   .hi-bar .plan-badge{margin-top:8px}
   .hi-bar .hi-actions{display:flex;flex-wrap:wrap;gap:10px}
   .text-link{font-size:14px;font-weight:700;color:var(--brand);text-decoration:none;background:none;border:none;cursor:pointer;padding: var(--space-0);font-family:inherit}
@@ -770,7 +770,7 @@
     .overall-balance .ob-top{grid-template-columns:1fr;justify-items:stretch}
     .overall-balance .ob-summary{justify-self:stretch;align-self:auto;margin-top:4px}
   }
-  .overall-balance .ob-k{font-size:14px;font-weight:600;color:var(--muted);margin-bottom:6px}
+  .overall-balance .ob-k{font-size:var(--text-body-sm-size);font-weight:600;color:var(--muted);margin-bottom:6px}
   .overall-balance .ob-v{font-size:34px;font-weight:700;letter-spacing:-.7px;line-height:1;color:var(--ink);
     font-variant-numeric:tabular-nums}
   .overall-balance .ob-block.vested .ob-v{color:var(--green)}
@@ -887,7 +887,7 @@
   .rr2-hero{display:flex;align-items:center;gap: var(--space-4);min-height:130px}
   .rr2-hero-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
   .rr2-hero-copy b{
-    font-size:44px;font-weight:800;letter-spacing:-1px;line-height:1;color:var(--ink);
+    font-size:var(--text-display-sm-size);font-weight:800;letter-spacing:-1px;line-height:1;color:var(--ink);
     font-variant-numeric:tabular-nums}
   .rr2-hero-copy span{font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--ink-soft)}
   .rr2-hero-copy em{
@@ -1198,7 +1198,7 @@
   .rg-save-score-row{display:flex;align-items:baseline;gap:10px}
   .rg-save-score-row span{font-size:22px;font-weight:700;color:var(--ink-soft);letter-spacing:-.4px}
   .rg-save-score-row em{font-style:normal;font-size:18px;font-weight:700;color:var(--ink-soft)}
-  .rg-save-score-row b{font-size:36px;font-weight:800;letter-spacing:-1px;color:var(--ink);line-height:1}
+  .rg-save-score-row b{font-size:var(--text-display-sm-size);font-weight:800;letter-spacing:-1px;color:var(--ink);line-height:1}
   .rg-save.good .rg-save-score-row b{color:var(--green)}
   .rg-save.warn .rg-save-score-row b{color:var(--red)}
   .rg-save.ok .rg-save-score-row b{color:var(--brand)}
@@ -1230,7 +1230,7 @@
   .dash-main{display:flex;flex-direction:column;gap: var(--space-5);min-width:0}
   .dash-side{display:flex;flex-direction:column;gap: var(--space-4);min-width:0}
 
-  .section-title{font-size:var(--text-h5-size);font-weight:700;letter-spacing:-.2px;margin: var(--space-0) var(--space-0) var(--space-3);color:var(--ink)}
+  .section-title{font-size:var(--text-h2-size);font-weight:700;letter-spacing:-.2px;margin: var(--space-0) var(--space-0) var(--space-3);color:var(--ink)}
 
   /* My Plans */
   .plans-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
@@ -1245,15 +1245,15 @@
   .plan-badge.eligible{background:var(--active-bg);color:var(--brand)}
   .plan-badge.opted{background:var(--red-bg);color:var(--red)}
   .plan-card .pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-  .plan-card .pc-name{font-size:16px;font-weight:700;letter-spacing:-.2px;color:var(--ink);margin:0 0 2px}
-  .plan-card .pc-type{font-size:var(--text-paragraph-xs-size);font-weight:var(--font-weight-semibold);color:var(--brand);margin-bottom:4px}
+  .plan-card .pc-name{font-size:var(--text-h3-size);font-weight:700;letter-spacing:-.2px;color:var(--ink);margin:0 0 2px}
+  .plan-card .pc-type{font-size:var(--text-h6-size);font-weight:var(--font-weight-semibold);color:var(--brand);margin-bottom:4px}
   .plan-card .pc-meta{font-size:var(--text-caption-size);color:var(--ink-soft);line-height:1.35}
-  .plan-badge{display:inline-flex;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:700;
+  .plan-badge{display:inline-flex;padding:3px 9px;border-radius:999px;font-size:var(--text-body-xs-size);font-weight:700;
     background:var(--green-bg);color:var(--green);flex-shrink:0}
   .plan-badge.muted{background:var(--surface-2);color:var(--muted)}
   .plan-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .plan-stat{padding: var(--space-3) var(--space-3-5);border-radius:10px;background:var(--surface-2);border:1px solid var(--line)}
-  .plan-stat .k{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
+  .plan-stat .k{font-size:var(--text-eyebrow-size);font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
   .plan-stat .v{font-size:18px;font-weight:700;letter-spacing:-.3px;color:var(--ink);font-variant-numeric:tabular-nums}
   .plan-stat .v-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
   .plan-stat.balance .v{color:var(--brand)}
@@ -1532,7 +1532,7 @@
   .list-row b{font-weight:700;color:var(--ink);text-align:right}
 
   .pr-page{gap:18px}
-  .pr-intro{margin: var(--space-2) var(--space-0) var(--space-0);font-size:14px;line-height:1.5;color:var(--ink-soft);font-weight:500}
+  .pr-intro{margin: var(--space-2) var(--space-0) var(--space-0);font-size:var(--text-paragraph-sm-size);line-height:1.5;color:var(--ink-soft);font-weight:500}
   .pr-shell{display:grid;grid-template-columns:240px minmax(0,1fr);gap: var(--space-5);align-items:start}
   .pr-nav{
     display:flex;flex-direction:column;gap: var(--space-1);background:var(--panel);border:1px solid var(--line);
@@ -2699,7 +2699,7 @@ summary:focus-visible {
   align-items: center;
   padding: var(--space-1) var(--space-2-5);
   border-radius: 999px;
-  font-size: 10px;
+  font-size: var(--text-eyebrow-size);
   font-weight: 700;
   letter-spacing: .7px;
   text-transform: uppercase;
