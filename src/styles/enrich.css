@@ -2,12 +2,12 @@
   /* Same duplicate-:root bug as main -- had drifted --green/--amber/
      --muted and no dark-mode variant. Removed; inherits the real
      global tokens (index.css) in both themes now. */
-  *{box-sizing:border-box;margin:0;padding:0}
+  *{box-sizing:border-box;margin:var(--space-0);padding:0}
   body{font-family:"Inclusive Sans",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
   a{text-decoration:none;color:inherit}
 
   .topbar{height:56px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;
-    justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:10}
+    justify-content:space-between;padding:var(--space-0) var(--space-6);position:sticky;top:0;z-index:10}
   .brand img{height:32px}
   .back{font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--brand);display:inline-flex;align-items:center;gap:6px}
   .back:hover{text-decoration:underline}
@@ -21,8 +21,8 @@
   .page-intro p{font-size:15px;color:var(--ink-soft);line-height:1.55;max-width:540px}
 
   .search-bar{
-    display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--panel);
-    border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);margin-bottom:24px;
+    display:flex;align-items:center;gap:var(--space-2-5);padding:var(--space-3) var(--space-4);background:var(--panel);
+    border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);margin-bottom:var(--space-6);
     transition:border-color .15s,box-shadow .15s}
   .search-bar:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 15%, transparent)}
   .search-bar svg{width:18px;height:18px;color:var(--muted);flex-shrink:0}
@@ -31,8 +31,8 @@
   .search-bar input::placeholder{color:var(--muted)}
 
   .featured{
-    display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--panel);border:1px solid var(--line);
-    border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow);margin-bottom:28px;
+    display:grid;grid-template-columns:1fr 1fr;gap:var(--space-0);background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow);margin-bottom:var(--space-7);
     transition:box-shadow .2s}
   .featured:hover{box-shadow:var(--shadow-lg)}
   .featured .f-visual{
@@ -48,24 +48,24 @@
     letter-spacing:.4px;color:color-mix(in srgb, var(--brand-text-primary-oncolor) 85%, transparent);margin-bottom:6px}
   .featured .f-visual h2{
     position:relative;z-index:1;font-size:22px;font-weight:700;color:var(--brand-text-primary-oncolor);line-height:1.25;letter-spacing:-.3px}
-  .featured .f-body{padding:28px 28px 24px;display:flex;flex-direction:column;justify-content:center}
+  .featured .f-body{padding:var(--space-7) var(--space-7) var(--space-6);display:flex;flex-direction:column;justify-content:center}
   .featured .f-body p{font-size:var(--text-body-md-size);color:var(--ink-soft);line-height:1.55;margin-bottom:16px}
-  .featured .f-meta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+  .featured .f-meta{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:20px}
   .featured .f-meta span{font-size:var(--text-body-xs-size);font-weight:var(--font-weight-semibold);color:var(--muted);display:inline-flex;align-items:center;gap:4px}
   .featured .f-meta span svg{width:14px;height:14px}
   .btn-go{
-    display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:var(--radius-sm);
+    display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2-5) var(--space-4);border-radius:var(--radius-sm);
     background:var(--brand-fill);color:var(--brand-text-primary-oncolor);font-size:var(--text-button-md-size);font-weight:var(--text-button-md-weight);width:fit-content;
     transition:background .15s}
   .btn-go:hover{background:var(--brand-dark)}
   .btn-go svg{width:16px;height:16px;transition:transform .2s}
   .btn-go:hover svg{transform:translateX(3px)}
 
-  .section-label{font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink);margin-bottom:14px;letter-spacing:-.1px}
+  .section-label{font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink);margin-bottom:var(--space-3-5);letter-spacing:-.1px}
 
-  .cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .cats{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:20px}
   .cat{
-    padding:6px 14px;border-radius:999px;font-size:var(--text-body-sm-size);font-weight:600;border:1px solid var(--line);
+    padding:var(--space-1-5) var(--space-3-5);border-radius:999px;font-size:var(--text-body-sm-size);font-weight:600;border:1px solid var(--line);
     background:var(--panel);color:var(--ink-soft);cursor:pointer;transition:all .15s}
   .cat:hover{border-color:var(--line-strong);color:var(--ink)}
   .cat.on{background:var(--brand-fill);border-color:var(--brand-fill);color:var(--brand-text-primary-oncolor)}
@@ -89,17 +89,17 @@
   .card.t2 .thumb .t-ico{color:var(--green)}
   .card.t3 .thumb .t-ico{color:var(--amber)}
   .card.t4 .thumb .t-ico{color:var(--red)}
-  .card .c-body{padding:24px 16px 16px;flex:1;display:flex;flex-direction:column}
+  .card .c-body{padding:var(--space-6) var(--space-4) var(--space-4);flex:1;display:flex;flex-direction:column}
   .card .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
   .card.t1 .tag{color:var(--accent)}
   .card.t2 .tag{color:var(--green)}
   .card.t3 .tag{color:var(--amber)}
   .card.t4 .tag{color:var(--red)}
-  .card h3{font-size:15px;font-weight:700;margin-bottom:6px;letter-spacing:-.15px;line-height:1.3}
+  .card h3{font-size:15px;font-weight:700;margin-bottom:var(--space-1-5);letter-spacing:-.15px;line-height:1.3}
   .card p{font-size:var(--text-body-sm-size);color:var(--ink-soft);line-height:1.45;flex:1}
   .card .foot{
-    display:flex;align-items:center;justify-content:space-between;margin-top:14px;
-    padding-top:14px;border-top:1px solid var(--line)}
+    display:flex;align-items:center;justify-content:space-between;margin-top:var(--space-3-5);
+    padding-top:var(--space-3-5);border-top:1px solid var(--line)}
   .card .foot .time{font-size:var(--text-body-xs-size);font-weight:var(--font-weight-semibold);color:var(--muted)}
   .card .foot .link{font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold);color:var(--brand)}
 
