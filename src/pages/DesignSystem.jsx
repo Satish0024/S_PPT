@@ -89,35 +89,33 @@ const GROUP_META = {
 // not an undifferentiated wall of swatches. Tertiary is --link: a real,
 // distinct token in styles/index.css, just set to the same hex as Primary
 // today — named honestly rather than invented from nothing.
+// Quick-glance grid — same tokens/names as the "Full token reference"
+// below, just the handful reached for most often. No fabricated
+// "Secondary"/"Tertiary"/"CTA" categories: the reference (Figma +
+// variables.scss) only names Primary, Neutral, and Semantics — a
+// second/third brand color was invented here before, not real.
 const PRIMARY_COLOR_GROUPS = [
   { title: 'Primary', items: [
-    ['Primary', '--brand', '.nav a.active text, links, focus rings'],
-    ['Primary dark', '--brand-dark', '.btn-primary:hover, .icon-btn active state'],
-    ['Primary CTA', '--brand-fill', 'Solid .btn-primary background — the actual "call to action" surface'],
+    ['primary-default (text)', '--brand-text-primary-default', 'Links, active nav text, focus rings'],
+    ['primary-hover (text)', '--brand-text-primary-hover', 'Hover state of brand-colored text/links'],
+    ['primary-strong (background)', '--brand-background-primary-strong', 'Solid .btn-primary background — the actual CTA surface'],
+    ['primary-hover (background)', '--brand-background-primary-hover', '.btn-primary:hover background'],
   ] },
-  { title: 'Secondary', items: [
-    ['Secondary', '--accent', '.btn-secondary text/border, chart accents (aliased --accent-secondary)'],
+  { title: 'Neutral / Text', items: [
+    ['text', '--neutral-text-text', 'Primary body text, headings everywhere'],
+    ['subtle', '--neutral-text-subtle', 'Secondary text — .pc-meta, .as-empty message'],
+    ['subtle-least', '--neutral-text-subtle-least', 'Tertiary text — captions, table header labels'],
   ] },
-  { title: 'Tertiary', items: [
-    ['Tertiary', '--link', 'Text links — distinct token, same hex as Primary today'],
+  { title: 'Neutral / Surfaces', items: [
+    ['background', '--neutral-surface-background', 'Page background behind every panel'],
+    ['layer-01', '--neutral-surface-layer-01', 'Card/panel surface — .plan-card, .confirm-dialog'],
+    ['layer-02', '--neutral-surface-layer-02', '.tx-table zebra rows, .as-empty background'],
+    ['layer-03', '--neutral-surface-layer-03', '.ds-skeleton-bar, .step upcoming .num'],
   ] },
-  { title: 'Neutral / text', items: [
-    ['Ink (text)', '--ink', 'Primary body text, headings everywhere'],
-    ['Ink soft', '--ink-soft', 'Secondary text — .pc-meta, .as-empty message'],
-    ['Muted', '--muted', 'Tertiary text — captions, table header labels'],
-    ['Line', '--line', 'Default 1px border — cards, inputs, table rows'],
-  ] },
-  { title: 'Surface', items: [
-    ['Background', '--bg', 'Page background behind every panel'],
-    ['Panel', '--panel', 'Card/panel surface — .plan-card, .confirm-dialog'],
-    ['Active bg', '--active-bg', '.nav a.active fill, avatar placeholder bg'],
-    ['Surface 2', '--surface-2', '.tx-table zebra rows, .as-empty background'],
-    ['Surface 3', '--surface-3', '.ds-skeleton-bar, .step upcoming .num'],
-  ] },
-  { title: 'Status', items: [
-    ['Green (success)', '--green', '.req-status.good, complete .step .num'],
-    ['Amber (warning)', '--amber', '.req-status.ok, pending states'],
-    ['Red (danger)', '--red', '.req-status.warn, .confirm-dialog-ico bg'],
+  { title: 'Semantics', items: [
+    ['Success', '--semantics-success-text', '.req-status.good, complete .step .num'],
+    ['Warning', '--semantics-warning-text', '.req-status.ok, pending states'],
+    ['Critical', '--semantics-critical-text', '.req-status.warn, .confirm-dialog-ico bg'],
   ] },
 ]
 
@@ -130,25 +128,25 @@ const PRIMARY_COLOR_GROUPS = [
 // color per family (--brand/--green/--red/--amber/--theme-colors-teal-600).
 const COLOR_GROUPS = [
   { title: 'Brand / Borders', tokens: [
-    ['hover', '--brand-border-hover', 'Border color on hover for brand-outlined controls'],
+    ['hover', '--brand-border-primary-hover', 'Border color on hover for brand-outlined controls'],
     ['primary-default', '--brand-border-primary-default', 'Default brand border — .opt.selected, focused inputs'],
     ['primary-disabled', '--brand-border-primary-disabled', 'Disabled state of a brand-bordered control'],
   ] },
   { title: 'Brand / Text', tokens: [
     ['primary-active', '--brand-text-primary-active', 'Active/pressed brand text'],
-    ['default', '--brand-text-default', 'Links, active nav text, focus rings'],
+    ['default', '--brand-text-primary-default', 'Links, active nav text, focus rings'],
     ['primary-disabled', '--brand-text-primary-disabled', 'Disabled brand-colored text'],
     ['primary-oncolor', '--brand-text-primary-oncolor', 'Text sitting on a solid brand fill — always white'],
     ['primaryhover', '--brand-text-primary-hover', 'Hover state of brand-colored text/links'],
   ] },
   { title: 'Brand / background', tokens: [
-    ['active', '--brand-bg-active', '.btn-primary:active, pressed brand surfaces'],
-    ['disabled-light', '--brand-bg-disabled-light', 'Disabled brand surface, light variant'],
-    ['disabled-strong', '--brand-bg-disabled-strong', 'Disabled brand surface, strong variant'],
-    ['hover', '--brand-bg-hover', '.btn-primary:hover background'],
-    ['primary-light', '--brand-bg-primary-light', '.nav a.active fill, avatar placeholder bg'],
-    ['primary-subtle', '--brand-bg-primary-subtle', 'Barely-there brand tint on a neutral surface'],
-    ['strong', '--brand-bg-strong', 'Solid .btn-primary background — the actual CTA surface'],
+    ['active', '--brand-background-primary-active', '.btn-primary:active, pressed brand surfaces'],
+    ['disabled-light', '--brand-background-primary-disabled', 'Disabled brand surface, light variant'],
+    ['disabled-strong', '--brand-background-primary-disabled-strong', 'Disabled brand surface, strong variant'],
+    ['hover', '--brand-background-primary-hover', '.btn-primary:hover background'],
+    ['primary-light', '--brand-background-primary-light', '.nav a.active fill, avatar placeholder bg'],
+    ['primary-subtle', '--brand-background-primary-subtle', 'Barely-there brand tint on a neutral surface'],
+    ['strong', '--brand-background-primary-strong', 'Solid .btn-primary background — the actual CTA surface'],
   ] },
   { title: 'Neutral / Surfaces', tokens: [
     ['background', '--neutral-surface-background', 'Page background behind every panel'],
@@ -162,9 +160,9 @@ const COLOR_GROUPS = [
   ] },
   { title: 'Neutral / Text', tokens: [
     ['subtle', '--neutral-text-subtle', 'Secondary text — .pc-meta, .as-empty message'],
-    ['subtleleast', '--neutral-text-subtleleast', 'Tertiary text — captions, table header labels'],
+    ['subtleleast', '--neutral-text-subtle-least', 'Tertiary text — captions, table header labels'],
     ['text', '--neutral-text-text', 'Primary body text, headings everywhere'],
-    ['text-on-color', '--neutral-text-oncolor', 'Text on a solid dark/neutral fill'],
+    ['text-on-color', '--neutral-text-on-color', 'Text on a solid dark/neutral fill'],
   ] },
   { title: 'Neutral / border', tokens: [
     ['border-light', '--neutral-border-light', 'Emphasized border, focus-adjacent'],
@@ -174,31 +172,31 @@ const COLOR_GROUPS = [
   ] },
   { title: 'Semantics / Critical', tokens: [
     ['border', '--semantics-critical-border', 'Error/danger border and icon'],
-    ['light-background', '--semantics-critical-light-bg', '.confirm-dialog-ico bg, error banners'],
-    ['strong-background', '--semantics-critical-strong-bg', 'Solid error fill (badges, alerts)'],
+    ['light-background', '--semantics-critical-background-light', '.confirm-dialog-ico bg, error banners'],
+    ['strong-background', '--semantics-critical-background-strong', 'Solid error fill (badges, alerts)'],
     ['text', '--semantics-critical-text', 'Error/danger text'],
   ] },
   { title: 'Semantics / Disabled', tokens: [
-    ['background', '--semantics-disabled-bg', 'Disabled control fill'],
+    ['background', '--semantics-disabled-background', 'Disabled control fill'],
     ['border', '--semantics-disabled-border', 'Disabled control border'],
     ['text', '--semantics-disabled-text', 'Disabled control text'],
   ] },
   { title: 'Semantics / Highlights', tokens: [
     ['border', '--semantics-highlight-border', 'Informational border — new-user callouts'],
-    ['light-background', '--semantics-highlight-light-bg', '.callout background'],
-    ['strong-background', '--semantics-highlight-strong-bg', 'Solid informational fill'],
+    ['light-background', '--semantics-highlight-background-light', '.callout background'],
+    ['strong-background', '--semantics-highlight-background-strong', 'Solid informational fill'],
     ['text', '--semantics-highlight-text', 'Informational text'],
   ] },
   { title: 'Semantics / Success', tokens: [
     ['border', '--semantics-success-border', '.req-status.good, complete .step .num'],
-    ['light-background', '--semantics-success-light-bg', 'Success fill — .green-bg'],
-    ['strong-background', '--semantics-success-strong-bg', 'Solid success fill'],
+    ['light-background', '--semantics-success-background-light', 'Success fill — .green-bg'],
+    ['strong-background', '--semantics-success-background-strong', 'Solid success fill'],
     ['text', '--semantics-success-text', 'Success text/icon'],
   ] },
   { title: 'Semantics / Warning', tokens: [
     ['border', '--semantics-warning-border', '.req-status.ok, pending states'],
-    ['light-background', '--semantics-warning-light-bg', 'Warning fill — .amber-bg'],
-    ['strong-background', '--semantics-warning-strong-bg', 'Solid warning fill'],
+    ['light-background', '--semantics-warning-background-light', 'Warning fill — .amber-bg'],
+    ['strong-background', '--semantics-warning-background-strong', 'Solid warning fill'],
     ['text', '--semantics-warning-text', 'Warning text/icon'],
   ] },
 ]
