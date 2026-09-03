@@ -3,7 +3,7 @@
   background:var(--panel)}
 .login-brand{
   position:relative;background:linear-gradient(160deg,var(--brand-dark) 0%,var(--brand) 55%,color-mix(in srgb, var(--brand) 60%, white) 100%);
-  color:var(--brand-text-primary-oncolor);overflow:hidden;display:flex;align-items:flex-end;padding:48px 44px}
+  color:var(--brand-text-primary-oncolor);overflow:hidden;display:flex;align-items:flex-end;padding:var(--space-12) var(--space-11)}
 .login-waves{
   position:absolute;inset:0;opacity:.55;
   background:
@@ -21,15 +21,15 @@
    Was 42px vs .login-logo's 36px below — same lockup mark (both switch
    to the same dark-surface SVG in dark mode), rendered at two different
    sizes, which read as the dark-mode logo being "bigger". Matched. */
-.login-brand-copy img{height:38px;margin-bottom:28px}
-.login-brand-copy h1{font-size:36px;font-weight:700;letter-spacing:-.6px;line-height:1.15;margin:0 0 12px}
+.login-brand-copy img{height:38px;margin-bottom:var(--space-7)}
+.login-brand-copy h1{font-size:36px;font-weight:700;letter-spacing:-.6px;line-height:1.15;margin:var(--space-0) var(--space-0) var(--space-3)}
 .login-brand-copy p{font-size:var(--text-body-lg-size);line-height:1.55;opacity:.9;margin:var(--space-0);max-width:36ch}
 .login-panel{display:flex;align-items:center;justify-content:center;padding:var(--space-10) var(--space-7);background:var(--bg)}
 .login-card{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:20px;
-  box-shadow:var(--shadow-lg);padding:32px 32px 28px}
-.login-logo{height:38px;display:block;margin-bottom:20px}
-.login-card h2{font-size:26px;font-weight:700;letter-spacing:-.4px;margin:0 0 6px}
-.login-lead{color:var(--ink-soft);font-size:var(--text-body-md-size);margin:0 0 20px}
+  box-shadow:var(--shadow-lg);padding:var(--space-8) var(--space-8) var(--space-7)}
+.login-logo{height:38px;display:block;margin-bottom:var(--space-5)}
+.login-card h2{font-size:26px;font-weight:700;letter-spacing:-.4px;margin:var(--space-0) var(--space-0) var(--space-1-5)}
+.login-lead{color:var(--ink-soft);font-size:var(--text-body-md-size);margin:var(--space-0) var(--space-0) var(--space-5)}
 .login-field{display:flex;flex-direction:column;gap:var(--space-1-5);font-size:var(--text-body-sm-size);font-weight:700;margin-bottom:14px}
 .login-input{display:flex;align-items:center;gap:var(--space-2);border:1px solid var(--line-strong);border-radius:12px;padding:var(--space-0) var(--space-3);
   background:var(--panel);transition:border-color .15s,box-shadow .15s}
@@ -43,13 +43,13 @@
 .login-eye:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
 .login-error{color:var(--red);font-size:var(--text-body-sm-size);font-weight:600;margin:-4px 0 12px}
 .login-submit{width:100%;border:none;border-radius:12px;padding:var(--space-3) var(--space-4);background:var(--brand-fill);color:var(--brand-text-primary-oncolor);
-  font-weight:700;font-size: 16px;cursor:pointer;margin-top:4px}
+  font-weight:700;font-size:var(--text-button-lg-size);cursor:pointer;margin-top:var(--space-1)}
 .login-submit:hover{background:var(--brand-dark)}
 .login-hint{margin:var(--space-3) var(--space-0) var(--space-2);font-size:var(--text-caption-size);color:var(--ink-soft)}
 .login-hint b{color:var(--ink)}
 .login-demos{position:relative}
-.login-demos > span{display:block;font-size: 12px;font-weight:700;letter-spacing:.35px;text-transform:uppercase;
-  color:var(--muted);margin-bottom:6px}
+.login-demos > span{display:block;font-size:var(--text-eyebrow-size);font-weight:700;letter-spacing:.35px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:var(--space-1-5)}
 .login-page .lp-toggle{
   display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);width:100%;margin:var(--space-0);
   border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--panel);padding:var(--space-2) var(--space-3);min-height:44px;
@@ -70,16 +70,16 @@
 .login-page .lp-row img{width:24px;height:24px;border-radius:50%;object-fit:cover;flex:0 0 auto}
 .login-page .lp-text{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-0);min-width:0}
 .login-page .lp-text strong{font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink);letter-spacing:0;text-transform:none}
-.login-page .lp-text small{font-size: 12px;font-weight:600;color:var(--ink-soft);text-transform:none}
+.login-page .lp-text small{font-size:var(--text-caption-size);font-weight:600;color:var(--ink-soft);text-transform:none}
 
 @media(max-width:860px){
   .login-page{grid-template-columns:1fr}
   .login-brand{min-height:220px;padding:var(--space-7) var(--space-6);align-items:flex-end}
   .login-brand-copy h1{font-size:26px}
-  .login-brand-copy img{height:34px;margin-bottom:16px}
+  .login-brand-copy img{height:34px;margin-bottom:var(--space-4)}
   .login-logo{height:34px}
-  .login-panel{padding:24px 16px 40px}
-  .login-card{padding:24px 20px}
+  .login-panel{padding:var(--space-6) var(--space-4) var(--space-10)}
+  .login-card{padding:var(--space-6) var(--space-5)}
 }
 
 /* Prototype-only scenario switcher — deliberately kept out of the sign-in
@@ -89,7 +89,7 @@
 .login-demo-toggle{
   display:inline-flex;align-items:center;gap:var(--space-1-5);padding:var(--space-2) var(--space-3-5);border-radius:999px;
   border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);
-  font:inherit;font-size: 12px;font-weight:600;cursor:pointer;box-shadow:var(--shadow)
+  font:inherit;font-size:var(--text-caption-size);font-weight:600;cursor:pointer;box-shadow:var(--shadow)
 }
 .login-demo-toggle:hover,.login-demo-toggle.open{border-color:var(--brand);color:var(--brand)}
 .login-demo-menu{
@@ -105,10 +105,10 @@
 .login-demo-row img{border-radius:50%;flex:0 0 auto;object-fit:cover}
 .login-demo-text{display:flex;flex-direction:column;gap:var(--space-px);min-width:0}
 .login-demo-text strong{font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink)}
-.login-demo-text small{font-size: 12px;font-weight:600;color:var(--ink-soft)}
+.login-demo-text small{font-size:var(--text-caption-size);font-weight:600;color:var(--ink-soft)}
 @media(max-width:480px){
   .login-demo-corner{right:12px;bottom:12px}
-  .login-demo-toggle{padding:var(--space-2) var(--space-3);font-size: 12px}
+  .login-demo-toggle{padding:var(--space-2) var(--space-3);font-size:var(--text-caption-size)}
   .login-demo-toggle span{display:none}
   .login-demo-menu{width:calc(100vw - 24px);right:-12px}
 }
