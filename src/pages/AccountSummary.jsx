@@ -36,15 +36,6 @@ const TABS = [
   { id: 'assetclass', label: 'Investments', icon: PieChart }
 ]
 
-function fade(hex, on) {
-  if (on) return hex
-  const n = hex.replace('#', '')
-  const r = parseInt(n.slice(0, 2), 16)
-  const g = parseInt(n.slice(2, 4), 16)
-  const b = parseInt(n.slice(4, 6), 16)
-  return `rgba(${r}, ${g}, ${b}, 0.22)`
-}
-
 export default function AccountSummary() {
   const { participant } = useParticipant()
   const [params] = useSearchParams()
@@ -75,6 +66,9 @@ export default function AccountSummary() {
   const rows = tab === 'sources' ? summary.sources : tab === 'investments' ? summary.investments : summary.assetClasses
   const highlight = rows[active] || null
 
+  // Segments stay full-color regardless of hover -- no dimming/fade effect
+  // on the other slices, per feedback that the hover treatment felt like
+  // an unwanted animation.
   const chart = useMemo(() => {
     if (!rows.length) return null
     return {
@@ -82,7 +76,7 @@ export default function AccountSummary() {
       datasets: [
         {
           data: rows.map((r) => r.amount),
-          backgroundColor: rows.map((r, i) => fade(r.color, active == null || active === i)),
+          backgroundColor: rows.map((r) => r.color),
           borderWidth: 0,
           spacing: 0,
           hoverOffset: 0,
@@ -90,13 +84,17 @@ export default function AccountSummary() {
         }
       ]
     }
-  }, [rows, active])
+  }, [rows])
 
   const options = useMemo(
     () => ({
       cutout: '68%',
       maintainAspectRatio: false,
       layout: { padding: 0 },
+      // No animated transition on hover/redraw -- segments and the
+      // center label update instantly instead of tweening.
+      animation: false,
+      hover: { mode: 'nearest', intersect: true },
       plugins: {
         legend: { display: false },
         tooltip: {

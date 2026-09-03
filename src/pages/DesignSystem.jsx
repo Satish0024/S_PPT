@@ -377,7 +377,7 @@ export default function DesignSystem() {
                 ['Predictable interaction', 'The same control behaves the same way everywhere — one button, one table, one dialog pattern.'],
               ].map(([t, d]) => (
                 <div key={t} className="ds-swatch" style={{ padding: 14 }}>
-                  <b style={{ fontSize: 13, fontWeight: 700 }}>{t}</b>
+                  <b style={{ fontSize: 14, fontWeight: 700 }}>{t}</b>
                   <span style={{ display: 'block', fontSize: 'var(--text-body-xs-size)', color: 'var(--ink-soft)', marginTop: 6, fontFamily: 'inherit' }}>{d}</span>
                 </div>
               ))}
@@ -657,9 +657,9 @@ export default function DesignSystem() {
             desc="Custom-styled but backed by real <input> elements for native keyboard and screen-reader support."
             tags={['WCAG 2.2 AA']}
             demo={<div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
-              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="checkbox" defaultChecked /> Email statements</label>
-              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="radio" name="ds-r" defaultChecked /> Direct deposit</label>
-              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="radio" name="ds-r" /> Mailed check</label>
+              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}><input type="checkbox" defaultChecked /> Email statements</label>
+              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}><input type="radio" name="ds-r" defaultChecked /> Direct deposit</label>
+              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}><input type="radio" name="ds-r" /> Mailed check</label>
               <label className="a11y-switch" style={{ display: 'inline-flex' }}>
                 <input type="checkbox" defaultChecked /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
               </label>
@@ -682,7 +682,7 @@ export default function DesignSystem() {
               <span className="badge" style={{ background: 'var(--green-bg)', color: 'var(--green)' }}>Active</span>
               <span className="badge" style={{ background: 'var(--amber-bg)', color: 'var(--amber)' }}>Pending</span>
               <span className="badge" style={{ background: 'var(--red-bg)', color: 'var(--red)' }}>Action needed</span>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '10px 14px', borderRadius: 10, background: 'var(--info, var(--active-bg))', border: '1px solid var(--info-line, var(--line))', fontSize: 13 }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '10px 14px', borderRadius: 10, background: 'var(--info, var(--active-bg))', border: '1px solid var(--info-line, var(--line))', fontSize: 14 }}>
                 <AlertTriangle size={15} /> Your request was submitted and is pending review.
               </div>
             </>}
@@ -701,7 +701,7 @@ export default function DesignSystem() {
             demo={<div style={{ display: 'flex', gap: 6 }}>
               {['Dashboard', 'Portfolio', 'Transactions'].map((l, i) => (
                 <a key={l} href="#nav" onClick={(e) => e.preventDefault()} style={{
-                  padding: '10px 14px', borderRadius: 8, textDecoration: 'none', fontSize: 13, fontWeight: 600,
+                  padding: '10px 14px', borderRadius: 8, textDecoration: 'none', fontSize: 14, fontWeight: 600,
                   color: i === 0 ? 'var(--brand)' : 'var(--ink-soft)', background: i === 0 ? 'var(--active-bg)' : 'transparent',
                 }}>{l}</a>
               ))}
@@ -757,7 +757,7 @@ export default function DesignSystem() {
                 <b style={{ fontSize: 'var(--text-body-md-size)' }}>Confirm rollover request</b>
                 <X size={16} />
               </div>
-              <div style={{ padding: 16, fontSize: 13, color: 'var(--ink-soft)' }}>This will submit your rollover request for processing.</div>
+              <div style={{ padding: 16, fontSize: 14, color: 'var(--ink-soft)' }}>This will submit your rollover request for processing.</div>
               <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', padding: '12px 16px', borderTop: '1px solid var(--line)' }}>
                 <button type="button" className="btn btn-secondary">Cancel</button>
                 <button type="button" className="btn btn-primary">Confirm</button>

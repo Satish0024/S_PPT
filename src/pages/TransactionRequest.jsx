@@ -1134,7 +1134,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
       onSubmit={onSubmit}
       submitDisabled={!form.termsAccepted}
     >
-      <h4 style={{ margin: '0 0 8px', fontSize: 13.5, fontWeight: 800 }}>Withdrawal details</h4>
+      <h4 style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 800 }}>Withdrawal details</h4>
       <SummaryRow label="Withdrawal type" value={withdrawalType?.label || '—'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Withdraw" value={form.withdrawAs === 'periodic' ? 'As periodic payment' : 'As one time payment'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Withdraw entire balance" value={form.entireBalance === 'yes' ? 'Yes' : 'No'} onEdit={() => onEdit(0)} />
@@ -1143,7 +1143,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         <span>The processing time for your withdrawal is 10 days.</span>
       </div>
 
-      <h4 style={{ margin: '20px 0 8px', fontSize: 13.5, fontWeight: 800 }}>Withdrawal allocation</h4>
+      <h4 style={{ margin: '20px 0 8px', fontSize: 14, fontWeight: 800 }}>Withdrawal allocation</h4>
       <AllocationTable allocations={allocations} withdrawalTypeId={form.withdrawalType} onEdit={() => onEdit(1)} />
 
       {allocations.map((a) => {
