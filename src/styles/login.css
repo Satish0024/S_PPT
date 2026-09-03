@@ -2,7 +2,7 @@
   position:relative;min-height:100vh;display:grid;grid-template-columns:minmax(280px,.9fr) minmax(360px,1.1fr);
   background:var(--panel)}
 .login-brand{
-  position:relative;background:linear-gradient(160deg,#075985 0%,#0284c7 55%,#38bdf8 100%);
+  position:relative;background:linear-gradient(160deg,var(--brand-dark) 0%,var(--brand) 55%,#38bdf8 100%);
   color:#fff;overflow:hidden;display:flex;align-items:flex-end;padding:48px 44px}
 .login-waves{
   position:absolute;inset:0;opacity:.55;
