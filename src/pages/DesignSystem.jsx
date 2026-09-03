@@ -227,14 +227,32 @@ const RAMP_STEPS = [100, 200, 300, 400, 500, 600, 700, 800, 900]
 // the messy real range (odd numbers, .5px steps — genuinely how the app
 // ships today, grepped, not invented) is kept as a separate reference
 // column rather than blended into the same pill.
+// Sizes are designed for this app (anchored to its own real grepped
+// range below), not copied verbatim from Figma — several of Figma's
+// own line-heights are literally SMALLER than their font-size (e.g.
+// its "Body Large" is 18px text on a 16px line-height), which clips
+// lines and fails WCAG 1.4.8/1.4.12. Every line-height here is instead
+// >=1.2x for headings and >=1.5x for body/small text — the WCAG-
+// recommended minimums — so "proposed" always states both numbers and
+// the ratio, never a bare px size.
 const TYPE_SCALE = [
-  { role: 'Display', size: '44px', weight: 800, cls: null, real: ['.rr2-hero-copy b — readiness score figure'], proposed: '44px / 800' },
-  { role: 'H1 (page title)', size: '22–38px', weight: '700–800', cls: 'ds-type-h1 (proposed, 34px/800)', real: ['.login-brand-copy h1 · 36/700', '.hi-bar h1 · 26/700 (Dashboard)', '.page-head h1 · 22/700 (Portfolio)'], proposed: '34px / 800' },
-  { role: 'H2 (section heading)', size: '15–26px', weight: 700, cls: 'ds-type-h2 (proposed, 26px/800)', real: ['.login-card h2 · 26/700', '.section-title · 16/700 (Dashboard)', '.chart-top h2 · 16/700'], proposed: '26px / 800' },
-  { role: 'H3 (card title)', size: '15–20px', weight: 700, cls: 'ds-type-h3 (proposed, 20px/700)', real: ['.pc-name (PlanCard h3) · 15/700', '.summary .head h4 · 16/600'], proposed: '20px / 700' },
-  { role: 'Body', size: '13–15px', weight: '400–600', cls: 'ds-type-p2 (proposed, 16px/400)', real: ['table cells (.tx-table td) · 13.5/400', '.pr-intro · 14.5/500'], proposed: '16px / 400' },
-  { role: 'Label', size: '12–13.5px', weight: 600, cls: 'ds-type-p3 (proposed, 14px/600)', real: ['.ob-k · 13/600', 'form labels (.txn-field label) · 12.5/700'], proposed: '14px / 600' },
-  { role: 'Caption / micro', size: '9–12px', weight: 700, cls: 'ds-type-caption (proposed, 12px/700)', real: ['.pc-type · 12/600', '.plan-badge · 11/700', 'table headers (.tx-table th) · 12/700'], proposed: '12px / 700' },
+  { role: 'H1', size: '15–38px', weight: '700–800', cls: 'ds-type-h1', real: ['.login-brand-copy h1 · 36/700', '.hi-bar h1 · 26/700 (Dashboard)', '.page-head h1 · 22/700 (Portfolio)'], proposed: '32px / 40 lh (1.25x)' },
+  { role: 'H2', size: '15–26px', weight: 700, cls: 'ds-type-h2', real: ['.login-card h2 · 26/700', '.section-title · 16/700 (Dashboard)', '.chart-top h2 · 16/700'], proposed: '24px / 32 lh (1.33x)' },
+  { role: 'H3', size: '15–20px', weight: 700, cls: 'ds-type-h3', real: ['.pc-name (PlanCard h3) · 15/700', '.summary .head h4 · 16/600'], proposed: '20px / 28 lh (1.4x)' },
+  { role: 'H4', size: '16px', weight: 600, cls: 'ds-type-h4', real: ['.summary .head h4 · 16/600'], proposed: '18px / 24 lh (1.33x)' },
+  { role: 'H5', size: '15px', weight: 600, cls: 'ds-type-h5', real: ['.step .body h3 as a step title · 15/600'], proposed: '16px / 24 lh (1.5x)' },
+  { role: 'H6', size: '12–13px', weight: '600–700', cls: 'ds-type-h6', real: ['.pc-type · 12/600', 'form labels · 12.5/700'], proposed: '14px / 20 lh (1.43x)' },
+  { role: 'Display Sm', size: '44px', weight: 800, cls: null, real: ['.rr2-hero-copy b — readiness score figure'], proposed: '40px / 48 lh (1.2x, Regular–Bold)' },
+  { role: 'Page title', size: '22–38px', weight: '700–800', cls: null, real: ['.hi-bar h1 · 26/700 (Dashboard)'], proposed: '24px / 32 lh (1.33x)' },
+  { role: 'Heading', size: '15–20px', weight: 700, cls: null, real: ['.section-title · 16/700'], proposed: '20px / 28 lh (1.4x)' },
+  { role: 'Body Large', size: '15px', weight: '400–600', cls: null, real: ['.pr-intro · 14.5/500'], proposed: '16px / 24 lh (1.5x)' },
+  { role: 'Body Regular', size: '13–15px', weight: '400–600', cls: 'ds-type-p2', real: ['table cells (.tx-table td) · 13.5/400'], proposed: '14px / 21 lh (1.5x)' },
+  { role: 'Body Small', size: '12–13.5px', weight: 600, cls: 'ds-type-p3', real: ['.ob-k · 13/600'], proposed: '13px / 20 lh (1.54x)' },
+  { role: 'Body Extra Small', size: '9–12px', weight: 700, cls: 'ds-type-caption', real: ['.pc-type · 12/600', '.plan-badge · 11/700'], proposed: '12px / 18 lh (1.5x)' },
+  { role: 'Paragraph Small', size: '13.5–14.5px', weight: '400–600', cls: null, real: ['.pr-intro · 14.5/500'], proposed: '14px / 21 lh (1.5x)' },
+  { role: 'Paragraph Extra Small', size: '11–12px', weight: 700, cls: null, real: ['.plan-badge · 11/700'], proposed: '12px / 18 lh (1.5x)' },
+  { role: 'Description', size: '13.5–14.5px', weight: 400, cls: null, real: ['.pr-intro · 14.5/500'], proposed: '14px / 21 lh (1.5x)' },
+  { role: 'Title Description', size: '15–16px', weight: 600, cls: null, real: ['.login-card h2 sub'], proposed: '16px / 24 lh (1.5x)' },
   { role: 'Overline / eyebrow', size: '11–13px', weight: '700–800', cls: null, real: ['.eyebrow · 11–13px/600–800, uppercase (5 different page-scoped rules)', '.learn2-tag · 9.5/700, uppercase pill'], proposed: '12px / 800, uppercase, 2px tracking' },
   { role: 'Button label', size: '14–15px', weight: 700, cls: null, real: ['.btn · 14/700 (line 1116)', '.step .body h3 as a step title · 15/600'], proposed: '14px / 700' },
 ]
@@ -251,16 +269,31 @@ const TYPE_SCALE = [
 // running out or falling back to a default.
 const ACCOUNT_SUMMARY_COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#2e3192', '#d4a017']
 
+// Designed for this app: sizes anchored to the real grepped range,
+// every line-height >=1.2x (headings) or >=1.5x (body/small) — the
+// WCAG 1.4.8/1.4.12 minimums for readable, non-clipping text. Family
+// stays Inclusive Sans, this app's real font (not Figma's Open Sans/
+// IBM Plex Sans — no font swap has been requested).
 const TYPE_TOKENS = [
-  { name: 'Display', family: 'Inclusive Sans', size: '44px', weight: 800, lineHeight: '1 (.rr2-hero-copy b)', letterSpacing: '0px (proposed) · real -1px (.rr2-hero-copy b)', case: 'None' },
-  { name: 'H1 / Page title', family: 'Inclusive Sans', size: '34px (proposed) · real range 22–38px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px (proposed) · real -.4px (.hi-bar h1)', case: 'None' },
-  { name: 'H2 / Section heading', family: 'Inclusive Sans', size: '26px (proposed) · real range 15–26px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px (proposed) · real -.2px (.section-title)', case: 'None' },
-  { name: 'H3 / Card title', family: 'Inclusive Sans', size: '20px (proposed) · real range 15–20px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px (proposed) · real -.2px (.pc-name)', case: 'None' },
-  { name: 'Body', family: 'Inclusive Sans', size: '16px (proposed) · real range 13–15px', weight: 400, lineHeight: 'default (~1.4, not set)', letterSpacing: '0px', case: 'None' },
-  { name: 'Label', family: 'Inclusive Sans', size: '14px (proposed) · real range 12–13.5px', weight: 600, lineHeight: 'default (~1.3, not set)', letterSpacing: '0px', case: 'None' },
-  { name: 'Caption / micro', family: 'Inclusive Sans', size: '12px (proposed) · real range 9–12px', weight: 700, lineHeight: 'default (~1.3, not set)', letterSpacing: '0px', case: 'None' },
-  { name: 'Overline / eyebrow', family: 'Inclusive Sans', size: '12px (proposed) · real range 11–13px', weight: 800, lineHeight: 'default (~1.2, not set)', letterSpacing: '2px (proposed) · real .3–.8px (.eyebrow, varies by page)', case: 'UPPERCASE (real: text-transform)' },
-  { name: 'Button label', family: 'Inclusive Sans', size: '14px', weight: 700, lineHeight: 'default (~1.2, not set)', letterSpacing: '0px', case: 'None' },
+  { name: 'H1', family: 'Inclusive Sans', size: '32px', weight: '700–800', lineHeight: '40px (1.25x)', letterSpacing: '0px', case: 'None' },
+  { name: 'H2', family: 'Inclusive Sans', size: '24px', weight: '700–800', lineHeight: '32px (1.33x)', letterSpacing: '0px', case: 'None' },
+  { name: 'H3', family: 'Inclusive Sans', size: '20px', weight: 700, lineHeight: '28px (1.4x)', letterSpacing: '0px', case: 'None' },
+  { name: 'H4', family: 'Inclusive Sans', size: '18px', weight: 700, lineHeight: '24px (1.33x)', letterSpacing: '0px', case: 'None' },
+  { name: 'H5', family: 'Inclusive Sans', size: '16px', weight: 700, lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None' },
+  { name: 'H6', family: 'Inclusive Sans', size: '14px', weight: '700–800', lineHeight: '20px (1.43x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Display Sm', family: 'Inclusive Sans', size: '40px', weight: '400–700 (Regular–Bold)', lineHeight: '48px (1.2x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Page title', family: 'Inclusive Sans', size: '24px', weight: '500–700', lineHeight: '32px (1.33x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Heading', family: 'Inclusive Sans', size: '20px', weight: '500–700', lineHeight: '28px (1.4x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Body Large', family: 'Inclusive Sans', size: '16px', weight: '400–600', lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Body Regular', family: 'Inclusive Sans', size: '14px', weight: '400–600', lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Body Small', family: 'Inclusive Sans', size: '13px', weight: 600, lineHeight: '20px (1.54x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Body Extra Small', family: 'Inclusive Sans', size: '12px', weight: 700, lineHeight: '18px (1.5x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Paragraph Small', family: 'Inclusive Sans', size: '14px', weight: '400–600', lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Paragraph Extra Small', family: 'Inclusive Sans', size: '12px', weight: 700, lineHeight: '18px (1.5x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Description', family: 'Inclusive Sans', size: '14px', weight: 400, lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Title Description', family: 'Inclusive Sans', size: '16px', weight: 600, lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None' },
+  { name: 'Overline / eyebrow', family: 'Inclusive Sans', size: '12px (proposed) · real range 11–13px', weight: 800, lineHeight: '16px (1.33x)', letterSpacing: '2px (proposed) · real .3–.8px (.eyebrow, varies by page)', case: 'UPPERCASE (real: text-transform)' },
+  { name: 'Button label', family: 'Inclusive Sans', size: '14px', weight: 700, lineHeight: '20px (1.43x)', letterSpacing: '0px', case: 'None' },
 ]
 
 // Verified via grep against styles/index.css — gap: and padding: value
