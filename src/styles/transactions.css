@@ -29,7 +29,7 @@
   display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-5);padding:var(--space-4) var(--space-4);margin-bottom:var(--space-5);
   border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
 .req-plan-strip .btn{width:auto;flex:0 0 auto}
-.req-plan-strip .eyebrow{font-size:var(--text-caption-size);font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:var(--space-0-5)}
+.req-plan-strip .eyebrow{font-size:var(--text-eyebrow-size);font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:var(--space-0-5)}
 .req-plan-strip h2{margin:var(--space-0);font-size:var(--text-h5-size);font-weight:800;color:var(--ink)}
 .req-plan-strip .plan-meta{margin:var(--space-0-5) var(--space-0) var(--space-0);font-size:var(--text-caption-size);color:var(--ink-soft);font-weight:600}
 .req-plan-stats{display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-6);margin-left:auto}

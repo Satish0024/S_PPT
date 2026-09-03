@@ -85,7 +85,7 @@
   /* ---------- Main ---------- */
   .main{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--panel)}
   .detail-head{padding:var(--space-4) var(--space-8);border-bottom:1px solid var(--line);background:var(--panel);}
-  .detail-head .eyebrow{font-size:var(--text-body-sm-size);font-weight:600;color:var(--muted)}
+  .detail-head .eyebrow{font-size:var(--text-eyebrow-size);font-weight:600;color:var(--muted)}
   .detail-head h2{font-size:22px;font-weight:700;margin:var(--space-1-5) var(--space-0) var(--space-1-5);letter-spacing:-.3px}
   .plan-meta{display:flex;align-items:center;gap:var(--space-3);color:var(--ink-soft);font-size:var(--text-body-lg-size)}
   .plan-meta b{color:var(--ink)}
@@ -243,7 +243,7 @@
   /* Summary sidebar */
   .summary{position:sticky;top:calc(var(--header-h) + 16px);background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);overflow:hidden}
   .summary .head{background:var(--panel);color:var(--ink);padding:var(--space-4) var(--space-5);border-bottom:1px solid var(--line)}
-  .summary .head h4{font-size:var(--text-title-description-size);font-weight:600;margin-bottom:var(--space-0-5)}
+  .summary .head h4{font-size:var(--text-h3-size);font-weight:600;margin-bottom:var(--space-0-5)}
   .summary .head p{font-size:var(--text-body-sm-size);color:var(--ink-soft)}
   .summary .rows{padding:var(--space-2) var(--space-5)}
   .sumrow{display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) var(--space-0);border-bottom:1px solid var(--line)}
@@ -388,7 +388,7 @@
 
   .summary{position:sticky;top:calc(var(--header-h) + 16px);background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);overflow:hidden}
   .summary .head{background:var(--panel);color:var(--ink);padding:var(--space-4) var(--space-5);border-bottom:1px solid var(--line)}
-  .summary .head h4{font-size:var(--text-title-description-size);font-weight:600;margin-bottom:var(--space-0-5)}
+  .summary .head h4{font-size:var(--text-h3-size);font-weight:600;margin-bottom:var(--space-0-5)}
   .summary .head p{font-size:var(--text-body-sm-size);color:var(--ink-soft)}
   .summary .rows{padding:var(--space-2) var(--space-5)}
   .sumrow{display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) var(--space-0);border-bottom:1px solid var(--line)}

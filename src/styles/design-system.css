@@ -51,7 +51,7 @@
 .ds-hero{
   padding:var(--space-14) var(--space-2) var(--space-10);max-width:var(--ds-content-max);border-bottom:1px solid var(--line);margin-bottom:40px
 }
-.ds-hero .eyebrow{font-size:var(--text-caption-size);font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--brand)}
+.ds-hero .eyebrow{font-size:var(--text-eyebrow-size);font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--brand)}
 .ds-hero h1{font-size:38px;font-weight:800;letter-spacing:-.8px;margin:10px 0 14px}
 .ds-hero p{font-size:var(--text-body-lg-size);color:var(--ink-soft);line-height:1.6;max-width:680px}
 .ds-hero .ds-hero-stats{display:flex;gap:var(--space-7);margin-top:var(--space-6);flex-wrap:wrap}

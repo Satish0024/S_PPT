@@ -22,13 +22,13 @@
    to the same dark-surface SVG in dark mode), rendered at two different
    sizes, which read as the dark-mode logo being "bigger". Matched. */
 .login-brand-copy img{height:38px;margin-bottom:var(--space-7)}
-.login-brand-copy h1{font-size:36px;font-weight:700;letter-spacing:-.6px;line-height:1.15;margin:var(--space-0) var(--space-0) var(--space-3)}
+.login-brand-copy h1{font-size:var(--text-h1-size);font-weight:700;letter-spacing:-.6px;line-height:1.15;margin:var(--space-0) var(--space-0) var(--space-3)}
 .login-brand-copy p{font-size:var(--text-body-lg-size);line-height:1.55;opacity:.9;margin:var(--space-0);max-width:36ch}
 .login-panel{display:flex;align-items:center;justify-content:center;padding:var(--space-10) var(--space-7);background:var(--bg)}
 .login-card{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:20px;
   box-shadow:var(--shadow-lg);padding:var(--space-8) var(--space-8) var(--space-7)}
 .login-logo{height:38px;display:block;margin-bottom:var(--space-5)}
-.login-card h2{font-size:26px;font-weight:700;letter-spacing:-.4px;margin:var(--space-0) var(--space-0) var(--space-1-5)}
+.login-card h2{font-size:var(--text-h2-size);font-weight:700;letter-spacing:-.4px;margin:var(--space-0) var(--space-0) var(--space-1-5)}
 .login-lead{color:var(--ink-soft);font-size:var(--text-body-md-size);margin:var(--space-0) var(--space-0) var(--space-5)}
 .login-field{display:flex;flex-direction:column;gap:var(--space-1-5);font-size:var(--text-body-sm-size);font-weight:700;margin-bottom:14px}
 .login-input{display:flex;align-items:center;gap:var(--space-2);border:1px solid var(--line-strong);border-radius:12px;padding:var(--space-0) var(--space-3);
