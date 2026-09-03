@@ -28,7 +28,7 @@
   border-top:1px solid var(--line)}
 .as-plans button.on .as-plan-stats{border-top-color:var(--line)}
 .as-plan-stats span{
-  display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:3px}
+  display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:3px}
 .as-plan-stats b{
   display:block;font-size:14px;font-weight:800;color:var(--ink);
   font-variant-numeric:tabular-nums;letter-spacing:-.2px}
@@ -39,13 +39,13 @@
   display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;
   gap: var(--space-2) var(--space-4);margin: var(--space-0) var(--space-0) var(--space-4);padding: var(--space-0) var(--space-0) var(--space-3-5);border-bottom:1px solid var(--line)}
 .as-main-h h2{margin: var(--space-0);font-size:var(--text-h4-size);font-weight:800;letter-spacing:-.25px}
-.as-main-h p{margin: var(--space-1) var(--space-0) var(--space-0);font-size:13.5px;font-weight:600;color:var(--ink-soft)}
+.as-main-h p{margin: var(--space-1) var(--space-0) var(--space-0);font-size:14px;font-weight:600;color:var(--ink-soft)}
 
 .as-tabs{
   display:inline-flex;gap: var(--space-1);padding: var(--space-1);background:var(--surface-2);border-radius:12px;margin-bottom:18px}
 .as-tabs button{
   display:flex;align-items:center;gap: var(--space-2);border:none;background:transparent;
-  padding: var(--space-2) var(--space-3);border-radius:9px;font:inherit;font-size:13.5px;font-weight:700;
+  padding: var(--space-2) var(--space-3);border-radius:9px;font:inherit;font-size:14px;font-weight:700;
   color:var(--ink-soft);cursor:pointer}
 .as-tabs button:hover{color:var(--ink);background:var(--panel)}
 .as-tabs button.on{background:var(--active-bg);color:var(--brand)}
@@ -57,7 +57,7 @@
 .as-legend-wrap{display:flex;flex-direction:column;gap: var(--space-1-5);min-width:0;flex:1 1 260px;max-width:420px}
 .as-legend-head{
   display:flex;justify-content:space-between;gap: var(--space-2-5);padding: var(--space-0) var(--space-2-5);
-  font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)
+  font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)
 }
 .as-legend{list-style:none;margin: var(--space-0);padding: var(--space-0);display:flex;flex-direction:column;gap: var(--space-0-5);min-width:0}
 .as-legend button{
@@ -67,10 +67,10 @@
 .as-legend button:hover,.as-legend button.on{background:var(--surface-2)}
 .as-legend i{width:10px;height:10px;border-radius:3px;display:block}
 .as-leg-copy{min-width:0;display:flex;flex-direction:column;gap:1px}
-.as-leg-copy b{font-size:13.5px;font-weight:700;color:var(--ink)}
+.as-leg-copy b{font-size:14px;font-weight:700;color:var(--ink)}
 .as-leg-copy small{font-size:var(--text-paragraph-xs-size);font-weight:var(--font-weight-semibold);color:var(--muted)}
 .as-leg-amt{text-align:right;display:flex;flex-direction:column;gap:1px}
-.as-leg-amt b{font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink)}
+.as-leg-amt b{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink)}
 .as-leg-amt small{font-size:var(--text-paragraph-xs-size);font-weight:var(--font-weight-bold);color:var(--ink-soft)}
 
 .as-donut{position:relative;height:260px;width:260px;flex:0 0 260px}
@@ -79,18 +79,18 @@
   position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
   justify-content:center;pointer-events:none;padding: var(--space-6);text-align:center}
 .as-donut-center small{
-  font-size:11px;font-weight:700;color:var(--muted);max-width:140px;
+  font-size:12px;font-weight:700;color:var(--muted);max-width:140px;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .as-donut-center b{
   font-size:var(--text-h4-size);font-weight:800;letter-spacing:-.4px;margin: var(--space-1) var(--space-0) var(--space-0-5);
   font-variant-numeric:tabular-nums;color:var(--ink)}
-.as-donut-center em{font-style:normal;font-size:12.5px;font-weight:700;color:var(--ink-soft)}
+.as-donut-center em{font-style:normal;font-size:12px;font-weight:700;color:var(--ink-soft)}
 
 .as-table-wrap{
   border:1px solid var(--line);border-radius:12px;overflow:auto;background:var(--panel)}
-.as-table-wrap table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:480px}
+.as-table-wrap table{width:100%;border-collapse:collapse;font-size:14px;min-width:480px}
 .as-table-wrap th{
-  text-align:left;font-size:11.5px;font-weight:700;color:var(--ink-soft);
+  text-align:left;font-size:12px;font-weight:700;color:var(--ink-soft);
   background:var(--surface-2);padding: var(--space-2-5) var(--space-3);border-bottom:1px solid var(--line)}
 .as-table-wrap td{
   padding:11px 12px;border-bottom:1px solid var(--line);font-weight:600;color:var(--ink);
@@ -123,26 +123,26 @@
 .as-detail-grid{
   display:grid;grid-template-columns:repeat(3,minmax(120px,1fr));gap: var(--space-3-5);padding:14px 16px}
 .as-detail-grid div{display:flex;flex-direction:column;gap:3px}
-.as-detail-grid span{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-soft)}
-.as-detail-grid b{font-size:13.5px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.as-detail-grid span{font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-soft)}
+.as-detail-grid b{font-size:14px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
 .as-cat-badges{display:flex;flex-wrap:wrap;gap:5px}
 .as-cat-badge{
   display:inline-flex;align-items:center;border-radius:999px;padding:3px 10px;
-  font-size:11.5px;font-weight:800;width:fit-content}
+  font-size:12px;font-weight:800;width:fit-content}
 .as-cat-badge.is-stock{background:var(--active-bg);color:var(--brand)}
 .as-cat-badge.is-bond{background:var(--green-bg);color:var(--green)}
 .as-cat-badge.is-other{background:var(--surface-2);color:var(--ink-soft)}
 
 /* Asset class tab — each row expands to list the investments in that
    class, same accordion pattern as the Investments tab's detail grid. */
-.as-class-asof{margin: var(--space-0-5) var(--space-4) var(--space-2);font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+.as-class-asof{margin: var(--space-0-5) var(--space-4) var(--space-2);font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
 .as-class-members{list-style:none;margin: var(--space-0);padding: var(--space-1-5) var(--space-4) var(--space-2-5);display:flex;flex-direction:column;gap:2px}
 .as-class-members li{display:flex;align-items:center;gap: var(--space-2);padding: var(--space-2) var(--space-0);border-bottom:1px solid var(--line)}
 .as-class-members li:last-child{border-bottom:none}
-.as-class-member-name{display:flex;flex-direction:column;gap: var(--space-px);font-size:12.5px;font-weight:700;color:var(--ink)}
-.as-class-member-nav{font-size:11px;font-weight:600;color:var(--ink-soft)}
-.as-class-member-units{margin-left:auto;font-size:11.5px;color:var(--ink-soft)}
-.as-class-members li b{font-size:12.5px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.as-class-member-name{display:flex;flex-direction:column;gap: var(--space-px);font-size:12px;font-weight:700;color:var(--ink)}
+.as-class-member-nav{font-size:12px;font-weight:600;color:var(--ink-soft)}
+.as-class-member-units{margin-left:auto;font-size:12px;color:var(--ink-soft)}
+.as-class-members li b{font-size:12px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
 
 @media(max-width:640px){
   .as-detail-grid{grid-template-columns:repeat(2,1fr)}
@@ -151,7 +151,7 @@
 .as-empty{
   display:grid;place-items:center;min-height:220px;padding: var(--space-6);text-align:center;
   background:var(--surface-2);border-radius:12px}
-.as-empty p{margin: var(--space-0);font-size:14.5px;font-weight:600;color:var(--ink-soft)}
+.as-empty p{margin: var(--space-0);font-size:14px;font-weight:600;color:var(--ink-soft)}
 
 @media(max-width:980px){
   .as-shell{grid-template-columns:1fr}

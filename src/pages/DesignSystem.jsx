@@ -236,25 +236,25 @@ const RAMP_STEPS = [100, 200, 300, 400, 500, 600, 700, 800, 900]
 // recommended minimums — so "proposed" always states both numbers and
 // the ratio, never a bare px size.
 const TYPE_SCALE = [
-  { role: 'H1', size: '15–38px', weight: '700–800', cls: 'ds-type-h1', real: ['.login-brand-copy h1 · 36/700', '.hi-bar h1 · 26/700 (Dashboard)', '.page-head h1 · 22/700 (Portfolio)'], proposed: '32px / 40 lh (1.25x)' },
-  { role: 'H2', size: '15–26px', weight: 700, cls: 'ds-type-h2', real: ['.login-card h2 · 26/700', '.section-title · 16/700 (Dashboard)', '.chart-top h2 · 16/700'], proposed: '24px / 32 lh (1.33x)' },
-  { role: 'H3', size: '15–20px', weight: 700, cls: 'ds-type-h3', real: ['.pc-name (PlanCard h3) · 15/700', '.summary .head h4 · 16/600'], proposed: '20px / 28 lh (1.4x)' },
+  { role: 'H1', size: '22–36px', weight: '700–800', cls: 'ds-type-h1', real: ['.login-brand-copy h1 · 36/700', '.hi-bar h1 · 26/700 (Dashboard)', '.page-head h1 · 22/700 (Portfolio)'], proposed: '32px / 40 lh (1.25x)' },
+  { role: 'H2', size: '16–26px', weight: 700, cls: 'ds-type-h2', real: ['.login-card h2 · 26/700', '.section-title · 16/700 (Dashboard)', '.chart-top h2 · 16/700'], proposed: '24px / 32 lh (1.33x)' },
+  { role: 'H3', size: '16px', weight: '600–700', cls: 'ds-type-h3', real: ['.pc-name (PlanCard h3) · 16/700', '.summary .head h4 · 16/600'], proposed: '20px / 28 lh (1.4x)' },
   { role: 'H4', size: '16px', weight: 600, cls: 'ds-type-h4', real: ['.summary .head h4 · 16/600'], proposed: '18px / 24 lh (1.33x)' },
-  { role: 'H5', size: '15px', weight: 600, cls: 'ds-type-h5', real: ['.step .body h3 as a step title · 15/600'], proposed: '16px / 24 lh (1.5x)' },
-  { role: 'H6', size: '12–13px', weight: '600–700', cls: 'ds-type-h6', real: ['.pc-type · 12/600', 'form labels · 12.5/700'], proposed: '14px / 20 lh (1.43x)' },
+  { role: 'H5', size: '16px', weight: 600, cls: 'ds-type-h5', real: ['.step .body h3 as a step title · 16/600'], proposed: '16px / 24 lh (1.5x)' },
+  { role: 'H6', size: '12px', weight: '600–700', cls: 'ds-type-h6', real: ['.pc-type · 12/600', 'form labels · 12/700'], proposed: '14px / 20 lh (1.43x)' },
   { role: 'Display Sm', size: '44px', weight: 800, cls: null, real: ['.rr2-hero-copy b — readiness score figure'], proposed: '40px / 48 lh (1.2x, Regular–Bold)' },
-  { role: 'Page title', size: '22–38px', weight: '700–800', cls: null, real: ['.hi-bar h1 · 26/700 (Dashboard)'], proposed: '24px / 32 lh (1.33x)' },
-  { role: 'Heading', size: '15–20px', weight: 700, cls: null, real: ['.section-title · 16/700'], proposed: '20px / 28 lh (1.4x)' },
-  { role: 'Body Large', size: '15px', weight: '400–600', cls: null, real: ['.pr-intro · 14.5/500'], proposed: '16px / 24 lh (1.5x)' },
-  { role: 'Body Regular', size: '13–15px', weight: '400–600', cls: 'ds-type-p2', real: ['table cells (.tx-table td) · 13.5/400'], proposed: '14px / 21 lh (1.5x)' },
-  { role: 'Body Small', size: '12–13.5px', weight: 600, cls: 'ds-type-p3', real: ['.ob-k · 13/600'], proposed: '13px / 20 lh (1.54x)' },
-  { role: 'Body Extra Small', size: '9–12px', weight: 700, cls: 'ds-type-caption', real: ['.pc-type · 12/600', '.plan-badge · 11/700'], proposed: '12px / 18 lh (1.5x)' },
-  { role: 'Paragraph Small', size: '13.5–14.5px', weight: '400–600', cls: null, real: ['.pr-intro · 14.5/500'], proposed: '14px / 21 lh (1.5x)' },
-  { role: 'Paragraph Extra Small', size: '11–12px', weight: 700, cls: null, real: ['.plan-badge · 11/700'], proposed: '12px / 18 lh (1.5x)' },
-  { role: 'Description', size: '13.5–14.5px', weight: 400, cls: null, real: ['.pr-intro · 14.5/500'], proposed: '14px / 21 lh (1.5x)' },
+  { role: 'Page title', size: '26px', weight: '700–800', cls: null, real: ['.hi-bar h1 · 26/700 (Dashboard)'], proposed: '24px / 32 lh (1.33x)' },
+  { role: 'Heading', size: '16px', weight: 700, cls: null, real: ['.section-title · 16/700'], proposed: '20px / 28 lh (1.4x)' },
+  { role: 'Body Large', size: '14px', weight: '400–600', cls: null, real: ['.pr-intro · 14/500'], proposed: '16px / 24 lh (1.5x)' },
+  { role: 'Body Regular', size: '14px', weight: '400–600', cls: 'ds-type-p2', real: ['table cells (.tx-table td) · 14/400'], proposed: '14px / 21 lh (1.5x)' },
+  { role: 'Body Small', size: '14px', weight: 600, cls: 'ds-type-p3', real: ['.ob-k · 14/600'], proposed: '13px / 20 lh (1.54x)' },
+  { role: 'Body Extra Small', size: '12px', weight: 700, cls: 'ds-type-caption', real: ['.pc-type · 12/600', '.plan-badge · 12/700'], proposed: '12px / 18 lh (1.5x)' },
+  { role: 'Paragraph Small', size: '14px', weight: '400–600', cls: null, real: ['.pr-intro · 14/500'], proposed: '14px / 21 lh (1.5x)' },
+  { role: 'Paragraph Extra Small', size: '12px', weight: 700, cls: null, real: ['.plan-badge · 12/700'], proposed: '12px / 18 lh (1.5x)' },
+  { role: 'Description', size: '14px', weight: 400, cls: null, real: ['.pr-intro · 14/500'], proposed: '14px / 21 lh (1.5x)' },
   { role: 'Title Description', size: '15–16px', weight: 600, cls: null, real: ['.login-card h2 sub'], proposed: '16px / 24 lh (1.5x)' },
-  { role: 'Overline / eyebrow', size: '11–13px', weight: '700–800', cls: null, real: ['.eyebrow · 11–13px/600–800, uppercase (5 different page-scoped rules)', '.learn2-tag · 9.5/700, uppercase pill'], proposed: '12px / 800, uppercase, 2px tracking' },
-  { role: 'Button label', size: '14–15px', weight: 700, cls: null, real: ['.btn · 14/700 (line 1116)', '.step .body h3 as a step title · 15/600'], proposed: '14px / 700' },
+  { role: 'Overline / eyebrow', size: '10–14px', weight: '700–800', cls: null, real: ['.eyebrow · 12–14px/600–800, uppercase (5 different page-scoped rules)', '.learn2-tag · 10/700, uppercase pill'], proposed: '12px / 800, uppercase, 2px tracking' },
+  { role: 'Button label', size: '14–16px', weight: 700, cls: null, real: ['.btn · 14/700 (line 1116)', '.step .body h3 as a step title · 16/600'], proposed: '14px / 700' },
 ]
 
 // Full token spec, one row per role: name, family, size, weight, line
@@ -896,7 +896,7 @@ export default function DesignSystem() {
                             <tr key={name}>
                               <td><b>{name}</b></td>
                               <td colSpan={3} style={{ color: 'var(--muted)' }}>—</td>
-                              <td style={{ fontSize: 12.5 }}>{usage}</td>
+                              <td style={{ fontSize: 12 }}>{usage}</td>
                             </tr>
                           )
                         }
@@ -905,16 +905,16 @@ export default function DesignSystem() {
                         return (
                           <tr key={varName + name}>
                             <td><b>{name}</b></td>
-                            <td><code>{varName}</code>{opacity && <div style={{ fontSize: 10.5, color: 'var(--muted)' }}>@ {opacity * 100}% opacity</div>}</td>
+                            <td><code>{varName}</code>{opacity && <div style={{ fontSize: 10, color: 'var(--muted)' }}>@ {opacity * 100}% opacity</div>}</td>
                             <td>
                               <button type="button" className="ds-hex-cell" onClick={() => light && copyToClipboard(light)}><span className="ds-hex-dot" style={{ background: light, opacity: opacity || 1 }} />{light}</button>
-                              <div style={{ fontSize: 10.5, color: 'var(--muted)', marginLeft: 22 }}>rgb({hexToRgb(light)})</div>
+                              <div style={{ fontSize: 10, color: 'var(--muted)', marginLeft: 22 }}>rgb({hexToRgb(light)})</div>
                             </td>
                             <td>
                               <button type="button" className="ds-hex-cell" onClick={() => dark && copyToClipboard(dark)}><span className="ds-hex-dot" style={{ background: dark, opacity: opacity || 1 }} />{dark}</button>
-                              <div style={{ fontSize: 10.5, color: 'var(--muted)', marginLeft: 22 }}>rgb({hexToRgb(dark)})</div>
+                              <div style={{ fontSize: 10, color: 'var(--muted)', marginLeft: 22 }}>rgb({hexToRgb(dark)})</div>
                             </td>
-                            <td style={{ fontSize: 12.5 }}>{usage}</td>
+                            <td style={{ fontSize: 12 }}>{usage}</td>
                           </tr>
                         )
                       })}
@@ -933,7 +933,7 @@ export default function DesignSystem() {
             </p>
             {THEME_COLOR_RAMPS.map((r) => (
               <div key={r.prefix} style={{ marginBottom: 18 }}>
-                <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>{r.title}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>{r.title}</span>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 6 }}>
                   {RAMP_STEPS.map((step) => {
                     const varName = `${r.prefix}-${step}`
@@ -1018,8 +1018,8 @@ export default function DesignSystem() {
                     <tr key={t.role}>
                       <td><b>{t.role}</b></td>
                       <td><code>{t.proposed}</code></td>
-                      <td style={{ fontSize: 12.5 }}>{t.real.map((r, i) => <div key={i}><code>{r}</code></div>)}</td>
-                      <td style={{ fontSize: 12.5, color: 'var(--muted)' }}><code>{t.size}</code> / <code>{t.weight}</code></td>
+                      <td style={{ fontSize: 12 }}>{t.real.map((r, i) => <div key={i}><code>{r}</code></div>)}</td>
+                      <td style={{ fontSize: 12, color: 'var(--muted)' }}><code>{t.size}</code> / <code>{t.weight}</code></td>
                     </tr>
                   ))}
                 </tbody>
@@ -1040,12 +1040,12 @@ export default function DesignSystem() {
                   {TYPE_TOKENS.map((t) => (
                     <tr key={t.name}>
                       <td><b>{t.name}</b></td>
-                      <td style={{ fontSize: 12.5 }}>{t.family}</td>
-                      <td style={{ fontSize: 12.5 }}>{t.size}</td>
+                      <td style={{ fontSize: 12 }}>{t.family}</td>
+                      <td style={{ fontSize: 12 }}>{t.size}</td>
                       <td><code>{t.weight}</code></td>
-                      <td style={{ fontSize: 12.5 }}>{t.lineHeight}</td>
-                      <td style={{ fontSize: 12.5 }}>{t.letterSpacing}</td>
-                      <td style={{ fontSize: 12.5 }}>{t.case}</td>
+                      <td style={{ fontSize: 12 }}>{t.lineHeight}</td>
+                      <td style={{ fontSize: 12 }}>{t.letterSpacing}</td>
+                      <td style={{ fontSize: 12 }}>{t.case}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -1126,7 +1126,7 @@ export default function DesignSystem() {
             <p className="ds-lede">Every spacing value the app actually uses, organized by category — Margin, Padding, Gap, Component spacing, Section spacing, Layout spacing — each with its real pixel value and intended usage.</p>
             {SPACING_TOKENS.map((g) => (
               <div key={g.category}>
-                <h4 style={{ fontSize: 13, fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.4px', margin: '18px 0 8px' }}>{g.category}</h4>
+                <h4 style={{ fontSize: 14, fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.4px', margin: '18px 0 8px' }}>{g.category}</h4>
                 <div className="ds-card">
                   <table className="ds-type-table">
                     <thead><tr><th>Token name</th><th>Pixel value</th><th>Intended usage</th></tr></thead>
@@ -1134,8 +1134,8 @@ export default function DesignSystem() {
                       {g.tokens.map(([name, px, use]) => (
                         <tr key={name}>
                           <td><code>{name}</code></td>
-                          <td style={{ fontSize: 12.5 }}>{px}</td>
-                          <td style={{ fontSize: 12.5 }}>{use}</td>
+                          <td style={{ fontSize: 12 }}>{px}</td>
+                          <td style={{ fontSize: 12 }}>{use}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -1208,7 +1208,7 @@ export default function DesignSystem() {
                 <div style={{ padding: 16, borderRadius: 14, background: 'var(--panel)', border: '1px solid var(--line)', marginBottom: 16 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                     <Dot>2</Dot><Dot>3</Dot>
-                    <span style={{ fontSize: 13.5, fontWeight: 700 }}>Account nickname</span>
+                    <span style={{ fontSize: 14, fontWeight: 700 }}>Account nickname</span>
                   </div>
                   <input readOnly value="My 401(k)" style={{ marginTop: 8, minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--bg)', width: '100%' }} />
                 </div>
@@ -1244,14 +1244,14 @@ export default function DesignSystem() {
                 <tbody>
                   <tr>
                     <td><code>--shadow</code></td>
-                    <td><code style={{ fontSize: 11 }}>0 1px 2px rgba(var(--shadow-color),.06)</code></td>
-                    <td><code style={{ fontSize: 11 }}>0 1px 2px rgba(var(--shadow-color),.4)</code></td>
+                    <td><code style={{ fontSize: 12 }}>0 1px 2px rgba(var(--shadow-color),.06)</code></td>
+                    <td><code style={{ fontSize: 12 }}>0 1px 2px rgba(var(--shadow-color),.4)</code></td>
                     <td>Resting elevation — cards, panels</td>
                   </tr>
                   <tr>
                     <td><code>--shadow-lg</code></td>
-                    <td><code style={{ fontSize: 11 }}>0 8px 30px rgba(var(--shadow-color),.10)</code></td>
-                    <td><code style={{ fontSize: 11 }}>0 8px 30px rgba(var(--shadow-color),.55)</code></td>
+                    <td><code style={{ fontSize: 12 }}>0 8px 30px rgba(var(--shadow-color),.10)</code></td>
+                    <td><code style={{ fontSize: 12 }}>0 8px 30px rgba(var(--shadow-color),.55)</code></td>
                     <td>Raised elevation — dropdowns, dialogs, the user menu</td>
                   </tr>
                 </tbody>
@@ -1295,13 +1295,13 @@ export default function DesignSystem() {
                   <div style={{ padding: 20, borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <Dot>1</Dot>
-                      <b style={{ fontSize: 13.5 }}>Account balance</b>
+                      <b style={{ fontSize: 14 }}>Account balance</b>
                     </div>
                   </div>
                   <div style={{ position: 'absolute', top: '100%', left: 0, right: 40, marginTop: 8, padding: 12, borderRadius: 12, background: 'var(--panel)', border: '1px solid var(--line)', boxShadow: 'var(--shadow-lg)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <Dot>2</Dot>
-                      <b style={{ fontSize: 12.5 }}>Dropdown menu</b>
+                      <b style={{ fontSize: 12 }}>Dropdown menu</b>
                     </div>
                   </div>
                 </div>
@@ -1487,8 +1487,8 @@ export default function DesignSystem() {
               </VariantGroup>
               <VariantGroup tag="proposed" title="Additional styles">
                 <button type="button" className="btn btn-primary" style={{ background: 'var(--red)', borderColor: 'var(--red)' }}>Destructive</button>
-                <button type="button" className="btn btn-primary" style={{ padding: '7px 12px', fontSize: 12.5 }}>Small</button>
-                <button type="button" className="btn btn-primary" style={{ padding: '15px 22px', fontSize: 15.5 }}>Large</button>
+                <button type="button" className="btn btn-primary" style={{ padding: '7px 12px', fontSize: 12 }}>Small</button>
+                <button type="button" className="btn btn-primary" style={{ padding: '15px 22px', fontSize: 16 }}>Large</button>
                 <button type="button" className="btn btn-primary" disabled style={{ display: 'inline-flex', gap: 8, alignItems: 'center', opacity: .75 }}>
                   <span style={{ width: 13, height: 13, borderRadius: '50%', border: '2px solid rgba(255,255,255,.4)', borderTopColor: '#fff', display: 'inline-block' }} />
                   Loading…
@@ -1509,7 +1509,7 @@ export default function DesignSystem() {
 <button type="button" className="icon-btn" aria-label="Print"><Icon icon={faPrint} /></button>`}
             colors={[['Brand fill', '--brand-fill'], ['Brand dark (hover)', '--brand-dark'], ['Line', '--line']]}
             extra={
-              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '14px 20px', fontSize: 13, lineHeight: 1.6 }}>
+              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '14px 20px', fontSize: 14, lineHeight: 1.6 }}>
                 <b style={{ color: 'var(--green)' }}>Fixed — </b> these buttons used to render full-width on most
                 real pages by default. Root cause: <code>enrollment.css</code>'s <code>.summary .foot</code>{' '}
                 button block was written as a bare, unscoped <code>.btn{'{'}width:100%{'}'}</code> rule. Because
@@ -1535,7 +1535,7 @@ export default function DesignSystem() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 260, margin: '0 auto 20px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>1</Dot>
-                    <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname</label>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname</label>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>2</Dot>
@@ -1543,7 +1543,7 @@ export default function DesignSystem() {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>3</Dot>
-                    <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5, color: 'var(--red)', fontWeight: 600, margin: 0 }}>
+                    <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: 'var(--red)', fontWeight: 600, margin: 0 }}>
                       <Icon icon={faTriangleExclamation} size={14} /> Required
                     </p>
                   </div>
@@ -1567,24 +1567,24 @@ export default function DesignSystem() {
             demo={<>
               <VariantGroup tag="live" title="transactions.css .txn-field — every real input state">
                 <div style={{ display: 'grid', gap: 12, width: '100%', maxWidth: 340 }}>
-                  <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname
+                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname
                     <input
                       style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--ink)', background: 'var(--panel)' }}
                       placeholder="e.g. My 401(k)"
                     />
                   </label>
-                  <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Distribution plan type
+                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Distribution plan type
                     <select className="tx-plan-select" style={{ marginTop: 6, width: '100%' }}>
                       <option>401(k)</option><option>403(b)</option>
                     </select>
                   </label>
-                  <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Locked field (disabled)
+                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Locked field (disabled)
                     <input
                       disabled value="Direct deposit"
                       style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--surface-2)', color: 'var(--ink-soft)' }}
                     />
                   </label>
-                  <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5, color: 'var(--red)', fontWeight: 600 }}>
+                  <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: 'var(--red)', fontWeight: 600 }}>
                     <Icon icon={faTriangleExclamation} size={14} /> Target percentages must add up to 100%.
                   </p>
                 </div>
@@ -1613,13 +1613,13 @@ export default function DesignSystem() {
                 <p className="ds-lede" style={{ marginTop: 0 }}>The Transactions page's rebalance form — the real .txn-field layout this component is pulled from.</p>
                 <div className="ds-annotated-frame">
                   <div className="ds-annotated-row">
-                    <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)', flex: '1 1 200px' }}>Target amount
+                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)', flex: '1 1 200px' }}>Target amount
                       <input readOnly value="$5,000.00" style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)' }} />
                     </label>
                     <span className="ds-pin">.txn-field input</span>
                   </div>
                   <div className="ds-annotated-row">
-                    <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12.5, color: 'var(--red)', fontWeight: 600, margin: 0 }}>
+                    <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: 'var(--red)', fontWeight: 600, margin: 0 }}>
                       <Icon icon={faTriangleExclamation} size={14} /> Target percentages must add up to 100%.
                     </p>
                     <span className="ds-pin">role="alert" · --red</span>
@@ -1641,7 +1641,7 @@ export default function DesignSystem() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 24, justifyContent: 'center', marginBottom: 20 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>1</Dot>
-                    <span style={{ fontSize: 13.5 }}>High contrast mode</span>
+                    <span style={{ fontSize: 14 }}>High contrast mode</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>2</Dot>
@@ -1676,12 +1676,12 @@ export default function DesignSystem() {
             }
             demo={<>
               <VariantGroup tag="live" title="Checkbox &amp; radio — native inputs, every state used in the app">
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="checkbox" defaultChecked /> Email statements</label>
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="checkbox" /> Unchecked</label>
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5, opacity: .5 }}><input type="checkbox" disabled /> Paper statements (disabled)</label>
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="radio" name="ds-r" defaultChecked /> Direct deposit</label>
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5 }}><input type="radio" name="ds-r" /> Mailed check</label>
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13.5, opacity: .5 }}><input type="radio" name="ds-r" disabled /> Wire (disabled)</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}><input type="checkbox" defaultChecked /> Email statements</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}><input type="checkbox" /> Unchecked</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14, opacity: .5 }}><input type="checkbox" disabled /> Paper statements (disabled)</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}><input type="radio" name="ds-r" defaultChecked /> Direct deposit</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}><input type="radio" name="ds-r" /> Mailed check</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14, opacity: .5 }}><input type="radio" name="ds-r" disabled /> Wire (disabled)</label>
               </VariantGroup>
               <VariantGroup tag="live" title=".a11y-switch — on / off / disabled">
                 <label className="a11y-switch" style={{ display: 'inline-flex' }}>
@@ -1706,7 +1706,7 @@ export default function DesignSystem() {
                 <p className="ds-lede" style={{ marginTop: 0 }}>The accessibility menu's own switch row — where .a11y-switch actually ships today.</p>
                 <div className="ds-annotated-frame">
                   <div className="ds-annotated-row">
-                    <span style={{ fontSize: 13.5 }}>High contrast mode</span>
+                    <span style={{ fontSize: 14 }}>High contrast mode</span>
                     <label className="a11y-switch" style={{ display: 'inline-flex' }}>
                       <input type="checkbox" defaultChecked /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
                     </label>
@@ -1860,7 +1860,7 @@ export default function DesignSystem() {
                     </table>
                   </div>
                   <div className="ds-annotated-row">
-                    <span style={{ background: 'var(--surface-2)', padding: '4px 10px', borderRadius: 6, fontSize: 12.5 }}>Row 2</span>
+                    <span style={{ background: 'var(--surface-2)', padding: '4px 10px', borderRadius: 6, fontSize: 12 }}>Row 2</span>
                     <span className="ds-pin">tbody tr:nth-child(even) → --surface-2</span>
                   </div>
                 </div>
@@ -1996,7 +1996,7 @@ export default function DesignSystem() {
                 <div className="txn-success-modal" style={{ margin: '0 auto' }}>
                   <div className="confirm-dialog-ico" style={{ background: 'var(--green-bg)', color: 'var(--green)', margin: '0 auto 12px' }}><Icon icon={faCheck} size={20} /></div>
                   <h3>Request submitted</h3>
-                  <p className="hint" style={{ color: 'var(--ink-soft)', fontSize: 13.5 }}>You'll get a confirmation email shortly.</p>
+                  <p className="hint" style={{ color: 'var(--ink-soft)', fontSize: 14 }}>You'll get a confirmation email shortly.</p>
                   <button type="button" className="btn btn-primary" style={{ width: 'auto', marginTop: 12 }}>Done</button>
                 </div>
               </VariantGroup>
@@ -2464,8 +2464,8 @@ export default function DesignSystem() {
                       <button type="button" className="slideover-close" tabIndex={-1} aria-label="Close"><Icon icon={faXmark} size={14} /></button>
                     </div>
                     <div className="slideover-body">
-                      <p style={{ margin: '0 0 12px', fontSize: 13.5, color: 'var(--ink-soft)' }}>Estimate a loan against your vested balance.</p>
-                      <label style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>Loan amount
+                      <p style={{ margin: '0 0 12px', fontSize: 14, color: 'var(--ink-soft)' }}>Estimate a loan against your vested balance.</p>
+                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Loan amount
                         <input readOnly value="$10,000" style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)' }} />
                       </label>
                     </div>
@@ -2533,14 +2533,14 @@ export default function DesignSystem() {
                       <circle cx="50" cy="50" r="40" fill="none" stroke={ACCOUNT_SUMMARY_COLORS[4]} strokeWidth="14" strokeDasharray={`${0.08 * 2 * Math.PI * 40} ${2 * Math.PI * 40}`} strokeDashoffset={-0.92 * 2 * Math.PI * 40} transform="rotate(-90 50 50)" />
                     </svg>
                     <div className="as-donut-center" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                      <small style={{ fontSize: 11.5, color: 'var(--ink-soft)' }}>Account balance</small>
+                      <small style={{ fontSize: 12, color: 'var(--ink-soft)' }}>Account balance</small>
                       <b style={{ fontSize: 18 }}>$284,900</b>
-                      <em style={{ fontStyle: 'normal', fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>100.00%</em>
+                      <em style={{ fontStyle: 'normal', fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>100.00%</em>
                     </div>
                   </div>
                   <ul className="as-legend" style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
                     {['U.S. Equity', 'International Equity', 'U.S. Bond', 'International Bond', 'Target-Date'].map((label, i) => (
-                      <li key={label} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12.5 }}>
+                      <li key={label} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12 }}>
                         <i style={{ width: 10, height: 10, borderRadius: 3, background: ACCOUNT_SUMMARY_COLORS[i], display: 'block' }} />
                         {label}
                       </li>
@@ -2551,7 +2551,7 @@ export default function DesignSystem() {
               <VariantGroup tag="live" title="lib/accountSummary.js COLORS — the full 7-color cycle behind every .as-donut slice">
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
                   {ACCOUNT_SUMMARY_COLORS.map((c, i) => (
-                    <div key={c} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, fontSize: 10.5, color: 'var(--ink-soft)' }}>
+                    <div key={c} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, fontSize: 10, color: 'var(--ink-soft)' }}>
                       <div style={{ width: 32, height: 32, borderRadius: 8, background: c }} />
                       <code>{c}</code>
                     </div>
@@ -2593,10 +2593,10 @@ export default function DesignSystem() {
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
                 <div className="chart-panel" style={{ maxWidth: 460, margin: '0 auto', border: '1px solid var(--line)', borderRadius: 14, padding: 16, background: 'var(--panel)' }}>
                   <div className="chart-top" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 10 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Dot>1</Dot><h2 style={{ fontSize: 15, margin: 0 }}>Asset class performance</h2></div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Dot>1</Dot><h2 style={{ fontSize: 16, margin: 0 }}>Asset class performance</h2></div>
                     <div className="legend" style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                       <Dot>2</Dot>
-                      <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 11.5 }} className="on"><input type="checkbox" checked readOnly /><span className="legend-swatch" style={{ background: 'var(--red)' }} />Total</label>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12 }} className="on"><input type="checkbox" checked readOnly /><span className="legend-swatch" style={{ background: 'var(--red)' }} />Total</label>
                     </div>
                   </div>
                   <div className="period" role="tablist" aria-label="Chart period" style={{ display: 'inline-flex', marginBottom: 10 }}>
@@ -2624,11 +2624,11 @@ export default function DesignSystem() {
               <VariantGroup tag="live" title=".chart-panel — full panel, chart included">
                 <div className="chart-panel" style={{ width: '100%', border: '1px solid var(--line)', borderRadius: 14, padding: 16, background: 'var(--panel)' }}>
                   <div className="chart-top" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10, marginBottom: 10 }}>
-                    <h2 style={{ fontSize: 15, margin: 0 }}>Asset class performance</h2>
+                    <h2 style={{ fontSize: 16, margin: 0 }}>Asset class performance</h2>
                     <div className="legend" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                      <label className="on" style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" checked readOnly /><span className="legend-swatch" style={{ background: 'var(--red)' }} />Total portfolio</label>
-                      <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" readOnly /><span className="legend-swatch" style={{ background: 'var(--green)' }} />U.S. Equity</label>
-                      <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5 }}><input type="checkbox" readOnly /><span className="legend-swatch" style={{ background: 'var(--brand)' }} />U.S. Bond</label>
+                      <label className="on" style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12 }}><input type="checkbox" checked readOnly /><span className="legend-swatch" style={{ background: 'var(--red)' }} />Total portfolio</label>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12 }}><input type="checkbox" readOnly /><span className="legend-swatch" style={{ background: 'var(--green)' }} />U.S. Equity</label>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12 }}><input type="checkbox" readOnly /><span className="legend-swatch" style={{ background: 'var(--brand)' }} />U.S. Bond</label>
                     </div>
                   </div>
                   <div className="period" role="tablist" aria-label="Chart period" style={{ marginBottom: 12, display: 'inline-flex' }}>
@@ -3016,11 +3016,11 @@ export default function DesignSystem() {
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
                   <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>1</Dot>
-                    <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 13, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
+                    <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 14, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
                     <Dot>2</Dot>
                     <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
                     <Dot>3</Dot>
-                    <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
                   </nav>
                 </div>
                 <DotLegend items={['Link · 13px/700, --brand', 'Separator · 10px chevron, --muted', 'Current page · 13px/700, --ink-soft, aria-current="page"']} />
@@ -3030,11 +3030,11 @@ export default function DesignSystem() {
             demo={<>
               <VariantGroup tag="proposed" title="Not built anywhere — proposed, using real .text-link color">
                 <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 13, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Dashboard</a>
+                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 14, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Dashboard</a>
                   <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
-                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 13, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
+                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 14, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
                   <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
-                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
                 </nav>
               </VariantGroup>
             </>}
@@ -3070,7 +3070,7 @@ export default function DesignSystem() {
               <VariantGroup tag="proposed" title="Field styled like .txn-field input; calendar popover fully proposed">
                 <input readOnly value="09/02/2026" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)', width: 140 }} />
                 <div className="ds-card" style={{ width: 220, padding: 12 }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: 4, fontSize: 11, textAlign: 'center' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: 4, fontSize: 12, textAlign: 'center' }}>
                     {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => <span key={i} style={{ color: 'var(--muted)', fontWeight: 700 }}>{d}</span>)}
                     {Array.from({ length: 30 }, (_, i) => (
                       <span key={i} style={{ padding: '4px 0', borderRadius: 6, background: i === 1 ? 'var(--brand-fill)' : 'transparent', color: i === 1 ? '#fff' : 'var(--ink)' }}>{i + 1}</span>
@@ -3102,7 +3102,7 @@ export default function DesignSystem() {
                       <td><code>{sc}</code></td>
                       <td><b>{name}</b></td>
                       <td><code>{level}</code></td>
-                      <td style={{ fontSize: 12.5 }}>{req}{note && <><br /><span style={{ color: 'var(--ink-soft)' }}>{note}</span></>}</td>
+                      <td style={{ fontSize: 12 }}>{req}{note && <><br /><span style={{ color: 'var(--ink-soft)' }}>{note}</span></>}</td>
                       <td>
                         {status === 'verified' && <span style={{ color: 'var(--green)', fontWeight: 'var(--font-weight-bold)', fontSize: 'var(--text-paragraph-xs-size)' }}>Verified</span>}
                         {status === 'todo' && <span style={{ color: 'var(--amber)', fontWeight: 'var(--font-weight-bold)', fontSize: 'var(--text-paragraph-xs-size)' }}>Not yet audited</span>}

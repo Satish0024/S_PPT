@@ -22,7 +22,7 @@
    than growing taller and colliding with it. */
 .rqp-side-copy{
   position:relative;z-index:1;max-width:30ch;padding:clamp(28px,5vw,44px) clamp(24px,4vw,40px) 0}
-.rqp-side-tag{display:block;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.rqp-side-tag{display:block;font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
 .rqp-side-copy h1{font-size:clamp(19px,2.4vw,26px);font-weight:800;line-height:1.25;letter-spacing:-.3px;margin: var(--space-0) var(--space-0) var(--space-2-5);color:var(--brand-dark)}
 .rqp-side-copy p{font-size:clamp(12.5px,1.3vw,14px);line-height:1.55;color:var(--ink-soft);margin:0}
 
@@ -30,7 +30,7 @@
 .rqp-main-head{display:flex;align-items:center;gap: var(--space-4);margin-bottom:34px}
 .rqp-leave{
   display:inline-flex;align-items:center;gap: var(--space-1-5);border:none;background:none;color:var(--ink-soft);
-  font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;padding: var(--space-0);flex:0 0 auto}
+  font:inherit;font-size:14px;font-weight:700;cursor:pointer;padding: var(--space-0);flex:0 0 auto}
 .rqp-leave:hover{color:var(--ink)}
 .rqp-body{flex:1;display:flex;flex-direction:column;justify-content:center}
 .rqp-actions{margin-top:32px}
