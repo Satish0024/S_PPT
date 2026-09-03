@@ -235,32 +235,39 @@ const RAMP_STEPS = [100, 200, 300, 400, 500, 600, 700, 800, 900]
 // >=1.2x for headings and >=1.5x for body/small text — the WCAG-
 // recommended minimums — so "proposed" always states both numbers and
 // the ratio, never a bare px size.
-const TYPE_SCALE = [
-  { role: 'H1', size: '22–36px', weight: '700–800', cls: 'ds-type-h1', real: ['.login-brand-copy h1 · 36/700', '.hi-bar h1 · 26/700 (Dashboard)', '.page-head h1 · 22/700 (Portfolio)'], proposed: '32px / 40 lh (1.25x)' },
-  { role: 'H2', size: '16–26px', weight: 700, cls: 'ds-type-h2', real: ['.login-card h2 · 26/700', '.section-title · 16/700 (Dashboard)', '.chart-top h2 · 16/700'], proposed: '24px / 32 lh (1.33x)' },
-  { role: 'H3', size: '16px', weight: '600–700', cls: 'ds-type-h3', real: ['.pc-name (PlanCard h3) · 16/700', '.summary .head h4 · 16/600'], proposed: '20px / 28 lh (1.4x)' },
-  { role: 'H4', size: '16px', weight: 600, cls: 'ds-type-h4', real: ['.summary .head h4 · 16/600'], proposed: '18px / 24 lh (1.33x)' },
-  { role: 'H5', size: '16px', weight: 600, cls: 'ds-type-h5', real: ['.step .body h3 as a step title · 16/600'], proposed: '16px / 24 lh (1.5x)' },
-  { role: 'H6', size: '12px', weight: '600–700', cls: 'ds-type-h6', real: ['.pc-type · 12/600', 'form labels · 12/700'], proposed: '14px / 20 lh (1.43x)' },
-  { role: 'Display Sm', size: '44px', weight: 800, cls: null, real: ['.rr2-hero-copy b — readiness score figure'], proposed: '40px / 48 lh (1.2x, Regular–Bold)' },
-  { role: 'Page title', size: '26px', weight: '700–800', cls: null, real: ['.hi-bar h1 · 26/700 (Dashboard)'], proposed: '24px / 32 lh (1.33x)' },
-  { role: 'Heading', size: '16px', weight: 700, cls: null, real: ['.section-title · 16/700'], proposed: '20px / 28 lh (1.4x)' },
-  { role: 'Body Large', size: '14px', weight: '400–600', cls: null, real: ['.pr-intro · 14/500'], proposed: '16px / 24 lh (1.5x)' },
-  { role: 'Body Regular', size: '14px', weight: '400–600', cls: 'ds-type-p2', real: ['table cells (.tx-table td) · 14/400'], proposed: '14px / 21 lh (1.5x)' },
-  { role: 'Body Small', size: '14px', weight: 600, cls: 'ds-type-p3', real: ['.ob-k · 14/600'], proposed: '13px / 20 lh (1.54x)' },
-  { role: 'Body Extra Small', size: '12px', weight: 700, cls: 'ds-type-caption', real: ['.pc-type · 12/600', '.plan-badge · 12/700'], proposed: '12px / 18 lh (1.5x)' },
-  { role: 'Paragraph Small', size: '14px', weight: '400–600', cls: null, real: ['.pr-intro · 14/500'], proposed: '14px / 21 lh (1.5x)' },
-  { role: 'Paragraph Extra Small', size: '12px', weight: 700, cls: null, real: ['.plan-badge · 12/700'], proposed: '12px / 18 lh (1.5x)' },
-  { role: 'Description', size: '14px', weight: 400, cls: null, real: ['.pr-intro · 14/500'], proposed: '14px / 21 lh (1.5x)' },
-  { role: 'Title Description', size: '15–16px', weight: 600, cls: null, real: ['.login-card h2 sub'], proposed: '16px / 24 lh (1.5x)' },
-  { role: 'Overline / eyebrow', size: '10–14px', weight: '700–800', cls: null, real: ['.eyebrow · 12–14px/600–800, uppercase (5 different page-scoped rules)', '.learn2-tag · 10/700, uppercase pill'], proposed: '12px / 800, uppercase, 2px tracking' },
-  { role: 'Button label', size: '14–16px', weight: 700, cls: null, real: ['.btn · 14/700 (line 1116)', '.step .body h3 as a step title · 16/600'], proposed: '14px / 700' },
+// One typography-token table, not two. This used to be split across a
+// "Type scale" table (role/proposed size/real classes/real range) and a
+// separate "Full token spec" table (name/family/size/weight/line-height/
+// letter-spacing/case) — same 19 roles, described twice in two different
+// shapes, which read as two different specs even though they weren't.
+// Merged into the exact column set asked for (token name, font family,
+// font size, font weight, line height, letter spacing, text case), with
+// the real-classes-today audit trail folded in as a `real` array per row
+// instead of its own table — still verified against the actual app
+// source, just not a second confusing section to reconcile against this
+// one.
+const TYPE_TOKENS = [
+  { name: 'H1', cls: 'ds-type-h1', family: 'Inclusive Sans', size: '32px', weight: '700–800', lineHeight: '40px (1.25x)', letterSpacing: '0px', case: 'None', real: ['.login-brand-copy h1 · 36/700', '.hi-bar h1 · 26/700 (Dashboard)', '.page-head h1 · 22/700 (Portfolio)'] },
+  { name: 'H2', cls: 'ds-type-h2', family: 'Inclusive Sans', size: '24px', weight: '700–800', lineHeight: '32px (1.33x)', letterSpacing: '0px', case: 'None', real: ['.login-card h2 · 26/700', '.section-title · 16/700 (Dashboard)', '.chart-top h2 · 16/700'] },
+  { name: 'H3', cls: 'ds-type-h3', family: 'Inclusive Sans', size: '20px', weight: 700, lineHeight: '28px (1.4x)', letterSpacing: '0px', case: 'None', real: ['.pc-name (PlanCard h3) · 16/700', '.summary .head h4 · 16/600'] },
+  { name: 'H4', cls: 'ds-type-h4', family: 'Inclusive Sans', size: '18px', weight: 700, lineHeight: '24px (1.33x)', letterSpacing: '0px', case: 'None', real: ['.summary .head h4 · 16/600'] },
+  { name: 'H5', cls: 'ds-type-h5', family: 'Inclusive Sans', size: '16px', weight: 700, lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.step .body h3 as a step title · 16/600'] },
+  { name: 'H6', cls: 'ds-type-h6', family: 'Inclusive Sans', size: '14px', weight: '700–800', lineHeight: '20px (1.43x)', letterSpacing: '0px', case: 'None', real: ['.pc-type · 12/600', 'form labels · 12/700'] },
+  { name: 'Display Sm', cls: null, family: 'Inclusive Sans', size: '40px', weight: '400–700 (Regular–Bold)', lineHeight: '48px (1.2x)', letterSpacing: '0px', case: 'None', real: ['.rr2-hero-copy b — readiness score figure · 44/800'] },
+  { name: 'Page title', cls: null, family: 'Inclusive Sans', size: '24px', weight: '500–700', lineHeight: '32px (1.33x)', letterSpacing: '0px', case: 'None', real: ['.hi-bar h1 · 26/700 (Dashboard)'] },
+  { name: 'Heading', cls: null, family: 'Inclusive Sans', size: '20px', weight: '500–700', lineHeight: '28px (1.4x)', letterSpacing: '0px', case: 'None', real: ['.section-title · 16/700'] },
+  { name: 'Body Large', cls: null, family: 'Inclusive Sans', size: '16px', weight: '400–600', lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.pr-intro · 14/500'] },
+  { name: 'Body Regular', cls: 'ds-type-p2', family: 'Inclusive Sans', size: '14px', weight: '400–600', lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None', real: ['table cells (.tx-table td) · 14/400'] },
+  { name: 'Body Small', cls: 'ds-type-p3', family: 'Inclusive Sans', size: '13px', weight: 600, lineHeight: '20px (1.54x)', letterSpacing: '0px', case: 'None', real: ['.ob-k · 14/600'] },
+  { name: 'Body Extra Small', cls: 'ds-type-caption', family: 'Inclusive Sans', size: '12px', weight: 700, lineHeight: '18px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.pc-type · 12/600', '.plan-badge · 12/700'] },
+  { name: 'Paragraph Small', cls: null, family: 'Inclusive Sans', size: '14px', weight: '400–600', lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.pr-intro · 14/500'] },
+  { name: 'Paragraph Extra Small', cls: null, family: 'Inclusive Sans', size: '12px', weight: 700, lineHeight: '18px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.plan-badge · 12/700'] },
+  { name: 'Description', cls: null, family: 'Inclusive Sans', size: '14px', weight: 400, lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.pr-intro · 14/500'] },
+  { name: 'Title Description', cls: null, family: 'Inclusive Sans', size: '16px', weight: 600, lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.login-card h2 sub · 15–16/600'] },
+  { name: 'Overline / eyebrow', cls: null, family: 'Inclusive Sans', size: '12px', weight: 800, lineHeight: '16px (1.33x)', letterSpacing: '2px', case: 'UPPERCASE', real: ['.eyebrow · 12–14px/600–800, uppercase (5 different page-scoped rules, real tracking .3–.8px)', '.learn2-tag · 10/700, uppercase pill'] },
+  { name: 'Button label', cls: null, family: 'Inclusive Sans', size: '14px', weight: 700, lineHeight: '20px (1.43x)', letterSpacing: '0px', case: 'None', real: ['.btn · 14/700 (line 1116)', '.step .body h3 as a step title · 16/600'] },
 ]
 
-// Full token spec, one row per role: name, family, size, weight, line
-// height, letter spacing, text case. Every value is either read directly
-// off a real class (noted inline) or, where the app sets nothing
-// explicit, honestly marked "default" rather than inventing a number.
 // Verified: lib/accountSummary.js line 38 — the real 7-color palette
 // Chart.js reads for every .as-donut slice (asset classes, investment
 // holdings, or contribution sources — whichever tab is active). It's a
@@ -268,33 +275,6 @@ const TYPE_SCALE = [
 // investments is supported: past 7, colors repeat rather than the app
 // running out or falling back to a default.
 const ACCOUNT_SUMMARY_COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#2e3192', '#d4a017']
-
-// Designed for this app: sizes anchored to the real grepped range,
-// every line-height >=1.2x (headings) or >=1.5x (body/small) — the
-// WCAG 1.4.8/1.4.12 minimums for readable, non-clipping text. Family
-// stays Inclusive Sans, this app's real font (not Figma's Open Sans/
-// IBM Plex Sans — no font swap has been requested).
-const TYPE_TOKENS = [
-  { name: 'H1', family: 'Inclusive Sans', size: '32px', weight: '700–800', lineHeight: '40px (1.25x)', letterSpacing: '0px', case: 'None' },
-  { name: 'H2', family: 'Inclusive Sans', size: '24px', weight: '700–800', lineHeight: '32px (1.33x)', letterSpacing: '0px', case: 'None' },
-  { name: 'H3', family: 'Inclusive Sans', size: '20px', weight: 700, lineHeight: '28px (1.4x)', letterSpacing: '0px', case: 'None' },
-  { name: 'H4', family: 'Inclusive Sans', size: '18px', weight: 700, lineHeight: '24px (1.33x)', letterSpacing: '0px', case: 'None' },
-  { name: 'H5', family: 'Inclusive Sans', size: '16px', weight: 700, lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None' },
-  { name: 'H6', family: 'Inclusive Sans', size: '14px', weight: '700–800', lineHeight: '20px (1.43x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Display Sm', family: 'Inclusive Sans', size: '40px', weight: '400–700 (Regular–Bold)', lineHeight: '48px (1.2x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Page title', family: 'Inclusive Sans', size: '24px', weight: '500–700', lineHeight: '32px (1.33x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Heading', family: 'Inclusive Sans', size: '20px', weight: '500–700', lineHeight: '28px (1.4x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Body Large', family: 'Inclusive Sans', size: '16px', weight: '400–600', lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Body Regular', family: 'Inclusive Sans', size: '14px', weight: '400–600', lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Body Small', family: 'Inclusive Sans', size: '13px', weight: 600, lineHeight: '20px (1.54x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Body Extra Small', family: 'Inclusive Sans', size: '12px', weight: 700, lineHeight: '18px (1.5x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Paragraph Small', family: 'Inclusive Sans', size: '14px', weight: '400–600', lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Paragraph Extra Small', family: 'Inclusive Sans', size: '12px', weight: 700, lineHeight: '18px (1.5x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Description', family: 'Inclusive Sans', size: '14px', weight: 400, lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Title Description', family: 'Inclusive Sans', size: '16px', weight: 600, lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None' },
-  { name: 'Overline / eyebrow', family: 'Inclusive Sans', size: '12px (proposed) · real range 11–13px', weight: 800, lineHeight: '16px (1.33x)', letterSpacing: '2px (proposed) · real .3–.8px (.eyebrow, varies by page)', case: 'UPPERCASE (real: text-transform)' },
-  { name: 'Button label', family: 'Inclusive Sans', size: '14px', weight: 700, lineHeight: '20px (1.43x)', letterSpacing: '0px', case: 'None' },
-]
 
 // Verified via grep against styles/index.css — gap: and padding: value
 // frequency, cross-checked against the specific classes that use each one.
@@ -1005,35 +985,18 @@ export default function DesignSystem() {
 
             <h3 className="ds-sub">Type scale</h3>
             <p className="ds-lede">
-              One table, real range and proposed consolidation together. The app has no shared
-              type-scale utility — every page sizes its own text ad hoc — so each role below shows
-              the real classes actually shipping today at that role, plus the single size/weight
-              this design system proposes standardizing on going forward.
+              One table, one spec — token name, font family, size, weight, line height, letter
+              spacing, and text case for every role, plus what's actually shipping in the app
+              today underneath it. The app has no shared type-scale utility — every page sizes
+              its own text ad hoc — so "Real classes today" is the honest current state, and the
+              rest of the row is what this design system proposes standardizing on going forward.
             </p>
-            <div className="ds-card">
-              <table className="ds-type-table">
-                <thead><tr><th>Role</th><th>Proposed standard (even px, no decimals)</th><th>Real classes today</th><th>Real range</th></tr></thead>
-                <tbody>
-                  {TYPE_SCALE.map((t) => (
-                    <tr key={t.role}>
-                      <td><b>{t.role}</b></td>
-                      <td><code>{t.proposed}</code></td>
-                      <td style={{ fontSize: 12 }}>{t.real.map((r, i) => <div key={i}><code>{r}</code></div>)}</td>
-                      <td style={{ fontSize: 12, color: 'var(--muted)' }}><code>{t.size}</code> / <code>{t.weight}</code></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <h3 className="ds-sub">Full token spec</h3>
-            <p className="ds-lede">Every attribute a type token needs to be implemented from, in one row per role — font family, size, weight, line height, letter spacing, and text case.</p>
             <div className="ds-card">
               <table className="ds-type-table">
                 <thead>
                   <tr>
-                    <th>Token name</th><th>Font family</th><th>Font size</th><th>Weight</th>
-                    <th>Line height</th><th>Letter spacing</th><th>Text case</th>
+                    <th>Token name</th><th>Font family</th><th>Font size</th><th>Font weight</th>
+                    <th>Line height</th><th>Letter spacing</th><th>Text case</th><th>Real classes today</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1041,11 +1004,12 @@ export default function DesignSystem() {
                     <tr key={t.name}>
                       <td><b>{t.name}</b></td>
                       <td style={{ fontSize: 12 }}>{t.family}</td>
-                      <td style={{ fontSize: 12 }}>{t.size}</td>
+                      <td><code>{t.size}</code></td>
                       <td><code>{t.weight}</code></td>
                       <td style={{ fontSize: 12 }}>{t.lineHeight}</td>
                       <td style={{ fontSize: 12 }}>{t.letterSpacing}</td>
                       <td style={{ fontSize: 12 }}>{t.case}</td>
+                      <td style={{ fontSize: 12, color: 'var(--muted)' }}>{t.real.map((r, i) => <div key={i}><code>{r}</code></div>)}</td>
                     </tr>
                   ))}
                 </tbody>
