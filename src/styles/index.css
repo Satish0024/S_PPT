@@ -282,14 +282,18 @@
        hence the washed-out look. Now: flat white + crisp hairline +
        real elevation, with colour carried by the accents instead. */
     --rgs-base-1:#ffffff; --rgs-base-2:#ffffff; --rgs-base-3:#fdfdff;
-    --rgs-glow-primary: 46,49,146; --rgs-glow-secondary: 20,122,76;
+    /* Was a hardcoded RGB triplet (46,49,146 -- happened to equal this
+       branch's own indigo, coincidentally "right" but not derived). Now
+       a real color read via color-mix() further down. */
+    --rgs-glow-primary: var(--brand); --rgs-glow-secondary: var(--green);
     --rgs-border: rgba(22,28,58,.10); --rgs-glass: rgba(22,28,58,.028);
     --rgs-glass-border: rgba(22,28,58,.08);
     --rgs-ink: var(--ink); --rgs-ink-soft: var(--ink-soft); --rgs-muted: var(--muted);
     --rgs-success: var(--green); --rgs-warn: var(--amber); --rgs-danger: var(--red);
     --rgs-success-bg: var(--green-bg); --rgs-warn-bg: var(--amber-bg); --rgs-danger-bg: var(--red-bg);
     --rgs-track: rgba(22,28,58,.09);
-    --rgs-arc-1:#4a63c7; --rgs-arc-2:#2e3192;
+    /* Was #4a63c7/#2e3192 -- hardcoded hex instead of tokens. */
+    --rgs-arc-1: var(--accent); --rgs-arc-2: var(--brand);
     /* Corner tint + atmosphere strength. Light keeps only a whisper of
        tint and switches the dotted/wave layers off entirely. */
     --rgs-glow-a: .05; --rgs-glow-b: .035; --rgs-decor: 0;
@@ -300,21 +304,22 @@
     --rgs-cta-bg: var(--brand-fill); --rgs-cta-ink: #ffffff;
     --rgs-elevation: 0 1px 2px rgba(20,28,60,.05), 0 12px 28px -12px rgba(20,28,60,.18);
 
-    /* Financial Wellness — light: warm white, lavender only as accent.
-       The pattern fill is much lighter than before; the old .22 fill on
-       oversized shapes read as flat purple clip-art. */
+    /* Financial Wellness — was a fixed lavender identity (#5b45c9 etc.)
+       independent of --brand. Now every accent here is a color-mix()
+       tone of --brand. */
     --learn-surface-1:#ffffff; --learn-surface-2:#faf8ff;
     --learn-ink:#1d1a35; --learn-desc:#5f5a80;
-    --learn-accent:#5b45c9; --learn-accent-bg:rgba(91,69,201,.09);
-    --learn-pattern:rgba(110,86,214,.34); --learn-pattern-soft:rgba(110,86,214,.07);
+    --learn-accent: var(--brand); --learn-accent-bg: color-mix(in srgb, var(--brand) 9%, transparent);
+    --learn-pattern: color-mix(in srgb, var(--brand) 34%, transparent); --learn-pattern-soft: color-mix(in srgb, var(--brand) 7%, transparent);
     --learn-border:rgba(22,28,58,.10);
     --learn-elevation: 0 1px 2px rgba(20,28,60,.05), 0 12px 28px -12px rgba(60,40,150,.16);
 
-    /* Investment Style — light: warm white with mint only as accent. */
+    /* Investment Style — same fix: was a fixed mint/green identity
+       (#0a6656 etc.), unrelated to --brand. Now brand-derived. */
     --inv-surface-1:#ffffff; --inv-surface-2:#f6fcfa;
     --inv-ink:#14312b; --inv-desc:#3d564f;
-    --inv-accent:#0a6656; --inv-accent-bg:rgba(10,102,86,.10);
-    --inv-pattern:rgba(15,127,108,.26); --inv-node:#0f7f6c;
+    --inv-accent: var(--brand); --inv-accent-bg: color-mix(in srgb, var(--brand) 10%, transparent);
+    --inv-pattern: color-mix(in srgb, var(--brand) 26%, transparent); --inv-node: var(--brand-dark);
     --inv-border:rgba(22,28,58,.10);
     --inv-elevation: 0 1px 2px rgba(20,28,60,.05), 0 12px 28px -12px rgba(10,80,68,.18);
   }
@@ -325,34 +330,36 @@
 
     /* Retirement — dark: deep navy-charcoal glass. */
     --rgs-base-1:#171b36; --rgs-base-2:#11142c; --rgs-base-3:#0b0e21;
-    --rgs-glow-primary: 99,124,255; --rgs-glow-secondary: 64,214,196;
+    --rgs-glow-primary: var(--brand); --rgs-glow-secondary: var(--green);
     --rgs-border: rgba(255,255,255,.11); --rgs-glass: rgba(255,255,255,.055);
     --rgs-glass-border: rgba(255,255,255,.11);
     --rgs-ink:#f3f4fc; --rgs-ink-soft:rgba(214,217,242,.78); --rgs-muted:rgba(197,205,255,.68);
     --rgs-success:#7be6c8; --rgs-warn:#f0c876; --rgs-danger:#ff9d90;
     --rgs-success-bg:rgba(123,230,200,.16); --rgs-warn-bg:rgba(232,197,122,.16); --rgs-danger-bg:rgba(255,157,144,.16);
     --rgs-track: rgba(255,255,255,.10);
-    --rgs-arc-1:#8fa0ff; --rgs-arc-2:#6f86ff;
+    --rgs-arc-1: var(--accent); --rgs-arc-2: var(--brand);
     --rgs-glow-a: .34; --rgs-glow-b: .16; --rgs-decor: .5;
     /* Same fix as light mode — was a plain white pill instead of the
        brand color. */
     --rgs-cta-bg: var(--brand-fill); --rgs-cta-ink: #ffffff;
     --rgs-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.6);
 
-    /* Financial Wellness — dark: charcoal with a faint lavender cast. */
+    /* Financial Wellness — dark. Was a fixed lavender (#b0a0ff etc.),
+       same bug as light mode -- now brand-derived here too. */
     --learn-surface-1:#1c1e30; --learn-surface-2:#211f38;
     --learn-ink:#eeeaff; --learn-desc:#b7b2d8;
-    --learn-accent:#b0a0ff; --learn-accent-bg:rgba(176,160,255,.14);
-    --learn-pattern:rgba(176,160,255,.38); --learn-pattern-soft:rgba(176,160,255,.08);
-    --learn-border:rgba(176,160,255,.15);
+    --learn-accent: var(--brand); --learn-accent-bg: color-mix(in srgb, var(--brand) 14%, transparent);
+    --learn-pattern: color-mix(in srgb, var(--brand) 38%, transparent); --learn-pattern-soft: color-mix(in srgb, var(--brand) 8%, transparent);
+    --learn-border: color-mix(in srgb, var(--brand) 15%, transparent);
     --learn-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.55);
 
-    /* Investment Style — dark: graphite with mint/teal contour lines. */
+    /* Investment Style — dark. Was a fixed mint/teal (#5fe3c4 etc.),
+       now brand-derived here too. */
     --inv-surface-1:#161c1e; --inv-surface-2:#131a1c;
     --inv-ink:#e7f5f1; --inv-desc:#9fb8b2;
-    --inv-accent:#5fe3c4; --inv-accent-bg:rgba(95,227,196,.13);
-    --inv-pattern:rgba(95,227,196,.24); --inv-node:#5fe3c4;
-    --inv-border:rgba(95,227,196,.15);
+    --inv-accent: var(--brand); --inv-accent-bg: color-mix(in srgb, var(--brand) 13%, transparent);
+    --inv-pattern: color-mix(in srgb, var(--brand) 24%, transparent); --inv-node: var(--brand);
+    --inv-border: color-mix(in srgb, var(--brand) 15%, transparent);
     --inv-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.55);
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -2173,8 +2180,8 @@ summary:focus-visible {
   border-radius: var(--widget-radius);
   color: var(--rgs-ink);
   background:
-    radial-gradient(120% 100% at 100% 0%, rgba(var(--rgs-glow-primary), var(--rgs-glow-a)), transparent 62%),
-    radial-gradient(90% 80% at 0% 100%, rgba(var(--rgs-glow-secondary), var(--rgs-glow-b)), transparent 68%),
+    radial-gradient(120% 100% at 100% 0%, color-mix(in srgb, var(--rgs-glow-primary) calc(var(--rgs-glow-a) * 100%), transparent), transparent 62%),
+    radial-gradient(90% 80% at 0% 100%, color-mix(in srgb, var(--rgs-glow-secondary) calc(var(--rgs-glow-b) * 100%), transparent), transparent 68%),
     linear-gradient(168deg, var(--rgs-base-1) 0%, var(--rgs-base-2) 58%, var(--rgs-base-3) 100%);
   border: 1px solid var(--rgs-border);
   box-shadow: var(--rgs-elevation);
@@ -2201,8 +2208,10 @@ summary:focus-visible {
 
 /* Header banner — a full-bleed colour strip above the card body, holding
    the widget's name/description and the supplied beach/sunset
-   illustration. Fixed brand-blue in both themes, matching the reference:
-   this is a distinct section, not the card's own themed surface. */
+   illustration. Same brand tone in both themes (a distinct section, not
+   the card's own themed surface) -- was two hardcoded literal blues
+   (#2f7fd6/#4aa3e8), off-brand on any tenant that isn't blue. Now
+   derived from --brand via color-mix(). */
 .rgs-banner {
   position: relative;
   overflow: hidden;
@@ -2211,7 +2220,7 @@ summary:focus-visible {
   gap: 12px;
   padding: 18px 20px 20px;
   min-height: 92px;
-  background: linear-gradient(115deg, #2f7fd6 0%, #4aa3e8 100%);
+  background: linear-gradient(115deg, var(--brand) 0%, color-mix(in srgb, var(--brand) 65%, white) 100%);
   border-radius: var(--widget-radius) var(--widget-radius) 0 0;
 }
 .rgs-banner-copy { position: relative; z-index: 1; min-width: 0; flex: 1; max-width: 66%; }
