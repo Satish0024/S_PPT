@@ -78,6 +78,138 @@
     --red-line:#f5c6c0;
     --scene-sky:#dbe6ff;
     --scene-ground:#eef1ff;
+
+    /* ============================================================
+       Figma-shaped primitive -> semantic layer (matches the Components
+       UI Kit's get_variable_defs output group-for-group: Theme Colors
+       ramps, then Brand/Neutral/Semantics reading from them) but built
+       from THIS app's real colors, not swapped to the Figma file's own
+       palette -- that's a brand decision, not a formatting one. Every
+       ramp step below is color-mix()-derived from the one real base
+       color (--brand/--green/--red/--amber/--theme-colors-teal-600),
+       so the whole thing moves if the base ever changes. */
+    --theme-colors-blue-100: color-mix(in srgb, var(--brand) 10%, white);
+    --theme-colors-blue-200: color-mix(in srgb, var(--brand) 30%, white);
+    --theme-colors-blue-300: color-mix(in srgb, var(--brand) 50%, white);
+    --theme-colors-blue-400: color-mix(in srgb, var(--brand) 75%, white);
+    --theme-colors-blue-500: var(--brand);
+    --theme-colors-blue-600: color-mix(in srgb, var(--brand) 85%, black);
+    --theme-colors-blue-700: color-mix(in srgb, var(--brand) 70%, black);
+    --theme-colors-blue-800: color-mix(in srgb, var(--brand) 50%, black);
+    --theme-colors-blue-900: color-mix(in srgb, var(--brand) 25%, black);
+
+    --theme-colors-green-100: color-mix(in srgb, var(--green) 12%, white);
+    --theme-colors-green-200: color-mix(in srgb, var(--green) 32%, white);
+    --theme-colors-green-300: color-mix(in srgb, var(--green) 52%, white);
+    --theme-colors-green-400: color-mix(in srgb, var(--green) 76%, white);
+    --theme-colors-green-500: var(--green);
+    --theme-colors-green-600: color-mix(in srgb, var(--green) 85%, black);
+    --theme-colors-green-700: color-mix(in srgb, var(--green) 70%, black);
+    --theme-colors-green-800: color-mix(in srgb, var(--green) 50%, black);
+    --theme-colors-green-900: color-mix(in srgb, var(--green) 25%, black);
+
+    --theme-colors-red-100: color-mix(in srgb, var(--red) 12%, white);
+    --theme-colors-red-200: color-mix(in srgb, var(--red) 32%, white);
+    --theme-colors-red-300: color-mix(in srgb, var(--red) 52%, white);
+    --theme-colors-red-400: color-mix(in srgb, var(--red) 76%, white);
+    --theme-colors-red-500: var(--red);
+    --theme-colors-red-600: color-mix(in srgb, var(--red) 85%, black);
+    --theme-colors-red-700: color-mix(in srgb, var(--red) 70%, black);
+    --theme-colors-red-800: color-mix(in srgb, var(--red) 50%, black);
+    --theme-colors-red-900: color-mix(in srgb, var(--red) 25%, black);
+
+    --theme-colors-yellow-100: color-mix(in srgb, var(--amber) 12%, white);
+    --theme-colors-yellow-200: color-mix(in srgb, var(--amber) 32%, white);
+    --theme-colors-yellow-300: color-mix(in srgb, var(--amber) 52%, white);
+    --theme-colors-yellow-400: color-mix(in srgb, var(--amber) 76%, white);
+    --theme-colors-yellow-500: var(--amber);
+    --theme-colors-yellow-600: color-mix(in srgb, var(--amber) 85%, black);
+    --theme-colors-yellow-700: color-mix(in srgb, var(--amber) 70%, black);
+    --theme-colors-yellow-800: color-mix(in srgb, var(--amber) 50%, black);
+    --theme-colors-yellow-900: color-mix(in srgb, var(--amber) 25%, black);
+
+    --theme-colors-teal-600: #0e7490;
+    --theme-colors-teal-100: color-mix(in srgb, var(--theme-colors-teal-600) 12%, white);
+    --theme-colors-teal-200: color-mix(in srgb, var(--theme-colors-teal-600) 32%, white);
+    --theme-colors-teal-300: color-mix(in srgb, var(--theme-colors-teal-600) 52%, white);
+    --theme-colors-teal-400: color-mix(in srgb, var(--theme-colors-teal-600) 76%, white);
+    --theme-colors-teal-500: color-mix(in srgb, var(--theme-colors-teal-600) 88%, white);
+    --theme-colors-teal-700: color-mix(in srgb, var(--theme-colors-teal-600) 82%, black);
+    --theme-colors-teal-800: color-mix(in srgb, var(--theme-colors-teal-600) 58%, black);
+    --theme-colors-teal-900: color-mix(in srgb, var(--theme-colors-teal-600) 30%, black);
+
+    --theme-colors-grey-black: #0a0a0a; --theme-colors-grey-100: #969696;
+    --theme-colors-grey-200: #707070; --theme-colors-grey-300: #575757;
+    --theme-colors-grey-400: #3d3d3d; --theme-colors-grey-50: #cccccc;
+    --theme-colors-grey-500: #292929; --theme-colors-grey-600: #242424;
+    --theme-colors-grey-700: #1f1f1f; --theme-colors-grey-800: #1a1a1a;
+    --theme-colors-grey-900: #121212;
+    --theme-colors-lightgrey-white: #ffffff; --theme-colors-lightgrey-50: #f5f5f5;
+    --theme-colors-lightgrey-100: #ededed; --theme-colors-lightgrey-200: #e6e6e6;
+    --theme-colors-lightgrey-300: #e0e0e0; --theme-colors-lightgrey-400: #d9d9d9;
+    --theme-colors-lightgrey-500: #cfcfcf; --theme-colors-lightgrey-600: #c4c4c4;
+    --theme-colors-lightgrey-700: #b8b8b8; --theme-colors-lightgrey-800: #b0b0b0;
+    --theme-colors-lightgrey-900: #a8a8a8;
+
+    /* Brand / Borders */
+    --brand-border-hover: var(--theme-colors-blue-700);
+    --brand-border-primary-default: var(--theme-colors-blue-500);
+    --brand-border-primary-disabled: var(--theme-colors-blue-300);
+    /* Brand / Text */
+    --brand-text-primary-active: var(--theme-colors-blue-700);
+    --brand-text-default: var(--theme-colors-blue-500);
+    --brand-text-primary-disabled: var(--theme-colors-blue-300);
+    --brand-text-primary-oncolor: #ffffff;
+    --brand-text-primary-hover: var(--theme-colors-blue-700);
+    /* Brand / background */
+    --brand-bg-active: var(--theme-colors-blue-700);
+    --brand-bg-disabled-light: var(--theme-colors-blue-100);
+    --brand-bg-disabled-strong: var(--theme-colors-blue-300);
+    --brand-bg-hover: var(--theme-colors-blue-700);
+    --brand-bg-primary-light: var(--theme-colors-blue-100);
+    --brand-bg-primary-subtle: #ffffff;
+    --brand-bg-strong: var(--theme-colors-blue-500);
+
+    /* Neutral / Surfaces */
+    --neutral-surface-background: var(--bg);
+    --neutral-surface-constant-background: #ffffff;
+    --neutral-surface-high-contrast: var(--theme-colors-grey-800);
+    --neutral-surface-layer-01: var(--panel);
+    --neutral-surface-layer-02: var(--theme-colors-lightgrey-50);
+    --neutral-surface-layer-03: var(--theme-colors-lightgrey-200);
+    --neutral-surface-layer-04: var(--theme-colors-lightgrey-300);
+    --neutral-surface-layer-05: var(--theme-colors-lightgrey-400);
+    /* Neutral / Text */
+    --neutral-text-subtle: var(--ink-soft);
+    --neutral-text-subtleleast: var(--muted);
+    --neutral-text-text: var(--ink);
+    --neutral-text-oncolor: #ffffff;
+    /* Neutral / border */
+    --neutral-border-light: var(--theme-colors-lightgrey-400);
+    --neutral-border-strong: var(--theme-colors-lightgrey-700);
+    --neutral-border-subtle: var(--theme-colors-lightgrey-300);
+    --neutral-border-inverse: #ffffff;
+
+    /* Semantics */
+    --semantics-critical-border: var(--theme-colors-red-600);
+    --semantics-critical-light-bg: var(--theme-colors-red-100);
+    --semantics-critical-strong-bg: var(--theme-colors-red-500);
+    --semantics-critical-text: var(--theme-colors-red-600);
+    --semantics-disabled-bg: var(--theme-colors-lightgrey-50);
+    --semantics-disabled-border: var(--theme-colors-lightgrey-700);
+    --semantics-disabled-text: var(--theme-colors-lightgrey-900);
+    --semantics-highlight-border: var(--theme-colors-teal-600);
+    --semantics-highlight-light-bg: var(--theme-colors-teal-100);
+    --semantics-highlight-strong-bg: var(--theme-colors-teal-500);
+    --semantics-highlight-text: var(--theme-colors-teal-500);
+    --semantics-success-border: var(--theme-colors-green-600);
+    --semantics-success-light-bg: var(--theme-colors-green-100);
+    --semantics-success-strong-bg: var(--theme-colors-green-500);
+    --semantics-success-text: var(--theme-colors-green-600);
+    --semantics-warning-border: var(--theme-colors-yellow-600);
+    --semantics-warning-light-bg: var(--theme-colors-yellow-100);
+    --semantics-warning-strong-bg: var(--theme-colors-yellow-600);
+    --semantics-warning-text: var(--theme-colors-yellow-600);
   }
 
   /* Dark theme. Only the tokens change — every rule above and below reads
@@ -117,6 +249,125 @@
     --scene-sky:#232a45;
     --scene-ground:#1e2338;
     color-scheme:dark;
+
+    /* Same Figma-shaped layer, dark-mode values -- every ramp/semantic
+       token reads through this theme's own --brand/--green/--red/
+       --amber/--bg/--panel/--ink, same derivation as light mode. */
+    --theme-colors-blue-100: color-mix(in srgb, var(--brand) 15%, black);
+    --theme-colors-blue-200: color-mix(in srgb, var(--brand) 35%, black);
+    --theme-colors-blue-300: color-mix(in srgb, var(--brand) 55%, black);
+    --theme-colors-blue-400: color-mix(in srgb, var(--brand) 80%, black);
+    --theme-colors-blue-500: var(--brand);
+    --theme-colors-blue-600: color-mix(in srgb, var(--brand) 85%, white);
+    --theme-colors-blue-700: color-mix(in srgb, var(--brand) 70%, white);
+    --theme-colors-blue-800: color-mix(in srgb, var(--brand) 50%, white);
+    --theme-colors-blue-900: color-mix(in srgb, var(--brand) 25%, white);
+
+    --theme-colors-green-100: color-mix(in srgb, var(--green) 15%, black);
+    --theme-colors-green-200: color-mix(in srgb, var(--green) 35%, black);
+    --theme-colors-green-300: color-mix(in srgb, var(--green) 55%, black);
+    --theme-colors-green-400: color-mix(in srgb, var(--green) 80%, black);
+    --theme-colors-green-500: var(--green);
+    --theme-colors-green-600: color-mix(in srgb, var(--green) 85%, white);
+    --theme-colors-green-700: color-mix(in srgb, var(--green) 70%, white);
+    --theme-colors-green-800: color-mix(in srgb, var(--green) 50%, white);
+    --theme-colors-green-900: color-mix(in srgb, var(--green) 25%, white);
+
+    --theme-colors-red-100: color-mix(in srgb, var(--red) 15%, black);
+    --theme-colors-red-200: color-mix(in srgb, var(--red) 35%, black);
+    --theme-colors-red-300: color-mix(in srgb, var(--red) 55%, black);
+    --theme-colors-red-400: color-mix(in srgb, var(--red) 80%, black);
+    --theme-colors-red-500: var(--red);
+    --theme-colors-red-600: color-mix(in srgb, var(--red) 85%, white);
+    --theme-colors-red-700: color-mix(in srgb, var(--red) 70%, white);
+    --theme-colors-red-800: color-mix(in srgb, var(--red) 50%, white);
+    --theme-colors-red-900: color-mix(in srgb, var(--red) 25%, white);
+
+    --theme-colors-yellow-100: color-mix(in srgb, var(--amber) 15%, black);
+    --theme-colors-yellow-200: color-mix(in srgb, var(--amber) 35%, black);
+    --theme-colors-yellow-300: color-mix(in srgb, var(--amber) 55%, black);
+    --theme-colors-yellow-400: color-mix(in srgb, var(--amber) 80%, black);
+    --theme-colors-yellow-500: var(--amber);
+    --theme-colors-yellow-600: color-mix(in srgb, var(--amber) 85%, white);
+    --theme-colors-yellow-700: color-mix(in srgb, var(--amber) 70%, white);
+    --theme-colors-yellow-800: color-mix(in srgb, var(--amber) 50%, white);
+    --theme-colors-yellow-900: color-mix(in srgb, var(--amber) 25%, white);
+
+    --theme-colors-teal-600: #2e94b0;
+    --theme-colors-teal-100: color-mix(in srgb, var(--theme-colors-teal-600) 15%, black);
+    --theme-colors-teal-200: color-mix(in srgb, var(--theme-colors-teal-600) 35%, black);
+    --theme-colors-teal-300: color-mix(in srgb, var(--theme-colors-teal-600) 55%, black);
+    --theme-colors-teal-400: color-mix(in srgb, var(--theme-colors-teal-600) 80%, black);
+    --theme-colors-teal-500: color-mix(in srgb, var(--theme-colors-teal-600) 90%, black);
+    --theme-colors-teal-700: color-mix(in srgb, var(--theme-colors-teal-600) 80%, white);
+    --theme-colors-teal-800: color-mix(in srgb, var(--theme-colors-teal-600) 55%, white);
+    --theme-colors-teal-900: color-mix(in srgb, var(--theme-colors-teal-600) 30%, white);
+
+    --theme-colors-grey-black: #0a0a0a; --theme-colors-grey-100: #969696;
+    --theme-colors-grey-200: #707070; --theme-colors-grey-300: #575757;
+    --theme-colors-grey-400: #3d3d3d; --theme-colors-grey-50: #cccccc;
+    --theme-colors-grey-500: #292929; --theme-colors-grey-600: #242424;
+    --theme-colors-grey-700: #1f1f1f; --theme-colors-grey-800: #1a1a1a;
+    --theme-colors-grey-900: #121212;
+    --theme-colors-lightgrey-white: #ffffff; --theme-colors-lightgrey-50: #f5f5f5;
+    --theme-colors-lightgrey-100: #ededed; --theme-colors-lightgrey-200: #e6e6e6;
+    --theme-colors-lightgrey-300: #e0e0e0; --theme-colors-lightgrey-400: #d9d9d9;
+    --theme-colors-lightgrey-500: #cfcfcf; --theme-colors-lightgrey-600: #c4c4c4;
+    --theme-colors-lightgrey-700: #b8b8b8; --theme-colors-lightgrey-800: #b0b0b0;
+    --theme-colors-lightgrey-900: #a8a8a8;
+
+    --brand-border-hover: var(--theme-colors-blue-700);
+    --brand-border-primary-default: var(--theme-colors-blue-500);
+    --brand-border-primary-disabled: var(--theme-colors-blue-300);
+    --brand-text-primary-active: var(--theme-colors-blue-700);
+    --brand-text-default: var(--theme-colors-blue-500);
+    --brand-text-primary-disabled: var(--theme-colors-blue-300);
+    --brand-text-primary-oncolor: #ffffff;
+    --brand-text-primary-hover: var(--theme-colors-blue-700);
+    --brand-bg-active: var(--theme-colors-blue-700);
+    --brand-bg-disabled-light: var(--theme-colors-blue-100);
+    --brand-bg-disabled-strong: var(--theme-colors-blue-300);
+    --brand-bg-hover: var(--theme-colors-blue-700);
+    --brand-bg-primary-light: var(--theme-colors-blue-100);
+    --brand-bg-primary-subtle: var(--panel);
+    --brand-bg-strong: var(--theme-colors-blue-500);
+
+    --neutral-surface-background: var(--bg);
+    --neutral-surface-constant-background: #ffffff;
+    --neutral-surface-high-contrast: var(--theme-colors-lightgrey-white);
+    --neutral-surface-layer-01: var(--panel);
+    --neutral-surface-layer-02: var(--theme-colors-grey-700);
+    --neutral-surface-layer-03: var(--theme-colors-grey-600);
+    --neutral-surface-layer-04: var(--theme-colors-grey-500);
+    --neutral-surface-layer-05: var(--theme-colors-grey-400);
+    --neutral-text-subtle: var(--ink-soft);
+    --neutral-text-subtleleast: var(--muted);
+    --neutral-text-text: var(--ink);
+    --neutral-text-oncolor: #ffffff;
+    --neutral-border-light: var(--theme-colors-grey-600);
+    --neutral-border-strong: var(--theme-colors-grey-300);
+    --neutral-border-subtle: var(--theme-colors-grey-700);
+    --neutral-border-inverse: var(--theme-colors-grey-900);
+
+    --semantics-critical-border: var(--theme-colors-red-600);
+    --semantics-critical-light-bg: var(--theme-colors-red-100);
+    --semantics-critical-strong-bg: var(--theme-colors-red-500);
+    --semantics-critical-text: var(--theme-colors-red-600);
+    --semantics-disabled-bg: var(--theme-colors-grey-700);
+    --semantics-disabled-border: var(--theme-colors-grey-500);
+    --semantics-disabled-text: var(--theme-colors-grey-100);
+    --semantics-highlight-border: var(--theme-colors-teal-600);
+    --semantics-highlight-light-bg: var(--theme-colors-teal-100);
+    --semantics-highlight-strong-bg: var(--theme-colors-teal-500);
+    --semantics-highlight-text: var(--theme-colors-teal-500);
+    --semantics-success-border: var(--theme-colors-green-600);
+    --semantics-success-light-bg: var(--theme-colors-green-100);
+    --semantics-success-strong-bg: var(--theme-colors-green-500);
+    --semantics-success-text: var(--theme-colors-green-600);
+    --semantics-warning-border: var(--theme-colors-yellow-600);
+    --semantics-warning-light-bg: var(--theme-colors-yellow-100);
+    --semantics-warning-strong-bg: var(--theme-colors-yellow-600);
+    --semantics-warning-text: var(--theme-colors-yellow-600);
   }
 
   /* Semantic tokens for the three widget-system cards below (.rgs / .learn2

@@ -121,59 +121,98 @@ const PRIMARY_COLOR_GROUPS = [
   ] },
 ]
 
-// Verified against styles/index.css :root / [data-theme="dark"].
-// name, var, usage — organized into the 13 categories a full color-token
-// spec is expected to have. Where the app genuinely has no dedicated
-// token for a category (Secondary, Info, Disabled), that's stated
-// explicitly rather than inventing one that doesn't exist.
+// Same grouping shape as the Figma Components UI Kit's own color spec
+// (get_variable_defs on the Colors frame: Brand/Borders, Brand/Text,
+// Brand/background, Neutral/Surfaces, Neutral/Text, Neutral/border,
+// Semantics/*, then the raw Theme Colors ramps) — but reading this
+// app's real tokens (styles/index.css), not the Figma file's own blue
+// palette. Every ramp step is color-mix()-derived from one real base
+// color per family (--brand/--green/--red/--amber/--theme-colors-teal-600).
 const COLOR_GROUPS = [
-  { title: 'Primary', tokens: [
-    ['Primary', '--brand', 'Links, active nav text, focus rings — the one "interactive" color'],
-    ['Primary dark', '--brand-dark', 'Hover state for the Primary CTA surface'],
-    ['Primary CTA', '--brand-fill', 'Solid .btn-primary background — the app\'s actual call-to-action color'],
+  { title: 'Brand / Borders', tokens: [
+    ['hover', '--brand-border-hover', 'Border color on hover for brand-outlined controls'],
+    ['primary-default', '--brand-border-primary-default', 'Default brand border — .opt.selected, focused inputs'],
+    ['primary-disabled', '--brand-border-primary-disabled', 'Disabled state of a brand-bordered control'],
   ] },
-  { title: 'Secondary', tokens: [
-    ['Secondary', '--accent', 'Aliased --accent-secondary (index.css line 97) — .btn-secondary, chart accents'],
+  { title: 'Brand / Text', tokens: [
+    ['primary-active', '--brand-text-primary-active', 'Active/pressed brand text'],
+    ['default', '--brand-text-default', 'Links, active nav text, focus rings'],
+    ['primary-disabled', '--brand-text-primary-disabled', 'Disabled brand-colored text'],
+    ['primary-oncolor', '--brand-text-primary-oncolor', 'Text sitting on a solid brand fill — always white'],
+    ['primaryhover', '--brand-text-primary-hover', 'Hover state of brand-colored text/links'],
   ] },
-  { title: 'Accent', tokens: [
-    ['Accent', '--accent', 'Same token as Secondary — this app has one accent color, doing both jobs'],
-    ['Link', '--link', 'Text links (distinct token, same value as Primary today)'],
+  { title: 'Brand / background', tokens: [
+    ['active', '--brand-bg-active', '.btn-primary:active, pressed brand surfaces'],
+    ['disabled-light', '--brand-bg-disabled-light', 'Disabled brand surface, light variant'],
+    ['disabled-strong', '--brand-bg-disabled-strong', 'Disabled brand surface, strong variant'],
+    ['hover', '--brand-bg-hover', '.btn-primary:hover background'],
+    ['primary-light', '--brand-bg-primary-light', '.nav a.active fill, avatar placeholder bg'],
+    ['primary-subtle', '--brand-bg-primary-subtle', 'Barely-there brand tint on a neutral surface'],
+    ['strong', '--brand-bg-strong', 'Solid .btn-primary background — the actual CTA surface'],
   ] },
-  { title: 'Neutral / Gray scale', tokens: [
-    ['Ink', '--ink', 'Primary text'], ['Ink soft', '--ink-soft', 'Secondary text'], ['Muted', '--muted', 'Tertiary text, captions'],
-    ['Line', '--line', 'Default border'], ['Line strong', '--line-strong', 'Emphasized border'],
+  { title: 'Neutral / Surfaces', tokens: [
+    ['background', '--neutral-surface-background', 'Page background behind every panel'],
+    ['constant-background', '--neutral-surface-constant-background', 'Always-white surface, regardless of theme'],
+    ['high-contrast', '--neutral-surface-high-contrast', 'Darkest neutral surface — tooltips, inverted chips'],
+    ['layer-01', '--neutral-surface-layer-01', 'Card/dialog/dropdown surface'],
+    ['layer-02', '--neutral-surface-layer-02', 'Zebra rows, subtle recessed fill'],
+    ['layer-03', '--neutral-surface-layer-03', 'Skeleton placeholders, disabled-field fill'],
+    ['layer-04', '--neutral-surface-layer-04', 'A step deeper — rarely reached for'],
+    ['layer-05', '--neutral-surface-layer-05', 'Deepest neutral layer'],
   ] },
-  { title: 'Background', tokens: [
-    ['Background', '--bg', 'Page background, behind every panel'],
+  { title: 'Neutral / Text', tokens: [
+    ['subtle', '--neutral-text-subtle', 'Secondary text — .pc-meta, .as-empty message'],
+    ['subtleleast', '--neutral-text-subtleleast', 'Tertiary text — captions, table header labels'],
+    ['text', '--neutral-text-text', 'Primary body text, headings everywhere'],
+    ['text-on-color', '--neutral-text-oncolor', 'Text on a solid dark/neutral fill'],
   ] },
-  { title: 'Surface', tokens: [
-    ['Panel', '--panel', 'Card/dialog/dropdown surface'], ['Surface 2', '--surface-2', 'Zebra rows, subtle recessed fill'],
-    ['Surface 3', '--surface-3', 'Skeleton placeholders, disabled-field fill'], ['Active bg', '--active-bg', 'Selected/active state fill'],
-    ['Hover bg', '--hover-bg', 'Hover state fill'],
+  { title: 'Neutral / border', tokens: [
+    ['border-light', '--neutral-border-light', 'Emphasized border, focus-adjacent'],
+    ['border-strong', '--neutral-border-strong', 'Strongest neutral border in the app'],
+    ['border-subtle', '--neutral-border-subtle', 'Default 1px border — cards, inputs, table rows'],
+    ['inverse', '--neutral-border-inverse', 'Border on a dark/inverted surface'],
   ] },
-  { title: 'Text', tokens: [
-    ['Ink', '--ink', 'Primary text (same token as Neutral — text role)'], ['Ink soft', '--ink-soft', 'Secondary text'], ['Muted', '--muted', 'Tertiary/meta text'],
+  { title: 'Semantics / Critical', tokens: [
+    ['border', '--semantics-critical-border', 'Error/danger border and icon'],
+    ['light-background', '--semantics-critical-light-bg', '.confirm-dialog-ico bg, error banners'],
+    ['strong-background', '--semantics-critical-strong-bg', 'Solid error fill (badges, alerts)'],
+    ['text', '--semantics-critical-text', 'Error/danger text'],
   ] },
-  { title: 'Border', tokens: [
-    ['Line', '--line', 'Default 1px border everywhere'], ['Line strong', '--line-strong', 'Emphasized border, focus-adjacent'],
+  { title: 'Semantics / Disabled', tokens: [
+    ['background', '--semantics-disabled-bg', 'Disabled control fill'],
+    ['border', '--semantics-disabled-border', 'Disabled control border'],
+    ['text', '--semantics-disabled-text', 'Disabled control text'],
   ] },
-  { title: 'Success', tokens: [
-    ['Green', '--green', 'Success text/icon'], ['Green bg', '--green-bg', 'Success fill'], ['Green line', '--green-line', 'Success border'],
+  { title: 'Semantics / Highlights', tokens: [
+    ['border', '--semantics-highlight-border', 'Informational border — new-user callouts'],
+    ['light-background', '--semantics-highlight-light-bg', '.callout background'],
+    ['strong-background', '--semantics-highlight-strong-bg', 'Solid informational fill'],
+    ['text', '--semantics-highlight-text', 'Informational text'],
   ] },
-  { title: 'Warning', tokens: [
-    ['Amber', '--amber', 'Warning text/icon'], ['Amber bg', '--amber-bg', 'Warning fill'], ['Amber line', '--amber-line', 'Warning border'],
+  { title: 'Semantics / Success', tokens: [
+    ['border', '--semantics-success-border', '.req-status.good, complete .step .num'],
+    ['light-background', '--semantics-success-light-bg', 'Success fill — .green-bg'],
+    ['strong-background', '--semantics-success-strong-bg', 'Solid success fill'],
+    ['text', '--semantics-success-text', 'Success text/icon'],
   ] },
-  { title: 'Error / Danger', tokens: [
-    ['Red', '--red', 'Error/danger text/icon'], ['Red bg', '--red-bg', 'Error/danger fill'], ['Red line', '--red-line', 'Error/danger border'],
-  ] },
-  { title: 'Info', tokens: [
-    ['Info bg', '--active-bg', '.status-banner .badge.navy background — reuses Active bg, no separate info fill token'],
-    ['Info text', '--brand', '.status-banner .badge.navy text — reuses Primary, no separate info text token'],
-  ] },
-  { title: 'Disabled', tokens: [
-    ['Disabled', '--brand-fill', 'No dedicated color — .btn:disabled{opacity:.5} fades whatever fill/text it already has (shown at 50%)', 0.5],
+  { title: 'Semantics / Warning', tokens: [
+    ['border', '--semantics-warning-border', '.req-status.ok, pending states'],
+    ['light-background', '--semantics-warning-light-bg', 'Warning fill — .amber-bg'],
+    ['strong-background', '--semantics-warning-strong-bg', 'Solid warning fill'],
+    ['text', '--semantics-warning-text', 'Warning text/icon'],
   ] },
 ]
+
+// Raw primitive ramps — the "Theme Colors" section of the Figma file,
+// same shape (100-900 per family), reading this app's real base colors.
+const THEME_COLOR_RAMPS = [
+  { title: 'Blue (Brand)', prefix: '--theme-colors-blue' },
+  { title: 'Green', prefix: '--theme-colors-green' },
+  { title: 'Red', prefix: '--theme-colors-red' },
+  { title: 'Yellow', prefix: '--theme-colors-yellow' },
+  { title: 'Teal', prefix: '--theme-colors-teal' },
+]
+const RAMP_STEPS = [100, 200, 300, 400, 500, 600, 700, 800, 900]
 
 // ONE table, not two. The app has no shared type-scale utility classes —
 // every page sizes its own text ad hoc (.hi-bar h1 is 26px/700,
@@ -632,7 +671,8 @@ export default function DesignSystem() {
   // a component, disappeared on mobile. mobileNavOpen + .ds-nav.open
   // (see CSS) gives it back as a toggleable overlay.
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
-  const dualTokens = useDualThemeTokens(COLOR_GROUPS.flatMap((g) => g.tokens.map(([, v]) => v).filter(Boolean)))
+  const rampVars = THEME_COLOR_RAMPS.flatMap((r) => RAMP_STEPS.map((s) => `${r.prefix}-${s}`))
+  const dualTokens = useDualThemeTokens([...COLOR_GROUPS.flatMap((g) => g.tokens.map(([, v]) => v).filter(Boolean)), ...rampVars])
   const primaryTokenValues = useResolvedTokens(PRIMARY_COLOR_GROUPS.flatMap((g) => g.items.map(([, v]) => v)))
 
   useEffect(() => {
@@ -806,11 +846,11 @@ export default function DesignSystem() {
 
             <h3 className="ds-sub">Full token reference</h3>
             <p className="ds-lede">
-              Organized into the 13 categories a full color-token spec covers. Hex/RGB values are
-              read live from the running app's CSS custom properties — both light and dark,
-              regardless of which theme this page is currently in. Where a category has no
-              dedicated token (Secondary, Info, Disabled), that's stated plainly rather than
-              inventing one that doesn't exist in the app.
+              Same grouping shape as the Figma Components UI Kit's own color spec (Brand/Borders,
+              Brand/Text, Brand/background, Neutral/Surfaces, Neutral/Text, Neutral/border,
+              Semantics/*) — built from this app's real tokens, not the Figma file's own palette.
+              Hex/RGB read live from the running CSS, both themes, regardless of which one this
+              page is in.
             </p>
             {COLOR_GROUPS.map((g) => (
               <div key={g.title}>
@@ -849,6 +889,37 @@ export default function DesignSystem() {
                       })}
                     </tbody>
                   </table>
+                </div>
+              </div>
+            ))}
+
+            <h3 className="ds-sub">Theme Colors</h3>
+            <p className="ds-lede">
+              The raw primitive ramps every token above reads from — same 100-900 shape as the
+              Figma file's Theme Colors section. 500 is the real base color for each family
+              (--brand/--green/--red/--amber/a fixed teal); every other step is color-mix()-derived
+              from it, not a separately hand-picked hex.
+            </p>
+            {THEME_COLOR_RAMPS.map((r) => (
+              <div key={r.prefix} style={{ marginBottom: 18 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--ink-soft)' }}>{r.title}</span>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 6 }}>
+                  {RAMP_STEPS.map((step) => {
+                    const varName = `${r.prefix}-${step}`
+                    const hex = dualTokens.light[varName]
+                    return (
+                      <button
+                        key={step}
+                        type="button"
+                        onClick={() => hex && copyToClipboard(hex)}
+                        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, border: 'none', background: 'none', cursor: 'pointer', font: 'inherit' }}
+                        title={`${varName} — click to copy`}
+                      >
+                        <div style={{ width: 44, height: 32, borderRadius: 8, background: hex, border: '1px solid var(--line)' }} />
+                        <code style={{ fontSize: 10 }}>{step}</code>
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
             ))}
