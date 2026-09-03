@@ -1031,7 +1031,7 @@ export default function DesignSystem() {
           {/* ---------------- TYPE ---------------- */}
           <section id="type" className="ds-section">
             <h2>Typography</h2>
-            <p className="ds-lede">System font stack, verified from styles/index.css line 179.</p>
+            <p className="ds-lede">System font stack, verified from styles/index.css line 554.</p>
 
             <div className="ds-font-card">
               <b className="ds-font-name">Inclusive Sans</b>
@@ -1701,7 +1701,7 @@ export default function DesignSystem() {
                 <div className="ds-spec-facts">
                   <span><b>Track radius</b> 999px</span><span><b>Checked</b> --brand track, thumb slides +16px</span><span><b>Focus ring</b> 2px solid --brand, offset 2px</span>
                 </div>
-                <p className="ds-anatomy-caption">a. Toggle switch (styles/index.css .a11y-switch, line 266)</p>
+                <p className="ds-anatomy-caption">a. Toggle switch (styles/index.css .a11y-switch, line 641)</p>
               </div>
             }
             demo={<>
@@ -2055,7 +2055,7 @@ export default function DesignSystem() {
                 <div className="ds-spec-facts">
                   <span><b>Width</b> min(360px, 100%)</span><span><b>Padding</b> 26px 24px 22px</span><span><b>Corner radius</b> 16px</span><span><b>Icon badge</b> 44×44px, --red-bg</span><span><b>Elevation</b> --shadow-lg</span>
                 </div>
-                <p className="ds-anatomy-caption">a. Confirm dialog (styles/index.css .confirm-dialog, line 1527)</p>
+                <p className="ds-anatomy-caption">a. Confirm dialog (styles/index.css .confirm-dialog, line 1913)</p>
               </div>
             }
             dos={['Trap focus inside the dialog while open, return focus to the trigger on close.']}
@@ -2152,7 +2152,7 @@ export default function DesignSystem() {
                 <div className="ds-spec-facts">
                   <span><b>Position</b> sticky, top: 0</span><span><b>Border</b> 1px solid --line (bottom)</span><span><b>z-index</b> 40</span>
                 </div>
-                <p className="ds-anatomy-caption">a. App top bar (styles/index.css .topbar, line 185; components/layout/Header.jsx)</p>
+                <p className="ds-anatomy-caption">a. App top bar (styles/index.css .topbar, line 560; components/layout/Header.jsx)</p>
               </div>
             }
             code={`<header className="topbar">
@@ -2226,7 +2226,7 @@ export default function DesignSystem() {
                 <div className="ds-spec-facts">
                   <span><b>Icon</b> 23×23px</span><span><b>Label</b> 13px / 600</span><span><b>Active</b> --brand text, --active-bg fill, 4px --brand left bar</span>
                 </div>
-                <p className="ds-anatomy-caption">a. Nav item (styles/index.css .nav a / .nav a.active, line 311)</p>
+                <p className="ds-anatomy-caption">a. Nav item (styles/index.css .nav a / .nav a.active, line 689)</p>
               </div>
             }
             demo={<>
@@ -2419,7 +2419,7 @@ export default function DesignSystem() {
                 <div className="ds-spec-facts">
                   <span><b>Padding</b> 20px</span><span><b>Illustration width</b> 56% (max 230px)</span><span><b>Illustration motion</b> 6s ease float loop</span>
                 </div>
-                <p className="ds-anatomy-caption">a. Content card (styles/index.css .learn2, line 2264)</p>
+                <p className="ds-anatomy-caption">a. Content card (styles/index.css .learn2, line 2645)</p>
               </div>
             }
             demo={<>
@@ -2481,7 +2481,7 @@ export default function DesignSystem() {
                 <div className="ds-spec-facts" style={{ marginTop: 16 }}>
                   <span><b>Width</b> 420px (680px .slideover-wide)</span><span><b>Backdrop</b> rgba(20,21,31,.46)</span><span><b>Animation</b> slides in from the right, .28s</span>
                 </div>
-                <p className="ds-anatomy-caption">a. Slideover (styles/index.css .slideover-panel, line 1509)</p>
+                <p className="ds-anatomy-caption">a. Slideover (styles/index.css .slideover-panel, line 1892)</p>
               </div>
             }
             demo={<>
@@ -2538,7 +2538,7 @@ export default function DesignSystem() {
                 <div className="ds-spec-facts">
                   <span><b>Size</b> 108 / 168 (.large) / 176 (.rr-card) px</span><span><b>Stroke</b> 5–6.5px, round linecap</span><span><b>Track</b> var(--surface-3)</span><span><b>Arc</b> currentColor (--brand)</span>
                 </div>
-                <p className="ds-anatomy-caption">a. Donut / ring chart (styles/index.css .rr-donut, line 413)</p>
+                <p className="ds-anatomy-caption">a. Donut / ring chart (styles/index.css .rr-donut, line 788)</p>
               </div>
             }
             demo={<>
@@ -2776,7 +2776,7 @@ export default function DesignSystem() {
           />
 
           {/* ---------------- AVATAR ---------------- */}
-          {/* Verified: styles/index.css .user-chip img (28px, line 201),
+          {/* Verified: styles/index.css .user-chip img (28px, line 576),
               .user-option img (36px, line 218) — real circular avatars. */}
           <Component
             id="avatar" title="Avatar"
@@ -2819,7 +2819,7 @@ export default function DesignSystem() {
           />
 
           {/* ---------------- INLINE & ERROR MESSAGE ---------------- */}
-          {/* Verified: styles/index.css .status-banner (line 1093) — the
+          {/* Verified: styles/index.css .status-banner (line 1474) — the
               real inline-message/banner pattern, with 4 real badge color
               variants (green/amber/navy/red). role="alert" error text is
               already covered on Forms & inputs; red .status-banner is the
@@ -2840,7 +2840,7 @@ export default function DesignSystem() {
                 <div className="ds-spec-facts">
                   <span><b>Padding</b> 18px 20px</span><span><b>Radius</b> 14px</span><span><b>Elevation</b> --shadow</span>
                 </div>
-                <p className="ds-anatomy-caption">a. Inline message (styles/index.css .status-banner, line 1093)</p>
+                <p className="ds-anatomy-caption">a. Inline message (styles/index.css .status-banner, line 1474)</p>
               </div>
             }
             demo={<>
@@ -2863,7 +2863,7 @@ export default function DesignSystem() {
           />
 
           {/* ---------------- PANEL ---------------- */}
-          {/* Verified: styles/index.css .panel (line 1112) — a real,
+          {/* Verified: styles/index.css .panel (line 1493) — a real,
               simpler card pattern distinct from .plan-card / .ds-card. */}
           <Component
             id="panel" title="Panel"
@@ -2882,7 +2882,7 @@ export default function DesignSystem() {
                 <div className="ds-spec-facts">
                   <span><b>Padding</b> 20px 22px</span><span><b>Radius</b> 14px</span><span><b>Elevation</b> --shadow</span>
                 </div>
-                <p className="ds-anatomy-caption">a. Panel (styles/index.css .panel, line 1112)</p>
+                <p className="ds-anatomy-caption">a. Panel (styles/index.css .panel, line 1493)</p>
               </div>
             }
             demo={<>
@@ -2903,7 +2903,7 @@ export default function DesignSystem() {
           />
 
           {/* ---------------- PAGE ---------------- */}
-          {/* Verified: styles/index.css .page-body (line 330) — the real
+          {/* Verified: styles/index.css .page-body (line 705) — the real
               page-level content wrapper every authenticated route uses. */}
           <Component
             id="page" title="Page"
@@ -2919,7 +2919,7 @@ export default function DesignSystem() {
                 <div className="ds-spec-facts">
                   <span><b>Layout</b> flex column</span><span><b>Gap between sections</b> 20px</span><span><b>Max-width</b> none — fills the routed area</span>
                 </div>
-                <p className="ds-anatomy-caption">a. Page wrapper (styles/index.css .page-body, line 330)</p>
+                <p className="ds-anatomy-caption">a. Page wrapper (styles/index.css .page-body, line 705)</p>
               </div>
             }
             demo={<>
@@ -3002,14 +3002,14 @@ export default function DesignSystem() {
           />
 
           {/* ---------------- FOCUS RING ---------------- */}
-          {/* Verified: styles/index.css line 1674-1679 — the real global
+          {/* Verified: styles/index.css line 2053-2059 — the real global
               focus-visible rule shared by input/select/textarea/
               [tabindex]/summary. Buttons/links use per-component rules
               (already documented on their own pages) that follow the
               same 2px --brand pattern. */}
           <Component
             id="focus-ring" title="Focus ring"
-            desc="A global :focus-visible rule (styles/index.css line 1674) plus per-component rules — all converge on the same 2px --brand outline."
+            desc="A global :focus-visible rule (styles/index.css line 2053) plus per-component rules — all converge on the same 2px --brand outline."
             anatomy={
               <div className="ds-anatomy" style={{ alignItems: 'stretch' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
@@ -3022,7 +3022,7 @@ export default function DesignSystem() {
                 <div className="ds-spec-facts">
                   <span><b>Width</b> 2px</span><span><b>Color</b> --brand</span><span><b>Selector</b> :focus-visible only, never plain :focus</span>
                 </div>
-                <p className="ds-anatomy-caption">a. Focus ring (styles/index.css, line 1674)</p>
+                <p className="ds-anatomy-caption">a. Focus ring (styles/index.css, line 2053)</p>
               </div>
             }
             dos={['Always use :focus-visible, not :focus — a mouse click should never show the keyboard ring.']}
