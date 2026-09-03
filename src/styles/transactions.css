@@ -81,8 +81,8 @@
 .txn-step .num{
   width:24px;height:24px;border-radius:50%;background:var(--surface-3);color:var(--muted);font-size:12px;font-weight:800;
   display:grid;place-items:center;flex:0 0 auto}
-.txn-step.complete .num{background:var(--green);color:#fff}
-.txn-step.current .num{background:var(--brand-fill);color:#fff}
+.txn-step.complete .num{background:var(--green);color:var(--brand-text-primary-oncolor)}
+.txn-step.current .num{background:var(--brand-fill);color:var(--brand-text-primary-oncolor)}
 .txn-step-title{margin:0;font-size:13.5px;font-weight:700;color:var(--ink-soft)}
 .txn-step.current .txn-step-title{color:var(--brand)}
 .txn-step.complete .txn-step-title{color:var(--ink)}
@@ -108,7 +108,7 @@
   min-height:40px;border:1px solid var(--line);border-radius:9px;padding:8px 12px;font:inherit;
   font-size:14px;font-weight:600;color:var(--ink);background:var(--panel)}
 .txn-field input:disabled{background:var(--surface-2);color:var(--ink-soft)}
-.txn-field input:focus,.txn-field select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(46,49,146,.12)}
+.txn-field input:focus,.txn-field select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 12%, transparent)}
 .txn-field .note{font-size:12px;color:var(--ink-soft)}
 .txn-field .note.warn{color:var(--amber)}
 
@@ -116,7 +116,7 @@
 .field-tip-btn{
   display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;
   border:none;padding:0;background:var(--surface-3);color:var(--ink-soft);cursor:help}
-.field-tip-btn:hover,.field-tip-btn:focus-visible{background:var(--brand);color:#fff;outline:none}
+.field-tip-btn:hover,.field-tip-btn:focus-visible{background:var(--brand);color:var(--brand-text-primary-oncolor);outline:none}
 .field-tip-bubble{
   position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(4px);
   width:max-content;max-width:220px;padding:8px 10px;border-radius:8px;background:var(--ink);color:var(--panel);
@@ -150,7 +150,7 @@
 .txn-upload p{margin:6px 0 0;font-size:12.5px;color:var(--ink-soft)}
 .txn-upload .tabs2{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;margin-bottom:14px}
 .txn-upload .tabs2 button{border:none;background:var(--panel);padding:7px 14px;font:inherit;font-size:12.5px;font-weight:700;color:var(--ink-soft);cursor:pointer}
-.txn-upload .tabs2 button.on{background:var(--brand-fill);color:#fff}
+.txn-upload .tabs2 button.on{background:var(--brand-fill);color:var(--brand-text-primary-oncolor)}
 .txn-doc-required{font-size:11px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--red);margin-bottom:8px;display:block}
 
 .txn-summary-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
@@ -246,7 +246,7 @@
 .alloc-pct-input{
   display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--panel);
   transition:border-color .15s,box-shadow .15s}
-.alloc-pct-input:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(46,49,146,.15)}
+.alloc-pct-input:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 15%, transparent)}
 .alloc-pct-input input{
   width:52px;border:none;padding:6px 8px;font:inherit;font-size:13px;font-weight:700;color:var(--ink);
   text-align:right;background:var(--panel);min-height:0}
@@ -265,7 +265,7 @@
   display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;
   padding:8px 12px;margin-bottom:14px;color:var(--muted);background:var(--panel);
   transition:border-color .15s,box-shadow .15s}
-.add-inv-search:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(46,49,146,.15)}
+.add-inv-search:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 15%, transparent)}
 .add-inv-search input{border:none;flex:1;font:inherit;font-size:13.5px;color:var(--ink);background:transparent}
 .add-inv-search input:focus{outline:none}
 .add-inv-count{margin:0 0 12px;font-size:12.5px;font-weight:700;color:var(--ink-soft)}

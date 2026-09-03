@@ -1237,21 +1237,21 @@ export default function DesignSystem() {
           {/* ---------------- ELEVATION ---------------- */}
           <section id="elevation" className="ds-section">
             <h2>Shadows</h2>
-            <p className="ds-lede">Two shadow tokens, verified from styles/index.css lines 29–30 (light) / 75–76 (dark) — no third "overlay" tier exists in the app.</p>
+            <p className="ds-lede">Two shadow tokens, verified from styles/index.css lines 39–40 (light) / 262–263 (dark) — both built on the shared <code>--shadow-color</code> RGB triplet (<code>20,30,60</code> light / <code>0,0,0</code> dark) so every box-shadow in the app draws from one color. No third "overlay" tier exists in the app.</p>
             <div className="ds-card">
               <table className="ds-type-table">
                 <thead><tr><th>Token</th><th>Value (light)</th><th>Value (dark)</th><th>Used for</th></tr></thead>
                 <tbody>
                   <tr>
                     <td><code>--shadow</code></td>
-                    <td><code style={{ fontSize: 11 }}>0 1px 2px rgba(20,30,60,.06)</code></td>
-                    <td><code style={{ fontSize: 11 }}>0 1px 2px rgba(0,0,0,.4)</code></td>
+                    <td><code style={{ fontSize: 11 }}>0 1px 2px rgba(var(--shadow-color),.06)</code></td>
+                    <td><code style={{ fontSize: 11 }}>0 1px 2px rgba(var(--shadow-color),.4)</code></td>
                     <td>Resting elevation — cards, panels</td>
                   </tr>
                   <tr>
                     <td><code>--shadow-lg</code></td>
-                    <td><code style={{ fontSize: 11 }}>0 8px 30px rgba(20,30,60,.10)</code></td>
-                    <td><code style={{ fontSize: 11 }}>0 8px 30px rgba(0,0,0,.55)</code></td>
+                    <td><code style={{ fontSize: 11 }}>0 8px 30px rgba(var(--shadow-color),.10)</code></td>
+                    <td><code style={{ fontSize: 11 }}>0 8px 30px rgba(var(--shadow-color),.55)</code></td>
                     <td>Raised elevation — dropdowns, dialogs, the user menu</td>
                   </tr>
                 </tbody>
@@ -1600,7 +1600,7 @@ export default function DesignSystem() {
               </VariantGroup>
             </>}
             dos={['Associate every input with a <label>.', 'Announce validation errors with role="alert".']}
-            donts={["Don't trust the focus-ring color to always equal --brand — transactions.css line 111 hard-codes rgba(46,49,146,.12) instead of using the token, so with the current --brand value the focus ring is subtly the wrong hue. Real, pre-existing bug, not a design choice."]}
+            donts={["Don't hard-code a focus-ring color as a literal rgba() copy of --brand's hex — it silently goes stale (and can go the wrong hue) the moment --brand changes. Always derive it with color-mix(in srgb, var(--brand) N%, transparent), the way every focus ring in this codebase now does."]}
             code={`<label>Account nickname
   <input placeholder="e.g. My 401(k)" />
 </label>
@@ -2506,7 +2506,7 @@ export default function DesignSystem() {
                   </div>
                 </div>
                 <div className="ds-spec-facts">
-                  <span><b>Size</b> 108 / 168 (.large) / 176 (.rr-card) px</span><span><b>Stroke</b> 5–6.5px, round linecap</span><span><b>Track</b> #eceef4</span><span><b>Arc</b> currentColor (--brand)</span>
+                  <span><b>Size</b> 108 / 168 (.large) / 176 (.rr-card) px</span><span><b>Stroke</b> 5–6.5px, round linecap</span><span><b>Track</b> var(--surface-3)</span><span><b>Arc</b> currentColor (--brand)</span>
                 </div>
                 <p className="ds-anatomy-caption">a. Donut / ring chart (styles/index.css .rr-donut, line 413)</p>
               </div>

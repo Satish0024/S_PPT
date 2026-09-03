@@ -6,12 +6,12 @@
 
 .ds{
   --ds-sidebar-w:260px;--ds-content-max:960px;background:var(--bg);color:var(--ink);min-height:100vh;
-  --ds-elev-1:0 1px 2px rgba(20,30,60,.05), 0 1px 1px rgba(20,30,60,.04);
-  --ds-elev-2:0 4px 12px rgba(20,30,60,.08), 0 2px 4px rgba(20,30,60,.05);
+  --ds-elev-1:0 1px 2px rgba(var(--shadow-color),.05), 0 1px 1px rgba(var(--shadow-color),.04);
+  --ds-elev-2:0 4px 12px rgba(var(--shadow-color),.08), 0 2px 4px rgba(var(--shadow-color),.05);
 }
 :root:not([data-theme="light"]) .ds,.ds[data-theme="dark"]{
-  --ds-elev-1:0 1px 2px rgba(0,0,0,.3), 0 1px 1px rgba(0,0,0,.2);
-  --ds-elev-2:0 8px 20px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.3);
+  --ds-elev-1:0 1px 2px rgba(var(--shadow-color),.3), 0 1px 1px rgba(var(--shadow-color),.2);
+  --ds-elev-2:0 8px 20px rgba(var(--shadow-color),.4), 0 2px 6px rgba(var(--shadow-color),.3);
 }
 
 /* ---------- Top bar ---------- */
@@ -140,7 +140,7 @@
 .ds-usage-box p{margin:0;font-size:13px;line-height:1.55;color:var(--ink-soft)}
 .ds-usage-box.do{background:var(--green-bg);border-color:var(--green-line)}
 .ds-usage-box.dont{background:var(--red-bg);border-color:var(--red-line)}
-.ds-usage-badge{flex:0 0 auto;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;margin-top:1px;color:#fff}
+.ds-usage-badge{flex:0 0 auto;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;margin-top:1px;color:var(--brand-text-primary-oncolor)}
 .ds-usage-box.do .ds-usage-badge{background:var(--green)}
 .ds-usage-box.dont .ds-usage-badge{background:var(--red)}
 
@@ -207,7 +207,7 @@
    edge, pixel value at each end) — visual upgrade of .ds-spec-cell to
    match the reference's highlighted-band ruler rather than a bare tick ---------- */
 .ds-ruler{position:relative;width:100%;max-width:460px}
-.ds-ruler-band{position:absolute;background:rgba(2,132,199,.14);border-left:1px dashed var(--brand);border-right:1px dashed var(--brand);pointer-events:none}
+.ds-ruler-band{position:absolute;background:color-mix(in srgb, var(--brand) 14%, transparent);border-left:1px dashed var(--brand);border-right:1px dashed var(--brand);pointer-events:none}
 .ds-ruler-label{position:absolute;font-size:11px;font-weight:700;color:var(--brand)}
 .ds-ruler-caption{text-align:center;font-size:11.5px;font-weight:700;color:var(--ink-soft);margin-top:6px}
 
@@ -310,7 +310,7 @@
     background:var(--panel);box-shadow:var(--shadow-lg);overflow-y:auto;
     padding:16px;border-right:1px solid var(--line);
   }
-  .ds-mobile-nav-backdrop{display:block;position:fixed;inset:0;z-index:49;background:rgba(0,0,0,.4)}
+  .ds-mobile-nav-backdrop{display:block;position:fixed;inset:0;z-index:49;background:color-mix(in srgb, var(--ink) 40%, transparent)}
   .ds-main{padding:0 18px 80px}
 }
 @media(max-width:640px){
