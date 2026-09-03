@@ -1,12 +1,9 @@
 
-  :root{
-    --brand:#2e3192;--brand-dark:#1f2268;--accent:#4a63c7;
-    --ink:#14151f;--ink-soft:#4a4d63;--muted:#8a8da3;
-    --line:#e4e5ee;--bg:#f4f5f9;--green:#1a9d63;--green-bg:#e7f7ef;
-    --amber:#b7791f;--amber-bg:#fdf3e1;
-    --shadow:0 1px 2px rgba(20,30,60,.06);
-    --shadow-lg:0 12px 40px rgba(20,30,60,.10);
-  }
+  /* Same bug as enrollment.css: a local :root duplicating the real
+     global tokens with 3 drifted values (--green, --amber, --muted)
+     and no dark-mode variant, so this flow never responded to theme.
+     Removed -- inherits the real tokens (index.css, always loaded)
+     in both themes now. */
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:"Inclusive Sans",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
   a{text-decoration:none;color:inherit}
