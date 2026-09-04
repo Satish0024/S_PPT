@@ -22,21 +22,29 @@
    than growing taller and colliding with it. */
 .rqp-side-copy{
   position:relative;z-index:1;max-width:30ch;padding:clamp(28px,5vw,44px) clamp(24px,4vw,40px) 0}
-.rqp-side-tag{display:block;font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
-.rqp-side-copy h1{font-size:clamp(19px,2.4vw,26px);font-weight:800;line-height:1.25;letter-spacing:-.3px;margin: var(--space-0) var(--space-0) var(--space-2-5);color:var(--brand-dark)}
+.rqp-side-tag{display:block;font-size:var(--text-caption-size);font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--amber);margin-bottom:var(--space-2-5)}
+.rqp-side-copy h1{font-size:clamp(19px,2.4vw,26px);font-weight:800;line-height:1.25;letter-spacing:-.3px;margin:var(--space-0) var(--space-0) var(--space-2-5);color:var(--brand-dark)}
 .rqp-side-copy p{font-size:clamp(12.5px,1.3vw,14px);line-height:1.55;color:var(--ink-soft);margin:0}
 
-.rqp-main{display:flex;flex-direction:column;padding: var(--space-9) var(--space-12);max-width:760px;width:100%;margin:0 auto}
-.rqp-main-head{display:flex;align-items:center;gap: var(--space-4);margin-bottom:34px}
+.rqp-main{display:flex;flex-direction:column;padding:var(--space-9) var(--space-12);max-width:760px;width:100%;margin:0 auto}
+.rqp-main-head{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-8)}
 .rqp-leave{
-  display:inline-flex;align-items:center;gap: var(--space-1-5);border:none;background:none;color:var(--ink-soft);
-  font:inherit;font-size:14px;font-weight:700;cursor:pointer;padding: var(--space-0);flex:0 0 auto}
+  display:inline-flex;align-items:center;gap:var(--space-1-5);border:none;background:none;color:var(--ink-soft);
+  font:inherit;font-size:var(--text-body-md-size);font-weight:700;cursor:pointer;padding:var(--space-0);flex:0 0 auto}
 .rqp-leave:hover{color:var(--ink)}
-.rqp-body{flex:1;display:flex;flex-direction:column;justify-content:center}
-.rqp-actions{margin-top:32px}
+/* Was flex:1 + justify-content:center -- a short question (a few answer
+   rows) got centered inside a box that filled the entire remaining
+   viewport height, leaving a large blank gap both above the question
+   and below it before .rqp-actions (appended right after, still inside
+   that same oversized box). flex:1 alone (no longer forcing a min-height
+   via the flex grow, and no centering) lets the body size to its actual
+   content, so .rqp-actions sits right after the content instead of
+   after a viewport-tall gap. */
+.rqp-body{display:flex;flex-direction:column}
+.rqp-actions{margin-top:var(--space-8)}
 
 @media(max-width:900px){
   .rqp-page{grid-template-columns:1fr}
   .rqp-side{display:none}
-  .rqp-main{padding:28px 22px}
+  .rqp-main{padding:var(--space-7) var(--space-5)}
 }

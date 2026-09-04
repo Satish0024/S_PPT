@@ -1425,7 +1425,7 @@
   .risk2-caption{font-size:14px;color:var(--ink-soft);margin: var(--space-0);padding-top: var(--space-3-5);border-top:1px solid rgba(var(--shadow-color),.06)}
   .risk2-edit-btn{
     display:flex;align-items:center;justify-content:center;gap: var(--space-2);width:100%;
-    background:var(--brand-fill);color:var(--brand-text-primary-oncolor);border:none;border-radius:12px;padding:13px 16px;
+    background:var(--brand-fill);color:var(--brand-text-primary-oncolor);border:none;border-radius:12px;padding: var(--space-3) var(--space-4);
     font:inherit;font-size:14px;font-weight:800;text-decoration:none;cursor:pointer;transition:background .15s}
   .risk2-edit-btn:hover{background:var(--brand-dark)}
   .risk2-edit-btn svg{animation:nav-cta-pulse 2.6s ease-in-out infinite}
@@ -1512,7 +1512,7 @@
   .panel h3{font-size:var(--text-h5-size);font-weight:700;margin-bottom:6px}
   .panel p{color:var(--ink-soft);font-size:var(--text-description-size);line-height:1.5;margin-bottom:14px}
   .actions{display:flex;flex-wrap:wrap;gap:10px}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap: var(--space-2);padding:11px 16px;border-radius:10px;
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap: var(--space-2);padding: var(--space-2-5) var(--space-4);border-radius: var(--radius-sm);
     font-weight:var(--text-button-md-weight);font-size:var(--text-button-md-size);text-decoration:none;border:1px solid transparent;cursor:pointer}
   /* Real gap, not a style choice: .btn had no :disabled rule at all —
      a disabled button rendered pixel-identical to an active one, with
@@ -1539,7 +1539,7 @@
     border-radius:16px;padding: var(--space-2-5);box-shadow:var(--shadow);position:sticky;top:20px}
   .pr-nav button{
     display:flex;align-items:center;gap: var(--space-2-5);width:100%;border:none;background:transparent;
-    padding:11px 12px;border-radius:10px;font:inherit;font-size:14px;font-weight:700;
+    padding: var(--space-2-5) var(--space-3);border-radius: var(--radius-sm);font:inherit;font-size:14px;font-weight:700;
     color:var(--ink-soft);cursor:pointer;text-align:left}
   .pr-nav button:hover{background:var(--hover-bg);color:var(--ink)}
   .pr-nav button.on{background:var(--active-bg);color:var(--brand)}
@@ -1596,7 +1596,7 @@
   .pr-field input:not([type="radio"]):not([type="checkbox"]),.pr-field select,.pr-input-ico,.pr-phone{
     width:100%;max-width:360px;min-height:36px;border:1px solid var(--line);border-radius:9px;
     background:var(--panel);color:var(--ink);font:inherit;font-size:14px;font-weight:600;
-    padding:7px 11px;box-sizing:border-box}
+    padding: var(--space-2-5) var(--space-3);box-sizing:border-box}
   .pr-name-trio,.pr-pair{display:grid;gap: var(--space-2);width:100%;max-width:360px}
   .pr-name-trio{grid-template-columns:1fr 1fr 1fr}
   .pr-pair{grid-template-columns:1fr 1fr}
@@ -1644,7 +1644,7 @@
   .pr-history b{display:block;margin-top: var(--space-1);font-size:14px;font-weight:800;color:var(--ink)}
   .pr-table{margin:0}
   .pr-table table{width:100%;border-collapse:collapse;font-size:14px}
-  .pr-table th{text-align:left;font-size:var(--text-paragraph-xs-size);font-weight:var(--font-weight-bold);color:var(--ink-soft);background:var(--surface-2);padding:11px 14px;border-bottom:1px solid var(--line)}
+  .pr-table th{text-align:left;font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold);color:var(--ink-soft);background:var(--surface-2);padding: var(--space-2-5) var(--space-3-5);border-bottom:1px solid var(--line)}
   .pr-table td{padding: var(--space-3) var(--space-3-5);border-bottom:1px solid var(--line);font-weight:600;color:var(--ink)}
   .pr-table tr:last-child td{border-bottom:none}
   .pr-table .num{text-align:right;font-variant-numeric:tabular-nums}
@@ -1670,7 +1670,7 @@
   .pr-steps li{margin:0}
   .pr-steps button{
     display:grid;grid-template-columns:32px minmax(0,1fr);gap: var(--space-2-5);align-items:flex-start;
-    width:100%;border:none;background:transparent;padding:11px 12px;border-radius:10px;
+    width:100%;border:none;background:transparent;padding: var(--space-2-5) var(--space-3);border-radius: var(--radius-sm);
     font:inherit;text-align:left;cursor:pointer;color:var(--ink-soft)}
   .pr-steps button:disabled{cursor:default}
   .pr-steps button:hover:not(:disabled){background:var(--hover-bg)}
@@ -1722,8 +1722,8 @@
     background-repeat:no-repeat;background-position:right 12px center}
   .table-wrap{border:1px solid var(--line);border-radius:12px;overflow:auto;background:var(--panel)}
   .tx-table{width:100%;border-collapse:collapse;font-size:14px}
-  .tx-table th{text-align:left;font-size:var(--text-paragraph-xs-size);font-weight:var(--font-weight-bold);color:var(--ink-soft);background:var(--surface-2);
-    padding:11px 14px;border-bottom:1px solid var(--line)}
+  .tx-table th{text-align:left;font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold);color:var(--ink-soft);background:var(--surface-2);
+    padding: var(--space-2-5) var(--space-3-5);border-bottom:1px solid var(--line)}
   .tx-table td{padding: var(--space-3) var(--space-3-5);border-bottom:1px solid var(--line)}
   .tx-table tr:last-child td{border-bottom:none}
   .tx-table .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
@@ -2275,8 +2275,8 @@ summary:focus-visible {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 11px 12px;
-  border-radius: 11px;
+  padding: var(--space-2-5) var(--space-3);
+  border-radius: 12px;
   border-left: 3px solid var(--brand);
   text-decoration: none;
   background: var(--active-bg);
