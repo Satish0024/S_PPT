@@ -25,6 +25,13 @@
 .ds-theme-toggle:hover{border-color:var(--brand);color:var(--brand)}
 .ds-top .user-menu{position:relative}
 .ds-top .user-chip{min-height:36px}
+.ds-wcag-level{
+  display:inline-flex;align-items:center;justify-content:center;min-width:2rem;
+  padding:var(--space-0-5) var(--space-1-5);border-radius:999px;font-size:var(--text-caption-size);
+  font-weight:var(--font-weight-bold);letter-spacing:var(--ls-wide)
+}
+.ds-wcag-level.a{background:var(--surface-3);color:var(--ink-soft)}
+.ds-wcag-level.aa{background:var(--active-bg);color:var(--brand)}
 
 /* ---------- Shell ---------- */
 .ds-shell{display:flex;align-items:flex-start;max-width:1400px;margin:var(--space-0) auto}
