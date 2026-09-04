@@ -45,10 +45,13 @@
   .overview-row .chart-wrap{flex:1 1 auto;min-height:260px;height:260px;margin-top:var(--space-2-5)}
 
   .tabs{display:flex;gap:var(--space-1);padding:var(--space-0) var(--space-8);border-bottom:1px solid var(--line);background:var(--panel)}
-  .tab{border:none;background:transparent;padding:var(--space-3-5) var(--space-4);font-weight:700;font-size:var(--text-button-md-size);color:var(--ink-soft);
-    cursor:pointer;border-bottom:2px solid transparent;margin-bottom:calc(-1 * var(--space-px));transition:color .15s}
+  .tab{
+    border:none;background:transparent;padding:var(--space-3-5) var(--space-4);
+    font-weight:var(--text-button-md-weight);font-size:var(--text-button-md-size);line-height:var(--text-button-md-lh);
+    color:var(--ink-soft);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:calc(-1 * var(--space-px));transition:color .15s}
   .tab:hover{color:var(--ink)}
   .tab.on{color:var(--brand);border-bottom-color:var(--brand)}
+  .tab:focus-visible{outline:2px solid var(--brand);outline-offset:-2px}
   .tab-panel{display:none;flex-direction:column;gap:var(--space-7)}
   .tab-panel.on{display:flex}
 

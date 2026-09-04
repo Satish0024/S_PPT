@@ -20,10 +20,15 @@
   .brand{display:inline-flex;align-items:center}
   .brand img{height:34px;max-width:200px;object-fit:contain;display:block;width:auto}
   .top-right{display:flex;align-items:center;gap:var(--space-2-5)}
-  .icon-btn{width:36px;height:36px;border-radius:50%;border:none;background:transparent;
-    display:grid;place-items:center;cursor:pointer;color:var(--ink-soft);transition:background .15s;}
-  .icon-btn:hover{background:var(--hover-bg)}
+  .icon-btn{
+    width:var(--icon-btn-size-md);height:var(--icon-btn-size-md);border-radius:50%;border:none;background:transparent;
+    display:grid;place-items:center;cursor:pointer;color:var(--ink-soft);transition:background .15s,color .15s}
+  .icon-btn:hover{background:var(--hover-bg);color:var(--ink)}
   .icon-btn svg{width:20px;height:20px}
+  .icon-btn-sm{width:var(--icon-btn-size-sm);height:var(--icon-btn-size-sm)}
+  .icon-btn-sm svg{width:16px;height:16px}
+  .icon-btn-lg{width:var(--icon-btn-size-lg);height:var(--icon-btn-size-lg)}
+  .icon-btn-lg svg{width:22px;height:22px}
   .user-chip{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-1) var(--space-3) var(--space-1) var(--space-1);border:1px solid var(--line);
     border-radius:var(--radius-full);cursor:pointer;transition:box-shadow .15s,border-color .15s;font-weight:600;font-size:var(--text-button-md-size);color:var(--ink);}
   .user-chip:hover{border-color:var(--line-strong);box-shadow:var(--shadow)}

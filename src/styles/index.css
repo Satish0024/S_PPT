@@ -60,79 +60,90 @@
     /* ================================================================
        TYPOGRAPHY SYSTEM — Design Spec Aligned, WCAG AA Compliant
        ================================================================
-       Based on design system type scale specification:
-       - All sizes use even pixel values (no decimals)
-       - All sizes in rem for responsive scaling (base 16px)
-       - Line-heights: >= 1.2x for headings, >= 1.5x for body (WCAG)
-       - Letter-spacing: negative for headings, positive for uppercase
+       All sizes: even px at 16px root, rem for scaling
+       Line-heights: >= 1.2x headings, >= 1.5x body (WCAG)
        ================================================================ */
 
-    /* Base type scale — clean rem values only (no decimals except .5 and .25) */
-    --text-2xs-size: 0.625rem; --text-2xs-lh: 1rem;       /* 10/16, 1.6x — tags, eyebrows */
-    --text-xs-size: 0.75rem; --text-xs-lh: 1.25rem;       /* 12/20, 1.67x — captions, metadata */
-    --text-sm-size: 0.875rem; --text-sm-lh: 1.25rem;      /* 14/20, 1.43x — body regular, buttons */
-    --text-base-size: 1rem; --text-base-lh: 1.5rem;       /* 16/24, 1.5x — body large, h5 */
-    --text-lg-size: 1.125rem; --text-lg-lh: 1.75rem;      /* 18/28, 1.56x — h4 */
-    --text-xl-size: 1.25rem; --text-xl-lh: 1.75rem;       /* 20/28, 1.4x — h3 */
-    --text-2xl-size: 1.5rem; --text-2xl-lh: 2rem;         /* 24/32, 1.33x — h2 */
-    --text-3xl-size: 2rem; --text-3xl-lh: 2.5rem;         /* 32/40, 1.25x — h1 */
-    --text-4xl-size: 2.5rem; --text-4xl-lh: 3rem;         /* 40/48, 1.2x — display sm */
-    --text-5xl-size: 3rem; --text-5xl-lh: 3.5rem;         /* 48/56, 1.17x — display lg */
+    /* Font families */
+    --font-family-sans: "Inclusive Sans", sans-serif;
+    --font-family-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
 
-    /* Semantic heading tokens — matches design spec exactly */
-    --text-h1-size: 2rem; --text-h1-lh: 2.5rem; --text-h1-ls: -0.025rem;      /* 32/40, 1.25x, -0.4px */
-    --text-h2-size: 1.5rem; --text-h2-lh: 2rem; --text-h2-ls: -0.01875rem;    /* 24/32, 1.33x, -0.3px */
-    --text-h3-size: 1.25rem; --text-h3-lh: 1.75rem; --text-h3-ls: -0.0125rem; /* 20/28, 1.4x, -0.2px */
-    --text-h4-size: 1rem; --text-h4-lh: 1.5rem; --text-h4-ls: 0;              /* 16/24, 1.5x (alias h5) */
-    --text-h5-size: 1rem; --text-h5-lh: 1.5rem; --text-h5-ls: 0;              /* 16/24, 1.5x */
-    --text-h6-size: 0.875rem; --text-h6-lh: 1.25rem; --text-h6-ls: 0;         /* 14/20, 1.43x */
-
-    /* Display text — large numbers, hero sections (clean rem values only) */
-    --text-display-sm-size: 2.5rem; --text-display-sm-lh: 3rem; --text-display-sm-ls: -0.05rem;  /* 40/48, 1.2x */
-    --text-display-md-size: 1.5rem; --text-display-md-lh: 2rem;                                  /* 24/32, 1.33x — stat values */
-    --text-display-lg-size: 2rem; --text-display-lg-lh: 2.5rem;                                  /* 32/40, 1.25x — balance */
-
-    /* Body text — design spec aligned */
-    --text-body-lg-size: 1rem; --text-body-lg-lh: 1.5rem;           /* 16/24, 1.5x — body large */
-    --text-body-md-size: 0.875rem; --text-body-md-lh: 1.25rem;      /* 14/20, 1.43x — body regular */
-    --text-body-sm-size: 0.875rem; --text-body-sm-lh: 1.25rem;      /* 14/20, 1.43x — body small (same as md) */
-    --text-body-xs-size: 0.75rem; --text-body-xs-lh: 1.25rem;       /* 12/20, 1.67x — captions */
-
-    /* Paragraph variants */
-    --text-paragraph-sm-size: 0.875rem; --text-paragraph-sm-lh: 1.25rem;  /* 14/20 */
-    --text-paragraph-xs-size: 0.75rem; --text-paragraph-xs-lh: 1.25rem;   /* 12/20 */
-
-    /* Legacy semantic aliases (for backward compatibility) */
-    --text-description-size: 0.875rem; --text-description-lh: 1.25rem; --text-description-weight: 400;
-    --text-title-description-size: 1rem; --text-title-description-lh: 1.5rem; --text-title-description-weight: 600;
-    --text-page-title-size: 1.5rem; --text-page-title-lh: 2rem;
-    --text-heading-size: 1.25rem; --text-heading-lh: 1.75rem;
-
-    /* Font weights — standardized scale */
+    /* Font weights */
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
     --font-weight-extrabold: 800;
 
-    /* Component-specific text tokens */
-    --text-label-size: 0.875rem; --text-label-lh: 1.25rem; --text-label-weight: 700;     /* 14/20 */
-    --text-eyebrow-size: 0.625rem; --text-eyebrow-lh: 1rem; --text-eyebrow-weight: 800;  /* 10/16 */
-    --text-caption-size: 0.75rem; --text-caption-lh: 1.25rem; --text-caption-weight: 500; /* 12/18 */
-    --text-button-lg-size: 1rem; --text-button-lg-lh: 1.5rem; --text-button-lg-weight: 700;     /* 16/24 */
-    --text-button-md-size: 0.875rem; --text-button-md-lh: 1.25rem; --text-button-md-weight: 700; /* 14/20 */
-    --text-button-sm-size: 0.875rem; --text-button-sm-lh: 1.25rem; --text-button-sm-weight: 700; /* 14/20 */
-    --text-placeholder-weight: 400;
-    --font-family-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    /* Base type scale — floor 12px (0.75rem). Never use text below this. */
+    --text-2xs-size: 0.75rem; --text-2xs-lh: 1.25rem;     /* 12/20 — alias of xs (a11y floor) */
+    --text-xs-size: 0.75rem; --text-xs-lh: 1.25rem;       /* 12/20 — captions, tags, eyebrows */
+    --text-sm-size: 0.875rem; --text-sm-lh: 1.5;          /* 14 / 1.5 — UI body (WCAG 1.4.12) */
+    --text-base-size: 1rem; --text-base-lh: 1.5;          /* 16 / 1.5 */
+    --text-lg-size: 1.125rem; --text-lg-lh: 1.75rem;      /* 18/28 */
+    --text-xl-size: 1.25rem; --text-xl-lh: 1.75rem;       /* 20/28 */
+    --text-2xl-size: 1.5rem; --text-2xl-lh: 2rem;         /* 24/32 */
+    --text-3xl-size: 2rem; --text-3xl-lh: 2.5rem;         /* 32/40 */
+    --text-4xl-size: 2.5rem; --text-4xl-lh: 3rem;         /* 40/48 */
+    --text-5xl-size: 3rem; --text-5xl-lh: 3.75rem;        /* 48/60 — ≥1.2× for large text */
 
-    /* Letter-spacing tokens (rem, even px equivalents at 16px root) */
-    --ls-tightest: -0.1rem;    /* -1.6px — display / hero titles */
-    --ls-tighter: -0.05rem;    /* -0.8px — large numbers */
-    --ls-tight: -0.025rem;     /* -0.4px — headings */
-    --ls-snug: -0.0125rem;     /* -0.2px — small headings */
+    /* Display styles — hero / large numbers (lh ≥ 1.2×) */
+    --text-display-xl-size: 3rem; --text-display-xl-lh: 3.75rem; --text-display-xl-ls: -0.05rem; --text-display-xl-weight: 800; /* 48/60 */
+    --text-display-lg-size: 2rem; --text-display-lg-lh: 2.5rem; --text-display-lg-ls: -0.05rem; --text-display-lg-weight: 700; /* 32/40 — balance */
+    --text-display-md-size: 1.5rem; --text-display-md-lh: 2rem; --text-display-md-ls: -0.025rem; --text-display-md-weight: 700; /* 24/32 — stats */
+    --text-display-sm-size: 2.5rem; --text-display-sm-lh: 3rem; --text-display-sm-ls: -0.05rem; --text-display-sm-weight: 800; /* 40/48 — readiness */
+
+    /* Heading styles H1–H6 (lh ≥ 1.2×) */
+    --text-h1-size: 2rem; --text-h1-lh: 2.5rem; --text-h1-ls: -0.025rem; --text-h1-weight: 700; /* 32/40 */
+    --text-h2-size: 1.5rem; --text-h2-lh: 2rem; --text-h2-ls: -0.01875rem; --text-h2-weight: 700; /* 24/32 */
+    --text-h3-size: 1.25rem; --text-h3-lh: 1.75rem; --text-h3-ls: -0.0125rem; --text-h3-weight: 700; /* 20/28 */
+    --text-h4-size: 1rem; --text-h4-lh: 1.5rem; --text-h4-ls: 0; --text-h4-weight: 700; /* 16/24 */
+    --text-h5-size: 1rem; --text-h5-lh: 1.5rem; --text-h5-ls: 0; --text-h5-weight: 700; /* 16/24 */
+    --text-h6-size: 0.875rem; --text-h6-lh: 1.5; --text-h6-ls: 0; --text-h6-weight: 700; /* 14 / 1.5 */
+
+    /* Body text — unitless 1.5 lh for WCAG 1.4.12 Text Spacing */
+    --text-body-lg-size: 1rem; --text-body-lg-lh: 1.5; --text-body-lg-weight: 400; /* 16 / 1.5 */
+    --text-body-md-size: 0.875rem; --text-body-md-lh: 1.5; --text-body-md-weight: 400; /* 14 / 1.5 — default */
+    --text-body-sm-size: 0.875rem; --text-body-sm-lh: 1.5; --text-body-sm-weight: 400; /* 14 / 1.5 — alias of md */
+    --text-body-xs-size: 0.75rem; --text-body-xs-lh: 1.5; --text-body-xs-weight: 400; /* 12 / 1.5 — min readable */
+
+    /* Paragraph aliases */
+    --text-paragraph-sm-size: 0.875rem; --text-paragraph-sm-lh: 1.5;
+    --text-paragraph-xs-size: 0.75rem; --text-paragraph-xs-lh: 1.5;
+
+    /* Label */
+    --text-label-size: 0.875rem; --text-label-lh: 1.5; --text-label-weight: 700; --text-label-ls: 0; /* 14 / 1.5 */
+
+    /* Caption / helper / eyebrow — 12px floor (never smaller) */
+    --text-caption-size: 0.75rem; --text-caption-lh: 1.5; --text-caption-weight: 500; --text-caption-ls: 0.025rem; /* 12 / 1.5 */
+    --text-helper-size: 0.75rem; --text-helper-lh: 1.5; --text-helper-weight: 400; --text-helper-ls: 0; /* 12 / 1.5 */
+    --text-eyebrow-size: 0.75rem; --text-eyebrow-lh: 1.5; --text-eyebrow-weight: 800; --text-eyebrow-ls: 0.05rem; /* 12 / 1.5, uppercase */
+
+    /* Button text */
+    --text-button-lg-size: 1rem; --text-button-lg-lh: 1.5; --text-button-lg-weight: 700; /* 16 / 1.5 */
+    --text-button-md-size: 0.875rem; --text-button-md-lh: 1.5; --text-button-md-weight: 700; /* 14 / 1.5 */
+    --text-button-sm-size: 0.875rem; --text-button-sm-lh: 1.5; --text-button-sm-weight: 700; /* 14 / 1.5 */
+
+    /* Link text */
+    --text-link-size: 0.875rem; --text-link-lh: 1.5; --text-link-weight: 700; --text-link-ls: 0; /* 14 / 1.5 */
+
+    /* Placeholder text */
+    --text-placeholder-size: 0.875rem; --text-placeholder-lh: 1.5; --text-placeholder-weight: 400; --text-placeholder-ls: 0; /* 14 / 1.5 */
+
+    /* Legacy semantic aliases */
+    --text-description-size: 0.875rem; --text-description-lh: 1.25rem; --text-description-weight: 400;
+    --text-title-description-size: 1rem; --text-title-description-lh: 1.5rem; --text-title-description-weight: 600;
+    --text-page-title-size: 1.5rem; --text-page-title-lh: 2rem;
+    --text-heading-size: 1.25rem; --text-heading-lh: 1.75rem;
+
+    /* Letter-spacing */
+    --ls-tightest: -0.1rem;    /* -1.6px */
+    --ls-tighter: -0.05rem;    /* -0.8px */
+    --ls-tight: -0.025rem;     /* -0.4px */
+    --ls-snug: -0.0125rem;     /* -0.2px */
     --ls-normal: 0;
-    --ls-wide: 0.025rem;       /* 0.4px — uppercase / eyebrow */
-    --ls-wider: 0.05rem;       /* 0.8px — tags / badges */
+    --ls-wide: 0.025rem;       /* 0.4px */
+    --ls-wider: 0.05rem;       /* 0.8px */
 
     /* Chart / data-visualization palette — the set every multi-series
        chart or donut in the app draws from, so a portfolio with a dozen
@@ -200,11 +211,17 @@
     --btn-padding-y-lg: var(--space-3);
     --btn-padding-x-lg: var(--space-6);
     --btn-gap: var(--space-2);
+    --icon-btn-size-sm: 32px;   /* ≥24px WCAG 2.5.8; 32px preferred touch */
+    --icon-btn-size-md: 36px;
+    --icon-btn-size-lg: 44px;   /* WCAG 2.5.5 preferred target */
     --form-label-gap: var(--space-1-5);
     --form-control-gap: var(--space-4);
     --form-field-gap: var(--space-3-5);
     --input-padding-y: var(--space-2-5);
     --input-padding-x: var(--space-3);
+    --input-min-height: 40px;
+    --input-min-height-sm: 36px;
+    --input-min-height-lg: 48px;
 
     /* ================================================================
        LAYOUT SPACING — Tailwind-aligned semantic tokens
@@ -414,11 +431,28 @@
   *{box-sizing:border-box;margin:var(--space-0);padding:var(--space-0)}
   html,body,#root{min-height:100vh}
   body{
-    font-family:"Inclusive Sans",sans-serif;
-    font-size:var(--text-base-size);font-weight:400;
+    font-family:var(--font-family-sans);
+    font-size:var(--text-body-md-size);font-weight:var(--font-weight-regular);
+    line-height:var(--text-body-md-lh);
     color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;
   }
   button,a{font-family:inherit}
+  ::placeholder{
+    font-family:var(--font-family-sans);
+    font-size:var(--text-placeholder-size);
+    font-weight:var(--text-placeholder-weight);
+    line-height:var(--text-placeholder-lh);
+    letter-spacing:var(--text-placeholder-ls);
+    color:var(--muted);
+    opacity:1;
+  }
+  .text-helper{
+    font-size:var(--text-helper-size);
+    font-weight:var(--text-helper-weight);
+    line-height:var(--text-helper-lh);
+    letter-spacing:var(--text-helper-ls);
+    color:var(--muted);
+  }
 
   .topbar{
     height:var(--header-h);border-bottom:1px solid var(--line);display:flex;align-items:center;
@@ -427,10 +461,18 @@
   .brand{display:inline-flex;align-items:center}
   .brand img{height:34px;max-width:200px;object-fit:contain;display:block;width:auto}
   .top-right{display:flex;align-items:center;gap:var(--space-2-5)}
-  .icon-btn{width:36px;height:36px;border-radius:50%;border:none;background:transparent;
-    display:grid;place-items:center;cursor:pointer;color:var(--ink-soft)}
-  .icon-btn:hover{background:var(--hover-bg)}
+  .icon-btn{
+    width:var(--icon-btn-size-md);height:var(--icon-btn-size-md);border-radius:50%;border:none;background:transparent;
+    display:grid;place-items:center;cursor:pointer;color:var(--ink-soft);flex:0 0 auto;
+    transition:background .15s,color .15s}
+  .icon-btn:hover{background:var(--hover-bg);color:var(--ink)}
+  .icon-btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  .icon-btn:disabled,.icon-btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;pointer-events:none}
   .icon-btn svg{width:20px;height:20px}
+  .icon-btn-sm{width:var(--icon-btn-size-sm);height:var(--icon-btn-size-sm)}
+  .icon-btn-sm svg{width:16px;height:16px}
+  .icon-btn-lg{width:var(--icon-btn-size-lg);height:var(--icon-btn-size-lg)}
+  .icon-btn-lg svg{width:22px;height:22px}
 
   .user-menu{position:relative}
   .user-chip{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-1) var(--space-3) var(--space-1) var(--space-1);border:1px solid var(--line);
@@ -495,7 +537,14 @@
   .hi-bar h1{font-size:var(--text-h1-size);font-weight:var(--font-weight-bold);letter-spacing:var(--text-h1-ls);line-height:var(--text-h1-lh);margin:var(--space-0);color:var(--ink)}
   .hi-bar .plan-badge{margin-top:var(--space-2)}
   .hi-bar .hi-actions{display:flex;flex-wrap:wrap;gap:var(--space-2-5)}
-  .text-link{font-size:var(--text-body-sm-size);font-weight:700;color:var(--brand);text-decoration:none;background:none;border:none;cursor:pointer;padding:var(--space-0);font-family:inherit}
+  .text-link{
+    font-family:var(--font-family-sans);
+    font-size:var(--text-link-size);
+    font-weight:var(--text-link-weight);
+    line-height:var(--text-link-lh);
+    letter-spacing:var(--text-link-ls);
+    color:var(--brand);text-decoration:none;background:none;border:none;cursor:pointer;padding:var(--space-0);
+  }
   .text-link:hover{text-decoration:underline}
 
   .scenario-banner{
@@ -1203,11 +1252,7 @@
   .empty-side .e-ico svg{width:16px;height:16px}
   .empty-side h4{font-size:var(--text-h6-size);font-weight:var(--font-weight-bold);margin-bottom:var(--space-1-5);color:var(--ink)}
   .empty-side p{font-size:var(--text-caption-size);color:var(--ink-soft);line-height:1.45;margin-bottom:var(--space-3)}
-  .btn-sm{display:inline-flex;align-items:center;justify-content:center;gap:var(--btn-gap);padding:var(--btn-padding-y-sm) var(--btn-padding-x-sm);border-radius:var(--radius-sm);
-    font-size:var(--text-button-sm-size);font-weight:var(--text-button-sm-weight);text-decoration:none;border:1px solid transparent;cursor:pointer;width:100%;
-    transition:background .15s}
-  .btn-sm.primary{background:var(--brand-fill);color:var(--brand-text-primary-oncolor)}
-  .btn-sm.primary:hover{background:var(--brand-dark)}
+  .empty-side .btn,.empty-side .btn-sm{width:100%}
 
   /* Recent transactions */
   .section-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--card-padding-sm);box-shadow:var(--shadow)}
@@ -1269,18 +1314,82 @@
   .panel h3{font-size:var(--text-h5-size);font-weight:var(--font-weight-bold);margin-bottom:var(--space-1-5)}
   .panel p{color:var(--ink-soft);font-size:var(--text-paragraph-sm-size);line-height:1.5;margin-bottom:var(--space-3-5)}
   .actions{display:flex;flex-wrap:wrap;gap:var(--actions-gap)}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--btn-gap);padding:var(--btn-padding-y-md) var(--btn-padding-x-md);border-radius:var(--radius-sm);
-    font-weight:var(--text-button-md-weight);font-size:var(--text-button-md-size);line-height:var(--text-button-md-lh);text-decoration:none;border:1px solid transparent;cursor:pointer}
-  .btn-lg{padding:var(--btn-padding-y-lg) var(--btn-padding-x-lg);font-size:var(--text-button-lg-size);font-weight:var(--text-button-lg-weight);line-height:var(--text-button-lg-lh)}
-  .btn-primary{background:var(--brand-fill);color:var(--brand-text-primary-oncolor)}
-  .btn-primary:hover{background:var(--brand-dark)}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:var(--btn-gap);
+    padding:var(--btn-padding-y-md) var(--btn-padding-x-md);border-radius:var(--radius-sm);
+    font-family:inherit;font-weight:var(--text-button-md-weight);font-size:var(--text-button-md-size);
+    line-height:var(--text-button-md-lh);text-decoration:none;border:1px solid transparent;cursor:pointer;
+    background:var(--panel);color:var(--ink);width:auto;min-height:var(--input-min-height-sm);
+    transition:background .15s,border-color .15s,color .15s,opacity .15s,filter .15s}
+  .btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  .btn-sm{
+    padding:var(--btn-padding-y-sm) var(--btn-padding-x-sm);
+    font-size:var(--text-button-sm-size);font-weight:var(--text-button-sm-weight);line-height:var(--text-button-sm-lh);
+    min-height:var(--icon-btn-size-sm)}
+  .btn-lg{
+    padding:var(--btn-padding-y-lg) var(--btn-padding-x-lg);
+    font-size:var(--text-button-lg-size);font-weight:var(--text-button-lg-weight);line-height:var(--text-button-lg-lh);
+    min-height:var(--input-min-height-lg)}
+  .btn-primary,.btn-sm.primary{background:var(--brand-fill);color:var(--brand-text-primary-oncolor);border-color:transparent}
+  .btn-primary:hover:not(:disabled),.btn-sm.primary:hover:not(:disabled){background:var(--brand-dark)}
   .btn-secondary{background:var(--panel);color:var(--brand);border-color:var(--line)}
-  .btn-secondary:hover{background:var(--hover-bg)}
-  .btn-ghost{background:transparent;color:var(--brand);border-color:var(--line)}
-  .btn-ghost:hover{background:var(--hover-bg)}
-  .btn-danger,.ds-btn-danger{background:var(--red);color:var(--brand-text-primary-oncolor);border-color:transparent}
-  .btn-danger:hover,.ds-btn-danger:hover{filter:brightness(.92)}
-  .btn:disabled,.btn[aria-disabled="true"]{opacity:.5;cursor:not-allowed;pointer-events:none}
+  .btn-secondary:hover:not(:disabled){background:var(--hover-bg)}
+  .btn-ghost{background:transparent;color:var(--brand);border-color:transparent}
+  .btn-ghost:hover:not(:disabled){background:var(--hover-bg)}
+  .btn-danger{background:var(--red);color:var(--brand-text-primary-oncolor);border-color:transparent}
+  .btn-danger:hover:not(:disabled){filter:brightness(.92)}
+  .btn:disabled,.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;pointer-events:none}
+
+  /* ---------- Forms ---------- */
+  .form-field{display:flex;flex-direction:column;gap:var(--form-label-gap);min-width:0}
+  .form-label{
+    font-size:var(--text-label-size);font-weight:var(--text-label-weight);line-height:var(--text-label-lh);
+    letter-spacing:var(--text-label-ls);color:var(--ink-soft)}
+  .form-control{
+    width:100%;min-height:var(--input-min-height);box-sizing:border-box;
+    padding:var(--input-padding-y) var(--input-padding-x);border:1px solid var(--line);border-radius:var(--radius-sm);
+    font:inherit;font-size:var(--text-body-md-size);font-weight:var(--font-weight-medium);line-height:var(--text-body-md-lh);
+    color:var(--ink);background:var(--panel);transition:border-color .15s,box-shadow .15s}
+  .form-control-sm{min-height:var(--input-min-height-sm);padding:var(--space-2) var(--space-2-5)}
+  .form-control-lg{
+    min-height:var(--input-min-height-lg);padding:var(--space-3) var(--space-4);
+    font-size:var(--text-body-lg-size);line-height:var(--text-body-lg-lh)}
+  .form-control:focus,.form-control:focus-visible{
+    outline:none;border-color:var(--brand);
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 15%, transparent)}
+  .form-control:disabled{background:var(--surface-2);color:var(--ink-soft);cursor:not-allowed}
+  .form-error{
+    display:flex;gap:var(--space-1-5);align-items:center;margin:var(--space-0);
+    font-size:var(--text-helper-size);font-weight:var(--font-weight-semibold);line-height:var(--text-helper-lh);color:var(--red)}
+  .form-helper{font-size:var(--text-helper-size);font-weight:var(--text-helper-weight);line-height:var(--text-helper-lh);color:var(--muted)}
+
+  /* ---------- Badges & alerts ---------- */
+  .badge{
+    display:inline-flex;align-items:center;padding:var(--space-1) var(--space-2-5);border-radius:999px;
+    font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);line-height:var(--text-caption-lh);
+    letter-spacing:var(--ls-wide);white-space:nowrap}
+  .badge.green{background:var(--green-bg);color:var(--green)}
+  .badge.amber{background:var(--amber-bg);color:var(--amber)}
+  .badge.navy{background:var(--active-bg);color:var(--brand)}
+  .badge.red{background:var(--red-bg);color:var(--red)}
+  .inline-alert{
+    display:flex;gap:var(--space-2);align-items:center;padding:var(--space-2-5) var(--space-3-5);
+    border-radius:var(--radius-sm);background:var(--active-bg);border:1px solid var(--line);
+    font-size:var(--text-body-md-size);line-height:var(--text-body-md-lh);color:var(--ink)}
+  .inline-alert.warn{background:var(--amber-bg);border-color:color-mix(in srgb, var(--amber) 35%, var(--line));color:var(--ink)}
+  .inline-alert.danger{background:var(--red-bg);border-color:color-mix(in srgb, var(--red) 35%, var(--line))}
+
+  /* ---------- Tabs ---------- */
+  .tab{
+    border:none;background:transparent;padding:var(--space-3-5) var(--space-4);
+    font-family:inherit;font-weight:var(--text-button-md-weight);font-size:var(--text-button-md-size);
+    line-height:var(--text-button-md-lh);color:var(--ink-soft);cursor:pointer;
+    border-bottom:2px solid transparent;border-radius:0}
+  .tab:hover{color:var(--ink)}
+  .tab.on{color:var(--brand);border-bottom-color:var(--brand)}
+  .tab:focus-visible{outline:2px solid var(--brand);outline-offset:-2px}
 
   .list{display:flex;flex-direction:column;gap:var(--space-0);border:1px solid var(--line);border-radius:12px;overflow:hidden}
   .list-row{display:flex;justify-content:space-between;gap:var(--space-3);padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--line);

@@ -30,7 +30,7 @@
 .login-logo{height:38px;display:block;margin-bottom:var(--space-5)}
 .login-card h2{font-size:var(--text-h2-size);font-weight:var(--font-weight-bold);letter-spacing:var(--text-h2-ls);margin:var(--space-0) var(--space-0) var(--space-1-5)}
 .login-lead{color:var(--ink-soft);font-size:var(--text-body-md-size);margin:var(--space-0) var(--space-0) var(--space-5)}
-.login-field{display:flex;flex-direction:column;gap:var(--form-label-gap);font-size:var(--text-body-sm-size);font-weight:700;margin-bottom:var(--form-field-gap)}
+.login-field{display:flex;flex-direction:column;gap:var(--form-label-gap);font-size:var(--text-label-size);font-weight:var(--text-label-weight);line-height:var(--text-label-lh);margin-bottom:var(--form-field-gap)}
 .login-input{display:flex;align-items:center;gap:var(--space-2);border:1px solid var(--line-strong);border-radius:var(--radius-sm);padding:var(--space-0) var(--input-padding-x);
   background:var(--panel);transition:border-color .15s,box-shadow .15s}
 .login-input:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 15%, transparent)}
