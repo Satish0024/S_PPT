@@ -15,7 +15,7 @@
 
   .hero-stats{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--space-4)}
   .balance-k{font-size:var(--text-body-sm-size);font-weight:600;color:var(--muted);margin-bottom:var(--space-1)}
-  .balance{font-size:var(--text-display-lg-size);font-weight:700;letter-spacing:-.6px;color:var(--ink);line-height:1}
+  .balance{font-size:var(--text-display-lg-size);font-weight:700;letter-spacing:-.6px;color:var(--ink);line-height:1.2}
   .change{margin-top:var(--space-2);font-size:var(--text-body-md-size);font-weight:600;color:var(--green)}
   .change.neg{color:var(--red)}
   .change span{color:var(--ink-soft);font-weight:500}
