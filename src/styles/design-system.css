@@ -212,7 +212,7 @@
 .ds-type-row2:last-child{border-bottom:none}
 .ds-type-row2-meta{display:flex;flex-direction:column;gap:var(--space-0-5)}
 .ds-type-row2-meta b{font-size:var(--text-caption-size);font-weight:800;color:var(--brand)}
-.ds-type-row2-meta span{font-size:var(--text-caption-size);color:var(--muted);font-family:var(--font-family-mono)}
+.ds-type-row2-meta span{font-size:var(--text-caption-size);color:var(--muted)}
 .ds-type-sample{grid-column:2;color:var(--ink)}
 .ds-type-row2-use{grid-column:2;font-size:var(--text-helper-size);font-weight:var(--text-helper-weight);line-height:var(--text-helper-lh);color:var(--muted);margin-top:var(--space-1)}
 
@@ -227,7 +227,7 @@
 .ds-token-table{width:100%;border-collapse:collapse;font-size:var(--text-caption-size);line-height:var(--text-caption-lh)}
 .ds-token-table th,.ds-token-table td{padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
 .ds-token-table th{font-weight:var(--font-weight-bold);color:var(--muted);font-size:var(--text-caption-size);text-transform:uppercase;letter-spacing:var(--ls-wide);background:var(--surface-2);white-space:nowrap}
-.ds-token-table code{font-family:var(--font-family-mono);font-size:var(--text-caption-size);color:var(--brand);white-space:nowrap}
+.ds-token-table code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:var(--text-caption-size);color:var(--brand);white-space:nowrap}
 .ds-token-table .ds-token-use{color:var(--muted);font-size:var(--text-caption-size)}
 .ds-token-scroll{overflow-x:auto}
 .ds-type-table .ds-type-sample-inline{display:inline-block;max-width:280px;color:var(--ink);word-break:break-word}
@@ -260,7 +260,7 @@
 .ds-type-button-sm{font-size:var(--text-button-sm-size);font-weight:var(--text-button-sm-weight);line-height:var(--text-button-sm-lh)}
 .ds-type-link{font-size:var(--text-link-size);font-weight:var(--text-link-weight);line-height:var(--text-link-lh);letter-spacing:var(--text-link-ls);color:var(--brand)}
 .ds-type-placeholder{font-size:var(--text-placeholder-size);font-weight:var(--text-placeholder-weight);line-height:var(--text-placeholder-lh);letter-spacing:var(--text-placeholder-ls);color:var(--muted)}
-.ds-type-code{font-family:var(--font-family-mono);font-size:var(--text-caption-size);line-height:1.6}
+.ds-type-code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:var(--text-caption-size);line-height:1.6}
 
 @media(max-width:560px){
   .ds-type-row2{grid-template-columns:1fr}
@@ -290,6 +290,32 @@
 .ds-dialog-demo-actions{
   display:flex;gap:var(--actions-gap);justify-content:flex-end;
   padding:var(--space-3) var(--space-4);border-top:1px solid var(--line)}
+
+/* ---------- Icon grid ---------- */
+.ds-icon-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--space-2);padding:var(--space-4) var(--space-5)}
+.ds-icon-item{
+  display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);border:1px solid var(--line);
+  border-radius:var(--radius-sm);background:var(--panel);cursor:pointer;text-align:left;font:inherit;color:var(--ink)}
+.ds-icon-item:hover{border-color:var(--brand);background:var(--active-bg)}
+.ds-icon-item svg{flex:0 0 auto;color:var(--ink-soft)}
+.ds-icon-item:hover svg{color:var(--brand)}
+.ds-icon-name{font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--ink)}
+.ds-icon-use{display:none;font-size:var(--text-body-xs-size);color:var(--muted)}
+@media(min-width:640px){.ds-icon-item{flex-direction:column;align-items:flex-start}.ds-icon-use{display:block;margin-top:var(--space-0-5)}}
+.ds-icon-size-demo{display:flex;align-items:center;gap:var(--space-3);font-size:var(--text-body-sm-size);color:var(--ink-soft)}
+.ds-icon-size-demo svg{color:var(--brand)}
+
+/* ---------- Logo showcase ---------- */
+.ds-logo-showcase{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-4);padding:var(--space-4) var(--space-5)}
+.ds-logo-variant{display:flex;flex-direction:column;gap:var(--space-2)}
+.ds-logo-variant .ds-logo-label{font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--muted);text-transform:uppercase;letter-spacing:var(--ls-wide)}
+.ds-logo-variant .ds-logo-preview{
+  display:flex;align-items:center;justify-content:center;padding:var(--space-6);border-radius:var(--radius-lg);min-height:100px}
+.ds-logo-variant.light .ds-logo-preview{background:#f8f9fb;border:1px solid var(--line)}
+.ds-logo-variant.dark .ds-logo-preview{background:#1a1b23;border:1px solid rgba(255,255,255,.1)}
+.ds-logo-variant .ds-logo-preview img{max-height:48px;max-width:200px;object-fit:contain}
+.ds-logo-variant code{font-size:var(--text-body-xs-size);color:var(--muted);word-break:break-all}
 
 /* Legacy aliases — prefer real app classes (.btn-danger, .icon-btn-sm) */
 .ds-btn-danger{background:var(--red);color:var(--brand-text-primary-oncolor);border-color:transparent}
