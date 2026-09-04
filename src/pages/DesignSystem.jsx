@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import {
-  AlertTriangle, Check, ChevronDown, Copy, Eye, Keyboard,
-  Mic, Moon, MousePointerClick, Settings, ShieldCheck, Sun,
-  Type as TypeIcon, Volume2, X
+  AlertTriangle, Check, ChevronDown, Copy, Eye, Keyboard, Mic, Moon, MousePointerClick,
+  Settings, ShieldCheck, Sun, Type as TypeIcon, Volume2, X
 } from 'lucide-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faHome, faUser, faCog, faSearch, faBars, faTimes, faCheck, faExclamationTriangle,
   faPlus, faTrash, faDownload, faUpload, faChevronDown, faArrowRight, faEye, faCopy,
-  faEdit, faSave, faFile, faFolder, faEnvelope, faPhone, faCalendar, faLock
+  faEdit, faSave, faBell, faEnvelope, faCalendar, faFile, faFolder, faHeart, faStar
 } from '@fortawesome/free-solid-svg-icons'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { BRAND } from '../config/brand.js'
@@ -768,9 +767,9 @@ export default function DesignSystem() {
           <section id="icons" className="ds-section">
             <h2>Icons</h2>
             <p className="ds-lede">
-              <b>Font Awesome</b> is the icon library — the industry-standard icon set with
-              thousands of icons, excellent accessibility support, and consistent styling.
-              Icons inherit <code>currentColor</code> from their parent element.
+              <b>Font Awesome</b> is the icon library — a comprehensive, professional icon set with
+              excellent accessibility support. Icons use <code>currentColor</code> to inherit the
+              parent's text color and scale with font-size.
             </p>
             <div className="ds-card">
               <div className="ds-type-group-title">Common icons</div>
@@ -788,25 +787,17 @@ export default function DesignSystem() {
                   [faTrash, 'faTrash', 'Delete, remove actions'],
                   [faDownload, 'faDownload', 'Export, download files'],
                   [faUpload, 'faUpload', 'Import, upload files'],
-                  [faChevronDown, 'faChevronDown', 'Expand, dropdowns'],
-                  [faArrowRight, 'faArrowRight', 'Navigate, proceed'],
-                  [faEye, 'faEye', 'View, visibility toggle'],
-                  [faCopy, 'faCopy', 'Copy to clipboard'],
                   [faEdit, 'faEdit', 'Edit, modify content'],
-                  [faSave, 'faSave', 'Save, confirm changes'],
-                  [faFile, 'faFile', 'Documents, files'],
-                  [faFolder, 'faFolder', 'Folders, categories'],
+                  [faSave, 'faSave', 'Save actions'],
+                  [faBell, 'faBell', 'Notifications, alerts'],
                   [faEnvelope, 'faEnvelope', 'Email, messages'],
-                  [faPhone, 'faPhone', 'Phone, contact'],
-                  [faCalendar, 'faCalendar', 'Dates, scheduling'],
-                  [faLock, 'faLock', 'Security, authentication'],
                 ].map(([icon, name, usage]) => (
                   <button
                     key={name}
                     type="button"
                     className="ds-icon-item"
                     onClick={() => copyToClipboard(`<FontAwesomeIcon icon={${name}} />`)}
-                    title={`Copy ${name} usage`}
+                    title={`Copy <FontAwesomeIcon icon={${name}} />`}
                   >
                     <FontAwesomeIcon icon={icon} size="lg" />
                     <span className="ds-icon-name">{name}</span>
@@ -817,24 +808,24 @@ export default function DesignSystem() {
               <div className="ds-type-group-title">Sizing guidelines</div>
               <div className="ds-demo" style={{ gap: 'var(--space-6)' }}>
                 <div className="ds-icon-size-demo">
-                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '14px' }} />
-                  <span>14px (xs) — inline with caption text</span>
+                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '0.875rem' }} />
+                  <span>xs (0.875rem) — inline with caption text</span>
                 </div>
                 <div className="ds-icon-size-demo">
-                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '16px' }} />
-                  <span>16px (sm) — inline with body text (default)</span>
+                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '1rem' }} />
+                  <span>sm (1rem) — inline with body text</span>
                 </div>
                 <div className="ds-icon-size-demo">
-                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '18px' }} />
-                  <span>18px (lg) — default icon buttons</span>
+                  <FontAwesomeIcon icon={faCog} size="lg" />
+                  <span>lg (1.25rem) — default icon buttons</span>
                 </div>
                 <div className="ds-icon-size-demo">
-                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '20px' }} />
-                  <span>20px (xl) — large icon buttons, emphasis</span>
+                  <FontAwesomeIcon icon={faCog} size="xl" />
+                  <span>xl (1.5rem) — large icon buttons</span>
                 </div>
                 <div className="ds-icon-size-demo">
-                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '24px' }} />
-                  <span>24px (2x) — feature icons, empty states</span>
+                  <FontAwesomeIcon icon={faCog} size="2x" />
+                  <span>2x (2rem) — feature icons, empty states</span>
                 </div>
               </div>
             </div>
