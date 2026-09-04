@@ -1238,7 +1238,7 @@
      let it span the full row instead. */
   .plans-grid > *:only-child{grid-column:1 / -1}
   .plan-card{
-    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding: var(--space-5) var(--space-5) var(--space-4);
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding: var(--space-5) var(--space-5) var(--space-4) var(--space-5);
     box-shadow:var(--shadow);display:flex;flex-direction:column;gap: var(--space-3-5);min-width:0}
   .plan-card.ineligible{background:var(--surface-2);border-style:dashed}
   .plan-card.eligible-not{background:var(--panel)}
@@ -1929,7 +1929,7 @@
 
   /* ---------- Confirm dialog (centered, distinct from Slideover) ---------- */
   .confirm-dialog{
-    width:min(360px,100%);background:var(--panel);border-radius:16px;padding: var(--space-7) var(--space-6) var(--space-6);box-shadow:var(--shadow-lg);
+    width:min(360px,100%);background:var(--panel);border-radius:16px;padding: var(--space-7) var(--space-6) var(--space-6) var(--space-6);box-shadow:var(--shadow-lg);
     text-align:center;display:flex;flex-direction:column;align-items:center;animation:rq-modal-in .22s ease}
   /* .txn-field's flex:1 1 200px is meant for side-by-side fields in a
      .txn-row — inside this dialog's vertical flex column that flex-grow
