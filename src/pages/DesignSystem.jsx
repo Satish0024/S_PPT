@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
 import {
   AlertTriangle, Check, ChevronDown, Copy, Eye, Keyboard, Mic, Moon, MousePointerClick,
-  ShieldCheck, Sun, Type as TypeIcon, Volume2, X
+  Settings, ShieldCheck, Sun, Type as TypeIcon, Volume2, X
 } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { BRAND } from '../config/brand.js'
@@ -393,6 +392,23 @@ export default function DesignSystem() {
   const tokenValues = useResolvedTokens(COLORS.map(([, v]) => v))
   const dualTokens = useDualThemeTokens(COLOR_GROUPS.flatMap((g) => g.tokens.map(([, v]) => v)))
   const { theme, toggle } = useTheme()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const menuRef = useRef(null)
+
+  useEffect(() => {
+    const onClick = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false)
+    }
+    const onKey = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    document.addEventListener('click', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('click', onClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [])
 
   return (
     <div className="ds">
@@ -405,7 +421,6 @@ export default function DesignSystem() {
           <span className="ds-logo-title">Design System</span>
         </div>
         <div className="ds-meta">
-          <span className="ds-badge"><ShieldCheck size={13} /> WCAG 2.2 AA target</span>
           <button
             type="button"
             className="ds-theme-toggle"
@@ -417,7 +432,46 @@ export default function DesignSystem() {
             {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
             <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
           </button>
-          <Link to="/" className="ds-back">← Back to app</Link>
+          <div className="user-menu" ref={menuRef}>
+            <button
+              type="button"
+              className={`user-chip${menuOpen ? ' open' : ''}`}
+              aria-haspopup="menu"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((v) => !v)}
+            >
+              <img src="https://i.pravatar.cc/72?img=12" alt="" />
+              <span className="chip-text">
+                <span className="chip-name">Alex Morgan</span>
+              </span>
+              <ChevronDown className="chev" size={14} strokeWidth={2.2} />
+            </button>
+            <div className={`user-dropdown${menuOpen ? ' open' : ''}`} role="menu" aria-label="Account">
+              <button
+                type="button"
+                className="user-option"
+                role="menuitem"
+                onClick={() => setMenuOpen(false)}
+              >
+                <span className="sign-out-ico" aria-hidden="true">
+                  <Settings size={16} strokeWidth={2.2} />
+                </span>
+                <span className="meta">
+                  <span className="name">Settings</span>
+                </span>
+              </button>
+              <button
+                type="button"
+                className="user-option"
+                role="menuitem"
+                onClick={() => setMenuOpen(false)}
+              >
+                <span className="meta">
+                  <span className="name">Profile (demo)</span>
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
       </header>
 
