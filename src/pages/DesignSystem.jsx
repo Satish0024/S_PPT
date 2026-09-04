@@ -277,24 +277,25 @@ const CHART_COLORS = [
 // each selector is attributed to exactly one row (no more duplicate
 // cross-claims across roles); a few roles have no live selector yet
 // and say so plainly rather than guessing one.
+// Only roles with a real, live selector are listed -- 7 proposed-only
+// roles (H4, Page title, Heading, Body Large, Paragraph Extra Small,
+// Description, Title Description) were dropped: each was either a pure
+// duplicate of a role that already covers the same real selector
+// (Page title/Heading/Paragraph Extra Small/Description) or had no
+// live usage anywhere in the app at all (H4, Body Large). A design
+// system should document what the app actually uses, not a size no
+// element renders at.
 const TYPE_TOKENS = [
   { name: 'H1', cls: 'ds-type-h1', family: 'Inclusive Sans', size: '32px', weight: '700–800', lineHeight: '40px (1.25x)', letterSpacing: '-0.4px', case: 'None', real: ['.login-brand-copy h1', '.hi-bar h1 (Dashboard)', '.page-head h1 (Portfolio)'] },
   { name: 'H2', cls: 'ds-type-h2', family: 'Inclusive Sans', size: '24px', weight: '700–800', lineHeight: '32px (1.33x)', letterSpacing: '-0.3px', case: 'None', real: ['.login-card h2', '.section-title (Dashboard)', '.chart-top h2'] },
   { name: 'H3', cls: 'ds-type-h3', family: 'Inclusive Sans', size: '20px', weight: 700, lineHeight: '28px (1.4x)', letterSpacing: '-0.2px', case: 'None', real: ['.pc-name (PlanCard h3)', '.summary .head h4'] },
-  { name: 'H4', cls: 'ds-type-h4', family: 'Inclusive Sans', size: '18px', weight: 700, lineHeight: '24px (1.33x)', letterSpacing: '-0.1px', case: 'None', real: ['No live selector yet — defined for consistency'] },
   { name: 'H5', cls: 'ds-type-h5', family: 'Inclusive Sans', size: '16px', weight: 700, lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.step .body h3 (step title)'] },
   { name: 'H6', cls: 'ds-type-h6', family: 'Inclusive Sans', size: '14px', weight: '700–800', lineHeight: '20px (1.43x)', letterSpacing: '0px', case: 'None', real: ['.pc-type'] },
   { name: 'Display Sm', cls: null, family: 'Inclusive Sans', size: '40px', weight: '400–700 (Regular–Bold)', lineHeight: '48px (1.2x)', letterSpacing: '-0.8px', case: 'None', real: ['.rr2-hero-copy b (readiness score)', '.rg-save-score-row b'] },
-  { name: 'Page title', cls: null, family: 'Inclusive Sans', size: '24px', weight: '500–700', lineHeight: '32px (1.33x)', letterSpacing: '-0.3px', case: 'None', real: ['No live selector yet — .hi-bar h1 is classed as H1 instead'] },
-  { name: 'Heading', cls: null, family: 'Inclusive Sans', size: '20px', weight: '500–700', lineHeight: '28px (1.4x)', letterSpacing: '-0.2px', case: 'None', real: ['No live selector yet — .section-title is classed as H2 instead'] },
-  { name: 'Body Large', cls: null, family: 'Inclusive Sans', size: '16px', weight: '400–600', lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None', real: ['No live selector yet'] },
   { name: 'Body Regular', cls: 'ds-type-p2', family: 'Inclusive Sans', size: '14px', weight: '400–600', lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.tx-table (table cells inherit it)'] },
   { name: 'Body Small', cls: 'ds-type-p3', family: 'Inclusive Sans', size: '14px', weight: 600, lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.ob-k'] },
   { name: 'Body Extra Small', cls: 'ds-type-caption', family: 'Inclusive Sans', size: '12px', weight: 700, lineHeight: '18px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.plan-badge'] },
   { name: 'Paragraph Small', cls: null, family: 'Inclusive Sans', size: '14px', weight: '400–600', lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None', real: ['.pr-intro'] },
-  { name: 'Paragraph Extra Small', cls: null, family: 'Inclusive Sans', size: '12px', weight: 700, lineHeight: '18px (1.5x)', letterSpacing: '0px', case: 'None', real: ['No live selector yet — .plan-badge is classed as Body Extra Small instead'] },
-  { name: 'Description', cls: null, family: 'Inclusive Sans', size: '14px', weight: 400, lineHeight: '21px (1.5x)', letterSpacing: '0px', case: 'None', real: ['No live selector yet — .pr-intro is classed as Paragraph Small instead'] },
-  { name: 'Title Description', cls: null, family: 'Inclusive Sans', size: '16px', weight: 600, lineHeight: '24px (1.5x)', letterSpacing: '0px', case: 'None', real: ['No live selector yet'] },
   { name: 'Overline / eyebrow', cls: null, family: 'Inclusive Sans', size: '12px', weight: 800, lineHeight: '16px (1.33x)', letterSpacing: '0.4px', case: 'UPPERCASE', real: ['.eyebrow (5 page-scoped rules)', '.learn2-tag', '.plan-stat .k'] },
   { name: 'Button label', cls: null, family: 'Inclusive Sans', size: '14px', weight: 700, lineHeight: '20px (1.43x)', letterSpacing: '0px', case: 'None', real: ['.btn'] },
 ]
