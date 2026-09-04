@@ -72,7 +72,7 @@
 .txn-steps .back{display:inline-flex;align-items:center;gap:var(--space-1);font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink-soft);text-decoration:none;margin-bottom:var(--space-3-5)}
 .txn-steps .back:hover{color:var(--ink)}
 .txn-steps h1{font-size:var(--text-h4-size);font-weight:var(--font-weight-extrabold);line-height:var(--text-h4-lh);margin:var(--space-0) var(--space-0) var(--space-4);letter-spacing:var(--text-h4-ls)}
-.txn-step-list{list-style:none;margin:var(--space-0);padding:0}
+.txn-step-list{list-style:none;margin:var(--space-0);padding:var(--space-0)}
 .txn-step{
   display:flex;gap:var(--space-2-5);padding:var(--space-2-5) var(--space-0);width:100%;background:none;border:none;font:inherit;
   text-align:left;align-items:center;cursor:pointer}
@@ -106,7 +106,7 @@
 .txn-row.spaced{margin-top:var(--space-4)}
 .txn-card-nested.spaced{margin-top:var(--space-4);margin-bottom:0}
 .wd-terms.spaced{margin-bottom:var(--space-4)}
-.txn-summary-head h3{margin:0}
+.txn-summary-head h3{margin:var(--space-0)}
 .txn-card .hint{margin:var(--space-0) var(--space-0) var(--space-4);font-size:var(--text-body-sm-size);color:var(--ink-soft)}
 .txn-row{display:flex;gap:var(--space-4);align-items:flex-start;flex-wrap:wrap}
 .txn-row + .txn-row{margin-top:var(--space-3-5)}
@@ -195,7 +195,7 @@
 .txn-success-copied{font-size:var(--text-caption-size);font-weight:700;color:var(--green)}
 
 .legal-copy{display:flex;flex-direction:column;gap:var(--space-3-5);font-size:var(--text-body-md-size);line-height:1.6;color:var(--ink-soft)}
-.legal-copy p{margin:0}
+.legal-copy p{margin:var(--space-0)}
 
 .table-scroll{overflow-x:auto}
 
@@ -279,7 +279,7 @@
 .add-inv-search input:focus{outline:none}
 .add-inv-count{margin:var(--space-0) var(--space-0) var(--space-3);font-size:var(--text-caption-size);font-weight:700;color:var(--ink-soft)}
 .add-inv-label{display:block;font-size:var(--text-caption-size);color:var(--muted);margin-bottom:var(--space-1-5)}
-.add-inv-list{list-style:none;margin:var(--space-0);padding:0}
+.add-inv-list{list-style:none;margin:var(--space-0);padding:var(--space-0)}
 .add-inv-list li{border-bottom:1px solid var(--line)}
 .add-inv-list label{display:flex;align-items:flex-start;gap:var(--space-2-5);padding:var(--space-3) var(--space-0-5);cursor:pointer}
 .add-inv-list li.restricted label{cursor:not-allowed}

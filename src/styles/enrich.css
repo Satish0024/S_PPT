@@ -2,7 +2,7 @@
   /* Same duplicate-:root bug as main -- had drifted --green/--amber/
      --muted and no dark-mode variant. Removed; inherits the real
      global tokens (index.css) in both themes now. */
-  *{box-sizing:border-box;margin:var(--space-0);padding:0}
+  *{box-sizing:border-box;margin:var(--space-0);padding:var(--space-0)}
   body{font-family:"Inclusive Sans",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
   a{text-decoration:none;color:inherit}
 
@@ -13,7 +13,7 @@
   .back:hover{text-decoration:underline}
   .back svg{width:16px;height:16px}
 
-  .page{max-width:960px;margin:0 auto;padding:var(--space-8) var(--space-6) var(--space-14)}
+  .page{max-width:960px;margin:var(--space-0) auto;padding:var(--space-8) var(--space-6) var(--space-14)}
 
   .page-intro{margin-bottom:var(--space-7)}
   .page-intro .eyebrow{font-size:var(--text-eyebrow-size);font-weight:var(--text-eyebrow-weight);color:var(--accent);text-transform:uppercase;letter-spacing:var(--ls-wide);margin-bottom:var(--space-2)}
@@ -54,7 +54,7 @@
   .featured .f-meta span{font-size:var(--text-body-xs-size);font-weight:var(--font-weight-semibold);color:var(--muted);display:inline-flex;align-items:center;gap:var(--space-1)}
   .featured .f-meta span svg{width:14px;height:14px}
   .btn-go{
-    display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2-5) var(--space-4);border-radius:var(--radius-sm);
+    display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--btn-padding-y-md) var(--btn-padding-x-md);border-radius:var(--radius-sm);
     background:var(--brand-fill);color:var(--brand-text-primary-oncolor);font-size:var(--text-button-md-size);font-weight:var(--text-button-md-weight);width:fit-content;
     transition:background .15s}
   .btn-go:hover{background:var(--brand-dark)}
