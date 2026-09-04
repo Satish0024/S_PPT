@@ -767,9 +767,9 @@ export default function DesignSystem() {
           <section id="icons" className="ds-section">
             <h2>Icons</h2>
             <p className="ds-lede">
-              <b>Font Awesome</b> is the icon library — a comprehensive, professional icon set with
-              excellent accessibility support. Icons use <code>currentColor</code> to inherit the
-              parent's text color and scale with font-size.
+              <b>Font Awesome</b> is the standard icon library. Use the <code>Icon</code> wrapper
+              from <code>src/lib/icons.jsx</code> for consistent sizing. Icons inherit
+              <code> currentColor</code> from the parent.
             </p>
             <div className="ds-card">
               <div className="ds-type-group-title">Common icons</div>
