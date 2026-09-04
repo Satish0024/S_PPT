@@ -45,7 +45,7 @@
 .ds-nav a:hover{background:var(--hover-bg);color:var(--ink)}
 .ds-nav a.active{background:var(--active-bg);color:var(--brand)}
 
-.ds-main{flex:1;min-width:0;padding:var(--space-0) var(--space-8) var(--space-24)}
+.ds-main{flex:1;min-width:0;padding:var(--space-0) var(--page-padding-x) var(--space-24)}
 
 /* ---------- Hero ---------- */
 .ds-hero{
@@ -81,7 +81,7 @@
 .ds-tag{font-size:var(--text-2xs-size);font-weight:800;letter-spacing:var(--ls-wide);text-transform:uppercase;padding:var(--space-0-5) var(--space-2);border-radius:999px;background:var(--surface-3);color:var(--muted)}
 .ds-tag.wcag{background:var(--green-bg);color:var(--green)}
 
-.ds-demo{padding:var(--space-5) var(--space-5);background:var(--surface-2);display:flex;flex-wrap:wrap;gap:var(--space-3-5);align-items:center}
+.ds-demo{padding:var(--card-padding);background:var(--surface-2);display:flex;flex-wrap:wrap;gap:var(--space-3-5);align-items:center}
 .ds-demo.ds-demo-col{flex-direction:column;align-items:stretch}
 
 .ds-panel{border-top:1px solid var(--line)}
@@ -174,7 +174,7 @@
 
 @media(max-width:900px){
   .ds-nav{display:none}
-  .ds-main{padding:var(--space-0) var(--space-4) var(--space-20)}
+  .ds-main{padding:var(--space-0) var(--page-padding-x-md) var(--space-20)}
 }
 
 @media(max-width:640px){
@@ -234,7 +234,7 @@
 /* ---------- Demo grouping (sizes/variants rows inside a component demo) ---------- */
 .ds-demo-label{font-size:var(--text-xs-size);font-weight:800;text-transform:uppercase;letter-spacing:var(--ls-wide);color:var(--muted);margin-bottom:var(--space-2)}
 .ds-demo-row{display:flex;flex-wrap:wrap;gap:var(--space-2-5);margin-bottom:var(--space-4)}
-.ds-demo-row:last-child{margin-bottom:0}
+.ds-demo-row:last-child{margin-bottom:var(--space-0)}
 
 /* Specified-but-not-yet-implemented button/icon-button sizes & variants —
    prefixed ds- so they're clearly this document's own illustration, not a

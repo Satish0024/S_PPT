@@ -26,11 +26,11 @@
 .login-brand-copy p{font-size:var(--text-body-lg-size);line-height:1.55;opacity:.9;margin:var(--space-0);max-width:36ch}
 .login-panel{display:flex;align-items:center;justify-content:center;padding:var(--space-10) var(--space-7);background:var(--bg)}
 .login-card{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:20px;
-  box-shadow:var(--shadow-lg);padding:var(--space-8) var(--space-8) var(--space-7)}
+  box-shadow:var(--shadow-lg);padding:var(--card-padding-lg)}
 .login-logo{height:38px;display:block;margin-bottom:var(--space-5)}
 .login-card h2{font-size:var(--text-h2-size);font-weight:var(--font-weight-bold);letter-spacing:var(--text-h2-ls);margin:var(--space-0) var(--space-0) var(--space-1-5)}
 .login-lead{color:var(--ink-soft);font-size:var(--text-body-md-size);margin:var(--space-0) var(--space-0) var(--space-5)}
-.login-field{display:flex;flex-direction:column;gap:var(--form-label-gap);font-size:var(--text-body-sm-size);font-weight:700;margin-bottom:var(--space-3-5)}
+.login-field{display:flex;flex-direction:column;gap:var(--form-label-gap);font-size:var(--text-body-sm-size);font-weight:700;margin-bottom:var(--form-field-gap)}
 .login-input{display:flex;align-items:center;gap:var(--space-2);border:1px solid var(--line-strong);border-radius:var(--radius-sm);padding:var(--space-0) var(--input-padding-x);
   background:var(--panel);transition:border-color .15s,box-shadow .15s}
 .login-input:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 15%, transparent)}
@@ -81,7 +81,7 @@
   .login-brand-copy img{height:34px;margin-bottom:var(--space-4)}
   .login-logo{height:34px}
   .login-panel{padding:var(--space-6) var(--space-4) var(--space-10)}
-  .login-card{padding:var(--space-6) var(--space-5)}
+  .login-card{padding:var(--card-padding-lg) var(--card-padding)}
 }
 
 /* Prototype-only scenario switcher — deliberately kept out of the sign-in

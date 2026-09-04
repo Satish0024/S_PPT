@@ -13,7 +13,7 @@
   .back:hover{text-decoration:underline}
   .back svg{width:16px;height:16px}
 
-  .page{max-width:960px;margin:var(--space-0) auto;padding:var(--space-8) var(--space-6) var(--space-14)}
+  .page{max-width:960px;margin:var(--space-0) auto;padding:var(--page-padding-x) var(--page-padding-y) var(--page-padding-bottom)}
 
   .page-intro{margin-bottom:var(--space-7)}
   .page-intro .eyebrow{font-size:var(--text-eyebrow-size);font-weight:var(--text-eyebrow-weight);color:var(--accent);text-transform:uppercase;letter-spacing:var(--ls-wide);margin-bottom:var(--space-2)}
