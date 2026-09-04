@@ -4,14 +4,14 @@
 // touch this file (plus its CSS theme tokens in src/styles/index.css and its
 // own /public logo asset) instead of scattered JSX across the app.
 export const BRAND = {
-  name: 'CORE',
-  shortName: 'CORE',
+  name: 'LendGuard',
+  shortName: 'LendGuard',
   // Logo on light/white surfaces (topbar, design-system header, login card).
-  logo: '/core-logo.svg',
+  logo: '/logo-lockup-dark.svg',
   // Logo on dark/colored surfaces (login hero, dark theme chrome).
-  logoOnDark: '/core-logo-dark.svg',
+  logoOnDark: '/logo-lockup-light.svg',
   tagline: 'Your Path To A Confident Retirement.',
   taglineBody: 'Access your 401(k), deferrals, and retirement tools in one secure participant portal.',
-  supportPlanNoun: 'your CORE plan',
-  supportEmail: 'support@core.com'
+  supportPlanNoun: 'your LendGuard plan',
+  supportEmail: 'support@lendguard.com'
 }

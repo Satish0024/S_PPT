@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import {
-  AlertTriangle, ArrowRight, Check, ChevronDown, Copy, Download, Eye, Home, Keyboard,
-  Menu, Mic, Moon, MousePointerClick, Plus, Search, Settings, ShieldCheck, Sun, Trash2,
-  Type as TypeIcon, Upload, User, Volume2, X
+  AlertTriangle, Check, ChevronDown, Copy, Eye, Keyboard,
+  Mic, Moon, MousePointerClick, Settings, ShieldCheck, Sun,
+  Type as TypeIcon, Volume2, X
 } from 'lucide-react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faHome, faUser, faCog, faSearch, faBars, faTimes, faCheck, faExclamationTriangle,
+  faPlus, faTrash, faDownload, faUpload, faChevronDown, faArrowRight, faEye, faCopy,
+  faEdit, faSave, faFile, faFolder, faEnvelope, faPhone, faCalendar, faLock
+} from '@fortawesome/free-solid-svg-icons'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { BRAND } from '../config/brand.js'
 import '../styles/design-system.css'
@@ -12,15 +18,15 @@ const NAV = [
   { group: 'Get started', items: [
     { id: 'overview', label: 'Overview' },
   ] },
+  { group: 'Assets', items: [
+    { id: 'logo', label: 'Logo' },
+  ] },
   { group: 'Foundations', items: [
     { id: 'color', label: 'Color' },
     { id: 'type', label: 'Typography' },
     { id: 'icons', label: 'Icons' },
     { id: 'space', label: 'Spacing & radius' },
     { id: 'elevation', label: 'Elevation' },
-  ] },
-  { group: 'Assets', items: [
-    { id: 'logo', label: 'Logo' },
   ] },
   { group: 'Components', items: [
     { id: 'buttons', label: 'Buttons' },
@@ -575,6 +581,45 @@ export default function DesignSystem() {
             </p>
           </section>
 
+          {/* ---------------- LOGO ---------------- */}
+          <section id="logo" className="ds-section">
+            <h2>Logo</h2>
+            <p className="ds-lede">
+              Brand logos are provided as SVG for crisp rendering at any size. Each brand has light
+              and dark variants that switch automatically with the theme.
+            </p>
+            <div className="ds-card">
+              <div className="ds-type-group-title">Current brand: {BRAND.name}</div>
+              <div className="ds-logo-showcase">
+                <div className="ds-logo-variant light">
+                  <span className="ds-logo-label">Light mode</span>
+                  <div className="ds-logo-preview">
+                    <img src={BRAND.logo} alt={`${BRAND.name} logo (light)`} />
+                  </div>
+                  <code>{BRAND.logo}</code>
+                </div>
+                <div className="ds-logo-variant dark">
+                  <span className="ds-logo-label">Dark mode</span>
+                  <div className="ds-logo-preview">
+                    <img src={BRAND.logoOnDark || BRAND.logo} alt={`${BRAND.name} logo (dark)`} />
+                  </div>
+                  <code>{BRAND.logoOnDark || BRAND.logo}</code>
+                </div>
+              </div>
+              <div className="ds-type-group-title">Usage</div>
+              <div className="ds-panel">
+                <div className="ds-panel-row">Logo appears in the header and login screens — never stretch or recolor.</div>
+                <div className="ds-panel-row">Minimum clear space: 8px on all sides (--space-2).</div>
+                <div className="ds-panel-row">Maximum height in header: 32px; login page: 48px.</div>
+              </div>
+            </div>
+            <Code>{`import { BRAND } from '../config/brand.js'
+
+<img
+  src={theme === 'dark' ? (BRAND.logoOnDark || BRAND.logo) : BRAND.logo}
+  alt={BRAND.name}
+/>`}</Code>
+          </section>
 
           {/* ---------------- COLOR ---------------- */}
           <section id="color" className="ds-section">
@@ -723,39 +768,47 @@ export default function DesignSystem() {
           <section id="icons" className="ds-section">
             <h2>Icons</h2>
             <p className="ds-lede">
-              <b>Lucide React</b> is the icon library — a clean, consistent, open-source icon set with
-              excellent accessibility support. Icons are sized to match adjacent text and use
-              <code> currentColor</code> to inherit the parent's text color.
+              <b>Font Awesome</b> is the icon library — the industry-standard icon set with
+              thousands of icons, excellent accessibility support, and consistent styling.
+              Icons inherit <code>currentColor</code> from their parent element.
             </p>
             <div className="ds-card">
               <div className="ds-type-group-title">Common icons</div>
               <div className="ds-icon-grid">
                 {[
-                  [Home, 'Home', 'Dashboard / home navigation'],
-                  [User, 'User', 'Profile, account, user-related'],
-                  [Settings, 'Settings', 'Preferences, configuration'],
-                  [Search, 'Search', 'Search inputs, lookups'],
-                  [Menu, 'Menu', 'Mobile nav toggle, hamburger'],
-                  [X, 'X', 'Close dialogs, dismiss alerts'],
-                  [Check, 'Check', 'Success states, confirmations'],
-                  [AlertTriangle, 'AlertTriangle', 'Warnings, errors, attention'],
-                  [Plus, 'Plus', 'Add new, create actions'],
-                  [Trash2, 'Trash2', 'Delete, remove actions'],
-                  [Download, 'Download', 'Export, download files'],
-                  [Upload, 'Upload', 'Import, upload files'],
-                  [ChevronDown, 'ChevronDown', 'Expand, dropdowns, accordions'],
-                  [ArrowRight, 'ArrowRight', 'Navigate, proceed, next step'],
-                  [Eye, 'Eye', 'View, visibility toggle'],
-                  [Copy, 'Copy', 'Copy to clipboard'],
-                ].map(([Icon, name, usage]) => (
+                  [faHome, 'faHome', 'Dashboard / home navigation'],
+                  [faUser, 'faUser', 'Profile, account, user-related'],
+                  [faCog, 'faCog', 'Preferences, configuration'],
+                  [faSearch, 'faSearch', 'Search inputs, lookups'],
+                  [faBars, 'faBars', 'Mobile nav toggle, hamburger'],
+                  [faTimes, 'faTimes', 'Close dialogs, dismiss alerts'],
+                  [faCheck, 'faCheck', 'Success states, confirmations'],
+                  [faExclamationTriangle, 'faExclamationTriangle', 'Warnings, errors'],
+                  [faPlus, 'faPlus', 'Add new, create actions'],
+                  [faTrash, 'faTrash', 'Delete, remove actions'],
+                  [faDownload, 'faDownload', 'Export, download files'],
+                  [faUpload, 'faUpload', 'Import, upload files'],
+                  [faChevronDown, 'faChevronDown', 'Expand, dropdowns'],
+                  [faArrowRight, 'faArrowRight', 'Navigate, proceed'],
+                  [faEye, 'faEye', 'View, visibility toggle'],
+                  [faCopy, 'faCopy', 'Copy to clipboard'],
+                  [faEdit, 'faEdit', 'Edit, modify content'],
+                  [faSave, 'faSave', 'Save, confirm changes'],
+                  [faFile, 'faFile', 'Documents, files'],
+                  [faFolder, 'faFolder', 'Folders, categories'],
+                  [faEnvelope, 'faEnvelope', 'Email, messages'],
+                  [faPhone, 'faPhone', 'Phone, contact'],
+                  [faCalendar, 'faCalendar', 'Dates, scheduling'],
+                  [faLock, 'faLock', 'Security, authentication'],
+                ].map(([icon, name, usage]) => (
                   <button
                     key={name}
                     type="button"
                     className="ds-icon-item"
-                    onClick={() => copyToClipboard(`<${name} size={16} />`)}
-                    title={`Copy <${name} /> import`}
+                    onClick={() => copyToClipboard(`<FontAwesomeIcon icon={${name}} />`)}
+                    title={`Copy ${name} usage`}
                   >
-                    <Icon size={20} />
+                    <FontAwesomeIcon icon={icon} size="lg" />
                     <span className="ds-icon-name">{name}</span>
                     <span className="ds-icon-use">{usage}</span>
                   </button>
@@ -764,32 +817,33 @@ export default function DesignSystem() {
               <div className="ds-type-group-title">Sizing guidelines</div>
               <div className="ds-demo" style={{ gap: 'var(--space-6)' }}>
                 <div className="ds-icon-size-demo">
-                  <Settings size={14} />
-                  <span>14px — inline with caption text</span>
+                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '14px' }} />
+                  <span>14px (xs) — inline with caption text</span>
                 </div>
                 <div className="ds-icon-size-demo">
-                  <Settings size={16} />
-                  <span>16px — inline with body text (default)</span>
+                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '16px' }} />
+                  <span>16px (sm) — inline with body text (default)</span>
                 </div>
                 <div className="ds-icon-size-demo">
-                  <Settings size={18} />
-                  <span>18px — default icon buttons</span>
+                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '18px' }} />
+                  <span>18px (lg) — default icon buttons</span>
                 </div>
                 <div className="ds-icon-size-demo">
-                  <Settings size={20} />
-                  <span>20px — large icon buttons, emphasis</span>
+                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '20px' }} />
+                  <span>20px (xl) — large icon buttons, emphasis</span>
                 </div>
                 <div className="ds-icon-size-demo">
-                  <Settings size={24} />
-                  <span>24px — feature icons, empty states</span>
+                  <FontAwesomeIcon icon={faCog} style={{ fontSize: '24px' }} />
+                  <span>24px (2x) — feature icons, empty states</span>
                 </div>
               </div>
             </div>
-            <Code>{`import { Home, Settings, User } from 'lucide-react'
+            <Code>{`import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
 
-<Home size={16} />
-<Settings size={18} strokeWidth={2} />
-<User size={20} className="text-brand" />`}</Code>
+<FontAwesomeIcon icon={faHome} />
+<FontAwesomeIcon icon={faCog} size="lg" />
+<FontAwesomeIcon icon={faUser} className="text-brand" />`}</Code>
           </section>
 
           {/* ---------------- SPACE / RADIUS ---------------- */}
@@ -871,46 +925,6 @@ export default function DesignSystem() {
               <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>--shadow (cards)</div>
               <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--line)' }}>--shadow-lg (dropdowns, dialogs)</div>
             </div>
-          </section>
-
-          {/* ---------------- LOGO ---------------- */}
-          <section id="logo" className="ds-section">
-            <h2>Logo</h2>
-            <p className="ds-lede">
-              Brand logos are provided as SVG for crisp rendering at any size. Each brand has light
-              and dark variants that switch automatically with the theme.
-            </p>
-            <div className="ds-card">
-              <div className="ds-type-group-title">Current brand: {BRAND.name}</div>
-              <div className="ds-logo-showcase">
-                <div className="ds-logo-variant light">
-                  <span className="ds-logo-label">Light mode</span>
-                  <div className="ds-logo-preview">
-                    <img src={BRAND.logo} alt={`${BRAND.name} logo (light)`} />
-                  </div>
-                  <code>{BRAND.logo}</code>
-                </div>
-                <div className="ds-logo-variant dark">
-                  <span className="ds-logo-label">Dark mode</span>
-                  <div className="ds-logo-preview">
-                    <img src={BRAND.logoOnDark || BRAND.logo} alt={`${BRAND.name} logo (dark)`} />
-                  </div>
-                  <code>{BRAND.logoOnDark || BRAND.logo}</code>
-                </div>
-              </div>
-              <div className="ds-type-group-title">Usage</div>
-              <div className="ds-panel">
-                <div className="ds-panel-row">Logo appears in the header and login screens — never stretch or recolor.</div>
-                <div className="ds-panel-row">Minimum clear space: 8px on all sides (--space-2).</div>
-                <div className="ds-panel-row">Maximum height in header: 32px; login page: 48px.</div>
-              </div>
-            </div>
-            <Code>{`import { BRAND } from '../config/brand.js'
-
-<img
-  src={theme === 'dark' ? (BRAND.logoOnDark || BRAND.logo) : BRAND.logo}
-  alt={BRAND.name}
-/>`}</Code>
           </section>
 
           {/* ---------------- BUTTONS ---------------- */}
