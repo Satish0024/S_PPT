@@ -11,7 +11,7 @@
   position:sticky;top:0;z-index:40;height:60px;display:flex;align-items:center;gap:var(--space-3-5);
   padding:var(--space-0) var(--space-6);background:var(--panel);border-bottom:1px solid var(--line);box-shadow:var(--shadow)
 }
-.ds-top .ds-logo{display:flex;align-items:center;gap:var(--space-2-5);font-weight:800;font-size:var(--text-base-size);letter-spacing:-.2px}
+.ds-top .ds-logo{display:flex;align-items:center;gap:var(--space-2-5);font-weight:800;font-size:var(--text-base-size);letter-spacing:var(--ls-snug)}
 .ds-top .ds-logo .dot{width:10px;height:10px;border-radius:50%;background:var(--brand)}
 .ds-top .ds-meta{margin-left:auto;display:flex;align-items:center;gap:var(--space-2-5);font-size:var(--text-caption-size);color:var(--muted)}
 .ds-top .ds-badge{
@@ -35,7 +35,7 @@
 }
 .ds-nav-group{margin-bottom:var(--space-4)}
 .ds-nav-group h4{
-  font-size:var(--text-xs-size);font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);
+  font-size:var(--text-xs-size);font-weight:800;text-transform:uppercase;letter-spacing:var(--ls-wider);color:var(--muted);
   padding:var(--space-0) var(--space-3);margin-bottom:var(--space-1-5)
 }
 .ds-nav a{
@@ -49,10 +49,10 @@
 
 /* ---------- Hero ---------- */
 .ds-hero{
-  padding:var(--space-14) var(--space-2) var(--space-10);max-width:var(--ds-content-max);border-bottom:1px solid var(--line);margin-bottom:40px
+  padding:var(--space-14) var(--space-2) var(--space-10);max-width:var(--ds-content-max);border-bottom:1px solid var(--line);margin-bottom:var(--space-10)
 }
-.ds-hero .eyebrow{font-size:var(--text-eyebrow-size);font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--brand)}
-.ds-hero h1{font-size:var(--text-display-xl-size);font-weight:800;letter-spacing:-.8px;margin:var(--space-2-5) var(--space-0) var(--space-3-5)}
+.ds-hero .eyebrow{font-size:var(--text-eyebrow-size);font-weight:800;letter-spacing:var(--ls-wider);text-transform:uppercase;color:var(--brand)}
+.ds-hero h1{font-size:var(--text-display-xl-size);font-weight:800;letter-spacing:var(--ls-tighter);margin:var(--space-2-5) var(--space-0) var(--space-3-5)}
 .ds-hero p{font-size:var(--text-body-lg-size);color:var(--ink-soft);line-height:1.6;max-width:680px}
 .ds-hero .ds-hero-stats{display:flex;gap:var(--space-7);margin-top:var(--space-6);flex-wrap:wrap}
 .ds-hero .ds-hero-stats div b{display:block;font-size:var(--text-display-md-size);font-weight:800}
@@ -64,8 +64,8 @@
 .ds-hero .ds-source b{color:var(--ink)}
 
 /* ---------- Section ---------- */
-.ds-section{max-width:var(--ds-content-max);margin-bottom:var(--space-16);scroll-margin-top:72px}
-.ds-section h2{font-size:var(--text-2xl-size);font-weight:800;letter-spacing:-.4px;margin-bottom:var(--space-1-5)}
+.ds-section{max-width:var(--ds-content-max);margin-bottom:var(--space-16);scroll-margin-top:var(--space-18)}
+.ds-section h2{font-size:var(--text-2xl-size);font-weight:800;letter-spacing:var(--ls-tight);margin-bottom:var(--space-1-5)}
 .ds-section > p.ds-lede{font-size:var(--text-sm-size);color:var(--ink-soft);line-height:1.6;margin-bottom:var(--space-6);max-width:640px}
 .ds-sub{font-size:var(--text-h5-size);font-weight:700;margin:var(--space-7) var(--space-0) var(--space-3)}
 
@@ -78,7 +78,7 @@
 .ds-card-head h3{font-size:var(--text-h5-size);font-weight:700}
 .ds-card-head p{font-size:var(--text-body-sm-size);color:var(--ink-soft);margin-top:var(--space-0-5)}
 .ds-card-tags{display:flex;gap:var(--space-1-5);flex-wrap:wrap}
-.ds-tag{font-size:var(--text-2xs-size);font-weight:800;letter-spacing:.3px;text-transform:uppercase;padding:var(--space-0-5) var(--space-2);border-radius:999px;background:var(--surface-3);color:var(--muted)}
+.ds-tag{font-size:var(--text-2xs-size);font-weight:800;letter-spacing:var(--ls-wide);text-transform:uppercase;padding:var(--space-0-5) var(--space-2);border-radius:999px;background:var(--surface-3);color:var(--muted)}
 .ds-tag.wcag{background:var(--green-bg);color:var(--green)}
 
 .ds-demo{padding:var(--space-5) var(--space-5);background:var(--surface-2);display:flex;flex-wrap:wrap;gap:var(--space-3-5);align-items:center}
@@ -133,7 +133,7 @@
 
 /* ---------- Per-component color chips ---------- */
 .ds-comp-colors{padding:var(--space-3-5) var(--space-5);border-top:1px solid var(--line);background:var(--panel)}
-.ds-comp-colors-label{display:block;font-size:var(--text-xs-size);font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:var(--space-2)}
+.ds-comp-colors-label{display:block;font-size:var(--text-xs-size);font-weight:800;text-transform:uppercase;letter-spacing:var(--ls-wider);color:var(--muted);margin-bottom:var(--space-2)}
 .ds-comp-colors-list{display:flex;flex-wrap:wrap;gap:var(--space-2)}
 .ds-color-chip{
   display:inline-flex;align-items:center;gap:var(--space-1-5);border:1px solid var(--line);border-radius:999px;
@@ -153,7 +153,7 @@
 
 /* ---------- Checklist / table ---------- */
 .ds-table{width:100%;border-collapse:collapse;font-size:var(--text-sm-size)}
-.ds-table th{text-align:left;padding:var(--space-2-5) var(--space-3);border-bottom:2px solid var(--line);color:var(--muted);font-size:var(--text-xs-size);text-transform:uppercase;letter-spacing:.4px}
+.ds-table th{text-align:left;padding:var(--space-2-5) var(--space-3);border-bottom:2px solid var(--line);color:var(--muted);font-size:var(--text-xs-size);text-transform:uppercase;letter-spacing:var(--ls-wide)}
 .ds-table td{padding:var(--space-2-5) var(--space-3);border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-soft)}
 .ds-table tr:nth-child(even) td{background:var(--surface-2)}
 .ds-table td.ok{color:var(--green);font-weight:700}
@@ -161,7 +161,7 @@
 
 .ds-check{display:flex;gap:var(--space-2-5);align-items:flex-start;padding:var(--space-2-5) var(--space-0);border-bottom:1px solid var(--line);font-size:var(--text-sm-size)}
 .ds-check:last-child{border-bottom:none}
-.ds-check .ok{color:var(--green);flex:0 0 auto;margin-top:1px}
+.ds-check .ok{color:var(--green);flex:0 0 auto;margin-top:var(--space-px)}
 .ds-check b{display:block;font-weight:700}
 .ds-check span{color:var(--ink-soft)}
 
@@ -214,16 +214,16 @@
    swatch can never drift from the value this page's type-scale table
    documents for the same role -- .ds-type-h1 was a leftover 34px while
    its own table said 32px, a real "which number do I believe" bug. */
-.ds-type-h1{font-size:var(--text-h1-size);font-weight:800;line-height:var(--text-h1-lh);letter-spacing:-.4px}
-.ds-type-h2{font-size:var(--text-h2-size);font-weight:800;line-height:var(--text-h2-lh);letter-spacing:-.3px}
-.ds-type-h3{font-size:var(--text-h3-size);font-weight:700;line-height:var(--text-h3-lh);letter-spacing:-.2px}
-.ds-type-h4{font-size:var(--text-h4-size);font-weight:700;line-height:var(--text-h4-lh);letter-spacing:-.1px}
+.ds-type-h1{font-size:var(--text-h1-size);font-weight:800;line-height:var(--text-h1-lh);letter-spacing:var(--ls-tight)}
+.ds-type-h2{font-size:var(--text-h2-size);font-weight:800;line-height:var(--text-h2-lh);letter-spacing:var(--ls-snug)}
+.ds-type-h3{font-size:var(--text-h3-size);font-weight:700;line-height:var(--text-h3-lh);letter-spacing:var(--ls-snug)}
+.ds-type-h4{font-size:var(--text-h4-size);font-weight:700;line-height:var(--text-h4-lh);letter-spacing:var(--ls-snug)}
 .ds-type-h5{font-size:var(--text-h5-size);font-weight:700;line-height:var(--text-h5-lh)}
-.ds-type-h6{font-size:var(--text-h6-size);font-weight:800;line-height:var(--text-h6-lh);letter-spacing:.4px;text-transform:uppercase}
+.ds-type-h6{font-size:var(--text-h6-size);font-weight:800;line-height:var(--text-h6-lh);letter-spacing:var(--ls-wide);text-transform:uppercase}
 .ds-type-p1{font-size:var(--text-body-lg-size);font-weight:400;line-height:var(--text-body-lg-lh)}
 .ds-type-p2{font-size:var(--text-body-md-size);font-weight:400;line-height:var(--text-body-md-lh)}
 .ds-type-p3{font-size:var(--text-body-sm-size);font-weight:600;line-height:var(--text-body-sm-lh)}
-.ds-type-caption{font-size:var(--text-caption-size);font-weight:700;line-height:var(--text-caption-lh);letter-spacing:.3px}
+.ds-type-caption{font-size:var(--text-caption-size);font-weight:700;line-height:var(--text-caption-lh);letter-spacing:var(--ls-wide)}
 .ds-type-code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:var(--text-caption-size);line-height:1.6}
 
 @media(max-width:560px){
@@ -232,7 +232,7 @@
 }
 
 /* ---------- Demo grouping (sizes/variants rows inside a component demo) ---------- */
-.ds-demo-label{font-size:var(--text-xs-size);font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:var(--space-2)}
+.ds-demo-label{font-size:var(--text-xs-size);font-weight:800;text-transform:uppercase;letter-spacing:var(--ls-wide);color:var(--muted);margin-bottom:var(--space-2)}
 .ds-demo-row{display:flex;flex-wrap:wrap;gap:var(--space-2-5);margin-bottom:var(--space-4)}
 .ds-demo-row:last-child{margin-bottom:0}
 

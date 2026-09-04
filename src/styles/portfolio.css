@@ -1,7 +1,7 @@
 .page-head{padding:var(--space-4) var(--space-8);border-bottom:1px solid var(--line);background:var(--panel);}
   .page-head-row{display:flex;align-items:center;justify-content:flex-start;gap:var(--space-3-5);flex-wrap:wrap}
   .page-head .eyebrow{font-size:var(--text-eyebrow-size);font-weight:600;color:var(--muted)}
-  .page-head h1{font-size:var(--text-h1-size);font-weight:700;margin:var(--space-0);letter-spacing:-.3px;flex:0 0 auto}
+  .page-head h1{font-size:var(--text-h1-size);font-weight:var(--font-weight-bold);line-height:var(--text-h1-lh);margin:var(--space-0);letter-spacing:var(--text-h1-ls);flex:0 0 auto}
   .plan-select-wrap{flex:0 0 auto;width:auto;min-width:220px;max-width:320px;margin:0}
   /* fill='%230284c7' below is a literal copy of --brand's light-theme hex —
      data: URIs can't reference var()/color-mix(), so this can't be tokenized.
@@ -15,7 +15,7 @@
 
   .hero-stats{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--space-4)}
   .balance-k{font-size:var(--text-body-sm-size);font-weight:600;color:var(--muted);margin-bottom:var(--space-1)}
-  .balance{font-size:var(--text-display-lg-size);font-weight:700;letter-spacing:-.6px;color:var(--ink);line-height:1.2}
+  .balance{font-size:var(--text-display-lg-size);font-weight:var(--font-weight-bold);letter-spacing:var(--ls-tighter);color:var(--ink);line-height:var(--text-display-lg-lh)}
   .change{margin-top:var(--space-2);font-size:var(--text-body-md-size);font-weight:600;color:var(--green)}
   .change.neg{color:var(--red)}
   .change span{color:var(--ink-soft);font-weight:500}
@@ -28,10 +28,10 @@
     display:flex;flex-direction:column;align-items:flex-start;gap:0}
   .overview-row .stat-block.hero{background:var(--surface-2);border-color:var(--line);padding:var(--space-3-5)}
   .overview-row .stat-block .stat-k{font-size:var(--text-caption-size);font-weight:600;color:var(--muted);margin:var(--space-0);
-    text-transform:uppercase;letter-spacing:.35px;line-height:1.2}
+    text-transform:uppercase;letter-spacing:var(--ls-wide);line-height:1.2}
   .overview-row .stat-block .stat-v{font-size:var(--text-h4-size);font-weight:700;font-variant-numeric:tabular-nums;
-    letter-spacing:-.3px;line-height:1.15;color:var(--ink);width:100%;word-break:break-word;margin-top:var(--space-1-5);padding-top:var(--space-0-5)}
-  .overview-row .stat-block.hero .stat-v{font-size:var(--text-2xl-size);letter-spacing:-.5px;margin-top:var(--space-2);padding-top:var(--space-0-5)}
+    letter-spacing:var(--ls-snug);line-height:1.2;color:var(--ink);width:100%;word-break:break-word;margin-top:var(--space-1-5);padding-top:var(--space-0-5)}
+  .overview-row .stat-block.hero .stat-v{font-size:var(--text-2xl-size);letter-spacing:var(--ls-tight);margin-top:var(--space-2);padding-top:var(--space-0-5)}
   .overview-row .stat-block .stat-v.pos{color:var(--green)}
   .overview-row .overall-grid{display:flex;flex-direction:column;gap:var(--space-2);flex:1}
   .overview-row .chart-panel{margin:var(--space-0);min-width:0;height:100%;display:flex;flex-direction:column;box-sizing:border-box;
@@ -46,7 +46,7 @@
 
   .tabs{display:flex;gap:var(--space-1);padding:var(--space-0) var(--space-8);border-bottom:1px solid var(--line);background:var(--panel)}
   .tab{border:none;background:transparent;padding:var(--space-3-5) var(--space-4);font-weight:700;font-size:var(--text-button-md-size);color:var(--ink-soft);
-    cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}
+    cursor:pointer;border-bottom:2px solid transparent;margin-bottom:calc(-1 * var(--space-px));transition:color .15s}
   .tab:hover{color:var(--ink)}
   .tab.on{color:var(--brand);border-bottom-color:var(--brand)}
   .tab-panel{display:none;flex-direction:column;gap:var(--space-7)}
@@ -110,13 +110,13 @@
   .chart-wrap{position:relative;height:260px}
   .chart-wrap canvas{width:100%!important;height:100%!important}
 
-  .section h2{font-size:var(--text-h4-size);font-weight:700;margin-bottom:var(--space-1);letter-spacing:-.2px}
+  .section h2{font-size:var(--text-h4-size);font-weight:700;margin-bottom:var(--space-1);letter-spacing:var(--ls-snug)}
   .section .sub{color:var(--ink-soft);font-size:var(--text-body-md-size);margin-bottom:var(--space-3-5);line-height:1.45}
   .table-wrap{border:1px solid var(--line);border-radius:12px;overflow:auto;background:var(--panel);box-shadow:var(--shadow);
     -webkit-overflow-scrolling:touch}
   table{width:100%;border-collapse:collapse;font-size:var(--text-body-md-size);min-width:720px}
   thead th{position:sticky;top:0;background:var(--surface-2);text-align:left;font-size:var(--text-caption-size);font-weight:700;color:var(--ink-soft);
-    letter-spacing:.2px;padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--line);white-space:nowrap}
+    letter-spacing:var(--ls-wide);padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--line);white-space:nowrap}
   tbody td{padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
   tbody tr:last-child td{border-bottom:none}
   tbody tr:hover{background:var(--surface-2)}
@@ -141,7 +141,7 @@
   .plan-table .fund-link.fund-title:hover{color:var(--brand-dark)}
   .plan-table .fund-meta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);margin-top:var(--space-1-5)}
   .plan-table .fund-cat{font-size:var(--text-caption-size);color:var(--ink-soft);font-weight:500}
-  .plan-table thead th.sortable{cursor:pointer;user-select:none;position:relative;padding-right:16px}
+  .plan-table thead th.sortable{cursor:pointer;user-select:none;position:relative;padding-right:var(--space-4)}
   .plan-table thead th.sortable button{
     all:unset;cursor:pointer;display:block;width:100%;font:inherit;font-weight:700;
     text-align:center;line-height:1.25;color:inherit}
@@ -171,7 +171,7 @@
   .overall-card .overall-label{font-size:var(--text-body-md-size);font-weight:700;color:var(--brand);margin-bottom:var(--space-3)}
   .overall-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-3) var(--space-4)}
   .overall-grid .stat-k{font-size:var(--text-caption-size);font-weight:600;color:var(--muted);margin-bottom:var(--space-1)}
-  .overall-grid .stat-v{font-size:var(--text-h4-size);font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.2px}
+  .overall-grid .stat-v{font-size:var(--text-h4-size);font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:var(--ls-snug)}
   .overall-grid .stat-v.pos{color:var(--green)}
   .bench{color:var(--ink-soft);font-size:var(--text-caption-size);white-space:normal;min-width:160px}
 
@@ -186,7 +186,7 @@
   }
   @media(max-width:640px){
     html,body{overflow-x:hidden}
-    .layout{display:block;padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+    .layout{display:block;padding-bottom:calc(var(--space-18) + env(safe-area-inset-bottom))}
     .nav{position:fixed;left:0;right:0;bottom:0;top:auto;width:100%;height:auto;
       flex-direction:row;justify-content:space-around;align-items:stretch;gap:var(--space-0);
       padding:var(--space-1-5) var(--space-1) calc(var(--space-2) + env(safe-area-inset-bottom));

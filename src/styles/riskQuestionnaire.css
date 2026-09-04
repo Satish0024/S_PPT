@@ -22,7 +22,7 @@
    than growing taller and colliding with it. */
 .rqp-side-copy{
   position:relative;z-index:1;max-width:30ch;padding:var(--space-7) var(--space-6) var(--space-0)}
-.rqp-side-tag{display:block;font-size:var(--text-caption-size);font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--amber);margin-bottom:var(--space-2-5)}
+.rqp-side-tag{display:block;font-size:var(--text-caption-size);font-weight:800;letter-spacing:var(--ls-wider);text-transform:uppercase;color:var(--amber);margin-bottom:var(--space-2-5)}
 .rqp-side-copy h1{font-size:var(--text-h2-size);font-weight:var(--font-weight-extrabold);line-height:var(--text-h2-lh);letter-spacing:var(--text-h2-ls);margin:var(--space-0) var(--space-0) var(--space-2-5);color:var(--brand-dark)}
 .rqp-side-copy p{font-size:var(--text-body-md-size);line-height:var(--text-body-md-lh);color:var(--ink-soft);margin:0}
 

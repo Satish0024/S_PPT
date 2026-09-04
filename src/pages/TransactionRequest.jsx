@@ -465,9 +465,9 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
           </Field>
         </div>
 
-        <div className="txn-card txn-card-nested" style={{ marginTop: 18, marginBottom: 0 }}>
+        <div className="txn-card txn-card-nested spaced">
           <h4 style={{ margin: '0 0 var(--space-1)' }}>Loan calculator</h4>
-          <p className="hint" style={{ marginTop: 0 }}>
+          <p className="hint" style={{ marginTop: 'var(--space-0)' }}>
             Enter any two of Loan Request Amount, Periodic Payment, Tenure to auto-compute the third value.
           </p>
 
@@ -561,7 +561,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
             </Field>
           </div>
 
-          <div className="txn-row" style={{ marginTop: 18, alignItems: 'flex-end' }}>
+          <div className="txn-row spaced" style={{ alignItems: 'flex-end' }}>
             <FieldGroup
               label="Length of Loan Term"
               required
@@ -593,7 +593,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
             </Field>
           </div>
 
-          <div className="txn-row" style={{ marginTop: 18 }}>
+          <div className="txn-row spaced">
             <Field label="First repayment date" required>
               <input
                 type="date"
@@ -606,7 +606,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
 
         {/* Scenario 4: married participants need spousal consent — captured
             here so the Documents step can surface the extra required file. */}
-        <div className="txn-row" style={{ marginTop: 18 }}>
+        <div className="txn-row spaced">
           <FieldGroup
             label="Marital status"
             required
@@ -731,7 +731,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
         )}
 
         <h4>Fee Details</h4>
-        <div className="wd-fee-card" style={{ marginTop: 0, marginBottom: 0 }}>
+        <div className="wd-fee-card" style={{ marginTop: 'var(--space-0)', marginBottom: 'var(--space-0)' }}>
           <div className="wd-fee-row">
             <span>Net request amount</span>
             <b>{formatMoney(gross.requested)}</b>
@@ -795,7 +795,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
 
   return (
     <SummaryStep title="Loan Request Summary" onBack={onBack} onSubmit={onSubmit} submitDisabled={!form.termsAccepted}>
-      <div className="wd-terms" style={{ marginBottom: 18 }}>
+      <div className="wd-terms spaced">
         <label>
           <input type="checkbox" checked={form.termsAccepted} onChange={(e) => set({ termsAccepted: e.target.checked })} />
           <span>
@@ -852,7 +852,7 @@ function AddBankDialog({ bank, onCancel, onSave }) {
         onClick={(e) => e.stopPropagation()}
         style={{ textAlign: 'left' }}
       >
-        <h3 id="add-bank-title" style={{ marginTop: 0 }}>
+        <h3 id="add-bank-title" style={{ marginTop: 'var(--space-0)' }}>
           Add bank account
         </h3>
         <Field label="Bank name" required>
@@ -1134,7 +1134,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
       onSubmit={onSubmit}
       submitDisabled={!form.termsAccepted}
     >
-      <h4 style={{ margin: '0 0 var(--space-2)', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-extrabold)' }}>Withdrawal details</h4>
+      <h4 className="txn-section-title">Withdrawal details</h4>
       <SummaryRow label="Withdrawal type" value={withdrawalType?.label || '—'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Withdraw" value={form.withdrawAs === 'periodic' ? 'As periodic payment' : 'As one time payment'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Withdraw entire balance" value={form.entireBalance === 'yes' ? 'Yes' : 'No'} onEdit={() => onEdit(0)} />
@@ -1143,7 +1143,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         <span>The processing time for your withdrawal is 10 days.</span>
       </div>
 
-      <h4 style={{ margin: 'var(--space-5) 0 var(--space-2)', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-extrabold)' }}>Withdrawal allocation</h4>
+      <h4 className="txn-section-title spaced">Withdrawal allocation</h4>
       <AllocationTable allocations={allocations} withdrawalTypeId={form.withdrawalType} onEdit={() => onEdit(1)} />
 
       {allocations.map((a) => {
@@ -1649,7 +1649,7 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
         <RolloverSourcesTable form={form} set={set} editable />
 
         <h4 style={{ marginTop: 'var(--space-6)' }}>Investment Mapping</h4>
-        <p className="hint" style={{ marginTop: 0 }}>
+        <p className="hint" style={{ marginTop: 'var(--space-0)' }}>
           Investment mapping has been allocated already. You can configure the investment details below.
         </p>
         <RolloverInvestmentTable plan={plan} form={form} set={set} editable />
@@ -1809,7 +1809,7 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
         </ul>
       </div>
 
-      <div className="txn-summary-head" style={{ marginTop: 20 }}>
+      <div className="txn-summary-head spaced">
         <h4>Rollover details</h4>
         <button type="button" className="txn-summary-edit" onClick={() => onEdit(0)}>
           Edit
@@ -1835,7 +1835,7 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
         </li>
       </ul>
 
-      <div className="txn-summary-head" style={{ marginTop: 20 }}>
+      <div className="txn-summary-head spaced">
         <h4>Allocation details</h4>
         <button type="button" className="txn-summary-edit" onClick={() => onEdit(1)}>
           Edit
@@ -1848,7 +1848,7 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
         </div>
       )}
 
-      <div className="txn-summary-head" style={{ marginTop: 20 }}>
+      <div className="txn-summary-head spaced">
         <h4>Documents uploaded</h4>
         <button type="button" className="txn-summary-edit" onClick={() => onEdit(3)}>
           Edit
@@ -1910,7 +1910,7 @@ function DocumentUploadBlock({ doc, uploaded, onUploaded }) {
             Use E-signature
           </button>
         </div>
-        <p style={{ fontWeight: 'var(--font-weight-bold)', color: 'var(--ink)' }}>{doc.label}</p>
+        <p className="txn-doc-label">{doc.label}</p>
         {mode === 'manual' ? (
           <>
             <button type="button" className="btn btn-secondary" onClick={onUploaded}>
@@ -1923,7 +1923,7 @@ function DocumentUploadBlock({ doc, uploaded, onUploaded }) {
             Send for e-signature
           </button>
         )}
-        {uploaded && <p style={{ color: 'var(--green)', fontWeight: 'var(--font-weight-bold)' }}>✓ Received</p>}
+        {uploaded && <p className="txn-doc-received">✓ Received</p>}
       </div>
     </div>
   )

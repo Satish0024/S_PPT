@@ -22,24 +22,24 @@
   color:var(--ink-soft);cursor:pointer;transition:.15s}
 .req-plan-tabs button:hover{border-color:var(--line-strong)}
 .req-plan-tabs button.on{border-color:var(--brand);background:var(--active-bg);color:var(--brand)}
-.req-plan-badge{font-size:var(--text-2xs-size);font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--muted)}
+.req-plan-badge{font-size:var(--text-2xs-size);font-weight:800;letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--muted)}
 .req-plan-tabs button.on .req-plan-badge{color:var(--brand)}
 
 .req-plan-strip{
   display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-5);padding:var(--space-4) var(--space-4);margin-bottom:var(--space-5);
   border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
 .req-plan-strip .btn{width:auto;flex:0 0 auto}
-.req-plan-strip .eyebrow{font-size:var(--text-eyebrow-size);font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:var(--space-0-5)}
+.req-plan-strip .eyebrow{font-size:var(--text-eyebrow-size);font-weight:700;letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--muted);display:block;margin-bottom:var(--space-0-5)}
 .req-plan-strip h2{margin:var(--space-0);font-size:var(--text-h5-size);font-weight:800;color:var(--ink)}
 .req-plan-strip .plan-meta{margin:var(--space-0-5) var(--space-0) var(--space-0);font-size:var(--text-caption-size);color:var(--ink-soft);font-weight:600}
 .req-plan-stats{display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-6);margin-left:auto}
 .req-plan-stats div{display:flex;flex-direction:column;gap:var(--space-0-5)}
-.req-plan-stats span{font-size:var(--text-caption-size);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.2px}
+.req-plan-stats span{font-size:var(--text-caption-size);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:var(--ls-wide)}
 .req-plan-stats b{font-size:var(--text-h5-size);font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
 
 .quick-actions{margin-bottom:var(--space-5)}
 .quick-actions-label{
-  display:block;font-size:var(--text-caption-size);font-weight:800;letter-spacing:.4px;text-transform:uppercase;
+  display:block;font-size:var(--text-caption-size);font-weight:800;letter-spacing:var(--ls-wide);text-transform:uppercase;
   color:var(--muted);margin-bottom:var(--space-2-5)}
 .quick-actions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:var(--space-3)}
 .quick-action{
@@ -71,7 +71,7 @@
 .txn-steps{border-right:1px solid var(--line);padding:var(--space-6) var(--space-5);background:var(--surface-2)}
 .txn-steps .back{display:inline-flex;align-items:center;gap:var(--space-1);font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink-soft);text-decoration:none;margin-bottom:var(--space-3-5)}
 .txn-steps .back:hover{color:var(--ink)}
-.txn-steps h1{font-size:var(--text-h4-size);font-weight:800;margin:var(--space-0) var(--space-0) var(--space-4);letter-spacing:-.2px}
+.txn-steps h1{font-size:var(--text-h4-size);font-weight:var(--font-weight-extrabold);line-height:var(--text-h4-lh);margin:var(--space-0) var(--space-0) var(--space-4);letter-spacing:var(--text-h4-ls)}
 .txn-step-list{list-style:none;margin:var(--space-0);padding:0}
 .txn-step{
   display:flex;gap:var(--space-2-5);padding:var(--space-2-5) var(--space-0);width:100%;background:none;border:none;font:inherit;
@@ -96,7 +96,16 @@
 .txn-card{border:1px solid var(--line);border-radius:12px;padding:var(--space-5) var(--space-5);margin-bottom:var(--space-4);background:var(--panel)}
 .txn-card-nested{background:var(--surface-2)}
 .txn-card h3{margin:var(--space-0) var(--space-0) var(--space-1);font-size:var(--text-h5-size);font-weight:800}
+.txn-section-title{margin:var(--space-0) var(--space-0) var(--space-2);font-size:var(--text-body-md-size);font-weight:var(--font-weight-extrabold);color:var(--ink)}
+.txn-section-title + .txn-section-title,
+.txn-section-title.spaced{margin-top:var(--space-5)}
+.txn-doc-label{font-weight:var(--font-weight-bold);color:var(--ink);margin:var(--space-0) var(--space-0) var(--space-2)}
+.txn-doc-received{color:var(--green);font-weight:var(--font-weight-bold);margin:var(--space-2) var(--space-0) var(--space-0)}
 .txn-summary-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-1)}
+.txn-summary-head.spaced{margin-top:var(--space-5)}
+.txn-row.spaced{margin-top:var(--space-4)}
+.txn-card-nested.spaced{margin-top:var(--space-4);margin-bottom:0}
+.wd-terms.spaced{margin-bottom:var(--space-4)}
 .txn-summary-head h3{margin:0}
 .txn-card .hint{margin:var(--space-0) var(--space-0) var(--space-4);font-size:var(--text-body-sm-size);color:var(--ink-soft)}
 .txn-row{display:flex;gap:var(--space-4);align-items:flex-start;flex-wrap:wrap}
@@ -151,7 +160,7 @@
 .txn-upload .tabs2{display:inline-flex;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:var(--space-3-5)}
 .txn-upload .tabs2 button{border:none;background:var(--panel);padding:var(--space-1-5) var(--space-3-5);font:inherit;font-size:var(--text-caption-size);font-weight:700;color:var(--ink-soft);cursor:pointer}
 .txn-upload .tabs2 button.on{background:var(--brand-fill);color:var(--brand-text-primary-oncolor)}
-.txn-doc-required{font-size:var(--text-caption-size);font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--red);margin-bottom:var(--space-2);display:block}
+.txn-doc-required{font-size:var(--text-caption-size);font-weight:800;letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--red);margin-bottom:var(--space-2);display:block}
 
 .txn-summary-row{display:flex;justify-content:space-between;gap:var(--space-3);padding:var(--space-2-5) var(--space-0);border-bottom:1px solid var(--line);font-size:var(--text-body-md-size)}
 .txn-summary-row:last-child{border-bottom:none}
@@ -224,7 +233,7 @@
 
 .alloc-table{width:100%;border-collapse:collapse;font-size:var(--text-body-sm-size);min-width:640px}
 .alloc-table th{
-  text-align:left;font-size:var(--text-caption-size);font-weight:800;letter-spacing:.2px;text-transform:uppercase;color:var(--muted);
+  text-align:left;font-size:var(--text-caption-size);font-weight:800;letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--muted);
   padding:var(--space-2) var(--space-2-5);border-bottom:1px solid var(--line);vertical-align:bottom;white-space:nowrap}
 .alloc-table th.alloc-group{
   text-align:left;font-size:var(--text-body-xs-size);text-transform:none;letter-spacing:0;color:var(--ink);font-weight:800}

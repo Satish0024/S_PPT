@@ -421,6 +421,10 @@ function line(series, data, order, hidden) {
 // to be rebuilt whenever the theme flips rather than defined once at import
 // time — this factory is called from the component with each render's
 // resolved --ink-soft/--line/--muted values.
+// Chart.js requires numeric px — keep in sync with --text-xs-size (12px)
+// and --font-weight-semibold (600) from the design-system type scale.
+const CHART_AXIS_FONT = { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' }
+
 function buildChartOptions({ axisTitle, gridLine, tick }) {
   return {
     responsive: true,
@@ -438,7 +442,7 @@ function buildChartOptions({ axisTitle, gridLine, tick }) {
           display: true,
           text: 'Time Period',
           color: axisTitle,
-          font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
+          font: CHART_AXIS_FONT,
           padding: { top: 8 }
         },
         grid: { display: true, color: gridLine, borderDash: [4, 4], drawTicks: false },
@@ -452,7 +456,7 @@ function buildChartOptions({ axisTitle, gridLine, tick }) {
           display: true,
           text: 'Rate of return (%)',
           color: axisTitle,
-          font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
+          font: CHART_AXIS_FONT,
           padding: { bottom: 6 }
         },
         grid: { color: gridLine, borderDash: [4, 4] },
