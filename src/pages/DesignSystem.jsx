@@ -517,17 +517,18 @@ export default function DesignSystem() {
                   </div>
                 ))}
               </div>
-              <Code>{`.ds-type-h1{ font-size:34px; font-weight:800; line-height:1.15; letter-spacing:-.6px }
-.ds-type-h2{ font-size:26px; font-weight:800; line-height:1.2;  letter-spacing:-.4px }
-.ds-type-h3{ font-size:20px; font-weight:700; line-height:1.25; letter-spacing:-.3px }
-.ds-type-h4{ font-size:16px; font-weight:700; line-height:1.3  }
-.ds-type-h5{ font-size:14px; font-weight:700; line-height:1.35 }
-.ds-type-h6{ font-size:12px; font-weight:800; line-height:1.3;  letter-spacing:.4px; text-transform:uppercase }
-.ds-type-p1{ font-size:16px;   font-weight:400; line-height:1.6  }
-.ds-type-p2{ font-size:15px;   font-weight:400; line-height:1.55 } /* app body default */
-.ds-type-p3{ font-size:13.5px; font-weight:600; line-height:1.5  }
-.ds-type-caption{ font-size:11.5px; font-weight:700; line-height:1.4; letter-spacing:.3px }
-.ds-type-code{ font-family:ui-monospace,monospace; font-size:12.5px; line-height:1.6 }`}</Code>
+              <Code>{`/* Typography uses CSS variable tokens - all sizes in rem */
+.ds-type-h1{ font-size:var(--text-h1-size); font-weight:800; line-height:var(--text-h1-lh); letter-spacing:var(--text-h1-ls) } /* 32px/40px */
+.ds-type-h2{ font-size:var(--text-h2-size); font-weight:800; line-height:var(--text-h2-lh); letter-spacing:var(--text-h2-ls) } /* 24px/32px */
+.ds-type-h3{ font-size:var(--text-h3-size); font-weight:700; line-height:var(--text-h3-lh); letter-spacing:var(--text-h3-ls) } /* 20px/28px */
+.ds-type-h4{ font-size:var(--text-h4-size); font-weight:700; line-height:var(--text-h4-lh) } /* 16px/24px */
+.ds-type-h5{ font-size:var(--text-h5-size); font-weight:700; line-height:var(--text-h5-lh) } /* 16px/24px */
+.ds-type-h6{ font-size:var(--text-h6-size); font-weight:800; line-height:var(--text-h6-lh); letter-spacing:var(--ls-wide); text-transform:uppercase } /* 14px/20px */
+.ds-type-p1{ font-size:var(--text-body-lg-size); font-weight:400; line-height:var(--text-body-lg-lh) } /* 16px/24px */
+.ds-type-p2{ font-size:var(--text-body-md-size); font-weight:400; line-height:var(--text-body-md-lh) } /* 14px/20px - app body default */
+.ds-type-p3{ font-size:var(--text-body-sm-size); font-weight:600; line-height:var(--text-body-sm-lh) } /* 14px/20px */
+.ds-type-caption{ font-size:var(--text-caption-size); font-weight:700; line-height:var(--text-caption-lh); letter-spacing:var(--ls-wide) } /* 12px/20px */
+.ds-type-code{ font-family:var(--font-family-mono); font-size:var(--text-xs-size); line-height:1.6 } /* 12px */`}</Code>
             </div>
           </section>
 
