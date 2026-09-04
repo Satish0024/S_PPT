@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeftRight, Landmark, Plus, Scale, Shuffle, TrendingDown } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faExchangeAlt, faLandmark, faPlus, faBalanceScale, faRandom, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import { TRANSACTION_TYPES, canRequest, requestStatusTone, requestsFor, transactablePlans } from '../data/transactions.js'
@@ -15,7 +16,7 @@ const FILTERS = [
   { id: 'other', label: 'Other' }
 ]
 
-const TYPE_ICON = { loan: Landmark, withdrawal: TrendingDown, transfer: Shuffle, rebalance: Scale, rollover: ArrowLeftRight }
+const TYPE_ICON = { loan: faLandmark, withdrawal: faArrowDown, transfer: faRandom, rebalance: faBalanceScale, rollover: faExchangeAlt }
 
 function NewRequestMenu({ plan, disabled }) {
   const navigate = useNavigate()
@@ -48,13 +49,13 @@ function NewRequestMenu({ plan, disabled }) {
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
       >
-        <Plus size={16} strokeWidth={2.4} aria-hidden="true" />
+        <Icon icon={faPlus} size={16} aria-hidden="true" />
         New request
       </button>
       {open && plan && (
         <div className="tx-new-request-menu" role="menu" aria-label="Request type">
           {TRANSACTION_TYPES.map((t) => {
-            const Icon = TYPE_ICON[t.id]
+            const icon = TYPE_ICON[t.id]
             const enabled = canRequest(plan, t.id)
             return (
               <button
@@ -70,7 +71,7 @@ function NewRequestMenu({ plan, disabled }) {
                 }}
               >
                 <span className="quick-action-ico" aria-hidden="true">
-                  <Icon size={16} strokeWidth={2.1} />
+                  <Icon icon={icon} size={16} />
                 </span>
                 <span>
                   <b>{t.label}</b>
@@ -93,7 +94,7 @@ function QuickActions({ plan }) {
       <span className="quick-actions-label">Quick actions</span>
       <div className="quick-actions-grid" role="group" aria-label="Start a transaction request">
         {TRANSACTION_TYPES.map((t) => {
-          const Icon = TYPE_ICON[t.id]
+          const icon = TYPE_ICON[t.id]
           const enabled = canRequest(plan, t.id)
           return (
             <button
@@ -105,7 +106,7 @@ function QuickActions({ plan }) {
               onClick={() => navigate(t.to(plan.id))}
             >
               <span className="quick-action-ico" aria-hidden="true">
-                <Icon size={18} strokeWidth={2.1} />
+                <Icon icon={icon} size={18} />
               </span>
               <span className="quick-action-copy">
                 <b>{t.label}</b>

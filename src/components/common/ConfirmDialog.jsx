@@ -1,5 +1,6 @@
 import { useId } from 'react'
-import { AlertTriangle } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { useEscapeToClose } from '../../hooks/useEscapeToClose'
 import { useFocusTrap } from '../../hooks/useFocusTrap'
 
@@ -24,7 +25,7 @@ export default function ConfirmDialog({ title, body, confirmLabel = 'Okay', canc
         onClick={(e) => e.stopPropagation()}
       >
         <span className="confirm-dialog-ico" aria-hidden="true">
-          <AlertTriangle size={22} strokeWidth={2.2} />
+          <Icon icon={faExclamationTriangle} size={22} />
         </span>
         <h4 id={titleId}>{title}</h4>
         <p id={bodyId}>{body}</p>

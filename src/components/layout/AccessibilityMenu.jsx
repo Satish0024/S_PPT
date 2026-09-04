@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Icon } from '../../lib/icons'
 import {
-  Accessibility,
-  Contrast,
-  Eye,
-  Image,
-  Link2,
-  Mic,
-  MousePointer2,
-  PauseCircle,
-  RotateCcw,
-  Type,
-  Volume2
-} from 'lucide-react'
+  faUniversalAccess,
+  faAdjust,
+  faEye,
+  faImage,
+  faLink,
+  faMicrophone,
+  faMousePointer,
+  faPauseCircle,
+  faUndo,
+  faFont,
+  faVolumeUp
+} from '@fortawesome/free-solid-svg-icons'
 import { PROFILES, useAccessibility } from '../../context/AccessibilityContext.jsx'
 import { useReadAloud, useVoiceNav } from '../../hooks/useSpeech.js'
 
@@ -22,11 +23,11 @@ const FONT_SCALE_LABELS = ['Normal', 'Large', 'Larger', 'Largest']
 // as a native checkbox (Space to toggle, announced as checked/unchecked by
 // every screen reader) rather than a custom div that would need its own
 // aria-checked/keyboard wiring to match.
-function ToggleRow({ icon: Icon, label, hint, checked, onChange }) {
+function ToggleRow({ icon, label, hint, checked, onChange }) {
   return (
     <label className="a11y-row">
       <span className="a11y-row-ico" aria-hidden="true">
-        <Icon size={17} strokeWidth={2} />
+        <Icon icon={icon} size={17} />
       </span>
       <span className="a11y-row-copy">
         <b>{label}</b>
@@ -86,18 +87,18 @@ export default function AccessibilityMenu() {
         title="Accessibility options"
         onClick={() => setOpen((v) => !v)}
       >
-        <Accessibility size={19} strokeWidth={2.1} />
+        <Icon icon={faUniversalAccess} size={19} />
       </button>
 
       {open && (
         <div className="a11y-panel" role="dialog" aria-label="Accessibility options">
           <div className="a11y-panel-head">
             <span>
-              <Accessibility size={16} strokeWidth={2.2} aria-hidden="true" />
+              <Icon icon={faUniversalAccess} size={16} aria-hidden="true" />
               Accessibility
             </span>
             <button type="button" className="a11y-reset" onClick={reset} disabled={!isActive}>
-              <RotateCcw size={13} strokeWidth={2.2} aria-hidden="true" />
+              <Icon icon={faUndo} size={13} aria-hidden="true" />
               Reset
             </button>
           </div>
@@ -124,7 +125,7 @@ export default function AccessibilityMenu() {
               disabled={!readAloud.supported}
             >
               <span className="a11y-row-ico" aria-hidden="true">
-                <Volume2 size={17} strokeWidth={2} />
+                <Icon icon={faVolumeUp} size={17} />
               </span>
               <span className="a11y-row-copy">
                 <b>Screen reader</b>
@@ -146,7 +147,7 @@ export default function AccessibilityMenu() {
               disabled={!voiceNav.supported}
             >
               <span className="a11y-row-ico" aria-hidden="true">
-                <Mic size={17} strokeWidth={2} />
+                <Icon icon={faMicrophone} size={17} />
               </span>
               <span className="a11y-row-copy">
                 <b>Voice navigation</b>
@@ -169,7 +170,7 @@ export default function AccessibilityMenu() {
 
             <button type="button" className="a11y-row a11y-row-btn" onClick={cycleFontScale}>
               <span className="a11y-row-ico" aria-hidden="true">
-                <Type size={17} strokeWidth={2} />
+                <Icon icon={faFont} size={17} />
               </span>
               <span className="a11y-row-copy">
                 <b>Bigger text</b>
@@ -179,49 +180,49 @@ export default function AccessibilityMenu() {
             </button>
 
             <ToggleRow
-              icon={Contrast}
+              icon={faAdjust}
               label="High contrast"
               hint="Stronger text/background contrast"
               checked={settings.highContrast}
               onChange={() => toggle('highContrast')}
             />
             <ToggleRow
-              icon={Type}
+              icon={faFont}
               label="Text spacing"
               hint="More room between lines and letters"
               checked={settings.textSpacing}
               onChange={() => toggle('textSpacing')}
             />
             <ToggleRow
-              icon={Link2}
+              icon={faLink}
               label="Highlight links"
               hint="Underline every link on the page"
               checked={settings.highlightLinks}
               onChange={() => toggle('highlightLinks')}
             />
             <ToggleRow
-              icon={PauseCircle}
+              icon={faPauseCircle}
               label="Pause animations"
               hint="Stop motion and auto-playing effects"
               checked={settings.pauseAnimations}
               onChange={() => toggle('pauseAnimations')}
             />
             <ToggleRow
-              icon={Image}
+              icon={faImage}
               label="Hide images"
               hint="Reduce visual clutter, keep layout"
               checked={settings.hideImages}
               onChange={() => toggle('hideImages')}
             />
             <ToggleRow
-              icon={Eye}
+              icon={faEye}
               label="Dyslexia-friendly font"
               hint="Switch to a more legible typeface"
               checked={settings.dyslexiaFont}
               onChange={() => toggle('dyslexiaFont')}
             />
             <ToggleRow
-              icon={MousePointer2}
+              icon={faMousePointer}
               label="Bigger cursor"
               hint="Larger, higher-contrast cursor"
               checked={settings.bigCursor}

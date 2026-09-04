@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 // A chart legend that stays usable whether there are 4 series or 40.
 //
@@ -52,7 +53,7 @@ export default function ChartLegend({ items, onToggle, maxInline = 6 }) {
           >
             +{hiddenItems.length} more
             {hiddenActiveCount > 0 && <span className="legend-more-badge">{hiddenActiveCount}</span>}
-            <ChevronDown size={13} strokeWidth={2.4} aria-hidden="true" />
+            <Icon icon={faChevronDown} size={13} aria-hidden="true" />
           </button>
           {open && (
             <div className="legend-panel" role="dialog" aria-label="All series">

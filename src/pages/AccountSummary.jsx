@@ -2,7 +2,8 @@ import { Fragment, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ArcElement, Chart as ChartJS, Tooltip } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
-import { ArrowLeft, ChevronDown, Database, PieChart } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faArrowLeft, faChevronDown, faDatabase, faChartPie } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import {
   assetCategory,
@@ -116,7 +117,7 @@ export default function AccountSummary() {
       <div className="hi-bar">
         <div>
           <Link to="/" className="text-link pr-back">
-            <ArrowLeft size={16} strokeWidth={2.2} />
+            <Icon icon={faArrowLeft} size={16} />
             Dashboard
           </Link>
           <h1>Account summary</h1>

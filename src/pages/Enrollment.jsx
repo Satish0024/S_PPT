@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { Calendar, Landmark, User } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faCalendar, faLandmark, faUser } from '@fortawesome/free-solid-svg-icons'
 import {
   AUTO_INCREASE_KEY,
   DEFERRAL_KEY,
@@ -248,10 +249,10 @@ export function DeferralEditor({
                 <div className="cycle-h">Increment cycle</div>
                 <div className="cycle-cards" role="radiogroup" aria-label="Increment cycle">
                   {[
-                    ['calendar', 'Calendar year', 'Every January 1', 'Next: Jan 1, 2027', Calendar],
-                    ['participant', 'Plan participant date', 'On your enrollment date', 'Next: Aug 15, 2027', User],
-                    ['planyear', 'Plan year', 'Every April 1', 'Next: Apr 1, 2027', Landmark]
-                  ].map(([value, title, sub, next, Icon]) => (
+                    ['calendar', 'Calendar year', 'Every January 1', 'Next: Jan 1, 2027', faCalendar],
+                    ['participant', 'Plan participant date', 'On your enrollment date', 'Next: Aug 15, 2027', faUser],
+                    ['planyear', 'Plan year', 'Every April 1', 'Next: Apr 1, 2027', faLandmark]
+                  ].map(([value, title, sub, next, icon]) => (
                     <button
                       key={value}
                       type="button"
@@ -260,7 +261,7 @@ export function DeferralEditor({
                       aria-checked={cycle === value}
                       onClick={() => setCycle(value)}
                     >
-                      <Icon size={18} strokeWidth={2} />
+                      <Icon icon={icon} size={18} />
                       <span>
                         <b>{title}</b>
                         <small>{sub}</small>

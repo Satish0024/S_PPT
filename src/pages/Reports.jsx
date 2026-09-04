@@ -1,6 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { ChevronDown, Download, FileText } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faChevronDown, faDownload, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
 import '../styles/documents.css'
@@ -52,7 +53,7 @@ function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, 
         onFocus={() => document.addEventListener('click', handler, { once: true })}
       >
         <span id={`${labelId}-value`}>{summary}</span>
-        <ChevronDown size={15} strokeWidth={2.2} aria-hidden="true" />
+        <Icon icon={faChevronDown} size={15} aria-hidden="true" />
       </button>
       {open && (
         <div className="multi-select-menu" role="listbox" aria-labelledby={labelId}>
@@ -242,7 +243,7 @@ export default function Reports() {
             {docs.map((d) => (
               <article className="doc-row" key={d.id}>
                 <span className="doc-ico" aria-hidden="true">
-                  <FileText size={18} strokeWidth={2} />
+                  <Icon icon={faFileAlt} size={18} />
                 </span>
                 <div className="doc-copy">
                   <h2 className="doc-name">{d.name}</h2>
@@ -252,7 +253,7 @@ export default function Reports() {
                 </div>
                 <span className="doc-plan">{d.plan}</span>
                 <button type="button" className="doc-dl">
-                  <Download size={16} strokeWidth={2.2} />
+                  <Icon icon={faDownload} size={16} />
                   Download
                 </button>
               </article>

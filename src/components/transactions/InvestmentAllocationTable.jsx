@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react'
-import { AlertOctagon } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { competingFundsFor, formatMoney } from '../../data/transactions.js'
 import FundDetailDialog from '../common/FundDetailDialog.jsx'
 
@@ -89,7 +90,7 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
                 {heldCompetitors.length > 0 && (
                   <tr className="alloc-restricted-row">
                     <td colSpan={7}>
-                      <AlertOctagon size={13} strokeWidth={2.4} aria-hidden="true" />
+                      <Icon icon={faExclamationCircle} size={13} aria-hidden="true" />
                       Transfer in is restricted as it is a competing fund of Investment(s) - {heldCompetitors.join(', ')}
                     </td>
                   </tr>

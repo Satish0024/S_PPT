@@ -1,16 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Icon } from '../lib/icons'
 import {
-  ArrowLeft,
-  Banknote,
-  CalendarDays,
-  CircleCheck,
-  CircleDollarSign,
-  MapPin,
-  Trophy,
-  AlertTriangle,
-  Umbrella
-} from 'lucide-react'
+  faArrowLeft,
+  faMoneyBillWave,
+  faCalendarAlt,
+  faCheckCircle,
+  faDollarSign,
+  faMapMarkerAlt,
+  faTrophy,
+  faExclamationTriangle,
+  faUmbrella
+} from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../data/participants'
 import { DisclaimerModal, ReadinessChart } from '../components/dashboard/ReadinessVisuals.jsx'
@@ -54,12 +55,12 @@ function useAnimatedNumber(value) {
   return shown
 }
 
-function TargetCard({ icon: Icon, label, hint, children }) {
+function TargetCard({ icon, label, hint, children }) {
   return (
     <div className="rg-target">
       <div className="rg-target-head">
         <span className="rg-target-ico" aria-hidden="true">
-          <Icon size={16} strokeWidth={2} />
+          <Icon icon={icon} size={16} />
         </span>
         <div className="rg-target-copy">
           <span>{label}</span>
@@ -447,7 +448,7 @@ export default function RetirementGoal() {
       <div className="hi-bar">
         <div>
           <Link className="text-link rg-back" to="/">
-            <ArrowLeft size={16} strokeWidth={2.2} />
+            <Icon icon={faArrowLeft} size={16} />
             Back to dashboard
           </Link>
           <h1>Retirement readiness</h1>
@@ -511,7 +512,7 @@ export default function RetirementGoal() {
           <section className="panel rg-inputs">
             <h2>Retirement target</h2>
             <div className="rg-targets">
-              <TargetCard icon={MapPin} label="Retirement location" hint="This information is used to determine the state tax">
+              <TargetCard icon={faMapMarkerAlt} label="Retirement location" hint="This information is used to determine the state tax">
                 <select
                   value={draft.location}
                   onChange={(e) => {
@@ -525,7 +526,7 @@ export default function RetirementGoal() {
                   ))}
                 </select>
               </TargetCard>
-              <TargetCard icon={Umbrella} label="Planned retirement age" hint={`About ${live.years} years from now`}>
+              <TargetCard icon={faUmbrella} label="Planned retirement age" hint={`About ${live.years} years from now`}>
                 <span className="rg-step">
                   <button
                     type="button"
@@ -551,7 +552,7 @@ export default function RetirementGoal() {
                 </span>
               </TargetCard>
               <TargetCard
-                icon={CalendarDays}
+                icon={faCalendarAlt}
                 label="Monthly spending"
                 hint={spendHint ? `About ${annualSpend} a year · typical here is ${money(spendHint)}` : `${annualSpend} a year`}
               >
@@ -560,11 +561,11 @@ export default function RetirementGoal() {
                   onChange={(n) => setDraftField('monthlySpend', Math.max(0, n))}
                 />
               </TargetCard>
-              <TargetCard icon={Banknote} label="Annual salary" hint="Drives how much each deferral percent saves">
+              <TargetCard icon={faMoneyBillWave} label="Annual salary" hint="Drives how much each deferral percent saves">
                 <MoneyInput value={draft.salary} onChange={(n) => setDraftField('salary', Math.max(0, n))} />
               </TargetCard>
               <TargetCard
-                icon={CircleDollarSign}
+                icon={faDollarSign}
                 label="Savings outside your 401(k)"
                 hint="Brokerage, IRAs, and cash you expect to use in retirement"
               >

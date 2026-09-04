@@ -1,4 +1,5 @@
-import { TrendingDown, TrendingUp } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons'
 
 export function formatReturn(value) {
   const n = Number(value)
@@ -11,11 +12,10 @@ export default function PlanReturn({ value }) {
   const pct = formatReturn(n)
   if (!pct) return null
   const up = n >= 0
-  const Icon = up ? TrendingUp : TrendingDown
 
   return (
     <span className={`plan-return ${up ? 'pos' : 'neg'}`} title="Rate Of Return" aria-label={`Rate of return ${pct} year to date`}>
-      <Icon size={13} strokeWidth={2.4} aria-hidden="true" />
+      <Icon icon={up ? faArrowUp : faArrowDown} size={13} aria-hidden="true" />
       <b>{pct}</b>
       <i>YTD</i>
     </span>

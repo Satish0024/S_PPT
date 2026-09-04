@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 // Financial Wellness sidebar widget: a light, editorial content-discovery
 // card. Typography carries the hierarchy on the left; the supplied
@@ -16,7 +17,7 @@ export default function LearningPortal() {
         <p className="learn2-desc">Learn about planning, saving, investing wisely</p>
         <Link className="learn2-cta" to="/enrich">
           Know More
-          <ArrowRight size={13} strokeWidth={2.4} aria-hidden="true" />
+          <Icon icon={faArrowRight} size={13} aria-hidden="true" />
         </Link>
       </div>
     </section>

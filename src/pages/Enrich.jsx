@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, BookOpen, Clock, Search } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faArrowLeft, faArrowRight, faBookOpen, faClock, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { BRAND } from '../config/brand.js'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { ARTICLES, CATS } from '../data/learning.js'
@@ -23,7 +24,7 @@ export default function Enrich() {
           <img src={theme === 'dark' ? BRAND.logoOnDark || BRAND.logo : BRAND.logo} alt={BRAND.name} />
         </div>
         <Link className="back" to="/">
-          <ArrowLeft size={16} strokeWidth={2.2} />
+          <Icon icon={faArrowLeft} size={16} />
           Back to dashboard
         </Link>
       </header>
@@ -34,7 +35,7 @@ export default function Enrich() {
           <p>Guides and short lessons to help you make confident decisions about your plan and retirement.</p>
         </div>
         <div className="search-bar">
-          <Search size={18} strokeWidth={2} />
+          <Icon icon={faSearch} size={18} />
           <input
             type="search"
             placeholder="Search Topics, Articles, And Tools…"
@@ -55,15 +56,15 @@ export default function Enrich() {
             <p>A 4-part guide covering enrollment, deferral sources, employer match, and your first investment election.</p>
             <div className="f-meta">
               <span>
-                <BookOpen size={14} strokeWidth={2} /> 4 articles
+                <Icon icon={faBookOpen} size={14} /> 4 articles
               </span>
               <span>
-                <Clock size={14} strokeWidth={2} /> ~12 min
+                <Icon icon={faClock} size={14} /> ~12 min
               </span>
             </div>
             <span className="btn-go">
               Start path
-              <ArrowRight size={16} strokeWidth={2.2} />
+              <Icon icon={faArrowRight} size={16} />
             </span>
           </div>
         </a>

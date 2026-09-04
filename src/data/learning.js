@@ -1,4 +1,4 @@
-import { BookOpen, Clock, DollarSign, TrendingUp } from 'lucide-react'
+import { faBookOpen, faClock, faDollarSign, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import { BRAND } from '../config/brand.js'
 
 // Shared by the Enrich page and the dashboard's Learning Portal widget, so
@@ -12,7 +12,7 @@ export const ARTICLES = [
     body: `How deferrals, employer match, and vesting work together in ${BRAND.supportPlanNoun}.`,
     time: '5 Min Read',
     minutes: 5,
-    icon: BookOpen
+    icon: faBookOpen
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ export const ARTICLES = [
     body: 'Compare contribution sources and when each option may make sense for you.',
     time: '4 Min Read',
     minutes: 4,
-    icon: DollarSign
+    icon: faDollarSign
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ export const ARTICLES = [
     body: 'Asset classes, target-date funds, and why diversification matters.',
     time: '6 Min Read',
     minutes: 6,
-    icon: TrendingUp
+    icon: faChartLine
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ export const ARTICLES = [
     body: 'Estimate savings needs and set realistic goals for your timeline.',
     time: '7 Min Read',
     minutes: 7,
-    icon: Clock
+    icon: faClock
   }
 ]
 

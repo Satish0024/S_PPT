@@ -1,20 +1,21 @@
 import { NavLink, useLocation } from 'react-router-dom'
+import { Icon } from '../../lib/icons'
 import {
-  ArrowLeftRight,
-  FileText,
-  LayoutGrid,
-  UserRound,
-  Wallet
-} from 'lucide-react'
+  faExchangeAlt,
+  faFileAlt,
+  faThLarge,
+  faUser,
+  faWallet
+} from '@fortawesome/free-solid-svg-icons'
 import { useTheme } from '../../context/ThemeContext.jsx'
 import { BRAND } from '../../config/brand.js'
 
 const ITEMS = [
-  { to: '/', label: 'Dashboard', icon: LayoutGrid, end: true },
-  { to: '/portfolio', label: 'Investment portfolio', icon: Wallet },
-  { to: '/transactions', label: 'Transactions', icon: ArrowLeftRight },
-  { to: '/profile', label: 'My profile', icon: UserRound },
-  { to: '/reports', label: 'Document Center', icon: FileText }
+  { to: '/', label: 'Dashboard', icon: faThLarge, end: true },
+  { to: '/portfolio', label: 'Investment portfolio', icon: faWallet },
+  { to: '/transactions', label: 'Transactions', icon: faExchangeAlt },
+  { to: '/profile', label: 'My profile', icon: faUser },
+  { to: '/reports', label: 'Document Center', icon: faFileAlt }
 ]
 
 export default function Sidebar() {
@@ -26,7 +27,7 @@ export default function Sidebar() {
 
   return (
     <nav className="nav" aria-label="Primary">
-      {ITEMS.map(({ to, label, icon: Icon, end }) => (
+      {ITEMS.map(({ to, label, icon, end }) => (
         <NavLink
           key={to}
           to={to}
@@ -34,7 +35,7 @@ export default function Sidebar() {
           className={({ isActive }) => (isActive || (to === '/' && (onEnrollment || onGoal || onSummary)) ? 'active' : '')}
         >
           <span className="ico" aria-hidden="true">
-            <Icon size={23} strokeWidth={1.7} />
+            <Icon icon={icon} size={23} />
           </span>
           <span className="nav-label">{label}</span>
         </NavLink>

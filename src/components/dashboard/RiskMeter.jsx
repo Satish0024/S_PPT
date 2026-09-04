@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Rocket, Scale, ShieldCheck, Sparkles } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faRocket, faBalanceScale, faShieldAlt, faMagic } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import { RISK_PROFILE_UPDATED_EVENT, getRiskLevel, getRiskProfileId } from '../../lib/riskProfile'
 
-const LEVEL_ICON = { conservative: ShieldCheck, moderate: Scale, aggressive: Rocket }
+const LEVEL_ICON = { conservative: faShieldAlt, moderate: faBalanceScale, aggressive: faRocket }
 
 export default function RiskMeter() {
   const { participant } = useParticipant()
@@ -24,7 +25,7 @@ export default function RiskMeter() {
   if (isNotEligibleUser(participant)) return null
 
   const level = getRiskLevel(levelId)
-  const Icon = LEVEL_ICON[level.id]
+  const levelIcon = LEVEL_ICON[level.id]
   // Map the 0-100 score to a -90..90deg rotation around the gauge center so
   // the marker sits on the arc: 0 = far left (conservative), 100 = far
   // right (aggressive).
@@ -34,7 +35,7 @@ export default function RiskMeter() {
     <section className="risk-card" aria-label="Investment risk profile">
       <div className="risk-head">
         <span className="risk-ico" aria-hidden="true">
-          <ShieldCheck size={18} strokeWidth={2.1} />
+          <Icon icon={faShieldAlt} size={18} />
         </span>
         <div className="risk-copy">
           <span className="risk-tag">Risk Level</span>
@@ -59,7 +60,7 @@ export default function RiskMeter() {
           </svg>
           <div className="risk-center">
             <span key={level.id} className="risk-center-ico" style={{ color: level.color }}>
-              <Icon size={30} strokeWidth={2} />
+              <Icon icon={levelIcon} size={30} />
             </span>
             <b style={{ color: level.color }}>{level.badge}</b>
             <span>Your risk level</span>
@@ -70,7 +71,7 @@ export default function RiskMeter() {
           <p>{level.copy}</p>
           <p className="risk-hint">Want to change it? Retake the risk check-in questionnaire.</p>
           <Link to="/risk-check-in" className="risk-edit-btn">
-            <Sparkles size={15} strokeWidth={2.2} />
+            <Icon icon={faMagic} size={15} />
             Edit Preferences
           </Link>
         </div>
