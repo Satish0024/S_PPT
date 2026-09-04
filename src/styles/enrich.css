@@ -17,7 +17,7 @@
 
   .page-intro{margin-bottom:var(--space-7)}
   .page-intro .eyebrow{font-size:var(--text-eyebrow-size);font-weight:var(--text-eyebrow-weight);color:var(--accent);text-transform:uppercase;letter-spacing:.45px;margin-bottom:var(--space-2)}
-  .page-intro h1{font-size:28px;font-weight:700;letter-spacing:-.5px;margin-bottom:var(--space-2)}
+  .page-intro h1{font-size:var(--text-3xl-size);font-weight:700;letter-spacing:-.5px;margin-bottom:var(--space-2)}
   .page-intro p{font-size:var(--text-body-lg-size);color:var(--ink-soft);line-height:1.55;max-width:540px}
 
   .search-bar{
@@ -47,7 +47,7 @@
     position:relative;z-index:1;font-size:var(--text-caption-size);font-weight:700;text-transform:uppercase;
     letter-spacing:.4px;color:color-mix(in srgb, var(--brand-text-primary-oncolor) 85%, transparent);margin-bottom:var(--space-1-5)}
   .featured .f-visual h2{
-    position:relative;z-index:1;font-size:22px;font-weight:700;color:var(--brand-text-primary-oncolor);line-height:1.25;letter-spacing:-.3px}
+    position:relative;z-index:1;font-size:var(--text-display-md-size);font-weight:700;color:var(--brand-text-primary-oncolor);line-height:1.25;letter-spacing:-.3px}
   .featured .f-body{padding:var(--space-7) var(--space-7) var(--space-6);display:flex;flex-direction:column;justify-content:center}
   .featured .f-body p{font-size:var(--text-body-md-size);color:var(--ink-soft);line-height:1.55;margin-bottom:var(--space-4)}
   .featured .f-meta{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-5)}
@@ -93,7 +93,7 @@
   .card.t3 .thumb .t-ico{color:var(--amber)}
   .card.t4 .thumb .t-ico{color:var(--red)}
   .card .c-body{padding:var(--space-6) var(--space-4) var(--space-4);flex:1;display:flex;flex-direction:column}
-  .card .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:var(--space-1-5)}
+  .card .tag{font-size:var(--text-2xs-size);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:var(--space-1-5)}
   .card.t1 .tag{color:var(--accent)}
   .card.t2 .tag{color:var(--green)}
   .card.t3 .tag{color:var(--amber)}
@@ -110,5 +110,5 @@
     .featured{grid-template-columns:1fr}
     .featured .f-visual{min-height:160px}
     .grid{grid-template-columns:1fr}
-    .page-intro h1{font-size:22px}
+    .page-intro h1{font-size:var(--text-display-md-size)}
   }
