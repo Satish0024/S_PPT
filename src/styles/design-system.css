@@ -11,8 +11,12 @@
   position:sticky;top:0;z-index:40;height:60px;display:flex;align-items:center;gap:var(--space-3-5);
   padding:var(--space-0) var(--space-6);background:var(--panel);border-bottom:1px solid var(--line);box-shadow:var(--shadow)
 }
-.ds-top .ds-logo{display:flex;align-items:center;gap:var(--space-2-5);font-weight:800;font-size:var(--text-base-size);letter-spacing:var(--ls-snug)}
-.ds-top .ds-logo .dot{width:10px;height:10px;border-radius:50%;background:var(--brand)}
+.ds-top .ds-logo{display:flex;align-items:center;gap:var(--space-3);min-width:0}
+.ds-top .ds-logo img{height:30px;width:auto;max-width:160px;object-fit:contain;display:block;flex:0 0 auto}
+.ds-top .ds-logo-title{font-weight:800;font-size:var(--text-base-size);letter-spacing:var(--ls-snug);color:var(--ink-soft)}
+@media(max-width:720px){
+  .ds-top .ds-logo-title{display:none}
+}
 .ds-top .ds-meta{margin-left:auto;display:flex;align-items:center;gap:var(--space-2-5);font-size:var(--text-caption-size);color:var(--muted)}
 .ds-top .ds-badge{
   display:inline-flex;align-items:center;gap:var(--space-1-5);padding:var(--space-1) var(--space-2-5);border-radius:999px;

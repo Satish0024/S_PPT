@@ -5,6 +5,7 @@ import {
   ShieldCheck, Sun, Type as TypeIcon, Volume2, X
 } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext.jsx'
+import { BRAND } from '../config/brand.js'
 import '../styles/design-system.css'
 
 const NAV = [
@@ -396,7 +397,13 @@ export default function DesignSystem() {
   return (
     <div className="ds">
       <header className="ds-top">
-        <div className="ds-logo"><span className="dot" /> Participant Portal Design System</div>
+        <div className="ds-logo">
+          <img
+            src={theme === 'dark' ? (BRAND.logoOnDark || BRAND.logo) : BRAND.logo}
+            alt={BRAND.name}
+          />
+          <span className="ds-logo-title">Design System</span>
+        </div>
         <div className="ds-meta">
           <span className="ds-badge"><ShieldCheck size={13} /> WCAG 2.2 AA target</span>
           <button
