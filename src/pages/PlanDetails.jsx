@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { Percent, TrendingUp } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faPercent, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import {
   AUTO_INCREASE_KEY,
@@ -249,7 +250,7 @@ export default function PlanDetails() {
                 onClick={() => switchTab('deferral')}
               >
                 <span className="pr-nav-ico" aria-hidden="true">
-                  <Percent size={16} strokeWidth={2.1} />
+                  <Icon icon={faPercent} size={16} />
                 </span>
                 Deferrals
               </button>
@@ -262,7 +263,7 @@ export default function PlanDetails() {
               onClick={() => switchTab('investments')}
             >
               <span className="pr-nav-ico" aria-hidden="true">
-                <TrendingUp size={16} strokeWidth={2.1} />
+                <Icon icon={faChartLine} size={16} />
               </span>
               Investments
             </button>

@@ -1,16 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Icon } from '../lib/icons'
 import {
-  ArrowLeft,
-  Banknote,
-  CalendarDays,
-  CircleCheck,
-  CircleDollarSign,
-  MapPin,
-  Trophy,
-  AlertTriangle,
-  Umbrella
-} from 'lucide-react'
+  faArrowLeft,
+  faMoneyBillWave,
+  faCalendarAlt,
+  faCheckCircle,
+  faDollarSign,
+  faMapMarkerAlt,
+  faTrophy,
+  faExclamationTriangle,
+  faUmbrella
+} from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../data/participants'
 import { DisclaimerModal, ReadinessChart } from '../components/dashboard/ReadinessVisuals.jsx'
@@ -54,12 +55,12 @@ function useAnimatedNumber(value) {
   return shown
 }
 
-function TargetCard({ icon: Icon, label, hint, children }) {
+function TargetCard({ icon, label, hint, children }) {
   return (
     <div className="rg-target">
       <div className="rg-target-head">
         <span className="rg-target-ico" aria-hidden="true">
-          <Icon size={16} strokeWidth={2} />
+          <Icon icon={icon} size={16} />
         </span>
         <div className="rg-target-copy">
           <span>{label}</span>
@@ -418,49 +419,13 @@ export default function RetirementGoal() {
   }
 
   // Deferral rate / auto-increase edits affect the participant's actual
-  // paycheck deductions, so saving confirms before committing when deferral
-  // or auto-increase values changed.
-  const autoEqual = (a = {}, b = {}) =>
-    !!a.on === !!b.on &&
-    +a.pctPre === +b.pctPre &&
-    +a.capPre === +b.capPre &&
-    +a.pctRoth === +b.pctRoth &&
-    +a.capRoth === +b.capRoth
-
-  const planPaycheckDirty = (planId) => {
-    const share = planShares[planId] || { pre: 0, roth: 0 }
-    const base = baselineShares[planId] || { pre: 0, roth: 0 }
-    return (
-      +share.pre !== +base.pre ||
-      +share.roth !== +base.roth ||
-      !autoEqual(planAuto[planId], baselineAuto[planId])
-    )
-  }
-
-  const paycheckImpacted = () => {
-    if (multiPlan) {
-      return deferralPlans.some((plan) => planPaycheckDirty(plan.id))
-    }
-    return (
-      +draft.pre !== +baseline.pre ||
-      +draft.roth !== +baseline.roth ||
-      !!draft.autoOn !== !!baseline.autoOn ||
-      +draft.autoPct !== +baseline.autoPct ||
-      +draft.autoCap !== +baseline.autoCap ||
-      +draft.autoPctRoth !== +baseline.autoPctRoth ||
-      +draft.autoCapRoth !== +baseline.autoCapRoth
-    )
-  }
-
-  const requestSave = () => {
-    if (paycheckImpacted()) setConfirmSaveOpen(true)
-    else save()
-  }
+  // paycheck deductions, so "Save this goal" confirms before committing
+  // instead of saving immediately.
+  const requestSave = () => setConfirmSaveOpen(true)
   const confirmSave = () => {
     setConfirmSaveOpen(false)
     save()
   }
-  const cancelConfirmSave = () => setConfirmSaveOpen(false)
 
   const autoPct = Math.max(1, +draft.autoPct || 1)
   const autoCap = Math.max(autoPct, +draft.autoCap || 10)
@@ -483,7 +448,7 @@ export default function RetirementGoal() {
       <div className="hi-bar">
         <div>
           <Link className="text-link rg-back" to="/">
-            <ArrowLeft size={16} strokeWidth={2.2} />
+            <Icon icon={faArrowLeft} size={16} />
             Back to dashboard
           </Link>
           <h1>Retirement readiness</h1>
@@ -547,7 +512,7 @@ export default function RetirementGoal() {
           <section className="panel rg-inputs">
             <h2>Retirement target</h2>
             <div className="rg-targets">
-              <TargetCard icon={MapPin} label="Retirement location" hint="This information is used to determine the state tax">
+              <TargetCard icon={faMapMarkerAlt} label="Retirement location" hint="This information is used to determine the state tax">
                 <select
                   value={draft.location}
                   onChange={(e) => {
@@ -561,7 +526,7 @@ export default function RetirementGoal() {
                   ))}
                 </select>
               </TargetCard>
-              <TargetCard icon={Umbrella} label="Planned retirement age" hint={`About ${live.years} years from now`}>
+              <TargetCard icon={faUmbrella} label="Planned retirement age" hint={`About ${live.years} years from now`}>
                 <span className="rg-step">
                   <button
                     type="button"
@@ -587,7 +552,7 @@ export default function RetirementGoal() {
                 </span>
               </TargetCard>
               <TargetCard
-                icon={CalendarDays}
+                icon={faCalendarAlt}
                 label="Monthly spending"
                 hint={spendHint ? `About ${annualSpend} a year · typical here is ${money(spendHint)}` : `${annualSpend} a year`}
               >
@@ -596,11 +561,11 @@ export default function RetirementGoal() {
                   onChange={(n) => setDraftField('monthlySpend', Math.max(0, n))}
                 />
               </TargetCard>
-              <TargetCard icon={Banknote} label="Annual salary" hint="Drives how much each deferral percent saves">
+              <TargetCard icon={faMoneyBillWave} label="Annual salary" hint="Drives how much each deferral percent saves">
                 <MoneyInput value={draft.salary} onChange={(n) => setDraftField('salary', Math.max(0, n))} />
               </TargetCard>
               <TargetCard
-                icon={CircleDollarSign}
+                icon={faDollarSign}
                 label="Savings outside your 401(k)"
                 hint="Brokerage, IRAs, and cash you expect to use in retirement"
               >
@@ -706,7 +671,7 @@ export default function RetirementGoal() {
       {open && <DisclaimerModal onClose={() => setOpen(false)} />}
 
       {confirmSaveOpen && (
-        <div className="enroll-modal-bg" role="presentation" onClick={cancelConfirmSave}>
+        <div className="enroll-modal-bg" role="presentation" onClick={() => setConfirmSaveOpen(false)}>
           <div
             className="enroll-modal rr-modal"
             role="dialog"
@@ -722,7 +687,7 @@ export default function RetirementGoal() {
               <button type="button" className="btn btn-primary" onClick={confirmSave}>
                 Yes
               </button>
-              <button type="button" className="btn btn-secondary" onClick={cancelConfirmSave}>
+              <button type="button" className="btn btn-secondary" onClick={() => setConfirmSaveOpen(false)}>
                 No
               </button>
             </div>

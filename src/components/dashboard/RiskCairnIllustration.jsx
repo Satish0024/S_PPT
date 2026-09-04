@@ -1,13 +1,14 @@
-import { Rocket, Scale, ShieldCheck } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faRocket, faBalanceScale, faShieldAlt } from '@fortawesome/free-solid-svg-icons'
 
-const LEVEL_ICON = { conservative: ShieldCheck, moderate: Scale, aggressive: Rocket }
+const LEVEL_ICON = { conservative: faShieldAlt, moderate: faBalanceScale, aggressive: faRocket }
 
 // A small stacked-stones ("cairn") illustration representing balance —
 // used by the Risk Meter v2 widget. The stones stay on-brand (gradient of
 // --brand/--accent) so it re-themes per client; the badge on the top stone
 // swaps per risk level so the scenario is still visually distinct.
 export default function RiskCairnIllustration({ levelId, color }) {
-  const Icon = LEVEL_ICON[levelId] || Scale
+  const levelIcon = LEVEL_ICON[levelId] || faBalanceScale
 
   return (
     <svg className="risk-cairn" viewBox="0 0 140 130" role="img" aria-label="Illustration of balanced stacked stones">
@@ -44,7 +45,7 @@ export default function RiskCairnIllustration({ levelId, color }) {
         <circle className="risk-cairn-badge" cx="70" cy="52" r="11" fill="#fff" />
         <foreignObject x="59" y="41" width="22" height="22">
           <div style={{ display: 'grid', placeItems: 'center', width: '100%', height: '100%', color }}>
-            <Icon size={14} strokeWidth={2.4} />
+            <Icon icon={levelIcon} size={14} />
           </div>
         </foreignObject>
       </g>

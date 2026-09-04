@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { AlertTriangle, ArrowRight, Bookmark, ChevronRight, Plus, TrendingUp } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faExclamationTriangle, faArrowRight, faBookmark, faChevronRight, faPlus, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import {
@@ -89,7 +90,7 @@ export default function RetirementGoalSimulatorV2() {
     <section className={`rr3 ${tone}`} aria-label="Retirement Readiness">
       <header className="rr3-head">
         <span className="rr3-ico" aria-hidden="true">
-          <Bookmark size={16} strokeWidth={2.2} />
+          <Icon icon={faBookmark} size={16} />
         </span>
         <span className="rr3-tag">Goal setting</span>
       </header>
@@ -137,7 +138,7 @@ export default function RetirementGoalSimulatorV2() {
               <b>{status.title}</b>
               <small>{status.body}</small>
             </span>
-            <ChevronRight size={16} strokeWidth={2.2} aria-hidden="true" />
+            <Icon icon={faChevronRight} size={16} aria-hidden="true" />
           </Link>
         </>
       ) : (
@@ -149,7 +150,7 @@ export default function RetirementGoalSimulatorV2() {
           </p>
           <Link className="rr3-cta" to="/retirement-goal">
             Get started
-            <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
+            <Icon icon={faArrowRight} size={15} aria-hidden="true" />
           </Link>
         </div>
       )}

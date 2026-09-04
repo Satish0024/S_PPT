@@ -2,7 +2,8 @@ import { Fragment, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ArcElement, Chart as ChartJS, Tooltip } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
-import { ArrowLeft, ChevronDown, Database, PieChart } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faArrowLeft, faChevronDown, faDatabase, faChartPie } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import {
   assetCategory,
@@ -49,13 +50,7 @@ export default function AccountSummary() {
     plans.some((p) => p.id === requested) ? requested : fallback
   )
   const [tab, setTab] = useState('sources')
-  // `active` drives the donut + legend hover only. The table below used
-  // to share this same state (hovering a legend row also lit up the
-  // table row, and vice versa) — kept separate so hovering the legend
-  // only reacts in the chart, not the table (applies to every tab:
-  // Sources, Investments, Asset class — they all share this component).
   const [active, setActive] = useState(null)
-  const [tableActive, setTableActive] = useState(null)
   const [expandedRow, setExpandedRow] = useState(null)
 
   const plan = plans.find((p) => p.id === planId) || plans[0]
@@ -122,7 +117,7 @@ export default function AccountSummary() {
       <div className="hi-bar">
         <div>
           <Link to="/" className="text-link pr-back">
-            <ArrowLeft size={16} strokeWidth={2.2} />
+            <Icon icon={faArrowLeft} size={16} />
             Dashboard
           </Link>
           <h1>Account summary</h1>
@@ -147,7 +142,6 @@ export default function AccountSummary() {
                 onClick={() => {
                   setPlanId(item.id)
                   setActive(null)
-                  setTableActive(null)
                   setExpandedRow(null)
                 }}
               >
@@ -200,7 +194,6 @@ export default function AccountSummary() {
                   onClick={() => {
                     setTab(item.id)
                     setActive(null)
-                    setTableActive(null)
                     setExpandedRow(null)
                   }}
                 >
@@ -265,7 +258,6 @@ export default function AccountSummary() {
                   <thead>
                     <tr>
                       <th scope="col">{tab === 'sources' ? 'Source' : tab === 'assetclass' ? 'Asset class' : 'Investment'}</th>
-                      {tab === 'investments' ? <th scope="col">Asset class</th> : null}
                       {tab === 'investments' ? <th scope="col" className="num">Units</th> : null}
                       <th scope="col" className="num">Balance</th>
                       <th scope="col" className="num">{tab === 'investments' ? 'Election Percentage' : 'Percent'}</th>
@@ -278,13 +270,12 @@ export default function AccountSummary() {
                       const isAssetClass = tab === 'assetclass'
                       const isExpandable = isInvestment || isAssetClass
                       const isOpen = isExpandable && expandedRow === row.id
-                      const detailCols = isInvestment ? 5 : isAssetClass ? 3 : tab === 'sources' ? 4 : 3
                       return (
                         <Fragment key={row.id}>
                           <tr
-                            className={`${tableActive === i ? 'on' : ''} ${isOpen ? 'as-row-open' : ''}`.trim()}
-                            onMouseEnter={() => setTableActive(i)}
-                            onMouseLeave={() => setTableActive(null)}
+                            className={`${active === i ? 'on' : ''} ${isOpen ? 'as-row-open' : ''}`.trim()}
+                            onMouseEnter={() => setActive(i)}
+                            onMouseLeave={() => setActive(null)}
                           >
                             <td>
                               {isExpandable ? (
@@ -302,7 +293,7 @@ export default function AccountSummary() {
                                     aria-hidden="true"
                                   />
                                   <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
-                                  <span className="as-row-name">{row.name}</span>
+                                  {row.name}
                                 </button>
                               ) : (
                                 <>
@@ -311,7 +302,6 @@ export default function AccountSummary() {
                                 </>
                               )}
                             </td>
-                            {isInvestment ? <td className="as-asset-cell">{row.asset || '—'}</td> : null}
                             {isInvestment ? (
                               <td className="num">{row.units != null ? formatUnits(row.units) : '—'}</td>
                             ) : null}
@@ -321,8 +311,12 @@ export default function AccountSummary() {
                           </tr>
                           {isOpen && isInvestment ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
-                              <td colSpan={detailCols}>
+                              <td colSpan={4}>
                                 <div className="as-detail-grid">
+                                  <div>
+                                    <span>Asset class</span>
+                                    <b>{row.asset || '—'}</b>
+                                  </div>
                                   <div>
                                     <span>Category</span>
                                     <b className="as-cat-badges">
@@ -343,7 +337,7 @@ export default function AccountSummary() {
                           ) : null}
                           {isOpen && isAssetClass ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
-                              <td colSpan={detailCols}>
+                              <td colSpan={3}>
                                 {/* The old standalone Investments tab used to be the only place
                                     a participant could see a fund's NAV (price per unit) — now
                                     that view lives here instead, so it's carried over rather than
@@ -374,7 +368,6 @@ export default function AccountSummary() {
                   <tfoot>
                     <tr>
                       <td>Total</td>
-                      {tab === 'investments' ? <td /> : null}
                       {tab === 'investments' ? <td /> : null}
                       <td className="num">{formatMoney(summary.balance)}</td>
                       <td className="num">100.00%</td>

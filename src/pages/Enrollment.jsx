@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { Calendar, Landmark, User } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faCalendar, faLandmark, faUser } from '@fortawesome/free-solid-svg-icons'
 import {
   AUTO_INCREASE_KEY,
   DEFERRAL_KEY,
@@ -10,7 +11,6 @@ import {
 } from '../data/participants'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
-import ConfirmDialog from '../components/common/ConfirmDialog.jsx'
 
 const PLAN_PRE = 6
 const PLAN_ROTH = 2
@@ -59,9 +59,7 @@ export function DeferralEditor({
   const [cycle, setCycle] = useState(savedAi?.cycle && CYCLES[savedAi.cycle] ? savedAi.cycle : 'calendar')
   const [error, setError] = useState('')
   const [optOutOpen, setOptOutOpen] = useState(false)
-  const [confirmSaveOpen, setConfirmSaveOpen] = useState(false)
   useEscapeToClose(optOutOpen, () => setOptOutOpen(false))
-  useEscapeToClose(confirmSaveOpen, () => setConfirmSaveOpen(false))
 
   const setSource = (src, val) => {
     const next = unit === '$' ? pctFromPay(val) : clampPct(val)
@@ -117,18 +115,6 @@ export function DeferralEditor({
       setError('Choose whether to use auto increase before you continue.')
       return
     }
-    // Edits to deferral / auto increase change paycheck deductions — confirm
-    // before committing when the participant is saving (not first-time enroll).
-    if (embedded || saveLabel === 'Save changes') {
-      setConfirmSaveOpen(true)
-      return
-    }
-    saveDeferral(false)
-    onComplete?.(false)
-  }
-
-  const confirmSaveChanges = () => {
-    setConfirmSaveOpen(false)
     saveDeferral(false)
     onComplete?.(false)
   }
@@ -263,10 +249,10 @@ export function DeferralEditor({
                 <div className="cycle-h">Increment cycle</div>
                 <div className="cycle-cards" role="radiogroup" aria-label="Increment cycle">
                   {[
-                    ['calendar', 'Calendar year', 'Every January 1', 'Next: Jan 1, 2027', Calendar],
-                    ['participant', 'Plan participant date', 'On your enrollment date', 'Next: Aug 15, 2027', User],
-                    ['planyear', 'Plan year', 'Every April 1', 'Next: Apr 1, 2027', Landmark]
-                  ].map(([value, title, sub, next, Icon]) => (
+                    ['calendar', 'Calendar year', 'Every January 1', 'Next: Jan 1, 2027', faCalendar],
+                    ['participant', 'Plan participant date', 'On your enrollment date', 'Next: Aug 15, 2027', faUser],
+                    ['planyear', 'Plan year', 'Every April 1', 'Next: Apr 1, 2027', faLandmark]
+                  ].map(([value, title, sub, next, icon]) => (
                     <button
                       key={value}
                       type="button"
@@ -275,7 +261,7 @@ export function DeferralEditor({
                       aria-checked={cycle === value}
                       onClick={() => setCycle(value)}
                     >
-                      <Icon size={18} strokeWidth={2} />
+                      <Icon icon={icon} size={18} />
                       <span>
                         <b>{title}</b>
                         <small>{sub}</small>
@@ -357,17 +343,6 @@ export function DeferralEditor({
           </div>
         </div>
       )}
-
-      {confirmSaveOpen && (
-        <ConfirmDialog
-          title="Confirm your changes"
-          body="Your changes impact your paycheck deduction. Do you agree to move forward?"
-          confirmLabel="Yes"
-          cancelLabel="No"
-          onConfirm={confirmSaveChanges}
-          onCancel={() => setConfirmSaveOpen(false)}
-        />
-      )}
     </div>
   )
 }
@@ -382,7 +357,7 @@ function SourceRow({ label, help, value, onChange, unit }) {
         </span>
         <span className="sval">
           {unit === '$' && <span className="pct">$</span>}
-          <input type="number" value={value} min={0} aria-label={label} onChange={(e) => onChange(e.target.value)} />
+          <input type="number" value={value} min={0} onChange={(e) => onChange(e.target.value)} />
           {unit === '%' && <span className="pct">%</span>}
         </span>
       </div>
@@ -407,7 +382,6 @@ function AiSourceRow({ label, current, unit, inc, cap, onInc, onCap, nextLabel }
           value={inc}
           min={1}
           max={5}
-          aria-label={`${label} annual increase percentage`}
           onChange={(e) => onInc(Math.min(5, Math.max(1, Math.round(+e.target.value || 1))))}
         />
         <span className="pct">%</span>
@@ -418,7 +392,6 @@ function AiSourceRow({ label, current, unit, inc, cap, onInc, onCap, nextLabel }
           value={cap}
           min={1}
           max={15}
-          aria-label={`${label} maximum cap percentage`}
           onChange={(e) => onCap(Math.min(15, Math.max(capMin, Math.round(+e.target.value || capMin))))}
         />
         <span className="pct">%</span>

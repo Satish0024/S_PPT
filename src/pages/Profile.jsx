@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { Icon } from '../lib/icons'
 import {
-  Briefcase,
-  Check,
-  Heart,
-  Landmark,
-  Pencil,
-  Tags,
-  Users
-} from 'lucide-react'
+  faBriefcase,
+  faCheck,
+  faHeart,
+  faLandmark,
+  faPencilAlt,
+  faTags,
+  faUsers
+} from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import AddBeneficiary from '../components/profile/AddBeneficiary.jsx'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
@@ -40,17 +41,17 @@ import {
 } from '../lib/profileDetails'
 
 const NAV = [
-  { id: 'personal', label: 'Personal Details', icon: Heart },
-  { id: 'bank', label: 'Bank Details', icon: Landmark },
-  { id: 'employment', label: 'Employment Information', icon: Briefcase },
-  { id: 'classification', label: 'Employee Classification', icon: Tags },
-  { id: 'beneficiary', label: 'Beneficiary Details', icon: Users }
+  { id: 'personal', label: 'Personal Details', icon: faHeart },
+  { id: 'bank', label: 'Bank Details', icon: faLandmark },
+  { id: 'employment', label: 'Employment Information', icon: faBriefcase },
+  { id: 'classification', label: 'Employee Classification', icon: faTags },
+  { id: 'beneficiary', label: 'Beneficiary Details', icon: faUsers }
 ]
 
 function EditBtn({ onClick }) {
   return (
     <button type="button" className="btn btn-secondary pr-edit" onClick={onClick}>
-      <Pencil size={14} strokeWidth={2.2} />
+      <Icon icon={faPencilAlt} size={14} />
       Edit
     </button>
   )
@@ -366,7 +367,7 @@ function BeneficiaryTable({ primary, contingent, onPercent, onSelect }) {
                   className="pr-row-edit"
                   onClick={() => onPercent(row.group === 'Primary' ? 'primary' : 'contingent')}
                 >
-                  <Pencil size={13} strokeWidth={2.2} />
+                  <Icon icon={faPencilAlt} size={13} />
                   Set %
                 </button>
               </td>
@@ -497,7 +498,6 @@ export default function Profile() {
       <div className="pr-shell">
         <nav className="pr-nav" aria-label="Profile sections">
           {navItems.map((item) => {
-            const Icon = item.icon
             return (
               <button
                 key={item.id}
@@ -506,7 +506,7 @@ export default function Profile() {
                 onClick={() => go(item.id)}
               >
                 <span className="pr-nav-ico" aria-hidden="true">
-                  <Icon size={16} strokeWidth={2.1} />
+                  <Icon icon={item.icon} size={16} />
                 </span>
                 {item.label}
               </button>
@@ -523,7 +523,7 @@ export default function Profile() {
                   <div className="pr-hero-name">
                     <h2>{fullName}</h2>
                     <span className={`badge ${badgeClass}`}>
-                      <Check size={12} strokeWidth={2.6} /> Active
+                      <Icon icon={faCheck} size={12} /> Active
                     </span>
                   </div>
                   <p className="pr-co">{record.personal.company}</p>

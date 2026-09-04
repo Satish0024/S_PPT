@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ArrowRight, Info, SlidersHorizontal } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faArrowRight, faInfoCircle, faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isEligibleNotEnrolledUser, isNotEligibleUser, isOptedOutUser } from '../../data/participants'
 import {
@@ -172,37 +173,36 @@ export default function ReadinessScoreCard() {
             {notEnrolled ? (
               <span className="rgs-cta rgs-cta-disabled" aria-disabled="true">
                 Get started
-                <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
+                <Icon icon={faArrowRight} size={14} aria-hidden="true" />
               </span>
             ) : (
               <Link className="rgs-cta" to="/retirement-goal">
                 Get started
-                <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
+                <Icon icon={faArrowRight} size={14} aria-hidden="true" />
               </Link>
             )}
           </div>
         )}
 
         <div className="rgs-foot">
-          <p className="rgs-foot-note">
-            <Info size={13} strokeWidth={2.2} aria-hidden="true" />
-            <span>
-              Not guaranteed results · It&apos;s a simulation.{' '}
-              <button type="button" className="rgs-foot-link" onClick={() => setOpen(true)}>
-                Disclaimer
-              </button>
-            </span>
-          </p>
-          {/* Only shown once the widget is already started — showing this
-              alongside "Get started" duplicated the same call to action. */}
-          {started && (
-            <span className="rgs-foot-actions">
+          <span className="rgs-foot-note">
+            <Icon icon={faInfoCircle} size={13} aria-hidden="true" />
+            Not guaranteed results. It&apos;s a simulation.
+          </span>
+          {/* Adjust link only shown once the widget is already started —
+              showing it alongside "Get started" duplicated the same CTA. */}
+          <span className="rgs-foot-actions">
+            {started && (
               <Link className="rgs-foot-link" to="/retirement-goal">
-                <SlidersHorizontal size={12} strokeWidth={2.4} aria-hidden="true" />
+                <Icon icon={faSlidersH} size={12} aria-hidden="true" />
                 Adjust deferral rate and goal
               </Link>
-            </span>
-          )}
+            )}
+            <button type="button" className="rgs-foot-link" onClick={() => setOpen(true)}>
+              Disclaimer
+              <Icon icon={faArrowRight} size={12} aria-hidden="true" />
+            </button>
+          </span>
         </div>
       </div>
 

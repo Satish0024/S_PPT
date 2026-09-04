@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
-import { ChevronDown, ChevronUp, Minus, Plus } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faChevronDown, faChevronUp, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Slideover from '../common/Slideover.jsx'
 import {
   ACCOUNT_TYPES,
@@ -32,7 +33,7 @@ export function FeeAndTaxPanel({ fees, title = 'Fee Details' }) {
       </div>
 
       <button type="button" className="wd-fee-expand" onClick={() => setTaxOpen((v) => !v)} aria-expanded={taxOpen}>
-        {taxOpen ? <Minus size={13} strokeWidth={2.4} /> : <Plus size={13} strokeWidth={2.4} />}
+        {taxOpen ? <Icon icon={faMinus} size={13} /> : <Icon icon={faPlus} size={13} />}
         <span>Tax Deduction</span>
         <b>{formatMoney(fees.taxDeduction ?? fees.feeAndTax)}</b>
       </button>
@@ -63,7 +64,7 @@ export function FeeAndTaxPanel({ fees, title = 'Fee Details' }) {
             onClick={() => setPenaltyOpen((v) => !v)}
             aria-expanded={penaltyOpen}
           >
-            {penaltyOpen ? <Minus size={13} strokeWidth={2.4} /> : <Plus size={13} strokeWidth={2.4} />}
+            {penaltyOpen ? <Icon icon={faMinus} size={13} /> : <Icon icon={faPlus} size={13} />}
             <span>Penalty</span>
             <b>{formatMoney(fees.penalty)}</b>
           </button>
@@ -132,7 +133,7 @@ function SourceInvestmentsPanel({ plan, draft, patch, fees }) {
             <div key={source.id} className="wd-source-card">
               <button type="button" className="wd-source-head" onClick={() => toggle(source.id)} aria-expanded={open}>
                 <b>{source.name}</b>
-                {open ? <ChevronUp size={16} strokeWidth={2.2} /> : <ChevronDown size={16} strokeWidth={2.2} />}
+                {open ? <Icon icon={faChevronUp} size={16} /> : <Icon icon={faChevronDown} size={16} />}
               </button>
               <div className="wd-source-metrics">
                 <div>

@@ -1,4 +1,5 @@
-import { Eye, EyeOff } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 export function Row({ label, value, hint, children }) {
   const empty = value == null || String(value).trim() === ''
@@ -21,7 +22,7 @@ export function SsnRow({ label, value, revealed, onToggle }) {
         <b className="pr-ssn">
           {value}
           <button type="button" className="pr-eye inline" aria-label={revealed ? 'Hide SSN' : 'Show SSN'} onClick={onToggle}>
-            {revealed ? <EyeOff size={14} strokeWidth={2.2} /> : <Eye size={14} strokeWidth={2.2} />}
+            {revealed ? <Icon icon={faEyeSlash} size={14} /> : <Icon icon={faEye} size={14} />}
           </button>
         </b>
       </div>
@@ -113,7 +114,7 @@ export function SsnField({ label, value, revealed, onToggle, onChange, required,
           onChange={(e) => onChange(e.target.value)}
         />
         <button type="button" className="pr-eye" aria-label={revealed ? 'Hide SSN' : 'Show SSN'} onClick={onToggle}>
-          {revealed ? <EyeOff size={16} strokeWidth={2} /> : <Eye size={16} strokeWidth={2} />}
+          {revealed ? <Icon icon={faEyeSlash} size={16} /> : <Icon icon={faEye} size={16} />}
         </button>
       </div>
     </label>
@@ -129,7 +130,7 @@ export function PhoneField({ label, country, number, onCountry, onNumber, requir
       </span>
       <div className="pr-phone">
         <input value={country} onChange={(e) => onCountry(e.target.value)} aria-label="Country code" />
-        <input value={number} placeholder={placeholder || ''} aria-label="Phone number" onChange={(e) => onNumber(e.target.value)} />
+        <input value={number} placeholder={placeholder || ''} onChange={(e) => onNumber(e.target.value)} />
       </div>
     </div>
   )

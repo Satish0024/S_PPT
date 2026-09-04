@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChevronDown, HelpCircle, LogOut, Moon, Settings, Sun } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faChevronDown, faQuestionCircle, faSignOutAlt, faMoon, faCog, faSun } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { useTheme } from '../../context/ThemeContext.jsx'
 import { BRAND } from '../../config/brand.js'
+import AccessibilityMenu from './AccessibilityMenu.jsx'
 
 export default function Header() {
   const { participant, logout } = useParticipant()
@@ -33,6 +35,7 @@ export default function Header() {
         <img src={theme === 'dark' ? BRAND.logoOnDark || BRAND.logo : BRAND.logo} alt={BRAND.name} />
       </div>
       <div className="top-right">
+        <AccessibilityMenu />
         <button
           type="button"
           className="icon-btn theme-toggle"
@@ -41,7 +44,7 @@ export default function Header() {
           aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
           title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
         >
-          {theme === 'dark' ? <Sun size={19} strokeWidth={2.1} /> : <Moon size={19} strokeWidth={2.1} />}
+          {theme === 'dark' ? <Icon icon={faSun} size={19} /> : <Icon icon={faMoon} size={19} />}
         </button>
         <div className="user-menu" ref={menuRef}>
           <button
@@ -55,7 +58,7 @@ export default function Header() {
             <span className="chip-text">
               <span className="chip-name">{participant.name}</span>
             </span>
-            <ChevronDown className="chev" size={14} strokeWidth={2.2} />
+            <Icon icon={faChevronDown} size={14} className="chev" />
           </button>
           <div className={`user-dropdown${open ? ' open' : ''}`} role="menu" aria-label="Account">
             <button
@@ -68,7 +71,7 @@ export default function Header() {
               }}
             >
               <span className="sign-out-ico" aria-hidden="true">
-                <Settings size={16} strokeWidth={2.2} />
+                <Icon icon={faCog} size={16} />
               </span>
               <span className="meta">
                 <span className="name">Settings</span>
@@ -81,7 +84,7 @@ export default function Header() {
               onClick={() => setOpen(false)}
             >
               <span className="sign-out-ico" aria-hidden="true">
-                <HelpCircle size={16} strokeWidth={2.2} />
+                <Icon icon={faQuestionCircle} size={16} />
               </span>
               <span className="meta">
                 <span className="name">Help</span>
@@ -98,7 +101,7 @@ export default function Header() {
               }}
             >
               <span className="sign-out-ico" aria-hidden="true">
-                <LogOut size={16} strokeWidth={2.2} />
+                <Icon icon={faSignOutAlt} size={16} />
               </span>
               <span className="meta">
                 <span className="name">Sign out</span>

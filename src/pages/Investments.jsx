@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { Rocket, Scale, ShieldCheck } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faRocket, faBalanceScale, faShieldAlt } from '@fortawesome/free-solid-svg-icons'
 import { INVESTMENT_KEY, readSession, writeSession } from '../data/participants'
 import { PLAN_FUNDS } from '../data/portfolio'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
@@ -42,7 +43,7 @@ const RISK_ALLOC = {
     'Fidelity U.S. Bond Index': 5
   }
 }
-const RISK_LEVEL_ICON = { conservative: ShieldCheck, moderate: Scale, aggressive: Rocket }
+const RISK_LEVEL_ICON = { conservative: faShieldAlt, moderate: faBalanceScale, aggressive: faRocket }
 const riskAlloc = (levelId) => ({ ...emptyAlloc(), ...RISK_ALLOC[levelId] })
 const planAlloc = () => ({ ...emptyAlloc(), ...PLAN_ALLOC })
 const sumAlloc = (alloc, names = FUNDS) => names.reduce((sum, name) => sum + (+alloc?.[name] || 0), 0)
@@ -277,10 +278,7 @@ export function InvestmentEditor({
       {usingRisk && measuredLevel && (
         <div className="inv-panel">
           <div className="inv-risk-badge" style={{ '--risk-color': measuredLevel.color }}>
-            {(() => {
-              const Icon = RISK_LEVEL_ICON[measuredLevel.id]
-              return <Icon size={16} strokeWidth={2.2} />
-            })()}
+            <Icon icon={RISK_LEVEL_ICON[measuredLevel.id]} size={16} />
             <span>{measuredLevel.label}</span>
             <button type="button" className="text-btn" onClick={chooseRisk}>
               Retake questionnaire
@@ -421,7 +419,6 @@ function AllocPanel({ title, funds, alloc, locked, showReset, onChange, onReset 
                   max={100}
                   readOnly={locked}
                   disabled={locked}
-                  aria-label={`${f.name} election percentage`}
                   onChange={(e) => onChange?.(f.name, e.target.value)}
                 />
                 <span className="pct">%</span>

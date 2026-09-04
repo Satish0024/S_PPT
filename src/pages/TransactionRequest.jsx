@@ -1,6 +1,7 @@
 import { useId, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { AlertTriangle, ArrowLeft, Check, Copy, Info, Printer } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faExclamationTriangle, faArrowLeft, faCheck, faCopy, faInfoCircle, faPrint } from '@fortawesome/free-solid-svg-icons'
 import { useFocusTrap } from '../hooks/useFocusTrap'
 import Header from '../components/layout/Header.jsx'
 import Sidebar from '../components/layout/Sidebar.jsx'
@@ -215,7 +216,7 @@ export default function TransactionRequest() {
         <div className="txn-wizard">
           <aside className="txn-steps">
             <Link to="/transactions" className="back">
-              <ArrowLeft size={15} strokeWidth={2.2} /> Back
+              <Icon icon={faArrowLeft} size={15} /> Back
             </Link>
             <h1>{wizard.title}</h1>
             {/* An ordered list of buttons rather than clickable divs: steps
@@ -236,7 +237,7 @@ export default function TransactionRequest() {
                       onClick={() => goTo(i)}
                     >
                       <span className="num" aria-hidden="true">
-                        {complete ? <Check size={13} strokeWidth={3} /> : i + 1}
+                        {complete ? <Icon icon={faCheck} size={13} /> : i + 1}
                       </span>
                       <span className="txn-step-title">{s.title}</span>
                       <span className="sr-only">
@@ -373,7 +374,7 @@ function SubmittedPanel({ type, transactionId, navigate }) {
         <div className="txn-success-id">
           <span>Transaction ID: {transactionId}</span>
           <button type="button" className="icon-btn" onClick={copyId} aria-label="Copy transaction ID">
-            <Copy size={14} strokeWidth={2.2} />
+            <Icon icon={faCopy} size={14} />
           </button>
           {copied && <span className="txn-success-copied">Copied</span>}
         </div>
@@ -979,7 +980,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
 
         {form.entireBalance === 'yes' && loan && (
           <div className="wd-note">
-            <Info size={15} strokeWidth={2.2} />
+            <Icon icon={faInfoCircle} size={15} />
             <span>Active loan amount is detected and will be converted to a default loan.</span>
           </div>
         )}
@@ -1036,7 +1037,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
 
         {!allocationsReady && (
           <p className="wd-alloc-incomplete-hint">
-            <Info size={14} strokeWidth={2.2} />
+            <Icon icon={faInfoCircle} size={14} />
             Every recipient needs a distribution mode and amount before you can continue — open "View details" on any
             row still marked Incomplete.
           </p>
@@ -1103,7 +1104,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
 
         {allocations.some((a) => a.addressChanged) && (
           <div className="address-banner">
-            <Info size={16} strokeWidth={2.2} />
+            <Icon icon={faInfoCircle} size={16} />
             <div>
               <b>Custom address on this request</b>
               This request will be flagged for admin review, noting the address was changed within the last 3 days.
@@ -1299,7 +1300,7 @@ function AllocationSteps({ mode, step, plan, form, set, onNext, onBack, onSubmit
 
         {isRebalance && (
           <p className="alloc-nav-note">
-            <AlertTriangle size={13} strokeWidth={2.4} /> {NAV_DISCLAIMER}
+            <Icon icon={faExclamationTriangle} size={13} /> {NAV_DISCLAIMER}
           </p>
         )}
 
@@ -1935,7 +1936,7 @@ function SummaryStep({ title, children, onBack, onSubmit, submitDisabled }) {
       <div className="txn-summary-head">
         <h3>{title}</h3>
         <button type="button" className="icon-btn" title="Print" aria-label="Print" onClick={() => window.print()}>
-          <Printer size={17} strokeWidth={2} />
+          <Icon icon={faPrint} size={17} />
         </button>
       </div>
       <div>{children}</div>

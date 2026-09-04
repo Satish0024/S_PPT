@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Beaker, Eye, EyeOff, Lock, Mail } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faFlask, faEye, faEyeSlash, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { DEMO_PASSWORD } from '../data/participants'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
@@ -73,7 +74,7 @@ export default function Login() {
             <label className="login-field">
               Email
               <span className="login-input">
-                <Mail size={16} strokeWidth={2} />
+                <Icon icon={faEnvelope} size={16} />
                 <input
                   type="email"
                   autoComplete="username"
@@ -90,7 +91,7 @@ export default function Login() {
             <label className="login-field">
               Password
               <span className="login-input">
-                <Lock size={16} strokeWidth={2} />
+                <Icon icon={faLock} size={16} />
                 <input
                   type={show ? 'text' : 'password'}
                   autoComplete="current-password"
@@ -103,7 +104,7 @@ export default function Login() {
                   required
                 />
                 <button type="button" className="login-eye" onClick={() => setShow((v) => !v)} aria-label={show ? 'Hide password' : 'Show password'}>
-                  {show ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {show ? <Icon icon={faEyeSlash} size={16} /> : <Icon icon={faEye} size={16} />}
                 </button>
               </span>
             </label>
@@ -123,7 +124,7 @@ export default function Login() {
           aria-expanded={demoOpen}
           onClick={() => setDemoOpen((v) => !v)}
         >
-          <Beaker size={14} strokeWidth={2.2} />
+          <Icon icon={faFlask} size={14} />
           Prototype demo — try a participant
         </button>
         {demoOpen && (

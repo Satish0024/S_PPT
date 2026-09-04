@@ -1,5 +1,6 @@
 import { cloneElement, useId } from 'react'
-import { Info } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
 // An info icon that reveals its message on hover/focus, via CSS rather than
 // JS state — keeps it keyboard-accessible (focusable button, shown on
@@ -9,7 +10,7 @@ function FieldTip({ tooltip, id }) {
   return (
     <span className="field-tip">
       <button type="button" className="field-tip-btn" aria-describedby={id}>
-        <Info size={13} strokeWidth={2.4} aria-hidden="true" />
+        <Icon icon={faInfoCircle} size={13} aria-hidden="true" />
         <span className="sr-only">More info</span>
       </button>
       <span className="field-tip-bubble" role="tooltip" id={id}>

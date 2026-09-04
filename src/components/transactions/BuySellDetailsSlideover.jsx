@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { AlertTriangle, Search } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faExclamationTriangle, faSearch } from '@fortawesome/free-solid-svg-icons'
 import Slideover from '../common/Slideover.jsx'
 import { NAV_DISCLAIMER, computeBuySell, formatMoney } from '../../data/transactions.js'
 
@@ -24,7 +25,7 @@ export default function BuySellDetailsSlideover({ sourceName, rows, sourceTotal,
       }
     >
       <div className="buysell-banner">
-        <AlertTriangle size={15} strokeWidth={2.2} />
+        <Icon icon={faExclamationTriangle} size={15} />
         <span>{NAV_DISCLAIMER}</span>
       </div>
 
@@ -52,11 +53,10 @@ export default function BuySellDetailsSlideover({ sourceName, rows, sourceTotal,
       </div>
 
       <div className="add-inv-search">
-        <Search size={15} strokeWidth={2.2} />
+        <Icon icon={faSearch} size={15} />
         <input
           type="search"
           placeholder="Search Investment name"
-          aria-label="Search investment name"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

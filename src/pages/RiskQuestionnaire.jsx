@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Check, Rocket, Scale, ShieldCheck, X } from 'lucide-react'
+import { Icon } from '../lib/icons'
+import { faArrowLeft, faArrowRight, faCheck, faRocket, faBalanceScale, faShieldAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { LIKERT_OPTIONS, LIKERT_QUESTIONS, QUESTIONNAIRE_STEP_COUNT } from '../data/riskQuestionnaire'
 import { LOCATIONS, PREFS_KEY, hydratePrefs, writeMap } from '../lib/retirementGoal'
@@ -8,7 +9,7 @@ import { getRiskLevel, scoreQuestionnaire, setRiskProfileId } from '../lib/riskP
 import RiskJourneyScene from '../components/questionnaire/RiskJourneyScene.jsx'
 import '../styles/riskQuestionnaire.css'
 
-const LEVEL_ICON = { conservative: ShieldCheck, moderate: Scale, aggressive: Rocket }
+const LEVEL_ICON = { conservative: faShieldAlt, moderate: faBalanceScale, aggressive: faRocket }
 
 export default function RiskQuestionnaire() {
   const { participant } = useParticipant()
@@ -76,7 +77,7 @@ export default function RiskQuestionnaire() {
 
   const { levelId, score } = isResultsStep ? { ...scoreQuestionnaire(answers) } : {}
   const level = isResultsStep ? getRiskLevel(levelId) : null
-  const ResultIcon = level ? LEVEL_ICON[level.id] : null
+  const resultIcon = level ? LEVEL_ICON[level.id] : null
 
   return (
     <div className="rqp-page">
@@ -92,7 +93,7 @@ export default function RiskQuestionnaire() {
       <main className="rqp-main">
         <div className="rqp-main-head">
           <button type="button" className="rqp-leave" onClick={leave}>
-            <ArrowLeft size={15} strokeWidth={2.2} />
+            <Icon icon={faArrowLeft} size={15} />
             Back
           </button>
           {!isProfileStep && !isResultsStep && (
@@ -109,7 +110,7 @@ export default function RiskQuestionnaire() {
             </div>
           )}
           <button type="button" className="rq-close" onClick={leave} aria-label="Close">
-            <X size={18} strokeWidth={2.2} />
+            <Icon icon={faTimes} size={18} />
           </button>
         </div>
 
@@ -126,7 +127,7 @@ export default function RiskQuestionnaire() {
                     onClick={() => setAnswers((a) => ({ ...a, [question.id]: opt.value }))}
                   >
                     <span className="rq-opt-dot" aria-hidden="true">
-                      {answers[question.id] === opt.value && <Check size={12} strokeWidth={3} />}
+                      {answers[question.id] === opt.value && <Icon icon={faCheck} size={12} />}
                     </span>
                     {opt.label}
                   </button>
@@ -201,7 +202,7 @@ export default function RiskQuestionnaire() {
           {isResultsStep && (
             <div className="rq-step rq-results">
               <span className="rq-results-ico" style={{ color: level.color }}>
-                <ResultIcon size={34} strokeWidth={2} />
+                <Icon icon={resultIcon} size={34} />
               </span>
               <span className="rq-results-tag" style={{ color: level.color }}>
                 {level.badge} · {score}/100
@@ -215,13 +216,13 @@ export default function RiskQuestionnaire() {
         <div className="rq-actions rqp-actions">
           {step > 0 && !isResultsStep && (
             <button type="button" className="btn btn-ghost" onClick={goBack}>
-              <ArrowLeft size={15} strokeWidth={2.2} />
+              <Icon icon={faArrowLeft} size={15} />
               Back
             </button>
           )}
           <button type="button" className="btn btn-primary rq-next" disabled={!canContinue} onClick={goNext}>
             {isResultsStep ? 'Done' : isProfileStep ? 'See my results' : 'Continue'}
-            {!isResultsStep && <ArrowRight size={15} strokeWidth={2.2} />}
+            {!isResultsStep && <Icon icon={faArrowRight} size={15} />}
           </button>
         </div>
       </main>

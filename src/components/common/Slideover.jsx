@@ -1,5 +1,6 @@
 import { useId } from 'react'
-import { X } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useEscapeToClose } from '../../hooks/useEscapeToClose'
 import { useFocusTrap } from '../../hooks/useFocusTrap'
 
@@ -29,7 +30,7 @@ export default function Slideover({ title, width = 'narrow', onClose, actions, c
           <div className="slideover-head-actions">
             {actions}
             <button type="button" className="slideover-close" onClick={onClose} aria-label="Close">
-              <X size={18} strokeWidth={2.2} />
+              <Icon icon={faTimes} size={18} />
             </button>
           </div>
         </div>

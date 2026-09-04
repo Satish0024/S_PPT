@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ArrowRight, Gauge } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faArrowRight, faTachometerAlt } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import {
@@ -53,7 +54,7 @@ export default function RetirementGoalSimulator() {
     <section className={`rr-card${started ? '' : ' fresh'}`} aria-label="Retirement Goal Simulator">
       <div className="rr-head">
         <span className="rr-ico" aria-hidden="true">
-          <Gauge size={18} strokeWidth={2.1} />
+          <Icon icon={faTachometerAlt} size={18} />
         </span>
         <div className="rr-copy">
           <span className="rr-tag">Goal Setting</span>
@@ -82,7 +83,7 @@ export default function RetirementGoalSimulator() {
           </p>
           <Link className="rr-cta" to="/retirement-goal">
             Get started
-            <ArrowRight size={15} strokeWidth={2.2} />
+            <Icon icon={faArrowRight} size={15} />
           </Link>
         </div>
       )}

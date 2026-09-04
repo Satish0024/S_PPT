@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { AlertTriangle, Search } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faExclamationTriangle, faSearch } from '@fortawesome/free-solid-svg-icons'
 import Slideover from '../common/Slideover.jsx'
 import { AVAILABLE_INVESTMENTS } from '../../data/transactions.js'
 
@@ -37,11 +38,10 @@ export default function AddInvestmentSlideover({ existingIds, onClose, onSave })
       }
     >
       <div className="add-inv-search">
-        <Search size={15} strokeWidth={2.2} />
+        <Icon icon={faSearch} size={15} />
         <input
           type="search"
           placeholder="Search Investment name"
-          aria-label="Search investment name"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -65,7 +65,7 @@ export default function AddInvestmentSlideover({ existingIds, onClose, onSave })
                 <b>{i.name}</b>
                 {i.restricted && (
                   <small>
-                    <AlertTriangle size={12} strokeWidth={2.4} /> Restricted
+                    <Icon icon={faExclamationTriangle} size={12} /> Restricted
                   </small>
                 )}
               </span>

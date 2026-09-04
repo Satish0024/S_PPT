@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Beaker } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faFlask } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 
 // Prototype-only: switching between demo participants/scenarios. Kept
@@ -40,7 +41,7 @@ export default function DemoScenarioSwitcher() {
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
       >
-        <Beaker size={14} strokeWidth={2.2} />
+        <Icon icon={faFlask} size={14} />
         <span>Prototype demo</span>
       </button>
       {open && (

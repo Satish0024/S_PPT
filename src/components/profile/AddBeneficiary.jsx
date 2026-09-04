@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Check, ArrowLeft } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faCheck, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { ACCOUNT_TYPES, RELATIONSHIPS, emptyBeneficiary } from '../../lib/profileDetails'
 import { PhoneField, SelectField, SsnField, TextField } from './ProfileFields.jsx'
 import { useEscapeToClose } from '../../hooks/useEscapeToClose'
@@ -63,7 +64,7 @@ export default function AddBeneficiary({ onCancel, onSave }) {
       <div className="hi-bar">
         <div>
           <button type="button" className="text-link pr-back" onClick={() => setLeaveOpen(true)}>
-            <ArrowLeft size={16} strokeWidth={2.2} />
+            <Icon icon={faArrowLeft} size={16} />
             Back
           </button>
           <h1>Add beneficiary</h1>
@@ -78,7 +79,7 @@ export default function AddBeneficiary({ onCancel, onSave }) {
             return (
               <li key={item.id} className={done ? 'done' : on ? 'on' : ''}>
                 <button type="button" onClick={() => goStep(i)} disabled={i > step}>
-                  <b>{done ? <Check size={14} strokeWidth={2.6} /> : i + 1}</b>
+                  <b>{done ? <Icon icon={faCheck} size={14} /> : i + 1}</b>
                   <div>
                     <strong>{item.title}</strong>
                     <p>{item.hint}</p>

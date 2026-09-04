@@ -1,4 +1,5 @@
-import { X } from 'lucide-react'
+import { Icon } from '../../lib/icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { ASSUMPTIONS, money } from '../../lib/retirementGoal'
 import { useEscapeToClose } from '../../hooks/useEscapeToClose'
 
@@ -77,7 +78,7 @@ export function DisclaimerModal({ onClose }) {
         <div className="rr-modal-h">
           <h4 id="rr-disclaimer-title">Disclaimer</h4>
           <button type="button" className="rr-modal-x" onClick={onClose} aria-label="Close">
-            <X size={18} strokeWidth={2.2} />
+            <Icon icon={faTimes} size={18} />
           </button>
         </div>
         <p>
