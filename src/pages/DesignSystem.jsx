@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import {
-  AlertTriangle, Check, ChevronDown, Copy, Eye, Keyboard, Mic, Moon, MousePointerClick,
-  Settings, ShieldCheck, Sun, Type as TypeIcon, Volume2, X
+  AlertTriangle, ArrowRight, Check, ChevronDown, Copy, Download, Eye, Home, Keyboard,
+  Menu, Mic, Moon, MousePointerClick, Plus, Search, Settings, ShieldCheck, Sun, Trash2,
+  Type as TypeIcon, Upload, User, Volume2, X
 } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { BRAND } from '../config/brand.js'
@@ -10,13 +11,16 @@ import '../styles/design-system.css'
 const NAV = [
   { group: 'Get started', items: [
     { id: 'overview', label: 'Overview' },
-    { id: 'principles', label: 'Principles' },
   ] },
   { group: 'Foundations', items: [
     { id: 'color', label: 'Color' },
     { id: 'type', label: 'Typography' },
+    { id: 'icons', label: 'Icons' },
     { id: 'space', label: 'Spacing & radius' },
     { id: 'elevation', label: 'Elevation' },
+  ] },
+  { group: 'Assets', items: [
+    { id: 'logo', label: 'Logo' },
   ] },
   { group: 'Components', items: [
     { id: 'buttons', label: 'Buttons' },
@@ -74,12 +78,9 @@ const COLOR_GROUPS = [
   { title: 'Status — danger', tokens: [
     ['Red', '--red'], ['Red bg', '--red-bg'], ['Red line', '--red-line'],
   ] },
-  { title: 'Chart colors (20 — enough for a portfolio with many stock/fund lines)', tokens: [
-    ['Chart 1', '--chart-1'], ['Chart 2', '--chart-2'], ['Chart 3', '--chart-3'], ['Chart 4', '--chart-4'],
-    ['Chart 5', '--chart-5'], ['Chart 6', '--chart-6'], ['Chart 7', '--chart-7'], ['Chart 8', '--chart-8'],
-    ['Chart 9', '--chart-9'], ['Chart 10', '--chart-10'], ['Chart 11', '--chart-11'], ['Chart 12', '--chart-12'],
-    ['Chart 13', '--chart-13'], ['Chart 14', '--chart-14'], ['Chart 15', '--chart-15'], ['Chart 16', '--chart-16'],
-    ['Chart 17', '--chart-17'], ['Chart 18', '--chart-18'], ['Chart 19', '--chart-19'], ['Chart 20', '--chart-20'],
+  { title: 'Chart colors — primary palette (use first 6 for most charts)', tokens: [
+    ['Chart 1 (brand)', '--chart-1'], ['Chart 2 (green)', '--chart-2'], ['Chart 3 (amber)', '--chart-3'],
+    ['Chart 4 (red)', '--chart-4'], ['Chart 5 (accent)', '--chart-5'], ['Chart 6 (purple)', '--chart-6'],
   ] },
 ]
 
@@ -103,8 +104,7 @@ const BRAND_SCALE = [
  * Do not invent sizes outside this list.
  */
 const TYPE_ROWS = [
-  { group: 'Font family', name: '--font-family-sans', size: '—', weight: '—', lh: '—', ls: '—', case: '—', sample: 'Aa Bb Cc 0123', cls: 'ds-type-body-md', use: 'Primary UI font' },
-  { group: 'Font family', name: '--font-family-mono', size: '—', weight: '—', lh: '—', ls: '—', case: '—', sample: 'token-name', cls: 'ds-type-code', use: 'Code / token names' },
+  { group: 'Font family', name: '--font-family-sans', size: '—', weight: '—', lh: '—', ls: '—', case: '—', sample: 'Aa Bb Cc 0123', cls: 'ds-type-body-md', use: 'Inclusive Sans — primary font' },
   { group: 'Font weight', name: '--font-weight-regular', size: '—', weight: '400', lh: '—', ls: '—', case: '—', sample: 'Regular', cls: 'ds-type-body-md', use: 'Body, placeholder, helper' },
   { group: 'Font weight', name: '--font-weight-medium', size: '—', weight: '500', lh: '—', ls: '—', case: '—', sample: 'Medium', cls: 'ds-type-caption', use: 'Captions' },
   { group: 'Font weight', name: '--font-weight-semibold', size: '—', weight: '600', lh: '—', ls: '—', case: '—', sample: 'Semibold', cls: 'ds-type-p3', use: 'Emphasized body' },
@@ -575,23 +575,6 @@ export default function DesignSystem() {
             </p>
           </section>
 
-          <section id="principles" className="ds-section">
-            <h2>Principles</h2>
-            <p className="ds-lede">Four principles guide every UI decision in this system.</p>
-            <div className="ds-token-grid">
-              {[
-                ['Clarity over decoration', 'Every screen states balances, actions, and status in plain language before it styles them.'],
-                ['Accessible by default', 'Components ship with correct semantics and focus handling — accessibility is not a follow-up pass.'],
-                ['One system, three faces', 'Brand identity lives in tokens (color, logo, type), never in component structure or behavior.'],
-                ['Predictable interaction', 'The same control behaves the same way everywhere — one button, one table, one dialog pattern.'],
-              ].map(([t, d]) => (
-                <div key={t} className="ds-swatch" style={{ padding: 'var(--space-3-5)' }}>
-                  <b style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-bold)' }}>{t}</b>
-                  <span style={{ display: 'block', fontSize: 'var(--text-body-xs-size)', color: 'var(--ink-soft)', marginTop: 'var(--form-label-gap)', fontFamily: 'inherit' }}>{d}</span>
-                </div>
-              ))}
-            </div>
-          </section>
 
           {/* ---------------- COLOR ---------------- */}
           <section id="color" className="ds-section">
@@ -695,9 +678,10 @@ export default function DesignSystem() {
           <section id="type" className="ds-section">
             <h2>Typography</h2>
             <p className="ds-lede">
-              Inclusive Sans · 16px root · rem tokens only. Minimum text size is <b>12px</b>.
-              Body and UI text use line-height <b>1.5</b> (WCAG 1.4.12). Use only the roles below —
-              do not invent new font sizes.
+              <b>Inclusive Sans</b> is the sole typeface — chosen for its excellent readability at
+              small sizes, clear distinction between similar letterforms (I/l/1, O/0), and
+              accessibility-first design. 16px root · rem tokens only. Minimum text size is <b>12px</b>.
+              Body and UI text use line-height <b>1.5</b> (WCAG 1.4.12).
             </p>
             <div className="ds-card">
               <div className="ds-token-scroll">
@@ -733,6 +717,79 @@ export default function DesignSystem() {
                 </table>
               </div>
             </div>
+          </section>
+
+          {/* ---------------- ICONS ---------------- */}
+          <section id="icons" className="ds-section">
+            <h2>Icons</h2>
+            <p className="ds-lede">
+              <b>Lucide React</b> is the icon library — a clean, consistent, open-source icon set with
+              excellent accessibility support. Icons are sized to match adjacent text and use
+              <code> currentColor</code> to inherit the parent's text color.
+            </p>
+            <div className="ds-card">
+              <div className="ds-type-group-title">Common icons</div>
+              <div className="ds-icon-grid">
+                {[
+                  [Home, 'Home', 'Dashboard / home navigation'],
+                  [User, 'User', 'Profile, account, user-related'],
+                  [Settings, 'Settings', 'Preferences, configuration'],
+                  [Search, 'Search', 'Search inputs, lookups'],
+                  [Menu, 'Menu', 'Mobile nav toggle, hamburger'],
+                  [X, 'X', 'Close dialogs, dismiss alerts'],
+                  [Check, 'Check', 'Success states, confirmations'],
+                  [AlertTriangle, 'AlertTriangle', 'Warnings, errors, attention'],
+                  [Plus, 'Plus', 'Add new, create actions'],
+                  [Trash2, 'Trash2', 'Delete, remove actions'],
+                  [Download, 'Download', 'Export, download files'],
+                  [Upload, 'Upload', 'Import, upload files'],
+                  [ChevronDown, 'ChevronDown', 'Expand, dropdowns, accordions'],
+                  [ArrowRight, 'ArrowRight', 'Navigate, proceed, next step'],
+                  [Eye, 'Eye', 'View, visibility toggle'],
+                  [Copy, 'Copy', 'Copy to clipboard'],
+                ].map(([Icon, name, usage]) => (
+                  <button
+                    key={name}
+                    type="button"
+                    className="ds-icon-item"
+                    onClick={() => copyToClipboard(`<${name} size={16} />`)}
+                    title={`Copy <${name} /> import`}
+                  >
+                    <Icon size={20} />
+                    <span className="ds-icon-name">{name}</span>
+                    <span className="ds-icon-use">{usage}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="ds-type-group-title">Sizing guidelines</div>
+              <div className="ds-demo" style={{ gap: 'var(--space-6)' }}>
+                <div className="ds-icon-size-demo">
+                  <Settings size={14} />
+                  <span>14px — inline with caption text</span>
+                </div>
+                <div className="ds-icon-size-demo">
+                  <Settings size={16} />
+                  <span>16px — inline with body text (default)</span>
+                </div>
+                <div className="ds-icon-size-demo">
+                  <Settings size={18} />
+                  <span>18px — default icon buttons</span>
+                </div>
+                <div className="ds-icon-size-demo">
+                  <Settings size={20} />
+                  <span>20px — large icon buttons, emphasis</span>
+                </div>
+                <div className="ds-icon-size-demo">
+                  <Settings size={24} />
+                  <span>24px — feature icons, empty states</span>
+                </div>
+              </div>
+            </div>
+            <Code>{`import { Home, Settings, User } from 'lucide-react'
+
+<Home size={16} />
+<Settings size={18} strokeWidth={2} />
+<User size={20} className="text-brand" />`}</Code>
           </section>
 
           {/* ---------------- SPACE / RADIUS ---------------- */}
@@ -816,6 +873,46 @@ export default function DesignSystem() {
             </div>
           </section>
 
+          {/* ---------------- LOGO ---------------- */}
+          <section id="logo" className="ds-section">
+            <h2>Logo</h2>
+            <p className="ds-lede">
+              Brand logos are provided as SVG for crisp rendering at any size. Each brand has light
+              and dark variants that switch automatically with the theme.
+            </p>
+            <div className="ds-card">
+              <div className="ds-type-group-title">Current brand: {BRAND.name}</div>
+              <div className="ds-logo-showcase">
+                <div className="ds-logo-variant light">
+                  <span className="ds-logo-label">Light mode</span>
+                  <div className="ds-logo-preview">
+                    <img src={BRAND.logo} alt={`${BRAND.name} logo (light)`} />
+                  </div>
+                  <code>{BRAND.logo}</code>
+                </div>
+                <div className="ds-logo-variant dark">
+                  <span className="ds-logo-label">Dark mode</span>
+                  <div className="ds-logo-preview">
+                    <img src={BRAND.logoOnDark || BRAND.logo} alt={`${BRAND.name} logo (dark)`} />
+                  </div>
+                  <code>{BRAND.logoOnDark || BRAND.logo}</code>
+                </div>
+              </div>
+              <div className="ds-type-group-title">Usage</div>
+              <div className="ds-panel">
+                <div className="ds-panel-row">Logo appears in the header and login screens — never stretch or recolor.</div>
+                <div className="ds-panel-row">Minimum clear space: 8px on all sides (--space-2).</div>
+                <div className="ds-panel-row">Maximum height in header: 32px; login page: 48px.</div>
+              </div>
+            </div>
+            <Code>{`import { BRAND } from '../config/brand.js'
+
+<img
+  src={theme === 'dark' ? (BRAND.logoOnDark || BRAND.logo) : BRAND.logo}
+  alt={BRAND.name}
+/>`}</Code>
+          </section>
+
           {/* ---------------- BUTTONS ---------------- */}
           <Component
             id="buttons" title="Buttons"
@@ -849,8 +946,8 @@ export default function DesignSystem() {
                 </div>
               </div>
             </div>}
-            dos={['Give every icon-only button an aria-label describing its action.', 'Keep one primary button per view/section so the primary path is unambiguous.']}
-            donts={['Never rely on color alone to show a disabled state — pair with disabled/aria-disabled and reduced opacity.']}
+            dos={['Give every icon-only button an aria-label describing its action.']}
+            donts={[]}
             code={`<button type="button" className="btn btn-primary">Save changes</button>
 <button type="button" className="btn btn-sm btn-secondary">Small secondary</button>
 <button type="button" className="btn btn-lg btn-primary">Large primary</button>
@@ -905,8 +1002,8 @@ export default function DesignSystem() {
                 <input className="form-control form-control-lg" style={{ maxWidth: 160 }} defaultValue="Large" aria-label="Large input" />
               </div>
             </div>}
-            dos={['Associate every input with a visible <label> via htmlFor/id.', 'Announce validation errors with role="alert".']}
-            donts={['Never use placeholder text as the only label.', 'Never use font sizes below 14px on inputs (iOS zoom / readability).']}
+            dos={['Associate every input with a visible <label> via htmlFor/id.']}
+            donts={[]}
             code={`<div className="form-field">
   <label className="form-label" htmlFor="nick">Account nickname</label>
   <input id="nick" className="form-control" placeholder="e.g. My 401(k)" />
@@ -946,8 +1043,8 @@ export default function DesignSystem() {
                 <input type="checkbox" defaultChecked /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
               </label>
             </div>}
-            dos={['Use native <input type="checkbox"/radio"> so keyboard, label-click, and AT support come for free.']}
-            donts={['Never build a checkbox out of a plain <div> with a click handler — it breaks keyboard and screen-reader support (WCAG 4.1.2).']}
+            dos={[]}
+            donts={[]}
             code={`<label className="a11y-switch">
   <input type="checkbox" checked={on} onChange={toggle} />
   <span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
@@ -967,7 +1064,8 @@ export default function DesignSystem() {
               <span className="badge navy">Enrolled</span>
               <div className="inline-alert"><AlertTriangle size={15} /> Your request was submitted and is pending review.</div>
             </>}
-            dos={['Pair every status color with a text label ("Active", "Pending") — never color alone.']}
+            dos={[]}
+            donts={[]}
             code={`<span className="badge green">Active</span>
 <div className="inline-alert">Your request was submitted.</div>`}
             colors={[['Success', '--green'], ['Success bg', '--green-bg'], ['Warning', '--amber'], ['Warning bg', '--amber-bg'], ['Danger', '--red'], ['Danger bg', '--red-bg']]}
@@ -983,8 +1081,8 @@ export default function DesignSystem() {
                 <a key={l} href="#nav" className={`ds-nav-link${i === 0 ? ' on' : ''}`} onClick={(e) => e.preventDefault()}>{l}</a>
               ))}
             </div>}
-            dos={['Use outline-offset:-2px on focus rings inside any overflow:auto container so the ring is never clipped.']}
-            donts={['Never remove the default focus outline without supplying an equally visible replacement.']}
+            dos={[]}
+            donts={[]}
             code={`.nav a:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:8px}
 /* inset offset survives a scrolling ancestor with overflow-y:auto */`}
             colors={[['Active text', '--brand'], ['Active bg', '--active-bg'], ['Hover bg', '--hover-bg'], ['Default text', '--ink-soft']]}
@@ -1000,7 +1098,8 @@ export default function DesignSystem() {
                 <button key={t} type="button" className={`tab ${i === 0 ? 'on' : ''}`}>{t}</button>
               ))}
             </div>}
-            dos={['Every step in a wizard is a real, tabIndex=0, keydown-handled control — never a bare div.']}
+            dos={[]}
+            donts={[]}
             code={`<button type="button" className={\`tab \${active ? 'on' : ''}\`} onClick={() => setActive(t)}>
   {t.label}
 </button>`}
@@ -1040,8 +1139,8 @@ export default function DesignSystem() {
                 <button type="button" className="btn btn-primary">Confirm</button>
               </div>
             </div>}
-            dos={['Trap focus inside the dialog while open (useFocusTrap), and return focus to the trigger on close.', 'Bind Escape to close every dialog and dropdown.']}
-            donts={['Never let background content remain tabbable while a modal is open.']}
+            dos={['Trap focus inside the dialog while open; return focus to trigger on close.']}
+            donts={[]}
             code={`const trapRef = useFocusTrap(open)
 <div className="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" ref={trapRef}>
   <h3 id="dlg-title">Confirm rollover request</h3>
@@ -1077,8 +1176,8 @@ export default function DesignSystem() {
               <div style={{ display: 'flex', gap: 'var(--space-1-5)', alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><Mic size={15} /> Voice navigation</div>
               <div style={{ display: 'flex', gap: 'var(--space-1-5)', alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><TypeIcon size={15} /> Bigger text</div>
             </div>}
-            dos={['Persist settings to localStorage only — never send accessibility preferences to a server.', 'Feature-detect SpeechRecognition and disable voice input gracefully in unsupported browsers (e.g. Firefox).']}
-            donts={['Never let a voice command submit a form or move money — the command set is read/navigate/scroll only.']}
+            dos={[]}
+            donts={[]}
             code={`const { speaking, speakPage, stop } = useReadAloud()
 const { listening, start, stop: stopListening } = useVoiceNav(navigate)
 <AccessibilityMenu />  // dropdown next to the theme toggle in Header.jsx`}
@@ -1210,9 +1309,7 @@ const { listening, start, stop: stopListening } = useVoiceNav(navigate)
             <p className="ds-lede">Plain, direct, and specific — this is a retirement account, not a marketing surface.</p>
             <div className="ds-card">
               <div className="ds-panel">
-                <div className="ds-panel-row dos"><b>Do — </b>"Your rollover request was submitted and is pending review."</div>
-                <div className="ds-panel-row donts"><b>Don't — </b>"Oops! Something went wrong somewhere."</div>
-                <div className="ds-panel-row"><b>Errors — </b>state what happened and what to do next, never just "Invalid input."</div>
+                <div className="ds-panel-row"><b>Errors — </b>state what happened and what to do next.</div>
                 <div className="ds-panel-row"><b>Numbers — </b>always show currency with $ and two decimals; percentages to one decimal.</div>
               </div>
             </div>
