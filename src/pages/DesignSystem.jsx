@@ -97,18 +97,101 @@ const BRAND_SCALE = [
 // 12.5px) that no longer matched what the ds-type-* classes actually
 // render, since those classes were wired to var() separately without
 // this table being updated to match.
-const TYPE_SCALE = [
-  { tag: 'H1', cls: 'ds-type-h1', size: '32px', weight: 800, lh: '1.25 (40px)', ls: '-0.4px', use: 'Page title — .login-brand-copy h1, .hi-bar h1, .page-head h1' },
-  { tag: 'H2', cls: 'ds-type-h2', size: '24px', weight: 800, lh: '1.33 (32px)', ls: '-0.3px', use: 'Section heading — .login-card h2, .section-title, .chart-top h2' },
-  { tag: 'H3', cls: 'ds-type-h3', size: '20px', weight: 700, lh: '1.4 (28px)', ls: '-0.2px', use: 'Subsection / card group heading — .pc-name, .summary .head h4' },
-  { tag: 'H4', cls: 'ds-type-h4', size: '18px', weight: 700, lh: '1.33 (24px)', ls: '-0.1px', use: 'Card title, widget heading (defined for consistency — not yet used standalone)' },
-  { tag: 'H5', cls: 'ds-type-h5', size: '16px', weight: 700, lh: '1.5 (24px)', ls: '0px', use: 'Dense list/group heading — .step .body h3 (step title)' },
-  { tag: 'H6', cls: 'ds-type-h6', size: '14px', weight: 800, lh: '1.43 (20px)', ls: '0.4px', use: 'Eyebrow / overline label — .plan-card .pc-type' },
-  { tag: 'P1', cls: 'ds-type-p1', size: '16px', weight: 400, lh: '1.5 (24px)', ls: '0px', use: 'Lead paragraph / intro copy (defined for consistency — not yet used standalone)' },
-  { tag: 'P2', cls: 'ds-type-p2', size: '14px', weight: 400, lh: '1.5 (21px)', ls: '0px', use: 'Body text (the app default)' },
-  { tag: 'P3', cls: 'ds-type-p3', size: '14px', weight: 600, lh: '1.5 (21px)', ls: '0px', use: 'Body soft, form labels (numerically equal to P2 now -- both landed on the same even-px step, see index.css)' },
-  { tag: 'Caption', cls: 'ds-type-caption', size: '12px', weight: 700, lh: '1.5 (18px)', ls: '0.3px', use: 'Meta text, table headers, timestamps' },
-  { tag: 'Code', cls: 'ds-type-code', size: '12px', weight: 400, lh: '1.5 (18px)', ls: '0px', use: 'Inline code, token names (defined for consistency — not yet used standalone)' },
+/**
+ * Single typography catalog for engineering handoff.
+ * Floor: 12px. Body / UI text use rem + line-height ≥ 1.5 (WCAG 1.4.12).
+ * Do not invent sizes outside this list.
+ */
+const TYPE_ROWS = [
+  { group: 'Font family', name: '--font-family-sans', size: '—', weight: '—', lh: '—', ls: '—', case: '—', sample: 'Aa Bb Cc 0123', cls: 'ds-type-body-md', use: 'Primary UI font' },
+  { group: 'Font family', name: '--font-family-mono', size: '—', weight: '—', lh: '—', ls: '—', case: '—', sample: 'token-name', cls: 'ds-type-code', use: 'Code / token names' },
+  { group: 'Font weight', name: '--font-weight-regular', size: '—', weight: '400', lh: '—', ls: '—', case: '—', sample: 'Regular', cls: 'ds-type-body-md', use: 'Body, placeholder, helper' },
+  { group: 'Font weight', name: '--font-weight-medium', size: '—', weight: '500', lh: '—', ls: '—', case: '—', sample: 'Medium', cls: 'ds-type-caption', use: 'Captions' },
+  { group: 'Font weight', name: '--font-weight-semibold', size: '—', weight: '600', lh: '—', ls: '—', case: '—', sample: 'Semibold', cls: 'ds-type-p3', use: 'Emphasized body' },
+  { group: 'Font weight', name: '--font-weight-bold', size: '—', weight: '700', lh: '—', ls: '—', case: '—', sample: 'Bold', cls: 'ds-type-label', use: 'Headings, labels, buttons, links' },
+  { group: 'Font weight', name: '--font-weight-extrabold', size: '—', weight: '800', lh: '—', ls: '—', case: '—', sample: 'ExtraBold', cls: 'ds-type-eyebrow', use: 'Eyebrows / strong accents' },
+  { group: 'Display', name: '--text-display-xl-*', size: '48px', weight: '800', lh: '60px (1.25)', ls: '-0.8px', case: 'none', sample: '48.2%', cls: 'ds-type-display-xl', use: 'Hero titles' },
+  { group: 'Display', name: '--text-display-sm-*', size: '40px', weight: '800', lh: '48px (1.2)', ls: '-0.8px', case: 'none', sample: '92', cls: 'ds-type-display-sm', use: 'Readiness / large KPI' },
+  { group: 'Display', name: '--text-display-lg-*', size: '32px', weight: '700', lh: '40px (1.25)', ls: '-0.8px', case: 'none', sample: '$248,420', cls: 'ds-type-display-lg', use: 'Primary balance' },
+  { group: 'Display', name: '--text-display-md-*', size: '24px', weight: '700', lh: '32px (1.33)', ls: '-0.4px', case: 'none', sample: '$12,450', cls: 'ds-type-display-md', use: 'Stat tiles' },
+  { group: 'Heading', name: '--text-h1-*', size: '32px', weight: '700', lh: '40px (1.25)', ls: '-0.4px', case: 'none', sample: 'Page title', cls: 'ds-type-h1', use: 'Page title' },
+  { group: 'Heading', name: '--text-h2-*', size: '24px', weight: '700', lh: '32px (1.33)', ls: '-0.3px', case: 'none', sample: 'Section heading', cls: 'ds-type-h2', use: 'Section heading' },
+  { group: 'Heading', name: '--text-h3-*', size: '20px', weight: '700', lh: '28px (1.4)', ls: '-0.2px', case: 'none', sample: 'Card heading', cls: 'ds-type-h3', use: 'Card / subsection' },
+  { group: 'Heading', name: '--text-h4-*', size: '16px', weight: '700', lh: '24px (1.5)', ls: '0', case: 'none', sample: 'Widget title', cls: 'ds-type-h4', use: 'Widget title' },
+  { group: 'Heading', name: '--text-h5-*', size: '16px', weight: '700', lh: '24px (1.5)', ls: '0', case: 'none', sample: 'List title', cls: 'ds-type-h5', use: 'List / step title' },
+  { group: 'Heading', name: '--text-h6-*', size: '14px', weight: '700', lh: '1.5', ls: '0', case: 'none', sample: 'Group label', cls: 'ds-type-h6', use: 'Smallest heading' },
+  { group: 'Body', name: '--text-body-lg-*', size: '16px', weight: '400', lh: '1.5', ls: '0', case: 'none', sample: 'Lead paragraph for introductions.', cls: 'ds-type-body-lg', use: 'Lead paragraph' },
+  { group: 'Body', name: '--text-body-md-*', size: '14px', weight: '400', lh: '1.5', ls: '0', case: 'none', sample: 'Default app body text.', cls: 'ds-type-body-md', use: 'Default body (also --text-body-sm-*)' },
+  { group: 'Body', name: '--text-body-xs-*', size: '12px', weight: '400', lh: '1.5', ls: '0', case: 'none', sample: 'Compact body in dense lists.', cls: 'ds-type-body-xs', use: 'Compact body' },
+  { group: 'Label', name: '--text-label-*', size: '14px', weight: '700', lh: '1.5', ls: '0', case: 'none', sample: 'Email address', cls: 'ds-type-label', use: 'Form labels' },
+  { group: 'Label', name: '--text-eyebrow-*', size: '12px', weight: '800', lh: '1.5', ls: '0.8px', case: 'uppercase', sample: 'Plan type', cls: 'ds-type-eyebrow', use: 'Overline / tags (min size)' },
+  { group: 'Caption / helper', name: '--text-caption-*', size: '12px', weight: '500', lh: '1.5', ls: '0.4px', case: 'none', sample: 'Updated 2 hours ago', cls: 'ds-type-caption', use: 'Meta, timestamps' },
+  { group: 'Caption / helper', name: '--text-helper-*', size: '12px', weight: '400', lh: '1.5', ls: '0', case: 'none', sample: 'Use your work email to sign in.', cls: 'ds-type-helper', use: 'Field help (.text-helper)' },
+  { group: 'Button', name: '--text-button-lg-*', size: '16px', weight: '700', lh: '1.5', ls: '0', case: 'none', sample: 'Sign in', cls: 'ds-type-button-lg', use: '.btn-lg' },
+  { group: 'Button', name: '--text-button-md-*', size: '14px', weight: '700', lh: '1.5', ls: '0', case: 'none', sample: 'Continue', cls: 'ds-type-button-md', use: '.btn (default)' },
+  { group: 'Button', name: '--text-button-sm-*', size: '14px', weight: '700', lh: '1.5', ls: '0', case: 'none', sample: 'Edit', cls: 'ds-type-button-sm', use: '.btn-sm' },
+  { group: 'Link', name: '--text-link-*', size: '14px', weight: '700', lh: '1.5', ls: '0', case: 'none', sample: 'Forgot password?', cls: 'ds-type-link', use: '.text-link' },
+  { group: 'Placeholder', name: '--text-placeholder-*', size: '14px', weight: '400', lh: '1.5', ls: '0', case: 'none', sample: 'Enter your email', cls: 'ds-type-placeholder', use: '::placeholder' },
+]
+
+/** Spacing token catalog — scale + semantic usage. */
+const SPACE_SCALE = [
+  { name: '--space-0', px: '0', use: 'Reset margin/padding' },
+  { name: '--space-px', px: '1px', use: 'Hairline offsets' },
+  { name: '--space-0-5', px: '2px', use: 'Micro gap' },
+  { name: '--space-1', px: '4px', use: 'Tight inset' },
+  { name: '--space-1-5', px: '6px', use: 'Label→input gap (--form-label-gap)' },
+  { name: '--space-2', px: '8px', use: 'Compact padding / btn-sm y' },
+  { name: '--space-2-5', px: '10px', use: 'Default btn y / input y' },
+  { name: '--space-3', px: '12px', use: 'Stack gap / btn-sm x' },
+  { name: '--space-3-5', px: '14px', use: 'Form field gap' },
+  { name: '--space-4', px: '16px', use: 'Card-sm / form→submit / btn md x' },
+  { name: '--space-4-5', px: '18px', use: 'Rare mid step' },
+  { name: '--space-5', px: '20px', use: 'Default card / page gap' },
+  { name: '--space-6', px: '24px', use: 'Page y / card-lg / btn-lg x' },
+  { name: '--space-7', px: '28px', use: 'Large stack' },
+  { name: '--space-8', px: '32px', use: 'Page x (desktop)' },
+  { name: '--space-9', px: '36px', use: 'Large layout step' },
+  { name: '--space-10', px: '40px', use: 'Section breathing room' },
+  { name: '--space-12', px: '48px', use: 'Page bottom padding' },
+  { name: '--space-14', px: '56px', use: 'Extra-large section' },
+  { name: '--space-16', px: '64px', use: 'Hero / major layout' },
+]
+
+const SPACE_SEMANTIC = [
+  { group: 'Margin / padding (component)', rows: [
+    { name: '--btn-padding-y-sm / --btn-padding-x-sm', px: '8 × 12', use: 'Small button padding' },
+    { name: '--btn-padding-y-md / --btn-padding-x-md', px: '10 × 16', use: 'Default .btn padding' },
+    { name: '--btn-padding-y-lg / --btn-padding-x-lg', px: '12 × 24', use: 'Large / login CTA padding' },
+    { name: '--icon-btn-size-sm / md / lg', px: '32 / 36 / 44', use: 'Icon-only button hit targets' },
+    { name: '--input-padding-y / --input-padding-x', px: '10 × 12', use: 'Default .form-control padding' },
+    { name: '--input-min-height / sm / lg', px: '40 / 36 / 48', use: 'Input min heights' },
+    { name: '--card-padding-sm', px: '16', use: 'Compact card / section-card' },
+    { name: '--card-padding', px: '20', use: 'Default panel / card' },
+    { name: '--card-padding-lg', px: '24', use: 'Spacious card' },
+  ]},
+  { group: 'Gap', rows: [
+    { name: '--btn-gap', px: '8', use: 'Icon + label inside buttons' },
+    { name: '--inline-gap-sm', px: '6', use: 'Tight chip / icon rows' },
+    { name: '--inline-gap', px: '8', use: 'Inline clusters' },
+    { name: '--actions-gap', px: '10', use: 'Button groups / action rows' },
+    { name: '--stack-gap-sm', px: '8', use: 'Tight vertical stack' },
+    { name: '--stack-gap', px: '12', use: 'Related item stacks' },
+    { name: '--form-label-gap', px: '6', use: 'Label → control' },
+    { name: '--form-field-gap', px: '14', use: 'Between form fields' },
+    { name: '--form-control-gap', px: '16', use: 'Last field → submit' },
+  ]},
+  { group: 'Component / section spacing', rows: [
+    { name: '--section-title-mb', px: '12', use: 'Section title → content' },
+    { name: '--section-gap', px: '20', use: 'Between major blocks' },
+  ]},
+  { group: 'Layout spacing', rows: [
+    { name: '--page-padding-y / --page-padding-x', px: '24 / 32', use: 'Desktop page body' },
+    { name: '--page-padding-bottom', px: '48', use: 'Page bottom clearance' },
+    { name: '--page-gap', px: '20', use: 'Primary page column gap' },
+    { name: '--page-padding-*-md', px: '20 / 16 / 40', use: 'Tablet page padding (y/x/bottom)' },
+    { name: '--page-padding-*-sm', px: '16 / 16 / 32', use: 'Mobile page padding (y/x/bottom)' },
+  ]},
 ]
 
 const KEYBOARD_ROWS = [
@@ -499,56 +582,113 @@ export default function DesignSystem() {
           <section id="type" className="ds-section">
             <h2>Typography</h2>
             <p className="ds-lede">
-              System font stack ("Inclusive Sans" with system fallbacks) at a 15px base. The full
-              H1–H6 / P1–P3 / Caption / Code scale is defined below — several levels (H4–H6, P1,
-              Code) aren't used by any current screen, but are specified now so engineering never
-              has to invent an ad-hoc size when a new screen needs one.
+              Inclusive Sans · 16px root · rem tokens only. Minimum text size is <b>12px</b>.
+              Body and UI text use line-height <b>1.5</b> (WCAG 1.4.12). Use only the roles below —
+              do not invent new font sizes.
             </p>
             <div className="ds-card">
-              <div className="ds-demo ds-demo-col" style={{ gap: 'var(--space-0)', padding: 'var(--space-0)' }}>
-                {TYPE_SCALE.map((t) => (
-                  <div key={t.tag} className="ds-type-row2">
-                    <div className="ds-type-row2-meta">
-                      <b>{t.tag}</b>
-                      <span>{t.size} / {t.weight} / {t.lh}</span>
-                    </div>
-                    <div className={`ds-type-sample ${t.cls}`}>Retirement plan balance</div>
-                    <div className="ds-type-row2-use">{t.use}</div>
-                  </div>
-                ))}
+              <div className="ds-token-scroll">
+                <table className="ds-token-table ds-type-table">
+                  <thead>
+                    <tr>
+                      <th>Group</th>
+                      <th>Sample</th>
+                      <th>Token</th>
+                      <th>Size</th>
+                      <th>Weight</th>
+                      <th>Line height</th>
+                      <th>Letter spacing</th>
+                      <th>Case</th>
+                      <th>Usage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {TYPE_ROWS.map((t) => (
+                      <tr key={t.name}>
+                        <td className="ds-token-use">{t.group}</td>
+                        <td><span className={`ds-type-sample-inline ${t.cls}`}>{t.sample}</span></td>
+                        <td><code>{t.name}</code></td>
+                        <td>{t.size}</td>
+                        <td>{t.weight}</td>
+                        <td>{t.lh}</td>
+                        <td>{t.ls}</td>
+                        <td>{t.case}</td>
+                        <td className="ds-token-use">{t.use}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-              <Code>{`/* Typography uses CSS variable tokens - all sizes in rem */
-.ds-type-h1{ font-size:var(--text-h1-size); font-weight:800; line-height:var(--text-h1-lh); letter-spacing:var(--text-h1-ls) } /* 32px/40px */
-.ds-type-h2{ font-size:var(--text-h2-size); font-weight:800; line-height:var(--text-h2-lh); letter-spacing:var(--text-h2-ls) } /* 24px/32px */
-.ds-type-h3{ font-size:var(--text-h3-size); font-weight:700; line-height:var(--text-h3-lh); letter-spacing:var(--text-h3-ls) } /* 20px/28px */
-.ds-type-h4{ font-size:var(--text-h4-size); font-weight:700; line-height:var(--text-h4-lh) } /* 16px/24px */
-.ds-type-h5{ font-size:var(--text-h5-size); font-weight:700; line-height:var(--text-h5-lh) } /* 16px/24px */
-.ds-type-h6{ font-size:var(--text-h6-size); font-weight:800; line-height:var(--text-h6-lh); letter-spacing:var(--ls-wide); text-transform:uppercase } /* 14px/20px */
-.ds-type-p1{ font-size:var(--text-body-lg-size); font-weight:400; line-height:var(--text-body-lg-lh) } /* 16px/24px */
-.ds-type-p2{ font-size:var(--text-body-md-size); font-weight:400; line-height:var(--text-body-md-lh) } /* 14px/20px - app body default */
-.ds-type-p3{ font-size:var(--text-body-sm-size); font-weight:600; line-height:var(--text-body-sm-lh) } /* 14px/20px */
-.ds-type-caption{ font-size:var(--text-caption-size); font-weight:700; line-height:var(--text-caption-lh); letter-spacing:var(--ls-wide) } /* 12px/20px */
-.ds-type-code{ font-family:var(--font-family-mono); font-size:var(--text-xs-size); line-height:1.6 } /* 12px */`}</Code>
             </div>
           </section>
 
           {/* ---------------- SPACE / RADIUS ---------------- */}
           <section id="space" className="ds-section">
             <h2>Spacing & radius</h2>
-            <p className="ds-lede">An 4px-based spacing scale keeps rhythm consistent across cards, forms, and tables.</p>
+            <p className="ds-lede">
+              Tailwind-aligned 4px scale plus semantic tokens for margin, padding, gap, component,
+              section, and layout spacing. Prefer semantic tokens in UI chrome.
+            </p>
             <div className="ds-card">
+              <div className="ds-type-group-title">Base scale</div>
               <div className="ds-demo ds-demo-col">
-                {[4, 8, 12, 16, 20, 24, 32, 48].map((s) => (
-                  <div key={s} className="ds-space-row">
-                    <span>{s}px</span>
-                    <div className="ds-space-bar" style={{ width: s * 4 }} />
-                  </div>
-                ))}
+                {[4, 8, 12, 16, 20, 24, 32, 48].map((px) => {
+                  const row = SPACE_SCALE.find((s) => s.px === String(px) || s.px === `${px}px`)
+                  return (
+                    <div key={px} className="ds-space-row">
+                      <span>{px}px{row ? ` · ${row.name}` : ''}</span>
+                      <div className="ds-space-bar" style={{ width: px * 4 }} />
+                    </div>
+                  )
+                })}
               </div>
+              <div className="ds-token-scroll" style={{ padding: 'var(--space-4) var(--space-5)' }}>
+                <table className="ds-token-table">
+                  <thead>
+                    <tr>
+                      <th>Token</th>
+                      <th>Pixel value</th>
+                      <th>Intended usage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {SPACE_SCALE.map((s) => (
+                      <tr key={s.name}>
+                        <td><code>{s.name}</code></td>
+                        <td>{s.px}</td>
+                        <td className="ds-token-use">{s.use}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {SPACE_SEMANTIC.map((block) => (
+                <div key={block.group}>
+                  <div className="ds-type-group-title">{block.group}</div>
+                  <div className="ds-token-scroll" style={{ padding: 'var(--space-2) var(--space-5) var(--space-4)' }}>
+                    <table className="ds-token-table">
+                      <thead>
+                        <tr>
+                          <th>Token</th>
+                          <th>Pixel value</th>
+                          <th>Intended usage</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {block.rows.map((s) => (
+                          <tr key={s.name}>
+                            <td><code>{s.name}</code></td>
+                            <td>{s.px}</td>
+                            <td className="ds-token-use">{s.use}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ))}
               <div className="ds-panel">
                 <div className="ds-panel-row"><b>Radius — </b>8px (--radius-sm) buttons/inputs, 14px (--radius-lg) cards, 999px pills.</div>
-                <div className="ds-panel-row"><b>Layout tokens — </b>page (--page-padding-*), card (--card-padding / sm / lg), form (--form-label-gap, --form-control-gap), button (--btn-padding-*-sm/md/lg). Prefer these over raw --space-* in UI chrome.</div>
-                <div className="ds-panel-row"><b>Buttons — </b>sm 8×12 (py-2 px-3), md 10×16 (py-2.5 px-4), lg 12×24 (py-3 px-6). Field→submit gap 16px (--form-control-gap).</div>
               </div>
             </div>
           </section>
@@ -566,7 +706,7 @@ export default function DesignSystem() {
           {/* ---------------- BUTTONS ---------------- */}
           <Component
             id="buttons" title="Buttons"
-            desc="Primary, secondary, ghost, and icon-only variants — one shared base class, with small/medium/large sizing."
+            desc="Primary, secondary, ghost, and danger on one .btn base — with sm / md / lg sizes and icon-only controls. Minimum text 14px; icon targets ≥32px."
             tags={['WCAG 2.2 AA']}
             demo={<div className="ds-demo-col" style={{ display: 'flex' }}>
               <div>
@@ -575,7 +715,7 @@ export default function DesignSystem() {
                   <button type="button" className="btn btn-primary">Primary</button>
                   <button type="button" className="btn btn-secondary">Secondary</button>
                   <button type="button" className="btn btn-ghost">Ghost</button>
-                  <button type="button" className="btn ds-btn-danger">Danger</button>
+                  <button type="button" className="btn btn-danger">Danger</button>
                   <button type="button" className="btn btn-primary" disabled>Disabled</button>
                 </div>
               </div>
@@ -590,36 +730,37 @@ export default function DesignSystem() {
               <div>
                 <div className="ds-demo-label">Icon buttons</div>
                 <div className="ds-demo-row" style={{ alignItems: 'center' }}>
-                  <button type="button" className="icon-btn ds-icon-btn-sm" aria-label="Settings" title="Settings (small)"><ChevronDown size={15} /></button>
-                  <button type="button" className="icon-btn" aria-label="Settings" title="Settings (default)"><ChevronDown size={18} /></button>
-                  <button type="button" className="icon-btn ds-icon-btn-lg" aria-label="Settings" title="Settings (large)"><ChevronDown size={22} /></button>
+                  <button type="button" className="icon-btn icon-btn-sm" aria-label="Settings small"><ChevronDown size={16} /></button>
+                  <button type="button" className="icon-btn" aria-label="Settings"><ChevronDown size={18} /></button>
+                  <button type="button" className="icon-btn icon-btn-lg" aria-label="Settings large"><ChevronDown size={22} /></button>
                 </div>
               </div>
             </div>}
             dos={['Give every icon-only button an aria-label describing its action.', 'Keep one primary button per view/section so the primary path is unambiguous.']}
-            donts={['Never rely on color alone to show a disabled state — pair with aria-disabled and reduced opacity.']}
+            donts={['Never rely on color alone to show a disabled state — pair with disabled/aria-disabled and reduced opacity.']}
             code={`<button type="button" className="btn btn-primary">Save changes</button>
 <button type="button" className="btn btn-sm btn-secondary">Small secondary</button>
 <button type="button" className="btn btn-lg btn-primary">Large primary</button>
 <button type="button" className="btn btn-ghost">Ghost</button>
-<button type="button" className="icon-btn" aria-label="Print"><Printer size={18} /></button>`}
-            colors={[['Brand fill', '--brand-fill'], ['Brand dark (hover)', '--brand-dark'], ['Line', '--line'], ['Ink (ghost text)', '--ink-soft'], ['Danger', '--red']]}
+<button type="button" className="btn btn-danger">Delete</button>
+<button type="button" className="icon-btn icon-btn-sm" aria-label="More"><ChevronDown size={16} /></button>`}
+            colors={[['Brand fill', '--brand-fill'], ['Brand dark (hover)', '--brand-dark'], ['Line', '--line'], ['Ink soft', '--ink-soft'], ['Danger', '--red']]}
             extra={
               <div className="ds-panel">
                 <div style={{ padding: 'var(--space-1) var(--space-5)' }}>
                   <table className="ds-table">
-                    <thead><tr><th>Name</th><th>Class</th><th>Padding</th><th>Font</th><th>Status</th></tr></thead>
+                    <thead><tr><th>Name</th><th>Class</th><th>Padding / size</th><th>Font</th><th>Status</th></tr></thead>
                     <tbody>
-                      <tr><td>Small</td><td><code>.btn.btn-sm</code></td><td>8×12 (--btn-padding-*-sm / py-2 px-3)</td><td>14px / 700</td><td className="ok">Used</td></tr>
-                      <tr><td>Medium (default)</td><td><code>.btn</code></td><td>10×16 (--btn-padding-*-md / py-2.5 px-4)</td><td>14px / 700</td><td className="ok">Used</td></tr>
-                      <tr><td>Large</td><td><code>.btn.btn-lg</code></td><td>12×24 (--btn-padding-*-lg / py-3 px-6)</td><td>16px / 700</td><td className="ok">Used</td></tr>
+                      <tr><td>Small</td><td><code>.btn.btn-sm</code></td><td>8×12 (--btn-padding-*-sm)</td><td>14px / 700</td><td className="ok">Used</td></tr>
+                      <tr><td>Medium</td><td><code>.btn</code></td><td>10×16 (--btn-padding-*-md)</td><td>14px / 700</td><td className="ok">Used</td></tr>
+                      <tr><td>Large</td><td><code>.btn.btn-lg</code></td><td>12×24 (--btn-padding-*-lg)</td><td>16px / 700</td><td className="ok">Used</td></tr>
                       <tr><td>Primary</td><td><code>.btn-primary</code></td><td>—</td><td>—</td><td className="ok">Used</td></tr>
                       <tr><td>Secondary</td><td><code>.btn-secondary</code></td><td>—</td><td>—</td><td className="ok">Used</td></tr>
                       <tr><td>Ghost</td><td><code>.btn-ghost</code></td><td>—</td><td>—</td><td className="ok">Used</td></tr>
                       <tr><td>Danger</td><td><code>.btn-danger</code></td><td>—</td><td>—</td><td className="ok">Used</td></tr>
-                      <tr><td>Icon (small)</td><td><code>.icon-btn.icon-btn-sm</code></td><td>28×28px</td><td>—</td><td>Specified — not yet used</td></tr>
-                      <tr><td>Icon (default)</td><td><code>.icon-btn</code></td><td>36×36px</td><td>—</td><td className="ok">Used</td></tr>
-                      <tr><td>Icon (large)</td><td><code>.icon-btn.icon-btn-lg</code></td><td>44×44px</td><td>—</td><td>Specified — not yet used</td></tr>
+                      <tr><td>Icon small</td><td><code>.icon-btn.icon-btn-sm</code></td><td>32×32 (--icon-btn-size-sm)</td><td>—</td><td className="ok">Used</td></tr>
+                      <tr><td>Icon default</td><td><code>.icon-btn</code></td><td>36×36 (--icon-btn-size-md)</td><td>—</td><td className="ok">Used</td></tr>
+                      <tr><td>Icon large</td><td><code>.icon-btn.icon-btn-lg</code></td><td>44×44 (--icon-btn-size-lg)</td><td>—</td><td className="ok">Used</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -630,37 +771,48 @@ export default function DesignSystem() {
           {/* ---------------- FORMS ---------------- */}
           <Component
             id="forms" title="Forms & inputs"
-            desc="Text fields, selects, and search inputs with a visible focus ring on the wrapper."
+            desc="Shared .form-field / .form-label / .form-control primitives. Default height 40px; text never below 14px on controls."
             tags={['WCAG 2.2 AA']}
-            demo={<div style={{ display: 'grid', gap: 'var(--space-3)', width: '100%', maxWidth: 360 }}>
-              <label style={{ fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>Account nickname
-                <input style={{ marginTop: 'var(--form-label-gap)', width: '100%', padding: 'var(--input-padding-y) var(--input-padding-x)', borderRadius: 10, border: '1px solid var(--line)', background: 'var(--panel)', color: 'var(--ink)' }} placeholder="e.g. My 401(k)" />
-              </label>
-              <label style={{ fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>Distribution plan type
-                <select style={{ marginTop: 'var(--form-label-gap)', width: '100%', padding: 'var(--input-padding-y) var(--input-padding-x)', borderRadius: 10, border: '1px solid var(--line)', background: 'var(--panel)', color: 'var(--ink)' }}>
+            demo={<div style={{ display: 'grid', gap: 'var(--form-field-gap)', width: '100%', maxWidth: 360 }}>
+              <div className="form-field">
+                <label className="form-label" htmlFor="ds-nick">Account nickname</label>
+                <input id="ds-nick" className="form-control" placeholder="e.g. My 401(k)" />
+                <span className="form-helper">Shown on statements and transfers.</span>
+              </div>
+              <div className="form-field">
+                <label className="form-label" htmlFor="ds-plan">Distribution plan type</label>
+                <select id="ds-plan" className="form-control" defaultValue="401(k)">
                   <option>401(k)</option><option>403(b)</option><option>IRA — Traditional</option>
                 </select>
-              </label>
-              <p role="alert" style={{ display: 'flex', gap: 'var(--space-1-5)', alignItems: 'center', fontSize: 'var(--text-caption-size)', color: 'var(--red)', fontWeight: 'var(--font-weight-semibold)' }}>
-                <AlertTriangle size={14} /> Target percentages must add up to 100%.
-              </p>
+              </div>
+              <p className="form-error" role="alert"><AlertTriangle size={14} /> Target percentages must add up to 100%.</p>
+              <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
+                <input className="form-control form-control-sm" style={{ maxWidth: 120 }} defaultValue="Small" aria-label="Small input" />
+                <input className="form-control" style={{ maxWidth: 140 }} defaultValue="Medium" aria-label="Medium input" />
+                <input className="form-control form-control-lg" style={{ maxWidth: 160 }} defaultValue="Large" aria-label="Large input" />
+              </div>
             </div>}
-            dos={['Associate every input with a <label>, even when visually hidden.', 'Announce validation errors with role="alert" so screen readers pick them up immediately.']}
-            donts={['Never use placeholder text as the only label.']}
-            code={`<label>Account nickname
-  <input placeholder="e.g. My 401(k)" />
-</label>
-{error && <p role="alert">{error}</p>}`}
+            dos={['Associate every input with a visible <label> via htmlFor/id.', 'Announce validation errors with role="alert".']}
+            donts={['Never use placeholder text as the only label.', 'Never use font sizes below 14px on inputs (iOS zoom / readability).']}
+            code={`<div className="form-field">
+  <label className="form-label" htmlFor="nick">Account nickname</label>
+  <input id="nick" className="form-control" placeholder="e.g. My 401(k)" />
+  <span className="form-helper">Optional helper</span>
+</div>
+{error && <p className="form-error" role="alert">{error}</p>}`}
             colors={[['Border', '--line'], ['Focus ring', '--brand'], ['Error text', '--red'], ['Panel bg', '--panel']]}
             extra={
               <div className="ds-panel">
                 <div style={{ padding: 'var(--space-1) var(--space-5)' }}>
                   <table className="ds-table">
-                    <thead><tr><th>Size</th><th>Height</th><th>Padding</th><th>Font</th><th>Status</th></tr></thead>
+                    <thead><tr><th>Size</th><th>Class</th><th>Min height</th><th>Padding</th><th>Font</th><th>Status</th></tr></thead>
                     <tbody>
-                      <tr><td>Small</td><td>32px</td><td>7px 10px</td><td>13px</td><td>Specified — not yet used</td></tr>
-                      <tr><td>Medium (default)</td><td>40px</td><td>10px 12px</td><td>14px</td><td className="ok">Used</td></tr>
-                      <tr><td>Large</td><td>48px</td><td>13px 14px</td><td>15px</td><td>Specified — not yet used</td></tr>
+                      <tr><td>Small</td><td><code>.form-control-sm</code></td><td>36px</td><td>8×10</td><td>14px</td><td className="ok">Used</td></tr>
+                      <tr><td>Medium</td><td><code>.form-control</code></td><td>40px</td><td>10×12</td><td>14px</td><td className="ok">Used</td></tr>
+                      <tr><td>Large</td><td><code>.form-control-lg</code></td><td>48px</td><td>12×16</td><td>16px</td><td className="ok">Used</td></tr>
+                      <tr><td>Label</td><td><code>.form-label</code></td><td>—</td><td>—</td><td>14px / 700</td><td className="ok">Used</td></tr>
+                      <tr><td>Helper</td><td><code>.form-helper</code></td><td>—</td><td>—</td><td>12px / 400</td><td className="ok">Used</td></tr>
+                      <tr><td>Error</td><td><code>.form-error</code></td><td>—</td><td>—</td><td>12px / 600</td><td className="ok">Used</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -693,20 +845,18 @@ export default function DesignSystem() {
           {/* ---------------- BADGES / ALERTS ---------------- */}
           <Component
             id="feedback" title="Badges & alerts"
-            desc="Status pills and inline banners — color is always paired with a text label or icon."
+            desc="Status pills (.badge) and inline banners (.inline-alert) — color is always paired with a text label or icon."
             tags={['WCAG 2.2 AA']}
             demo={<>
-              <span className="badge" style={{ background: 'var(--green-bg)', color: 'var(--green)' }}>Active</span>
-              <span className="badge" style={{ background: 'var(--amber-bg)', color: 'var(--amber)' }}>Pending</span>
-              <span className="badge" style={{ background: 'var(--red-bg)', color: 'var(--red)' }}>Action needed</span>
-              <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center', padding: 'var(--space-2-5) var(--space-3-5)', borderRadius: 10, background: 'var(--info, var(--active-bg))', border: '1px solid var(--info-line, var(--line))', fontSize: 'var(--text-body-md-size)' }}>
-                <AlertTriangle size={15} /> Your request was submitted and is pending review.
-              </div>
+              <span className="badge green">Active</span>
+              <span className="badge amber">Pending</span>
+              <span className="badge red">Action needed</span>
+              <span className="badge navy">Enrolled</span>
+              <div className="inline-alert"><AlertTriangle size={15} /> Your request was submitted and is pending review.</div>
             </>}
             dos={['Pair every status color with a text label ("Active", "Pending") — never color alone.']}
-            code={`<span className="badge" style={{ background: 'var(--green-bg)', color: 'var(--green)' }}>
-  Active
-</span>`}
+            code={`<span className="badge green">Active</span>
+<div className="inline-alert">Your request was submitted.</div>`}
             colors={[['Success', '--green'], ['Success bg', '--green-bg'], ['Warning', '--amber'], ['Warning bg', '--amber-bg'], ['Danger', '--red'], ['Danger bg', '--red-bg']]}
           />
 
@@ -715,12 +865,9 @@ export default function DesignSystem() {
             id="nav" title="Navigation"
             desc="Left rail (frozen, scrollable) and top bar. Focus rings are drawn inset so a scrolling nav never clips them."
             tags={['WCAG 2.2 AA', 'Keyboard']}
-            demo={<div style={{ display: 'flex', gap: 'var(--space-1-5)' }}>
+            demo={<div className="ds-nav-demo" style={{ display: 'flex', gap: 'var(--space-1-5)' }}>
               {['Dashboard', 'Portfolio', 'Transactions'].map((l, i) => (
-                <a key={l} href="#nav" onClick={(e) => e.preventDefault()} style={{
-                  padding: 'var(--space-2-5) var(--space-3-5)', borderRadius: 8, textDecoration: 'none', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)',
-                  color: i === 0 ? 'var(--brand)' : 'var(--ink-soft)', background: i === 0 ? 'var(--active-bg)' : 'transparent',
-                }}>{l}</a>
+                <a key={l} href="#nav" className={`ds-nav-link${i === 0 ? ' on' : ''}`} onClick={(e) => e.preventDefault()}>{l}</a>
               ))}
             </div>}
             dos={['Use outline-offset:-2px on focus rings inside any overflow:auto container so the ring is never clipped.']}
@@ -735,7 +882,7 @@ export default function DesignSystem() {
             id="tabs" title="Tabs & step navigator"
             desc="Tabs for switching views in place; the step navigator drives multi-step flows (enrollment, transaction requests)."
             tags={['Keyboard']}
-            demo={<div style={{ display: 'flex', gap: 'var(--space-1)' }}>
+            demo={<div style={{ display: 'flex', gap: 'var(--space-1)', borderBottom: '1px solid var(--line)' }}>
               {['Summary', 'Activity', 'Documents'].map((t, i) => (
                 <button key={t} type="button" className={`tab ${i === 0 ? 'on' : ''}`}>{t}</button>
               ))}
@@ -769,13 +916,13 @@ export default function DesignSystem() {
             id="dialog" title="Dialogs & modals"
             desc="Focus-trapped, Escape-to-close, labelled by a heading, background inert while open."
             tags={['WCAG 2.2 AA', 'Keyboard']}
-            demo={<div style={{ width: 320, border: '1px solid var(--line)', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow-lg)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 'var(--space-3-5) var(--space-4)', borderBottom: '1px solid var(--line)' }}>
-                <b style={{ fontSize: 'var(--text-body-md-size)' }}>Confirm rollover request</b>
-                <X size={16} />
+            demo={<div className="ds-dialog-demo" role="dialog" aria-labelledby="ds-dlg-title">
+              <div className="ds-dialog-demo-head">
+                <h3 id="ds-dlg-title">Confirm rollover request</h3>
+                <button type="button" className="icon-btn icon-btn-sm" aria-label="Close"><X size={16} /></button>
               </div>
-              <div style={{ padding: 'var(--space-4)', fontSize: 'var(--text-body-md-size)', color: 'var(--ink-soft)' }}>This will submit your rollover request for processing.</div>
-              <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end', padding: 'var(--space-3) var(--space-4)', borderTop: '1px solid var(--line)' }}>
+              <div className="ds-dialog-demo-body">This will submit your rollover request for processing.</div>
+              <div className="ds-dialog-demo-actions">
                 <button type="button" className="btn btn-secondary">Cancel</button>
                 <button type="button" className="btn btn-primary">Confirm</button>
               </div>
