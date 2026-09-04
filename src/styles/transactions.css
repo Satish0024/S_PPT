@@ -22,7 +22,7 @@
   color:var(--ink-soft);cursor:pointer;transition:.15s}
 .req-plan-tabs button:hover{border-color:var(--line-strong)}
 .req-plan-tabs button.on{border-color:var(--brand);background:var(--active-bg);color:var(--brand)}
-.req-plan-badge{font-size:10px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--muted)}
+.req-plan-badge{font-size:var(--text-2xs-size);font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--muted)}
 .req-plan-tabs button.on .req-plan-badge{color:var(--brand)}
 
 .req-plan-strip{
@@ -112,7 +112,7 @@
 .txn-field .note{font-size:var(--text-body-xs-size);color:var(--ink-soft)}
 .txn-field .note.warn{color:var(--amber)}
 
-.field-tip{position:relative;display:inline-flex;vertical-align:middle;margin-left:4px}
+.field-tip{position:relative;display:inline-flex;vertical-align:middle;margin-left:var(--space-1)}
 .field-tip-btn{
   display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;
   border:none;padding:var(--space-0);background:var(--surface-3);color:var(--ink-soft);cursor:help}
@@ -191,7 +191,7 @@
 .table-scroll{overflow-x:auto}
 
 /* ---------- Transfer / Rebalance allocation ---------- */
-.alloc-sources{margin-bottom:20px}
+.alloc-sources{margin-bottom:var(--space-5)}
 .alloc-sources > b{display:block;font-size:var(--text-body-md-size);font-weight:800;color:var(--ink)}
 .alloc-sources .hint{margin:var(--space-0-5) var(--space-0) var(--space-3)}
 .alloc-source-grid{display:flex;flex-wrap:wrap;gap:var(--space-3)}
@@ -288,7 +288,7 @@
 .buysell-summary{
   display:flex;flex-wrap:wrap;gap:var(--space-6);border:1px solid var(--line);border-radius:var(--radius-sm);
   padding:var(--space-3-5) var(--space-4);margin-bottom:var(--space-4);background:var(--panel)}
-.buysell-summary div{display:flex;flex-direction:column;gap:2px}
+.buysell-summary div{display:flex;flex-direction:column;gap:var(--space-0-5)}
 .buysell-summary span{font-size:var(--text-body-xs-size);font-weight:600;color:var(--ink-soft)}
 .buysell-summary b{font-size:var(--text-body-md-size);font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
 .buysell-summary .buy,.buysell-table .buy{color:var(--brand);font-weight:700}

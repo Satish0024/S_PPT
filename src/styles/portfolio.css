@@ -8,14 +8,14 @@
      Kept in sync manually with --brand; update if --brand changes. */
   .plan-select{width:100%;appearance:none;-webkit-appearance:none;border:1px solid var(--line);border-radius:var(--radius-sm);
     background:var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%230284c7' d='M1.2 1.2L6 6l4.8-4.8'/%3E%3C/svg%3E") no-repeat right 14px center;
-    padding:var(--space-2-5) var(--space-10) var(--space-2-5) var(--space-3-5);font:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;
+    padding:var(--space-2-5) var(--space-10) var(--space-2-5) var(--space-3-5);font:inherit;font-size:var(--text-sm-size);font-weight:600;color:var(--ink);cursor:pointer;
     box-shadow:var(--shadow)}
   .plan-select:focus{outline:2px solid color-mix(in srgb, var(--brand) 25%, transparent);outline-offset:1px;border-color:var(--brand)}
-  .page-body{flex:1;padding:var(--space-7) var(--space-8) var(--space-12);display:flex;flex-direction:column;gap:28px}
+  .page-body{flex:1;padding:var(--space-7) var(--space-8) var(--space-12);display:flex;flex-direction:column;gap:var(--space-7)}
 
-  .hero-stats{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
-  .balance-k{font-size:var(--text-body-sm-size);font-weight:600;color:var(--muted);margin-bottom:4px}
-  .balance{font-size:34px;font-weight:700;letter-spacing:-.6px;color:var(--ink);line-height:1}
+  .hero-stats{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--space-4)}
+  .balance-k{font-size:var(--text-body-sm-size);font-weight:600;color:var(--muted);margin-bottom:var(--space-1)}
+  .balance{font-size:var(--text-display-lg-size);font-weight:700;letter-spacing:-.6px;color:var(--ink);line-height:1}
   .change{margin-top:var(--space-2);font-size:var(--text-body-md-size);font-weight:600;color:var(--green)}
   .change.neg{color:var(--red)}
   .change span{color:var(--ink-soft);font-weight:500}
@@ -31,7 +31,7 @@
     text-transform:uppercase;letter-spacing:.35px;line-height:1.2}
   .overview-row .stat-block .stat-v{font-size:var(--text-h4-size);font-weight:700;font-variant-numeric:tabular-nums;
     letter-spacing:-.3px;line-height:1.15;color:var(--ink);width:100%;word-break:break-word;margin-top:var(--space-1-5);padding-top:var(--space-0-5)}
-  .overview-row .stat-block.hero .stat-v{font-size:26px;letter-spacing:-.5px;margin-top:var(--space-2);padding-top:var(--space-0-5)}
+  .overview-row .stat-block.hero .stat-v{font-size:var(--text-2xl-size);letter-spacing:-.5px;margin-top:var(--space-2);padding-top:var(--space-0-5)}
   .overview-row .stat-block .stat-v.pos{color:var(--green)}
   .overview-row .overall-grid{display:flex;flex-direction:column;gap:var(--space-2);flex:1}
   .overview-row .chart-panel{margin:var(--space-0);min-width:0;height:100%;display:flex;flex-direction:column;box-sizing:border-box;
@@ -49,7 +49,7 @@
     cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}
   .tab:hover{color:var(--ink)}
   .tab.on{color:var(--brand);border-bottom-color:var(--brand)}
-  .tab-panel{display:none;flex-direction:column;gap:28px}
+  .tab-panel{display:none;flex-direction:column;gap:var(--space-7)}
   .tab-panel.on{display:flex}
 
   .period{display:inline-flex;flex-wrap:wrap;align-items:center;gap:var(--space-0);background:var(--surface-2);padding:var(--space-1) var(--space-1-5);border-radius:var(--radius-sm)}
@@ -99,11 +99,11 @@
   .legend-more.on{border-style:solid;border-color:var(--brand);color:var(--brand);background:var(--active-bg)}
   .legend-more-badge{
     display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:var(--space-0) var(--space-1);
-    border-radius:999px;background:var(--brand);color:var(--brand-text-primary-oncolor);font-size: 10px;font-weight:800}
+    border-radius:999px;background:var(--brand);color:var(--brand-text-primary-oncolor);font-size:var(--text-2xs-size);font-weight:800}
   .legend-panel{
     position:absolute;left:0;top:calc(100% + 8px);width:240px;max-height:280px;overflow-y:auto;
     background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);
-    padding:var(--space-1-5);z-index:20;display:flex;flex-direction:column;gap:1px}
+    padding:var(--space-1-5);z-index:20;display:flex;flex-direction:column;gap:var(--space-px)}
   .legend-panel-row{display:flex!important;width:100%;padding:var(--space-1-5) var(--space-2);border-radius:var(--radius-sm)}
   .legend-panel-row:hover{background:var(--hover-bg)}
 
@@ -125,7 +125,7 @@
   .num{font-variant-numeric:tabular-nums;text-align:right}
   .pos{color:var(--green);font-weight:600}
   .muted{color:var(--muted)}
-  .alloc{display:inline-flex;align-items:center;gap:8px}
+  .alloc{display:inline-flex;align-items:center;gap:var(--space-2)}
   .alloc-bar{width:56px;height:6px;border-radius:99px;background:var(--surface-3);overflow:hidden}
   .alloc-bar i{display:block;height:100%;background:var(--brand);border-radius:99px}
 
@@ -147,7 +147,7 @@
     text-align:center;line-height:1.25;color:inherit}
   .plan-table thead th.sortable:hover,.plan-table thead th.sortable button:hover{color:var(--brand)}
   .plan-table thead th.sortable::after{content:"↕";position:absolute;right:6px;top:50%;transform:translateY(-50%);
-    font-size:10px;opacity:.35;font-weight:700}
+    font-size:var(--text-2xs-size);opacity:.35;font-weight:700}
   .plan-table thead th.sortable.asc::after{content:"↑";opacity:1;color:var(--brand)}
   .plan-table thead th.sortable.desc::after{content:"↓";opacity:1;color:var(--brand)}
   .plan-table tr.fund-row td{border-bottom-style:dashed;border-bottom-color:var(--line-strong)}
@@ -163,7 +163,7 @@
   .holdings-table th.sortable{cursor:pointer;user-select:none;padding-right:var(--space-5);position:relative}
   .holdings-table th.sortable:hover{color:var(--brand)}
   .holdings-table th.sortable::after{content:"↕";position:absolute;right:8px;top:50%;transform:translateY(-50%);
-    font-size:10px;opacity:.35;font-weight:700}
+    font-size:var(--text-2xs-size);opacity:.35;font-weight:700}
   .holdings-table th.sortable.asc::after{content:"↑";opacity:1;color:var(--brand)}
   .holdings-table th.sortable.desc::after{content:"↓";opacity:1;color:var(--brand)}
   .overall-card{border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);
@@ -189,10 +189,10 @@
     .layout{display:block;padding-bottom:calc(72px + env(safe-area-inset-bottom))}
     .nav{position:fixed;left:0;right:0;bottom:0;top:auto;width:100%;height:auto;
       flex-direction:row;justify-content:space-around;align-items:stretch;gap:var(--space-0);
-      padding:6px 4px calc(8px + env(safe-area-inset-bottom));
+      padding:var(--space-1-5) 4px calc(8px + env(safe-area-inset-bottom));
       border-right:none;border-top:1px solid var(--line);background:var(--panel);
       box-shadow:0 -6px 24px rgba(var(--shadow-color),.08);z-index:40;overflow:visible}
-    .nav a{flex:1 1 0;min-width:0;padding:var(--space-2) var(--space-0-5) var(--space-1);font-size:10px;font-weight:600;gap:var(--space-0-5);color:var(--muted)}
+    .nav a{flex:1 1 0;min-width:0;padding:var(--space-2) var(--space-0-5) var(--space-1);font-size:var(--text-2xs-size);font-weight:600;gap:var(--space-0-5);color:var(--muted)}
     .nav a .ico svg{width:22px;height:22px}
     .nav a .nav-label{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
       white-space:normal;word-break:break-word;max-width:100%;line-height:1.15}
@@ -205,11 +205,11 @@
     .brand img{height:26px}
     .page-head{padding:var(--space-3-5) var(--space-4)}
     .page-head h1{font-size:var(--text-h4-size)}
-    .page-head-row{gap:10px}
+    .page-head-row{gap:var(--space-2-5)}
     .plan-select-wrap{min-width:180px;max-width:240px}
     .tabs{padding:var(--space-0) var(--space-4);overflow-x:auto}
-    .page-body{padding:var(--space-4) var(--space-3-5) var(--space-8);gap:20px}
-    .balance{font-size:28px}
+    .page-body{padding:var(--space-4) var(--space-3-5) var(--space-8);gap:var(--space-5)}
+    .balance{font-size:var(--text-3xl-size)}
     .chart-wrap{height:220px}
     .overview-row .chart-wrap{min-height:220px;height:220px}
     .period button{padding:var(--space-1-5) var(--space-2-5);font-size:var(--text-body-xs-size)}

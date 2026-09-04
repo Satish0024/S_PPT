@@ -30,7 +30,7 @@
 .login-logo{height:38px;display:block;margin-bottom:var(--space-5)}
 .login-card h2{font-size:var(--text-h2-size);font-weight:700;letter-spacing:-.4px;margin:var(--space-0) var(--space-0) var(--space-1-5)}
 .login-lead{color:var(--ink-soft);font-size:var(--text-body-md-size);margin:var(--space-0) var(--space-0) var(--space-5)}
-.login-field{display:flex;flex-direction:column;gap:var(--space-1-5);font-size:var(--text-body-sm-size);font-weight:700;margin-bottom:14px}
+.login-field{display:flex;flex-direction:column;gap:var(--space-1-5);font-size:var(--text-body-sm-size);font-weight:700;margin-bottom:var(--space-3-5)}
 .login-input{display:flex;align-items:center;gap:var(--space-2);border:1px solid var(--line-strong);border-radius:12px;padding:var(--space-0) var(--space-3);
   background:var(--panel);transition:border-color .15s,box-shadow .15s}
 .login-input:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 15%, transparent)}
@@ -75,7 +75,7 @@
 @media(max-width:860px){
   .login-page{grid-template-columns:1fr}
   .login-brand{min-height:220px;padding:var(--space-7) var(--space-6);align-items:flex-end}
-  .login-brand-copy h1{font-size:26px}
+  .login-brand-copy h1{font-size:var(--text-2xl-size)}
   .login-brand-copy img{height:34px;margin-bottom:var(--space-4)}
   .login-logo{height:34px}
   .login-panel{padding:var(--space-6) var(--space-4) var(--space-10)}
@@ -95,7 +95,7 @@
 .login-demo-menu{
   position:absolute;right:0;bottom:calc(100% + 8px);width:260px;max-height:320px;overflow-y:auto;
   background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);
-  padding:var(--space-1-5);display:flex;flex-direction:column;gap:1px
+  padding:var(--space-1-5);display:flex;flex-direction:column;gap:var(--space-px)
 }
 .login-demo-row{
   display:flex;align-items:center;gap:var(--space-2-5);width:100%;border:none;background:transparent;padding:var(--space-2);
