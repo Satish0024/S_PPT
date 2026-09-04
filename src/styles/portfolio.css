@@ -189,7 +189,7 @@
     .layout{display:block;padding-bottom:calc(72px + env(safe-area-inset-bottom))}
     .nav{position:fixed;left:0;right:0;bottom:0;top:auto;width:100%;height:auto;
       flex-direction:row;justify-content:space-around;align-items:stretch;gap:var(--space-0);
-      padding:var(--space-1-5) 4px calc(8px + env(safe-area-inset-bottom));
+      padding:var(--space-1-5) var(--space-1) calc(var(--space-2) + env(safe-area-inset-bottom));
       border-right:none;border-top:1px solid var(--line);background:var(--panel);
       box-shadow:0 -6px 24px rgba(var(--shadow-color),.08);z-index:40;overflow:visible}
     .nav a{flex:1 1 0;min-width:0;padding:var(--space-2) var(--space-0-5) var(--space-1);font-size:var(--text-2xs-size);font-weight:600;gap:var(--space-0-5);color:var(--muted)}
@@ -201,7 +201,7 @@
     .nav a:hover{background:transparent}
     .user-chip span{display:none}
     .user-chip{padding:var(--space-0-5);border:none}
-    .topbar{padding:0 12px 0 8px}
+    .topbar{padding:var(--space-0) var(--space-3) var(--space-0) var(--space-2)}
     .brand img{height:26px}
     .page-head{padding:var(--space-3-5) var(--space-4)}
     .page-head h1{font-size:var(--text-h4-size)}

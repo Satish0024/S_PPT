@@ -390,7 +390,7 @@ export default function DesignSystem() {
                 ['Predictable interaction', 'The same control behaves the same way everywhere — one button, one table, one dialog pattern.'],
               ].map(([t, d]) => (
                 <div key={t} className="ds-swatch" style={{ padding: 14 }}>
-                  <b style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700 }}>{t}</b>
+                  <b style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-bold)' }}>{t}</b>
                   <span style={{ display: 'block', fontSize: 'var(--text-body-xs-size)', color: 'var(--ink-soft)', marginTop: 6, fontFamily: 'inherit' }}>{d}</span>
                 </div>
               ))}
@@ -629,15 +629,15 @@ export default function DesignSystem() {
             desc="Text fields, selects, and search inputs with a visible focus ring on the wrapper."
             tags={['WCAG 2.2 AA']}
             demo={<div style={{ display: 'grid', gap: 12, width: '100%', maxWidth: 360 }}>
-              <label style={{ fontSize: 'var(--text-caption-size)', fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname
+              <label style={{ fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>Account nickname
                 <input style={{ marginTop: 6, width: '100%', padding: '10px 12px', borderRadius: 10, border: '1px solid var(--line)', background: 'var(--panel)', color: 'var(--ink)' }} placeholder="e.g. My 401(k)" />
               </label>
-              <label style={{ fontSize: 'var(--text-caption-size)', fontWeight: 700, color: 'var(--ink-soft)' }}>Distribution plan type
+              <label style={{ fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>Distribution plan type
                 <select style={{ marginTop: 6, width: '100%', padding: '10px 12px', borderRadius: 10, border: '1px solid var(--line)', background: 'var(--panel)', color: 'var(--ink)' }}>
                   <option>401(k)</option><option>403(b)</option><option>IRA — Traditional</option>
                 </select>
               </label>
-              <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)', color: 'var(--red)', fontWeight: 600 }}>
+              <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)', color: 'var(--red)', fontWeight: 'var(--font-weight-semibold)' }}>
                 <AlertTriangle size={14} /> Target percentages must add up to 100%.
               </p>
             </div>}
@@ -714,7 +714,7 @@ export default function DesignSystem() {
             demo={<div style={{ display: 'flex', gap: 6 }}>
               {['Dashboard', 'Portfolio', 'Transactions'].map((l, i) => (
                 <a key={l} href="#nav" onClick={(e) => e.preventDefault()} style={{
-                  padding: '10px 14px', borderRadius: 8, textDecoration: 'none', fontSize: 'var(--text-body-md-size)', fontWeight: 600,
+                  padding: '10px 14px', borderRadius: 8, textDecoration: 'none', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)',
                   color: i === 0 ? 'var(--brand)' : 'var(--ink-soft)', background: i === 0 ? 'var(--active-bg)' : 'transparent',
                 }}>{l}</a>
               ))}
@@ -793,11 +793,11 @@ export default function DesignSystem() {
             tags={['New pattern']}
             demo={<div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
               {['Total', 'Equity', 'Bond', 'Target'].map((l, i) => (
-                <span key={l} style={{ display: 'inline-flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)', fontWeight: 600 }}>
+                <span key={l} style={{ display: 'inline-flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-semibold)' }}>
                   <span style={{ width: 10, height: 10, borderRadius: 3, background: ['var(--brand)', 'var(--green)', 'var(--amber)', 'var(--accent)'][i] }} /> {l}
                 </span>
               ))}
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, border: '1px dashed var(--line-strong)', borderRadius: 999, padding: '5px 10px', fontSize: 'var(--text-caption-size)', fontWeight: 700, color: 'var(--ink-soft)' }}>+6 more</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, border: '1px dashed var(--line-strong)', borderRadius: 999, padding: '5px 10px', fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>+6 more</span>
             </div>}
             code={`<ChartLegend items={series} onToggle={toggleSeries} maxInline={6} />`}
           />

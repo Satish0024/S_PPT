@@ -53,7 +53,7 @@
 .as-tabs button.on .pr-nav-ico{background:var(--brand-fill);color:var(--brand-text-primary-oncolor)}
 
 .as-viz{
-  display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3) var(--space-10);margin:0 0 20px}
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3) var(--space-10);margin:var(--space-0) var(--space-0) var(--space-5)}
 .as-legend-wrap{display:flex;flex-direction:column;gap:var(--space-1-5);min-width:0;flex:1 1 260px;max-width:420px}
 .as-legend-head{
   display:flex;justify-content:space-between;gap:var(--space-2-5);padding:var(--space-0) var(--space-2-5);
@@ -126,7 +126,7 @@
 .as-row-detail td{background:var(--surface-2);padding:var(--space-0);border-bottom:1px solid var(--line)}
 .as-row-detail:hover{background:transparent}
 .as-detail-grid{
-  display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:var(--space-3-5);padding:var(--space-3-5) 16px}
+  display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:var(--space-3-5);padding:var(--space-3-5) var(--space-4)}
 .as-detail-grid div{display:flex;flex-direction:column;gap:var(--space-0-5)}
 .as-detail-grid span{font-size:var(--text-2xs-size);font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-soft)}
 .as-detail-grid b{font-size:var(--text-body-md-size);font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}

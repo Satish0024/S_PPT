@@ -45,7 +45,7 @@
 .ds-nav a:hover{background:var(--hover-bg);color:var(--ink)}
 .ds-nav a.active{background:var(--active-bg);color:var(--brand)}
 
-.ds-main{flex:1;min-width:0;padding:0 32px 96px}
+.ds-main{flex:1;min-width:0;padding:var(--space-0) var(--space-8) var(--space-24)}
 
 /* ---------- Hero ---------- */
 .ds-hero{
@@ -126,7 +126,7 @@
   background:rgba(0,0,0,.35);color:#fff;border-radius:6px;padding:var(--space-1)
 }
 .ds-swatch-btn:hover .ds-swatch-copy-ico,.ds-swatch-btn:focus-visible .ds-swatch-copy-ico{opacity:1}
-.ds-swatch-meta{padding:var(--space-2) 10px}
+.ds-swatch-meta{padding:var(--space-2) var(--space-2-5)}
 .ds-swatch-meta b{display:block;font-size:var(--text-body-xs-size);font-weight:700}
 .ds-swatch-meta span{display:block;font-size:var(--text-xs-size);color:var(--muted);font-family:ui-monospace,monospace}
 .ds-swatch-hex{color:var(--ink-soft) !important;font-weight:700;text-transform:uppercase;margin-top:var(--space-0-5)}
@@ -174,7 +174,7 @@
 
 @media(max-width:900px){
   .ds-nav{display:none}
-  .ds-main{padding:0 16px 80px}
+  .ds-main{padding:var(--space-0) var(--space-4) var(--space-20)}
 }
 
 @media(max-width:640px){
