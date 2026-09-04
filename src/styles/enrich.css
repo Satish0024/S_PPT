@@ -16,8 +16,8 @@
   .page{max-width:960px;margin:0 auto;padding:var(--space-8) var(--space-6) var(--space-14)}
 
   .page-intro{margin-bottom:var(--space-7)}
-  .page-intro .eyebrow{font-size:var(--text-eyebrow-size);font-weight:var(--text-eyebrow-weight);color:var(--accent);text-transform:uppercase;letter-spacing:.45px;margin-bottom:var(--space-2)}
-  .page-intro h1{font-size:var(--text-3xl-size);font-weight:700;letter-spacing:-.5px;margin-bottom:var(--space-2)}
+  .page-intro .eyebrow{font-size:var(--text-eyebrow-size);font-weight:var(--text-eyebrow-weight);color:var(--accent);text-transform:uppercase;letter-spacing:var(--ls-wide);margin-bottom:var(--space-2)}
+  .page-intro h1{font-size:var(--text-h1-size);font-weight:var(--font-weight-bold);letter-spacing:var(--text-h1-ls);line-height:var(--text-h1-lh);margin-bottom:var(--space-2)}
   .page-intro p{font-size:var(--text-body-lg-size);color:var(--ink-soft);line-height:1.55;max-width:540px}
 
   .search-bar{
@@ -45,9 +45,9 @@
       linear-gradient(160deg,var(--brand),var(--accent))}
   .featured .f-visual .label{
     position:relative;z-index:1;font-size:var(--text-caption-size);font-weight:700;text-transform:uppercase;
-    letter-spacing:.4px;color:color-mix(in srgb, var(--brand-text-primary-oncolor) 85%, transparent);margin-bottom:var(--space-1-5)}
+    letter-spacing:var(--ls-wide);color:color-mix(in srgb, var(--brand-text-primary-oncolor) 85%, transparent);margin-bottom:var(--space-1-5)}
   .featured .f-visual h2{
-    position:relative;z-index:1;font-size:var(--text-display-md-size);font-weight:700;color:var(--brand-text-primary-oncolor);line-height:1.25;letter-spacing:-.3px}
+    position:relative;z-index:1;font-size:var(--text-display-md-size);font-weight:700;color:var(--brand-text-primary-oncolor);line-height:1.25;letter-spacing:var(--ls-snug)}
   .featured .f-body{padding:var(--space-7) var(--space-7) var(--space-6);display:flex;flex-direction:column;justify-content:center}
   .featured .f-body p{font-size:var(--text-body-md-size);color:var(--ink-soft);line-height:1.55;margin-bottom:var(--space-4)}
   .featured .f-meta{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-5)}
@@ -61,7 +61,7 @@
   .btn-go svg{width:16px;height:16px;transition:transform .2s}
   .btn-go:hover svg{transform:translateX(3px)}
 
-  .section-label{font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink);margin-bottom:var(--space-3-5);letter-spacing:-.1px}
+  .section-label{font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink);margin-bottom:var(--space-3-5);letter-spacing:var(--ls-snug)}
 
   .cats{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-5)}
   .cat{
@@ -93,12 +93,12 @@
   .card.t3 .thumb .t-ico{color:var(--amber)}
   .card.t4 .thumb .t-ico{color:var(--red)}
   .card .c-body{padding:var(--space-6) var(--space-4) var(--space-4);flex:1;display:flex;flex-direction:column}
-  .card .tag{font-size:var(--text-2xs-size);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:var(--space-1-5)}
+  .card .tag{font-size:var(--text-2xs-size);font-weight:700;text-transform:uppercase;letter-spacing:var(--ls-wide);margin-bottom:var(--space-1-5)}
   .card.t1 .tag{color:var(--accent)}
   .card.t2 .tag{color:var(--green)}
   .card.t3 .tag{color:var(--amber)}
   .card.t4 .tag{color:var(--red)}
-  .card h3{font-size:var(--text-h5-size);font-weight:700;margin-bottom:var(--space-1-5);letter-spacing:-.15px;line-height:1.3}
+  .card h3{font-size:var(--text-h5-size);font-weight:700;margin-bottom:var(--space-1-5);letter-spacing:var(--ls-snug);line-height:1.3}
   .card p{font-size:var(--text-body-sm-size);color:var(--ink-soft);line-height:1.45;flex:1}
   .card .foot{
     display:flex;align-items:center;justify-content:space-between;margin-top:var(--space-3-5);

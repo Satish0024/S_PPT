@@ -27,12 +27,11 @@ const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1
 // printout) can still tell the lines apart. Chart.js applies `dash` as
 // `borderDash` and `pointStyle` as-is; the legend swatches below draw the
 // same dash pattern in CSS so the key matches the chart.
-// Color is resolved from the app's one shared chart palette (styles/
-// index.css --chart-1..7 -- see accountSummary.js's colorPalette() for
-// the donut using the same set) at render time, not a fixed hex here --
-// Chart.js/canvas can't read var() directly, so it needs the browser-
-// resolved value, but the value itself still tracks --brand/--green/
-// --red/--amber like everything else in the app.
+// Color is resolved from the live CSS custom properties at render time
+// (see the `chartOptions`-style useMemo below) instead of being a fixed
+// hex here -- Chart.js/canvas can't read var() directly, so it needs the
+// browser-resolved value, but the value itself still tracks --brand/
+// --green/--red/--amber like everything else in the app.
 const SERIES_META = [
   { key: 'total', label: 'Total portfolio', token: '--chart-1', dash: [], pointStyle: 'circle' },
   { key: 'equity', label: 'U.S. Equity', token: '--chart-3', dash: [7, 4], pointStyle: 'triangle' },
@@ -56,7 +55,7 @@ export default function Portfolio() {
   const [tab, setTab] = useState('overview')
   const [openFund, setOpenFund] = useState(null)
   const [period, setPeriod] = useState('1y')
-  const [planId, setPlanId] = useState('saturna-401k')
+  const [planId, setPlanId] = useState('lendguard-401k')
   const [sort, setSort] = useState({ key: null, dir: 1 })
   const [ytdDir, setYtdDir] = useState(null)
   const [visible, setVisible] = useState({ total: true, equity: false, bond: false, target: false })
@@ -422,6 +421,10 @@ function line(series, data, order, hidden) {
 // to be rebuilt whenever the theme flips rather than defined once at import
 // time — this factory is called from the component with each render's
 // resolved --ink-soft/--line/--muted values.
+// Chart.js requires numeric px — keep in sync with --text-xs-size (12px)
+// and --font-weight-semibold (600) from the design-system type scale.
+const CHART_AXIS_FONT = { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' }
+
 function buildChartOptions({ axisTitle, gridLine, tick }) {
   return {
     responsive: true,
@@ -439,7 +442,7 @@ function buildChartOptions({ axisTitle, gridLine, tick }) {
           display: true,
           text: 'Time Period',
           color: axisTitle,
-          font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
+          font: CHART_AXIS_FONT,
           padding: { top: 8 }
         },
         grid: { display: true, color: gridLine, borderDash: [4, 4], drawTicks: false },
@@ -453,7 +456,7 @@ function buildChartOptions({ axisTitle, gridLine, tick }) {
           display: true,
           text: 'Rate of return (%)',
           color: axisTitle,
-          font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
+          font: CHART_AXIS_FONT,
           padding: { bottom: 6 }
         },
         grid: { color: gridLine, borderDash: [4, 4] },
