@@ -202,8 +202,40 @@
     --btn-gap: var(--space-2);
     --form-label-gap: var(--space-1-5);
     --form-control-gap: var(--space-4);
+    --form-field-gap: var(--space-3-5);
     --input-padding-y: var(--space-2-5);
     --input-padding-x: var(--space-3);
+
+    /* ================================================================
+       LAYOUT SPACING — Tailwind-aligned semantic tokens
+       ================================================================
+       Page:   px-8 py-6 gap-5   (desktop) / tighter on mobile
+       Card:   p-5               (default panels / txn cards)
+       Card sm:p-4               (compact section cards)
+       Section:mb-4 / gap-5      (between major blocks)
+       Stack:  gap-3             (vertical lists of related items)
+       Inline: gap-2             (chips, icon+label, button groups)
+       ================================================================ */
+    --page-padding-y: var(--space-6);
+    --page-padding-x: var(--space-8);
+    --page-padding-bottom: var(--space-12);
+    --page-gap: var(--space-5);
+    --page-padding-y-md: var(--space-5);
+    --page-padding-x-md: var(--space-4);
+    --page-padding-bottom-md: var(--space-10);
+    --page-padding-y-sm: var(--space-4);
+    --page-padding-x-sm: var(--space-4);
+    --page-padding-bottom-sm: var(--space-8);
+    --card-padding: var(--space-5);
+    --card-padding-sm: var(--space-4);
+    --card-padding-lg: var(--space-6);
+    --section-gap: var(--space-5);
+    --section-title-mb: var(--space-3);
+    --stack-gap: var(--space-3);
+    --stack-gap-sm: var(--space-2);
+    --inline-gap: var(--space-2);
+    --inline-gap-sm: var(--space-1-5);
+    --actions-gap: var(--space-2-5);
 
     /* Radius — this app's own dominant real values (10px buttons, 14px
        cards, 9px inputs — grep-verified frequency) don't match a
@@ -454,7 +486,7 @@
   .nav a:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:var(--radius-sm)}
 
   .main{flex:1;min-width:0;display:flex;flex-direction:column}
-  .page-body{padding:var(--space-6) var(--space-8) var(--space-12);display:flex;flex-direction:column;gap:var(--space-5);width:100%;max-width:none}
+  .page-body{padding:var(--page-padding-y) var(--page-padding-x) var(--page-padding-bottom);display:flex;flex-direction:column;gap:var(--page-gap);width:100%;max-width:none}
 
   /* Greeting — floated on top */
   .hi-bar{
@@ -488,7 +520,7 @@
   .scenario-banner .sb-reason strong{font-weight:700;color:var(--ink)}
 
   .overall-balance{
-    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-xl);padding:var(--space-5) var(--space-6);
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-xl);padding:var(--card-padding) var(--card-padding-lg);
     box-shadow:var(--shadow)}
   .overall-balance .ob-top{
     display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:var(--space-4) var(--space-6)}
@@ -519,7 +551,7 @@
 
   .rr-card{
     background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow);
-    padding:var(--space-4) var(--space-4) var(--space-4);display:flex;flex-direction:column;gap:var(--space-4);position:relative}
+    padding:var(--card-padding-sm) var(--space-4);display:flex;flex-direction:column;gap:var(--space-4);position:relative}
   .rr-card::before{
     content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--brand),var(--green))}
   .rr-head{display:flex;align-items:center;gap:var(--space-2-5);padding:var(--space-0);background:none;color:inherit}
@@ -921,7 +953,7 @@
   .rg-save.warn{box-shadow:0 0 0 1px var(--red-line),var(--shadow-lg)}
   .rg-save .enroll-modal-actions{grid-template-columns:1fr}
   .rg-save h4{color:var(--ink);margin-bottom:var(--space-1-5)}
-  .rg-save .rg-save-hero p{margin-bottom:0}
+  .rg-save .rg-save-hero p{margin-bottom:var(--space-0)}
   .rg-save-score{
     display:flex;flex-direction:column;align-items:center;gap:var(--space-1);
     margin:var(--space-3-5) var(--space-0) var(--space-4);padding:var(--space-4) var(--space-3-5);border-radius:12px;background:var(--surface-2)}
@@ -963,7 +995,7 @@
   .dash-main{display:flex;flex-direction:column;gap:var(--space-5);min-width:0}
   .dash-side{display:flex;flex-direction:column;gap:var(--space-4);min-width:0}
 
-  .section-title{font-size:var(--text-h2-size);font-weight:var(--font-weight-bold);letter-spacing:var(--text-h2-ls);line-height:var(--text-h2-lh);margin:var(--space-0) var(--space-0) var(--space-3);color:var(--ink)}
+  .section-title{font-size:var(--text-h2-size);font-weight:var(--font-weight-bold);letter-spacing:var(--text-h2-ls);line-height:var(--text-h2-lh);margin:var(--space-0) var(--space-0) var(--section-title-mb);color:var(--ink)}
 
   /* My Plans */
   .plans-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3-5)}
@@ -971,7 +1003,7 @@
      let it span the full row instead. */
   .plans-grid > *:only-child{grid-column:1 / -1}
   .plan-card{
-    background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:var(--space-4) var(--space-4) var(--space-4);
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:var(--card-padding-sm) var(--space-4);
     box-shadow:var(--shadow);display:flex;flex-direction:column;gap:var(--space-3-5);min-width:0}
   .plan-card.ineligible{background:var(--surface-2);border-style:dashed}
   .plan-card.eligible-not{background:var(--panel)}
@@ -1025,7 +1057,7 @@
   /* Enrich + readiness side */
   .learn-card{
     display:flex;flex-direction:column;gap:var(--space-3-5);text-decoration:none;color:inherit;
-    background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:var(--space-5) var(--space-5) var(--space-5);
+    background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:var(--card-padding) var(--space-5);
     box-shadow:0 12px 16px rgba(var(--shadow-color),.05);position:relative;overflow:hidden;
     transition:box-shadow .2s ease,border-color .2s ease,transform .2s ease}
   .learn-card:hover{box-shadow:var(--shadow-lg);border-color:var(--line-strong);transform:translateY(-1px)}
@@ -1178,8 +1210,8 @@
   .btn-sm.primary:hover{background:var(--brand-dark)}
 
   /* Recent transactions */
-  .section-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:var(--space-3) var(--space-3-5);box-shadow:var(--shadow)}
-  .section-card.tx-compact{margin-top:0}
+  .section-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--card-padding-sm);box-shadow:var(--shadow)}
+  .section-card.tx-compact{margin-top:var(--space-0)}
   .section-card .section-head{display:flex;align-items:center;justify-content:space-between;gap:var(--space-2-5);margin-bottom:var(--space-2)}
   .section-card h3{font-size:var(--text-h6-size);font-weight:var(--font-weight-bold);margin:var(--space-0);letter-spacing:var(--ls-snug)}
 
@@ -1227,16 +1259,16 @@
   .status-banner p{color:var(--ink-soft);font-size:var(--text-paragraph-sm-size);line-height:1.5}
 
   .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3-5)}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:var(--space-4) var(--space-4);box-shadow:var(--shadow)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:var(--card-padding-sm);box-shadow:var(--shadow)}
   .card .k{font-size:var(--text-xs-size);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:var(--ls-wide);margin-bottom:var(--space-2)}
   .card .v{font-size:var(--text-display-md-size);font-weight:700;letter-spacing:var(--ls-tight);line-height:1.15}
   .card .s{margin-top:var(--space-1-5);font-size:var(--text-body-sm-size);color:var(--ink-soft);line-height:1.4}
   .card .v.pos{color:var(--green)}
 
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:var(--space-5) var(--space-5);box-shadow:var(--shadow)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--card-padding);box-shadow:var(--shadow)}
   .panel h3{font-size:var(--text-h5-size);font-weight:var(--font-weight-bold);margin-bottom:var(--space-1-5)}
   .panel p{color:var(--ink-soft);font-size:var(--text-paragraph-sm-size);line-height:1.5;margin-bottom:var(--space-3-5)}
-  .actions{display:flex;flex-wrap:wrap;gap:var(--space-2-5)}
+  .actions{display:flex;flex-wrap:wrap;gap:var(--actions-gap)}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--btn-gap);padding:var(--btn-padding-y-md) var(--btn-padding-x-md);border-radius:var(--radius-sm);
     font-weight:var(--text-button-md-weight);font-size:var(--text-button-md-size);line-height:var(--text-button-md-lh);text-decoration:none;border:1px solid transparent;cursor:pointer}
   .btn-lg{padding:var(--btn-padding-y-lg) var(--btn-padding-x-lg);font-size:var(--text-button-lg-size);font-weight:var(--text-button-lg-weight);line-height:var(--text-button-lg-lh)}
@@ -1434,7 +1466,7 @@
   .pf-v{display:block;font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--ink)}
   .bene-name{display:block;color:var(--ink);font-weight:700;margin-bottom:var(--space-0-5)}
   .profile-grid .panel .actions{margin-top:var(--space-3-5)}
-  .profile-grid .panel p{margin-bottom:0}
+  .profile-grid .panel p{margin-bottom:var(--space-0)}
 
   .tx-page{padding:var(--space-4) var(--space-5)}
   .tx-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4)}
@@ -1490,7 +1522,7 @@
     display:flex;justify-content:space-between;gap:var(--space-3);align-items:baseline;
     padding:var(--space-2) var(--space-0);border-bottom:1px solid var(--line);font-size:var(--text-body-md-size);color:var(--ink-soft)
   }
-  .detail-rows li:last-child{border-bottom:0;padding-bottom:0}
+  .detail-rows li:last-child{border-bottom:0;padding-bottom:var(--space-0)}
   .detail-rows b{color:var(--ink);text-align:right}
   .detail-rows small{font-weight:600;color:var(--muted);margin-left:var(--space-2)}
   .pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3) var(--space-4)}
@@ -1505,7 +1537,7 @@
   .enroll-modal-actions .btn{width:100%}
 
   @media(max-width:980px){
-    .page-body{padding:var(--space-5) var(--space-4) var(--space-10)}
+    .page-body{padding:var(--page-padding-y-md) var(--page-padding-x-md) var(--page-padding-bottom-md)}
     .nav{width:88px;flex-basis:88px}
     .nav a{padding:var(--space-3) var(--space-1);font-size:var(--text-xs-size)}
     .cards{grid-template-columns:1fr}
@@ -1540,7 +1572,7 @@
     .nav a .nav-label{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
       white-space:normal;line-height:1.15}
     .nav a.active::before{left:28%;right:28%;top:0;bottom:auto;width:auto;height:3px;border-radius:0 0 4px 4px}
-    .page-body{padding:var(--space-4) var(--space-3-5) var(--space-8)}
+    .page-body{padding:var(--page-padding-y-sm) var(--page-padding-x-sm) var(--page-padding-bottom-sm)}
     .hi-bar h1{font-size:var(--text-display-md-size)}
     .pr-row,.pr-field{grid-template-columns:1fr;gap:var(--space-1);align-items:start;padding:var(--space-2-5) 0}
     .pr-field input:not([type="radio"]):not([type="checkbox"]),.pr-field select,.pr-input-ico,.pr-phone{max-width:none}
@@ -1577,7 +1609,7 @@
   .rq-bg{position:fixed;inset:0;background:color-mix(in srgb, var(--ink) 50%, transparent);z-index:90;display:grid;place-items:center;padding:var(--space-5)}
   .rq-modal{
     width:min(520px,100%);max-height:min(88vh,640px);overflow:auto;background:var(--panel);border-radius:20px;
-    padding:var(--space-6) var(--space-6) var(--space-5);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;gap:var(--space-4);
+    padding:var(--card-padding-lg) var(--space-5);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;gap:var(--space-4);
     animation:rq-modal-in .25s ease}
   @keyframes rq-modal-in{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
   .rq-head{display:flex;align-items:center;gap:var(--space-3-5)}
@@ -1656,7 +1688,7 @@
 
   /* ---------- Confirm dialog (centered, distinct from Slideover) ---------- */
   .confirm-dialog{
-    width:min(360px,100%);background:var(--panel);border-radius:var(--radius-xl);padding:var(--space-6) var(--space-6) var(--space-5);box-shadow:var(--shadow-lg);
+    width:min(360px,100%);background:var(--panel);border-radius:var(--radius-xl);padding:var(--card-padding-lg) var(--space-5);box-shadow:var(--shadow-lg);
     text-align:center;display:flex;flex-direction:column;align-items:center;animation:rq-modal-in .22s ease}
   /* .txn-field's flex:1 1 200px is meant for side-by-side fields in a
      .txn-row — inside this dialog's vertical flex column that flex-grow
@@ -1683,12 +1715,12 @@
   /* ---------- Loan calculator slideover ---------- */
   .loan-calc{display:flex;flex-direction:column;gap:var(--space-4)}
   .loan-calc-lead{font-size:var(--text-sm-size);line-height:1.5;color:var(--ink-soft);margin:var(--space-0)}
-  .loan-calc .rq-field{margin-bottom:0}
+  .loan-calc .rq-field{margin-bottom:var(--space-0)}
   .loan-calc .rq-field label{font-size:var(--text-caption-size);font-weight:700;color:var(--ink-soft);margin-bottom:var(--space-1-5);display:block}
   .loan-calc .rq-field input{width:100%}
   .loan-calc .rq-opt{padding:var(--space-2-5) var(--space-3);font-size:var(--text-sm-size)}
   .loan-calc-result{
-    background:var(--active-bg);border-radius:12px;padding:var(--space-4) var(--space-4);display:flex;flex-direction:column;gap:var(--space-0-5)}
+    background:var(--active-bg);border-radius:12px;padding:var(--card-padding-sm);display:flex;flex-direction:column;gap:var(--space-0-5)}
   .loan-calc-result-title{font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold);color:var(--ink-soft)}
   .loan-calc-result > b{font-size:var(--text-2xl-size);font-weight:800;color:var(--brand);letter-spacing:var(--ls-snug);margin:var(--space-0-5) var(--space-0) var(--space-2-5)}
   .loan-calc-breakdown{display:flex;gap:var(--space-5);padding-top:var(--space-2-5);border-top:1px solid rgba(var(--shadow-color),.08)}
@@ -1700,7 +1732,7 @@
   .edit-alloc{display:flex;gap:var(--space-6);align-items:flex-start}
   .edit-alloc-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--space-1)}
   .edit-alloc-main h4{font-size:var(--text-body-sm-size);font-weight:800;color:var(--ink);margin:var(--space-4) var(--space-0) var(--space-2-5)}
-  .edit-alloc-main h4:first-child{margin-top:0}
+  .edit-alloc-main h4:first-child{margin-top:var(--space-0)}
   .edit-alloc-readcard{
     background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--space-3) var(--space-3-5);
     display:flex;flex-direction:column;gap:var(--space-0-5);margin-bottom:var(--space-3-5)}
@@ -1752,7 +1784,7 @@
   @media(max-width:760px){
     .edit-alloc{flex-direction:column}
     .edit-alloc-fee{flex:1 1 auto;width:100%;position:static}
-    .edit-alloc-bankcard > div:not(:last-child){border-right:none;padding-right:0}
+    .edit-alloc-bankcard > div:not(:last-child){border-right:none;padding-right:var(--space-0)}
     .wd-source-metrics{grid-template-columns:1fr}
   }
 
@@ -1780,7 +1812,7 @@
     color:var(--amber);line-height:1.5}
   .wd-alloc-incomplete-hint svg{flex:0 0 auto;margin-top:var(--space-0-5)}
   .wd-fee-card{
-    background:var(--active-bg);border-radius:12px;padding:var(--space-4) var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-4)}
+    background:var(--active-bg);border-radius:12px;padding:var(--card-padding-sm);display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-4)}
   .wd-fee-row{display:flex;justify-content:space-between;font-size:var(--text-body-sm-size);color:var(--ink-soft)}
   .wd-fee-row b{color:var(--ink);font-weight:700}
   .wd-fee-row.total{padding-top:var(--space-2);border-top:1px solid rgba(var(--shadow-color),.08)}
@@ -2578,7 +2610,7 @@ summary:focus-visible {
 @media (max-width: 1080px) {
   .rr3, .learn2, .risk3 { padding:var(--space-4); }
   .rgs-body { padding:var(--space-4); }
-  .rgs-banner { padding:var(--space-4) var(--space-4) var(--space-4); }
+  .rgs-banner { padding:var(--card-padding-sm) var(--space-4); }
 }
 /* Narrow sidebar column: stack the ring above the figures and pull the
    decorative fields back so they never crowd the copy. */

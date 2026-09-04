@@ -11,7 +11,7 @@
     padding:var(--space-2-5) var(--space-10) var(--space-2-5) var(--space-3-5);font:inherit;font-size:var(--text-sm-size);font-weight:600;color:var(--ink);cursor:pointer;
     box-shadow:var(--shadow)}
   .plan-select:focus{outline:2px solid color-mix(in srgb, var(--brand) 25%, transparent);outline-offset:1px;border-color:var(--brand)}
-  .page-body{flex:1;padding:var(--space-7) var(--space-8) var(--space-12);display:flex;flex-direction:column;gap:var(--space-7)}
+  .page-body{flex:1;padding:var(--page-padding-y) var(--page-padding-x) var(--page-padding-bottom);display:flex;flex-direction:column;gap:var(--section-gap)}
 
   .hero-stats{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--space-4)}
   .balance-k{font-size:var(--text-body-sm-size);font-weight:600;color:var(--muted);margin-bottom:var(--space-1)}
@@ -35,7 +35,7 @@
   .overview-row .stat-block .stat-v.pos{color:var(--green)}
   .overview-row .overall-grid{display:flex;flex-direction:column;gap:var(--space-2);flex:1}
   .overview-row .chart-panel{margin:var(--space-0);min-width:0;height:100%;display:flex;flex-direction:column;box-sizing:border-box;
-    padding:var(--space-4) var(--space-4) var(--space-3-5)}
+    padding:var(--card-padding-sm) var(--space-3-5)}
   .overview-row .chart-top{margin-bottom:var(--space-2);gap:var(--space-2)}
   .overview-row .chart-top h2{font-size:var(--text-h5-size)}
   .overview-row .legend{gap:var(--space-2-5)}
@@ -167,7 +167,7 @@
   .holdings-table th.sortable.asc::after{content:"↑";opacity:1;color:var(--brand)}
   .holdings-table th.sortable.desc::after{content:"↓";opacity:1;color:var(--brand)}
   .overall-card{border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);
-    padding:var(--space-4) var(--space-4);margin-bottom:var(--space-3-5)}
+    padding:var(--card-padding-sm);margin-bottom:var(--space-3-5)}
   .overall-card .overall-label{font-size:var(--text-body-md-size);font-weight:700;color:var(--brand);margin-bottom:var(--space-3)}
   .overall-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-3) var(--space-4)}
   .overall-grid .stat-k{font-size:var(--text-caption-size);font-weight:600;color:var(--muted);margin-bottom:var(--space-1)}
@@ -176,8 +176,8 @@
   .bench{color:var(--ink-soft);font-size:var(--text-caption-size);white-space:normal;min-width:160px}
 
   @media(max-width:980px){
-    .page-body{padding:var(--space-5) var(--space-4) var(--space-10)}
-    .page-head{padding:var(--space-4) var(--space-4)}
+    .page-body{padding:var(--page-padding-y-md) var(--page-padding-x-md) var(--page-padding-bottom-md)}
+    .page-head{padding:var(--card-padding-sm)}
     .nav{width:88px;flex-basis:88px;padding:var(--space-3-5) var(--space-0)}
     .nav a{padding:var(--space-3) var(--space-1);font-size:var(--text-caption-size)}
     .chart-wrap{height:240px}
@@ -208,7 +208,7 @@
     .page-head-row{gap:var(--space-2-5)}
     .plan-select-wrap{min-width:180px;max-width:240px}
     .tabs{padding:var(--space-0) var(--space-4);overflow-x:auto}
-    .page-body{padding:var(--space-4) var(--space-3-5) var(--space-8);gap:var(--space-5)}
+    .page-body{padding:var(--page-padding-y-sm) var(--page-padding-x-sm) var(--page-padding-bottom-sm);gap:var(--page-gap)}
     .balance{font-size:var(--text-3xl-size)}
     .chart-wrap{height:220px}
     .overview-row .chart-wrap{min-height:220px;height:220px}

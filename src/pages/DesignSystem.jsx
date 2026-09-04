@@ -546,7 +546,9 @@ export default function DesignSystem() {
                 ))}
               </div>
               <div className="ds-panel">
-                <div className="ds-panel-row"><b>Radius — </b>10–12px for inputs/buttons, 14–16px for cards and panels, 999px for pills/badges/toggles.</div>
+                <div className="ds-panel-row"><b>Radius — </b>8px (--radius-sm) buttons/inputs, 14px (--radius-lg) cards, 999px pills.</div>
+                <div className="ds-panel-row"><b>Layout tokens — </b>page (--page-padding-*), card (--card-padding / sm / lg), form (--form-label-gap, --form-control-gap), button (--btn-padding-*-sm/md/lg). Prefer these over raw --space-* in UI chrome.</div>
+                <div className="ds-panel-row"><b>Buttons — </b>sm 8×12 (py-2 px-3), md 10×16 (py-2.5 px-4), lg 12×24 (py-3 px-6). Field→submit gap 16px (--form-control-gap).</div>
               </div>
             </div>
           </section>
@@ -939,7 +941,7 @@ const { listening, start, stop: stopListening } = useVoiceNav(navigate)
             </div>
           </section>
 
-          <div style={{ borderTop: '1px solid var(--line)', paddingTop: 24, fontSize: 'var(--text-caption-size)', color: 'var(--muted)', maxWidth: 'var(--ds-content-max)' }}>
+          <div style={{ borderTop: '1px solid var(--line)', paddingTop: 'var(--space-6)', fontSize: 'var(--text-caption-size)', color: 'var(--muted)', maxWidth: 'var(--ds-content-max)' }}>
             <MousePointerClick size={14} style={{ verticalAlign: -2, marginRight: 'var(--space-1-5)' }} />
             Generated from the live application codebase. Available at <code>/design-system</code> on every brand build.
           </div>
