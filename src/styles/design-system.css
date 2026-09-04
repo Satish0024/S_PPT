@@ -214,7 +214,7 @@
 /* ---------- Font card (name + about + weight ladder) ---------- */
 .ds-font-card{border:1px solid var(--line);border-radius:14px;background:var(--panel);box-shadow:var(--ds-elev-1);padding: var(--space-6);margin-bottom:22px}
 .ds-font-name{display:block;font-size:var(--text-sm-size);font-weight:800;color:var(--brand);text-transform:uppercase;letter-spacing:.4px;margin-bottom:var(--space-3)}
-.ds-font-sample{font-size:var(--text-5xl-size);font-weight:700;line-height:1;margin-bottom: var(--space-4);color:var(--ink)}
+.ds-font-sample{font-size:var(--text-5xl-size);font-weight:700;line-height:1.2;margin-bottom: var(--space-4);color:var(--ink)}
 .ds-font-about{font-size:var(--text-sm-size);line-height:1.6;color:var(--ink-soft);max-width:640px;margin-bottom:var(--space-4)}
 .ds-font-about code{font-family:ui-monospace,monospace;font-size:var(--text-xs-size);background:var(--surface-3);padding: var(--space-0-5) var(--space-1-5);border-radius:5px}
 .ds-font-weights{display:flex;flex-wrap:wrap;gap: var(--space-5);padding-top: var(--space-3-5);border-top:1px solid var(--line)}
