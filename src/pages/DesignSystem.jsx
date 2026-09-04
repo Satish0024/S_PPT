@@ -202,15 +202,67 @@ const KEYBOARD_ROWS = [
   ['Home / End', 'Jump to first / last item in a list or menu', 'Menus, step navigator'],
 ]
 
+/** WCAG 2.2 Level A + AA checklist for this portal (AA conformance = all A and AA). */
 const WCAG_CHECKS = [
-  ['1.4.3', 'Contrast (Minimum)', 'Text vs. background meets 4.5:1 (3:1 for large text) in both light and dark themes.'],
-  ['1.4.11', 'Non-text Contrast', 'Input borders, focus rings, and icon-only controls meet 3:1 against adjacent colors.'],
-  ['2.1.1', 'Keyboard', 'Every interactive control — including div-based custom controls — is reachable and operable via keyboard alone.'],
-  ['2.4.7', 'Focus Visible', 'A visible focus indicator is drawn for every focusable element, never clipped by a scrolling ancestor.'],
-  ['2.4.3', 'Focus Order', 'Focus order follows the visual/reading order — no unexpected jumps when tabbing.'],
-  ['2.5.5', 'Target Size', 'Touch targets are at least 24×24px (44×44px preferred) with adequate spacing.'],
-  ['3.3.1', 'Error Identification', 'Form errors are announced via role="alert" and described in text, not color alone.'],
-  ['4.1.2', 'Name, Role, Value', 'Custom components expose an accessible name, role, and state via semantic HTML or ARIA.'],
+  // Perceivable
+  ['1.1.1', 'A', 'Non-text Content', 'Images, icons, and charts expose text alternatives (alt, aria-label, or adjacent visible text). Decorative marks use empty alt or aria-hidden.'],
+  ['1.2.1', 'A', 'Audio-only and Video-only (Prerecorded)', 'N/A — portal has no prerecorded audio-/video-only media.'],
+  ['1.2.2', 'A', 'Captions (Prerecorded)', 'N/A — no prerecorded synchronized media.'],
+  ['1.2.3', 'A', 'Audio Description or Media Alternative', 'N/A — no prerecorded video.'],
+  ['1.2.4', 'AA', 'Captions (Live)', 'N/A — no live media.'],
+  ['1.2.5', 'AA', 'Audio Description (Prerecorded)', 'N/A — no prerecorded video.'],
+  ['1.3.1', 'A', 'Info and Relationships', 'Structure uses semantic HTML (headings, lists, tables, labels, fieldsets) so relationships are available to AT.'],
+  ['1.3.2', 'A', 'Meaningful Sequence', 'DOM order matches reading order; CSS reordering does not change meaning.'],
+  ['1.3.3', 'A', 'Sensory Characteristics', 'Instructions never rely on shape, color, size, or position alone (e.g. errors use text + icon).'],
+  ['1.3.4', 'AA', 'Orientation', 'Layouts work in portrait and landscape; no orientation lock.'],
+  ['1.3.5', 'AA', 'Identify Input Purpose', 'Auth and profile fields use autocomplete / input purpose where applicable (email, name, tel).'],
+  ['1.4.1', 'A', 'Use of Color', 'Status and validation never use color alone — paired with labels, icons, or text.'],
+  ['1.4.2', 'A', 'Audio Control', 'N/A — no auto-playing audio. Read-aloud is user-initiated and stoppable.'],
+  ['1.4.3', 'AA', 'Contrast (Minimum)', 'Text vs background meets 4.5:1 (3:1 large text) in light and dark themes via semantic color tokens.'],
+  ['1.4.4', 'AA', 'Resize Text', 'Type uses rem; UI remains usable when text is resized to 200% without loss of content.'],
+  ['1.4.5', 'AA', 'Images of Text', 'UI text is real text (CSS), not images of text, except logos/brand marks.'],
+  ['1.4.10', 'AA', 'Reflow', 'At 320 CSS px width, content reflows to a single column without requiring two-dimensional scrolling for reading.'],
+  ['1.4.11', 'AA', 'Non-text Contrast', 'Borders, focus rings, and icon-only controls meet ≥3:1 against adjacent colors.'],
+  ['1.4.12', 'AA', 'Text Spacing', 'Body/UI text uses line-height ≥1.5; layouts tolerate increased spacing without clipping or overlap.'],
+  ['1.4.13', 'AA', 'Content on Hover or Focus', 'Tooltips/menus are dismissible (Esc), hoverable, and persistent until dismissed or focus moves.'],
+  // Operable
+  ['2.1.1', 'A', 'Keyboard', 'All interactive controls are reachable and operable via keyboard (native controls or keyboard handlers).'],
+  ['2.1.2', 'A', 'No Keyboard Trap', 'Focus can always leave dialogs, menus, and custom widgets (Esc + Tab cycle with return to trigger).'],
+  ['2.1.4', 'A', 'Character Key Shortcuts', 'No single-character shortcuts; voice-nav commands are multi-word and user-triggered.'],
+  ['2.2.1', 'A', 'Timing Adjustable', 'No short session timeouts on critical flows; any timed UI can be extended or is not essential.'],
+  ['2.2.2', 'A', 'Pause, Stop, Hide', 'Motion (e.g. CTA pulse) respects prefers-reduced-motion; auto-updating content can be paused/stopped.'],
+  ['2.3.1', 'A', 'Three Flashes or Below Threshold', 'No content flashes more than three times per second.'],
+  ['2.4.1', 'A', 'Bypass Blocks', 'Skip patterns via landmarks (<header>/<nav>/<main>) and section headings so AT users can jump regions.'],
+  ['2.4.2', 'A', 'Page Titled', 'document title is unique and descriptive per route (brand + page purpose).'],
+  ['2.4.3', 'A', 'Focus Order', 'Tab order follows visual/reading order; open dialogs trap focus intentionally then restore it.'],
+  ['2.4.4', 'A', 'Link Purpose (In Context)', 'Link text (or accessible name) describes destination/action without relying on surrounding context alone when ambiguous.'],
+  ['2.4.5', 'AA', 'Multiple Ways', 'Primary destinations reachable via left nav, dashboard quick links, and in-page actions.'],
+  ['2.4.6', 'AA', 'Headings and Labels', 'Pages use hierarchical headings; form controls have visible associated labels.'],
+  ['2.4.7', 'AA', 'Focus Visible', 'Every focusable control shows a visible :focus-visible ring; inset offset used inside scroll containers.'],
+  ['2.4.11', 'AA', 'Focus Not Obscured (Minimum)', 'Focused controls are not entirely hidden by sticky header/overlays; dialogs manage stacking so focus stays visible.'],
+  ['2.5.1', 'A', 'Pointer Gestures', 'No multipoint or path-based gestures required; all actions work with single-pointer activation.'],
+  ['2.5.2', 'A', 'Pointer Cancellation', 'Click/tap actions complete on up-event; accidental press can be aborted by releasing outside the control.'],
+  ['2.5.3', 'A', 'Label in Name', 'Accessible name of controls includes the visible label text (e.g. buttons, chips, form fields).'],
+  ['2.5.4', 'A', 'Motion Actuation', 'No features require device motion; optional motion UI is not required to operate.'],
+  ['2.5.7', 'AA', 'Dragging Movements', 'No essential drag-only interactions; allocation/list edits use buttons and forms as alternatives.'],
+  ['2.5.8', 'AA', 'Target Size (Minimum)', 'Interactive targets are ≥24×24 CSS px (icon buttons 32–44px; preferred 44×44 where space allows).'],
+  // Understandable
+  ['3.1.1', 'A', 'Language of Page', 'Root lang attribute set on the document (html lang).'],
+  ['3.1.2', 'AA', 'Language of Parts', 'N/A unless foreign-language snippets appear; any such snippets would set lang on the element.'],
+  ['3.2.1', 'A', 'On Focus', 'Focus alone does not trigger context change (no auto-submit or navigation on focus).'],
+  ['3.2.2', 'A', 'On Input', 'Changing a control does not force unexpected navigation; submits are explicit buttons.'],
+  ['3.2.3', 'AA', 'Consistent Navigation', 'Primary nav order and placement stay consistent across authenticated pages.'],
+  ['3.2.4', 'AA', 'Consistent Identification', 'Same components use the same labels/icons (buttons, badges, status) across the app.'],
+  ['3.2.6', 'A', 'Consistent Help', 'Help/support entry points (header help, support email) stay in a consistent relative location.'],
+  ['3.3.1', 'A', 'Error Identification', 'Errors use role="alert" / visible text (.form-error); not color alone.'],
+  ['3.3.2', 'A', 'Labels or Instructions', 'Inputs have visible labels; helpers use .form-helper; placeholders are never the only label.'],
+  ['3.3.3', 'AA', 'Error Suggestion', 'Validation messages describe how to fix the error when the suggestion is known (e.g. allocations must total 100%).'],
+  ['3.3.4', 'AA', 'Error Prevention (Legal, Financial, Data)', 'Money/plan changes use review/confirm steps (dialogs, multi-step flows) before irreversible submit.'],
+  ['3.3.7', 'A', 'Redundant Entry', 'Multi-step flows retain entered data; users are not asked to re-enter the same information unnecessarily.'],
+  ['3.3.8', 'AA', 'Accessible Authentication (Minimum)', 'Sign-in does not require cognitive function tests; password managers / paste are not blocked.'],
+  // Robust
+  ['4.1.2', 'A', 'Name, Role, Value', 'Custom widgets expose name, role, and state via semantic HTML or ARIA (menus, dialogs, tabs, switches).'],
+  ['4.1.3', 'AA', 'Status Messages', 'Toasts, banners, and validation updates are announced via role="status" / role="alert" without moving focus.'],
 ]
 
 function copyToClipboard(text) {
@@ -1036,16 +1088,33 @@ const { listening, start, stop: stopListening } = useVoiceNav(navigate)
           {/* ---------------- WCAG CHECKLIST ---------------- */}
           <section id="wcag" className="ds-section">
             <h2>WCAG 2.2 AA checklist</h2>
-            <p className="ds-lede">The success criteria this system is built and audited against, mapped to where they're implemented.</p>
+            <p className="ds-lede">
+              Full Level <b>A + AA</b> success criteria for WCAG 2.2 (AA conformance requires both).
+              Includes 2.2 additions: 2.4.11, 2.5.7, 2.5.8, 3.2.6, 3.3.7, 3.3.8. Media criteria marked N/A where the portal has no A/V content.
+            </p>
             <div className="ds-card">
-              <table className="ds-table">
-                <thead><tr><th>SC</th><th>Criterion</th><th>How it's met</th></tr></thead>
-                <tbody>
-                  {WCAG_CHECKS.map(([sc, name, how]) => (
-                    <tr key={sc}><td><code>{sc}</code></td><td><b style={{ color: 'var(--ink)' }}>{name}</b></td><td>{how}</td></tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="ds-token-scroll">
+                <table className="ds-table">
+                  <thead>
+                    <tr>
+                      <th>SC</th>
+                      <th>Level</th>
+                      <th>Criterion</th>
+                      <th>How it&apos;s met</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {WCAG_CHECKS.map(([sc, level, name, how]) => (
+                      <tr key={sc}>
+                        <td><code>{sc}</code></td>
+                        <td><span className={`ds-wcag-level ${level === 'AA' ? 'aa' : 'a'}`}>{level}</span></td>
+                        <td><b style={{ color: 'var(--ink)' }}>{name}</b></td>
+                        <td>{how}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </section>
 
