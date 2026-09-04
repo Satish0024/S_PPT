@@ -412,7 +412,7 @@ export default function EditAllocationSlideover({
                       />
                     </div>
                   </div>
-                  <div className="txn-field" style={{ marginTop: 10 }}>
+                  <div className="txn-field" style={{ marginTop: 'var(--space-2-5)' }}>
                     <label>Type of account</label>
                   </div>
                   <div className="txn-choice-list">
@@ -474,7 +474,7 @@ export default function EditAllocationSlideover({
 
           {draft.source === 'choose' && (
             <>
-              <div className="txn-field" style={{ marginTop: 12 }}>
+              <div className="txn-field" style={{ marginTop: 'var(--space-3)' }}>
                 <label>Allow me to choose from</label>
               </div>
               <div className="txn-choice-list">

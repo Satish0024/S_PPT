@@ -27,7 +27,7 @@
 .ds-theme-toggle:hover{border-color:var(--brand);color:var(--brand)}
 
 /* ---------- Shell ---------- */
-.ds-shell{display:flex;align-items:flex-start;max-width:1400px;margin:0 auto}
+.ds-shell{display:flex;align-items:flex-start;max-width:1400px;margin:var(--space-0) auto}
 
 .ds-nav{
   width:var(--ds-sidebar-w);flex:0 0 var(--ds-sidebar-w);position:sticky;top:60px;
@@ -240,7 +240,7 @@
    prefixed ds- so they're clearly this document's own illustration, not a
    real class from the app stylesheet (see the spec table for the actual
    class name each is proposing, e.g. .btn-lg, .btn-danger). */
-.ds-btn-lg{padding:var(--space-3-5) var(--space-5) !important;font-size:var(--text-base-size) !important}
+.ds-btn-lg,.btn-lg{padding:var(--btn-padding-y-lg) var(--btn-padding-x-lg) !important;font-size:var(--text-button-lg-size) !important;font-weight:var(--text-button-lg-weight) !important;line-height:var(--text-button-lg-lh) !important}
 .ds-btn-danger{background:var(--red);color:var(--brand-text-primary-oncolor);border-color:transparent}
 .ds-btn-danger:hover{filter:brightness(.92)}
 .ds-icon-btn-sm{width:28px !important;height:28px !important}

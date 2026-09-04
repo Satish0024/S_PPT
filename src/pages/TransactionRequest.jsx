@@ -178,7 +178,7 @@ export default function TransactionRequest() {
         <div className="hi-bar">
           <h1>Request not available</h1>
         </div>
-        <p style={{ padding: '0 var(--space-5)' }}>
+        <p style={{ padding: 'var(--space-0) var(--space-5)' }}>
           <Link to="/transactions" className="text-link">
             Back to Transactions
           </Link>
@@ -362,7 +362,7 @@ function SubmittedPanel({ type, transactionId, navigate }) {
         aria-labelledby={titleId}
         tabIndex={-1}
       >
-        <div className="success-mark" aria-hidden="true" style={{ margin: '0 auto var(--space-3)' }}>
+        <div className="success-mark" aria-hidden="true" style={{ margin: 'var(--space-0) auto var(--space-3)' }}>
           <svg viewBox="0 0 52 52" width="52" height="52">
             <circle className="success-ring" cx="26" cy="26" r="24" />
             <path className="success-check" d="M15.5 27.2l7.2 7.2 14.6-16" />
@@ -466,7 +466,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
         </div>
 
         <div className="txn-card txn-card-nested spaced">
-          <h4 style={{ margin: '0 0 var(--space-1)' }}>Loan calculator</h4>
+          <h4 style={{ margin: 'var(--space-0) var(--space-0) var(--space-1)' }}>Loan calculator</h4>
           <p className="hint" style={{ marginTop: 'var(--space-0)' }}>
             Enter any two of Loan Request Amount, Periodic Payment, Tenure to auto-compute the third value.
           </p>
@@ -523,7 +523,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
           </div>
 
           <div className="txn-summary-head" style={{ marginTop: 'var(--space-6)' }}>
-            <h4 style={{ margin: 0 }}>Repayment details</h4>
+            <h4 style={{ margin: 'var(--space-0)' }}>Repayment details</h4>
             <button
               type="button"
               className="txn-summary-edit"

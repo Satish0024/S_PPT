@@ -389,9 +389,9 @@ export default function DesignSystem() {
                 ['One system, three faces', 'Brand identity lives in tokens (color, logo, type), never in component structure or behavior.'],
                 ['Predictable interaction', 'The same control behaves the same way everywhere — one button, one table, one dialog pattern.'],
               ].map(([t, d]) => (
-                <div key={t} className="ds-swatch" style={{ padding: 14 }}>
+                <div key={t} className="ds-swatch" style={{ padding: 'var(--space-3-5)' }}>
                   <b style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-bold)' }}>{t}</b>
-                  <span style={{ display: 'block', fontSize: 'var(--text-body-xs-size)', color: 'var(--ink-soft)', marginTop: 6, fontFamily: 'inherit' }}>{d}</span>
+                  <span style={{ display: 'block', fontSize: 'var(--text-body-xs-size)', color: 'var(--ink-soft)', marginTop: 'var(--form-label-gap)', fontFamily: 'inherit' }}>{d}</span>
                 </div>
               ))}
             </div>
@@ -505,7 +505,7 @@ export default function DesignSystem() {
               has to invent an ad-hoc size when a new screen needs one.
             </p>
             <div className="ds-card">
-              <div className="ds-demo ds-demo-col" style={{ gap: 0, padding: 0 }}>
+              <div className="ds-demo ds-demo-col" style={{ gap: 'var(--space-0)', padding: 'var(--space-0)' }}>
                 {TYPE_SCALE.map((t) => (
                   <div key={t.tag} className="ds-type-row2">
                     <div className="ds-type-row2-meta">
@@ -556,8 +556,8 @@ export default function DesignSystem() {
             <h2>Elevation</h2>
             <p className="ds-lede">Two shadow tokens — a resting shadow and an elevated one for overlays.</p>
             <div className="ds-demo">
-              <div style={{ padding: '18px 24px', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>--shadow (cards)</div>
-              <div style={{ padding: '18px 24px', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--line)' }}>--shadow-lg (dropdowns, dialogs)</div>
+              <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>--shadow (cards)</div>
+              <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--line)' }}>--shadow-lg (dropdowns, dialogs)</div>
             </div>
           </section>
 
@@ -582,7 +582,7 @@ export default function DesignSystem() {
                 <div className="ds-demo-row" style={{ alignItems: 'center' }}>
                   <button type="button" className="btn btn-sm btn-primary">Small</button>
                   <button type="button" className="btn btn-primary">Medium (default)</button>
-                  <button type="button" className="btn ds-btn-lg btn-primary">Large</button>
+                  <button type="button" className="btn btn-lg btn-primary">Large</button>
                 </div>
               </div>
               <div>
@@ -598,22 +598,23 @@ export default function DesignSystem() {
             donts={['Never rely on color alone to show a disabled state — pair with aria-disabled and reduced opacity.']}
             code={`<button type="button" className="btn btn-primary">Save changes</button>
 <button type="button" className="btn btn-sm btn-secondary">Small secondary</button>
+<button type="button" className="btn btn-lg btn-primary">Large primary</button>
 <button type="button" className="btn btn-ghost">Ghost</button>
 <button type="button" className="icon-btn" aria-label="Print"><Printer size={18} /></button>`}
             colors={[['Brand fill', '--brand-fill'], ['Brand dark (hover)', '--brand-dark'], ['Line', '--line'], ['Ink (ghost text)', '--ink-soft'], ['Danger', '--red']]}
             extra={
               <div className="ds-panel">
-                <div style={{ padding: '4px 20px' }}>
+                <div style={{ padding: 'var(--space-1) var(--space-5)' }}>
                   <table className="ds-table">
                     <thead><tr><th>Name</th><th>Class</th><th>Padding</th><th>Font</th><th>Status</th></tr></thead>
                     <tbody>
-                      <tr><td>Small</td><td><code>.btn.btn-sm</code></td><td>9px 14px</td><td>13px / 700</td><td className="ok">Used</td></tr>
-                      <tr><td>Medium (default)</td><td><code>.btn</code></td><td>11px 16px</td><td>14px / 700</td><td className="ok">Used</td></tr>
-                      <tr><td>Large</td><td><code>.btn-lg</code></td><td>14px 22px</td><td>15.5px / 700</td><td>Specified — not yet used</td></tr>
+                      <tr><td>Small</td><td><code>.btn.btn-sm</code></td><td>8×12 (--btn-padding-*-sm / py-2 px-3)</td><td>14px / 700</td><td className="ok">Used</td></tr>
+                      <tr><td>Medium (default)</td><td><code>.btn</code></td><td>10×16 (--btn-padding-*-md / py-2.5 px-4)</td><td>14px / 700</td><td className="ok">Used</td></tr>
+                      <tr><td>Large</td><td><code>.btn.btn-lg</code></td><td>12×24 (--btn-padding-*-lg / py-3 px-6)</td><td>16px / 700</td><td className="ok">Used</td></tr>
                       <tr><td>Primary</td><td><code>.btn-primary</code></td><td>—</td><td>—</td><td className="ok">Used</td></tr>
                       <tr><td>Secondary</td><td><code>.btn-secondary</code></td><td>—</td><td>—</td><td className="ok">Used</td></tr>
                       <tr><td>Ghost</td><td><code>.btn-ghost</code></td><td>—</td><td>—</td><td className="ok">Used</td></tr>
-                      <tr><td>Danger</td><td><code>.btn-danger</code></td><td>—</td><td>—</td><td>Specified — not yet used</td></tr>
+                      <tr><td>Danger</td><td><code>.btn-danger</code></td><td>—</td><td>—</td><td className="ok">Used</td></tr>
                       <tr><td>Icon (small)</td><td><code>.icon-btn.icon-btn-sm</code></td><td>28×28px</td><td>—</td><td>Specified — not yet used</td></tr>
                       <tr><td>Icon (default)</td><td><code>.icon-btn</code></td><td>36×36px</td><td>—</td><td className="ok">Used</td></tr>
                       <tr><td>Icon (large)</td><td><code>.icon-btn.icon-btn-lg</code></td><td>44×44px</td><td>—</td><td>Specified — not yet used</td></tr>
@@ -629,16 +630,16 @@ export default function DesignSystem() {
             id="forms" title="Forms & inputs"
             desc="Text fields, selects, and search inputs with a visible focus ring on the wrapper."
             tags={['WCAG 2.2 AA']}
-            demo={<div style={{ display: 'grid', gap: 12, width: '100%', maxWidth: 360 }}>
+            demo={<div style={{ display: 'grid', gap: 'var(--space-3)', width: '100%', maxWidth: 360 }}>
               <label style={{ fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>Account nickname
-                <input style={{ marginTop: 6, width: '100%', padding: '10px 12px', borderRadius: 10, border: '1px solid var(--line)', background: 'var(--panel)', color: 'var(--ink)' }} placeholder="e.g. My 401(k)" />
+                <input style={{ marginTop: 'var(--form-label-gap)', width: '100%', padding: 'var(--input-padding-y) var(--input-padding-x)', borderRadius: 10, border: '1px solid var(--line)', background: 'var(--panel)', color: 'var(--ink)' }} placeholder="e.g. My 401(k)" />
               </label>
               <label style={{ fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>Distribution plan type
-                <select style={{ marginTop: 6, width: '100%', padding: '10px 12px', borderRadius: 10, border: '1px solid var(--line)', background: 'var(--panel)', color: 'var(--ink)' }}>
+                <select style={{ marginTop: 'var(--form-label-gap)', width: '100%', padding: 'var(--input-padding-y) var(--input-padding-x)', borderRadius: 10, border: '1px solid var(--line)', background: 'var(--panel)', color: 'var(--ink)' }}>
                   <option>401(k)</option><option>403(b)</option><option>IRA — Traditional</option>
                 </select>
               </label>
-              <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)', color: 'var(--red)', fontWeight: 'var(--font-weight-semibold)' }}>
+              <p role="alert" style={{ display: 'flex', gap: 'var(--space-1-5)', alignItems: 'center', fontSize: 'var(--text-caption-size)', color: 'var(--red)', fontWeight: 'var(--font-weight-semibold)' }}>
                 <AlertTriangle size={14} /> Target percentages must add up to 100%.
               </p>
             </div>}
@@ -651,7 +652,7 @@ export default function DesignSystem() {
             colors={[['Border', '--line'], ['Focus ring', '--brand'], ['Error text', '--red'], ['Panel bg', '--panel']]}
             extra={
               <div className="ds-panel">
-                <div style={{ padding: '4px 20px' }}>
+                <div style={{ padding: 'var(--space-1) var(--space-5)' }}>
                   <table className="ds-table">
                     <thead><tr><th>Size</th><th>Height</th><th>Padding</th><th>Font</th><th>Status</th></tr></thead>
                     <tbody>
@@ -670,10 +671,10 @@ export default function DesignSystem() {
             id="selection" title="Checkbox, radio & switch"
             desc="Custom-styled but backed by real <input> elements for native keyboard and screen-reader support."
             tags={['WCAG 2.2 AA']}
-            demo={<div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
-              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 'var(--text-body-md-size)' }}><input type="checkbox" defaultChecked /> Email statements</label>
-              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 'var(--text-body-md-size)' }}><input type="radio" name="ds-r" defaultChecked /> Direct deposit</label>
-              <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 'var(--text-body-md-size)' }}><input type="radio" name="ds-r" /> Mailed check</label>
+            demo={<div style={{ display: 'flex', gap: 'var(--space-6)', alignItems: 'center', flexWrap: 'wrap' }}>
+              <label style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center', fontSize: 'var(--text-body-md-size)' }}><input type="checkbox" defaultChecked /> Email statements</label>
+              <label style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center', fontSize: 'var(--text-body-md-size)' }}><input type="radio" name="ds-r" defaultChecked /> Direct deposit</label>
+              <label style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center', fontSize: 'var(--text-body-md-size)' }}><input type="radio" name="ds-r" /> Mailed check</label>
               <label className="a11y-switch" style={{ display: 'inline-flex' }}>
                 <input type="checkbox" defaultChecked /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
               </label>
@@ -696,7 +697,7 @@ export default function DesignSystem() {
               <span className="badge" style={{ background: 'var(--green-bg)', color: 'var(--green)' }}>Active</span>
               <span className="badge" style={{ background: 'var(--amber-bg)', color: 'var(--amber)' }}>Pending</span>
               <span className="badge" style={{ background: 'var(--red-bg)', color: 'var(--red)' }}>Action needed</span>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '10px 14px', borderRadius: 10, background: 'var(--info, var(--active-bg))', border: '1px solid var(--info-line, var(--line))', fontSize: 'var(--text-body-md-size)' }}>
+              <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center', padding: 'var(--space-2-5) var(--space-3-5)', borderRadius: 10, background: 'var(--info, var(--active-bg))', border: '1px solid var(--info-line, var(--line))', fontSize: 'var(--text-body-md-size)' }}>
                 <AlertTriangle size={15} /> Your request was submitted and is pending review.
               </div>
             </>}
@@ -712,10 +713,10 @@ export default function DesignSystem() {
             id="nav" title="Navigation"
             desc="Left rail (frozen, scrollable) and top bar. Focus rings are drawn inset so a scrolling nav never clips them."
             tags={['WCAG 2.2 AA', 'Keyboard']}
-            demo={<div style={{ display: 'flex', gap: 6 }}>
+            demo={<div style={{ display: 'flex', gap: 'var(--space-1-5)' }}>
               {['Dashboard', 'Portfolio', 'Transactions'].map((l, i) => (
                 <a key={l} href="#nav" onClick={(e) => e.preventDefault()} style={{
-                  padding: '10px 14px', borderRadius: 8, textDecoration: 'none', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)',
+                  padding: 'var(--space-2-5) var(--space-3-5)', borderRadius: 8, textDecoration: 'none', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)',
                   color: i === 0 ? 'var(--brand)' : 'var(--ink-soft)', background: i === 0 ? 'var(--active-bg)' : 'transparent',
                 }}>{l}</a>
               ))}
@@ -732,7 +733,7 @@ export default function DesignSystem() {
             id="tabs" title="Tabs & step navigator"
             desc="Tabs for switching views in place; the step navigator drives multi-step flows (enrollment, transaction requests)."
             tags={['Keyboard']}
-            demo={<div style={{ display: 'flex', gap: 4 }}>
+            demo={<div style={{ display: 'flex', gap: 'var(--space-1)' }}>
               {['Summary', 'Activity', 'Documents'].map((t, i) => (
                 <button key={t} type="button" className={`tab ${i === 0 ? 'on' : ''}`}>{t}</button>
               ))}
@@ -767,12 +768,12 @@ export default function DesignSystem() {
             desc="Focus-trapped, Escape-to-close, labelled by a heading, background inert while open."
             tags={['WCAG 2.2 AA', 'Keyboard']}
             demo={<div style={{ width: 320, border: '1px solid var(--line)', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow-lg)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 16px', borderBottom: '1px solid var(--line)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 'var(--space-3-5) var(--space-4)', borderBottom: '1px solid var(--line)' }}>
                 <b style={{ fontSize: 'var(--text-body-md-size)' }}>Confirm rollover request</b>
                 <X size={16} />
               </div>
-              <div style={{ padding: 16, fontSize: 'var(--text-body-md-size)', color: 'var(--ink-soft)' }}>This will submit your rollover request for processing.</div>
-              <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', padding: '12px 16px', borderTop: '1px solid var(--line)' }}>
+              <div style={{ padding: 'var(--space-4)', fontSize: 'var(--text-body-md-size)', color: 'var(--ink-soft)' }}>This will submit your rollover request for processing.</div>
+              <div style={{ display: 'flex', gap: 'var(--space-2)', justifyContent: 'flex-end', padding: 'var(--space-3) var(--space-4)', borderTop: '1px solid var(--line)' }}>
                 <button type="button" className="btn btn-secondary">Cancel</button>
                 <button type="button" className="btn btn-primary">Confirm</button>
               </div>
@@ -792,13 +793,13 @@ export default function DesignSystem() {
             id="legend" title="Chart legend (overflow-safe)"
             desc="Shows the first N series inline; beyond that, collapses into a “+N more” panel so 8–10+ series never clutter the chart header."
             tags={['New pattern']}
-            demo={<div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+            demo={<div style={{ display: 'flex', gap: 'var(--space-2-5)', alignItems: 'center', flexWrap: 'wrap' }}>
               {['Total', 'Equity', 'Bond', 'Target'].map((l, i) => (
-                <span key={l} style={{ display: 'inline-flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-semibold)' }}>
+                <span key={l} style={{ display: 'inline-flex', gap: 'var(--space-1-5)', alignItems: 'center', fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-semibold)' }}>
                   <span style={{ width: 10, height: 10, borderRadius: 3, background: ['var(--brand)', 'var(--green)', 'var(--amber)', 'var(--accent)'][i] }} /> {l}
                 </span>
               ))}
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, border: '1px dashed var(--line-strong)', borderRadius: 999, padding: '5px 10px', fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>+6 more</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-1)', border: '1px dashed var(--line-strong)', borderRadius: 999, padding: 'var(--space-1) var(--space-2-5)', fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>+6 more</span>
             </div>}
             code={`<ChartLegend items={series} onToggle={toggleSeries} maxInline={6} />`}
           />
@@ -808,11 +809,11 @@ export default function DesignSystem() {
             id="a11y-toolbar" title="Accessibility toolbar"
             desc="Header-level menu (next to theme toggle) offering profiles, screen-reader read-aloud, voice navigation, and display adjustments — entirely on-device via the native Web Speech API, no network calls."
             tags={['WCAG 2.2 AA', 'main branch']}
-            demo={<div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><Eye size={15} /> Vision profile</div>
-              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><Volume2 size={15} /> Read aloud</div>
-              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><Mic size={15} /> Voice navigation</div>
-              <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><TypeIcon size={15} /> Bigger text</div>
+            demo={<div style={{ display: 'flex', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: 'var(--space-1-5)', alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><Eye size={15} /> Vision profile</div>
+              <div style={{ display: 'flex', gap: 'var(--space-1-5)', alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><Volume2 size={15} /> Read aloud</div>
+              <div style={{ display: 'flex', gap: 'var(--space-1-5)', alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><Mic size={15} /> Voice navigation</div>
+              <div style={{ display: 'flex', gap: 'var(--space-1-5)', alignItems: 'center', fontSize: 'var(--text-caption-size)' }}><TypeIcon size={15} /> Bigger text</div>
             </div>}
             dos={['Persist settings to localStorage only — never send accessibility preferences to a server.', 'Feature-detect SpeechRecognition and disable voice input gracefully in unsupported browsers (e.g. Firefox).']}
             donts={['Never let a voice command submit a form or move money — the command set is read/navigate/scroll only.']}
@@ -863,7 +864,7 @@ const { listening, start, stop: stopListening } = useVoiceNav(navigate)
             <h2>Screen reader & NVDA</h2>
             <p className="ds-lede">Tested with NVDA (Windows/Chrome) and VoiceOver (macOS/Safari) against these baseline expectations.</p>
             <div className="ds-card">
-              <div style={{ padding: '4px 20px' }}>
+              <div style={{ padding: 'var(--space-1) var(--space-5)' }}>
                 {[
                   ['Landmarks', 'Header, nav, and main are marked with real <header>/<nav>/<main> elements so AT users can jump between regions.'],
                   ['Form errors', 'role="alert" on validation messages triggers an immediate NVDA announcement without moving focus.'],
@@ -917,7 +918,7 @@ const { listening, start, stop: stopListening } = useVoiceNav(navigate)
             <p className="ds-lede">Every control defines these states explicitly — none are left to browser defaults alone.</p>
             <div className="ds-token-grid">
               {['Default', 'Hover', 'Focus-visible', 'Active/pressed', 'Disabled', 'Loading', 'Error', 'Empty'].map((s) => (
-                <div key={s} className="ds-swatch" style={{ padding: 12, textAlign: 'center' }}>
+                <div key={s} className="ds-swatch" style={{ padding: 'var(--space-3)', textAlign: 'center' }}>
                   <b style={{ fontSize: 'var(--text-caption-size)' }}>{s}</b>
                 </div>
               ))}
@@ -939,7 +940,7 @@ const { listening, start, stop: stopListening } = useVoiceNav(navigate)
           </section>
 
           <div style={{ borderTop: '1px solid var(--line)', paddingTop: 24, fontSize: 'var(--text-caption-size)', color: 'var(--muted)', maxWidth: 'var(--ds-content-max)' }}>
-            <MousePointerClick size={14} style={{ verticalAlign: -2, marginRight: 6 }} />
+            <MousePointerClick size={14} style={{ verticalAlign: -2, marginRight: 'var(--space-1-5)' }} />
             Generated from the live application codebase. Available at <code>/design-system</code> on every brand build.
           </div>
         </main>
