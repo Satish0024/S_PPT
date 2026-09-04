@@ -1134,7 +1134,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
       onSubmit={onSubmit}
       submitDisabled={!form.termsAccepted}
     >
-      <h4 style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 800 }}>Withdrawal details</h4>
+      <h4 style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 'var(--font-weight-extrabold)' }}>Withdrawal details</h4>
       <SummaryRow label="Withdrawal type" value={withdrawalType?.label || '—'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Withdraw" value={form.withdrawAs === 'periodic' ? 'As periodic payment' : 'As one time payment'} onEdit={() => onEdit(0)} />
       <SummaryRow label="Withdraw entire balance" value={form.entireBalance === 'yes' ? 'Yes' : 'No'} onEdit={() => onEdit(0)} />
@@ -1143,7 +1143,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         <span>The processing time for your withdrawal is 10 days.</span>
       </div>
 
-      <h4 style={{ margin: '20px 0 8px', fontSize: 14, fontWeight: 800 }}>Withdrawal allocation</h4>
+      <h4 style={{ margin: '20px 0 8px', fontSize: 14, fontWeight: 'var(--font-weight-extrabold)' }}>Withdrawal allocation</h4>
       <AllocationTable allocations={allocations} withdrawalTypeId={form.withdrawalType} onEdit={() => onEdit(1)} />
 
       {allocations.map((a) => {
@@ -1910,7 +1910,7 @@ function DocumentUploadBlock({ doc, uploaded, onUploaded }) {
             Use E-signature
           </button>
         </div>
-        <p style={{ fontWeight: 700, color: 'var(--ink)' }}>{doc.label}</p>
+        <p style={{ fontWeight: 'var(--font-weight-bold)', color: 'var(--ink)' }}>{doc.label}</p>
         {mode === 'manual' ? (
           <>
             <button type="button" className="btn btn-secondary" onClick={onUploaded}>
@@ -1923,7 +1923,7 @@ function DocumentUploadBlock({ doc, uploaded, onUploaded }) {
             Send for e-signature
           </button>
         )}
-        {uploaded && <p style={{ color: 'var(--green)', fontWeight: 700 }}>✓ Received</p>}
+        {uploaded && <p style={{ color: 'var(--green)', fontWeight: 'var(--font-weight-bold)' }}>✓ Received</p>}
       </div>
     </div>
   )

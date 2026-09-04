@@ -41,7 +41,7 @@
   min-width:36px;min-height:36px;border-radius:var(--radius-sm)}
 .login-eye:hover{color:var(--ink);background:var(--hover-bg)}
 .login-eye:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
-.login-error{color:var(--red);font-size:var(--text-body-sm-size);font-weight:600;margin:-4px 0 12px}
+.login-error{color:var(--red);font-size:var(--text-body-sm-size);font-weight:600;margin:calc(-1 * var(--space-1)) var(--space-0) var(--space-3)}
 .login-submit{width:100%;border:none;border-radius:12px;padding:var(--space-3) var(--space-4);background:var(--brand-fill);color:var(--brand-text-primary-oncolor);
   font-weight:700;font-size:var(--text-button-lg-size);cursor:pointer;margin-top:var(--space-1)}
 .login-submit:hover{background:var(--brand-dark)}

@@ -236,7 +236,7 @@
 .ds-swatch-fill{height:56px;position:relative}
 .ds-swatch-copy-ico{position:absolute;top:6px;right:6px;opacity:0;transition:opacity .15s;background:rgba(0,0,0,.35);color:#fff;border-radius:6px;padding:var(--space-1)}
 .ds-swatch-btn:hover .ds-swatch-copy-ico,.ds-swatch-btn:focus-visible .ds-swatch-copy-ico{opacity:1}
-.ds-swatch-meta{padding:var(--space-2) 10px}
+.ds-swatch-meta{padding:var(--space-2) var(--space-2-5)}
 .ds-swatch-meta b{display:block;font-size:var(--text-paragraph-xs-size);font-weight:var(--font-weight-bold)}
 .ds-swatch-meta span{display:block;font-size:var(--text-xs-size);color:var(--muted);font-family:ui-monospace,monospace}
 .ds-swatch-hex{color:var(--ink-soft) !important;font-weight:700;text-transform:uppercase;margin-top:var(--space-0-5)}

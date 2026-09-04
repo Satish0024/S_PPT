@@ -949,7 +949,7 @@ export default function DesignSystem() {
             </p>
             {THEME_COLOR_RAMPS.map((r) => (
               <div key={r.prefix} style={{ marginBottom: 18 }}>
-                <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>{r.title}</span>
+                <span style={{ fontSize: 12, fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>{r.title}</span>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 6 }}>
                   {RAMP_STEPS.map((step) => {
                     const varName = `${r.prefix}-${step}`
@@ -993,7 +993,7 @@ export default function DesignSystem() {
                     title={`${c.token} — click to copy`}
                   >
                     <div style={{ width: '100%', height: 40, borderRadius: 8, background: `var(${c.token})`, border: '1px solid var(--line)' }} />
-                    <code style={{ fontSize: 12, fontWeight: 700 }}>{c.token}</code>
+                    <code style={{ fontSize: 12, fontWeight: 'var(--font-weight-bold)' }}>{c.token}</code>
                     <span style={{ fontSize: 12, color: 'var(--muted)' }}>{c.usage}</span>
                   </button>
                 ))}
@@ -1161,7 +1161,7 @@ export default function DesignSystem() {
             <p className="ds-lede">Every spacing value the app actually uses, organized by category — Margin, Padding, Gap, Component spacing, Section spacing, Layout spacing — each with its real pixel value and intended usage.</p>
             {SPACING_TOKENS.map((g) => (
               <div key={g.category}>
-                <h4 style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.4px', margin: '18px 0 8px' }}>{g.category}</h4>
+                <h4 style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-extrabold)', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.4px', margin: '18px 0 8px' }}>{g.category}</h4>
                 <div className="ds-card">
                   <table className="ds-type-table">
                     <thead><tr><th>Token name</th><th>Pixel value</th><th>Intended usage</th></tr></thead>
@@ -1243,7 +1243,7 @@ export default function DesignSystem() {
                 <div style={{ padding: 16, borderRadius: 14, background: 'var(--panel)', border: '1px solid var(--line)', marginBottom: 16 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                     <Dot>2</Dot><Dot>3</Dot>
-                    <span style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700 }}>Account nickname</span>
+                    <span style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-bold)' }}>Account nickname</span>
                   </div>
                   <input readOnly value="My 401(k)" style={{ marginTop: 8, minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--bg)', width: '100%' }} />
                 </div>
@@ -1392,7 +1392,7 @@ export default function DesignSystem() {
                   </div>
                   <div style={{ padding: '16px 20px', borderRadius: 14, background: 'var(--panel)', border: '1px solid var(--line)', boxShadow: 'var(--shadow)', marginBottom: 18 }}>
                     <span className="ds-type-p3" style={{ color: 'var(--ink-soft)' }}>Total balance</span>
-                    <div style={{ fontSize: 22, fontWeight: 800, marginTop: 4 }}>$284,900.00</div>
+                    <div style={{ fontSize: 22, fontWeight: 'var(--font-weight-extrabold)', marginTop: 4 }}>$284,900.00</div>
                   </div>
                   <h2 className="ds-type-h2" style={{ fontSize: 16, margin: '0 0 10px' }}>Recent requests</h2>
                   <div className="table-wrap">
@@ -1570,7 +1570,7 @@ export default function DesignSystem() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 260, margin: '0 auto 20px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>1</Dot>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname</label>
+                    <label style={{ fontSize: 12, fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>Account nickname</label>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>2</Dot>
@@ -1578,7 +1578,7 @@ export default function DesignSystem() {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>3</Dot>
-                    <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: 'var(--red)', fontWeight: 600, margin: 0 }}>
+                    <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: 'var(--red)', fontWeight: 'var(--font-weight-semibold)', margin: 0 }}>
                       <Icon icon={faTriangleExclamation} size={14} /> Required
                     </p>
                   </div>
@@ -1602,24 +1602,24 @@ export default function DesignSystem() {
             demo={<>
               <VariantGroup tag="live" title="transactions.css .txn-field — every real input state">
                 <div style={{ display: 'grid', gap: 12, width: '100%', maxWidth: 340 }}>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Account nickname
+                  <label style={{ fontSize: 12, fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>Account nickname
                     <input
                       style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', color: 'var(--ink)', background: 'var(--panel)' }}
                       placeholder="e.g. My 401(k)"
                     />
                   </label>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Distribution plan type
+                  <label style={{ fontSize: 12, fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>Distribution plan type
                     <select className="tx-plan-select" style={{ marginTop: 6, width: '100%' }}>
                       <option>401(k)</option><option>403(b)</option>
                     </select>
                   </label>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Locked field (disabled)
+                  <label style={{ fontSize: 12, fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>Locked field (disabled)
                     <input
                       disabled value="Direct deposit"
                       style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--surface-2)', color: 'var(--ink-soft)' }}
                     />
                   </label>
-                  <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: 'var(--red)', fontWeight: 600 }}>
+                  <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: 'var(--red)', fontWeight: 'var(--font-weight-semibold)' }}>
                     <Icon icon={faTriangleExclamation} size={14} /> Target percentages must add up to 100%.
                   </p>
                 </div>
@@ -1648,13 +1648,13 @@ export default function DesignSystem() {
                 <p className="ds-lede" style={{ marginTop: 0 }}>The Transactions page's rebalance form — the real .txn-field layout this component is pulled from.</p>
                 <div className="ds-annotated-frame">
                   <div className="ds-annotated-row">
-                    <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)', flex: '1 1 200px' }}>Target amount
+                    <label style={{ fontSize: 12, fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)', flex: '1 1 200px' }}>Target amount
                       <input readOnly value="$5,000.00" style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)' }} />
                     </label>
                     <span className="ds-pin">.txn-field input</span>
                   </div>
                   <div className="ds-annotated-row">
-                    <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: 'var(--red)', fontWeight: 600, margin: 0 }}>
+                    <p role="alert" style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: 'var(--red)', fontWeight: 'var(--font-weight-semibold)', margin: 0 }}>
                       <Icon icon={faTriangleExclamation} size={14} /> Target percentages must add up to 100%.
                     </p>
                     <span className="ds-pin">role="alert" · --red</span>
@@ -2500,7 +2500,7 @@ export default function DesignSystem() {
                     </div>
                     <div className="slideover-body">
                       <p style={{ margin: '0 0 12px', fontSize: 'var(--text-body-md-size)', color: 'var(--ink-soft)' }}>Estimate a loan against your vested balance.</p>
-                      <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Loan amount
+                      <label style={{ fontSize: 12, fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>Loan amount
                         <input readOnly value="$10,000" style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)' }} />
                       </label>
                     </div>
@@ -2570,7 +2570,7 @@ export default function DesignSystem() {
                     <div className="as-donut-center" style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
                       <small style={{ fontSize: 12, color: 'var(--ink-soft)' }}>Account balance</small>
                       <b style={{ fontSize: 18 }}>$284,900</b>
-                      <em style={{ fontStyle: 'normal', fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>100.00%</em>
+                      <em style={{ fontStyle: 'normal', fontSize: 12, fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>100.00%</em>
                     </div>
                   </div>
                   <ul className="as-legend" style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -3051,11 +3051,11 @@ export default function DesignSystem() {
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
                   <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>1</Dot>
-                    <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
+                    <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
                     <Dot>2</Dot>
                     <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
                     <Dot>3</Dot>
-                    <span style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
+                    <span style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
                   </nav>
                 </div>
                 <DotLegend items={['Link · 13px/700, --brand', 'Separator · 10px chevron, --muted', 'Current page · 13px/700, --ink-soft, aria-current="page"']} />
@@ -3065,11 +3065,11 @@ export default function DesignSystem() {
             demo={<>
               <VariantGroup tag="proposed" title="Not built anywhere — proposed, using real .text-link color">
                 <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Dashboard</a>
+                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--brand)', textDecoration: 'none' }}>Dashboard</a>
                   <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
-                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
+                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
                   <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
-                  <span style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
+                  <span style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
                 </nav>
               </VariantGroup>
             </>}
@@ -3106,7 +3106,7 @@ export default function DesignSystem() {
                 <input readOnly value="09/02/2026" style={{ minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)', width: 140 }} />
                 <div className="ds-card" style={{ width: 220, padding: 12 }}>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', gap: 4, fontSize: 12, textAlign: 'center' }}>
-                    {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => <span key={i} style={{ color: 'var(--muted)', fontWeight: 700 }}>{d}</span>)}
+                    {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => <span key={i} style={{ color: 'var(--muted)', fontWeight: 'var(--font-weight-bold)' }}>{d}</span>)}
                     {Array.from({ length: 30 }, (_, i) => (
                       <span key={i} style={{ padding: '4px 0', borderRadius: 6, background: i === 1 ? 'var(--brand-fill)' : 'transparent', color: i === 1 ? '#fff' : 'var(--ink)' }}>{i + 1}</span>
                     ))}
