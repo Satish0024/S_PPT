@@ -1161,7 +1161,7 @@ export default function DesignSystem() {
             <p className="ds-lede">Every spacing value the app actually uses, organized by category — Margin, Padding, Gap, Component spacing, Section spacing, Layout spacing — each with its real pixel value and intended usage.</p>
             {SPACING_TOKENS.map((g) => (
               <div key={g.category}>
-                <h4 style={{ fontSize: 14, fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.4px', margin: '18px 0 8px' }}>{g.category}</h4>
+                <h4 style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.4px', margin: '18px 0 8px' }}>{g.category}</h4>
                 <div className="ds-card">
                   <table className="ds-type-table">
                     <thead><tr><th>Token name</th><th>Pixel value</th><th>Intended usage</th></tr></thead>
@@ -1243,7 +1243,7 @@ export default function DesignSystem() {
                 <div style={{ padding: 16, borderRadius: 14, background: 'var(--panel)', border: '1px solid var(--line)', marginBottom: 16 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                     <Dot>2</Dot><Dot>3</Dot>
-                    <span style={{ fontSize: 14, fontWeight: 700 }}>Account nickname</span>
+                    <span style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700 }}>Account nickname</span>
                   </div>
                   <input readOnly value="My 401(k)" style={{ marginTop: 8, minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--bg)', width: '100%' }} />
                 </div>
@@ -1330,7 +1330,7 @@ export default function DesignSystem() {
                   <div style={{ padding: 20, borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       <Dot>1</Dot>
-                      <b style={{ fontSize: 14 }}>Account balance</b>
+                      <b style={{ fontSize: 'var(--text-body-md-size)' }}>Account balance</b>
                     </div>
                   </div>
                   <div style={{ position: 'absolute', top: '100%', left: 0, right: 40, marginTop: 8, padding: 12, borderRadius: 12, background: 'var(--panel)', border: '1px solid var(--line)', boxShadow: 'var(--shadow-lg)' }}>
@@ -1544,7 +1544,7 @@ export default function DesignSystem() {
 <button type="button" className="icon-btn" aria-label="Print"><Icon icon={faPrint} /></button>`}
             colors={[['Brand fill', '--brand-fill'], ['Brand dark (hover)', '--brand-dark'], ['Line', '--line']]}
             extra={
-              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '14px 20px', fontSize: 14, lineHeight: 1.6 }}>
+              <div className="ds-panel-row" style={{ borderTop: '1px solid var(--line)', padding: '14px 20px', fontSize: 'var(--text-body-md-size)', lineHeight: 1.6 }}>
                 <b style={{ color: 'var(--green)' }}>Fixed — </b> these buttons used to render full-width on most
                 real pages by default. Root cause: <code>enrollment.css</code>'s <code>.summary .foot</code>{' '}
                 button block was written as a bare, unscoped <code>.btn{'{'}width:100%{'}'}</code> rule. Because
@@ -1676,7 +1676,7 @@ export default function DesignSystem() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 24, justifyContent: 'center', marginBottom: 20 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>1</Dot>
-                    <span style={{ fontSize: 14 }}>High contrast mode</span>
+                    <span style={{ fontSize: 'var(--text-body-md-size)' }}>High contrast mode</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>2</Dot>
@@ -1711,12 +1711,12 @@ export default function DesignSystem() {
             }
             demo={<>
               <VariantGroup tag="live" title="Checkbox &amp; radio — native inputs, every state used in the app">
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}><input type="checkbox" defaultChecked /> Email statements</label>
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}><input type="checkbox" /> Unchecked</label>
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14, opacity: .5 }}><input type="checkbox" disabled /> Paper statements (disabled)</label>
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}><input type="radio" name="ds-r" defaultChecked /> Direct deposit</label>
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}><input type="radio" name="ds-r" /> Mailed check</label>
-                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14, opacity: .5 }}><input type="radio" name="ds-r" disabled /> Wire (disabled)</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 'var(--text-body-md-size)' }}><input type="checkbox" defaultChecked /> Email statements</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 'var(--text-body-md-size)' }}><input type="checkbox" /> Unchecked</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 'var(--text-body-md-size)', opacity: .5 }}><input type="checkbox" disabled /> Paper statements (disabled)</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 'var(--text-body-md-size)' }}><input type="radio" name="ds-r" defaultChecked /> Direct deposit</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 'var(--text-body-md-size)' }}><input type="radio" name="ds-r" /> Mailed check</label>
+                <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 'var(--text-body-md-size)', opacity: .5 }}><input type="radio" name="ds-r" disabled /> Wire (disabled)</label>
               </VariantGroup>
               <VariantGroup tag="live" title=".a11y-switch — on / off / disabled">
                 <label className="a11y-switch" style={{ display: 'inline-flex' }}>
@@ -1741,7 +1741,7 @@ export default function DesignSystem() {
                 <p className="ds-lede" style={{ marginTop: 0 }}>The accessibility menu's own switch row — where .a11y-switch actually ships today.</p>
                 <div className="ds-annotated-frame">
                   <div className="ds-annotated-row">
-                    <span style={{ fontSize: 14 }}>High contrast mode</span>
+                    <span style={{ fontSize: 'var(--text-body-md-size)' }}>High contrast mode</span>
                     <label className="a11y-switch" style={{ display: 'inline-flex' }}>
                       <input type="checkbox" defaultChecked /><span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
                     </label>
@@ -2031,7 +2031,7 @@ export default function DesignSystem() {
                 <div className="txn-success-modal" style={{ margin: '0 auto' }}>
                   <div className="confirm-dialog-ico" style={{ background: 'var(--green-bg)', color: 'var(--green)', margin: '0 auto 12px' }}><Icon icon={faCheck} size={20} /></div>
                   <h3>Request submitted</h3>
-                  <p className="hint" style={{ color: 'var(--ink-soft)', fontSize: 14 }}>You'll get a confirmation email shortly.</p>
+                  <p className="hint" style={{ color: 'var(--ink-soft)', fontSize: 'var(--text-body-md-size)' }}>You'll get a confirmation email shortly.</p>
                   <button type="button" className="btn btn-primary" style={{ width: 'auto', marginTop: 12 }}>Done</button>
                 </div>
               </VariantGroup>
@@ -2499,7 +2499,7 @@ export default function DesignSystem() {
                       <button type="button" className="slideover-close" tabIndex={-1} aria-label="Close"><Icon icon={faXmark} size={14} /></button>
                     </div>
                     <div className="slideover-body">
-                      <p style={{ margin: '0 0 12px', fontSize: 14, color: 'var(--ink-soft)' }}>Estimate a loan against your vested balance.</p>
+                      <p style={{ margin: '0 0 12px', fontSize: 'var(--text-body-md-size)', color: 'var(--ink-soft)' }}>Estimate a loan against your vested balance.</p>
                       <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-soft)' }}>Loan amount
                         <input readOnly value="$10,000" style={{ marginTop: 6, width: '100%', minHeight: 40, border: '1px solid var(--line)', borderRadius: 9, padding: '8px 12px', font: 'inherit', fontSize: 'var(--text-body-md-size)', fontWeight: 'var(--font-weight-semibold)', background: 'var(--panel)' }} />
                       </label>
@@ -3051,11 +3051,11 @@ export default function DesignSystem() {
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
                   <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <Dot>1</Dot>
-                    <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 14, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
+                    <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
                     <Dot>2</Dot>
                     <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
                     <Dot>3</Dot>
-                    <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
+                    <span style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
                   </nav>
                 </div>
                 <DotLegend items={['Link · 13px/700, --brand', 'Separator · 10px chevron, --muted', 'Current page · 13px/700, --ink-soft, aria-current="page"']} />
@@ -3065,11 +3065,11 @@ export default function DesignSystem() {
             demo={<>
               <VariantGroup tag="proposed" title="Not built anywhere — proposed, using real .text-link color">
                 <nav aria-label="Breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 14, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Dashboard</a>
+                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Dashboard</a>
                   <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
-                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 14, fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
+                  <a href="#breadcrumb" onClick={(e) => e.preventDefault()} style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700, color: 'var(--brand)', textDecoration: 'none' }}>Transactions</a>
                   <Icon icon={faChevronDown} size={10} style={{ transform: 'rotate(-90deg)', color: 'var(--muted)' }} />
-                  <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
+                  <span style={{ fontSize: 'var(--text-body-md-size)', fontWeight: 700, color: 'var(--ink-soft)' }} aria-current="page">Rollover request</span>
                 </nav>
               </VariantGroup>
             </>}
