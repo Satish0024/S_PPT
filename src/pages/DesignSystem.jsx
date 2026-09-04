@@ -98,12 +98,12 @@ const BRAND_SCALE = [
 // render, since those classes were wired to var() separately without
 // this table being updated to match.
 const TYPE_SCALE = [
-  { tag: 'H1', cls: 'ds-type-h1', size: '32px', weight: 800, lh: '1.25 (40px)', ls: '-0.4px', use: 'Page title (one per page)' },
-  { tag: 'H2', cls: 'ds-type-h2', size: '24px', weight: 800, lh: '1.33 (32px)', ls: '-0.3px', use: 'Section heading' },
-  { tag: 'H3', cls: 'ds-type-h3', size: '20px', weight: 700, lh: '1.4 (28px)', ls: '-0.2px', use: 'Subsection / card group heading' },
+  { tag: 'H1', cls: 'ds-type-h1', size: '32px', weight: 800, lh: '1.25 (40px)', ls: '-0.4px', use: 'Page title — .login-brand-copy h1, .hi-bar h1, .page-head h1' },
+  { tag: 'H2', cls: 'ds-type-h2', size: '24px', weight: 800, lh: '1.33 (32px)', ls: '-0.3px', use: 'Section heading — .login-card h2, .section-title, .chart-top h2' },
+  { tag: 'H3', cls: 'ds-type-h3', size: '20px', weight: 700, lh: '1.4 (28px)', ls: '-0.2px', use: 'Subsection / card group heading — .pc-name, .summary .head h4' },
   { tag: 'H4', cls: 'ds-type-h4', size: '18px', weight: 700, lh: '1.33 (24px)', ls: '-0.1px', use: 'Card title, widget heading (defined for consistency — not yet used standalone)' },
-  { tag: 'H5', cls: 'ds-type-h5', size: '16px', weight: 700, lh: '1.5 (24px)', ls: '0px', use: 'Dense list/group heading (defined for consistency — not yet used standalone)' },
-  { tag: 'H6', cls: 'ds-type-h6', size: '14px', weight: 800, lh: '1.43 (20px)', ls: '0.4px', use: 'Eyebrow / overline label (defined for consistency — not yet used standalone)' },
+  { tag: 'H5', cls: 'ds-type-h5', size: '16px', weight: 700, lh: '1.5 (24px)', ls: '0px', use: 'Dense list/group heading — .step .body h3 (step title)' },
+  { tag: 'H6', cls: 'ds-type-h6', size: '14px', weight: 800, lh: '1.43 (20px)', ls: '0.4px', use: 'Eyebrow / overline label — .plan-card .pc-type' },
   { tag: 'P1', cls: 'ds-type-p1', size: '16px', weight: 400, lh: '1.5 (24px)', ls: '0px', use: 'Lead paragraph / intro copy (defined for consistency — not yet used standalone)' },
   { tag: 'P2', cls: 'ds-type-p2', size: '14px', weight: 400, lh: '1.5 (21px)', ls: '0px', use: 'Body text (the app default)' },
   { tag: 'P3', cls: 'ds-type-p3', size: '14px', weight: 600, lh: '1.5 (21px)', ls: '0px', use: 'Body soft, form labels (numerically equal to P2 now -- both landed on the same even-px step, see index.css)' },
