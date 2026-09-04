@@ -472,8 +472,8 @@ export default function DesignSystem() {
       <header className="ds-top">
         <div className="ds-logo">
           <img
-            src={theme === 'dark' ? (BRAND.logoOnDark || BRAND.logo) : BRAND.logo}
-            alt={BRAND.name}
+            src={theme === 'dark' ? '/core-logo-dark.svg' : '/core-logo.svg'}
+            alt="Design System"
           />
           <span className="ds-logo-title">Design System</span>
         </div>
