@@ -5,7 +5,7 @@ import { faArrowLeft, faArrowRight, faCheck, faRocket, faBalanceScale, faShieldA
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { LIKERT_OPTIONS, LIKERT_QUESTIONS, QUESTIONNAIRE_STEP_COUNT } from '../data/riskQuestionnaire'
 import { LOCATIONS, PREFS_KEY, hydratePrefs, writeMap } from '../lib/retirementGoal'
-import { getRiskLevel, scoreQuestionnaire, setRiskProfileId } from '../lib/riskProfile'
+import { getRiskAnswers, getRiskLevel, scoreQuestionnaire, setRiskAnswers, setRiskProfileId } from '../lib/riskProfile'
 import RiskJourneyScene from '../components/questionnaire/RiskJourneyScene.jsx'
 import '../styles/riskQuestionnaire.css'
 
@@ -22,7 +22,9 @@ export default function RiskQuestionnaire() {
     params.get('return')?.startsWith('/') && !params.get('return')?.startsWith('//') ? params.get('return') : ''
   const goReturn = (extra) => navigate(returnTo ? `${returnTo}${extra || ''}` : '/')
   const [step, setStep] = useState(0) // 0..4 = likert questions, 5 = profile, 6 = results
-  const [answers, setAnswers] = useState({})
+  // Pre-select whatever this participant answered last time (View/Edit
+  // questionnaire) instead of starting blank.
+  const [answers, setAnswers] = useState(() => getRiskAnswers(participant.id) || {})
   const [profile, setProfile] = useState(() => {
     const prefs = hydratePrefs(participant)
     return {
@@ -56,6 +58,7 @@ export default function RiskQuestionnaire() {
     })
     const { levelId } = scoreQuestionnaire(answers)
     setRiskProfileId(participant.id, levelId)
+    setRiskAnswers(participant.id, answers)
   }
 
   const goNext = () => {

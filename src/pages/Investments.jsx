@@ -281,7 +281,7 @@ export function InvestmentEditor({
             <Icon icon={RISK_LEVEL_ICON[measuredLevel.id]} size={16} />
             <span>{measuredLevel.label}</span>
             <button type="button" className="text-btn" onClick={chooseRisk}>
-              Retake questionnaire
+              View/Edit questionnaire
             </button>
           </div>
           <AllocPanel

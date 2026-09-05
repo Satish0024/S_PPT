@@ -6,7 +6,6 @@ import PlanCard from '../components/dashboard/PlanCard.jsx'
 import QuickLinks from '../components/dashboard/QuickLinks.jsx'
 import Transactions from '../components/dashboard/Transactions.jsx'
 import LearningPortal from '../components/dashboard/LearningPortal.jsx'
-import RiskMeterV2 from '../components/dashboard/RiskMeterV2.jsx'
 import ReadinessScoreCard from '../components/dashboard/ReadinessScoreCard.jsx'
 
 export default function Dashboard() {
@@ -47,7 +46,6 @@ export default function Dashboard() {
         <aside className="dash-side">
           {showReadiness && <ReadinessScoreCard />}
           <LearningPortal />
-          <RiskMeterV2 />
         </aside>
       </div>
     </div>

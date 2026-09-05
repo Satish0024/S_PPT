@@ -86,7 +86,7 @@ function StatementModal({ plans, onClose }) {
   return (
     <div className="enroll-modal-bg" role="presentation" onClick={onClose}>
       <div className="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="stmt-title" onClick={(e) => e.stopPropagation()}>
-        <h4 id="stmt-title">Generate Statement</h4>
+        <h4 id="stmt-title">Download periodic statement</h4>
         <div className="pr-form">
           <div className="pr-field">
             <label htmlFor="stmt-plan">
@@ -232,7 +232,7 @@ export default function Reports() {
             {docs.length.toString().padStart(2, '0')} - Record{docs.length === 1 ? '' : 's'} found
           </span>
           <button type="button" className="btn btn-secondary" onClick={() => setStatementOpen(true)}>
-            Generate Statement
+            Download periodic statement
           </button>
         </div>
 

@@ -11,7 +11,7 @@ export default function Transactions({ rows }) {
           // navigate with openStatement so Reports opens the modal on
           // arrival instead of landing on a plain Documents page.
           <button type="button" className="text-link" onClick={() => navigate('/reports', { state: { openStatement: true } })}>
-            Generate statement
+            Download periodic statement
           </button>
         )}
       </div>

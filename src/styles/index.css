@@ -772,6 +772,11 @@
   .rg-plan-tabs{margin-bottom:var(--space-2-5)}
   .rg-plan-note{margin:var(--space-0) var(--space-0) var(--space-3-5);font-size:var(--text-caption-size);font-weight:500;color:var(--ink-soft);line-height:1.4}
   .rg-plan-single{display:flex;flex-direction:column;gap:var(--space-1);margin:var(--space-0) var(--space-0) var(--space-4);max-width:320px}
+  .rg-plan-single--top{margin-bottom:var(--space-3)}
+  .rg-confirm-table{width:100%;border-collapse:collapse;margin:var(--space-0) var(--space-0) var(--space-4);font-size:var(--text-sm-size)}
+  .rg-confirm-table th,.rg-confirm-table td{text-align:left;padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--line)}
+  .rg-confirm-table th{color:var(--muted);font-weight:800;font-size:var(--text-xs-size);text-transform:uppercase;letter-spacing:var(--ls-wide)}
+  .rg-confirm-table td:not(:first-child),.rg-confirm-table th:not(:first-child){font-weight:700}
   .rg-plan-single span{font-size:var(--text-xs-size);font-weight:800;letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--muted)}
   .rg-plan-single select{
     border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-8) var(--space-2) var(--space-3);font:inherit;font-weight:700;

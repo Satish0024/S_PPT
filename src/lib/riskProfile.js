@@ -96,6 +96,30 @@ export function setRiskProfileId(participantId, levelId) {
   window.dispatchEvent(new CustomEvent(RISK_PROFILE_UPDATED_EVENT, { detail: { participantId, levelId } }))
 }
 
+const RISK_ANSWERS_KEY = 'lendguardRiskAnswers'
+
+// Raw per-question likert answers, kept alongside the derived level so
+// re-opening the questionnaire (View/Edit questionnaire) can show what the
+// participant picked last time instead of starting blank.
+export function getRiskAnswers(participantId) {
+  try {
+    const all = JSON.parse(sessionStorage.getItem(RISK_ANSWERS_KEY) || '{}')
+    return all[participantId] || null
+  } catch {
+    return null
+  }
+}
+
+export function setRiskAnswers(participantId, answers) {
+  try {
+    const all = JSON.parse(sessionStorage.getItem(RISK_ANSWERS_KEY) || '{}')
+    all[participantId] = answers
+    sessionStorage.setItem(RISK_ANSWERS_KEY, JSON.stringify(all))
+  } catch {
+    /* ignore */
+  }
+}
+
 // Turns { [questionId]: 1-5 } answers into a 0-100 risk-tolerance score and
 // the nearest canonical level. Reverse-scored questions (agreeing means
 // more conservative) get flipped before summing.

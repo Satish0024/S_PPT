@@ -289,7 +289,7 @@ export default function Portfolio() {
           <div className="tab-panel on">
             <section className="section">
               <h2>Plan investments</h2>
-              <p className="sub">Browse and compare the funds available within your retirement plan.</p>
+              <p className="sub">Browse and compare the funds available within the retirement plan.</p>
               <div className="table-wrap">
                 <table className="plan-table">
                   <thead>

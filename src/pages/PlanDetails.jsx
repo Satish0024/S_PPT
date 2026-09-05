@@ -1,5 +1,5 @@
-import { useMemo, useRef, useState } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 import { Icon } from '../lib/icons'
 import { faPercent, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
@@ -13,7 +13,6 @@ import {
   readSession,
   writeSession
 } from '../data/participants'
-import { formatMoney, summaryForPlan } from '../lib/accountSummary'
 import { PlanStats } from '../components/dashboard/PlanCard.jsx'
 import { DeferralEditor } from './Enrollment.jsx'
 import { InvestmentEditor } from './Investments.jsx'
@@ -73,6 +72,18 @@ export default function PlanDetails() {
   const [tab, setTab] = useState('deferral')
   const [editing, setEditing] = useState(false)
   const editSnapshot = useRef(null)
+  const [searchParams] = useSearchParams()
+
+  // Coming back from the risk questionnaire (View/Edit questionnaire,
+  // opened from this page's Investments edit view): reopen the same
+  // Investments tab in edit mode instead of landing on the plain page.
+  useEffect(() => {
+    if (searchParams.get('openInvestments') === '1') {
+      setTab('investments')
+      setEditing(true)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (!plan) return <Navigate to="/" replace />
 
@@ -86,7 +97,6 @@ export default function PlanDetails() {
   // used on Account Summary, but were never surfaced here — a participant
   // looking at "Plan details" would expect to see where their balance
   // (including any employer match) actually came from.
-  const summary = useMemo(() => summaryForPlan(plan), [plan])
 
   const deferral = enrolled ? { ...DEFAULT_DEFERRAL, ...(savedDeferral || {}) } : savedDeferral
   const autoInc = enrolled ? { ...DEFAULT_AI, ...(savedAi || {}) } : savedAi
@@ -167,7 +177,7 @@ export default function PlanDetails() {
           <div className="plan-fact">
             Plan Details
             <b>
-              {plan.type} · ID {planCode(plan.meta)}
+              {plan.type} · Plan ID {planCode(plan.meta)}
             </b>
           </div>
           <div className="plan-fact">
@@ -212,31 +222,6 @@ export default function PlanDetails() {
         </section>
       )}
 
-      {enrolled && summary.sources.length > 0 && (
-        <section className="panel">
-          <div className="panel-h">
-            <h3>Contribution sources</h3>
-          </div>
-          <p className="panel-note">Where this plan&apos;s balance comes from, including any employer match.</p>
-          <div className="fund-list">
-            <div className="fund-list-head">
-              <span>Source</span>
-              <span>Vested</span>
-            </div>
-            <ul className="detail-rows">
-              {summary.sources.map((s) => (
-                <li key={s.id}>
-                  <span>{s.name}</span>
-                  <b>
-                    {formatMoney(s.amount)}
-                    <small>{formatMoney(s.vested)} vested</small>
-                  </b>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
 
       {enrolled && (
         <div className="pr-shell">
@@ -350,6 +335,7 @@ export default function PlanDetails() {
                     saveLabel="Save changes"
                     onCancel={cancelEdit}
                     onComplete={refresh}
+                    riskReturnPath={`/plans/${plan.id}?openInvestments=1`}
                   />
                 ) : (
                   <>

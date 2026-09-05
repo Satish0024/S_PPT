@@ -32,9 +32,12 @@ ChartJS.register(ArcElement, Tooltip)
 // The old literal "Investments" tab (per-fund rows) was removed — the
 // asset-class-grouped view now carries the "Investments" label instead,
 // since that's the view participants actually want when they click it.
+// Icons use the app's shared Font Awesome set (see lib/icons) -- these two
+// were still referencing pre-migration Lucide components (Database,
+// PieChart) that no longer exist, which threw at render.
 const TABS = [
-  { id: 'sources', label: 'Sources', icon: Database },
-  { id: 'assetclass', label: 'Investments', icon: PieChart }
+  { id: 'sources', label: 'Sources', icon: faDatabase },
+  { id: 'assetclass', label: 'Investments', icon: faChartPie }
 ]
 
 export default function AccountSummary() {
@@ -172,17 +175,9 @@ export default function AccountSummary() {
           <section className="panel as-main">
           {/* Plan name, account balance, and vested balance are dropped here —
               they're already shown for this plan in the left-side panel. */}
-          {plan.noticeLink?.details ? (
-            <div className="as-main-h">
-              <Link to={`/plans/${plan.id}`} className="text-link">
-                View plan details
-              </Link>
-            </div>
-          ) : null}
 
           <div className="as-tabs" role="tablist" aria-label="Balance view">
             {TABS.map((item) => {
-              const Icon = item.icon
               const on = tab === item.id
               return (
                 <button
@@ -198,7 +193,7 @@ export default function AccountSummary() {
                   }}
                 >
                   <span className="pr-nav-ico" aria-hidden="true">
-                    <Icon size={15} strokeWidth={2.1} />
+                    <Icon icon={item.icon} size={15} />
                   </span>
                   {item.label}
                 </button>
@@ -286,9 +281,9 @@ export default function AccountSummary() {
                                   aria-expanded={isOpen}
                                   aria-controls={`${row.id}-detail`}
                                 >
-                                  <ChevronDown
+                                  <Icon
+                                    icon={faChevronDown}
                                     size={15}
-                                    strokeWidth={2.2}
                                     className="as-row-chevron"
                                     aria-hidden="true"
                                   />

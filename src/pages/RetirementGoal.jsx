@@ -206,6 +206,15 @@ function AutoIncreaseBlock({ state, onChange }) {
       </label>
       {state.on && (
         <div className="rg-auto">
+          {/* The auto-increase frequency/cycle is set by the plan at
+              enrollment and can't be changed from this screen -- shown as
+              plain read-only text, same non-editable pattern the
+              enrollment flow uses for it (a "Cycle" label + value, no
+              control). */}
+          <div className="ai-row">
+            <span>Cycle</span>
+            <b>Calendar year</b>
+          </div>
           <div className="ai-source-table">
             <div className="ai-row head">
               <span>Source</span>
@@ -419,13 +428,51 @@ export default function RetirementGoal() {
   }
 
   // Deferral rate / auto-increase edits affect the participant's actual
-  // paycheck deductions, so "Save this goal" confirms before committing
-  // instead of saving immediately.
+  // paycheck deductions, so "Confirm changes" shows a before/after
+  // comparison table before committing instead of saving immediately.
   const requestSave = () => setConfirmSaveOpen(true)
   const confirmSave = () => {
     setConfirmSaveOpen(false)
     save()
   }
+
+  // Deferral-only diff for the pre-save confirmation table -- unlike
+  // goalDiff() (used for the post-save "what changed" summary, which also
+  // covers goal inputs like location/salary), this looks only at what this
+  // screen's Deferrals panel can actually change: per-plan Pre-Tax/Roth
+  // rates and auto-increase on/off + rate. The auto-increase cycle itself
+  // is never editable here, so it's never part of this diff.
+  const deferralChangeRows = deferralPlans.reduce((rows, p) => {
+    const before = baselineShares[p.id] || { pre: 0, roth: 0 }
+    const after = planShares[p.id] || { pre: 0, roth: 0 }
+    const prefix = multiPlan ? `${p.name} · ` : ''
+    if ((before.pre || 0) !== (after.pre || 0)) {
+      rows.push({ label: `${prefix}Pre-Tax %`, was: `${before.pre || 0}%`, now: `${after.pre || 0}%` })
+    }
+    if ((before.roth || 0) !== (after.roth || 0)) {
+      rows.push({ label: `${prefix}Roth %`, was: `${before.roth || 0}%`, now: `${after.roth || 0}%` })
+    }
+    const beforeAuto = baselineAuto[p.id] || blankAuto()
+    const afterAuto = planAuto[p.id] || blankAuto()
+    if (!!beforeAuto.on !== !!afterAuto.on) {
+      rows.push({ label: `${prefix}Auto increase`, was: beforeAuto.on ? 'Yes' : 'No', now: afterAuto.on ? 'Yes' : 'No' })
+    }
+    if (afterAuto.on && (beforeAuto.pctPre !== afterAuto.pctPre || beforeAuto.capPre !== afterAuto.capPre)) {
+      rows.push({
+        label: `${prefix}Auto increase rate (Pre-Tax)`,
+        was: `+${beforeAuto.pctPre}% to ${beforeAuto.capPre}%`,
+        now: `+${afterAuto.pctPre}% to ${afterAuto.capPre}%`
+      })
+    }
+    if (afterAuto.on && (beforeAuto.pctRoth !== afterAuto.pctRoth || beforeAuto.capRoth !== afterAuto.capRoth)) {
+      rows.push({
+        label: `${prefix}Auto increase rate (Roth)`,
+        was: `+${beforeAuto.pctRoth}% to ${beforeAuto.capRoth}%`,
+        now: `+${afterAuto.pctRoth}% to ${afterAuto.capRoth}%`
+      })
+    }
+    return rows
+  }, [])
 
   const autoPct = Math.max(1, +draft.autoPct || 1)
   const autoCap = Math.max(autoPct, +draft.autoCap || 10)
@@ -501,7 +548,7 @@ export default function RetirementGoal() {
             </div>
           </dl>
           <p className="rg-disc">
-            <span className="rr-foot-note">*Not guaranteed results · It&apos;s a simulation.</span>
+            <span className="rr-foot-note">*Not guaranteed results.</span>
             <button type="button" className="rr-disclaimer-link rg-disc-top" onClick={() => setOpen(true)}>
               Disclaimer
             </button>
@@ -575,19 +622,15 @@ export default function RetirementGoal() {
           </section>
 
           <section className="panel rg-inputs">
-            <h2>Deferrals</h2>
-            {multiPlan && (
-              <p className="rg-plan-note">
-                Select a plan to update its deferral rate. Changes will affect your paycheck deductions.
-              </p>
-            )}
             {deferralPlans[0] && (
               // One common dropdown for every case — disabled when there's
               // only one deferral-eligible plan (nothing to choose between),
               // enabled when there's more than one, so the plan a
               // participant is editing is always explicit instead of
-              // implied by a bare "Deferrals" heading.
-              <label className="rg-plan-single">
+              // implied by a bare "Deferrals" heading. Placed above the
+              // heading (rather than inside the panel body) and styled as
+              // a clearly-bordered control so it doesn't read as plain text.
+              <label className="rg-plan-single rg-plan-single--top">
                 <span>Plan</span>
                 <select
                   value={activePlanId || deferralPlans[0].id}
@@ -602,6 +645,12 @@ export default function RetirementGoal() {
                   ))}
                 </select>
               </label>
+            )}
+            <h2>Deferrals</h2>
+            {multiPlan && (
+              <p className="rg-plan-note">
+                Select a plan to update its deferral rate. Changes will affect your paycheck deductions.
+              </p>
             )}
             {(() => {
               const plan = multiPlan ? deferralPlans.find((p) => p.id === activePlanId) || deferralPlans[0] : deferralPlans[0]
@@ -661,7 +710,7 @@ export default function RetirementGoal() {
 
       <div className="rg-nav">
         <button type="button" className="btn btn-primary" onClick={requestSave}>
-          Save this goal
+          Confirm changes
         </button>
         <Link className="text-link" to="/">
           Cancel
@@ -680,15 +729,40 @@ export default function RetirementGoal() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="rr-modal-h">
-              <h4 id="rg-confirm-save-title">Confirm your changes</h4>
+              <h4 id="rg-confirm-save-title">Confirm your deferral changes</h4>
             </div>
-            <p>Your changes impact your paycheck deduction. Do you agree to move forward?</p>
+            <p>
+              You are trying to update your deferral settings. The changes shown below will update your current
+              enrollment settings and will be reflected in your future paycheck deductions.
+            </p>
+            {deferralChangeRows.length ? (
+              <table className="rg-confirm-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Deferrals</th>
+                    <th scope="col">Previous value</th>
+                    <th scope="col">Updated value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {deferralChangeRows.map((row) => (
+                    <tr key={row.label}>
+                      <td>{row.label}</td>
+                      <td>{row.was}</td>
+                      <td>{row.now}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No deferral changes to confirm.</p>
+            )}
             <div className="enroll-modal-actions">
               <button type="button" className="btn btn-primary" onClick={confirmSave}>
-                Yes
+                Update
               </button>
               <button type="button" className="btn btn-secondary" onClick={() => setConfirmSaveOpen(false)}>
-                No
+                Cancel
               </button>
             </div>
           </div>
