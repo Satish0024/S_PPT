@@ -419,7 +419,7 @@ export const TRANSACTION_REQUESTS = {
       id: 'req-1001',
       type: 'loan',
       typeLabel: 'Loan',
-      plan: 'LendGuard 401(k) Plan',
+      plan: 'LendGuard Employees Savings and Retirement 401(k) Plan',
       amount: '$2,500.00',
       date: 'Jan 10, 2026',
       status: 'Approved',
@@ -487,8 +487,8 @@ export const AVAILABLE_INVESTMENTS = [
 // blocked, mirroring the "Transfer in is restricted as it is a competing
 // fund of..." banner in the Figma Source Selection step.
 const COMPETING_FUND_GROUPS = [
-  ['Vanguard 500 Index Fund', 'Fidelity 500 Index Fund'],
-  ['Vanguard Total Bond Market', 'Fidelity U.S. Bond Index']
+  ['Vanguard Institutional Index Fund Admiral Shares', 'Fidelity 500 Index Fund Institutional Class'],
+  ['Vanguard Total Bond Market Index Fund Admiral Shares', 'Fidelity U.S. Bond Index Fund Institutional Premium']
 ]
 
 export function competingFundsFor(name) {

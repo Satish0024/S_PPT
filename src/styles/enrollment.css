@@ -199,9 +199,10 @@
   /* Source rows */
   .source{padding:var(--space-2) var(--space-0);border-top:1px solid var(--line)}
   .source:first-of-type{border-top:none}
-  .source .srow{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-1-5)}
-  .source .sname{display:flex;align-items:center;gap:var(--space-2);font-weight:600;font-size:var(--text-body-md-size)}
-  .source .sval{display:flex;align-items:center;border:1px solid var(--line-strong);border-radius:var(--radius-sm);overflow:hidden;transition:border-color .15s,box-shadow .15s}
+  .source .srow{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-1-5)}
+  .source .smeta{min-width:0;flex:1}
+  .source .sname{display:block;font-weight:600;font-size:var(--text-body-md-size);overflow-wrap:anywhere;word-break:break-word;line-height:1.35}
+  .source .sval{display:flex;align-items:center;flex-shrink:0;margin-top:var(--space-0-5);border:1px solid var(--line-strong);border-radius:var(--radius-sm);overflow:hidden;transition:border-color .15s,box-shadow .15s}
   .source .sval:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 15%, transparent)}
   .source .sval input{width:50px;border:none;outline:none;text-align:right;padding:var(--space-1-5) var(--space-1-5);font-size:var(--text-body-md-size);font-weight:600}
   .source .sval .pct{padding:var(--space-0) var(--space-2);color:var(--muted);font-weight:600;background:var(--surface-2);align-self:stretch;display:grid;place-items:center}

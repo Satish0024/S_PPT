@@ -14,10 +14,10 @@ const ENROLL_FUNDS = PLAN_FUNDS.filter((f) => f.cat !== 'Target-Date')
 const FUNDS = ENROLL_FUNDS.map((f) => f.name)
 const emptyAlloc = () => Object.fromEntries(FUNDS.map((name) => [name, 0]))
 const PLAN_ALLOC = {
-  'Vanguard 500 Index Fund': 30,
-  'Fidelity 500 Index Fund': 30,
-  'Vanguard Total Bond Market': 20,
-  'Fidelity U.S. Bond Index': 20
+  'Vanguard Institutional Index Fund Admiral Shares': 30,
+  'Fidelity 500 Index Fund Institutional Class': 30,
+  'Vanguard Total Bond Market Index Fund Admiral Shares': 20,
+  'Fidelity U.S. Bond Index Fund Institutional Premium': 20
 }
 const PLAN_FUNDS_LIST = ENROLL_FUNDS.filter((f) => PLAN_ALLOC[f.name])
 // One preset fund mix per measured risk level — same four-fund lineup as
@@ -25,22 +25,22 @@ const PLAN_FUNDS_LIST = ENROLL_FUNDS.filter((f) => PLAN_ALLOC[f.name])
 // stated split (see RISK_LEVELS' insights copy in lib/riskProfile.js).
 const RISK_ALLOC = {
   conservative: {
-    'Vanguard 500 Index Fund': 15,
-    'Fidelity 500 Index Fund': 15,
-    'Vanguard Total Bond Market': 35,
-    'Fidelity U.S. Bond Index': 35
+    'Vanguard Institutional Index Fund Admiral Shares': 15,
+    'Fidelity 500 Index Fund Institutional Class': 15,
+    'Vanguard Total Bond Market Index Fund Admiral Shares': 35,
+    'Fidelity U.S. Bond Index Fund Institutional Premium': 35
   },
   moderate: {
-    'Vanguard 500 Index Fund': 25,
-    'Fidelity 500 Index Fund': 25,
-    'Vanguard Total Bond Market': 25,
-    'Fidelity U.S. Bond Index': 25
+    'Vanguard Institutional Index Fund Admiral Shares': 25,
+    'Fidelity 500 Index Fund Institutional Class': 25,
+    'Vanguard Total Bond Market Index Fund Admiral Shares': 25,
+    'Fidelity U.S. Bond Index Fund Institutional Premium': 25
   },
   aggressive: {
-    'Vanguard 500 Index Fund': 45,
-    'Fidelity 500 Index Fund': 45,
-    'Vanguard Total Bond Market': 5,
-    'Fidelity U.S. Bond Index': 5
+    'Vanguard Institutional Index Fund Admiral Shares': 45,
+    'Fidelity 500 Index Fund Institutional Class': 45,
+    'Vanguard Total Bond Market Index Fund Admiral Shares': 5,
+    'Fidelity U.S. Bond Index Fund Institutional Premium': 5
   }
 }
 const RISK_LEVEL_ICON = { conservative: faShieldAlt, moderate: faBalanceScale, aggressive: faRocket }

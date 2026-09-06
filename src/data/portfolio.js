@@ -1,13 +1,13 @@
 export const PLAN_STATS = {
   'lendguard-401k': {
-    label: 'LendGuard 401(k) Plan',
+    label: 'LendGuard Employees Savings and Retirement 401(k) Plan',
     current: '$100,416.00',
     invested: '$90,500.00',
     gain: '+$9,916.00',
     ret: '8.00%'
   },
   'lendguard-profit-sharing': {
-    label: 'LendGuard Profit Sharing Plan',
+    label: 'LendGuard Profit Sharing and Employee Ownership Plan',
     current: '$42,180.00',
     invested: '$38,750.00',
     gain: '+$3,430.00',
@@ -16,19 +16,19 @@ export const PLAN_STATS = {
 }
 
 export const HOLDINGS = [
-  { name: 'Vanguard 500 Index Fund', asset: 'U.S. Equity', cusip: '922908728', returnPct: 14.82, invested: 25000, current: 28705, gain: 3705, units: 74.32 },
-  { name: 'Fidelity 500 Index Fund', asset: 'U.S. Equity', cusip: '315911750', returnPct: 14.95, invested: 18000, current: 20691, gain: 2691, units: 52.18 },
-  { name: 'Vanguard Total Bond Market', asset: 'U.S. Bond', cusip: '921937835', returnPct: 5.18, invested: 15000, current: 15777, gain: 777, units: 186.42 },
-  { name: 'Fidelity U.S. Bond Index', asset: 'U.S. Bond', cusip: '315911727', returnPct: 5.27, invested: 12500, current: 13159, gain: 659, units: 124.63 },
-  { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', cusip: '92202E805', returnPct: 10.42, invested: 20000, current: 22084, gain: 2084, units: 168.57 }
+  { name: 'Vanguard Institutional Index Fund Admiral Shares', asset: 'U.S. Equity', cusip: '922908728', returnPct: 14.82, invested: 25000, current: 28705, gain: 3705, units: 74.32 },
+  { name: 'Fidelity 500 Index Fund Institutional Class', asset: 'U.S. Equity', cusip: '315911750', returnPct: 14.95, invested: 18000, current: 20691, gain: 2691, units: 52.18 },
+  { name: 'Vanguard Total Bond Market Index Fund Admiral Shares', asset: 'U.S. Bond', cusip: '921937835', returnPct: 5.18, invested: 15000, current: 15777, gain: 777, units: 186.42 },
+  { name: 'Fidelity U.S. Bond Index Fund Institutional Premium', asset: 'U.S. Bond', cusip: '315911727', returnPct: 5.27, invested: 12500, current: 13159, gain: 659, units: 124.63 },
+  { name: 'Vanguard Target Retirement 2050 Trust Select', asset: 'Target-Date', cusip: '92202E805', returnPct: 10.42, invested: 20000, current: 22084, gain: 2084, units: 168.57 }
 ]
 
 export const PLAN_FUNDS = [
-  { name: 'Vanguard 500 Index Fund', cat: 'Large Cap Blend', risk: 'aggressive', ytd: '8.62%', y1: '14.82%', y5: '13.91%', y10: '11.87%', si: '10.74%', exp: '0.04%', perK: '$0.40', fees: '0.00%', bench: 'Benchmark - S&P 500 Index', b: ['9.10%', '15.10%', '14.18%', '12.40%', '11.20%'] },
-  { name: 'Fidelity 500 Index Fund', cat: 'Large Cap Blend', risk: 'aggressive', ytd: '8.71%', y1: '14.95%', y5: '14.02%', y10: '11.96%', si: '10.86%', exp: '0.02%', perK: '$0.20', fees: '0.00%', bench: 'Benchmark - S&P 500 Index', b: ['9.10%', '15.10%', '14.18%', '12.40%', '11.20%'] },
-  { name: 'Vanguard Total Bond Market', cat: 'Intermediate Bond', risk: 'conservative', ytd: '3.12%', y1: '5.18%', y5: '0.86%', y10: '2.14%', si: '4.02%', exp: '0.05%', perK: '$0.50', fees: '0.00%', bench: 'Benchmark - Bloomberg U.S. Aggregate Bond', b: ['3.40%', '5.32%', '1.04%', '2.28%', '4.20%'] },
-  { name: 'Fidelity U.S. Bond Index', cat: 'Intermediate Bond', risk: 'conservative', ytd: '3.21%', y1: '5.27%', y5: '0.94%', y10: '2.21%', si: '4.15%', exp: '0.03%', perK: '$0.30', fees: '0.00%', bench: 'Benchmark - Bloomberg U.S. Aggregate Bond', b: ['3.40%', '5.32%', '1.04%', '2.28%', '4.20%'] },
-  { name: 'Vanguard Target Retirement 2050', cat: 'Target-Date', risk: 'moderate', ytd: '6.15%', y1: '10.42%', y5: '8.92%', y10: '—', si: '7.86%', exp: '0.08%', perK: '$0.80', fees: '0.00%', bench: 'Benchmark - Target Retirement Composite', b: ['6.40%', '10.71%', '9.21%', '8.50%', '8.10%'] }
+  { name: 'Vanguard Institutional Index Fund Admiral Shares', cat: 'Large Cap Blend', risk: 'aggressive', ytd: '8.62%', y1: '14.82%', y5: '13.91%', y10: '11.87%', si: '10.74%', exp: '0.04%', perK: '$0.40', fees: '0.00%', bench: 'Benchmark - S&P 500 Index', b: ['9.10%', '15.10%', '14.18%', '12.40%', '11.20%'] },
+  { name: 'Fidelity 500 Index Fund Institutional Class', cat: 'Large Cap Blend', risk: 'aggressive', ytd: '8.71%', y1: '14.95%', y5: '14.02%', y10: '11.96%', si: '10.86%', exp: '0.02%', perK: '$0.20', fees: '0.00%', bench: 'Benchmark - S&P 500 Index', b: ['9.10%', '15.10%', '14.18%', '12.40%', '11.20%'] },
+  { name: 'Vanguard Total Bond Market Index Fund Admiral Shares', cat: 'Intermediate Bond', risk: 'conservative', ytd: '3.12%', y1: '5.18%', y5: '0.86%', y10: '2.14%', si: '4.02%', exp: '0.05%', perK: '$0.50', fees: '0.00%', bench: 'Benchmark - Bloomberg U.S. Aggregate Bond', b: ['3.40%', '5.32%', '1.04%', '2.28%', '4.20%'] },
+  { name: 'Fidelity U.S. Bond Index Fund Institutional Premium', cat: 'Intermediate Bond', risk: 'conservative', ytd: '3.21%', y1: '5.27%', y5: '0.94%', y10: '2.21%', si: '4.15%', exp: '0.03%', perK: '$0.30', fees: '0.00%', bench: 'Benchmark - Bloomberg U.S. Aggregate Bond', b: ['3.40%', '5.32%', '1.04%', '2.28%', '4.20%'] },
+  { name: 'Vanguard Target Retirement 2050 Trust Select', cat: 'Target-Date', risk: 'moderate', ytd: '6.15%', y1: '10.42%', y5: '8.92%', y10: '—', si: '7.86%', exp: '0.08%', perK: '$0.80', fees: '0.00%', bench: 'Benchmark - Target Retirement Composite', b: ['6.40%', '10.71%', '9.21%', '8.50%', '8.10%'] }
 ]
 
 export const ENDS = {

@@ -242,8 +242,8 @@
 .alloc-table td{padding:var(--space-3) var(--space-2-5);border-bottom:1px solid var(--line);color:var(--ink-soft);vertical-align:middle}
 .alloc-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .alloc-table .alloc-after{background:var(--surface-2)}
-.alloc-name-col{min-width:200px}
-.alloc-name{display:block;font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink);line-height:1.35}
+.alloc-name-col{min-width:200px;max-width:320px}
+.alloc-name{display:block;font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink);line-height:1.35;overflow-wrap:anywhere;word-break:break-word}
 .fund-link.alloc-name{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
 .fund-link.alloc-name:hover{color:var(--brand-dark)}
 .alloc-nav{

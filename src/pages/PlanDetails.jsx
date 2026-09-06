@@ -35,10 +35,10 @@ const DEFAULT_AI = {
   capRoth: 10
 }
 const DEFAULT_FUNDS = [
-  ['Vanguard 500 Index Fund', 30],
-  ['Fidelity 500 Index Fund', 30],
-  ['Vanguard Total Bond Market', 20],
-  ['Fidelity U.S. Bond Index', 20]
+  ['Vanguard Institutional Index Fund Admiral Shares', 30],
+  ['Fidelity 500 Index Fund Institutional Class', 30],
+  ['Vanguard Total Bond Market Index Fund Admiral Shares', 20],
+  ['Fidelity U.S. Bond Index Fund Institutional Premium', 20]
 ]
 const SALARY = 85000
 const PERIODS = 26
