@@ -5,7 +5,6 @@ import { faChevronDown, faQuestionCircle, faSignOutAlt, faMoon, faCog, faSun } f
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { useTheme } from '../../context/ThemeContext.jsx'
 import { BRAND } from '../../config/brand.js'
-import AccessibilityMenu from './AccessibilityMenu.jsx'
 
 export default function Header() {
   const { participant, logout } = useParticipant()
@@ -35,7 +34,14 @@ export default function Header() {
         <img src={theme === 'dark' ? BRAND.logoOnDark || BRAND.logo : BRAND.logo} alt={BRAND.name} />
       </div>
       <div className="top-right">
-        <AccessibilityMenu />
+        <a
+          className="icon-btn help-btn"
+          href={`mailto:${BRAND.supportEmail}`}
+          aria-label="Get help"
+          title="Get help"
+        >
+          <Icon icon={faQuestionCircle} size={19} />
+        </a>
         <button
           type="button"
           className="icon-btn theme-toggle"
