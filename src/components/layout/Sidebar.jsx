@@ -7,8 +7,6 @@ import {
   faUser,
   faWallet
 } from '@fortawesome/free-solid-svg-icons'
-import { useTheme } from '../../context/ThemeContext.jsx'
-import { BRAND } from '../../config/brand.js'
 
 const ITEMS = [
   { to: '/', label: 'Dashboard', icon: faThLarge, end: true },
@@ -20,7 +18,6 @@ const ITEMS = [
 
 export default function Sidebar() {
   const { pathname } = useLocation()
-  const { theme } = useTheme()
   const onEnrollment = pathname.startsWith('/enrollment')
   const onGoal = pathname.startsWith('/retirement-goal')
   const onSummary = pathname.startsWith('/account-summary')
@@ -42,8 +39,11 @@ export default function Sidebar() {
       ))}
 
       <div className="nav-bottom">
+        {/* Fixed platform mark -- always CORE, never the tenant's own
+            logo (that's the header's job, via BRAND.logo). This is the
+            "built on CORE" watermark, not a rebrandable element. */}
         <div className="nav-brand" aria-hidden="true">
-          <img src={theme === 'dark' ? BRAND.logoOnDark || BRAND.logo : BRAND.logo} alt="" />
+          <img src="/core-logo.svg" alt="" />
         </div>
       </div>
     </nav>
