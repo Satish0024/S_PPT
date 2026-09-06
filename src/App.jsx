@@ -10,6 +10,7 @@ import EnrollmentSummary from './pages/EnrollmentSummary.jsx'
 import Portfolio from './pages/Portfolio.jsx'
 import Enrich from './pages/Enrich.jsx'
 import Profile from './pages/Profile.jsx'
+import Settings from './pages/Settings.jsx'
 import Transactions from './pages/Transactions.jsx'
 import TransactionRequest from './pages/TransactionRequest.jsx'
 import Reports from './pages/Reports.jsx'
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="/plans/:planId" element={<PlanDetails />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/accounts" element={<Navigate to="/reports" replace />} />

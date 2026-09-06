@@ -73,7 +73,7 @@ export default function Header() {
               role="menuitem"
               onClick={() => {
                 setOpen(false)
-                navigate('/profile')
+                navigate('/settings')
               }}
             >
               <span className="sign-out-ico" aria-hidden="true">
