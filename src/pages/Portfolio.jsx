@@ -198,9 +198,9 @@ export default function Portfolio() {
                       <div className="stat-v pos">{plan.gain}</div>
                     </div>
                     <div className="stat-block">
-                      <div className="stat-k">Fund return</div>
+                      <div className="stat-k">Fund return YTD</div>
                       <div className="stat-v pos" aria-label={`${plan.ret} year to date`}>
-                        {plan.ret} <span className="stat-period">YTD</span>
+                        {plan.ret}
                       </div>
                     </div>
                   </div>
@@ -389,6 +389,7 @@ export default function Portfolio() {
             { label: 'Asset class / category', value: openFund.asset || openFund.cat },
             { label: 'CUSIP', value: openFund.cusip },
             { label: 'Fund return %', value: openFund.returnPct != null ? `${openFund.returnPct.toFixed(2)}%` : openFund.ytd },
+            { label: 'Period of return', value: 'YTD' },
             { label: 'Current balance', value: openFund.current != null ? money(openFund.current) : undefined },
             { label: 'Unit balance', value: openFund.units != null ? openFund.units.toFixed(2) : undefined },
             { label: '1 yr. return', value: openFund.y1 },

@@ -40,7 +40,7 @@ export default function Dashboard() {
                 ))}
             </div>
           </section>
-          <QuickLinks />
+          <QuickLinks showGenerateStatement={!!participant.transactions?.length} />
           <Transactions rows={participant.transactions.slice(0, 5)} />
         </div>
         <aside className="dash-side">

@@ -2667,6 +2667,20 @@ summary:focus-visible {
 .learn2-cta:hover { text-decoration: underline; }
 .learn2-cta:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; }
 
+/* Enrich variant (prototype review #79): no illustration, so the body
+   takes the full card width; wordmark stands in for the real Enrich
+   logo asset, which hasn't been supplied yet. */
+.learn2-enrich .learn2-body { max-width: 100%; }
+.learn2-enrich-mark {
+  display: inline-block;
+  font-size: var(--text-h5-size);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--ls-tighter);
+  color: var(--learn-ink);
+  margin-bottom: var(--space-2-5);
+}
+.learn2-enrich-mark .dot { color: var(--learn-accent); }
+
 /* ---------- Investment Style ----------
    Typography-led identity card: the level name is the visual. The
    supplied illustration (a shield with a checkmark plus gold coins) sits
