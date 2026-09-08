@@ -166,14 +166,8 @@ export default function AccountSummary() {
         {plan ? (
           <section className="panel as-main">
           {/* Plan name, account balance, and vested balance are dropped here —
-              they're already shown for this plan in the left-side panel. */}
-          {plan.noticeLink?.details ? (
-            <div className="as-main-h">
-              <Link to={`/plans/${plan.id}`} className="text-link">
-                View plan details
-              </Link>
-            </div>
-          ) : null}
+              they're already shown for this plan in the left-side panel. The
+              "View plan details" link was removed too (item #72). */}
 
           <div className="as-tabs" role="tablist" aria-label="Balance view">
             {TABS.map((item) => {
@@ -243,7 +237,7 @@ export default function AccountSummary() {
               </div>
 
               <div className="as-table-wrap">
-                <table className={tab === 'investments' || tab === 'assetclass' ? 'as-table-accordion' : ''}>
+                <table className="as-table-accordion">
                   <thead>
                     <tr>
                       <th scope="col">{tab === 'sources' ? 'Source' : tab === 'assetclass' ? 'Asset class' : 'Investment'}</th>
@@ -258,7 +252,8 @@ export default function AccountSummary() {
                     {rows.map((row, i) => {
                       const isInvestment = tab === 'investments'
                       const isAssetClass = tab === 'assetclass'
-                      const isExpandable = isInvestment || isAssetClass
+                      const isSource = tab === 'sources'
+                      const isExpandable = isInvestment || isAssetClass || (isSource && row.members?.length > 0)
                       const isOpen = isExpandable && expandedRow === row.id
                       return (
                         <Fragment key={row.id}>
@@ -322,9 +317,9 @@ export default function AccountSummary() {
                               </td>
                             </tr>
                           ) : null}
-                          {isOpen && isAssetClass ? (
+                          {isOpen && (isAssetClass || isSource) ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
-                              <td colSpan={3}>
+                              <td colSpan={isSource ? 5 : 3}>
                                 <ul className="as-class-members">
                                   {row.members.map((m) => (
                                     <li key={m.id}>

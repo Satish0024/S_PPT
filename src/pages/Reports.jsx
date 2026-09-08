@@ -1,9 +1,12 @@
-import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { ChevronDown, Download, FileText } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
+import { addGeneratedStatement, getGeneratedStatements } from '../lib/generatedStatements.js'
+import { downloadDocumentFile } from '../lib/downloadDocument.js'
 import StatementModal from '../components/common/StatementModal.jsx'
+import Toast from '../components/common/Toast.jsx'
 import '../styles/documents.css'
 
 function toDateInput(d) {
@@ -88,15 +91,50 @@ export default function Reports() {
   // navigates here with this flag set, so the modal is already open on
   // arrival instead of landing on a plain Documents page.
   const [statementOpen, setStatementOpen] = useState(() => !!location.state?.openStatement)
+  const [toast, setToast] = useState(null)
+  // Every "Generate" click adds a real record (persisted per participant
+  // in sessionStorage) instead of replaying a fixed mock list --
+  // generatedTick just forces this component to re-read it after a write.
+  const [generatedTick, setGeneratedTick] = useState(0)
+  const showToast = (message, tone = 'success') => setToast({ id: Date.now(), message, tone })
+  const dismissToast = useCallback(() => setToast(null), [])
 
   useEffect(() => {
     if (location.state?.openStatement) setStatementOpen(true)
   }, [location.state])
 
+  const handleGenerate = (plan, periodLabel) => {
+    try {
+      addGeneratedStatement(participant.id, { planName: plan?.name, periodLabel })
+      setGeneratedTick((t) => t + 1)
+      downloadDocumentFile({
+        name: `${plan.name} Statement`,
+        type: 'Quarterly Fee Disclosure',
+        plan: plan.name,
+        date: new Date().toLocaleDateString()
+      })
+      showToast('New statement generated and downloaded.', 'success')
+      setStatementOpen(false)
+    } catch (err) {
+      showToast(err.message || 'Could not generate that statement. Please try again.', 'error')
+    }
+  }
+
+  const handleDownload = (doc) => {
+    try {
+      downloadDocumentFile(doc)
+      showToast('Downloaded successfully.', 'success')
+    } catch (err) {
+      showToast(err.message || 'Download failed. Please try again.', 'error')
+    }
+  }
+
   const allDocs = useMemo(() => {
     const personal = STATEMENTS[participant.id] || []
-    return [...personal, ...PLAN_DOCS]
-  }, [participant])
+    const generated = getGeneratedStatements(participant.id)
+    return [...generated, ...personal, ...PLAN_DOCS]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [participant, generatedTick])
 
   const docs = useMemo(() => {
     return allDocs.filter((d) => {
@@ -200,7 +238,7 @@ export default function Reports() {
                   </p>
                 </div>
                 <span className="doc-plan">{d.plan}</span>
-                <button type="button" className="doc-dl">
+                <button type="button" className="doc-dl" onClick={() => handleDownload(d)}>
                   <Download size={16} strokeWidth={2.2} />
                   Download
                 </button>
@@ -211,8 +249,9 @@ export default function Reports() {
       </section>
 
       {statementOpen ? (
-        <StatementModal plans={participant.plans} onCancel={closeStatement} onGenerate={closeStatement} />
+        <StatementModal plans={participant.plans} onCancel={closeStatement} onGenerate={handleGenerate} />
       ) : null}
+      <Toast key={toast?.id} message={toast?.message || ''} tone={toast?.tone} onDismiss={dismissToast} />
     </div>
   )
 }

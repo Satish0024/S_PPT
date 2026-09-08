@@ -97,14 +97,24 @@ function toAssetClassRows(investments, total) {
   })
 }
 
+// Attaches the plan's investment holdings to each source row as `members`
+// so the Sources table can expand a row the same way Asset class rows do —
+// the mock data doesn't track a real per-source investment split, so every
+// source shows the plan's full investment lineup.
+function withInvestmentMembers(sourceRows, investmentRows) {
+  if (!investmentRows.length) return sourceRows
+  return sourceRows.map((row) => ({ ...row, members: investmentRows }))
+}
+
 export function summaryForPlan(plan) {
   const balance = planBalance(plan)
   const vested = planVested(plan)
+  const investments = toRows(plan.investments, balance)
   return {
     balance,
     vested,
-    sources: toRows(plan.sources, balance),
-    investments: toRows(plan.investments, balance),
+    sources: withInvestmentMembers(toRows(plan.sources, balance), investments),
+    investments,
     assetClasses: toAssetClassRows(plan.investments, balance)
   }
 }

@@ -148,7 +148,7 @@ export function InvestmentEditor({ embedded = false, saveLabel = 'Continue', onC
       <div className="section-top">
         <div>
           <h3 className="section-title">{embedded ? 'Edit investments' : 'Investment election'}</h3>
-          <p className="section-sub">Choose how each contribution source is invested. Each source must total 100%.</p>
+          <p className="section-sub">Choose how the deferrals are invested. The allocations must total to 100%.</p>
         </div>
         <button type="button" className="optout-link" onClick={() => setFundsOpen('view')}>
           View plan investments

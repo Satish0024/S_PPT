@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom'
-import { FileText, TrendingUp, Users } from 'lucide-react'
+import { FileText, FilePlus2, TrendingUp, Users } from 'lucide-react'
 
-export default function QuickLinks() {
+// "Generate statement" moved here from the Recent Transactions widget
+// (items #63/#78) — it's a Quick Links tile now, not a link buried in the
+// transactions list. Hidden entirely when the participant has no
+// transactions, same as the old widget-link behavior.
+export default function QuickLinks({ showStatement = true }) {
   return (
     <section>
       <h2 className="section-title">Quick links</h2>
@@ -24,6 +28,14 @@ export default function QuickLinks() {
           </span>
           <span className="q-label">My portfolio</span>
         </Link>
+        {showStatement && (
+          <Link className="quick-link" to="/reports" state={{ openStatement: true }}>
+            <span className="q-ico" aria-hidden="true">
+              <FilePlus2 size={18} strokeWidth={2} />
+            </span>
+            <span className="q-label">Generate statement</span>
+          </Link>
+        )}
       </div>
     </section>
   )

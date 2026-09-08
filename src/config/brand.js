@@ -9,5 +9,6 @@ export const BRAND = {
   logo: '/saturna_logo.png',
   tagline: 'Plan With Confidence.',
   taglineBody: 'Access your 401(k), deferrals, and retirement tools in one secure participant portal.',
-  supportPlanNoun: 'your Saturna plan'
+  supportPlanNoun: 'your Saturna plan',
+  supportEmail: 'support@saturna.com'
 }

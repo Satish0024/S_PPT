@@ -55,7 +55,16 @@ export default function StatementModal({ plans, onCancel, onGenerate }) {
           <button type="button" className="btn btn-secondary" onClick={onCancel}>
             Cancel
           </button>
-          <button type="button" className="btn btn-primary" onClick={onGenerate}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={!planId}
+            onClick={() => {
+              const plan = plans.find((p) => p.id === planId)
+              const periodLabel = STATEMENT_PERIODS.find((p) => p.id === period)?.label
+              onGenerate(plan, periodLabel)
+            }}
+          >
             Generate &amp; Download
           </button>
         </div>
