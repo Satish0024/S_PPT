@@ -4,6 +4,7 @@ import { faSun, faMoon, faDesktop, faLock, faCircleCheck } from '@fortawesome/fr
 import { useTheme } from '../context/ThemeContext.jsx'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { ProfileBlock, TextField } from '../components/profile/ProfileFields.jsx'
+import Toast from '../components/common/Toast.jsx'
 
 // Keeping this intentionally small: an app-level Settings page for a
 // participant portal only needs to cover things the app itself controls
@@ -56,6 +57,7 @@ export default function Settings() {
   const [pw, setPw] = useState({ current: '', next: '', confirm: '' })
   const [pwError, setPwError] = useState('')
   const [pwSaved, setPwSaved] = useState(false)
+  const [toast, setToast] = useState(null)
 
   const updatePref = (key, value) => {
     const next = { ...prefs, [key]: value }
@@ -81,6 +83,7 @@ export default function Settings() {
     setPwError('')
     setPwSaved(true)
     setPw({ current: '', next: '', confirm: '' })
+    setToast({ id: Date.now(), message: 'Password updated.', tone: 'success' })
   }
 
   return (
@@ -168,6 +171,7 @@ export default function Settings() {
           </form>
         </ProfileBlock>
       </div>
+      <Toast key={toast?.id} message={toast?.message || ''} tone={toast?.tone} onDismiss={() => setToast(null)} />
     </div>
   )
 }

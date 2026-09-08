@@ -397,6 +397,13 @@
     --learn-border:rgba(22,28,58,.10);
     --learn-elevation: 0 1px 2px rgba(20,28,60,.05), 0 12px 28px -12px rgba(60,40,150,.16);
 
+    /* Enrich card (Auto Enrolled participants only) -- deliberately its
+       own tertiary/gold accent, distinct from --learn-accent's brand
+       blue, but still a CORE-palette token, not an invented hex. */
+    --enrich-accent: var(--theme-tertiary-text-primary-default);
+    --enrich-accent-bg: var(--theme-tertiary-background-primary-subtle);
+    --enrich-surface-2: var(--theme-tertiary-background-primary-light);
+
     /* Investment Style — same fix: was a fixed mint/green identity
        (#0a6656 etc.), unrelated to --brand. Now brand-derived. */
     /* inv-surface-2's faint mint tint now sources from the palette's own
@@ -439,6 +446,12 @@
     --learn-pattern: color-mix(in srgb, var(--brand) 38%, transparent); --learn-pattern-soft: color-mix(in srgb, var(--brand) 8%, transparent);
     --learn-border: color-mix(in srgb, var(--brand) 15%, transparent);
     --learn-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.55);
+
+    /* Enrich card — dark. Same tertiary/gold identity, primitive tones
+       chosen to stay legible against the dark surface. */
+    --enrich-accent: var(--theme-primitive-color-tertiary-300);
+    --enrich-accent-bg: color-mix(in srgb, var(--enrich-accent) 16%, transparent);
+    --enrich-surface-2: var(--theme-primitive-color-tertiary-950);
 
     /* Investment Style — dark. Was a fixed mint/teal (#5fe3c4 etc.),
        now brand-derived here too. */
@@ -2704,19 +2717,22 @@ summary:focus-visible {
 .learn2-cta:hover { text-decoration: underline; }
 .learn2-cta:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; }
 
-/* Enrich variant (prototype review #79): no illustration, so the body
-   takes the full card width; wordmark stands in for the real Enrich
-   logo asset, which hasn't been supplied yet. */
-.learn2-enrich .learn2-body { max-width: 100%; }
-.learn2-enrich-mark {
-  display: inline-block;
-  font-size: var(--text-h5-size);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--ls-tighter);
-  color: var(--learn-ink);
-  margin-bottom: var(--space-2-5);
+/* Enrich variant (prototype review #79): same card shell as Financial
+   Wellness, but its own tertiary (gold) accent tone -- via --enrich-*
+   tokens, all CORE-palette-sourced (see core-color-palette.css) -- so it
+   reads as visually distinct from the brand-blue generic card, without
+   inventing a hardcoded color. */
+.learn2-enrich {
+  background: linear-gradient(135deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 52%, var(--enrich-surface-2) 100%);
 }
-.learn2-enrich-mark .dot { color: var(--learn-accent); }
+.learn2-enrich .learn2-tag { color: var(--enrich-accent); background: var(--enrich-accent-bg); }
+.learn2-enrich .learn2-cta { color: var(--enrich-accent); }
+.learn2-enrich .learn2-cta:focus-visible { outline-color: var(--enrich-accent); }
+/* The supplied Enrich illustration has a denser, more square bounding
+   box than the generic Learning artwork (which is wider/shorter) --
+   sized down and pulled in from the edge so it sits inside the card
+   like the other widget illustrations instead of overflowing it. */
+.learn2-enrich .learn2-field { width: 40%; max-width: 150px; right: 4%; }
 
 /* ---------- Investment Style ----------
    Typography-led identity card: the level name is the visual. The

@@ -4,6 +4,8 @@ import { Icon } from '../lib/icons'
 import { faChevronDown, faDownload, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
+import { addGeneratedStatement, getGeneratedStatements } from '../lib/generatedStatements.js'
+import { downloadDocumentFile } from '../lib/downloadDocument.js'
 import Toast from '../components/common/Toast.jsx'
 import '../styles/documents.css'
 
@@ -80,7 +82,7 @@ function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, 
   )
 }
 
-function StatementModal({ plans, onClose, onDownload }) {
+function StatementModal({ plans, onClose, onGenerate }) {
   const [planId, setPlanId] = useState('')
   const [period, setPeriod] = useState('3m')
 
@@ -123,7 +125,9 @@ function StatementModal({ plans, onClose, onDownload }) {
             className="btn btn-primary"
             disabled={!planId}
             onClick={() => {
-              onDownload()
+              const plan = plans.find((p) => p.id === planId)
+              const periodLabel = STATEMENT_PERIODS.find((p) => p.id === period)?.label
+              onGenerate(plan, periodLabel)
               onClose()
             }}
           >
@@ -152,17 +156,44 @@ export default function Reports() {
   // arrival instead of landing on a plain Documents page.
   const [statementOpen, setStatementOpen] = useState(() => !!location.state?.openStatement)
   const [toast, setToast] = useState(null)
-  const showDownloaded = () => setToast({ id: Date.now(), message: 'Downloaded successfully' })
+  // Every "Generate" click adds a real record (persisted per participant,
+  // same sessionStorage pattern as lib/riskProfile.js) instead of replaying
+  // a fixed mock list -- generatedTick just forces this component to
+  // re-read it after a write.
+  const [generatedTick, setGeneratedTick] = useState(0)
+  const showToast = (message, tone = 'success') => setToast({ id: Date.now(), message, tone })
   const dismissToast = useCallback(() => setToast(null), [])
 
   useEffect(() => {
     if (location.state?.openStatement) setStatementOpen(true)
   }, [location.state])
 
+  const handleGenerate = (plan, periodLabel) => {
+    try {
+      addGeneratedStatement(participant.id, { planName: plan?.name, periodLabel })
+      setGeneratedTick((t) => t + 1)
+      downloadDocumentFile({ name: `${plan.name} Statement`, type: 'Quarterly Fee Disclosure', plan: plan.name, date: new Date().toLocaleDateString() })
+      showToast('New statement generated and downloaded.', 'success')
+    } catch (err) {
+      showToast(err.message || 'Could not generate that statement. Please try again.', 'error')
+    }
+  }
+
+  const handleDownload = (doc) => {
+    try {
+      downloadDocumentFile(doc)
+      showToast('Downloaded successfully.', 'success')
+    } catch (err) {
+      showToast(err.message || 'Download failed. Please try again.', 'error')
+    }
+  }
+
   const allDocs = useMemo(() => {
     const personal = STATEMENTS[participant.id] || []
-    return [...personal, ...PLAN_DOCS]
-  }, [participant])
+    const generated = getGeneratedStatements(participant.id)
+    return [...generated, ...personal, ...PLAN_DOCS]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [participant, generatedTick])
 
   const docs = useMemo(() => {
     return allDocs.filter((d) => {
@@ -264,7 +295,7 @@ export default function Reports() {
                   </p>
                 </div>
                 <span className="doc-plan">{d.plan}</span>
-                <button type="button" className="doc-dl" onClick={showDownloaded}>
+                <button type="button" className="doc-dl" onClick={() => handleDownload(d)}>
                   <Icon icon={faDownload} size={16} />
                   Download
                 </button>
@@ -278,10 +309,10 @@ export default function Reports() {
         <StatementModal
           plans={participant.plans}
           onClose={() => setStatementOpen(false)}
-          onDownload={showDownloaded}
+          onGenerate={handleGenerate}
         />
       )}
-      <Toast key={toast?.id} message={toast?.message || ''} onDismiss={dismissToast} />
+      <Toast key={toast?.id} message={toast?.message || ''} tone={toast?.tone} onDismiss={dismissToast} />
     </div>
   )
 }

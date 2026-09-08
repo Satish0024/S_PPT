@@ -65,7 +65,7 @@
   --theme-secondary-border-hover: #07A8F2;            /* Not yet applied */
 
   /* Tertiary / Text ---------------------------------------------------------------------*/
-  --theme-tertiary-text-primary-default: #E89A1C;  /* Not yet applied */
+  --theme-tertiary-text-primary-default: #E89A1C;  /* Applied at: index.css --enrich-accent (light) */
   --theme-tertiary-text-primary-hover: #C27A10;    /* Not yet applied */
   --theme-tertiary-text-primary-active: #95590A;   /* Not yet applied */
   --theme-tertiary-text-primary-disabled: #FBCB6B; /* Not yet applied */
@@ -73,8 +73,8 @@
 
   /* Tertiary / background ---------------------------------------------------------------------*/
   --theme-tertiary-background-primary-default: #E89A1C;  /* Not yet applied */
-  --theme-tertiary-background-primary-light: #FFF8EA;    /* Not yet applied */
-  --theme-tertiary-background-primary-subtle: #FEEBBE;   /* Not yet applied */
+  --theme-tertiary-background-primary-light: #FFF8EA;    /* Applied at: index.css --enrich-surface-2 (light) */
+  --theme-tertiary-background-primary-subtle: #FEEBBE;   /* Applied at: index.css --enrich-accent-bg (light) */
   --theme-tertiary-background-hover: #C27A10;             /* Not yet applied */
   --theme-tertiary-background-active: #95590A;            /* Not yet applied */
   --theme-tertiary-background-disabled-light: #EEEEF2;    /* Not yet applied */
@@ -155,14 +155,14 @@
   --theme-primitive-color-tertiary-50: #FFF8EA;   /* Not yet applied */
   --theme-primitive-color-tertiary-100: #FEEBBE;  /* Not yet applied */
   --theme-primitive-color-tertiary-200: #FCDB94;  /* Not yet applied */
-  --theme-primitive-color-tertiary-300: #FBCB6B;  /* Not yet applied */
+  --theme-primitive-color-tertiary-300: #FBCB6B;  /* Applied at: index.css --enrich-accent (dark theme) */
   --theme-primitive-color-tertiary-400: #F2B244;  /* Not yet applied */
   --theme-primitive-color-tertiary-500: #E89A1C;  /* Not yet applied */
   --theme-primitive-color-tertiary-600: #C27A10;  /* Not yet applied */
   --theme-primitive-color-tertiary-700: #95590A;  /* Not yet applied */
   --theme-primitive-color-tertiary-800: #784708;  /* Not yet applied */
   --theme-primitive-color-tertiary-900: #5C3505;  /* Not yet applied */
-  --theme-primitive-color-tertiary-950: #382002;  /* Not yet applied */
+  --theme-primitive-color-tertiary-950: #382002;  /* Applied at: index.css --enrich-surface-2 (dark theme) */
 
   /* Success -------------------------------------------------------------------------*/
   --theme-colors-success-50: #EDFAF2;   /* Not yet applied (same hex as semantics-success-light-background, already applied through that token) */
