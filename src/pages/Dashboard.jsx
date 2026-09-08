@@ -5,7 +5,6 @@ import PlanCard from '../components/dashboard/PlanCard.jsx'
 import QuickLinks from '../components/dashboard/QuickLinks.jsx'
 import Transactions from '../components/dashboard/Transactions.jsx'
 import LearningPortal from '../components/dashboard/LearningPortal.jsx'
-import RiskMeterV2 from '../components/dashboard/RiskMeterV2.jsx'
 import ReadinessScoreCard from '../components/dashboard/ReadinessScoreCard.jsx'
 
 export default function Dashboard() {
@@ -37,13 +36,12 @@ export default function Dashboard() {
               ))}
             </div>
           </section>
-          <QuickLinks />
+          <QuickLinks showGenerateStatement={!!participant.transactions?.length} />
           <Transactions rows={participant.transactions.slice(0, 5)} />
         </div>
         <aside className="dash-side">
           <ReadinessScoreCard />
           <LearningPortal />
-          <RiskMeterV2 />
         </aside>
       </div>
     </div>

@@ -2,6 +2,10 @@ import { ageFromDob } from './retirementGoal'
 import { LIKERT_QUESTIONS } from '../data/riskQuestionnaire'
 
 export const RISK_PROFILE_KEY = 'lendguardRiskProfile'
+// Raw per-question Likert answers, keyed by participant id -- separate from
+// the derived level override above so "View/Edit questionnaire" can reopen
+// with the participant's actual prior selections instead of a blank form.
+export const RISK_ANSWERS_KEY = 'lendguardRiskAnswers'
 
 // Three canonical levels — these ids line up with the `risk` field already
 // used on fund rows in data/portfolio.js (conservative/moderate/aggressive).
@@ -94,6 +98,25 @@ export function setRiskProfileId(participantId, levelId) {
     /* ignore */
   }
   window.dispatchEvent(new CustomEvent(RISK_PROFILE_UPDATED_EVENT, { detail: { participantId, levelId } }))
+}
+
+export function getRiskAnswers(participantId) {
+  try {
+    const all = JSON.parse(sessionStorage.getItem(RISK_ANSWERS_KEY) || '{}')
+    return all[participantId] || {}
+  } catch {
+    return {}
+  }
+}
+
+export function setRiskAnswers(participantId, answers) {
+  try {
+    const all = JSON.parse(sessionStorage.getItem(RISK_ANSWERS_KEY) || '{}')
+    all[participantId] = answers
+    sessionStorage.setItem(RISK_ANSWERS_KEY, JSON.stringify(all))
+  } catch {
+    /* ignore */
+  }
 }
 
 // Turns { [questionId]: 1-5 } answers into a 0-100 risk-tolerance score and

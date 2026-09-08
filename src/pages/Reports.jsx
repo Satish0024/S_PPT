@@ -3,6 +3,9 @@ import { useLocation } from 'react-router-dom'
 import { ChevronDown, Download, FileText } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
+import { addGeneratedStatement, getGeneratedStatements } from '../lib/generatedStatements.js'
+import { downloadDocumentFile } from '../lib/downloadDocument.js'
+import Toast from '../components/common/Toast.jsx'
 import '../styles/documents.css'
 
 const STATEMENT_PERIODS = [
@@ -78,9 +81,22 @@ function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, 
   )
 }
 
-function StatementModal({ plans, onClose }) {
+function StatementModal({ plans, onClose, onGenerated, onError }) {
   const [planId, setPlanId] = useState('')
   const [period, setPeriod] = useState('3m')
+
+  const generate = () => {
+    const plan = plans.find((p) => p.id === planId)
+    const periodLabel = STATEMENT_PERIODS.find((p) => p.id === period)?.label || period
+    try {
+      const doc = addGeneratedStatement(plan?.id, { planName: plan?.name, periodLabel })
+      downloadDocumentFile(doc)
+      onGenerated?.(doc)
+      onClose()
+    } catch (err) {
+      onError?.(err instanceof Error ? err.message : 'Could not generate this statement.')
+    }
+  }
 
   return (
     <div className="enroll-modal-bg" role="presentation" onClick={onClose}>
@@ -116,7 +132,7 @@ function StatementModal({ plans, onClose }) {
           <button type="button" className="btn btn-ghost" onClick={onClose}>
             Cancel
           </button>
-          <button type="button" className="btn btn-primary" disabled={!planId} onClick={onClose}>
+          <button type="button" className="btn btn-primary" disabled={!planId} onClick={generate}>
             Generate &amp; Download
           </button>
         </div>
@@ -141,15 +157,21 @@ export default function Reports() {
   // navigates here with this flag set, so the modal is already open on
   // arrival instead of landing on a plain Documents page.
   const [statementOpen, setStatementOpen] = useState(() => !!location.state?.openStatement)
+  const [generated, setGenerated] = useState(() => getGeneratedStatements(participant.id))
+  const [toast, setToast] = useState(null)
 
   useEffect(() => {
     if (location.state?.openStatement) setStatementOpen(true)
   }, [location.state])
 
+  useEffect(() => {
+    setGenerated(getGeneratedStatements(participant.id))
+  }, [participant.id])
+
   const allDocs = useMemo(() => {
     const personal = STATEMENTS[participant.id] || []
-    return [...personal, ...PLAN_DOCS]
-  }, [participant])
+    return [...generated, ...personal, ...PLAN_DOCS]
+  }, [participant, generated])
 
   const docs = useMemo(() => {
     return allDocs.filter((d) => {
@@ -251,7 +273,18 @@ export default function Reports() {
                   </p>
                 </div>
                 <span className="doc-plan">{d.plan}</span>
-                <button type="button" className="doc-dl">
+                <button
+                  type="button"
+                  className="doc-dl"
+                  onClick={() => {
+                    try {
+                      downloadDocumentFile(d)
+                      setToast({ tone: 'success', message: 'Downloaded successfully.' })
+                    } catch (err) {
+                      setToast({ tone: 'error', message: err instanceof Error ? err.message : 'Could not download this document.' })
+                    }
+                  }}
+                >
                   <Download size={16} strokeWidth={2.2} />
                   Download
                 </button>
@@ -261,7 +294,18 @@ export default function Reports() {
         )}
       </section>
 
-      {statementOpen && <StatementModal plans={participant.plans} onClose={() => setStatementOpen(false)} />}
+      {statementOpen && (
+        <StatementModal
+          plans={participant.plans}
+          onClose={() => setStatementOpen(false)}
+          onGenerated={(doc) => {
+            setGenerated((prev) => [doc, ...prev])
+            setToast({ tone: 'success', message: 'New statement generated and downloaded.' })
+          }}
+          onError={(message) => setToast({ tone: 'error', message })}
+        />
+      )}
+      <Toast message={toast?.message} tone={toast?.tone} onDismiss={() => setToast(null)} />
     </div>
   )
 }

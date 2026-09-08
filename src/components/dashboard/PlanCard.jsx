@@ -34,7 +34,7 @@ export default function PlanCard({ plan }) {
   return (
     <article className={`plan-card ${plan.cardClass || ''}`}>
       <div className="pc-top">
-        <div>
+        <div className="pc-identity">
           <h3 className="pc-name">{plan.name}</h3>
           <div className="pc-type">{plan.type}</div>
           <div className="pc-meta">{plan.meta}</div>

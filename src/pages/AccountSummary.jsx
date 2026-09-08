@@ -172,14 +172,8 @@ export default function AccountSummary() {
         {plan ? (
           <section className="panel as-main">
           {/* Plan name, account balance, and vested balance are dropped here —
-              they're already shown for this plan in the left-side panel. */}
-          {plan.noticeLink?.details ? (
-            <div className="as-main-h">
-              <Link to={`/plans/${plan.id}`} className="text-link">
-                View plan details
-              </Link>
-            </div>
-          ) : null}
+              they're already shown for this plan in the left-side panel. The
+              "View plan details" link was removed per client feedback (#72). */}
 
           <div className="as-tabs" role="tablist" aria-label="Balance view">
             {TABS.map((item) => {

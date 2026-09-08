@@ -133,7 +133,7 @@
   .plan-table thead .sub-h{font-size:11px;font-weight:600;color:var(--ink-soft);background:var(--surface-2)}
   .plan-table tbody td{text-align:center;padding:12px 8px;border:1px solid var(--line);vertical-align:middle;font-variant-numeric:tabular-nums}
   .plan-table tbody td.fund-cell{text-align:left;white-space:normal;min-width:220px}
-  .plan-table .fund-title{font-weight:700;color:var(--ink);font-size:14px;display:block}
+  .plan-table .fund-title{font-weight:700;color:var(--ink);font-size:14px;display:block;overflow-wrap:anywhere;word-break:break-word;line-height:1.35}
   .plan-table .fund-link.fund-title{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
   .plan-table .fund-link.fund-title:hover{color:var(--brand-dark)}
   .plan-table .fund-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px}

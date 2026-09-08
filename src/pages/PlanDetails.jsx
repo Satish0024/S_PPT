@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 import { Percent, TrendingUp } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import {
@@ -12,7 +12,6 @@ import {
   readSession,
   writeSession
 } from '../data/participants'
-import { formatMoney, summaryForPlan } from '../lib/accountSummary'
 import { PlanStats } from '../components/dashboard/PlanCard.jsx'
 import { DeferralEditor } from './Enrollment.jsx'
 import { InvestmentEditor } from './Investments.jsx'
@@ -69,8 +68,12 @@ export default function PlanDetails() {
   const [optOutOpen, setOptOutOpen] = useState(false)
   const [optedOut, setOptedOut] = useState(!!savedDeferral?.optedOut)
   useEscapeToClose(optOutOpen, () => setOptOutOpen(false))
-  const [tab, setTab] = useState('deferral')
-  const [editing, setEditing] = useState(false)
+  const [searchParams] = useSearchParams()
+  // "View/Edit questionnaire" (opened from the investments editor below)
+  // returns here with these params so the participant lands back on the
+  // same tab, already back in edit mode, instead of somewhere generic.
+  const [tab, setTab] = useState(() => (searchParams.get('tab') === 'investments' ? 'investments' : 'deferral'))
+  const [editing, setEditing] = useState(() => searchParams.get('edit') === '1')
   const editSnapshot = useRef(null)
 
   if (!plan) return <Navigate to="/" replace />
@@ -80,13 +83,6 @@ export default function PlanDetails() {
   const enrolled = isParticipating(plan) && !sessionOptOut
   const eligible = isEligibleOnly(plan) && !enrolled && !sessionOptOut
   const activeTab = deferCapable ? tab : 'investments'
-  // The plan's real balance breakdown (Pre-Tax/Roth/Match/etc. with vested
-  // amounts) and current holdings already exist in the data model and are
-  // used on Account Summary, but were never surfaced here — a participant
-  // looking at "Plan details" would expect to see where their balance
-  // (including any employer match) actually came from.
-  const summary = useMemo(() => summaryForPlan(plan), [plan])
-
   const deferral = enrolled ? { ...DEFAULT_DEFERRAL, ...(savedDeferral || {}) } : savedDeferral
   const autoInc = enrolled ? { ...DEFAULT_AI, ...(savedAi || {}) } : savedAi
   const skippedAi = !autoInc || autoInc.skipped || autoInc.mode !== 'do'
@@ -166,7 +162,7 @@ export default function PlanDetails() {
           <div className="plan-fact">
             Plan Details
             <b>
-              {plan.type} · ID {planCode(plan.meta)}
+              {plan.type} · Plan ID {planCode(plan.meta)}
             </b>
           </div>
           <div className="plan-fact">
@@ -207,32 +203,6 @@ export default function PlanDetails() {
             <Link className="btn btn-primary" to="/enrollment">
               Enroll
             </Link>
-          </div>
-        </section>
-      )}
-
-      {enrolled && summary.sources.length > 0 && (
-        <section className="panel">
-          <div className="panel-h">
-            <h3>Contribution sources</h3>
-          </div>
-          <p className="panel-note">Where this plan&apos;s balance comes from, including any employer match.</p>
-          <div className="fund-list">
-            <div className="fund-list-head">
-              <span>Source</span>
-              <span>Vested</span>
-            </div>
-            <ul className="detail-rows">
-              {summary.sources.map((s) => (
-                <li key={s.id}>
-                  <span>{s.name}</span>
-                  <b>
-                    {formatMoney(s.amount)}
-                    <small>{formatMoney(s.vested)} vested</small>
-                  </b>
-                </li>
-              ))}
-            </ul>
           </div>
         </section>
       )}
@@ -349,6 +319,7 @@ export default function PlanDetails() {
                     saveLabel="Save changes"
                     onCancel={cancelEdit}
                     onComplete={refresh}
+                    riskReturnPath={`/plans/${plan.id}?tab=investments&edit=1`}
                   />
                 ) : (
                   <>

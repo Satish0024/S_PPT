@@ -186,7 +186,7 @@ export default function ReadinessScoreCard() {
         <div className="rgs-foot">
           <span className="rgs-foot-note">
             <Info size={13} strokeWidth={2.2} aria-hidden="true" />
-            Not guaranteed results. It&apos;s a simulation.
+            Not guaranteed results.
           </span>
           {/* Adjust link only shown once the widget is already started —
               showing it alongside "Get started" duplicated the same CTA. */}

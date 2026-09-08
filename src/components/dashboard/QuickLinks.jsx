@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
-import { FileText, TrendingUp, Users } from 'lucide-react'
+import { FileSpreadsheet, FileText, TrendingUp, Users } from 'lucide-react'
 
-export default function QuickLinks() {
+// showGenerateStatement: per prototype review #28/#32/#63/#78, keep hiding
+// this action entirely when the participant has no transactions to
+// statement.
+export default function QuickLinks({ showGenerateStatement }) {
   return (
     <section>
       <h2 className="section-title">Quick links</h2>
@@ -24,6 +27,14 @@ export default function QuickLinks() {
           </span>
           <span className="q-label">My portfolio</span>
         </Link>
+        {showGenerateStatement && (
+          <Link className="quick-link" to="/reports" state={{ openStatement: true }}>
+            <span className="q-ico" aria-hidden="true">
+              <FileSpreadsheet size={18} strokeWidth={2} />
+            </span>
+            <span className="q-label">Generate statement</span>
+          </Link>
+        )}
       </div>
     </section>
   )
