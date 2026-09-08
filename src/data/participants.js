@@ -109,16 +109,30 @@ export const PARTICIPANTS = [
         stats: { balance: '$12,840.00', vested: '$9,620.00', returnPct: 101.2 },
         details: { status: 'Auto Enrolled', balance: '$12,840.00', vested: '$9,620.00' },
         sources: [
-          { name: 'Pre-Tax', amount: 5778, vested: 5778 },
-          { name: 'Roth', amount: 1926, vested: 1926 },
-          { name: 'Match', amount: 5136, vested: 1916 }
+          { name: 'Pre-Tax', amount: 4200, vested: 4200 },
+          { name: 'Roth', amount: 1600, vested: 1600 },
+          { name: 'Match', amount: 2200, vested: 820 },
+          { name: 'After-Tax', amount: 800, vested: 800 },
+          { name: 'Profit Sharing', amount: 900, vested: 900 },
+          { name: 'Rollover', amount: 1100, vested: 1100 },
+          { name: 'QNEC', amount: 400, vested: 400 },
+          { name: 'Safe Harbor', amount: 550, vested: 550 },
+          { name: 'Employer Discretionary', amount: 450, vested: 150 },
+          { name: 'Catch-Up', amount: 380, vested: 380 },
+          { name: 'Rollover Roth', amount: 260, vested: 260 }
         ],
         investments: [
-          { name: 'Vanguard Institutional Index Fund Admiral Shares', asset: 'U.S. Equity', amount: 3467, price: 96.3, units: 36.002 },
-          { name: 'Fidelity 500 Index Fund Institutional Class', asset: 'U.S. Equity', amount: 3467, price: 185.42, units: 18.698 },
-          { name: 'Vanguard Total Bond Market Index Fund Admiral Shares', asset: 'U.S. Bond', amount: 2311, price: 10.12, units: 228.36 },
-          { name: 'Fidelity U.S. Bond Index Fund Institutional Premium', asset: 'U.S. Bond', amount: 2311, price: 10.85, units: 212.995 },
-          { name: 'Vanguard Wellington Fund Investor Shares', asset: 'Balanced', amount: 1284, price: 44.8, units: 28.661 }
+          { name: 'Vanguard Institutional Index Fund Admiral Shares', asset: 'U.S. Equity', amount: 2100, price: 96.3, units: 21.807 },
+          { name: 'Vanguard Total International Stock Index', asset: 'International Equity', amount: 1450, price: 32.4, units: 44.753 },
+          { name: 'iShares Emerging Markets ETF', asset: 'Emerging Markets', amount: 720, price: 41.2, units: 17.476 },
+          { name: 'Vanguard Small-Cap Index Fund', asset: 'U.S. Small Cap', amount: 840, price: 98.1, units: 8.563 },
+          { name: 'Vanguard Mid-Cap Index Fund', asset: 'U.S. Mid Cap', amount: 980, price: 64.5, units: 15.194 },
+          { name: 'Vanguard Total Bond Market Index Fund Admiral Shares', asset: 'U.S. Bond', amount: 1680, price: 10.12, units: 166.008 },
+          { name: 'Vanguard Total International Bond Index', asset: 'International Bond', amount: 760, price: 20.4, units: 37.255 },
+          { name: 'Fidelity High Income Fund', asset: 'High Yield', amount: 540, price: 8.15, units: 66.258 },
+          { name: 'Vanguard Target Retirement 2050 Trust Select', asset: 'Target-Date', amount: 1980, price: 45.18, units: 43.825 },
+          { name: 'Vanguard Real Estate Index Fund', asset: 'Real Estate', amount: 820, price: 18.6, units: 44.086 },
+          { name: 'Vanguard Federal Money Market', asset: 'Cash / Stable Value', amount: 970, price: 1.0, units: 970 }
         ]
       },
       {
@@ -318,16 +332,30 @@ export const PARTICIPANTS = [
         stats: { balance: '$87,166.00', vested: '$79,150.00', returnPct: 11.22 },
         details: { status: 'Enrolled', balance: '$87,166.00', vested: '$79,150.00' },
         sources: [
-          { name: 'Pre-Tax', amount: 48200, vested: 48200 },
-          { name: 'Roth', amount: 14918, vested: 14918 },
-          { name: 'Match', amount: 24048, vested: 16032 }
+          { name: 'Pre-Tax', amount: 32000, vested: 32000 },
+          { name: 'Roth', amount: 11000, vested: 11000 },
+          { name: 'Match', amount: 18000, vested: 10032 },
+          { name: 'After-Tax', amount: 4500, vested: 4500 },
+          { name: 'Profit Sharing', amount: 5000, vested: 5000 },
+          { name: 'Rollover', amount: 7000, vested: 7000 },
+          { name: 'QNEC', amount: 1800, vested: 1800 },
+          { name: 'Safe Harbor', amount: 3200, vested: 3200 },
+          { name: 'Employer Discretionary', amount: 2100, vested: 1050 },
+          { name: 'Catch-Up', amount: 1800, vested: 1800 },
+          { name: 'Rollover Roth', amount: 766, vested: 766 }
         ],
         investments: [
-          { name: 'Vanguard Institutional Index Fund Admiral Shares', asset: 'U.S. Equity', amount: 28705, price: 96.3, units: 298.079 },
-          { name: 'Fidelity 500 Index Fund Institutional Class', asset: 'U.S. Equity', amount: 20691, price: 185.42, units: 111.59 },
-          { name: 'Vanguard Total Bond Market Index Fund Admiral Shares', asset: 'U.S. Bond', amount: 15777, price: 10.12, units: 1558.992 },
-          { name: 'Fidelity U.S. Bond Index Fund Institutional Premium', asset: 'U.S. Bond', amount: 13159, price: 10.85, units: 1212.811 },
-          { name: 'Vanguard Target Retirement 2050 Trust Select', asset: 'Target-Date', amount: 8834, price: 45.18, units: 195.529 }
+          { name: 'Vanguard Institutional Index Fund Admiral Shares', asset: 'U.S. Equity', amount: 18500, price: 96.3, units: 192.108 },
+          { name: 'Vanguard Total International Stock Index', asset: 'International Equity', amount: 9800, price: 32.4, units: 302.469 },
+          { name: 'iShares Emerging Markets ETF', asset: 'Emerging Markets', amount: 4200, price: 41.2, units: 101.942 },
+          { name: 'Vanguard Small-Cap Index Fund', asset: 'U.S. Small Cap', amount: 5100, price: 98.1, units: 51.988 },
+          { name: 'Vanguard Mid-Cap Index Fund', asset: 'U.S. Mid Cap', amount: 6400, price: 64.5, units: 99.225 },
+          { name: 'Vanguard Total Bond Market Index Fund Admiral Shares', asset: 'U.S. Bond', amount: 12200, price: 10.12, units: 1205.534 },
+          { name: 'Vanguard Total International Bond Index', asset: 'International Bond', amount: 4800, price: 20.4, units: 235.294 },
+          { name: 'Fidelity High Income Fund', asset: 'High Yield', amount: 3100, price: 8.15, units: 380.368 },
+          { name: 'Vanguard Target Retirement 2050 Trust Select', asset: 'Target-Date', amount: 14200, price: 45.18, units: 314.298 },
+          { name: 'Vanguard Real Estate Index Fund', asset: 'Real Estate', amount: 3800, price: 18.6, units: 204.301 },
+          { name: 'Vanguard Federal Money Market', asset: 'Cash / Stable Value', amount: 5066, price: 1.0, units: 5066 }
         ]
       },
       {

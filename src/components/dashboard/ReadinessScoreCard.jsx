@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Icon } from '../../lib/icons'
 import { faArrowRight, faInfoCircle, faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
-import { isEligibleNotEnrolledUser, isNotEligibleUser, isOptedOutUser } from '../../data/participants'
+import { isNotEligibleUser, isOptedOutUser } from '../../data/participants'
 import {
   READINESS_KEY,
   ageFromDob,
@@ -109,8 +109,6 @@ export default function ReadinessScoreCard() {
   // doesn't render at all rather than showing a dead-end CTA.
   if (isNotEligibleUser(participant) || isOptedOutUser(participant)) return null
 
-  const notEnrolled = isEligibleNotEnrolledUser(participant)
-
   return (
     <section className="rgs" aria-label="Retirement Readiness">
       <header className="rgs-banner">
@@ -166,21 +164,13 @@ export default function ReadinessScoreCard() {
         ) : (
           <div className="rgs-intro">
             <p>
-              {notEnrolled
-                ? 'Please enroll to get started with your retirement readiness set up.'
-                : 'This estimates how much of your retirement spending is covered by your savings, using your deferrals, age, and location.'}
+              This estimates how much of your retirement spending is covered by your savings, using your deferrals, age,
+              and location.
             </p>
-            {notEnrolled ? (
-              <span className="rgs-cta rgs-cta-disabled" aria-disabled="true">
-                Get started
-                <Icon icon={faArrowRight} size={14} aria-hidden="true" />
-              </span>
-            ) : (
-              <Link className="rgs-cta" to="/retirement-goal">
-                Get started
-                <Icon icon={faArrowRight} size={14} aria-hidden="true" />
-              </Link>
-            )}
+            <Link className="rgs-cta" to="/retirement-goal">
+              Get started
+              <Icon icon={faArrowRight} size={14} aria-hidden="true" />
+            </Link>
           </div>
         )}
 

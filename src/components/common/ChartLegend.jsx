@@ -2,23 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { Icon } from '../../lib/icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
-// A chart legend that stays usable whether there are 4 series or 40.
-//
-// Below `maxInline` items it renders exactly like a plain inline legend
-// (every item visible, wraps naturally) — no behavior change for today's
-// 4-series portfolio chart. Once there are more items than that, showing
-// them all inline would either wrap into several rows (pushing the chart
-// down and reading as clutter) or overflow — so instead it shows the first
-// few plus a "+N more" toggle that opens a compact, scrollable checklist of
-// every series, same dropdown pattern already used elsewhere in the app
-// (Accessibility menu, New request menu) rather than inventing a new one.
-export default function ChartLegend({ items, onToggle, maxInline = 6 }) {
+// Asset-class performance can show up to 11 series. An inline legend
+// cannot fit that many checkboxes in the chart header, so the control
+// is always a dropdown multi-select: one trigger, a scrollable checklist
+// of every series, click-outside / Escape to close.
+export default function ChartLegend({ items, onToggle, label = 'Asset classes' }) {
   const [open, setOpen] = useState(false)
   const wrapRef = useRef(null)
-  const overflow = items.length > maxInline
-  const inlineItems = overflow ? items.slice(0, maxInline - 1) : items
-  const hiddenItems = overflow ? items.slice(maxInline - 1) : []
-  const hiddenActiveCount = hiddenItems.filter((i) => i.checked).length
+  const checkedCount = items.filter((i) => i.checked).length
 
   useEffect(() => {
     if (!open) return
@@ -37,39 +28,32 @@ export default function ChartLegend({ items, onToggle, maxInline = 6 }) {
   }, [open])
 
   return (
-    <div className="legend">
-      {inlineItems.map((item) => (
-        <LegendItem key={item.key} item={item} onToggle={onToggle} />
-      ))}
-
-      {overflow && (
-        <div className="legend-more-wrap" ref={wrapRef}>
-          <button
-            type="button"
-            className={`legend-more${hiddenActiveCount ? ' on' : ''}`}
-            aria-haspopup="dialog"
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            +{hiddenItems.length} more
-            {hiddenActiveCount > 0 && <span className="legend-more-badge">{hiddenActiveCount}</span>}
-            <Icon icon={faChevronDown} size={13} aria-hidden="true" />
-          </button>
-          {open && (
-            <div className="legend-panel" role="dialog" aria-label="All series">
-              {hiddenItems.map((item) => (
-                <LegendItem key={item.key} item={item} onToggle={onToggle} stacked />
-              ))}
-            </div>
-          )}
+    <div className="legend-dd" ref={wrapRef}>
+      <button
+        type="button"
+        className={`legend-dd-btn${open ? ' on' : ''}`}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={`${label}, ${checkedCount} of ${items.length} selected`}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span className="legend-dd-label">{label}</span>
+        <span className="legend-dd-count">{checkedCount}/{items.length}</span>
+        <Icon icon={faChevronDown} size={13} aria-hidden="true" />
+      </button>
+      {open && (
+        <div className="legend-panel" role="listbox" aria-multiselectable="true" aria-label={label}>
+          {items.map((item) => (
+            <LegendItem key={item.key} item={item} onToggle={onToggle} />
+          ))}
         </div>
       )}
     </div>
   )
 }
 
-function LegendItem({ item, onToggle, stacked }) {
-  const cls = [stacked && 'legend-panel-row', item.checked && 'on', item.disabled && 'disabled'].filter(Boolean).join(' ')
+function LegendItem({ item, onToggle }) {
+  const cls = ['legend-panel-row', item.checked && 'on', item.disabled && 'disabled'].filter(Boolean).join(' ')
   return (
     <label className={cls} style={{ '--series-color': item.color }}>
       <input

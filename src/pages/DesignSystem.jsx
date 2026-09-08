@@ -83,9 +83,11 @@ const COLOR_GROUPS = [
   { title: 'Status — danger', tokens: [
     ['Red', '--red'], ['Red bg', '--red-bg'], ['Red line', '--red-line'],
   ] },
-  { title: 'Chart colors — primary palette (use first 6 for most charts)', tokens: [
-    ['Chart 1 (brand)', '--chart-1'], ['Chart 2 (green)', '--chart-2'], ['Chart 3 (amber)', '--chart-3'],
-    ['Chart 4 (red)', '--chart-4'], ['Chart 5 (accent)', '--chart-5'], ['Chart 6 (purple)', '--chart-6'],
+  { title: 'Chart colors — 11-color scale (fixed mapping order)', tokens: [
+    ['1 Brand · U.S. Equity', '--chart-1'], ['2 Green · Intl Equity', '--chart-2'], ['3 Amber · EM', '--chart-3'],
+    ['4 Red · Small Cap', '--chart-4'], ['5 Cyan · Mid Cap', '--chart-5'], ['6 Purple · U.S. Bond', '--chart-6'],
+    ['7 Teal · Intl Bond', '--chart-7'], ['8 Rose · High Yield', '--chart-8'], ['9 Indigo · Target-Date', '--chart-9'],
+    ['10 Olive · Real Estate', '--chart-10'], ['11 Orange · Cash', '--chart-11'],
   ] },
 ]
 
@@ -1156,18 +1158,14 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
 
           {/* ---------------- LEGEND ---------------- */}
           <Component
-            id="legend" title="Chart legend (overflow-safe)"
-            desc="Shows the first N series inline; beyond that, collapses into a “+N more” panel so 8–10+ series never clutter the chart header."
+            id="legend" title="Chart legend (dropdown)"
+            desc="The Asset class performance chart always uses a dropdown multi-select — not an inline row. The trigger shows how many of the 11 series are on; the panel is a scrollable checklist. Click outside or press Escape to close."
             tags={['New pattern']}
-            demo={<div style={{ display: 'flex', gap: 'var(--space-2-5)', alignItems: 'center', flexWrap: 'wrap' }}>
-              {['Total', 'Equity', 'Bond', 'Target'].map((l, i) => (
-                <span key={l} style={{ display: 'inline-flex', gap: 'var(--space-1-5)', alignItems: 'center', fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-semibold)' }}>
-                  <span style={{ width: 10, height: 10, borderRadius: 3, background: ['var(--brand)', 'var(--green)', 'var(--amber)', 'var(--accent)'][i] }} /> {l}
-                </span>
-              ))}
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-1)', border: '1px dashed var(--line-strong)', borderRadius: 999, padding: 'var(--space-1) var(--space-2-5)', fontSize: 'var(--text-caption-size)', fontWeight: 'var(--font-weight-bold)', color: 'var(--ink-soft)' }}>+6 more</span>
+            demo={<div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)', border: '1px solid var(--line)', borderRadius: 8, padding: 'var(--space-1) var(--space-2-5)', fontSize: 'var(--text-caption-size)', fontWeight: 700 }}>
+              Asset classes
+              <span style={{ display: 'inline-flex', alignItems: 'center', minWidth: 36, justifyContent: 'center', height: 18, borderRadius: 999, background: 'var(--surface-2)', fontSize: 'var(--text-2xs-size)', fontWeight: 800 }}>4/12</span>
             </div>}
-            code={`<ChartLegend items={series} onToggle={toggleSeries} maxInline={6} />`}
+            code={`<ChartLegend label="Asset classes" items={series} onToggle={toggleSeries} />`}
           />
 
           {/* ---------------- A11Y TOOLBAR ---------------- */}

@@ -1,3 +1,5 @@
+import { ASSET_CLASS_ORDER, resolveChartPalette, resolveColorForAsset } from './chartPalette.js'
+
 export function parseMoney(value) {
   if (value == null || value === '—' || value === '') return 0
   const n = Number(String(value).replace(/[^0-9.-]/g, ''))
@@ -35,27 +37,22 @@ export function hasAccountSummary(participant) {
   return (participant?.plans || []).some(isSummaryPlan)
 }
 
-// The app's one shared chart palette (styles/index.css --chart-1..7) --
-// same 7 colors every multi-series chart draws from, so this donut and
-// Portfolio's line chart never drift into their own one-off hex sets.
-// Resolved lazily (not at module load) since it reads the live
-// document's CSS custom properties.
-function colorPalette() {
-  const css = getComputedStyle(document.documentElement)
-  const v = (name, fallback) => css.getPropertyValue(name).trim() || fallback
-  return Array.from({ length: 20 }, (_, i) => v(`--chart-${i + 1}`, '#8a8da3'))
-}
-
 // Some funds hold more than one asset type (e.g. a target-date or balanced
 // fund blends stock and bond), so each asset class maps to an array of the
 // categories it's made up of rather than a single label.
 const ASSET_CATEGORY = {
   'U.S. Equity': ['Stock'],
   'International Equity': ['Stock'],
+  'Emerging Markets': ['Stock'],
+  'U.S. Small Cap': ['Stock'],
+  'U.S. Mid Cap': ['Stock'],
   'U.S. Bond': ['Bond'],
   'International Bond': ['Bond'],
+  'High Yield': ['Bond'],
   'Target-Date': ['Stock', 'Bond'],
-  Balanced: ['Stock', 'Bond']
+  Balanced: ['Stock', 'Bond'],
+  'Real Estate': ['Other'],
+  'Cash / Stable Value': ['Other']
 }
 
 export function assetCategory(asset) {
@@ -64,7 +61,7 @@ export function assetCategory(asset) {
 
 function toRows(items, total) {
   if (!items?.length || total <= 0) return []
-  const colors = colorPalette()
+  const colors = resolveChartPalette()
   return items
     .filter((item) => item.amount > 0)
     .map((item, i) => ({
@@ -75,7 +72,7 @@ function toRows(items, total) {
       vested: item.vested ?? 0,
       price: item.price ?? null,
       units: item.units ?? null,
-      color: colors[i % colors.length],
+      color: item.asset ? resolveColorForAsset(item.asset, i) : colors[i % colors.length],
       pct: total ? (item.amount / total) * 100 : 0
     }))
 }
@@ -87,21 +84,26 @@ function toRows(items, total) {
 function toAssetClassRows(investments, total) {
   const rows = toRows(investments, total)
   if (!rows.length) return []
-  const colors = colorPalette()
   const byClass = new Map()
   rows.forEach((row) => {
     const key = row.asset || 'Other'
     if (!byClass.has(key)) byClass.set(key, [])
     byClass.get(key).push(row)
   })
-  return Array.from(byClass.entries()).map(([asset, members], i) => {
+  return Array.from(byClass.entries())
+    .sort((a, b) => {
+      const ai = ASSET_CLASS_ORDER.indexOf(a[0])
+      const bi = ASSET_CLASS_ORDER.indexOf(b[0])
+      return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi)
+    })
+    .map(([asset, members], i) => {
     const amount = members.reduce((sum, m) => sum + m.amount, 0)
     return {
       id: `class-${asset}-${i}`,
       name: asset,
       asset,
       amount,
-      color: colors[i % colors.length],
+      color: resolveColorForAsset(asset, i),
       pct: total ? (amount / total) * 100 : 0,
       members
     }

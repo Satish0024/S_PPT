@@ -33,13 +33,14 @@
     letter-spacing:var(--ls-snug);line-height:1.2;color:var(--ink);width:100%;word-break:break-word;margin-top:var(--space-1-5);padding-top:var(--space-0-5)}
   .overview-row .stat-block.hero .stat-v{font-size:var(--text-2xl-size);letter-spacing:var(--ls-tight);margin-top:var(--space-2);padding-top:var(--space-0-5)}
   .overview-row .stat-block .stat-v.pos{color:var(--green)}
+  .overview-row .stat-block .stat-period{
+    display:inline-block;margin-left:var(--space-1);font-size:var(--text-caption-size);font-weight:700;
+    letter-spacing:var(--ls-wide);text-transform:uppercase;opacity:.75;vertical-align:middle}
   .overview-row .overall-grid{display:flex;flex-direction:column;gap:var(--space-2);flex:1}
   .overview-row .chart-panel{margin:var(--space-0);min-width:0;height:100%;display:flex;flex-direction:column;box-sizing:border-box;
-    padding:var(--card-padding-sm) var(--space-3-5)}
+    padding:var(--card-padding-sm) var(--space-3-5);overflow:visible}
   .overview-row .chart-top{margin-bottom:var(--space-2);gap:var(--space-2)}
   .overview-row .chart-top h2{font-size:var(--text-h5-size)}
-  .overview-row .legend{gap:var(--space-2-5)}
-  .overview-row .legend label{font-size:var(--text-caption-size)}
   .overview-row .period{margin-top:var(--space-0-5)}
   .overview-row .period button{padding:var(--space-1-5) var(--space-2-5);font-size:var(--text-body-xs-size)}
   .overview-row .chart-wrap{flex:1 1 auto;min-height:260px;height:260px;margin-top:var(--space-2-5)}
@@ -67,48 +68,44 @@
   .chart-panel{border:1px solid var(--line);border-radius:var(--radius-xl);padding:var(--space-4) var(--space-5) var(--space-3);background:var(--panel);box-shadow:var(--shadow)}
   .chart-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-2-5)}
   .chart-top h2{font-size:var(--text-h2-size);font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:var(--space-3-5);align-items:center}
-  .legend label{
-    display:inline-flex;align-items:center;gap:var(--space-1-5);
+  .legend-dd{position:relative;flex:0 0 auto}
+  .legend-dd-btn{
+    display:inline-flex;align-items:center;gap:var(--space-2);min-height:34px;
+    border:1px solid var(--line);background:var(--panel);border-radius:var(--radius-sm);
+    padding:var(--space-1) var(--space-2-5);font:inherit;font-size:var(--text-caption-size);
+    font-weight:700;color:var(--ink);cursor:pointer}
+  .legend-dd-btn:hover{border-color:var(--line-strong)}
+  .legend-dd-btn.on{border-color:var(--brand);color:var(--brand);background:var(--active-bg)}
+  .legend-dd-label{white-space:nowrap}
+  .legend-dd-count{
+    display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:18px;
+    padding:var(--space-0) var(--space-1-5);border-radius:999px;background:var(--surface-2);
+    font-size:var(--text-2xs-size);font-weight:800;color:var(--ink-soft)}
+  .legend-dd-btn.on .legend-dd-count{background:var(--brand);color:var(--brand-text-primary-oncolor)}
+  .legend-panel{
+    position:absolute;right:0;left:auto;top:calc(100% + 8px);width:260px;max-height:280px;overflow-y:auto;
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);
+    padding:var(--space-1-5);z-index:30;display:flex;flex-direction:column;gap:var(--space-px)}
+  .legend-panel-row{
+    display:flex;align-items:center;gap:var(--space-1-5);width:100%;
+    padding:var(--space-1-5) var(--space-2);border-radius:var(--radius-sm);
     font:inherit;font-size:var(--text-caption-size);font-weight:600;color:var(--ink);cursor:pointer}
-  .legend label.on{font-weight:800}
-  .legend label.disabled{opacity:.45;cursor:not-allowed}
-  .legend input[type="checkbox"]{
+  .legend-panel-row.on{font-weight:800}
+  .legend-panel-row.disabled{opacity:.45;cursor:not-allowed}
+  .legend-panel-row:hover{background:var(--hover-bg)}
+  .legend-panel input[type="checkbox"]{
     width:15px;height:15px;flex:0 0 auto;margin:var(--space-0);cursor:pointer;
     border:1.5px solid var(--series-color, var(--ink-soft));border-radius:2px;
     appearance:none;background:var(--panel);color:var(--series-color, var(--brand))}
-  .legend input[type="checkbox"]:checked{
+  .legend-panel input[type="checkbox"]:checked{
     background:currentColor;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M6.5 11.2 3.8 8.5l1.1-1.1 1.6 1.6 4.7-4.7 1.1 1.1z'/%3E%3C/svg%3E");
     background-size:12px;background-position:center;background-repeat:no-repeat}
-  .legend input[type="checkbox"]:disabled{cursor:not-allowed}
-  /* A distinct shape per series — alongside the chart's own dash patterns —
-     so the legend key doesn't rely on color alone to tell lines apart. */
+  .legend-panel input[type="checkbox"]:disabled{cursor:not-allowed}
   .legend-swatch{width:10px;height:10px;flex:0 0 auto;background:var(--series-color);display:inline-block}
   .legend-swatch--circle{border-radius:50%}
   .legend-swatch--rect{border-radius:2px}
   .legend-swatch--triangle{width:0;height:0;background:transparent;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:9px solid var(--series-color)}
   .legend-swatch--star{clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
-
-  /* "+N more" overflow toggle — kicks in once a legend has more series
-     than comfortably fit on one line (see ChartLegend's maxInline), so a
-     chart with 8-10 series doesn't wrap into several rows of checkboxes
-     above the chart or need its own bespoke UI per chart. */
-  .legend-more-wrap{position:relative}
-  .legend-more{
-    display:inline-flex;align-items:center;gap:var(--space-1);border:1px dashed var(--line-strong);background:transparent;
-    border-radius:999px;padding:var(--space-1) var(--space-2-5);font:inherit;font-size:var(--text-caption-size);font-weight:700;color:var(--ink-soft);
-    cursor:pointer}
-  .legend-more:hover{border-color:var(--brand);color:var(--brand)}
-  .legend-more.on{border-style:solid;border-color:var(--brand);color:var(--brand);background:var(--active-bg)}
-  .legend-more-badge{
-    display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:var(--space-0) var(--space-1);
-    border-radius:999px;background:var(--brand);color:var(--brand-text-primary-oncolor);font-size:var(--text-2xs-size);font-weight:800}
-  .legend-panel{
-    position:absolute;left:0;top:calc(100% + 8px);width:240px;max-height:280px;overflow-y:auto;
-    background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);
-    padding:var(--space-1-5);z-index:20;display:flex;flex-direction:column;gap:var(--space-px)}
-  .legend-panel-row{display:flex!important;width:100%;padding:var(--space-1-5) var(--space-2);border-radius:var(--radius-sm)}
-  .legend-panel-row:hover{background:var(--hover-bg)}
 
   .chart-wrap{position:relative;height:260px}
   .chart-wrap canvas{width:100%!important;height:100%!important}

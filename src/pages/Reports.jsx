@@ -1,9 +1,10 @@
-import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Icon } from '../lib/icons'
 import { faChevronDown, faDownload, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
+import Toast from '../components/common/Toast.jsx'
 import '../styles/documents.css'
 
 const STATEMENT_PERIODS = [
@@ -79,14 +80,14 @@ function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, 
   )
 }
 
-function StatementModal({ plans, onClose }) {
+function StatementModal({ plans, onClose, onDownload }) {
   const [planId, setPlanId] = useState('')
   const [period, setPeriod] = useState('3m')
 
   return (
     <div className="enroll-modal-bg" role="presentation" onClick={onClose}>
       <div className="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="stmt-title" onClick={(e) => e.stopPropagation()}>
-        <h4 id="stmt-title">Download periodic statement</h4>
+        <h4 id="stmt-title">Generate new statement</h4>
         <div className="pr-form">
           <div className="pr-field">
             <label htmlFor="stmt-plan">
@@ -117,7 +118,15 @@ function StatementModal({ plans, onClose }) {
           <button type="button" className="btn btn-ghost" onClick={onClose}>
             Cancel
           </button>
-          <button type="button" className="btn btn-primary" disabled={!planId} onClick={onClose}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={!planId}
+            onClick={() => {
+              onDownload()
+              onClose()
+            }}
+          >
             Generate &amp; Download
           </button>
         </div>
@@ -142,6 +151,9 @@ export default function Reports() {
   // navigates here with this flag set, so the modal is already open on
   // arrival instead of landing on a plain Documents page.
   const [statementOpen, setStatementOpen] = useState(() => !!location.state?.openStatement)
+  const [toast, setToast] = useState(null)
+  const showDownloaded = () => setToast({ id: Date.now(), message: 'Downloaded successfully' })
+  const dismissToast = useCallback(() => setToast(null), [])
 
   useEffect(() => {
     if (location.state?.openStatement) setStatementOpen(true)
@@ -232,7 +244,7 @@ export default function Reports() {
             {docs.length.toString().padStart(2, '0')} - Record{docs.length === 1 ? '' : 's'} found
           </span>
           <button type="button" className="btn btn-secondary" onClick={() => setStatementOpen(true)}>
-            Download periodic statement
+            Generate new statement
           </button>
         </div>
 
@@ -252,7 +264,7 @@ export default function Reports() {
                   </p>
                 </div>
                 <span className="doc-plan">{d.plan}</span>
-                <button type="button" className="doc-dl">
+                <button type="button" className="doc-dl" onClick={showDownloaded}>
                   <Icon icon={faDownload} size={16} />
                   Download
                 </button>
@@ -262,7 +274,14 @@ export default function Reports() {
         )}
       </section>
 
-      {statementOpen && <StatementModal plans={participant.plans} onClose={() => setStatementOpen(false)} />}
+      {statementOpen && (
+        <StatementModal
+          plans={participant.plans}
+          onClose={() => setStatementOpen(false)}
+          onDownload={showDownloaded}
+        />
+      )}
+      <Toast key={toast?.id} message={toast?.message || ''} onDismiss={dismissToast} />
     </div>
   )
 }

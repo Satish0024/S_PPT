@@ -54,12 +54,14 @@
 
 .as-viz{
   display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3) var(--space-10);margin:var(--space-0) var(--space-0) var(--space-5)}
-.as-legend-wrap{display:flex;flex-direction:column;gap:var(--space-1-5);min-width:0;flex:1 1 260px;max-width:420px}
+.as-legend-wrap{display:flex;flex-direction:column;gap:var(--space-1-5);min-width:0;flex:1 1 260px;max-width:420px;max-height:260px}
 .as-legend-head{
   display:flex;justify-content:space-between;gap:var(--space-2-5);padding:var(--space-0) var(--space-2-5);
-  font-size:var(--text-2xs-size);font-weight:800;text-transform:uppercase;letter-spacing:var(--ls-wide);color:var(--muted)
-}
-.as-legend{list-style:none;margin:var(--space-0);padding:var(--space-0);display:flex;flex-direction:column;gap:var(--space-0-5);min-width:0}
+  font-size:var(--text-2xs-size);font-weight:800;text-transform:uppercase;letter-spacing:var(--ls-wide);color:var(--muted);
+  flex:0 0 auto}
+.as-legend{
+  list-style:none;margin:var(--space-0);padding:var(--space-0);display:flex;flex-direction:column;gap:var(--space-0-5);
+  min-width:0;min-height:0;flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain}
 .as-legend button{
   display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:var(--space-2-5);align-items:center;
   width:100%;border:none;background:transparent;padding:var(--space-1-5) var(--space-2-5);border-radius:var(--radius-sm);
@@ -162,5 +164,6 @@
   .as-shell{grid-template-columns:1fr}
   .as-plans{position:static}
   .as-viz{justify-content:center}
+  .as-legend-wrap{max-width:none;width:100%}
   .as-legend{max-width:none}
 }

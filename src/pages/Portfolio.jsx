@@ -10,6 +10,7 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import { HOLDINGS, PLAN_FUNDS, PLAN_STATS, cumSeries, labelsFor, ENDS, money } from '../data/portfolio'
+import { ASSET_CLASS_ORDER, chartTokenForAsset } from '../lib/chartPalette.js'
 import { useTheme } from '../context/ThemeContext.jsx'
 import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
 import ChartLegend from '../components/common/ChartLegend.jsx'
@@ -32,11 +33,20 @@ const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1
 // hex here -- Chart.js/canvas can't read var() directly, so it needs the
 // browser-resolved value, but the value itself still tracks --brand/
 // --green/--red/--amber like everything else in the app.
+const POINT_STYLES = ['circle', 'triangle', 'rect', 'star']
+const DASHES = [[], [7, 4], [2, 3], [9, 3, 2, 3], [4, 3], [1, 3], [6, 3], [8, 4], [3, 2, 1, 2], [5, 4], [10, 3]]
+
 const SERIES_META = [
-  { key: 'total', label: 'Total portfolio', token: '--chart-1', dash: [], pointStyle: 'circle' },
-  { key: 'equity', label: 'U.S. Equity', token: '--chart-3', dash: [7, 4], pointStyle: 'triangle' },
-  { key: 'bond', label: 'U.S. Bond', token: '--chart-2', dash: [2, 3], pointStyle: 'rect' },
-  { key: 'target', label: 'Target-Date', token: '--chart-4', dash: [9, 3, 2, 3], pointStyle: 'star' }
+  { key: 'total', label: 'Total portfolio', token: '--ink', dash: [], pointStyle: 'circle' },
+  ...ASSET_CLASS_ORDER.map((label, i) => ({
+    key: `ac-${i}`,
+    label,
+    token: chartTokenForAsset(label, i),
+    dash: DASHES[i] || [4, 3],
+    pointStyle: POINT_STYLES[i % POINT_STYLES.length],
+    endScale: [1, 0.78, 0.92, 1.08, 0.95, 0.34, 0.28, 0.41, 0.68, 0.55, 0.18][i],
+    seed: 11 + i * 3
+  }))
 ]
 
 const COLS = {
@@ -58,7 +68,9 @@ export default function Portfolio() {
   const [planId, setPlanId] = useState('lendguard-401k')
   const [sort, setSort] = useState({ key: null, dir: 1 })
   const [ytdDir, setYtdDir] = useState(null)
-  const [visible, setVisible] = useState({ total: true, equity: false, bond: false, target: false })
+  const [visible, setVisible] = useState(() =>
+    Object.fromEntries(SERIES_META.map((s) => [s.key, s.key === 'total' || s.key === 'ac-0' || s.key === 'ac-5' || s.key === 'ac-8']))
+  )
   const plan = PLAN_STATS[planId]
 
   // Re-read the resolved CSS variables whenever the theme flips so the grid
@@ -110,21 +122,22 @@ export default function Portfolio() {
     const target = cumSeries(n, ends.target, 7)
     const total = equity.map((e, i) => Math.round((e * 0.64 + bond[i] * 0.23 + target[i] * 0.13) * 100) / 100)
     const dataByKey = { total, equity, bond, target }
+    SERIES_META.forEach((s) => {
+      if (dataByKey[s.key]) return
+      dataByKey[s.key] = cumSeries(n, ends.equity * (s.endScale ?? 0.7), s.seed ?? 9)
+    })
     return {
       labels: labs,
       datasets: SERIES.map((s) => line(s, dataByKey[s.key], s.key === 'total' ? 0 : undefined, !visible[s.key]))
     }
   }, [period, visible, SERIES])
 
-  // Total portfolio is an aggregate of the other three — showing it next
-  // to its own components reads as noise, not signal, so picking it
-  // clears and disables the rest instead of layering everything at once.
   const toggleSeries = (key) => {
     setVisible((v) => {
       if (key === 'total') {
-        return v.total ? { total: false, equity: false, bond: false, target: false } : { total: true, equity: false, bond: false, target: false }
+        return { ...v, total: !v.total }
       }
-      return { ...v, total: false, [key]: !v[key] }
+      return { ...v, [key]: !v[key] }
     })
   }
 
@@ -186,7 +199,9 @@ export default function Portfolio() {
                     </div>
                     <div className="stat-block">
                       <div className="stat-k">Fund return</div>
-                      <div className="stat-v pos">{plan.ret}</div>
+                      <div className="stat-v pos" aria-label={`${plan.ret} year to date`}>
+                        {plan.ret} <span className="stat-period">YTD</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -195,16 +210,13 @@ export default function Portfolio() {
                 <div className="chart-top">
                   <h2>Asset class performance</h2>
                   <ChartLegend
+                    label="Asset classes"
                     items={SERIES.map((s) => ({
                       key: s.key,
                       label: s.label,
                       color: s.color,
                       pointStyle: s.pointStyle,
-                      checked: visible[s.key],
-                      // Total portfolio is an aggregate of the other three
-                      // series, so picking it clears and disables them
-                      // rather than layering everything on one chart.
-                      disabled: s.key !== 'total' && visible.total
+                      checked: visible[s.key]
                     }))}
                     onToggle={toggleSeries}
                   />

@@ -9,9 +9,7 @@ export function PlanStats({ stats }) {
     <div className="plan-stats">
       <div className="plan-stat balance">
         <div className="k">Account balance</div>
-        <div className="v-row">
-          <div className="v">{stats.balance}</div>
-        </div>
+        <div className="v">{stats.balance}</div>
       </div>
       <div className="plan-stat vested">
         <div className="k">Vested balance</div>
