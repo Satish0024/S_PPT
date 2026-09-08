@@ -57,6 +57,7 @@
     --shadow:0 1px 2px rgba(var(--shadow-color),.06);
     --shadow-lg:0 8px 30px rgba(var(--shadow-color),.10);
     --header-h:56px;
+    --footer-h:48px;
     /* ================================================================
        TYPOGRAPHY SYSTEM — Design Spec Aligned, WCAG AA Compliant
        ================================================================
@@ -445,6 +446,22 @@
     justify-content:space-between;padding:var(--space-0) var(--space-6) var(--space-0) var(--space-2-5);position:sticky;top:0;background:var(--panel);z-index:40;
   }
   .brand{display:inline-flex;align-items:center}
+
+  /* ---------- App footer (CORE design-system spec) ----------
+     Fixed to the viewport bottom -- always visible, not something
+     you only see by scrolling the page to its end (matches the
+     header, which is sticky to the top for the same reason). */
+  .app-footer{
+    position:fixed;left:0;right:0;bottom:0;height:var(--footer-h);z-index:30;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    gap:var(--space-1) var(--space-4);
+    padding:var(--space-0) var(--space-6);
+    background:var(--panel);border-top:1px solid var(--line);
+  }
+  .app-footer-copy{margin:0;font-size:var(--text-body-xs-size);color:var(--muted)}
+  .app-footer-links{display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap}
+  .app-footer-links a{font-size:var(--text-body-xs-size);color:var(--muted);text-decoration:none}
+  .app-footer-links a:hover{color:var(--ink);text-decoration:underline}
   .brand img{height:34px;max-width:200px;object-fit:contain;display:block;width:auto}
   .top-right{display:flex;align-items:center;gap:var(--space-2-5)}
   .icon-btn{
@@ -494,10 +511,10 @@
   .sign-out-ico{width:36px;height:36px;border-radius:50%;background:var(--red-bg);color:var(--red);
     display:grid;place-items:center;flex:0 0 auto}
 
-  .layout{display:flex;min-height:calc(100vh - var(--header-h));align-items:flex-start}
+  .layout{display:flex;min-height:calc(100vh - var(--header-h) - var(--footer-h));align-items:flex-start;padding-bottom:var(--footer-h)}
   .nav{width:120px;flex:0 0 120px;border-right:1px solid var(--line);padding:var(--space-5) var(--space-0);
     display:flex;flex-direction:column;gap:var(--space-1);background:var(--sidebar);
-    position:sticky;top:var(--header-h);height:calc(100vh - var(--header-h));align-self:flex-start;overflow-y:auto}
+    position:sticky;top:var(--header-h);height:calc(100vh - var(--header-h) - var(--footer-h));align-self:flex-start;overflow-y:auto}
   .nav a{text-decoration:none;color:var(--ink-soft);display:flex;flex-direction:column;align-items:center;
     gap:var(--space-1-5);padding:var(--space-3-5) var(--space-2);font-size:var(--text-body-sm-size);font-weight:600;position:relative;text-align:center}
   .nav a .ico{display:grid;place-items:center}
@@ -1698,6 +1715,11 @@
   }
   @media(max-width:640px){
     .layout{display:block;padding-bottom:calc(var(--space-18) + env(safe-area-inset-bottom))}
+    /* Mobile swaps the sidebar for a fixed bottom tab bar (below) --
+       no room left for a second fixed bar, so the footer collapses
+       into the page flow instead of floating above the tab bar. */
+    .app-footer{position:static;height:auto;flex-direction:column;align-items:flex-start;
+      gap:var(--space-1);padding:var(--space-3) var(--page-padding-x-sm,var(--space-4))}
     .nav{position:fixed;left:0;right:0;bottom:0;top:auto;width:100%;height:auto;
       flex-direction:row;justify-content:space-around;padding:var(--space-1-5) var(--space-1) calc(var(--space-2) + env(safe-area-inset-bottom));
       border-right:none;border-top:1px solid var(--line);background:var(--panel);z-index:40}
