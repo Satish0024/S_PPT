@@ -41,11 +41,8 @@ export default function RiskMeterV2() {
         <p className="risk3-title">{shortName.toUpperCase()}</p>
 
         <p className="risk3-desc">
-          The illustrated Risk Level was generated based on the answers you provided to the questionnaire.
-        </p>
-        <p className="risk3-desc">
-          If you don&apos;t think this investment style accurately represents you, you can return to the
-          questionnaire and update your answers.
+          Your investment style is based on your risk questionnaire responses. View or edit your responses to
+          reassess your style.
         </p>
       </div>
     </section>

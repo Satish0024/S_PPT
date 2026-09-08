@@ -481,7 +481,7 @@ export default function RetirementGoal() {
   const spendHint = LOCATION_DEFAULTS[draft.location]?.monthlySpend
   const annualSpend = money((+draft.monthlySpend || 0) * 12)
   const saveTone = live.score >= 80 ? 'good' : live.score >= 55 ? 'ok' : 'warn'
-  const SaveIcon = saveTone === 'warn' ? AlertTriangle : saveTone === 'good' ? Trophy : CircleCheck
+  const saveIcon = saveTone === 'warn' ? faExclamationTriangle : saveTone === 'good' ? faTrophy : faCheckCircle
   const scoreRow = changes.find((row) => row.label === 'Readiness Score')
   const inputChanges = changes.filter((row) => row.label !== 'Readiness Score')
   const scoreWas = scoreRow ? parseInt(scoreRow.was, 10) : live.score
@@ -782,7 +782,7 @@ export default function RetirementGoal() {
           >
             <div className="rg-save-hero">
               <span className="rg-save-mark" aria-hidden="true">
-                <SaveIcon size={26} strokeWidth={2.1} />
+                <Icon icon={saveIcon} size={26} />
               </span>
               <h4 id="rg-saved-title">{saveTone === 'warn' ? 'Goal saved · Needs attention' : 'Goal saved'}</h4>
               <p>{liveStatus.body}</p>
