@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+/* CORE design-system palette (Core-Color-Palette (2).scss) -- the single
+   source of truth for every theme color below. Nothing here should
+   hardcode a hex that duplicates a value from that file; see its own
+   header comment for the "Applied at" map of which token feeds which
+   root variable. */
+@import './core-color-palette.css';
 
   :root{
     /* One true primary. --brand-dark/--accent/--link below are all
@@ -11,16 +17,20 @@
        Darkened to #0270a9 (color-mix(#0284c7, 85%, black)), which clears
        4.5:1 in both directions with margin (~5.4:1) -- still clearly the
        same blue, just one step deeper. */
-    --brand:#0270a9;
+    /* CORE palette: theme-brand-background-primary-default (#1F4F8D).
+       Was a LendGuard-specific #0270a9 -- now sourced from the supplied
+       CORE-Color-Palette file, per the request that only its colors be
+       used app-wide, in both themes. */
+    --brand: var(--theme-brand-background-primary-default);
     --brand-dark: color-mix(in srgb, var(--brand) 70%, black);
     /* Solid-fill buttons/chips need white text at >=4.5:1. --brand itself
        has to stay light enough to read as text on dark panels once the
        dark theme lightens it, so filled surfaces use this separate token
        instead — equal to --brand in light mode, deliberately darker than
        it in dark mode. */
-    --brand-fill:#0270a9;
+    --brand-fill: var(--theme-brand-background-primary-default);
     /* Text sitting on a solid brand fill — always white, in both themes. */
-    --brand-text-primary-oncolor: #ffffff;
+    --brand-text-primary-oncolor: var(--theme-brand-text-primary-oncolor);
     /* Was color-mix(--brand, 65%, white) -- a light tint meant as a
        background accent, but it's also used as TEXT for eyebrow labels/
        tags, where that tint was 2.44:1 (needs 3:1 even for large text).
@@ -32,24 +42,26 @@
        -up if the visual distinction turns out to matter. */
     --accent: var(--brand-dark);
     --link: var(--brand);
-    --ink:#14151f;
-    --ink-soft:#4a4d63;
-    --muted:#666a83;
-    --line:#e4e5ee;
-    --bg:#f4f5f9;
-    --panel:#ffffff;
-    --sidebar:#ffffff;
+    /* CORE palette (neutral / semantics groups). See core-color-palette.css
+       for the full "Applied at" map. */
+    --ink: var(--theme-neutral-text-primary-default);
+    --ink-soft: var(--theme-neutral-text-subtle);
+    --muted: var(--theme-neutral-text-subtleleast);
+    --line: var(--theme-neutral-border-primary-default);
+    --bg: var(--theme-colors-neutral-50);
+    --panel: var(--theme-colors-neutral-white);
+    --sidebar: var(--theme-colors-neutral-white);
     --active-bg: color-mix(in srgb, var(--brand) 12%, white);
-    --hover-bg:#f4f5f9;
+    --hover-bg: var(--theme-colors-neutral-50);
     --brand-soft: var(--active-bg);
     --info: color-mix(in srgb, var(--brand) 12%, white);
     --info-line: color-mix(in srgb, var(--brand) 30%, white);
-    --green:#147a4c;
-    --green-bg:#e7f7ef;
-    --amber:#8a5a12;
-    --amber-bg:#fdf3e1;
-    --red:#c0392b;
-    --red-bg:#fdeeee;
+    --green: var(--theme-semantics-success-text);
+    --green-bg: var(--theme-semantics-success-light-background);
+    --amber: var(--theme-semantics-warning-text);
+    --amber-bg: var(--theme-semantics-warning-light-background);
+    --red: var(--theme-semantics-critical-text);
+    --red-bg: var(--theme-semantics-critical-light-background);
     /* Raw RGB triplet backing every drop-shadow in the app. Individual
        rules vary offset/blur/spread/alpha per surface, but all of them
        share this one shadow color — rgba(var(--shadow-color),X). */
@@ -154,6 +166,16 @@
     --chart-2: var(--green);          /* 2  Green — International Equity */
     --chart-3: var(--amber);          /* 3  Amber — Emerging Markets */
     --chart-4: var(--red);            /* 4  Red — U.S. Small Cap */
+    /* 5-11: intentional exception to "palette-only colors" -- these are
+       a QUALITATIVE data-viz palette (an 11-slice donut/legend needs 11
+       hues no two of which are confusable), and Core-Color-Palette (2)
+       .scss only defines four hue families (brand blue, secondary cyan,
+       tertiary gold, and red/success/warning/info semantics) -- reusing
+       any of them here would make two different asset classes render in
+       the same or a near-identical color, defeating the chart's purpose.
+       Left as the app's existing distinct hues rather than forcing a
+       collision; flagged in the palette-audit checklist, not silently
+       skipped. */
     --chart-5: #0e7490;               /* 5  Cyan — U.S. Mid Cap */
     --chart-6: #8b5cf6;               /* 6  Purple — U.S. Bond */
     --chart-7: #0f766e;               /* 7  Teal — International Bond */
@@ -245,56 +267,61 @@
     /* Surfaces layered above --panel, and the border ramp. Added when the
        palette was consolidated for dark mode: the light theme previously
        used a dozen near-identical greys inline. */
-    --surface-2:#f7f8fc;
-    --surface-3:#eef0f5;
-    --line-strong:#c5c9e0;
-    --green-line:#c6e9d6;
-    --amber-line:#efd4a3;
-    --red-line:#f5c6c0;
-    --scene-sky:#dbe6ff;
-    --scene-ground:#eef1ff;
+    /* CORE palette (surfaces / border ramp / decorative scene gradient). */
+    --surface-2: var(--theme-colors-neutral-50);
+    --surface-3: var(--theme-neutral-border-subtle);
+    --line-strong: var(--theme-colors-neutral-300);
+    --green-line: var(--theme-semantics-success-border);
+    --amber-line: var(--theme-semantics-warning-border);
+    --red-line: var(--theme-semantics-critical-border);
+    --scene-sky: var(--theme-brand-background-primary-subtle);
+    --scene-ground: var(--theme-secondary-background-primary-light);
   }
 
   /* Dark theme. Only the tokens change — every rule above and below reads
      through them, so there is no duplicated dark-mode stylesheet. */
   :root[data-theme="dark"]{
-    --brand:#38bdf8;
+    /* CORE palette: primitive-primary-300, a light blue tone from the
+       same file, chosen so brand reads clearly against a dark panel
+       (the semantic "default" tone is too dark for that). See
+       core-color-palette.css for the full "Applied at" map. */
+    --brand: var(--theme-primitive-color-primary-300);
     --brand-dark: color-mix(in srgb, var(--brand) 80%, white);
-    /* Same white-on-fill failure as light mode (both themes shared this
-       exact hex) -- darkened to match. */
-    --brand-fill:#0270a9;
-    --brand-text-primary-oncolor: #ffffff;
+    /* Same brand-default fill in both themes -- fill needs to stay a
+       strong, saturated blue with white text regardless of theme. */
+    --brand-fill: var(--theme-brand-background-primary-default);
+    --brand-text-primary-oncolor: var(--theme-brand-text-primary-oncolor);
     --accent: color-mix(in srgb, var(--brand) 90%, white);
     --link: var(--brand-dark);
-    --ink:#eceef7;
-    --ink-soft:#b3b7cc;
-    --muted:#8f93aa;
-    --line:#2b2e42;
-    --line-strong:#3d4159;
-    --bg:#101220;
-    --panel:#181b2b;
-    --sidebar:#181b2b;
-    --surface-2:#1f2234;
-    --surface-3:#272b3f;
+    --ink: var(--theme-colors-neutral-50);
+    --ink-soft: var(--theme-colors-neutral-300);
+    --muted: var(--theme-colors-neutral-400);
+    --line: var(--theme-colors-neutral-800);
+    --line-strong: var(--theme-colors-neutral-700);
+    --bg: var(--theme-colors-neutral-950);
+    --panel: var(--theme-colors-neutral-900);
+    --sidebar: var(--theme-colors-neutral-900);
+    --surface-2: var(--theme-colors-neutral-800);
+    --surface-3: var(--theme-colors-neutral-700);
     --active-bg: color-mix(in srgb, var(--brand) 22%, black);
-    --hover-bg:#22263a;
+    --hover-bg: var(--theme-colors-neutral-800);
     --brand-soft: var(--active-bg);
     --info: color-mix(in srgb, var(--brand) 18%, black);
     --info-line: color-mix(in srgb, var(--brand) 45%, black);
-    --green:#4ade9b;
-    --green-bg:#12301f;
-    --green-line:#1d4a33;
-    --amber:#e8b563;
-    --amber-bg:#332512;
-    --amber-line:#54401d;
-    --red:#f2887c;
-    --red-bg:#3a1c1a;
-    --red-line:#5c2d29;
+    --green: var(--theme-colors-success-300);
+    --green-bg: var(--theme-colors-success-900);
+    --green-line: var(--theme-colors-success-700);
+    --amber: var(--theme-colors-warning-300);
+    --amber-bg: var(--theme-colors-warning-900);
+    --amber-line: var(--theme-colors-warning-700);
+    --red: var(--theme-colors-red-300);
+    --red-bg: var(--theme-colors-red-900);
+    --red-line: var(--theme-colors-red-700);
     --shadow-color: 0,0,0;
     --shadow:0 1px 2px rgba(var(--shadow-color),.4);
     --shadow-lg:0 8px 30px rgba(var(--shadow-color),.55);
-    --scene-sky:#232a45;
-    --scene-ground:#1e2338;
+    --scene-sky: var(--theme-primitive-color-primary-800);
+    --scene-ground: var(--theme-primitive-color-primary-900);
     --chart-5: #22d3ee;
     --chart-6: #a78bfa;
     --chart-7: #2dd4bf;
@@ -316,7 +343,7 @@
     --text-primary: var(--ink);
     --text-secondary: var(--ink-soft);
     --text-muted: var(--muted);
-    --text-inverse: #ffffff;
+    --text-inverse: var(--theme-neutral-text-on-color);
     --border-subtle: var(--line);
     --border-glass: rgba(255,255,255,.16);
     --accent-primary: var(--brand);
@@ -331,7 +358,7 @@
        the #f4f5f9 page, so the card never read as a raised surface —
        hence the washed-out look. Now: flat white + crisp hairline +
        real elevation, with colour carried by the accents instead. */
-    --rgs-base-1:#ffffff; --rgs-base-2:#ffffff; --rgs-base-3:#fdfdff;
+    --rgs-base-1: var(--theme-colors-neutral-white); --rgs-base-2: var(--theme-colors-neutral-white); --rgs-base-3: var(--theme-colors-neutral-50);
     /* Was a hardcoded RGB triplet (46,49,146 -- CORE's indigo, literally),
        so on any other brand this glow rendered off-brand. Now a real
        color read via color-mix() further down, itself derived from
@@ -360,8 +387,11 @@
        living next to the real one. Now every accent here is a
        color-mix() tone of --brand, so it recolors with the product
        instead of staying purple regardless of tenant. */
-    --learn-surface-1:#ffffff; --learn-surface-2:#faf8ff;
-    --learn-ink:#1d1a35; --learn-desc:#5f5a80;
+    /* learn-surface-2 was a bespoke faint-lavender tint (#faf8ff) with no
+       equivalent hue in the CORE palette -- swapped for the palette's own
+       cool light tint instead of inventing a new hardcoded near-white. */
+    --learn-surface-1: var(--theme-colors-neutral-white); --learn-surface-2: var(--theme-brand-background-primary-light);
+    --learn-ink: var(--theme-neutral-text-primary-default); --learn-desc: var(--theme-neutral-text-subtle);
     --learn-accent: var(--brand); --learn-accent-bg: color-mix(in srgb, var(--brand) 9%, transparent);
     --learn-pattern: color-mix(in srgb, var(--brand) 34%, transparent); --learn-pattern-soft: color-mix(in srgb, var(--brand) 7%, transparent);
     --learn-border:rgba(22,28,58,.10);
@@ -369,8 +399,11 @@
 
     /* Investment Style — same fix: was a fixed mint/green identity
        (#0a6656 etc.), unrelated to --brand. Now brand-derived. */
-    --inv-surface-1:#ffffff; --inv-surface-2:#f6fcfa;
-    --inv-ink:#14312b; --inv-desc:#3d564f;
+    /* inv-surface-2's faint mint tint now sources from the palette's own
+       success-light-background, which is the closest real token to the
+       card's existing mint identity. */
+    --inv-surface-1: var(--theme-colors-neutral-white); --inv-surface-2: var(--theme-semantics-success-light-background);
+    --inv-ink: var(--theme-neutral-text-primary-default); --inv-desc: var(--theme-neutral-text-subtle);
     --inv-accent: var(--brand); --inv-accent-bg: color-mix(in srgb, var(--brand) 10%, transparent);
     --inv-pattern: color-mix(in srgb, var(--brand) 26%, transparent); --inv-node: var(--brand-dark);
     --inv-border:rgba(22,28,58,.10);
@@ -381,14 +414,15 @@
     --surface-glass: rgba(24,27,43,.55);
     --border-glass: rgba(255,255,255,.1);
 
-    /* Retirement — dark: deep navy-charcoal glass. */
-    --rgs-base-1:#171b36; --rgs-base-2:#11142c; --rgs-base-3:#0b0e21;
+    /* Retirement — dark: deep navy-charcoal glass, now the CORE palette's
+       own darkest primary-blue primitives instead of a bespoke navy. */
+    --rgs-base-1: var(--theme-primitive-color-primary-800); --rgs-base-2: var(--theme-primitive-color-primary-900); --rgs-base-3: var(--theme-primitive-color-primary-950);
     --rgs-glow-primary: var(--brand); --rgs-glow-secondary: var(--green);
     --rgs-border: rgba(255,255,255,.11); --rgs-glass: rgba(255,255,255,.055);
     --rgs-glass-border: rgba(255,255,255,.11);
-    --rgs-ink:#f3f4fc; --rgs-ink-soft:rgba(214,217,242,.78); --rgs-muted:rgba(197,205,255,.68);
-    --rgs-success:#7be6c8; --rgs-warn:#f0c876; --rgs-danger:#ff9d90;
-    --rgs-success-bg:rgba(123,230,200,.16); --rgs-warn-bg:rgba(232,197,122,.16); --rgs-danger-bg:rgba(255,157,144,.16);
+    --rgs-ink: var(--theme-colors-neutral-50); --rgs-ink-soft: color-mix(in srgb, var(--rgs-ink) 78%, transparent); --rgs-muted: color-mix(in srgb, var(--rgs-ink) 68%, transparent);
+    --rgs-success: var(--theme-colors-success-300); --rgs-warn: var(--theme-colors-warning-300); --rgs-danger: var(--theme-colors-red-300);
+    --rgs-success-bg: color-mix(in srgb, var(--rgs-success) 16%, transparent); --rgs-warn-bg: color-mix(in srgb, var(--rgs-warn) 16%, transparent); --rgs-danger-bg: color-mix(in srgb, var(--rgs-danger) 16%, transparent);
     --rgs-track: rgba(255,255,255,.10);
     --rgs-arc-1: var(--accent); --rgs-arc-2: var(--brand);
     --rgs-glow-a: .34; --rgs-glow-b: .16; --rgs-decor: .5;
@@ -399,8 +433,8 @@
 
     /* Financial Wellness — dark. Was a fixed lavender (#b0a0ff etc.),
        same bug as light mode -- now brand-derived here too. */
-    --learn-surface-1:#1c1e30; --learn-surface-2:#211f38;
-    --learn-ink:#eeeaff; --learn-desc:#b7b2d8;
+    --learn-surface-1: var(--theme-primitive-color-primary-900); --learn-surface-2: var(--theme-primitive-color-primary-800);
+    --learn-ink: var(--theme-colors-neutral-50); --learn-desc: var(--theme-colors-neutral-300);
     --learn-accent: var(--brand); --learn-accent-bg: color-mix(in srgb, var(--brand) 14%, transparent);
     --learn-pattern: color-mix(in srgb, var(--brand) 38%, transparent); --learn-pattern-soft: color-mix(in srgb, var(--brand) 8%, transparent);
     --learn-border: color-mix(in srgb, var(--brand) 15%, transparent);
@@ -408,8 +442,8 @@
 
     /* Investment Style — dark. Was a fixed mint/teal (#5fe3c4 etc.),
        now brand-derived here too. */
-    --inv-surface-1:#161c1e; --inv-surface-2:#131a1c;
-    --inv-ink:#e7f5f1; --inv-desc:#9fb8b2;
+    --inv-surface-1: var(--theme-colors-success-950); --inv-surface-2: var(--theme-colors-success-900);
+    --inv-ink: var(--theme-colors-neutral-50); --inv-desc: var(--theme-colors-neutral-400);
     --inv-accent: var(--brand); --inv-accent-bg: color-mix(in srgb, var(--brand) 13%, transparent);
     --inv-pattern: color-mix(in srgb, var(--brand) 24%, transparent); --inv-node: var(--brand);
     --inv-border: color-mix(in srgb, var(--brand) 15%, transparent);
@@ -2324,6 +2358,9 @@ summary:focus-visible {
   opacity: var(--rgs-decor, 0);
   background-image: radial-gradient(rgba(255, 255, 255, .12) 1px, transparent 1.4px);
   background-size: 16px 16px;
+  /* #000 here is a mask luminance channel, not a rendered color -- CSS
+     masks read black/transparent as opacity stops, so this isn't a
+     "color" the palette-only rule applies to. Left as-is. */
   -webkit-mask-image: radial-gradient(70% 60% at 84% 12%, #000 0%, transparent 74%);
   mask-image: radial-gradient(70% 60% at 84% 12%, #000 0%, transparent 74%);
 }

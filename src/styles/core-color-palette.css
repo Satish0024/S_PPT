@@ -1,0 +1,235 @@
+/**
+ * CORE DESIGN SYSTEM — THEME COLOR & FIGMA BASE VARIABLES
+ *
+ * Generated with 1:1 Figma Variable parity ([Category] / [Property] / [State]).
+ * Source: Core-Color-Palette (2).scss, supplied for the journey-retirement
+ * (LendGuard) branch. Values are unchanged from that file — this is the
+ * canonical, load-bearing copy; every other color in the app resolves to
+ * one of the CSS custom properties below, through index.css's root theme
+ * tokens (see the "Applied at" comment on each line). Nothing in the app
+ * should hardcode a hex value that duplicates one of these — reference the
+ * variable, even indirectly through index.css's --brand/--ink/--green/etc.
+ *
+ * "Applied at" comments below name the index.css root token that sources
+ * from each variable. A handful of lines have no root token wired to them
+ * yet (no matching use case existed in the app) — those are marked
+ * "Not yet applied" rather than silently left out, per the request to
+ * account for every color in this file.
+ */
+
+:root {
+  /* ---------------------------------------------------------------------------------- */
+  /* Figma Aligned Semantic Base Variables */
+  /* ---------------------------------------------------------------------------------- */
+  /* Brand / Text ---------------------------------------------------------------------*/
+  --theme-brand-text-primary-default: #1F4F8D;   /* Not yet applied — no dedicated "brand text on light surface" token existed separately from --brand itself */
+  --theme-brand-text-primary-hover: #1B4479;     /* Not yet applied */
+  --theme-brand-text-primary-active: #17365E;    /* Not yet applied */
+  --theme-brand-text-primary-disabled: #86ADDF;  /* Applied at: index.css --brand (dark theme) */
+  --theme-brand-text-primary-oncolor: #FFFFFF;   /* Applied at: index.css --brand-text-primary-oncolor (light + dark) */
+
+  /* Brand / background ---------------------------------------------------------------------*/
+  --theme-brand-background-primary-default: #1F4F8D;  /* Applied at: index.css --brand (light), --brand-fill (light + dark) */
+  --theme-brand-background-primary-light: #F5F7FA;    /* Applied at: index.css --learn-surface-2 (light) */
+  --theme-brand-background-primary-subtle: #E2E9F3;   /* Applied at: index.css --active-bg fallback reference / --scene-sky (light) */
+  --theme-brand-background-hover: #1B4479;            /* Not yet applied */
+  --theme-brand-background-active: #17365E;           /* Not yet applied */
+  --theme-brand-background-disabled-light: #EEEEF2;   /* Not yet applied */
+  --theme-brand-background-disabled-strong: #BACEE9;  /* Not yet applied */
+
+  /* Brand / Borders ---------------------------------------------------------------------*/
+  --theme-brand-border-primary-default: #3275CD;  /* Not yet applied */
+  --theme-brand-border-primary-disabled: #BACEE9; /* Not yet applied */
+  --theme-brand-border-hover: #1B4479;            /* Not yet applied */
+  --theme-brand-border-active: #17365E;           /* Not yet applied */
+
+  /* Secondary / Text ---------------------------------------------------------------------*/
+  --theme-secondary-text-primary-default: #39BCF9;  /* Not yet applied */
+  --theme-secondary-text-primary-hover: #07A8F2;    /* Not yet applied */
+  --theme-secondary-text-primary-active: #0B81B7;   /* Not yet applied */
+  --theme-secondary-text-primary-disabled: #71CAF4; /* Not yet applied */
+  --theme-secondary-text-primary-oncolor: #FFFFFF;  /* Not yet applied */
+
+  /* Secondary / background ---------------------------------------------------------------------*/
+  --theme-secondary-background-primary-default: #39BCF9;  /* Not yet applied */
+  --theme-secondary-background-primary-light: #F4F9FB;    /* Applied at: index.css --scene-ground (light) */
+  --theme-secondary-background-primary-subtle: #DEEFF7;   /* Not yet applied */
+  --theme-secondary-background-hover: #07A8F2;             /* Not yet applied */
+  --theme-secondary-background-active: #0B81B7;            /* Not yet applied */
+  --theme-secondary-background-disabled-light: #EEEEF2;    /* Not yet applied */
+  --theme-secondary-background-disabled-strong: #AFDEF4;   /* Not yet applied */
+
+  /* Secondary / Borders ---------------------------------------------------------------------*/
+  --theme-secondary-border-primary-default: #56C3F5;  /* Not yet applied */
+  --theme-secondary-border-primary-disabled: #AFDEF4; /* Not yet applied */
+  --theme-secondary-border-hover: #07A8F2;            /* Not yet applied */
+
+  /* Tertiary / Text ---------------------------------------------------------------------*/
+  --theme-tertiary-text-primary-default: #E89A1C;  /* Not yet applied */
+  --theme-tertiary-text-primary-hover: #C27A10;    /* Not yet applied */
+  --theme-tertiary-text-primary-active: #95590A;   /* Not yet applied */
+  --theme-tertiary-text-primary-disabled: #FBCB6B; /* Not yet applied */
+  --theme-tertiary-text-primary-oncolor: #FFFFFF;  /* Not yet applied */
+
+  /* Tertiary / background ---------------------------------------------------------------------*/
+  --theme-tertiary-background-primary-default: #E89A1C;  /* Not yet applied */
+  --theme-tertiary-background-primary-light: #FFF8EA;    /* Not yet applied */
+  --theme-tertiary-background-primary-subtle: #FEEBBE;   /* Not yet applied */
+  --theme-tertiary-background-hover: #C27A10;             /* Not yet applied */
+  --theme-tertiary-background-active: #95590A;            /* Not yet applied */
+  --theme-tertiary-background-disabled-light: #EEEEF2;    /* Not yet applied */
+  --theme-tertiary-background-disabled-strong: #FCDB94;   /* Not yet applied */
+
+  /* Tertiary / Borders ---------------------------------------------------------------------*/
+  --theme-tertiary-border-primary-default: #F2B244;  /* Not yet applied */
+  --theme-tertiary-border-primary-disabled: #FCDB94; /* Not yet applied */
+  --theme-tertiary-border-hover: #C27A10;            /* Not yet applied */
+
+  /* Neutral / Text ---------------------------------------------------------------------*/
+  --theme-neutral-text-primary-default: #1D1C24;  /* Applied at: index.css --ink, --learn-ink, --inv-ink (light) */
+  --theme-neutral-text-subtle: #5C5C6B;           /* Applied at: index.css --ink-soft, --learn-desc, --inv-desc (light) */
+  --theme-neutral-text-subtleleast: #787887;      /* Applied at: index.css --muted (light) */
+  --theme-neutral-text-on-color: #FFFFFF;         /* Applied at: index.css --text-inverse */
+
+  /* Neutral / border ---------------------------------------------------------------------*/
+  --theme-neutral-border-primary-default: #DFDFE6;  /* Applied at: index.css --line (light) */
+  --theme-neutral-border-subtle: #EEEEF2;           /* Applied at: index.css --surface-3 (light) */
+  --theme-neutral-border-strong: #9E9EAD;           /* Not yet applied (primitive neutral-300 used instead for --line-strong, a closer visual match) */
+  --theme-neutral-border-inverse: #FFFFFF;          /* Not yet applied */
+
+  /* Semantics / Critical ---------------------------------------------------------------------*/
+  --theme-semantics-critical-border: #EF8E8E;           /* Applied at: index.css --red-line (light) */
+  --theme-semantics-critical-text: #8F212A;             /* Applied at: index.css --red (light) */
+  --theme-semantics-critical-light-background: #FDEFEF; /* Applied at: index.css --red-bg (light) */
+  --theme-semantics-critical-strong-background: #D8434A;/* Not yet applied */
+
+  /* Semantics / Warning ---------------------------------------------------------------------*/
+  --theme-semantics-warning-border: #FBCB6B;           /* Applied at: index.css --amber-line (light) */
+  --theme-semantics-warning-text: #95590A;             /* Applied at: index.css --amber (light) */
+  --theme-semantics-warning-light-background: #FFF8EA; /* Applied at: index.css --amber-bg (light) */
+  --theme-semantics-warning-strong-background: #E89A1C;/* Not yet applied */
+
+  /* Semantics / Success ---------------------------------------------------------------------*/
+  --theme-semantics-success-border: #7EDCAC;           /* Applied at: index.css --green-line (light) */
+  --theme-semantics-success-text: #116840;             /* Applied at: index.css --green (light) */
+  --theme-semantics-success-light-background: #EDFAF2; /* Applied at: index.css --green-bg (light), --inv-surface-2 (light) */
+  --theme-semantics-success-strong-background: #22A369;/* Not yet applied */
+
+  /* Semantics / Highlight ---------------------------------------------------------------------*/
+  --theme-semantics-highlight-border: #84C7F1;           /* Not yet applied (--info-line stays a color-mix() of --brand, unchanged) */
+  --theme-semantics-highlight-text: #155187;             /* Not yet applied */
+  --theme-semantics-highlight-light-background: #EBF6FD; /* Not yet applied (--info stays a color-mix() of --brand, unchanged) */
+  --theme-semantics-highlight-strong-background: #2E8CD6;/* Not yet applied */
+
+  /* ---------------------------------------------------------------------------------- */
+  /* Primitive Scale Colors */
+  /* ---------------------------------------------------------------------------------- */
+
+  /* Primary (Brand) colors ----------------------------------------------------------*/
+  --theme-primitive-color-primary-50: #F5F7FA;   /* Not yet applied */
+  --theme-primitive-color-primary-100: #E2E9F3;  /* Not yet applied */
+  --theme-primitive-color-primary-200: #BACEE9;  /* Not yet applied */
+  --theme-primitive-color-primary-300: #86ADDF;  /* Applied at: index.css --brand (dark theme) */
+  --theme-primitive-color-primary-400: #3275CD;  /* Not yet applied */
+  --theme-primitive-color-primary-500: #1F4F8D;  /* Not yet applied (same hex as background-primary-default, already applied through that token) */
+  --theme-primitive-color-primary-600: #1B4479;  /* Not yet applied */
+  --theme-primitive-color-primary-700: #17365E;  /* Not yet applied */
+  --theme-primitive-color-primary-800: #132A49;  /* Applied at: index.css --scene-sky, --rgs-base-1, --learn-surface-2 (dark theme) */
+  --theme-primitive-color-primary-900: #102137;  /* Applied at: index.css --scene-ground, --rgs-base-2, --learn-surface-1 (dark theme) */
+  --theme-primitive-color-primary-950: #0C1827;  /* Applied at: index.css --rgs-base-3 (dark theme) */
+
+  /* Secondary colors ----------------------------------------------------------------*/
+  --theme-primitive-color-secondary-50: #F4F9FB;   /* Not yet applied (same hex as secondary-background-primary-light, already applied through that token) */
+  --theme-primitive-color-secondary-100: #DEEFF7;  /* Not yet applied */
+  --theme-primitive-color-secondary-200: #AFDEF4;  /* Not yet applied */
+  --theme-primitive-color-secondary-300: #71CAF4;  /* Not yet applied */
+  --theme-primitive-color-secondary-400: #56C3F5;  /* Not yet applied */
+  --theme-primitive-color-secondary-500: #39BCF9;  /* Not yet applied */
+  --theme-primitive-color-secondary-600: #07A8F2;  /* Not yet applied */
+  --theme-primitive-color-secondary-700: #0B81B7;  /* Not yet applied */
+  --theme-primitive-color-secondary-800: #0B5E84;  /* Not yet applied */
+  --theme-primitive-color-secondary-900: #0A3F57;  /* Not yet applied */
+  --theme-primitive-color-secondary-950: #06212D;  /* Not yet applied */
+
+  /* Tertiary colors -----------------------------------------------------------------*/
+  --theme-primitive-color-tertiary-50: #FFF8EA;   /* Not yet applied */
+  --theme-primitive-color-tertiary-100: #FEEBBE;  /* Not yet applied */
+  --theme-primitive-color-tertiary-200: #FCDB94;  /* Not yet applied */
+  --theme-primitive-color-tertiary-300: #FBCB6B;  /* Not yet applied */
+  --theme-primitive-color-tertiary-400: #F2B244;  /* Not yet applied */
+  --theme-primitive-color-tertiary-500: #E89A1C;  /* Not yet applied */
+  --theme-primitive-color-tertiary-600: #C27A10;  /* Not yet applied */
+  --theme-primitive-color-tertiary-700: #95590A;  /* Not yet applied */
+  --theme-primitive-color-tertiary-800: #784708;  /* Not yet applied */
+  --theme-primitive-color-tertiary-900: #5C3505;  /* Not yet applied */
+  --theme-primitive-color-tertiary-950: #382002;  /* Not yet applied */
+
+  /* Success -------------------------------------------------------------------------*/
+  --theme-colors-success-50: #EDFAF2;   /* Not yet applied (same hex as semantics-success-light-background, already applied through that token) */
+  --theme-colors-success-100: #D2F2E0;  /* Not yet applied */
+  --theme-colors-success-200: #A8E7C6;  /* Not yet applied */
+  --theme-colors-success-300: #7EDCAC;  /* Applied at: index.css --green, --rgs-success (dark theme) */
+  --theme-colors-success-400: #50C08A;  /* Not yet applied */
+  --theme-colors-success-500: #22A369;  /* Not yet applied */
+  --theme-colors-success-600: #178451;  /* Not yet applied */
+  --theme-colors-success-700: #116840;  /* Applied at: index.css --green-line (dark theme) */
+  --theme-colors-success-800: #0E5233;  /* Not yet applied */
+  --theme-colors-success-900: #0A3D26;  /* Applied at: index.css --green-bg, --inv-surface-2 (dark theme) */
+  --theme-colors-success-950: #052014;  /* Applied at: index.css --inv-surface-1 (dark theme) */
+
+  /* Neutral (Grey) colors -----------------------------------------------------------*/
+  --theme-colors-neutral-white: #FFFFFF;      /* Applied at: index.css --panel, --sidebar (light) */
+  --theme-colors-neutral-grey-black: #000000; /* Not yet applied */
+  --theme-colors-neutral-0: #FFFFFF;          /* Not yet applied (alias of neutral-white, already applied through that token) */
+  --theme-colors-neutral-50: #F7F7F9;         /* Applied at: index.css --bg, --hover-bg, --surface-2 (light); --rgs-base-3, --rgs-ink, --learn-ink, --inv-ink (dark theme) */
+  --theme-colors-neutral-100: #EEEEF2;        /* Not yet applied (alias of neutral-border-subtle, already applied through that token) */
+  --theme-colors-neutral-200: #DFDFE6;        /* Not yet applied (alias of neutral-border-primary-default, already applied through that token) */
+  --theme-colors-neutral-300: #C4C4CF;        /* Applied at: index.css --line-strong (light), --ink-soft, --learn-desc (dark theme) */
+  --theme-colors-neutral-400: #9E9EAD;        /* Applied at: index.css --muted, --inv-desc (dark theme) */
+  --theme-colors-neutral-500: #787887;        /* Not yet applied (alias of neutral-text-subtleleast, already applied through that token) */
+  --theme-colors-neutral-600: #5C5C6B;        /* Not yet applied (alias of neutral-text-subtle, already applied through that token) */
+  --theme-colors-neutral-700: #454452;        /* Applied at: index.css --line-strong, --surface-3 (dark theme) */
+  --theme-colors-neutral-800: #2E2D38;        /* Applied at: index.css --line, --surface-2, --hover-bg (dark theme) */
+  --theme-colors-neutral-900: #1D1C24;        /* Applied at: index.css --panel, --sidebar (dark theme) */
+  --theme-colors-neutral-950: #111017;        /* Applied at: index.css --bg (dark theme) */
+  --theme-colors-neutral-1000: #000000;       /* Not yet applied */
+
+  /* Red (Danger) --------------------------------------------------------------------*/
+  --theme-colors-red-50: #FDEFEF;   /* Not yet applied (same hex as semantics-critical-light-background, already applied through that token) */
+  --theme-colors-red-100: #FAD4D4;  /* Not yet applied */
+  --theme-colors-red-200: #F4B1B1;  /* Not yet applied */
+  --theme-colors-red-300: #EF8E8E;  /* Applied at: index.css --red, --rgs-danger (dark theme) */
+  --theme-colors-red-400: #E4686C;  /* Not yet applied */
+  --theme-colors-red-500: #D8434A;  /* Not yet applied */
+  --theme-colors-red-600: #B72E38;  /* Not yet applied */
+  --theme-colors-red-700: #8F212A;  /* Applied at: index.css --red-line (dark theme) */
+  --theme-colors-red-800: #731922;  /* Not yet applied */
+  --theme-colors-red-900: #571119;  /* Applied at: index.css --red-bg (dark theme) */
+  --theme-colors-red-950: #3B0B11;  /* Not yet applied */
+
+  /* Info ----------------------------------------------------------------------------*/
+  --theme-colors-info-50: #EBF6FD;   /* Not yet applied */
+  --theme-colors-info-100: #CFEAFB;  /* Not yet applied */
+  --theme-colors-info-200: #A9D8F6;  /* Not yet applied */
+  --theme-colors-info-300: #84C7F1;  /* Not yet applied */
+  --theme-colors-info-400: #56AEEB;  /* Not yet applied */
+  --theme-colors-info-500: #2E8CD6;  /* Not yet applied */
+  --theme-colors-info-600: #1D6DB0;  /* Not yet applied */
+  --theme-colors-info-700: #155187;  /* Not yet applied */
+  --theme-colors-info-800: #103E69;  /* Not yet applied */
+  --theme-colors-info-900: #0B2E4E;  /* Not yet applied */
+  --theme-colors-info-950: #061C30;  /* Not yet applied */
+
+  /* Warning -------------------------------------------------------------------------*/
+  --theme-colors-warning-50: #FFF8EA;   /* Not yet applied (alias of tertiary-background-primary-light) */
+  --theme-colors-warning-100: #FEEBBE;  /* Not yet applied */
+  --theme-colors-warning-200: #FCDB94;  /* Not yet applied */
+  --theme-colors-warning-300: #FBCB6B;  /* Applied at: index.css --amber, --rgs-warn (dark theme) */
+  --theme-colors-warning-400: #F2B244;  /* Not yet applied */
+  --theme-colors-warning-500: #E89A1C;  /* Not yet applied */
+  --theme-colors-warning-600: #C27A10;  /* Not yet applied */
+  --theme-colors-warning-700: #95590A;  /* Applied at: index.css --amber-line (dark theme) */
+  --theme-colors-warning-800: #784708;  /* Not yet applied */
+  --theme-colors-warning-900: #5C3505;  /* Applied at: index.css --amber-bg (dark theme) */
+  --theme-colors-warning-950: #382002;  /* Not yet applied */
+}
