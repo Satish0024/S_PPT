@@ -490,7 +490,7 @@
 
   .topbar{
     height:var(--header-h);border-bottom:1px solid var(--line);display:flex;align-items:center;
-    justify-content:space-between;padding:var(--space-0) var(--space-6) var(--space-0) var(--space-2-5);position:sticky;top:0;background:var(--panel);z-index:40;
+    justify-content:space-between;padding:var(--space-0) var(--space-6);position:sticky;top:0;background:var(--panel);z-index:40;
   }
   .brand{display:inline-flex;align-items:center}
 
