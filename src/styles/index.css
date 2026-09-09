@@ -1705,6 +1705,8 @@
 
   .tx-page{padding:var(--space-4) var(--space-5)}
   .tx-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-4)}
+  .tx-toolbar-actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3);max-width:100%}
+  .tx-toolbar-actions .text-link{flex:0 0 auto;white-space:nowrap}
   .tx-filters{display:inline-flex;flex-wrap:wrap;gap:var(--space-0);background:var(--surface-2);padding:var(--space-1);border-radius:var(--radius-sm)}
   .tx-filters button{border:none;background:transparent;padding:var(--space-1-5) var(--space-3);font-weight:600;font-size:var(--text-body-sm-size);
     color:var(--ink-soft);cursor:pointer;border-radius:var(--radius-sm)}
