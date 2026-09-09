@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Slideover from '../common/Slideover.jsx'
+import DatePicker from '../common/DatePicker.jsx'
 import { computeLoanPayoff, formatMoney } from '../../data/transactions.js'
 
 const MODES = [
@@ -52,7 +53,7 @@ export default function LoanCalculatorSlideover({ loan, onClose }) {
 
         <div className="rq-field">
           <label>{mode === 'catchup' ? 'Catch-up payment date' : 'Loan payoff date'}</label>
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} min={toDateInput(new Date())} />
+          <DatePicker value={date} onChange={(e) => setDate(e.target.value)} min={toDateInput(new Date())} />
         </div>
 
         <div className="loan-calc-result">

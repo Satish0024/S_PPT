@@ -5,10 +5,10 @@
   padding-bottom:var(--space-4);border-bottom:1px solid var(--line)}
 .doc-field{display:flex;flex-direction:column;gap:var(--form-label-gap);min-width:150px}
 .field-label{font-size:var(--text-label-size);font-weight:var(--text-label-weight);line-height:var(--text-label-lh);color:var(--ink-soft);letter-spacing:var(--text-label-ls)}
-.doc-field input{
+.doc-field input,.doc-field .ui-select-btn{
   min-height:38px;border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--space-1-5) var(--space-2-5);
   font:inherit;font-size:var(--text-body-md-size);font-weight:600;color:var(--ink);background:var(--panel)}
-.doc-field input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 12%, transparent)}
+.doc-field input:focus,.doc-field .ui-select-btn:focus-visible{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 12%, transparent)}
 .doc-reset{align-self:center;margin-bottom:var(--space-0-5)}
 
 .multi-select{position:relative;display:flex;flex-direction:column;gap:var(--form-label-gap);min-width:170px}

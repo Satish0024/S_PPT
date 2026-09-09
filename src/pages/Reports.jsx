@@ -8,6 +8,7 @@ import { addGeneratedStatement, getGeneratedStatements } from '../lib/generatedS
 import { downloadDocumentFile } from '../lib/downloadDocument.js'
 import Toast from '../components/common/Toast.jsx'
 import Select, { Option } from '../components/common/Select.jsx'
+import DatePicker from '../components/common/DatePicker.jsx'
 import '../styles/documents.css'
 
 const STATEMENT_PERIODS = [
@@ -258,13 +259,13 @@ export default function Reports() {
             <label className="field-label" htmlFor="doc-from">
               Documented from
             </label>
-            <input id="doc-from" type="date" value={from} onChange={(e) => setFrom(e.target.value)} />
+            <DatePicker id="doc-from" value={from} onChange={(e) => setFrom(e.target.value)} />
           </div>
           <div className="doc-field">
             <label className="field-label" htmlFor="doc-to">
               Documented to
             </label>
-            <input id="doc-to" type="date" value={to} onChange={(e) => setTo(e.target.value)} />
+            <DatePicker id="doc-to" value={to} onChange={(e) => setTo(e.target.value)} />
           </div>
           <button type="button" className="text-btn doc-reset" onClick={reset}>
             Reset

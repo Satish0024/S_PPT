@@ -16,6 +16,7 @@ import InvestmentAllocationTable from '../components/transactions/InvestmentAllo
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import Select, { Option } from '../components/common/Select.jsx'
+import DatePicker from '../components/common/DatePicker.jsx'
 import {
   AVAILABLE_INVESTMENTS,
   BANK_ON_FILE,
@@ -597,8 +598,7 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
 
           <div className="txn-row spaced">
             <Field label="First repayment date" required>
-              <input
-                type="date"
+              <DatePicker
                 value={form.repaymentStartDate}
                 onChange={(e) => set({ repaymentStartDate: e.target.value })}
               />
