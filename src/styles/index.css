@@ -17,18 +17,18 @@
        Darkened to #0270a9 (color-mix(#0284c7, 85%, black)), which clears
        4.5:1 in both directions with margin (~5.4:1) -- still clearly the
        same blue, just one step deeper. */
-    /* CORE palette: theme-brand-background-primary-default (#1F4F8D).
-       Was a LendGuard-specific #0270a9 -- now sourced from the supplied
-       CORE-Color-Palette file, per the request that only its colors be
-       used app-wide, in both themes. */
-    --brand: var(--theme-brand-background-primary-default);
+    /* CORE palette v2: theme-brand-background-strong -- the palette's own
+       explicit light/dark pair for a solid brand fill (#1F4F8D light /
+       #3275CD dark), sourced from core-color-palette.css's dark block via
+       the cascade, not re-derived by hand like the v1 palette forced us
+       to. Was a LendGuard-specific #0270a9 before the palette was
+       introduced. */
+    --brand: var(--theme-brand-background-strong);
     --brand-dark: color-mix(in srgb, var(--brand) 70%, black);
-    /* Solid-fill buttons/chips need white text at >=4.5:1. --brand itself
-       has to stay light enough to read as text on dark panels once the
-       dark theme lightens it, so filled surfaces use this separate token
-       instead — equal to --brand in light mode, deliberately darker than
-       it in dark mode. */
-    --brand-fill: var(--theme-brand-background-primary-default);
+    /* Solid-fill buttons/chips need white text at >=4.5:1 -- same token
+       as --brand, since theme-brand-background-strong is already the
+       palette's dedicated "solid fill" role in both themes. */
+    --brand-fill: var(--theme-brand-background-strong);
     /* Text sitting on a solid brand fill — always white, in both themes. */
     --brand-text-primary-oncolor: var(--theme-brand-text-primary-oncolor);
     /* Was color-mix(--brand, 65%, white) -- a light tint meant as a
@@ -270,7 +270,7 @@
     /* CORE palette (surfaces / border ramp / decorative scene gradient). */
     --surface-2: var(--theme-colors-neutral-50);
     --surface-3: var(--theme-neutral-border-subtle);
-    --line-strong: var(--theme-colors-neutral-300);
+    --line-strong: var(--theme-neutral-border-strong);
     --green-line: var(--theme-semantics-success-border);
     --amber-line: var(--theme-semantics-warning-border);
     --red-line: var(--theme-semantics-critical-border);
@@ -281,23 +281,18 @@
   /* Dark theme. Only the tokens change — every rule above and below reads
      through them, so there is no duplicated dark-mode stylesheet. */
   :root[data-theme="dark"]{
-    /* CORE palette: primitive-primary-300, a light blue tone from the
-       same file, chosen so brand reads clearly against a dark panel
-       (the semantic "default" tone is too dark for that). See
-       core-color-palette.css for the full "Applied at" map. */
-    --brand: var(--theme-primitive-color-primary-300);
+    /* CORE palette v2: theme-brand-background-strong's own dark value
+       (#3275CD) -- the palette now defines this explicitly per-theme, so
+       --brand/--brand-fill need no dark-only override at all (removed);
+       the var() reference in the light block above already resolves to
+       this value here, since the underlying --theme-* token changes. */
     --brand-dark: color-mix(in srgb, var(--brand) 80%, white);
-    /* Same brand-default fill in both themes -- fill needs to stay a
-       strong, saturated blue with white text regardless of theme. */
-    --brand-fill: var(--theme-brand-background-primary-default);
-    --brand-text-primary-oncolor: var(--theme-brand-text-primary-oncolor);
     --accent: color-mix(in srgb, var(--brand) 90%, white);
     --link: var(--brand-dark);
-    --ink: var(--theme-colors-neutral-50);
-    --ink-soft: var(--theme-colors-neutral-300);
-    --muted: var(--theme-colors-neutral-400);
-    --line: var(--theme-colors-neutral-800);
-    --line-strong: var(--theme-colors-neutral-700);
+    /* --ink/--ink-soft/--muted/--line/--line-strong also need no
+       dark-only override now, for the same reason -- see the light
+       block's definitions, which read through --theme-neutral-* tokens
+       that the palette itself swaps per theme. */
     --bg: var(--theme-colors-neutral-950);
     --panel: var(--theme-colors-neutral-900);
     --sidebar: var(--theme-colors-neutral-900);
@@ -308,20 +303,15 @@
     --brand-soft: var(--active-bg);
     --info: color-mix(in srgb, var(--brand) 18%, black);
     --info-line: color-mix(in srgb, var(--brand) 45%, black);
-    --green: var(--theme-colors-success-300);
-    --green-bg: var(--theme-colors-success-900);
-    --green-line: var(--theme-colors-success-700);
-    --amber: var(--theme-colors-warning-300);
-    --amber-bg: var(--theme-colors-warning-900);
-    --amber-line: var(--theme-colors-warning-700);
-    --red: var(--theme-colors-red-300);
-    --red-bg: var(--theme-colors-red-900);
-    --red-line: var(--theme-colors-red-700);
+    /* --green/-bg, --amber/-bg, --red/-bg, --green-line/--amber-line/
+       --red-line also need no dark-only override -- same reasoning:
+       they read through --theme-semantics-*-text / -light-background /
+       -border tokens, all of which the palette now swaps per theme. */
     --shadow-color: 0,0,0;
     --shadow:0 1px 2px rgba(var(--shadow-color),.4);
     --shadow-lg:0 8px 30px rgba(var(--shadow-color),.55);
-    --scene-sky: var(--theme-primitive-color-primary-800);
-    --scene-ground: var(--theme-primitive-color-primary-900);
+    /* --scene-sky/--scene-ground also need no dark-only override, same
+       reasoning as above. */
     --chart-5: #22d3ee;
     --chart-6: #a78bfa;
     --chart-7: #2dd4bf;
@@ -447,11 +437,10 @@
     --learn-border: color-mix(in srgb, var(--brand) 15%, transparent);
     --learn-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.55);
 
-    /* Enrich card — dark. Same tertiary/gold identity, primitive tones
-       chosen to stay legible against the dark surface. */
-    --enrich-accent: var(--theme-primitive-color-tertiary-300);
-    --enrich-accent-bg: color-mix(in srgb, var(--enrich-accent) 16%, transparent);
-    --enrich-surface-2: var(--theme-primitive-color-tertiary-950);
+    /* Enrich card -- --enrich-accent/-bg/-surface-2 also need no dark-only
+       override now: the palette (v2) defines explicit dark values for
+       theme-tertiary-text-primary-default/-background-primary-subtle/
+       -light, which the light block's definitions already read through. */
 
     /* Investment Style — dark. Was a fixed mint/teal (#5fe3c4 etc.),
        now brand-derived here too. */
