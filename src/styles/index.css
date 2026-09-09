@@ -2439,8 +2439,12 @@ summary:focus-visible {
 .rgs-orbit {
   position: relative;
   flex: 0 0 auto;
-  width: 116px;
-  height: 116px;
+  /* Was a hard 116px -- on a narrow sidebar/mobile column the ring never
+     shrank, so its own overflow rules (below) had less room than the
+     desktop layout assumed. Scales between 96-116px with the container
+     instead, so the ring and its text stay proportional at every width. */
+  width: clamp(96px, 100%, 116px);
+  aspect-ratio: 1;
   display: grid;
   place-items: center;
 }
@@ -2451,23 +2455,35 @@ summary:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   line-height: 1.2;
+  /* Was unconstrained, so "of your goal" (nowrap, below) rendered wider
+     than the ring and visibly spilled past its circumference instead of
+     sitting inside it. Capping the text column to the ring's usable
+     inner width (the track sits ~8px inside the SVG's edge) keeps both
+     lines inside the circle at every ring size. */
+  width: 74%;
+  text-align: center;
 }
 .rgs-orbit-value b {
-  font-size:var(--text-display-lg-size);
+  font-size:var(--text-h2-size);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--ls-tighter);
-  line-height: var(--text-display-lg-lh);
+  line-height: 1.1;
   color: var(--rgs-ink);
   font-variant-numeric: tabular-nums;
 }
 .rgs-orbit-value span {
-  margin-top:var(--space-1);
+  margin-top:var(--space-0-5);
   font-size:var(--text-2xs-size);
   font-weight: 600;
   letter-spacing:var(--ls-wide);
   color: var(--rgs-muted);
-  white-space: nowrap;
+  /* Was nowrap -- the exact cause of the overflow past the ring; now
+     wraps onto its own second line ("of your" / "goal") if the ring
+     shrinks below the point where it fits on one line. */
+  white-space: normal;
+  line-height: 1.25;
 }
 
 /* Borderless, hairline-divided rows — the boxed grey panel this replaces
