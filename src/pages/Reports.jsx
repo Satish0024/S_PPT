@@ -267,9 +267,14 @@ export default function Reports() {
             </label>
             <DatePicker id="doc-to" value={to} onChange={(e) => setTo(e.target.value)} />
           </div>
-          <button type="button" className="text-btn doc-reset" onClick={reset}>
-            Reset
-          </button>
+          <div className="doc-field doc-field-reset">
+            <span className="field-label" aria-hidden="true">
+              &nbsp;
+            </span>
+            <button type="button" className="text-btn doc-reset" onClick={reset}>
+              Reset
+            </button>
+          </div>
         </div>
 
         <div className="doc-results-head">

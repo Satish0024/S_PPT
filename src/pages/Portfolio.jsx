@@ -1,4 +1,6 @@
 import { useMemo, useState, Fragment } from 'react'
+import { Icon } from '../lib/icons'
+import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -146,6 +148,10 @@ export default function Portfolio() {
     setSort((s) => (s.key === key ? { key, dir: s.dir * -1 } : { key, dir: 1 }))
   }
 
+  const SortIcon = ({ active, dir }) => (
+    <Icon icon={active ? (dir === 1 ? faSortUp : faSortDown) : faSort} size={12} aria-hidden="true" className="sort-ico" />
+  )
+
   const toggleYtd = () => {
     setYtdDir((d) => (d === 1 ? -1 : 1))
   }
@@ -279,29 +285,41 @@ export default function Portfolio() {
                         ['asset', 'Asset class', 'text'],
                         ['cusip', 'CUSIP', 'text'],
                         ['return', 'Fund return YTD', 'num']
-                      ].map(([key, label, type]) => (
-                        <th scope="col"
-                          key={key}
-                          className={`sortable${type === 'num' ? ' num' : ''}${sort.key === key ? (sort.dir === 1 ? ' asc' : ' desc') : ''}`}
-                          onClick={() => toggleSort(key)}
-                        >
-                          {label}
-                        </th>
-                      ))}
+                      ].map(([key, label, type]) => {
+                        const active = sort.key === key
+                        return (
+                          <th scope="col"
+                            key={key}
+                            className={`sortable${type === 'num' ? ' num' : ''}${active ? (sort.dir === 1 ? ' asc' : ' desc') : ''}`}
+                            aria-sort={active ? (sort.dir === 1 ? 'ascending' : 'descending') : 'none'}
+                          >
+                            <button type="button" onClick={() => toggleSort(key)}>
+                              {label}
+                              <SortIcon active={active} dir={sort.dir} />
+                            </button>
+                          </th>
+                        )
+                      })}
                       {[
                         ['invested', 'Invested balance', 'num'],
                         ['current', 'Current balance', 'num'],
                         ['gain', 'Gain/loss', 'num'],
                         ['units', 'Unit balance', 'num']
-                      ].map(([key, label, type]) => (
-                        <th scope="col"
-                          key={key}
-                          className={`sortable${type === 'num' ? ' num' : ''}${sort.key === key ? (sort.dir === 1 ? ' asc' : ' desc') : ''}`}
-                          onClick={() => toggleSort(key)}
-                        >
-                          {label}
-                        </th>
-                      ))}
+                      ].map(([key, label, type]) => {
+                        const active = sort.key === key
+                        return (
+                          <th scope="col"
+                            key={key}
+                            className={`sortable${type === 'num' ? ' num' : ''}${active ? (sort.dir === 1 ? ' asc' : ' desc') : ''}`}
+                            aria-sort={active ? (sort.dir === 1 ? 'ascending' : 'descending') : 'none'}
+                          >
+                            <button type="button" onClick={() => toggleSort(key)}>
+                              {label}
+                              <SortIcon active={active} dir={sort.dir} />
+                            </button>
+                          </th>
+                        )
+                      })}
                     </tr>
                   </thead>
                   <tbody>
@@ -346,6 +364,7 @@ export default function Portfolio() {
                       >
                         <button type="button" onClick={toggleYtd}>
                           Return YTD
+                          <SortIcon active={!!ytdDir} dir={ytdDir} />
                         </button>
                       </th>
                       <th scope="col" className="group-h" colSpan={4}>

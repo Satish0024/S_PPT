@@ -128,7 +128,11 @@ export default function ReadinessScoreCard() {
                 <ScoreRing pct={pct} />
                 <div className="rgs-orbit-value">
                   <b>{pct}%</b>
-                  <span>of your goal</span>
+                  <span>
+                    of your
+                    <br />
+                    goal
+                  </span>
                 </div>
               </div>
 
