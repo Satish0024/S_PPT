@@ -1,5 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import { Icon } from '../../lib/icons'
+import { useTheme } from '../../context/ThemeContext.jsx'
 import {
   faExchangeAlt,
   faFileAlt,
@@ -18,6 +19,7 @@ const ITEMS = [
 
 export default function Sidebar() {
   const { pathname } = useLocation()
+  const { theme } = useTheme()
   const onEnrollment = pathname.startsWith('/enrollment')
   const onGoal = pathname.startsWith('/retirement-goal')
   const onSummary = pathname.startsWith('/account-summary')
@@ -43,7 +45,7 @@ export default function Sidebar() {
             logo (that's the header's job, via BRAND.logo). This is the
             "built on CORE" watermark, not a rebrandable element. */}
         <div className="nav-brand" aria-hidden="true">
-          <img src="/core-logo.svg" alt="" />
+          <img src={theme === 'dark' ? '/core-logo-dark.svg' : '/core-logo.svg'} alt="" />
         </div>
       </div>
     </nav>

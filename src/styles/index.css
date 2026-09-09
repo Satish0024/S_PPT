@@ -581,13 +581,13 @@
     display:grid;place-items:center;flex:0 0 auto}
 
   .layout{display:flex;min-height:calc(100vh - var(--header-h));align-items:flex-start}
-  .nav{width:var(--nav-w);flex:0 0 var(--nav-w);border-right:1px solid var(--line);padding:var(--space-5) var(--space-0);
+  .nav{width:var(--nav-w);border-right:1px solid var(--line);padding:var(--space-5) var(--space-0);
     display:flex;flex-direction:column;gap:var(--space-1);background:var(--sidebar);
-    /* Runs the full remaining viewport height (not shorter by --footer-h)
-       -- the footer sits to its right (offset by --nav-w), not below it in
-       this column, so the sidebar needs to reach all the way down itself
-       or the page background shows through beneath it on short pages. */
-    position:sticky;top:var(--header-h);height:calc(100vh - var(--header-h));align-self:flex-start;overflow-y:visible}
+    /* Truly fixed to the viewport (not sticky, not a flex sibling of
+       .main) -- it never scrolls with the page and is sized to its own
+       nav-links content, not stretched to match main's height. .main
+       carries the matching margin-left so it doesn't sit underneath. */
+    position:fixed;left:0;top:var(--header-h);z-index:30}
   .nav a{text-decoration:none;color:var(--ink-soft);display:flex;flex-direction:column;align-items:center;
     gap:var(--space-1-5);padding:var(--space-3-5) var(--space-2);font-size:var(--text-body-sm-size);font-weight:600;position:relative;text-align:center}
   .nav a .ico{display:grid;place-items:center}
@@ -603,7 +603,7 @@
      always stays inside the link and can never get clipped. */
   .nav a:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:var(--radius-sm)}
 
-  .main{flex:1;min-width:0;display:flex;flex-direction:column}
+  .main{flex:1;min-width:0;display:flex;flex-direction:column;margin-left:var(--nav-w)}
   .page-body{padding:var(--page-padding-y) var(--page-padding-x) var(--page-padding-bottom);display:flex;flex-direction:column;gap:var(--page-gap);width:100%;max-width:none}
 
   /* Greeting — floated on top */
@@ -1772,8 +1772,13 @@
   .enroll-modal-actions .btn{width:100%}
 
   @media(max-width:980px){
+    /* Redefine the shared token (not just .nav's own width) so the footer's
+       margin-left/width -- which reads --nav-w -- narrows in lockstep.
+       Overriding .nav's width alone left the footer offset by the old
+       120px, leaving a sidebar-width-minus-88px gap between them. */
+    :root{--nav-w:88px}
     .page-body{padding:var(--page-padding-y-md) var(--page-padding-x-md) var(--page-padding-bottom-md)}
-    .nav{width:88px;flex-basis:88px}
+    .nav{width:var(--nav-w);flex-basis:var(--nav-w)}
     .nav a{padding:var(--space-3) var(--space-1);font-size:var(--text-xs-size)}
     .cards{grid-template-columns:1fr}
     .dash-layout{grid-template-columns:1fr}
@@ -1806,6 +1811,7 @@
     .app-footer{position:static;height:auto;flex-direction:column;align-items:flex-start;
       gap:var(--space-1);padding:var(--space-3) var(--page-padding-x-sm,var(--space-4));
       margin-left:var(--space-0);width:100%}
+    .main{margin-left:var(--space-0)}
     .nav{position:fixed;left:0;right:0;bottom:0;top:auto;width:100%;height:auto;
       flex-direction:row;justify-content:space-around;padding:var(--space-1-5) var(--space-1) calc(var(--space-2) + env(safe-area-inset-bottom));
       border-right:none;border-top:1px solid var(--line);background:var(--panel);z-index:40}
@@ -2501,7 +2507,7 @@ summary:focus-visible {
   border-radius:var(--widget-radius) var(--widget-radius) 0 0;
 }
 .rgs-banner-copy { position: relative; z-index: 1; min-width: 0; flex: 1; max-width: 66%; }
-.rgs-banner .rgs-eyebrow { color: rgba(255, 255, 255, .78); }
+.rgs-banner .rgs-eyebrow { color: color-mix(in srgb, var(--brand-text-primary-oncolor) 78%, transparent); }
 .rgs-banner .rgs-headline { color: var(--brand-text-primary-oncolor); }
 .rgs-banner-art {
   position: absolute;
@@ -2585,7 +2591,7 @@ summary:focus-visible {
   font-variant-numeric: tabular-nums;
 }
 .rgs-orbit-value span {
-  margin-top:var(--space-2);
+  margin-top:var(--space-3);
   font-size:var(--text-2xs-size);
   font-weight: 600;
   letter-spacing:var(--ls-wide);
@@ -2731,7 +2737,13 @@ summary:focus-visible {
   white-space: normal;
   vertical-align: baseline;
 }
-.rgs-foot-actions { display: flex; align-items: center; justify-content: space-between; gap:var(--space-3-5); width: 100%; }
+/* justify-content:space-between only pushes Disclaimer to the right edge
+   when the Adjust link is also present -- with a single child (Adjust
+   hidden pre-"started") it collapses to the left instead. Disclaimer gets
+   its own margin-left:auto so it's pinned to the right end regardless of
+   whether its sibling renders. */
+.rgs-foot-actions { display: flex; flex-wrap: wrap; align-items: center; gap:var(--space-1) var(--space-3-5); width: 100%; }
+.rgs-foot-actions .rgs-foot-link:last-child { margin-left: auto; }
 .rgs-foot-link {
   /* Padding + matching negative margin lift the click target to the WCAG
      2.5.8 24px minimum without moving the visible text. */

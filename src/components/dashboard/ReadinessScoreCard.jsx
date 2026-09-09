@@ -30,19 +30,13 @@ function ScoreRing({ pct }) {
   const dash = (Math.max(0, Math.min(100, pct)) / 100) * RING_C
   return (
     <svg className="rgs-orbit-rings" viewBox="0 0 128 128" aria-hidden="true" focusable="false">
-      <defs>
-        <linearGradient id="rgs-arc" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--rgs-arc-1)" />
-          <stop offset="100%" stopColor="var(--rgs-arc-2)" />
-        </linearGradient>
-      </defs>
       <circle cx="64" cy="64" r={RING_R} fill="none" stroke="var(--rgs-track)" strokeWidth="8" />
       <circle
         cx="64"
         cy="64"
         r={RING_R}
         fill="none"
-        stroke="url(#rgs-arc)"
+        stroke="var(--rgs-arc-2)"
         strokeWidth="8"
         strokeLinecap="round"
         strokeDasharray={`${dash} ${RING_C}`}
