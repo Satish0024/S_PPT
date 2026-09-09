@@ -97,24 +97,50 @@ function toAssetClassRows(investments, total) {
   })
 }
 
-// Attaches the plan's investment holdings to each source row as `members`
-// so the Sources table can expand a row the same way Asset class rows do —
-// the mock data doesn't track a real per-source investment split, so every
-// source shows the plan's full investment lineup.
-function withInvestmentMembers(sourceRows, investmentRows) {
-  if (!investmentRows.length) return sourceRows
-  return sourceRows.map((row) => ({ ...row, members: investmentRows }))
+function roundCents(n) {
+  return Math.round(n * 100) / 100
+}
+
+function roundUnits(n) {
+  return Math.round(n * 1000) / 1000
+}
+
+// Each source is invested across the same funds as the plan allocation, so
+// expanding a source lists those holdings (NAV, units, dollars) the same
+// way an asset-class row does — scaled to that source's share of the plan,
+// with any rounding drift folded into the last holding so the members
+// still sum to exactly the source's own total.
+function toSourceRows(sources, investments, total) {
+  const sourceRows = toRows(sources, total)
+  const holdings = toRows(investments, total)
+  return sourceRows.map((source) => {
+    const share = total > 0 ? source.amount / total : 0
+    const members = holdings
+      .map((holding) => ({
+        ...holding,
+        id: `${source.id}--${holding.id}`,
+        amount: roundCents(holding.amount * share),
+        units: holding.units != null ? roundUnits(holding.units * share) : null
+      }))
+      .filter((holding) => holding.amount > 0)
+
+    if (members.length) {
+      const drift = roundCents(source.amount - members.reduce((sum, m) => sum + m.amount, 0))
+      members[members.length - 1].amount = roundCents(members[members.length - 1].amount + drift)
+    }
+
+    return { ...source, members }
+  })
 }
 
 export function summaryForPlan(plan) {
   const balance = planBalance(plan)
   const vested = planVested(plan)
-  const investments = toRows(plan.investments, balance)
   return {
     balance,
     vested,
-    sources: withInvestmentMembers(toRows(plan.sources, balance), investments),
-    investments,
+    sources: toSourceRows(plan.sources, plan.investments, balance),
+    investments: toRows(plan.investments, balance),
     assetClasses: toAssetClassRows(plan.investments, balance)
   }
 }

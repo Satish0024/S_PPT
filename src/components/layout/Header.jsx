@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Check, ChevronDown, LogOut, Moon, Sun } from 'lucide-react'
+import { Check, ChevronDown, CircleHelp, LogOut, Moon, Settings, Sun } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { useTheme } from '../../context/ThemeContext.jsx'
 import { BRAND } from '../../config/brand.js'
@@ -33,6 +33,14 @@ export default function Header() {
         <img src={BRAND.logo} alt={BRAND.name} />
       </div>
       <div className="top-right">
+        <a
+          className="icon-btn help-btn"
+          href={`mailto:${BRAND.supportEmail}`}
+          aria-label="Get help"
+          title="Get help"
+        >
+          <CircleHelp size={19} strokeWidth={2} />
+        </a>
         <button
           type="button"
           className="icon-btn theme-toggle"
@@ -80,6 +88,35 @@ export default function Header() {
                 <Check className="check" size={18} strokeWidth={2.4} />
               </button>
             ))}
+            <button
+              type="button"
+              className="user-option"
+              role="menuitem"
+              onClick={() => {
+                setOpen(false)
+                navigate('/settings')
+              }}
+            >
+              <span className="sign-out-ico" aria-hidden="true">
+                <Settings size={16} strokeWidth={2.2} />
+              </span>
+              <span className="meta">
+                <span className="name">Settings</span>
+              </span>
+            </button>
+            <a
+              className="user-option"
+              role="menuitem"
+              href={`mailto:${BRAND.supportEmail}`}
+              onClick={() => setOpen(false)}
+            >
+              <span className="sign-out-ico" aria-hidden="true">
+                <CircleHelp size={16} strokeWidth={2.2} />
+              </span>
+              <span className="meta">
+                <span className="name">Help</span>
+              </span>
+            </a>
             <button
               type="button"
               className="user-option sign-out"

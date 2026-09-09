@@ -55,6 +55,13 @@
     --learn-border:rgba(22,28,58,.10);
     --learn-elevation: 0 1px 2px rgba(20,28,60,.05), 0 12px 28px -12px rgba(60,40,150,.16);
 
+    /* Enrich card (Auto Enrolled participants only) -- its own gold
+       identity, distinct from --learn-accent's brand color, but sourced
+       from the app's existing --amber tokens rather than an invented hex. */
+    --enrich-accent: var(--amber);
+    --enrich-accent-bg: var(--amber-bg);
+    --enrich-surface-2: var(--amber-bg);
+
     /* ================================================================
        TYPOGRAPHY SYSTEM — Design Spec Aligned, WCAG AA Compliant
        ================================================================
@@ -186,6 +193,11 @@
     --learn-pattern:rgba(176,160,255,.38); --learn-pattern-soft:rgba(176,160,255,.08);
     --learn-border:rgba(176,160,255,.15);
     --learn-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.55);
+
+    /* Enrich card -- dark. Same gold identity, --amber's dark values. */
+    --enrich-accent: var(--amber);
+    --enrich-accent-bg: var(--amber-bg);
+    --enrich-surface-2: var(--amber-bg);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body,#root{min-height:100vh}
@@ -1097,6 +1109,30 @@
   .pr-block + .pr-block{padding-top:14px;margin-top:6px;border-top:1px solid var(--line)}
   .pr-block h3{margin:0 0 4px !important;font-size:12px;font-weight:800;letter-spacing:.25px;color:var(--ink-soft);text-transform:uppercase}
   .pr-rows,.pr-form{display:flex;flex-direction:column;max-width:540px}
+
+  /* ---------- Settings page ---------- */
+  .settings-shell{display:flex;flex-direction:column;gap:20px;max-width:640px}
+  .settings-shell .pr-block{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;box-shadow:var(--shadow)}
+  .settings-shell .pr-block + .pr-block{padding-top:20px;margin-top:0;border-top:none}
+  .settings-shell .pr-block h3{font-size:var(--text-h5-size,16px) !important;font-weight:var(--font-weight-bold,700);letter-spacing:0 !important;color:var(--ink) !important;text-transform:none !important;margin-bottom:4px !important}
+  .settings-block-lede{font-size:var(--text-body-sm-size,13px);color:var(--ink-soft);margin:0 0 14px}
+  .settings-appearance-options{display:flex;flex-wrap:wrap;gap:10px}
+  .settings-appearance-opt{
+    display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;
+    border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);font:inherit;font-weight:600;cursor:pointer;transition:.15s}
+  .settings-appearance-opt:hover{border-color:var(--line-strong);color:var(--ink)}
+  .settings-appearance-opt.on{border-color:var(--brand);color:var(--brand);background:var(--active-bg)}
+  .settings-toggle-row{
+    display:flex;align-items:flex-start;gap:12px;padding:12px 0;
+    border-top:1px solid var(--line);cursor:pointer}
+  .settings-toggle-row:first-of-type{border-top:none}
+  .settings-toggle-row input{margin-top:4px;flex:0 0 auto;accent-color:var(--brand);width:16px;height:16px}
+  .settings-toggle-row span{display:flex;flex-direction:column;gap:2px;font-size:var(--text-body-sm-size,13px);color:var(--ink-soft);line-height:1.45}
+  .settings-toggle-row b{font-size:var(--text-body-md-size,14px);font-weight:var(--font-weight-bold,700);color:var(--ink)}
+  .settings-pw-error{font-size:var(--text-body-sm-size,13px);color:var(--red);margin:0}
+  .settings-pw-saved{display:flex;align-items:center;gap:6px;font-size:var(--text-body-sm-size,13px);font-weight:600;color:var(--green);margin:0}
+  .settings-pw-submit{display:inline-flex;align-items:center;gap:8px;width:fit-content;margin-top:4px}
+
   .pr-row,.pr-field{
     display:grid;grid-template-columns:132px minmax(0,360px);gap:6px 14px;align-items:center;
     margin:0;padding:8px 0;border-bottom:1px solid var(--line)}
@@ -1968,6 +2004,19 @@ summary:focus-visible {
 .learn2-cta:hover { text-decoration: underline; }
 .learn2-cta:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; }
 
+/* Enrich variant (Auto Enrolled participants only): same card shell as
+   Financial Wellness, its own gold accent via --enrich-* tokens. The
+   supplied illustration has a denser, more square bounding box than the
+   generic Learning artwork, so it's sized down and pulled in from the
+   edge instead of overflowing the card. */
+.learn2-enrich {
+  background: linear-gradient(135deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 52%, var(--enrich-surface-2) 100%);
+}
+.learn2-enrich .learn2-tag { color: var(--enrich-accent); background: var(--enrich-accent-bg); }
+.learn2-enrich .learn2-cta { color: var(--enrich-accent); }
+.learn2-enrich .learn2-cta:focus-visible { outline-color: var(--enrich-accent); }
+.learn2-enrich .learn2-field { width: 40%; max-width: 150px; right: 4%; }
+
 @media (prefers-reduced-motion: reduce) {
   .learn2-field { animation: none; }
   .learn2-cta svg { transition: none; }
@@ -2057,3 +2106,35 @@ summary:focus-visible {
   background:none;border:none;padding:0;font:inherit;font-weight:700;color:var(--brand);cursor:pointer;
   text-decoration:underline;text-underline-offset:2px;text-align:left}
 .fund-link:hover{color:var(--brand-dark)}
+
+/* ---------- Demo scenario switcher (floating, in-app) ---------- */
+.demo-switcher{position:fixed;right:20px;bottom:20px;z-index:40}
+.demo-switcher-toggle{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);
+  font:inherit;font-size:var(--text-caption-size,12px);font-weight:600;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.25)
+}
+.demo-switcher-toggle:hover,.demo-switcher-toggle.open{border-color:var(--brand);color:var(--brand)}
+.demo-switcher-menu{
+  position:absolute;right:0;bottom:calc(100% + 8px);width:250px;max-height:320px;overflow-y:auto;
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.25);
+  padding:6px;display:flex;flex-direction:column;gap:1px
+}
+.demo-switcher-label{
+  font-size:var(--text-xs-size,11px);font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);
+  padding:8px 8px 6px
+}
+.demo-switcher-row{
+  display:flex;align-items:center;gap:10px;width:100%;border:none;background:transparent;padding:8px;
+  border-radius:8px;cursor:pointer;text-align:left;font:inherit
+}
+.demo-switcher-row:hover{background:var(--hover-bg)}
+.demo-switcher-row.on{background:var(--active-bg)}
+.demo-switcher-row img{border-radius:50%;flex:0 0 auto;object-fit:cover}
+.demo-switcher-text{display:flex;flex-direction:column;gap:1px;min-width:0}
+.demo-switcher-text strong{font-size:var(--text-body-sm-size,13px);font-weight:700;color:var(--ink)}
+.demo-switcher-text small{font-size:var(--text-xs-size,11px);font-weight:600;color:var(--ink-soft)}
+@media(max-width:480px){
+  .demo-switcher{right:12px;bottom:12px}
+  .demo-switcher-menu{width:calc(100vw - 24px);right:-12px}
+}
