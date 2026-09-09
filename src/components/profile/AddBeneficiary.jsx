@@ -72,6 +72,11 @@ export default function AddBeneficiary({ onCancel, onSave }) {
       </div>
 
       <div className="pr-shell">
+        {/* Visually hidden: the step panels' titles render as <h3>
+            ("Basic details" etc.) directly after this page's <h1>,
+            skipping a heading level (axe-core: heading-order). Same fix
+            as Settings.jsx. */}
+        <h2 className="sr-only">Beneficiary form sections</h2>
         <ol className="pr-steps" aria-label="Beneficiary steps">
           {STEPS.map((item, i) => {
             const done = i < step

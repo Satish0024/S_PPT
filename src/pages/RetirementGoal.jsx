@@ -74,7 +74,7 @@ function TargetCard({ icon, label, hint, children }) {
   )
 }
 
-function MoneyInput({ value, onChange }) {
+function MoneyInput({ value, onChange, ariaLabel }) {
   return (
     <span className="rg-affix">
       <em>$</em>
@@ -82,6 +82,7 @@ function MoneyInput({ value, onChange }) {
         inputMode="numeric"
         value={value ? Number(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ''}
         onChange={(e) => onChange(parseMoney(e.target.value))}
+        aria-label={ariaLabel}
       />
     </span>
   )
@@ -131,7 +132,7 @@ function Confetti() {
   )
 }
 
-function RangeField({ min, max, value, origin, onChange, step = 1 }) {
+function RangeField({ min, max, value, origin, onChange, step = 1, ariaLabel }) {
   const span = Math.max(1, max - min)
   const valuePct = ((value - min) / span) * 100
   const originPct = ((origin - min) / span) * 100
@@ -147,7 +148,7 @@ function RangeField({ min, max, value, origin, onChange, step = 1 }) {
           title={`Current setting ${origin}%`}
         />
       )}
-      <input type="range" min={min} max={max} step={step} value={value} onChange={onChange} />
+      <input type="range" min={min} max={max} step={step} value={value} onChange={onChange} aria-label={ariaLabel} />
       {changed && (
         <small className="rg-range-note">
           <em>Current {origin}%</em>
@@ -248,7 +249,7 @@ function AutoIncreaseBlock({ state, onChange }) {
 
 const AUTO_FIELD_MAP = { on: 'autoOn', pctPre: 'autoPct', capPre: 'autoCap', pctRoth: 'autoPctRoth', capRoth: 'autoCapRoth' }
 
-function PctInput({ value, onChange, min = 0, max = 15 }) {
+function PctInput({ value, onChange, min = 0, max = 15, ariaLabel }) {
   return (
     <span className="rg-affix pct">
       <input
@@ -258,6 +259,7 @@ function PctInput({ value, onChange, min = 0, max = 15 }) {
         step={1}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        aria-label={ariaLabel}
       />
       <em>%</em>
     </span>
@@ -571,6 +573,7 @@ export default function RetirementGoal() {
                     const next = LOCATION_DEFAULTS[location] || LOCATION_DEFAULTS.Other
                     setDraft((p) => ({ ...p, location, monthlySpend: next.monthlySpend }))
                   }}
+                  aria-label="Retirement location"
                 >
                   {LOCATIONS.map((loc) => (
                     <option key={loc}>{loc}</option>
@@ -592,6 +595,7 @@ export default function RetirementGoal() {
                     max={80}
                     value={draft.retireAge}
                     onChange={(e) => setDraftField('retireAge', clamp(Math.round(+e.target.value || 67), 50, 80))}
+                    aria-label="Planned retirement age"
                   />
                   <button
                     type="button"
@@ -610,17 +614,18 @@ export default function RetirementGoal() {
                 <MoneyInput
                   value={draft.monthlySpend}
                   onChange={(n) => setDraftField('monthlySpend', Math.max(0, n))}
+                  ariaLabel="Monthly spending"
                 />
               </TargetCard>
               <TargetCard icon={faMoneyBillWave} label="Annual salary" hint="Drives how much each deferral percent saves">
-                <MoneyInput value={draft.salary} onChange={(n) => setDraftField('salary', Math.max(0, n))} />
+                <MoneyInput value={draft.salary} onChange={(n) => setDraftField('salary', Math.max(0, n))} ariaLabel="Annual salary" />
               </TargetCard>
               <TargetCard
                 icon={faDollarSign}
                 label="Savings outside your 401(k)"
                 hint="Brokerage, IRAs, and cash you expect to use in retirement"
               >
-                <MoneyInput value={draft.outside} onChange={(n) => setDraftField('outside', Math.max(0, n))} />
+                <MoneyInput value={draft.outside} onChange={(n) => setDraftField('outside', Math.max(0, n))} ariaLabel="Savings outside your 401(k)" />
               </TargetCard>
             </div>
           </section>
@@ -678,7 +683,7 @@ export default function RetirementGoal() {
                         <b>Pre-tax deferral</b>
                         <small>Goes in before taxes and can lower taxable income today.</small>
                       </span>
-                      <PctInput value={share.pre || 0} onChange={onPre} max={12} />
+                      <PctInput value={share.pre || 0} onChange={onPre} max={12} ariaLabel="Pre-tax deferral rate" />
                     </div>
                     <RangeField
                       min={0}
@@ -686,6 +691,7 @@ export default function RetirementGoal() {
                       value={share.pre || 0}
                       origin={baseShare.pre || 0}
                       onChange={(e) => onPre(e.target.value)}
+                      ariaLabel="Pre-tax deferral rate"
                     />
                   </div>
                   <div className="rg-source">
@@ -694,7 +700,7 @@ export default function RetirementGoal() {
                         <b>Roth deferral</b>
                         <small>Goes in after taxes. Qualified withdrawals can come out tax-free.</small>
                       </span>
-                      <PctInput value={share.roth || 0} onChange={onRoth} max={12} />
+                      <PctInput value={share.roth || 0} onChange={onRoth} max={12} ariaLabel="Roth deferral rate" />
                     </div>
                     <RangeField
                       min={0}
@@ -702,6 +708,7 @@ export default function RetirementGoal() {
                       value={share.roth || 0}
                       origin={baseShare.roth || 0}
                       onChange={(e) => onRoth(e.target.value)}
+                      ariaLabel="Roth deferral rate"
                     />
                   </div>
                   <AutoIncreaseBlock state={autoState} onChange={onAutoChange} />

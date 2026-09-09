@@ -96,6 +96,14 @@ export default function Settings() {
       </div>
 
       <div className="settings-shell">
+        {/* Visually hidden: ProfileBlock renders its title as an <h3>
+            (shared with Profile.jsx, which has its own <h2> ahead of its
+            blocks), so this page's own <h1> was followed directly by
+            <h3>s -- a skipped heading level, flagged by axe-core's
+            heading-order rule. This restores the sequential h1->h2->h3
+            hierarchy for screen readers without adding a visible
+            "section" label nothing in the design calls for. */}
+        <h2 className="sr-only">Settings sections</h2>
         <ProfileBlock title="Appearance">
           <p className="settings-block-lede">Choose how the participant portal looks on this device.</p>
           <div className="settings-appearance-options" role="radiogroup" aria-label="Appearance">

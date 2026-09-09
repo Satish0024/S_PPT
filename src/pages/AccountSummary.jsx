@@ -209,7 +209,17 @@ export default function AccountSummary() {
             <>
               <div className="as-viz">
                 <div className="as-donut" onMouseLeave={() => setActive(null)}>
-                  <Doughnut data={chart} options={options} />
+                  {/* Chart.js sets role="img" on the canvas automatically
+                      but no label, so screen readers announced an empty
+                      image (axe-core: role-img-alt). The full breakdown is
+                      already in the table below (real accessible data),
+                      so this just needs a short description, not a
+                      duplicate of every value. */}
+                  <Doughnut
+                    data={chart}
+                    options={options}
+                    aria-label={`${tab === 'sources' ? 'Sources' : 'Investments'} balance breakdown chart -- see the table below for exact figures`}
+                  />
                   <div className="as-donut-center">
                     <small>{highlight ? highlight.name : 'Account balance'}</small>
                     <b>{formatMoney(highlight ? highlight.amount : summary.balance)}</b>

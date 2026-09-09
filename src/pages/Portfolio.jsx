@@ -171,16 +171,34 @@ export default function Portfolio() {
         </div>
       </div>
       <div className="tabs" role="tablist" aria-label="Portfolio views">
-        <button type="button" className={`tab${tab === 'overview' ? ' on' : ''}`} onClick={() => setTab('overview')}>
+        <button
+          type="button"
+          role="tab"
+          id="portfolio-tab-overview"
+          aria-selected={tab === 'overview'}
+          aria-controls="portfolio-panel-overview"
+          tabIndex={tab === 'overview' ? 0 : -1}
+          className={`tab${tab === 'overview' ? ' on' : ''}`}
+          onClick={() => setTab('overview')}
+        >
           My portfolio
         </button>
-        <button type="button" className={`tab${tab === 'investments' ? ' on' : ''}`} onClick={() => setTab('investments')}>
+        <button
+          type="button"
+          role="tab"
+          id="portfolio-tab-investments"
+          aria-selected={tab === 'investments'}
+          aria-controls="portfolio-panel-investments"
+          tabIndex={tab === 'investments' ? 0 : -1}
+          className={`tab${tab === 'investments' ? ' on' : ''}`}
+          onClick={() => setTab('investments')}
+        >
           Plan investments
         </button>
       </div>
       <div className="page-body">
         {tab === 'overview' && (
-          <div className="tab-panel on">
+          <div className="tab-panel on" role="tabpanel" id="portfolio-panel-overview" aria-labelledby="portfolio-tab-overview">
             <div className="overview-row">
               <aside className="overall-card" aria-label="Portfolio summary">
                 <div className="overall-body">
@@ -221,15 +239,31 @@ export default function Portfolio() {
                     onToggle={toggleSeries}
                   />
                 </div>
-                <div className="period" role="tablist" aria-label="Chart period">
+                {/* Filter-chip group re-scaling the one chart above, not a
+                    tabs widget switching between separate panels -- same
+                    correction as Enrich.jsx's topic filter (role="tablist"
+                    needs role="tab" children plus a tabpanel, neither of
+                    which existed here). aria-pressed is the correct toggle
+                    semantics for this pattern. */}
+                <div className="period" aria-label="Chart period">
                   {PERIODS.map((p) => (
-                    <button key={p} type="button" className={period === p ? 'on' : ''} onClick={() => setPeriod(p)}>
+                    <button
+                      key={p}
+                      type="button"
+                      className={period === p ? 'on' : ''}
+                      aria-pressed={period === p}
+                      onClick={() => setPeriod(p)}
+                    >
                       {PERIOD_LABELS[p]}
                     </button>
                   ))}
                 </div>
                 <div className="chart-wrap">
-                  <Line data={chart} options={chartOptions} />
+                  {/* Same fix as AccountSummary's donut: Chart.js sets
+                      role="img" automatically with no label (axe-core:
+                      role-img-alt). The holdings table below already has
+                      the real per-fund figures. */}
+                  <Line data={chart} options={chartOptions} aria-label="Asset class performance line chart -- see the investments table below for exact figures" />
                 </div>
               </section>
             </div>
@@ -293,7 +327,7 @@ export default function Portfolio() {
           </div>
         )}
         {tab === 'investments' && (
-          <div className="tab-panel on">
+          <div className="tab-panel on" role="tabpanel" id="portfolio-panel-investments" aria-labelledby="portfolio-tab-investments">
             <section className="section">
               <h2>Plan investments</h2>
               <p className="sub">Browse and compare the funds available within the retirement plan.</p>

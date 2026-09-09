@@ -69,22 +69,33 @@ export default function Enrich() {
           </div>
         </a>
         <div className="section-label">Browse by topic</div>
-        <div className="cats" role="tablist">
+        {/* This is a filter-chip group (toggling which articles show below),
+            not a tabs widget switching between separate panels -- role
+            "tablist" requires role="tab" children plus an associated
+            "tabpanel", neither of which existed here, which is exactly
+            what axe-core's aria-required-children flagged. aria-pressed
+            is the correct toggle-button semantics for this pattern. */}
+        <div className="cats">
           {CATS.map((c) => (
-            <button key={c} type="button" className={`cat${cat === c ? ' on' : ''}`} onClick={() => setCat(c)}>
+            <button
+              key={c}
+              type="button"
+              className={`cat${cat === c ? ' on' : ''}`}
+              aria-pressed={cat === c}
+              onClick={() => setCat(c)}
+            >
               {c}
             </button>
           ))}
         </div>
         <div className="grid">
           {items.map((a) => {
-            const Icon = a.icon
             return (
               <a className={`card ${a.tone}`} href="#" key={a.id}>
                 <div className="thumb">
                   <div className="t-bg" />
                   <div className="t-ico" aria-hidden="true">
-                    <Icon size={18} strokeWidth={2} />
+                    <Icon icon={a.icon} size={18} />
                   </div>
                 </div>
                 <div className="c-body">

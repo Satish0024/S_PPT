@@ -80,9 +80,9 @@
   .step:last-child .rail-line{display:none}
   .step .body{padding:var(--space-1) var(--space-2) var(--space-5) var(--space-0);min-width:0}
   .step:last-child .body{padding-bottom:var(--space-0)}
-  .step .body h3{font-size:var(--text-h5-size);font-weight:600;margin-bottom:var(--space-0-5);letter-spacing:var(--ls-snug)}
+  .step .body .step-title{font-size:var(--text-h5-size);font-weight:600;margin-bottom:var(--space-0-5);letter-spacing:var(--ls-snug)}
   .step .body p{color:var(--ink-soft);font-size:var(--text-body-sm-size);line-height:1.4;font-weight:400}
-  .step.current .body h3{color:var(--brand)}
+  .step.current .body .step-title{color:var(--brand)}
   .step-status{display:inline-flex;align-items:center;gap:var(--space-1-5);margin-top:var(--space-1-5);color:var(--brand);font-weight:600;font-size:var(--text-caption-size);letter-spacing:var(--ls-wider);}
   .spinner{width:11px;height:11px;border-radius:50%;border:2px solid var(--line-strong);border-top-color:var(--brand);animation:spin 1s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg)}}
@@ -317,7 +317,7 @@
     .steps{width:100%;padding:var(--space-2-5) var(--space-3) var(--space-2)}
     .step{min-width:88px}
     .step .num{width:26px;height:26px;flex-basis:26px;font-size:var(--text-body-xs-size)}
-    .step .body h3{font-size:var(--text-body-xs-size)}
+    .step .body .step-title{font-size:var(--text-body-xs-size)}
     .user-chip span{display:none}
     .user-chip{padding:var(--space-0-5);border:none}
     .topbar{padding:var(--space-0) var(--space-3) var(--space-0) var(--space-2)}
@@ -456,7 +456,7 @@
     .steps{width:100%;padding:var(--space-2-5) var(--space-3) var(--space-2)}
     .step{min-width:88px}
     .step .num{width:26px;height:26px;flex-basis:26px;font-size:var(--text-body-xs-size)}
-    .step .body h3{font-size:var(--text-body-xs-size)}
+    .step .body .step-title{font-size:var(--text-body-xs-size)}
     .user-chip span{display:none}
     .user-chip{padding:var(--space-0-5);border:none}
     .topbar{padding:var(--space-0) var(--space-3) var(--space-0) var(--space-2)}

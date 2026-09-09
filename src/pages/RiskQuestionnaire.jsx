@@ -75,6 +75,12 @@ export default function RiskQuestionnaire() {
       </aside>
 
       <main className="rqp-main">
+        {/* Visually hidden: the only visible <h1> on this page lives in the
+            decorative side panel above, which is aria-hidden -- so screen
+            reader users had no real page-level heading at all (flagged by
+            axe-core's page-has-heading-one rule). This restores one
+            without duplicating the side panel's visible copy. */}
+        <h1 className="sr-only">Investment style questionnaire</h1>
         <div className="rqp-main-head">
           <button type="button" className="rqp-leave" onClick={leave}>
             <Icon icon={faArrowLeft} size={15} />
@@ -101,7 +107,7 @@ export default function RiskQuestionnaire() {
         <div className="rqp-body">
           {!isResultsStep && (
             <div className="rq-step" key={question.id}>
-              <h3 id="rq-title">{question.text}</h3>
+              <h2 id="rq-title">{question.text}</h2>
               <div className="rq-options">
                 {LIKERT_OPTIONS.map((opt) => (
                   <button
@@ -129,7 +135,7 @@ export default function RiskQuestionnaire() {
               <span className="rq-results-tag" style={{ color: level.color }}>
                 {level.badge} · {score}/100
               </span>
-              <h3 id="rq-title">{level.label}</h3>
+              <h2 id="rq-title">{level.label}</h2>
               <p>{level.copy}</p>
             </div>
           )}
