@@ -1644,8 +1644,12 @@
   .pr-table tbody tr:nth-child(even){background:var(--surface-2)}
   .pr-pill{
     display:inline-flex;align-items:center;padding:var(--space-0-5) var(--space-2);border-radius:999px;
-    background:var(--surface-2);font-size:var(--text-xs-size);font-weight:800;color:var(--ink-soft)}
-  .pr-pill.on{background:var(--active-bg);color:var(--brand)}
+    /* border (not just a fill) so the pill still reads as a pill on the
+       table's own even-row background -- .pr-table's striping uses this
+       same --surface-2 fill, so a background-only pill vanished into the
+       row on every other beneficiary. */
+    background:var(--surface-2);border:1px solid var(--line);font-size:var(--text-xs-size);font-weight:800;color:var(--ink-soft)}
+  .pr-pill.on{background:var(--active-bg);border-color:var(--active-bg);color:var(--brand)}
   .pr-row-edit{
     display:inline-flex;align-items:center;gap:var(--space-1);border:1px solid var(--line);background:var(--panel);
     color:var(--brand);border-radius:var(--radius-sm);padding:var(--space-1-5) var(--space-2-5);font:inherit;font-size:var(--text-caption-size);font-weight:700;cursor:pointer}
