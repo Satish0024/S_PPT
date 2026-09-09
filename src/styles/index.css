@@ -17,17 +17,22 @@
        Darkened to #0270a9 (color-mix(#0284c7, 85%, black)), which clears
        4.5:1 in both directions with margin (~5.4:1) -- still clearly the
        same blue, just one step deeper. */
-    /* CORE palette v2: theme-brand-background-strong -- the palette's own
-       explicit light/dark pair for a solid brand fill (#1F4F8D light /
-       #3275CD dark), sourced from core-color-palette.css's dark block via
-       the cascade, not re-derived by hand like the v1 palette forced us
-       to. Was a LendGuard-specific #0270a9 before the palette was
-       introduced. */
-    --brand: var(--theme-brand-background-strong);
+    /* Accessibility fix: --brand is used throughout the app as FOREGROUND
+       color (text, icons, borders, focus rings, chart-1) -- not just as a
+       fill background -- so it must read through the palette's "Text"
+       token, not its "Background" one. Was wired to
+       theme-brand-background-strong, whose dark-mode value (#3275CD) is
+       only 3.67-4.11:1 against dark surfaces (fails WCAG AA's 4.5:1 for
+       normal text) -- a real, measured failure, not a style nit. The
+       palette's own theme-brand-text-primary-default exists for exactly
+       this role: identical #1F4F8D in light mode (no visible change
+       there), but #86ADDF in dark mode (7.28-8.16:1, passes). */
+    --brand: var(--theme-brand-text-primary-default);
     --brand-dark: color-mix(in srgb, var(--brand) 70%, black);
-    /* Solid-fill buttons/chips need white text at >=4.5:1 -- same token
-       as --brand, since theme-brand-background-strong is already the
-       palette's dedicated "solid fill" role in both themes. */
+    /* Solid-fill buttons/chips need white text at >=4.5:1 -- this is a true
+       BACKGROUND fill, so it correctly stays on theme-brand-background-
+       strong (#1F4F8D light / #3275CD dark), independent of --brand above;
+       white text on #3275CD is 4.60:1, passes. */
     --brand-fill: var(--theme-brand-background-strong);
     /* Text sitting on a solid brand fill — always white, in both themes. */
     --brand-text-primary-oncolor: var(--theme-brand-text-primary-oncolor);
@@ -46,7 +51,18 @@
        for the full "Applied at" map. */
     --ink: var(--theme-neutral-text-primary-default);
     --ink-soft: var(--theme-neutral-text-subtle);
-    --muted: var(--theme-neutral-text-subtleleast);
+    /* Accessibility fix: the palette's own theme-neutral-text-subtleleast
+       (#787887) is only 4.06-4.34:1 against this app's light surfaces --
+       fails WCAG AA's 4.5:1 floor for normal text, and --muted renders at
+       12-13px in most of its uses (captions, hints, timestamps), where
+       there's no "large text" exemption. Stepped to the next darker tone
+       already in the same palette, theme-colors-neutral-600 (#5C5C6B,
+       6.14-6.57:1, passes) -- the same value already used for --ink-soft,
+       so --muted and --ink-soft read identically now. That's a real,
+       visible trade-off (this app previously had two distinct grays for
+       "soft" vs "subtle" text) traded for a real contrast fix, not a
+       hidden side effect. */
+    --muted: var(--theme-colors-neutral-600);
     --line: var(--theme-neutral-border-primary-default);
     --bg: var(--theme-colors-neutral-50);
     --panel: var(--theme-colors-neutral-white);
@@ -289,10 +305,15 @@
     --brand-dark: color-mix(in srgb, var(--brand) 80%, white);
     --accent: color-mix(in srgb, var(--brand) 90%, white);
     --link: var(--brand-dark);
-    /* --ink/--ink-soft/--muted/--line/--line-strong also need no
-       dark-only override now, for the same reason -- see the light
-       block's definitions, which read through --theme-neutral-* tokens
-       that the palette itself swaps per theme. */
+    /* --ink/--ink-soft/--line/--line-strong still need no dark-only
+       override -- see the light block's definitions, which read through
+       --theme-neutral-* tokens the palette swaps per theme.
+       --muted is the one exception: its light-mode fix below reads a
+       primitive (theme-colors-neutral-600), which -- unlike the semantic
+       theme-neutral-text-subtleleast it replaced -- does NOT change value
+       between light/dark, so it needs an explicit dark override back to
+       the semantic (still-compliant, #9E9EAD) token. */
+    --muted: var(--theme-neutral-text-subtleleast);
     --bg: var(--theme-colors-neutral-950);
     --panel: var(--theme-colors-neutral-900);
     --sidebar: var(--theme-colors-neutral-900);
@@ -389,8 +410,16 @@
 
     /* Enrich card (Auto Enrolled participants only) -- deliberately its
        own tertiary/gold accent, distinct from --learn-accent's brand
-       blue, but still a CORE-palette token, not an invented hex. */
-    --enrich-accent: var(--theme-tertiary-text-primary-default);
+       blue, but still a CORE-palette token, not an invented hex.
+       Accessibility fix: theme-tertiary-text-primary-default (#E89A1C)
+       is only 2.32:1 on white and 1.97:1 on its own tag background --
+       badly fails WCAG AA (needs 4.5:1, or even 3:1 for large text) for
+       the "ENRICH" tag label and "Know More" link text it's used for.
+       Stepped to theme-tertiary-text-primary-active (#95590A, same value
+       already used for --amber) instead: 5.66:1 on white, 4.81:1 on the
+       tag background, both pass. Dark mode's default (#FBCB6B, 11.14:1)
+       was already fine, left unchanged. */
+    --enrich-accent: var(--theme-tertiary-text-primary-active);
     --enrich-accent-bg: var(--theme-tertiary-background-primary-subtle);
     --enrich-surface-2: var(--theme-tertiary-background-primary-light);
 
