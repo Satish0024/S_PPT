@@ -110,13 +110,47 @@ function toAssetClassRows(investments, total) {
   })
 }
 
+function roundCents(n) {
+  return Math.round(n * 100) / 100
+}
+
+function roundUnits(n) {
+  return Math.round(n * 1000) / 1000
+}
+
+// Each source is invested across the same funds as the plan allocation, so
+// expanding a source lists those holdings (NAV, units, dollars) the same
+// way an asset-class row does — scaled to that source's share of the plan.
+function toSourceRows(sources, investments, total) {
+  const sourceRows = toRows(sources, total)
+  const holdings = toRows(investments, total)
+  return sourceRows.map((source) => {
+    const share = total > 0 ? source.amount / total : 0
+    const members = holdings
+      .map((holding) => ({
+        ...holding,
+        id: `${source.id}--${holding.id}`,
+        amount: roundCents(holding.amount * share),
+        units: holding.units != null ? roundUnits(holding.units * share) : null
+      }))
+      .filter((holding) => holding.amount > 0)
+
+    if (members.length) {
+      const drift = roundCents(source.amount - members.reduce((sum, m) => sum + m.amount, 0))
+      members[members.length - 1].amount = roundCents(members[members.length - 1].amount + drift)
+    }
+
+    return { ...source, members }
+  })
+}
+
 export function summaryForPlan(plan) {
   const balance = planBalance(plan)
   const vested = planVested(plan)
   return {
     balance,
     vested,
-    sources: toRows(plan.sources, balance),
+    sources: toSourceRows(plan.sources, plan.investments, balance),
     investments: toRows(plan.investments, balance),
     assetClasses: toAssetClassRows(plan.investments, balance)
   }

@@ -243,7 +243,7 @@ export default function Portfolio() {
                         ['name', 'Investment name', 'text'],
                         ['asset', 'Asset class', 'text'],
                         ['cusip', 'CUSIP', 'text'],
-                        ['return', 'Fund return %', 'num']
+                        ['return', 'Fund return YTD', 'num']
                       ].map(([key, label, type]) => (
                         <th scope="col"
                           key={key}
@@ -253,10 +253,6 @@ export default function Portfolio() {
                           {label}
                         </th>
                       ))}
-                      {/* Not sortable — every fund's return here is YTD, so this
-                          just calls that out per-row instead of leaving the
-                          timeframe implicit in the "Fund return %" header. */}
-                      <th scope="col">Period of return</th>
                       {[
                         ['invested', 'Invested balance', 'num'],
                         ['current', 'Current balance', 'num'],
@@ -284,7 +280,6 @@ export default function Portfolio() {
                         <td>{h.asset}</td>
                         <td className="muted">{h.cusip}</td>
                         <td className="num pos">{h.returnPct.toFixed(2)}%</td>
-                        <td className="muted">YTD</td>
                         <td className="num">{money(h.invested)}</td>
                         <td className="num">{money(h.current)}</td>
                         <td className="num pos">+{money(h.gain).slice(1)}</td>
@@ -388,8 +383,7 @@ export default function Portfolio() {
           fields={[
             { label: 'Asset class / category', value: openFund.asset || openFund.cat },
             { label: 'CUSIP', value: openFund.cusip },
-            { label: 'Fund return %', value: openFund.returnPct != null ? `${openFund.returnPct.toFixed(2)}%` : openFund.ytd },
-            { label: 'Period of return', value: 'YTD' },
+            { label: 'Fund return YTD', value: openFund.returnPct != null ? `${openFund.returnPct.toFixed(2)}%` : openFund.ytd },
             { label: 'Current balance', value: openFund.current != null ? money(openFund.current) : undefined },
             { label: 'Unit balance', value: openFund.units != null ? openFund.units.toFixed(2) : undefined },
             { label: '1 yr. return', value: openFund.y1 },

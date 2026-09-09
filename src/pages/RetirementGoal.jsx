@@ -13,6 +13,8 @@ import {
   faUmbrella
 } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
+import { useEscapeToClose } from '../hooks/useEscapeToClose'
+import { useFocusTrap } from '../hooks/useFocusTrap'
 import { isNotEligibleUser } from '../data/participants'
 import { DisclaimerModal, ReadinessChart } from '../components/dashboard/ReadinessVisuals.jsx'
 import {
@@ -435,6 +437,8 @@ export default function RetirementGoal() {
     setConfirmSaveOpen(false)
     save()
   }
+  const confirmTrapRef = useFocusTrap(confirmSaveOpen)
+  useEscapeToClose(confirmSaveOpen, () => setConfirmSaveOpen(false))
 
   // Deferral-only diff for the pre-save confirmation table -- unlike
   // goalDiff() (used for the post-save "what changed" summary, which also
@@ -445,7 +449,7 @@ export default function RetirementGoal() {
   const deferralChangeRows = deferralPlans.reduce((rows, p) => {
     const before = baselineShares[p.id] || { pre: 0, roth: 0 }
     const after = planShares[p.id] || { pre: 0, roth: 0 }
-    const prefix = multiPlan ? `${p.name} · ` : ''
+    const prefix = `${p.name} - `
     if ((before.pre || 0) !== (after.pre || 0)) {
       rows.push({ label: `${prefix}Pre-Tax %`, was: `${before.pre || 0}%`, now: `${after.pre || 0}%` })
     }
@@ -717,47 +721,47 @@ export default function RetirementGoal() {
         </Link>
       </div>
 
-      {open && <DisclaimerModal onClose={() => setOpen(false)} />}
-
       {confirmSaveOpen && (
         <div className="enroll-modal-bg" role="presentation" onClick={() => setConfirmSaveOpen(false)}>
           <div
-            className="enroll-modal rr-modal"
+            ref={confirmTrapRef}
+            className="enroll-modal rr-modal rg-confirm-modal"
             role="dialog"
             aria-modal="true"
             aria-labelledby="rg-confirm-save-title"
+            tabIndex={-1}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="rr-modal-h">
-              <h4 id="rg-confirm-save-title">Confirm your deferral changes</h4>
-            </div>
+            <h4 id="rg-confirm-save-title">Confirm your deferral changes</h4>
             <p>
               You are trying to update your deferral settings. The changes shown below will update your current
               enrollment settings and will be reflected in your future paycheck deductions.
             </p>
             {deferralChangeRows.length ? (
-              <table className="rg-confirm-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Deferrals</th>
-                    <th scope="col">Previous value</th>
-                    <th scope="col">Updated value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {deferralChangeRows.map((row) => (
-                    <tr key={row.label}>
-                      <td>{row.label}</td>
-                      <td>{row.was}</td>
-                      <td>{row.now}</td>
+              <div className="rg-confirm-table-wrap">
+                <table className="rg-confirm-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Deferrals</th>
+                      <th scope="col">Previous value</th>
+                      <th scope="col">Updated value</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {deferralChangeRows.map((row) => (
+                      <tr key={row.label}>
+                        <td>{row.label}</td>
+                        <td>{row.was}</td>
+                        <td>{row.now}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             ) : (
               <p>No deferral changes to confirm.</p>
             )}
-            <div className="enroll-modal-actions">
+            <div className="rg-confirm-actions">
               <button type="button" className="btn btn-primary" onClick={confirmSave}>
                 Update
               </button>
@@ -768,6 +772,8 @@ export default function RetirementGoal() {
           </div>
         </div>
       )}
+
+      {open && <DisclaimerModal onClose={() => setOpen(false)} />}
 
       {savedOpen && (
         <div className="enroll-modal-bg rg-save-bg" role="presentation">

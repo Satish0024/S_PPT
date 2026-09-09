@@ -837,10 +837,15 @@
   .rg-plan-note{margin:var(--space-0) var(--space-0) var(--space-3-5);font-size:var(--text-caption-size);font-weight:500;color:var(--ink-soft);line-height:1.4}
   .rg-plan-single{display:flex;flex-direction:column;gap:var(--space-1);margin:var(--space-0) var(--space-0) var(--space-4);max-width:320px}
   .rg-plan-single--top{margin-bottom:var(--space-3)}
-  .rg-confirm-table{width:100%;border-collapse:collapse;margin:var(--space-0) var(--space-0) var(--space-4);font-size:var(--text-sm-size)}
-  .rg-confirm-table th,.rg-confirm-table td{text-align:left;padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--line)}
+  .rg-confirm-modal{width:min(760px,100%)}
+  .rg-confirm-table-wrap{width:100%;overflow-x:auto;margin:var(--space-0) var(--space-0) var(--space-4)}
+  .rg-confirm-table{width:100%;border-collapse:collapse;margin:var(--space-0);font-size:var(--text-sm-size)}
+  .rg-confirm-table th,.rg-confirm-table td{text-align:left;padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--line);vertical-align:top}
   .rg-confirm-table th{color:var(--muted);font-weight:800;font-size:var(--text-xs-size);text-transform:uppercase;letter-spacing:var(--ls-wide)}
-  .rg-confirm-table td:not(:first-child),.rg-confirm-table th:not(:first-child){font-weight:700}
+  .rg-confirm-table th:not(:first-child),.rg-confirm-table td:not(:first-child){text-align:right;font-weight:700;white-space:nowrap}
+  .rg-confirm-table td:first-child{overflow-wrap:anywhere;word-break:break-word}
+  .rg-confirm-actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2-5)}
+  .rg-confirm-actions .btn{width:auto;min-width:120px}
   .rg-plan-single span{font-size:var(--text-xs-size);font-weight:800;letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--muted)}
   .rg-plan-single select{
     border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-8) var(--space-2) var(--space-3);font:inherit;font-weight:700;
@@ -2654,14 +2659,16 @@ summary:focus-visible {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  container-type: inline-size;
+  container-name: learn2;
 }
 .learn2-field {
   position: absolute;
   top: 50%;
-  right: -4%;
-  width: 56%;
-  min-width: 160px;
-  max-width: 230px;
+  right: 0;
+  width: 42%;
+  min-width: 0;
+  max-width: 180px;
   height: auto;
   object-fit: contain;
   pointer-events: none;
@@ -2672,7 +2679,13 @@ summary:focus-visible {
   0%, 100% { transform: translateY(-50%); }
   50% { transform: translateY(calc(-50% - 4px)); }
 }
-.learn2-body { position: relative; z-index: 1; max-width: 63%; min-width: 0; }
+.learn2-body {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  min-width: 0;
+  padding-right: min(46%, 168px);
+}
 .learn2-tag {
   display: inline-flex;
   align-items: center;
@@ -2737,7 +2750,26 @@ summary:focus-visible {
    box than the generic Learning artwork (which is wider/shorter) --
    sized down and pulled in from the edge so it sits inside the card
    like the other widget illustrations instead of overflowing it. */
-.learn2-enrich .learn2-field { width: 40%; max-width: 150px; right: 4%; }
+.learn2-enrich .learn2-field { width: min(38%, 132px); max-width: 132px; min-width: 0; right: 2%; }
+.learn2-enrich .learn2-body { padding-right: min(44%, 148px); }
+
+@container learn2 (max-width: 300px) {
+  .learn2-body,
+  .learn2-enrich .learn2-body { padding-right: 0; }
+  .learn2-field,
+  .learn2-enrich .learn2-field {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    width: min(52%, 128px);
+    max-width: 128px;
+    margin: var(--space-3) auto 0;
+    order: 2;
+    animation: none;
+  }
+  .learn2-body { order: 1; }
+}
 
 /* ---------- Investment Style ----------
    Typography-led identity card: the level name is the visual. The
@@ -2835,8 +2867,8 @@ summary:focus-visible {
 @media (max-width: 340px) {
   .rgs-main { flex-direction: column; align-items: stretch; gap:var(--space-3); }
   .rgs-orbit { align-self: center; }
-  .learn2-body, .risk3-body { max-width: 100%; }
-  .learn2-field, .risk3-field { width: 34%; min-width: 0; opacity: .5; }
+  .risk3-body { max-width: 100%; }
+  .risk3-field { width: 34%; min-width: 0; opacity: .5; }
 }
 
 /* ---------- Fund detail dialog (hyperlinked investment names) ---------- */

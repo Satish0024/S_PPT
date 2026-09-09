@@ -216,55 +216,26 @@ export default function AccountSummary() {
                     <em>{highlight ? formatPct(highlight.pct) : '100.00%'}</em>
                   </div>
                 </div>
-                <div className="as-legend-wrap">
-                  <div className="as-legend-head" aria-hidden="true">
-                    <span>{tab === 'sources' ? 'Source' : 'Asset class'}</span>
-                    <span>Balance</span>
-                  </div>
-                  <ul className="as-legend">
-                  {rows.map((row, i) => (
-                    <li key={row.id}>
-                      <button
-                        type="button"
-                        className={active === i ? 'on' : ''}
-                        onMouseEnter={() => setActive(i)}
-                        onMouseLeave={() => setActive(null)}
-                        onFocus={() => setActive(i)}
-                        onBlur={() => setActive(null)}
-                      >
-                        <i style={{ background: row.color }} aria-hidden="true" />
-                        <span className="as-leg-copy">
-                          <b>{row.name}</b>
-                          {row.asset ? <small>{row.asset}</small> : null}
-                        </span>
-                        <span className="as-leg-amt">
-                          <b>{formatMoney(row.amount)}</b>
-                          <small>{formatPct(row.pct)}</small>
-                        </span>
-                      </button>
-                    </li>
-                  ))}
-                  </ul>
-                </div>
               </div>
 
               <div className="as-table-wrap">
-                <table className={tab === 'investments' || tab === 'assetclass' ? 'as-table-accordion' : ''}>
+                <table className={tab === 'investments' || tab === 'assetclass' || tab === 'sources' ? 'as-table-accordion' : ''}>
                   <thead>
                     <tr>
                       <th scope="col">{tab === 'sources' ? 'Source' : tab === 'assetclass' ? 'Asset class' : 'Investment'}</th>
                       {tab === 'investments' ? <th scope="col" className="num">Units</th> : null}
                       <th scope="col" className="num">Balance</th>
                       <th scope="col" className="num">{tab === 'investments' ? 'Election Percentage' : 'Percent'}</th>
-                      {tab === 'sources' ? <th scope="col" className="num">Vested</th> : null}
                     </tr>
                   </thead>
                   <tbody>
                     {rows.map((row, i) => {
                       const isInvestment = tab === 'investments'
                       const isAssetClass = tab === 'assetclass'
-                      const isExpandable = isInvestment || isAssetClass
+                      const isSource = tab === 'sources'
+                      const isExpandable = isInvestment || isAssetClass || isSource
                       const isOpen = isExpandable && expandedRow === row.id
+                      const showHoldings = isOpen && (isSource || isAssetClass)
                       return (
                         <Fragment key={row.id}>
                           <tr
@@ -302,7 +273,6 @@ export default function AccountSummary() {
                             ) : null}
                             <td className="num">{formatMoney(row.amount)}</td>
                             <td className="num">{formatPct(row.pct)}</td>
-                            {tab === 'sources' ? <td className="num">{formatMoney(row.vested)}</td> : null}
                           </tr>
                           {isOpen && isInvestment ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
@@ -330,16 +300,14 @@ export default function AccountSummary() {
                               </td>
                             </tr>
                           ) : null}
-                          {isOpen && isAssetClass ? (
+                          {showHoldings ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
                               <td colSpan={3}>
-                                {/* The old standalone Investments tab used to be the only place
-                                    a participant could see a fund's NAV (price per unit) — now
-                                    that view lives here instead, so it's carried over rather than
-                                    lost, alongside when that price was last priced. */}
+                                {/* Funds used to live only under Investments; Sources now
+                                    expands to the same NAV / units / balance rows. */}
                                 <p className="as-class-asof">NAV as of {NAV_AS_OF}</p>
                                 <ul className="as-class-members">
-                                  {row.members.map((m) => (
+                                  {(row.members || []).map((m) => (
                                     <li key={m.id}>
                                       <span className="as-swatch" style={{ background: m.color }} aria-hidden="true" />
                                       <span className="as-class-member-name">
@@ -366,7 +334,6 @@ export default function AccountSummary() {
                       {tab === 'investments' ? <td /> : null}
                       <td className="num">{formatMoney(summary.balance)}</td>
                       <td className="num">100.00%</td>
-                      {tab === 'sources' ? <td className="num">{formatMoney(summary.vested)}</td> : null}
                     </tr>
                   </tfoot>
                 </table>
