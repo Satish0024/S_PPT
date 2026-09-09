@@ -5,3 +5,4 @@ dist
 .tools
 .vite
 .netlify
+.claude/
