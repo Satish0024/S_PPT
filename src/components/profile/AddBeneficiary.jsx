@@ -71,6 +71,9 @@ export default function AddBeneficiary({ onCancel, onSave }) {
       </div>
 
       <div className="pr-shell">
+        {/* Visually hidden: fixes an h1->h3 heading-order skip, same as
+            Settings.jsx. */}
+        <h2 className="sr-only">Beneficiary form sections</h2>
         <ol className="pr-steps" aria-label="Beneficiary steps">
           {STEPS.map((item, i) => {
             const done = i < step

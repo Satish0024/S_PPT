@@ -54,7 +54,12 @@ export default function EnrollmentLayout() {
                   {step.n < STEPS.length && <i className="rail-line" />}
                 </div>
                 <div className="body">
-                  <h3>{step.title}</h3>
+                  {/* Was an <h3>, but this is a step-list label (nav, not
+                      page content) that rendered ahead of the page's real
+                      <h2> below, skipping a heading level (axe-core:
+                      heading-order). A styled <p> keeps the exact same
+                      look without claiming a heading role. */}
+                  <p className="step-title">{step.title}</p>
                   <p>{step.body}</p>
                   {isCurrent && (
                     <span className="step-status">

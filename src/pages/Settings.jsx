@@ -95,6 +95,13 @@ export default function Settings() {
       </div>
 
       <div className="settings-shell">
+        {/* Visually hidden: ProfileBlock renders its title as an <h3>,
+            and this page's own <h1> had nothing at h2 in between --
+            a skipped heading level flagged by axe-core's heading-order
+            rule. Restores the sequential h1->h2->h3 hierarchy without
+            adding a visible "section" label nothing in the design
+            calls for. */}
+        <h2 className="sr-only">Settings sections</h2>
         <ProfileBlock title="Appearance">
           <p className="settings-block-lede">Choose how the participant portal looks on this device.</p>
           <div className="settings-appearance-options" role="radiogroup" aria-label="Appearance">

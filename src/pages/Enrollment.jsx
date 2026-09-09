@@ -356,7 +356,13 @@ function SourceRow({ label, help, value, onChange, unit }) {
         </span>
         <span className="sval">
           {unit === '$' && <span className="pct">$</span>}
-          <input type="number" value={value} min={0} onChange={(e) => onChange(e.target.value)} />
+          <input
+            type="number"
+            value={value}
+            min={0}
+            onChange={(e) => onChange(e.target.value)}
+            aria-label={`${label} deferral rate${unit === '$' ? ' (dollars)' : ' (percent)'}`}
+          />
           {unit === '%' && <span className="pct">%</span>}
         </span>
       </div>

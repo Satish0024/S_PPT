@@ -128,8 +128,13 @@ export function PhoneField({ label, country, number, onCountry, onNumber, requir
         {required ? <i>*</i> : null}
       </span>
       <div className="pr-phone">
-        <input value={country} onChange={(e) => onCountry(e.target.value)} aria-label="Country code" />
-        <input value={number} placeholder={placeholder || ''} onChange={(e) => onNumber(e.target.value)} />
+        <input value={country} onChange={(e) => onCountry(e.target.value)} aria-label={`${label || 'Phone'} country code`} />
+        <input
+          value={number}
+          placeholder={placeholder || ''}
+          onChange={(e) => onNumber(e.target.value)}
+          aria-label={`${label || 'Phone'} number`}
+        />
       </div>
     </div>
   )

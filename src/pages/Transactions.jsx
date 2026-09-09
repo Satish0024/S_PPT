@@ -190,7 +190,9 @@ function RequestsPanel({ participant, planId, onPlanChange }) {
                 <th scope="col">Date</th>
                 <th scope="col">Status</th>
                 <th scope="col" className="num">Amount</th>
-                <th aria-label="Actions" />
+                <th>
+                  <span className="sr-only">Actions</span>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -246,12 +248,16 @@ function HistoryPanel({ participant }) {
   return (
     <>
       <div className="tx-toolbar">
-        <div className="tx-filters" role="tablist" aria-label="Transaction type">
+        {/* Filter-chip group (narrows the table below), not a tabs widget
+            with separate panels -- same correction as Portfolio.jsx's
+            chart-period selector. */}
+        <div className="tx-filters" aria-label="Transaction type">
           {FILTERS.map((f) => (
             <button
               key={f.id}
               type="button"
               className={filter === f.id ? 'on' : ''}
+              aria-pressed={filter === f.id}
               onClick={() => setFilter(f.id)}
             >
               {f.label}
@@ -338,18 +344,40 @@ export default function Transactions() {
 
       <section className="panel tx-page">
         <div className="tabs" role="tablist" aria-label="Transactions view">
-          <button type="button" className={`tab${tab === 'requests' ? ' on' : ''}`} onClick={() => setTab('requests')}>
+          <button
+            type="button"
+            role="tab"
+            id="tx-tab-requests"
+            aria-selected={tab === 'requests'}
+            aria-controls="tx-panel-requests"
+            tabIndex={tab === 'requests' ? 0 : -1}
+            className={`tab${tab === 'requests' ? ' on' : ''}`}
+            onClick={() => setTab('requests')}
+          >
             Requests
           </button>
-          <button type="button" className={`tab${tab === 'history' ? ' on' : ''}`} onClick={() => setTab('history')}>
+          <button
+            type="button"
+            role="tab"
+            id="tx-tab-history"
+            aria-selected={tab === 'history'}
+            aria-controls="tx-panel-history"
+            tabIndex={tab === 'history' ? 0 : -1}
+            className={`tab${tab === 'history' ? ' on' : ''}`}
+            onClick={() => setTab('history')}
+          >
             History
           </button>
         </div>
 
         {tab === 'requests' ? (
-          <RequestsPanel participant={participant} planId={plan?.id} onPlanChange={setPlanId} />
+          <div role="tabpanel" id="tx-panel-requests" aria-labelledby="tx-tab-requests">
+            <RequestsPanel participant={participant} planId={plan?.id} onPlanChange={setPlanId} />
+          </div>
         ) : (
-          <HistoryPanel participant={participant} />
+          <div role="tabpanel" id="tx-panel-history" aria-labelledby="tx-tab-history">
+            <HistoryPanel participant={participant} />
+          </div>
         )}
       </section>
     </div>
