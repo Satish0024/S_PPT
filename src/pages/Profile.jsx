@@ -6,7 +6,6 @@ import {
   faCheck,
   faHeart,
   faLandmark,
-  faPencilAlt,
   faTags,
   faUsers
 } from '@fortawesome/free-solid-svg-icons'
@@ -51,7 +50,6 @@ const NAV = [
 function EditBtn({ onClick }) {
   return (
     <button type="button" className="btn btn-secondary pr-edit" onClick={onClick}>
-      <Icon icon={faPencilAlt} size={14} />
       Edit
     </button>
   )
@@ -345,7 +343,7 @@ function BeneficiaryTable({ primary, contingent, onPercent, onSelect }) {
             <th scope="col">Name</th>
             <th scope="col">Relationship</th>
             <th scope="col" className="num">Share</th>
-            <th scope="col">Action</th>
+            <th scope="col">Set %</th>
           </tr>
         </thead>
         <tbody>
@@ -367,7 +365,6 @@ function BeneficiaryTable({ primary, contingent, onPercent, onSelect }) {
                   className="pr-row-edit"
                   onClick={() => onPercent(row.group === 'Primary' ? 'primary' : 'contingent')}
                 >
-                  <Icon icon={faPencilAlt} size={13} />
                   Set %
                 </button>
               </td>
