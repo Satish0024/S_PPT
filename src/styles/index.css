@@ -1508,7 +1508,8 @@
     background:var(--surface-2);color:var(--ink-soft)}
   .pr-nav-label{line-height:1.35;padding-top:var(--space-0-5)}
   .pr-nav button.on .pr-nav-ico{background:var(--brand-fill);color:var(--brand-text-primary-oncolor)}
-  .pr-main{min-width:0;max-width:none;display:flex;flex-direction:column;gap:var(--space-4)}
+  .pr-main{min-width:0;max-width:760px;display:flex;flex-direction:column;gap:var(--space-4)}
+  .pr-main.pr-main-wide{max-width:none}
   .pr-hero{
     display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:var(--space-3);align-items:center;
     margin:var(--space-0) var(--space-0) var(--space-3-5);padding:var(--space-0) var(--space-0) var(--space-3-5);border-bottom:1px solid var(--line);background:none;

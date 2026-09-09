@@ -511,7 +511,7 @@ export default function Profile() {
           })}
         </nav>
 
-        <div className="pr-main">
+        <div className={`pr-main${section === 'classification' ? ' pr-main-wide' : ''}`}>
           <section className="panel pr-panel">
             {section === 'personal' && (
               <div className="pr-hero">
