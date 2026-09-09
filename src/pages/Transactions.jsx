@@ -6,6 +6,7 @@ import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import { TRANSACTION_TYPES, canRequest, requestStatusTone, requestsFor, transactablePlans } from '../data/transactions.js'
 import LoanCalculatorSlideover from '../components/transactions/LoanCalculatorSlideover.jsx'
+import Select, { Option } from '../components/common/Select.jsx'
 import '../styles/documents.css'
 import '../styles/transactions.css'
 
@@ -266,19 +267,19 @@ function HistoryPanel({ participant }) {
           ))}
         </div>
         <div className="tx-toolbar-actions">
-          <select
+          <Select
             className="tx-plan-select"
             aria-label="Filter by plan"
             value={plan}
             onChange={(e) => setPlan(e.target.value)}
           >
-            <option value="all">All plans</option>
+            <Option value="all">All plans</Option>
             {plans.map((name) => (
-              <option key={name} value={name}>
+              <Option key={name} value={name}>
                 {name}
-              </option>
+              </Option>
             ))}
-          </select>
+          </Select>
           <button
             type="button"
             className="text-link"

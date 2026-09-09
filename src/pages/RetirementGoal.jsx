@@ -17,6 +17,7 @@ import { useEscapeToClose } from '../hooks/useEscapeToClose'
 import { useFocusTrap } from '../hooks/useFocusTrap'
 import { isNotEligibleUser } from '../data/participants'
 import { DisclaimerModal, ReadinessChart } from '../components/dashboard/ReadinessVisuals.jsx'
+import Select, { Option } from '../components/common/Select.jsx'
 import {
   LOCATION_DEFAULTS,
   LOCATIONS,
@@ -566,7 +567,7 @@ export default function RetirementGoal() {
             <h2>Retirement target</h2>
             <div className="rg-targets">
               <TargetCard icon={faMapMarkerAlt} label="Retirement location" hint="This information is used to determine the state tax">
-                <select
+                <Select
                   value={draft.location}
                   onChange={(e) => {
                     const location = e.target.value
@@ -576,9 +577,9 @@ export default function RetirementGoal() {
                   aria-label="Retirement location"
                 >
                   {LOCATIONS.map((loc) => (
-                    <option key={loc}>{loc}</option>
+                    <Option key={loc}>{loc}</Option>
                   ))}
-                </select>
+                </Select>
               </TargetCard>
               <TargetCard icon={faUmbrella} label="Planned retirement age" hint={`About ${live.years} years from now`}>
                 <span className="rg-step">
@@ -641,18 +642,18 @@ export default function RetirementGoal() {
               // a clearly-bordered control so it doesn't read as plain text.
               <label className="rg-plan-single rg-plan-single--top">
                 <span>Plan</span>
-                <select
+                <Select
                   value={activePlanId || deferralPlans[0].id}
                   disabled={!multiPlan}
                   onChange={(e) => setActivePlanId(e.target.value)}
                   aria-label="Plan"
                 >
                   {deferralPlans.map((plan) => (
-                    <option key={plan.id} value={plan.id}>
+                    <Option key={plan.id} value={plan.id}>
                       {plan.name}
-                    </option>
+                    </Option>
                   ))}
-                </select>
+                </Select>
               </label>
             )}
             <h2>Deferrals</h2>

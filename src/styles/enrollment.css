@@ -604,16 +604,12 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 }
 .funds-field.search{flex:0 1 280px;width:280px;max-width:100%}
 .funds-field.asset{flex:0 0 200px;width:200px}
-.funds-filters input,.funds-filters select{
+.funds-filters input,.funds-filters .ui-select-btn{
   height:40px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);padding:var(--space-0) var(--space-3);
   font:inherit;font-size:var(--text-body-md-size);font-weight:600;color:var(--ink);background:var(--panel);width:100%;
-  box-sizing:border-box;line-height:40px;appearance:none;-webkit-appearance:none
+  box-sizing:border-box
 }
-.funds-filters select{
-  padding-right:var(--space-8);
-  background:var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%230284c7' d='M1.2 1.2L6 6l4.8-4.8'/%3E%3C/svg%3E") no-repeat right 12px center
-}
-.funds-filters input:focus,.funds-filters select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 12%, transparent)}
+.funds-filters input:focus,.funds-filters .ui-select-btn:focus-visible{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 12%, transparent)}
 .enroll-form .totalbar{align-items:center}
 .enroll-form .totalbar .text-btn{font-size:var(--text-body-sm-size)}
 .tval-wrap{display:flex;align-items:baseline;gap:var(--space-2-5)}

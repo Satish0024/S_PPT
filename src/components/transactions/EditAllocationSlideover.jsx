@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Icon } from '../../lib/icons'
 import { faChevronDown, faChevronUp, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Slideover from '../common/Slideover.jsx'
+import Select, { Option } from '../common/Select.jsx'
 import {
   ACCOUNT_TYPES,
   ADDRESS_OPTIONS,
@@ -268,14 +269,14 @@ export default function EditAllocationSlideover({
           <div className="txn-row">
             <div className="txn-field">
               <label htmlFor="edit-alloc-mode">Select distribution mode</label>
-              <select id="edit-alloc-mode" value={draft.mode} onChange={(e) => patch({ mode: e.target.value })}>
-                <option value="">Select</option>
+              <Select id="edit-alloc-mode" value={draft.mode} onChange={(e) => patch({ mode: e.target.value })}>
+                <Option value="">Select</Option>
                 {DISTRIBUTION_MODES.map((m) => (
-                  <option key={m.id} value={m.id}>
+                  <Option key={m.id} value={m.id}>
                     {m.label}
-                  </option>
+                  </Option>
                 ))}
-              </select>
+              </Select>
             </div>
             <div className="txn-field">
               <label htmlFor="edit-alloc-amount">Withdrawal amount</label>

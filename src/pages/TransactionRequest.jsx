@@ -15,6 +15,7 @@ import BuySellDetailsSlideover from '../components/transactions/BuySellDetailsSl
 import InvestmentAllocationTable from '../components/transactions/InvestmentAllocationTable.jsx'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
+import Select, { Option } from '../components/common/Select.jsx'
 import {
   AVAILABLE_INVESTMENTS,
   BANK_ON_FILE,
@@ -452,14 +453,14 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
 
         <div className="txn-row">
           <Field label="Select Loan type" required note="The Processing time for your loan is 10 days.">
-            <select value={form.loanType} onChange={(e) => set({ loanType: e.target.value })}>
-              <option value="">Select</option>
+            <Select value={form.loanType} onChange={(e) => set({ loanType: e.target.value })}>
+              <Option value="">Select</Option>
               {LOAN_TYPES.map((l) => (
-                <option key={l.id} value={l.id}>
+                <Option key={l.id} value={l.id}>
                   {l.label}
-                </option>
+                </Option>
               ))}
-            </select>
+            </Select>
           </Field>
           <Field label="Reason for loan">
             <input type="text" placeholder="e.g. Educational purpose" value={form.reason} onChange={(e) => set({ reason: e.target.value })} />
@@ -552,13 +553,13 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
               </div>
             </FieldGroup>
             <Field label="Loan repayment frequency" required>
-              <select value={form.repaymentFrequency} onChange={(e) => set({ repaymentFrequency: e.target.value })}>
+              <Select value={form.repaymentFrequency} onChange={(e) => set({ repaymentFrequency: e.target.value })}>
                 {LOAN_REPAYMENT_FREQUENCIES.map((f) => (
-                  <option key={f.id} value={f.id}>
+                  <Option key={f.id} value={f.id}>
                     {f.label}
-                  </option>
+                  </Option>
                 ))}
-              </select>
+              </Select>
             </Field>
           </div>
 
@@ -920,14 +921,14 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         <h3>Withdrawal Details</h3>
         <div className="txn-row">
           <Field label="Select withdrawal type" required>
-            <select value={form.withdrawalType} onChange={(e) => set({ withdrawalType: e.target.value })}>
-              <option value="">Select</option>
+            <Select value={form.withdrawalType} onChange={(e) => set({ withdrawalType: e.target.value })}>
+              <Option value="">Select</Option>
               {WITHDRAWAL_TYPES.map((t) => (
-                <option key={t.id} value={t.id}>
+                <Option key={t.id} value={t.id}>
                   {t.label}
-                </option>
+                </Option>
               ))}
-            </select>
+            </Select>
           </Field>
         </div>
 
@@ -1585,14 +1586,14 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
             />
           </Field>
           <Field label="Distributing plan type" required>
-            <select value={form.distributingPlanType} onChange={(e) => set({ distributingPlanType: e.target.value })}>
-              <option value="">Select</option>
+            <Select value={form.distributingPlanType} onChange={(e) => set({ distributingPlanType: e.target.value })}>
+              <Option value="">Select</Option>
               {ROLLOVER_PLAN_TYPES.map((t) => (
-                <option key={t.id} value={t.id}>
+                <Option key={t.id} value={t.id}>
                   {t.label}
-                </option>
+                </Option>
               ))}
-            </select>
+            </Select>
           </Field>
         </div>
         <div className="txn-row" style={{ marginTop: 'var(--space-3-5)' }}>

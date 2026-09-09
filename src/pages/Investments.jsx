@@ -1,13 +1,14 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { Icon } from '../lib/icons'
-import { faRocket, faBalanceScale, faShieldAlt } from '@fortawesome/free-solid-svg-icons'
+import { faRocket, faBalanceScale, faShieldAlt, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { INVESTMENT_KEY, readSession, writeSession } from '../data/participants'
 import { PLAN_FUNDS } from '../data/portfolio'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { RISK_LEVELS, getRiskLevel, getRiskProfileId } from '../lib/riskProfile'
 import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
+import Select, { Option } from '../components/common/Select.jsx'
 import '../styles/portfolio.css'
 
 const ENROLL_FUNDS = PLAN_FUNDS.filter((f) => f.cat !== 'Target-Date')
@@ -284,6 +285,18 @@ export function InvestmentEditor({
               View/Edit questionnaire
             </button>
           </div>
+          {/* Item #77's banner copy: this used to live in RiskMeterV2.jsx,
+              a component with no remaining render call-sites (removed
+              from the Dashboard per item #77b) -- so the message was
+              never actually visible to anyone. This is the real place a
+              participant sees their measured investment style, right next
+              to the actual "View/Edit questionnaire" link (#74-76), so
+              the banner moved here instead. */}
+          <p className="inline-alert warn">
+            <Icon icon={faCircleInfo} size={15} />
+            Your investment style is based on your risk questionnaire responses. View or edit your responses to
+            reassess your style.
+          </p>
           <AllocPanel
             title="All sources"
             funds={fundsFromNames(FUNDS.filter((name) => RISK_ALLOC[measuredLevel.id]?.[name] > 0))}
@@ -513,14 +526,14 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
           </label>
           <label className="funds-field asset">
             Asset class
-            <select value={asset} onChange={(e) => setAsset(e.target.value)}>
-              <option value="all">All asset classes</option>
+            <Select value={asset} onChange={(e) => setAsset(e.target.value)}>
+              <Option value="all">All asset classes</Option>
               {ASSET_CLASSES.map((cls) => (
-                <option key={cls} value={cls}>
+                <Option key={cls} value={cls}>
                   {cls}
-                </option>
+                </Option>
               ))}
-            </select>
+            </Select>
           </label>
         </div>
         <p>

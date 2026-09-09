@@ -7,6 +7,7 @@ import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
 import { addGeneratedStatement, getGeneratedStatements } from '../lib/generatedStatements.js'
 import { downloadDocumentFile } from '../lib/downloadDocument.js'
 import Toast from '../components/common/Toast.jsx'
+import Select, { Option } from '../components/common/Select.jsx'
 import '../styles/documents.css'
 
 const STATEMENT_PERIODS = [
@@ -96,24 +97,24 @@ function StatementModal({ plans, onClose, onGenerate }) {
               Plan Name/ID<i aria-hidden="true">*</i>
               <span className="sr-only"> (required)</span>
             </label>
-            <select id="stmt-plan" required value={planId} onChange={(e) => setPlanId(e.target.value)}>
-              <option value="">Select</option>
+            <Select id="stmt-plan" required value={planId} onChange={(e) => setPlanId(e.target.value)}>
+              <Option value="">Select</Option>
               {plans.map((p) => (
-                <option key={p.id} value={p.id}>
+                <Option key={p.id} value={p.id}>
                   {p.name}
-                </option>
+                </Option>
               ))}
-            </select>
+            </Select>
           </div>
           <div className="pr-field">
             <label htmlFor="stmt-period">Statement Period</label>
-            <select id="stmt-period" value={period} onChange={(e) => setPeriod(e.target.value)}>
+            <Select id="stmt-period" value={period} onChange={(e) => setPeriod(e.target.value)}>
               {STATEMENT_PERIODS.map((p) => (
-                <option key={p.id} value={p.id}>
+                <Option key={p.id} value={p.id}>
                   {p.label}
-                </option>
+                </Option>
               ))}
-            </select>
+            </Select>
           </div>
         </div>
         <div className="enroll-modal-actions">

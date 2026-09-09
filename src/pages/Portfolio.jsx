@@ -14,6 +14,7 @@ import { ASSET_CLASS_ORDER, chartTokenForAsset } from '../lib/chartPalette.js'
 import { useTheme } from '../context/ThemeContext.jsx'
 import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
 import ChartLegend from '../components/common/ChartLegend.jsx'
+import Select, { Option } from '../components/common/Select.jsx'
 import '../styles/portfolio.css'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
@@ -155,18 +156,18 @@ export default function Portfolio() {
         <div className="page-head-row">
           <h1>Investment portfolio</h1>
           <div className="plan-select-wrap">
-            <select
+            <Select
               className="plan-select"
               aria-label="Select plan"
               value={planId}
               onChange={(e) => setPlanId(e.target.value)}
             >
               {Object.entries(PLAN_STATS).map(([id, p]) => (
-                <option key={id} value={id}>
+                <Option key={id} value={id}>
                   {p.label}
-                </option>
+                </Option>
               ))}
-            </select>
+            </Select>
           </div>
         </div>
       </div>
@@ -227,17 +228,6 @@ export default function Portfolio() {
               <section className="chart-panel">
                 <div className="chart-top">
                   <h2>Asset class performance</h2>
-                  <ChartLegend
-                    label="Asset classes"
-                    items={SERIES.map((s) => ({
-                      key: s.key,
-                      label: s.label,
-                      color: s.color,
-                      pointStyle: s.pointStyle,
-                      checked: visible[s.key]
-                    }))}
-                    onToggle={toggleSeries}
-                  />
                 </div>
                 {/* Filter-chip group re-scaling the one chart above, not a
                     tabs widget switching between separate panels -- same
@@ -265,6 +255,17 @@ export default function Portfolio() {
                       the real per-fund figures. */}
                   <Line data={chart} options={chartOptions} aria-label="Asset class performance line chart -- see the investments table below for exact figures" />
                 </div>
+                <ChartLegend
+                  label="Asset classes"
+                  items={SERIES.map((s) => ({
+                    key: s.key,
+                    label: s.label,
+                    color: s.color,
+                    pointStyle: s.pointStyle,
+                    checked: visible[s.key]
+                  }))}
+                  onToggle={toggleSeries}
+                />
               </section>
             </div>
             <section className="section">

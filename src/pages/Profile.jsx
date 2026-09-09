@@ -508,7 +508,7 @@ export default function Profile() {
                 <span className="pr-nav-ico" aria-hidden="true">
                   <Icon icon={item.icon} size={16} />
                 </span>
-                {item.label}
+                <span className="pr-nav-label">{item.label}</span>
               </button>
             )
           })}

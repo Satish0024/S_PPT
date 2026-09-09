@@ -1,5 +1,6 @@
 import { Icon } from '../../lib/icons'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import Select, { Option } from '../common/Select.jsx'
 
 export function Row({ label, value, hint, children }) {
   const empty = value == null || String(value).trim() === ''
@@ -87,14 +88,14 @@ export function SelectField({ label, value, onChange, options, required, placeho
         {label}
         {required ? <i>*</i> : null}
       </span>
-      <select value={value} onChange={(e) => onChange(e.target.value)}>
-        {placeholder ? <option value="">{placeholder}</option> : null}
+      <Select value={value} onChange={(e) => onChange(e.target.value)}>
+        {placeholder ? <Option value="">{placeholder}</Option> : null}
         {options.map((opt) => (
-          <option key={opt} value={opt}>
+          <Option key={opt} value={opt}>
             {opt}
-          </option>
+          </Option>
         ))}
-      </select>
+      </Select>
     </label>
   )
 }
