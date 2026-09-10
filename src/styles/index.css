@@ -1540,8 +1540,13 @@
   .pr-hero .badge.amber{background:var(--amber-bg);color:var(--amber)}
   .pr-hero .badge.navy{background:var(--active-bg);color:var(--brand)}
   .pr-hero .badge.red{background:var(--red-bg);color:var(--red)}
-  .pr-co{margin:var(--space-0);font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--brand)}
-  .pr-ids{margin:var(--space-0);font-size:var(--text-body-sm-size);font-weight:600;color:var(--ink-soft)}
+  /* .pr-hero-copy-scoped (not bare .pr-co/.pr-ids) so this out-specifies
+     the generic ".panel p{margin-bottom:var(--space-3-5)}" rule below --
+     these are <p> tags inside .panel, so that rule was winning over a
+     single-class selector and breaking .pr-hero-copy's flex `gap` into an
+     uneven double-spaced gap before .pr-ids only. */
+  .pr-hero-copy .pr-co{margin:var(--space-0);font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--brand)}
+  .pr-hero-copy .pr-ids{margin:var(--space-0);font-size:var(--text-body-sm-size);font-weight:600;color:var(--ink-soft)}
   .pr-hero-side{display:flex;flex-direction:column;align-items:flex-end;gap:var(--space-2)}
   .pr-hero-side small{font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold);color:var(--ink-soft)}
   .pr-edit{width:auto !important;flex:0 0 auto;padding:var(--space-2) var(--space-3);font-size:var(--text-body-sm-size);white-space:nowrap}
@@ -1613,7 +1618,7 @@
   .pr-radios{display:flex;gap:var(--space-4);align-items:center;min-height:36px}
   .pr-radios label{display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--ink);cursor:pointer}
   .pr-radios input{accent-color:var(--brand);width:16px;height:16px}
-  .pr-empty{margin:var(--space-0);font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--ink-soft)}
+  .panel .pr-empty{margin:var(--space-0);font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--ink-soft)}
   .pr-flags{display:flex;flex-wrap:wrap;gap:var(--space-2)}
   .pr-flag{
     display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-1-5) var(--space-2-5);border-radius:999px;
