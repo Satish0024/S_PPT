@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Icon } from '../../lib/icons'
 import { faCheck, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { ACCOUNT_TYPES, RELATIONSHIPS, emptyBeneficiary } from '../../lib/profileDetails'
+import { ACCOUNT_TYPES, RELATIONSHIPS, emptyBeneficiary, ssnDigitsOnlyError } from '../../lib/profileDetails'
 import { PhoneField, SelectField, SsnField, TextField } from './ProfileFields.jsx'
 import { useEscapeToClose } from '../../hooks/useEscapeToClose'
 
@@ -27,7 +27,8 @@ export default function AddBeneficiary({ onCancel, onSave }) {
   const validate = (i) => {
     if (i === 0) {
       if (!draft.name.trim()) return 'Enter beneficiary name.'
-      if (!draft.ssn.trim()) return 'Enter social security number.'
+      const ssnMsg = ssnDigitsOnlyError(draft.ssn, { required: true })
+      if (ssnMsg) return ssnMsg
       if (!draft.dob.trim()) return 'Enter date of birth.'
     }
     if (i === 1) {
@@ -138,6 +139,7 @@ export default function AddBeneficiary({ onCancel, onSave }) {
                     revealed={showSsn}
                     value={draft.ssn}
                     placeholder="Enter social security number"
+                    error={/social security/i.test(error) ? error : ''}
                     onToggle={() => setShowSsn((v) => !v)}
                     onChange={(v) => set('ssn', v)}
                   />

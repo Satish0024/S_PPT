@@ -1607,6 +1607,8 @@
   .pr-pair{grid-template-columns:1fr 1fr}
   .pr-name-trio input,.pr-pair input{max-width:none}
   .pr-input-ico{display:flex;align-items:center;gap:var(--space-2);padding-right:var(--space-1-5)}
+  .pr-input-ico.is-invalid{border-color:var(--red)}
+  .pr-field small.pr-field-error{display:block;margin-top:var(--space-1);font-size:var(--text-body-xs-size);font-weight:700;color:var(--red)}
   .pr-input-ico input{flex:1;min-height:0;max-width:none;border:0;padding:var(--space-0);background:transparent}
   .pr-eye{
     width:32px;height:32px;border:none;border-radius:var(--radius-sm);background:transparent;color:var(--ink-soft);
@@ -1996,6 +1998,9 @@
   /* ---------- Edit Allocation slideover ---------- */
   .edit-alloc{display:flex;gap:var(--space-6);align-items:flex-start}
   .edit-alloc-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--space-1)}
+  /* .txn-field uses flex:1 for side-by-side rows; as a direct column child it
+     was stretching and leaving a huge gap under label-only fields. */
+  .edit-alloc-main > .txn-field{flex:0 0 auto}
   .edit-alloc-main h4{font-size:var(--text-body-sm-size);font-weight:800;color:var(--ink);margin:var(--space-4) var(--space-0) var(--space-2-5)}
   .edit-alloc-main h4:first-child{margin-top:var(--space-0)}
   .edit-alloc-readcard{

@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { Icon } from '../../lib/icons'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import Select, { Option } from '../common/Select.jsx'
+import { ssnDigitsOnlyError } from '../../lib/profileDetails'
 
 export function Row({ label, value, hint, children }) {
   const empty = value == null || String(value).trim() === ''
@@ -100,23 +102,40 @@ export function SelectField({ label, value, onChange, options, required, placeho
   )
 }
 
-export function SsnField({ label, value, revealed, onToggle, onChange, required, placeholder }) {
+export function SsnField({ label, value, revealed, onToggle, onChange, required, placeholder, error }) {
+  const [typedError, setTypedError] = useState('')
+  const message = error || typedError
   return (
     <label className="pr-field">
       <span>
         {label}
         {required ? <i>*</i> : null}
       </span>
-      <div className="pr-input-ico">
-        <input
-          type={revealed ? 'text' : 'password'}
-          value={value}
-          placeholder={placeholder || ''}
-          onChange={(e) => onChange(e.target.value)}
-        />
-        <button type="button" className="pr-eye" aria-label={revealed ? 'Hide SSN' : 'Show SSN'} onClick={onToggle}>
-          {revealed ? <Icon icon={faEyeSlash} size={16} /> : <Icon icon={faEye} size={16} />}
-        </button>
+      <div>
+        <div className={`pr-input-ico${message ? ' is-invalid' : ''}`}>
+          <input
+            type={revealed ? 'text' : 'password'}
+            value={value}
+            placeholder={placeholder || ''}
+            inputMode="numeric"
+            autoComplete="off"
+            aria-invalid={message ? true : undefined}
+            aria-describedby={message ? 'ssn-digits-error' : undefined}
+            onChange={(e) => {
+              const next = e.target.value
+              onChange(next)
+              setTypedError(ssnDigitsOnlyError(next))
+            }}
+          />
+          <button type="button" className="pr-eye" aria-label={revealed ? 'Hide SSN' : 'Show SSN'} onClick={onToggle}>
+            {revealed ? <Icon icon={faEyeSlash} size={16} /> : <Icon icon={faEye} size={16} />}
+          </button>
+        </div>
+        {message ? (
+          <small id="ssn-digits-error" className="pr-field-error" role="alert">
+            {message}
+          </small>
+        ) : null}
       </div>
     </label>
   )

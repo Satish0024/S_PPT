@@ -287,20 +287,20 @@ export default function EditAllocationSlideover({
           <h4>Payment details</h4>
           <div className="txn-field">
             <label>Choose payment method</label>
-          </div>
-          <div className="txn-choice-list">
-            {PAYMENT_METHODS.map((m) => (
-              <label key={m.id} className={`txn-choice${draft.paymentMethod === m.id ? ' on' : ''}`}>
-                <input
-                  type="radio"
-                  checked={draft.paymentMethod === m.id}
-                  onChange={() => patch({ paymentMethod: m.id })}
-                />
-                <span>
-                  <b>{m.label}</b>
-                </span>
-              </label>
-            ))}
+            <div className="txn-choice-list">
+              {PAYMENT_METHODS.map((m) => (
+                <label key={m.id} className={`txn-choice${draft.paymentMethod === m.id ? ' on' : ''}`}>
+                  <input
+                    type="radio"
+                    checked={draft.paymentMethod === m.id}
+                    onChange={() => patch({ paymentMethod: m.id })}
+                  />
+                  <span>
+                    <b>{m.label}</b>
+                  </span>
+                </label>
+              ))}
+            </div>
           </div>
 
           {draft.paymentMethod === 'check' && (
@@ -308,20 +308,20 @@ export default function EditAllocationSlideover({
               <h4>Address details</h4>
               <div className="txn-field">
                 <label>Select address</label>
-              </div>
-              <div className="txn-choice-list">
-                {ADDRESS_OPTIONS.map((a) => (
-                  <label key={a.id} className={`txn-choice${draft.addressOption === a.id ? ' on' : ''}`}>
-                    <input
-                      type="radio"
-                      checked={draft.addressOption === a.id}
-                      onChange={() => patch({ addressOption: a.id })}
-                    />
-                    <span>
-                      <b>{a.label}</b>
-                    </span>
-                  </label>
-                ))}
+                <div className="txn-choice-list">
+                  {ADDRESS_OPTIONS.map((a) => (
+                    <label key={a.id} className={`txn-choice${draft.addressOption === a.id ? ' on' : ''}`}>
+                      <input
+                        type="radio"
+                        checked={draft.addressOption === a.id}
+                        onChange={() => patch({ addressOption: a.id })}
+                      />
+                      <span>
+                        <b>{a.label}</b>
+                      </span>
+                    </label>
+                  ))}
+                </div>
               </div>
               <div className="edit-alloc-readcard edit-alloc-bankcard">
                 <div>
@@ -357,20 +357,20 @@ export default function EditAllocationSlideover({
               <h4>Bank details</h4>
               <div className="txn-field">
                 <label>Select Bank details</label>
-              </div>
-              <div className="txn-choice-list">
-                {BANK_OPTIONS.map((a) => (
-                  <label key={a.id} className={`txn-choice${(draft.bankOption || 'onfile') === a.id ? ' on' : ''}`}>
-                    <input
-                      type="radio"
-                      checked={(draft.bankOption || 'onfile') === a.id}
-                      onChange={() => patch({ bankOption: a.id })}
-                    />
-                    <span>
-                      <b>{a.label}</b>
-                    </span>
-                  </label>
-                ))}
+                <div className="txn-choice-list">
+                  {BANK_OPTIONS.map((a) => (
+                    <label key={a.id} className={`txn-choice${(draft.bankOption || 'onfile') === a.id ? ' on' : ''}`}>
+                      <input
+                        type="radio"
+                        checked={(draft.bankOption || 'onfile') === a.id}
+                        onChange={() => patch({ bankOption: a.id })}
+                      />
+                      <span>
+                        <b>{a.label}</b>
+                      </span>
+                    </label>
+                  ))}
+                </div>
               </div>
 
               {(draft.bankOption || 'onfile') === 'onfile' ? (
@@ -416,23 +416,23 @@ export default function EditAllocationSlideover({
                   </div>
                   <div className="txn-field" style={{ marginTop: 'var(--space-2-5)' }}>
                     <label>Type of account</label>
-                  </div>
-                  <div className="txn-choice-list">
-                    {ACCOUNT_TYPES.map((t) => (
-                      <label
-                        key={t.id}
-                        className={`txn-choice${(draft.accountType || 'checking') === t.id ? ' on' : ''}`}
-                      >
-                        <input
-                          type="radio"
-                          checked={(draft.accountType || 'checking') === t.id}
-                          onChange={() => patch({ accountType: t.id })}
-                        />
-                        <span>
-                          <b>{t.label}</b>
-                        </span>
-                      </label>
-                    ))}
+                    <div className="txn-choice-list">
+                      {ACCOUNT_TYPES.map((t) => (
+                        <label
+                          key={t.id}
+                          className={`txn-choice${(draft.accountType || 'checking') === t.id ? ' on' : ''}`}
+                        >
+                          <input
+                            type="radio"
+                            checked={(draft.accountType || 'checking') === t.id}
+                            onChange={() => patch({ accountType: t.id })}
+                          />
+                          <span>
+                            <b>{t.label}</b>
+                          </span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                   <div className="txn-row">
                     <div className="txn-field">
@@ -462,36 +462,36 @@ export default function EditAllocationSlideover({
           <h4>Source details</h4>
           <div className="txn-field">
             <label>Select source</label>
-          </div>
-          <div className="txn-choice-list">
-            {SOURCE_OPTIONS.map((s) => (
-              <label key={s.id} className={`txn-choice${draft.source === s.id ? ' on' : ''}`}>
-                <input type="radio" checked={draft.source === s.id} onChange={() => patch({ source: s.id })} />
-                <span>
-                  <b>{s.label}</b>
-                </span>
-              </label>
-            ))}
+            <div className="txn-choice-list">
+              {SOURCE_OPTIONS.map((s) => (
+                <label key={s.id} className={`txn-choice${draft.source === s.id ? ' on' : ''}`}>
+                  <input type="radio" checked={draft.source === s.id} onChange={() => patch({ source: s.id })} />
+                  <span>
+                    <b>{s.label}</b>
+                  </span>
+                </label>
+              ))}
+            </div>
           </div>
 
           {draft.source === 'choose' && (
             <>
               <div className="txn-field" style={{ marginTop: 'var(--space-3)' }}>
                 <label>Allow me to choose from</label>
-              </div>
-              <div className="txn-choice-list">
-                {CHOOSE_FROM_OPTIONS.map((o) => (
-                  <label key={o.id} className={`txn-choice${(draft.chooseFrom || 'source') === o.id ? ' on' : ''}`}>
-                    <input
-                      type="radio"
-                      checked={(draft.chooseFrom || 'source') === o.id}
-                      onChange={() => patch({ chooseFrom: o.id })}
-                    />
-                    <span>
-                      <b>{o.label}</b>
-                    </span>
-                  </label>
-                ))}
+                <div className="txn-choice-list">
+                  {CHOOSE_FROM_OPTIONS.map((o) => (
+                    <label key={o.id} className={`txn-choice${(draft.chooseFrom || 'source') === o.id ? ' on' : ''}`}>
+                      <input
+                        type="radio"
+                        checked={(draft.chooseFrom || 'source') === o.id}
+                        onChange={() => patch({ chooseFrom: o.id })}
+                      />
+                      <span>
+                        <b>{o.label}</b>
+                      </span>
+                    </label>
+                  ))}
+                </div>
               </div>
               <SourceInvestmentsPanel plan={plan} draft={draft} patch={patch} fees={fees} />
             </>

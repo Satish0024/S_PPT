@@ -191,6 +191,13 @@ export function splitStreet(address = '') {
   return { line1: address, line2: '', line3: '' }
 }
 
+export function ssnDigitsOnlyError(value, { required = false } = {}) {
+  const v = String(value ?? '').trim()
+  if (!v) return required ? 'Enter social security number.' : ''
+  if (/\D/.test(v)) return 'Social security number can only contain numbers.'
+  return ''
+}
+
 export function last4(ssn = '') {
   const digits = String(ssn).replace(/\D/g, '')
   if (digits.length >= 4) return digits.slice(-4)
