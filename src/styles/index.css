@@ -2490,7 +2490,7 @@ summary:focus-visible {
   inset: 0;
   pointer-events: none;
   opacity: var(--rgs-decor, 0);
-  background-image: radial-gradient(rgba(255, 255, 255, .12) 1px, transparent 1.4px);
+  background-image: radial-gradient(color-mix(in srgb, var(--rgs-ink) 12%, transparent) 1px, transparent 1.4px);
   background-size: 16px 16px;
   /* #000 here is a mask luminance channel, not a rendered color -- CSS
      masks read black/transparent as opacity stops, so this isn't a
