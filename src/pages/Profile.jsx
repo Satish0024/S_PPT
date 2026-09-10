@@ -58,11 +58,11 @@ function EditBtn({ onClick }) {
 function SaveBar({ onSave, onCancel }) {
   return (
     <div className="pr-savebar">
-      <button type="button" className="btn btn-primary" onClick={onSave}>
-        Save
-      </button>
       <button type="button" className="btn btn-secondary" onClick={onCancel}>
         Cancel
+      </button>
+      <button type="button" className="btn btn-primary" onClick={onSave}>
+        Save
       </button>
     </div>
   )
@@ -604,11 +604,11 @@ export default function Profile() {
             </div>
             {percentError && <p className="pr-error">{percentError}</p>}
             <div className="enroll-modal-actions">
-              <button type="button" className="btn btn-primary" onClick={savePercent}>
-                Save
-              </button>
               <button type="button" className="btn btn-secondary" onClick={() => setPercentGroup(null)}>
                 Cancel
+              </button>
+              <button type="button" className="btn btn-primary" onClick={savePercent}>
+                Save
               </button>
             </div>
           </div>

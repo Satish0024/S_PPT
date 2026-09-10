@@ -770,11 +770,11 @@ export default function RetirementGoal() {
               <p>No deferral changes to confirm.</p>
             )}
             <div className="rg-confirm-actions">
-              <button type="button" className="btn btn-primary" onClick={confirmSave}>
-                Update
-              </button>
               <button type="button" className="btn btn-secondary" onClick={() => setConfirmSaveOpen(false)}>
                 Cancel
+              </button>
+              <button type="button" className="btn btn-primary" onClick={confirmSave}>
+                Update
               </button>
             </div>
           </div>
@@ -841,11 +841,11 @@ export default function RetirementGoal() {
               <p>No inputs changed. Your current goal is saved.</p>
             )}
             <div className="enroll-modal-actions">
-              <button type="button" className="btn btn-primary" onClick={() => navigate('/', { state: { goalSaved: true } })}>
-                Save &amp; go to dashboard
-              </button>
               <button type="button" className="btn btn-secondary" onClick={() => setSavedOpen(false)}>
                 Keep editing
+              </button>
+              <button type="button" className="btn btn-primary" onClick={() => navigate('/', { state: { goalSaved: true } })}>
+                Save &amp; go to dashboard
               </button>
             </div>
           </div>
