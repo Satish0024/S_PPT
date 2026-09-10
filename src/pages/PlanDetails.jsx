@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 import { Icon } from '../lib/icons'
-import { faPercent, faChartLine } from '@fortawesome/free-solid-svg-icons'
+import { faPercent, faChartLine, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import {
   AUTO_INCREASE_KEY,
   DEFERRAL_KEY,
   INVESTMENT_KEY,
+  hasAdvanceElections,
   isAutoEnrolledPlan,
   markPlanManuallyEnrolled,
   planEnrollmentStatus,
@@ -91,6 +92,11 @@ export default function PlanDetails() {
   const sessionOptOut = deferCapable && optedOut
   const enrolled = isParticipating(plan) && !sessionOptOut
   const eligible = isEligibleOnly(plan) && !enrolled && !sessionOptOut
+  // Not-yet-eligible participants can still "provide elections in advance"
+  // (same enrollment wizard, just not applied yet) -- surface what they
+  // saved instead of leaving this section a single line of plain notice
+  // text with no way to see what they'd actually set up.
+  const hasAdvanceSave = !enrolled && !eligible && hasAdvanceElections(participant.id) && !!savedDeferral
   const activeTab = deferCapable ? tab : 'investments'
   // The plan's real balance breakdown (Pre-Tax/Roth/Match/etc. with vested
   // amounts) and current holdings already exist in the data model and are
@@ -368,9 +374,45 @@ export default function PlanDetails() {
       )}
 
       {!enrolled && !eligible && !sessionOptOut && (
-        <section className="panel">
-          <h3>Enrollment</h3>
-          <p>{plan.notice}</p>
+        <section className="panel pd-enrollment">
+          <div className="pd-enrollment-notice">
+            <span className="pd-enrollment-ico" aria-hidden="true">
+              <Icon icon={faCircleInfo} size={18} />
+            </span>
+            <div>
+              <h3>Enrollment</h3>
+              <p>{plan.notice}</p>
+            </div>
+          </div>
+
+          {hasAdvanceSave && (
+            <div className="pd-advance-card">
+              <div className="panel-h">
+                <div>
+                  <h4>Your saved elections</h4>
+                  <p className="panel-note">
+                    Provided in advance -- these will take effect automatically once you become eligible for this
+                    plan.
+                  </p>
+                </div>
+                <Link className="text-link" to="/enrollment">
+                  Edit
+                </Link>
+              </div>
+              <ul className="detail-rows">
+                <li>
+                  <span>Pre-Tax</span>
+                  <b>{pct(deferral?.pre)}</b>
+                </li>
+                <li>
+                  <span>Roth</span>
+                  <b>{pct(deferral?.roth)}</b>
+                </li>
+              </ul>
+              <h4 className="src-label">Investments</h4>
+              <FundList rows={funds} />
+            </div>
+          )}
         </section>
       )}
 

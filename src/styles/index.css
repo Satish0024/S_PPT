@@ -557,14 +557,25 @@
   .user-chip .chip-scenario{display:none}
   .user-chip .chev{width:14px;height:14px;color:var(--muted);flex:0 0 auto;margin-left:var(--space-0-5);transition:transform .15s}
   .user-chip.open .chev{transform:rotate(180deg)}
+  /* Just the avatar -- name/scenario text and the chevron dropped so the
+     header trigger matches the plain circular-photo pattern (click the
+     picture, get a small account menu), not a wide named pill. */
+  .user-chip.avatar-only{padding:var(--space-0);border-radius:50%;border-color:transparent;background:transparent}
+  .user-chip.avatar-only:hover,.user-chip.avatar-only.open{border-color:var(--line-strong);box-shadow:var(--shadow)}
+  .user-chip.avatar-only img{width:32px;height:32px}
 
   .user-dropdown{
-    position:absolute;right:0;top:calc(100% + 8px);width:300px;background:var(--panel);border:1px solid var(--line);
+    position:absolute;right:0;top:calc(100% + 8px);width:260px;background:var(--panel);border:1px solid var(--line);
     border-radius:12px;box-shadow:var(--shadow-lg);padding:var(--space-2);display:none;z-index:50
   }
   .user-dropdown.open{display:block}
   .user-dropdown .dd-label{font-size:var(--text-xs-size);font-weight:700;color:var(--muted);text-transform:uppercase;
     letter-spacing:var(--ls-wide);padding:var(--space-2) var(--space-2-5) var(--space-1-5)}
+  .user-dropdown-email{
+    display:flex;flex-direction:column;gap:var(--space-0-5);padding:var(--space-2-5);margin-bottom:var(--space-1-5);
+    border-bottom:1px solid var(--line)}
+  .user-dropdown-email .label{font-size:var(--text-2xs-size);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:var(--ls-wide)}
+  .user-dropdown-email .value{font-size:var(--text-body-sm-size);font-weight:700;color:var(--ink);overflow-wrap:anywhere}
   .user-option{display:flex;align-items:center;gap:var(--space-2-5);width:100%;border:none;background:transparent;
     padding:var(--space-2-5);border-radius:var(--radius-sm);cursor:pointer;text-align:left;transition:background .15s}
   .user-option:hover,.user-option.on{background:var(--active-bg)}
@@ -1783,6 +1794,18 @@
   .pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3) var(--space-4)}
   .pd-grid div{font-size:var(--text-xs-size);font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:var(--ls-wide)}
   .pd-grid b{display:block;font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--ink);margin-top:var(--space-1);text-transform:none;letter-spacing:0}
+  /* Not-yet-eligible plan's fallback section -- was a bare <h3>+<p>. The
+     notice now reads as a real inline alert, and when the participant has
+     already provided elections in advance (View Saved Details), that data
+     gets its own clearly separated card instead of being invisible. */
+  .pd-enrollment{display:flex;flex-direction:column;gap:var(--space-4)}
+  .pd-enrollment-notice{display:flex;align-items:flex-start;gap:var(--space-3)}
+  .pd-enrollment-notice h3{margin:var(--space-0) var(--space-0) var(--space-1)}
+  .pd-enrollment-notice p{margin:var(--space-0);color:var(--ink-soft)}
+  .pd-enrollment-ico{
+    display:grid;place-items:center;width:36px;height:36px;flex:0 0 auto;border-radius:50%;
+    background:var(--active-bg);color:var(--brand)}
+  .pd-advance-card{padding:var(--space-4);border:1px solid var(--line);border-radius:var(--radius-lg,12px);background:var(--surface-2)}
   .plan-optout{padding:var(--space-0-5) var(--space-1) var(--space-1)}
   .enroll-modal-bg{position:fixed;inset:0;background:color-mix(in srgb, var(--ink) 46%, transparent);z-index:80;display:grid;place-items:center;padding:var(--space-5)}
   .enroll-modal{width:min(440px,100%);background:var(--panel);border-radius:var(--radius-xl);padding:var(--space-6) var(--space-5) var(--space-5);box-shadow:var(--shadow-lg)}

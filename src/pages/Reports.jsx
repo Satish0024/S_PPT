@@ -158,6 +158,7 @@ export default function Reports() {
   // arrival instead of landing on a plain Documents page.
   const [statementOpen, setStatementOpen] = useState(() => !!location.state?.openStatement)
   const [toast, setToast] = useState(null)
+  const resultsRef = useRef(null)
   // Every "Generate" click adds a real record (persisted per participant,
   // same sessionStorage pattern as lib/riskProfile.js) instead of replaying
   // a fixed mock list -- generatedTick just forces this component to
@@ -271,14 +272,23 @@ export default function Reports() {
             <span className="field-label" aria-hidden="true">
               &nbsp;
             </span>
-            <button type="button" className="text-btn doc-reset" onClick={reset}>
-              Reset
-            </button>
+            <div className="doc-filter-actions">
+              <button type="button" className="text-btn doc-reset" onClick={reset}>
+                Reset
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary doc-search-btn"
+                onClick={() => resultsRef.current?.focus()}
+              >
+                Search
+              </button>
+            </div>
           </div>
         </div>
 
         <div className="doc-results-head">
-          <span className="doc-count">
+          <span className="doc-count" ref={resultsRef} tabIndex={-1}>
             {docs.length.toString().padStart(2, '0')} - Record{docs.length === 1 ? '' : 's'} found
           </span>
           <button type="button" className="btn btn-secondary" onClick={() => setStatementOpen(true)}>

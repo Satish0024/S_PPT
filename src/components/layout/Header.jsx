@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '../../lib/icons'
-import { faChevronDown, faQuestionCircle, faSignOutAlt, faMoon, faCog, faSun } from '@fortawesome/free-solid-svg-icons'
+import { faQuestionCircle, faSignOutAlt, faMoon, faKey, faSun } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { useTheme } from '../../context/ThemeContext.jsx'
 import { BRAND } from '../../config/brand.js'
@@ -55,18 +55,19 @@ export default function Header() {
         <div className="user-menu" ref={menuRef}>
           <button
             type="button"
-            className={`user-chip${open ? ' open' : ''}`}
+            className={`user-chip avatar-only${open ? ' open' : ''}`}
             aria-haspopup="menu"
             aria-expanded={open}
+            aria-label={`Account menu for ${participant.name}`}
             onClick={() => setOpen((v) => !v)}
           >
             <img src={participant.avatar} alt="" />
-            <span className="chip-text">
-              <span className="chip-name">{participant.name}</span>
-            </span>
-            <Icon icon={faChevronDown} size={14} className="chev" />
           </button>
           <div className={`user-dropdown${open ? ' open' : ''}`} role="menu" aria-label="Account">
+            <div className="user-dropdown-email" role="presentation">
+              <span className="label">Username</span>
+              <span className="value">{participant.profile?.email}</span>
+            </div>
             <button
               type="button"
               className="user-option"
@@ -77,25 +78,12 @@ export default function Header() {
               }}
             >
               <span className="sign-out-ico" aria-hidden="true">
-                <Icon icon={faCog} size={16} />
+                <Icon icon={faKey} size={16} />
               </span>
               <span className="meta">
-                <span className="name">Settings</span>
+                <span className="name">Change Password</span>
               </span>
             </button>
-            <a
-              className="user-option"
-              role="menuitem"
-              href={`mailto:${BRAND.supportEmail}`}
-              onClick={() => setOpen(false)}
-            >
-              <span className="sign-out-ico" aria-hidden="true">
-                <Icon icon={faQuestionCircle} size={16} />
-              </span>
-              <span className="meta">
-                <span className="name">Help</span>
-              </span>
-            </a>
             <button
               type="button"
               className="user-option sign-out"
@@ -110,7 +98,7 @@ export default function Header() {
                 <Icon icon={faSignOutAlt} size={16} />
               </span>
               <span className="meta">
-                <span className="name">Sign out</span>
+                <span className="name">Log out</span>
               </span>
             </button>
           </div>

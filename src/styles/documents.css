@@ -11,7 +11,9 @@
 .doc-field input:focus,.doc-field .ui-select-btn:focus-visible{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 12%, transparent)}
 .doc-field-reset{min-width:0;flex:0 0 auto}
 .doc-field-reset .field-label{visibility:hidden}
+.doc-filter-actions{display:flex;align-items:center;gap:var(--space-3)}
 .doc-reset{min-height:38px;display:inline-flex;align-items:center}
+.doc-search-btn{width:auto;min-height:38px;padding:var(--space-1-5) var(--space-4)}
 
 .multi-select{position:relative;display:flex;flex-direction:column;gap:var(--form-label-gap);min-width:170px}
 .multi-select-btn{
