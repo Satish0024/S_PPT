@@ -8,7 +8,19 @@
 .doc-field input,.doc-field .ui-select-btn{
   min-height:38px;border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--space-1-5) var(--space-2-5);
   font:inherit;font-size:var(--text-body-md-size);font-weight:600;color:var(--ink);background:var(--panel)}
+/* Text field + dropdown states, tested here first: matches CORE's cds-input/
+   cds-select pattern (Field.tsx/FormControls.tsx -- hover uses
+   input.borderHover, focus uses input.borderFocus + a 25%-opacity ring,
+   disabled is opacity .5 with no color swap) using this app's own tokens
+   instead of new hex -- --line-strong is already this app's equivalent of
+   input.borderHover (see .ui-select-btn:hover below, and .user-chip:hover
+   elsewhere), so no new token had to be introduced. The Search input had no
+   hover/disabled state at all before this; the two dropdowns (Plan Name/ID,
+   Document Type) had a hover but no visible focus ring, which is a real
+   keyboard-accessibility gap on top of the visual guideline. */
+.doc-field input:hover:not(:disabled),.doc-field .ui-select-btn:hover{border-color:var(--line-strong)}
 .doc-field input:focus,.doc-field .ui-select-btn:focus-visible{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 12%, transparent)}
+.doc-field input:disabled{opacity:.5;cursor:not-allowed;border-color:var(--line)}
 .doc-field-reset{min-width:0;flex:0 0 auto}
 .doc-field-reset .field-label{visibility:hidden}
 .doc-filter-actions{display:flex;align-items:center;gap:var(--space-3)}
@@ -36,6 +48,7 @@
   border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--panel);padding:var(--space-1-5) var(--space-2-5);
   font:inherit;font-size:var(--text-body-md-size);font-weight:600;color:var(--ink);cursor:pointer}
 .multi-select-btn:hover{border-color:var(--line-strong)}
+.multi-select-btn:focus-visible{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 12%, transparent)}
 .multi-select-btn svg{color:var(--ink-soft);flex:0 0 auto}
 .multi-select-menu{
   position:absolute;top:calc(100% + 4px);left:0;z-index:20;min-width:240px;max-height:280px;overflow-y:auto;
