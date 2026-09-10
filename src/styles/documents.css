@@ -13,7 +13,22 @@
 .doc-field-reset .field-label{visibility:hidden}
 .doc-filter-actions{display:flex;align-items:center;gap:var(--space-3)}
 .doc-reset{min-height:38px;display:inline-flex;align-items:center}
-.doc-search-btn{width:auto;min-height:38px;padding:var(--space-1-5) var(--space-4)}
+/* Search button states: wired to the CORE design system's dedicated brand
+   hover/active/disabled tokens (Core-Design-system-1.1's Button.tsx /
+   cds-btn--primary) instead of the app-wide .btn-primary's color-mix()
+   approximation -- those exact tokens already exist in
+   core-color-palette.css ("Not yet applied") and are applied here first,
+   scoped to this one button per the requested change. */
+.doc-search-btn{
+  width:auto;min-height:38px;padding:var(--space-1-5) var(--space-4);
+  border-color:var(--theme-brand-borders-primary-default)}
+.doc-search-btn:hover:not(:disabled){
+  background:var(--theme-brand-background-hover);border-color:var(--theme-brand-borders-hover)}
+.doc-search-btn:active:not(:disabled){
+  background:var(--theme-brand-background-active);border-color:var(--theme-brand-background-active)}
+.doc-search-btn:disabled,.doc-search-btn[aria-disabled="true"]{
+  background:var(--theme-brand-background-disabled-strong);color:var(--brand-text-primary-oncolor);
+  border-color:var(--theme-brand-borders-primary-disabled);opacity:1}
 
 .multi-select{position:relative;display:flex;flex-direction:column;gap:var(--form-label-gap);min-width:170px}
 .multi-select-btn{

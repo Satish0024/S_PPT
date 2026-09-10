@@ -209,6 +209,12 @@ export default function Reports() {
     })
   }, [allDocs, search, planFilter, typeFilter, from, to])
 
+  // Search is a no-op with nothing to search on -- keep it disabled until
+  // the participant has actually entered a name or picked a plan/type
+  // filter, rather than letting it sit active over the default (unfiltered)
+  // state. Date range is excluded since it always carries a default value.
+  const hasSearchCriteria = search.trim() !== '' || planFilter.length > 0 || typeFilter.length > 0
+
   const reset = () => {
     setSearch('')
     setPlanFilter([])
@@ -279,6 +285,7 @@ export default function Reports() {
               <button
                 type="button"
                 className="btn btn-primary doc-search-btn"
+                disabled={!hasSearchCriteria}
                 onClick={() => resultsRef.current?.focus()}
               >
                 Search
