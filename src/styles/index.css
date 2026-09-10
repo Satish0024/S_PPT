@@ -583,11 +583,18 @@
   .layout{display:flex;min-height:calc(100vh - var(--header-h));align-items:flex-start}
   .nav{width:var(--nav-w);border-right:1px solid var(--line);padding:var(--space-5) var(--space-0);
     display:flex;flex-direction:column;gap:var(--space-1);background:var(--sidebar);
-    /* Truly fixed to the viewport (not sticky, not a flex sibling of
-       .main) -- it never scrolls with the page and is sized to its own
-       nav-links content, not stretched to match main's height. .main
-       carries the matching margin-left so it doesn't sit underneath. */
+    /* Truly fixed to the viewport (not sticky, not a flex sibling of its
+       content column) -- it never scrolls with the page and is sized to
+       its own nav-links content, not stretched to match main's height.
+       Being fixed takes it out of .layout's flex flow entirely, so
+       whatever renders right after it (.nav + *, below) carries the
+       matching margin-left instead of sitting underneath it. Every
+       layout wrapper across the app (AppLayout's .main, TransactionRequest's
+       .txn-wizard, EnrollmentLayout's .steps aside) puts exactly one
+       column there, so this one rule covers all of them without hardcoding
+       each wrapper's own class name. */
     position:fixed;left:0;top:var(--header-h);z-index:30}
+  .nav + *{margin-left:var(--nav-w)}
   .nav a{text-decoration:none;color:var(--ink-soft);display:flex;flex-direction:column;align-items:center;
     gap:var(--space-1-5);padding:var(--space-3-5) var(--space-2);font-size:var(--text-body-sm-size);font-weight:600;position:relative;text-align:center}
   .nav a .ico{display:grid;place-items:center}
@@ -603,7 +610,7 @@
      always stays inside the link and can never get clipped. */
   .nav a:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:var(--radius-sm)}
 
-  .main{flex:1;min-width:0;display:flex;flex-direction:column;margin-left:var(--nav-w)}
+  .main{flex:1;min-width:0;display:flex;flex-direction:column}
   .page-body{padding:var(--page-padding-y) var(--page-padding-x) var(--page-padding-bottom);display:flex;flex-direction:column;gap:var(--page-gap);width:100%;max-width:none}
 
   /* Greeting — floated on top */
@@ -1817,7 +1824,7 @@
     .app-footer{position:static;height:auto;flex-direction:column;align-items:flex-start;
       gap:var(--space-1);padding:var(--space-3) var(--page-padding-x-sm,var(--space-4));
       margin-left:var(--space-0);width:100%}
-    .main{margin-left:var(--space-0)}
+    .nav + *{margin-left:var(--space-0)}
     .nav{position:fixed;left:0;right:0;bottom:0;top:auto;width:100%;height:auto;
       flex-direction:row;justify-content:space-around;padding:var(--space-1-5) var(--space-1) calc(var(--space-2) + env(safe-area-inset-bottom));
       border-right:none;border-top:1px solid var(--line);background:var(--panel);z-index:40}
