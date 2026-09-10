@@ -278,25 +278,29 @@ export function InvestmentEditor({
 
       {usingRisk && measuredLevel && (
         <div className="inv-panel">
-          <div className="inv-risk-badge" style={{ '--risk-color': measuredLevel.color }}>
-            <Icon icon={RISK_LEVEL_ICON[measuredLevel.id]} size={16} />
-            <span>{measuredLevel.label}</span>
-            <button type="button" className="text-btn" onClick={chooseRisk}>
-              View/Edit questionnaire
-            </button>
-          </div>
           {/* Item #77's banner copy: this used to live in RiskMeterV2.jsx,
               a component with no remaining render call-sites (removed
               from the Dashboard per item #77b) -- so the message was
               never actually visible to anyone. This is the real place a
-              participant sees their measured investment style, right next
-              to the actual "View/Edit questionnaire" link (#74-76), so
-              the banner moved here instead. */}
-          <p className="inline-alert warn">
-            <Icon icon={faCircleInfo} size={15} />
-            Your investment style is based on your risk questionnaire responses. View or edit your responses to
-            reassess your style.
-          </p>
+              participant sees their measured investment style, so the
+              badge and the banner were merged into one card instead of
+              two stacked, visually disconnected boxes. */}
+          <div className="inv-risk-card" style={{ '--risk-color': measuredLevel.color }}>
+            <div className="inv-risk-card-head">
+              <span className="inv-risk-card-ico" aria-hidden="true">
+                <Icon icon={RISK_LEVEL_ICON[measuredLevel.id]} size={20} />
+              </span>
+              <span className="inv-risk-card-label">{measuredLevel.label}</span>
+              <button type="button" className="text-btn" onClick={chooseRisk}>
+                View/Edit questionnaire
+              </button>
+            </div>
+            <p>
+              <Icon icon={faCircleInfo} size={14} aria-hidden="true" />
+              Your investment style is based on your risk questionnaire responses. View or edit your responses to
+              reassess your style.
+            </p>
+          </div>
           <AllocPanel
             title="All sources"
             funds={fundsFromNames(FUNDS.filter((name) => RISK_ALLOC[measuredLevel.id]?.[name] > 0))}

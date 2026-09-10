@@ -129,9 +129,21 @@ export default function RiskQuestionnaire() {
 
           {isResultsStep && (
             <div className="rq-step rq-results">
-              <span className="rq-results-ico" style={{ color: level.color }}>
-                <Icon icon={resultIcon} size={34} />
-              </span>
+              <div className="rq-results-ring" style={{ '--level-color': level.color }}>
+                <svg viewBox="0 0 120 120" aria-hidden="true">
+                  <circle className="rq-ring-track" cx="60" cy="60" r="52" />
+                  <circle
+                    className="rq-ring-fill"
+                    cx="60"
+                    cy="60"
+                    r="52"
+                    style={{ strokeDasharray: `${(score / 100) * 2 * Math.PI * 52} ${2 * Math.PI * 52}` }}
+                  />
+                </svg>
+                <span className="rq-results-ico" style={{ color: level.color }}>
+                  <Icon icon={resultIcon} size={30} />
+                </span>
+              </div>
               <span className="rq-results-tag" style={{ color: level.color }}>
                 {level.badge} · {score}/100
               </span>
@@ -142,16 +154,16 @@ export default function RiskQuestionnaire() {
         </div>
 
         <div className="rq-actions rqp-actions">
-          <button type="button" className="btn btn-primary rq-next" disabled={!canContinue} onClick={goNext}>
-            {isResultsStep ? 'Done' : isLastQuestion ? 'See my results' : 'Continue'}
-            {!isResultsStep && <Icon icon={faArrowRight} size={15} />}
-          </button>
           {step > 0 && !isResultsStep && (
             <button type="button" className="btn btn-ghost" onClick={goBack}>
               <Icon icon={faArrowLeft} size={15} />
               Back
             </button>
           )}
+          <button type="button" className="btn btn-primary rq-next" disabled={!canContinue} onClick={goNext}>
+            {isResultsStep ? 'Done' : isLastQuestion ? 'See my results' : 'Continue'}
+            {!isResultsStep && <Icon icon={faArrowRight} size={15} />}
+          </button>
         </div>
       </main>
     </div>

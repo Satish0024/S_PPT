@@ -536,12 +536,14 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 .btn-tertiary:hover{color:var(--brand);text-decoration:underline}
 .btn-tertiary.on{color:var(--brand)}
 .ai-block{margin-top:var(--space-7);padding-top:var(--space-5);border-top:1px solid var(--line);width:100%}
-.choice-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin:var(--space-0) var(--space-0) var(--space-4)}
+.choice-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-3);margin:var(--space-0) var(--space-0) var(--space-4)}
 .choice{
   display:flex;align-items:flex-start;gap:var(--space-2-5);border:1px solid var(--line);border-radius:12px;
-  padding:var(--space-3-5) var(--space-4);cursor:pointer;background:var(--panel);min-height:76px;text-align:left;font:inherit;color:inherit;width:100%
+  padding:var(--space-3-5) var(--space-4);cursor:pointer;background:var(--panel);min-height:76px;min-width:0;text-align:left;font:inherit;color:inherit;width:100%;
+  box-sizing:border-box;transition:border-color .15s,background .15s,box-shadow .15s
 }
 .choice:hover,.choice.on{border-color:var(--brand);background:var(--active-bg)}
+.choice.on{box-shadow:0 0 0 1px var(--brand)}
 .choice-dot{width:18px;height:18px;flex:0 0 18px;margin-top:var(--space-0-5);border-radius:50%;border:2px solid var(--line-strong);background:var(--panel)}
 .choice.on .choice-dot{border-color:var(--brand);background:radial-gradient(circle,var(--brand) 0 42%,var(--panel) 46% 100%)}
 .choice b{display:block;font-size:var(--text-body-md-size);font-weight:700}
@@ -805,9 +807,26 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 .fund-link.sname{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
 .fund-link.sname:hover{color:var(--brand-dark)}
 
-.inv-risk-badge{
-  display:flex;align-items:center;gap:var(--space-2);margin:var(--space-0) var(--space-0) var(--space-3-5);padding:var(--space-2) var(--space-3-5);border-radius:var(--radius-sm);
-  background:color-mix(in srgb, var(--risk-color, var(--brand)) 14%, var(--panel));
-  color:var(--risk-color, var(--brand));font-size:var(--text-body-sm-size);font-weight:800}
-.inv-risk-badge span{flex:1;color:var(--ink)}
-.inv-risk-badge .text-btn{font-size:var(--text-caption-size)}
+/* One merged card (badge + message) instead of two stacked, visually
+   disconnected boxes -- min-height:120px per design review, tinted to the
+   measured risk level's own color so it reads as a single, more prominent
+   unit instead of a thin strip easy to skim past. */
+.inv-risk-card{
+  display:flex;flex-direction:column;gap:var(--space-2-5);min-height:120px;box-sizing:border-box;justify-content:center;
+  margin:var(--space-0) var(--space-0) var(--space-3-5);padding:var(--space-4);border-radius:var(--radius-lg,12px);
+  background:color-mix(in srgb, var(--risk-color, var(--brand)) 10%, var(--panel));
+  border:1px solid color-mix(in srgb, var(--risk-color, var(--brand)) 30%, var(--line));
+  animation:risk-card-in .35s ease}
+@keyframes risk-card-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.inv-risk-card-head{display:flex;align-items:center;gap:var(--space-2-5)}
+.inv-risk-card-ico{
+  display:grid;place-items:center;width:36px;height:36px;flex:0 0 auto;border-radius:50%;
+  background:color-mix(in srgb, var(--risk-color, var(--brand)) 18%, var(--panel));color:var(--risk-color, var(--brand))}
+.inv-risk-card-label{flex:1;min-width:0;color:var(--ink);font-size:var(--text-body-lg-size);font-weight:800}
+.inv-risk-card .text-btn{flex:0 0 auto;font-size:var(--text-caption-size);font-weight:700}
+.inv-risk-card p{
+  display:flex;align-items:flex-start;gap:var(--space-2);margin:var(--space-0);padding-top:var(--space-2-5);
+  border-top:1px solid color-mix(in srgb, var(--risk-color, var(--brand)) 22%, var(--line));
+  color:var(--ink-soft);font-size:var(--text-body-sm-size);line-height:1.5}
+.inv-risk-card p svg{flex:0 0 auto;margin-top:var(--space-px);color:var(--risk-color, var(--brand))}
+@media(prefers-reduced-motion:reduce){.inv-risk-card{animation:none}}
