@@ -142,16 +142,16 @@ export default function RiskQuestionnaire() {
         </div>
 
         <div className="rq-actions rqp-actions">
+          <button type="button" className="btn btn-primary rq-next" disabled={!canContinue} onClick={goNext}>
+            {isResultsStep ? 'Done' : isLastQuestion ? 'See my results' : 'Continue'}
+            {!isResultsStep && <Icon icon={faArrowRight} size={15} />}
+          </button>
           {step > 0 && !isResultsStep && (
             <button type="button" className="btn btn-ghost" onClick={goBack}>
               <Icon icon={faArrowLeft} size={15} />
               Back
             </button>
           )}
-          <button type="button" className="btn btn-primary rq-next" disabled={!canContinue} onClick={goNext}>
-            {isResultsStep ? 'Done' : isLastQuestion ? 'See my results' : 'Continue'}
-            {!isResultsStep && <Icon icon={faArrowRight} size={15} />}
-          </button>
         </div>
       </main>
     </div>

@@ -389,11 +389,11 @@ export default function PlanDetails() {
               potential retirement savings growth and any available employer matching contributions.
             </p>
             <div className="enroll-modal-actions">
-              <button type="button" className="btn btn-secondary" onClick={() => setOptOutOpen(false)}>
-                Cancel
-              </button>
               <button type="button" className="btn btn-primary" onClick={confirmOptOut}>
                 Confirm opt out
+              </button>
+              <button type="button" className="btn btn-secondary" onClick={() => setOptOutOpen(false)}>
+                Cancel
               </button>
             </div>
           </div>

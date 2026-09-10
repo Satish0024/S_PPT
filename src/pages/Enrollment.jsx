@@ -307,14 +307,14 @@ export function DeferralEditor({
         {error && <p className="enroll-error" role="alert">{error}</p>}
 
         <div className="enroll-nav">
+          <button className="btn btn-primary" type="button" onClick={continueEnrollment}>
+            {saveLabel}
+          </button>
           {onCancel && (
             <button className="btn btn-ghost" type="button" onClick={onCancel}>
               Cancel
             </button>
           )}
-          <button className="btn btn-primary" type="button" onClick={continueEnrollment}>
-            {saveLabel}
-          </button>
         </div>
       </div>
 
@@ -333,11 +333,11 @@ export function DeferralEditor({
               potential retirement savings growth and any available employer matching contributions.
             </p>
             <div className="enroll-modal-actions">
-              <button type="button" className="btn btn-ghost" onClick={() => setOptOutOpen(false)}>
-                Cancel
-              </button>
               <button type="button" className="btn btn-primary" onClick={confirmOptOut}>
                 Confirm opt out
+              </button>
+              <button type="button" className="btn btn-ghost" onClick={() => setOptOutOpen(false)}>
+                Cancel
               </button>
             </div>
           </div>

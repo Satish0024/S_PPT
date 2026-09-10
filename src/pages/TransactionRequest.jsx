@@ -426,7 +426,6 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
           {existingLoan ? ' — your outstanding loan already uses your full eligible limit.' : ' — you have no vested balance to borrow against.'}
         </div>
         <div className="txn-actions">
-          <span />
           <Link to="/transactions" className="btn btn-primary" style={{ width: 'auto', textDecoration: 'none' }}>
             Back to Transactions
           </Link>
@@ -643,7 +642,6 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
         </div>
 
         <div className="txn-actions">
-          <span />
           <button
             type="button"
             className="btn btn-primary"
@@ -761,9 +759,6 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
         </div>
 
         <div className="txn-actions">
-          <button type="button" className="btn btn-ghost" onClick={onBack}>
-            Back
-          </button>
           <button
             type="button"
             className="btn btn-primary"
@@ -771,6 +766,9 @@ function LoanSteps({ step, plan, participant, form, set, onNext, onBack, onSubmi
             onClick={onNext}
           >
             Continue
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={onBack}>
+            Back
           </button>
         </div>
 
@@ -872,9 +870,6 @@ function AddBankDialog({ bank, onCancel, onSave }) {
           <input type="text" value={routingNo} onChange={(e) => setRoutingNo(e.target.value)} />
         </Field>
         <div className="txn-actions">
-          <button type="button" className="btn btn-ghost" onClick={onCancel}>
-            Cancel
-          </button>
           <button
             type="button"
             className="btn btn-primary"
@@ -882,6 +877,9 @@ function AddBankDialog({ bank, onCancel, onSave }) {
             onClick={() => onSave({ bankName, last4: accountNumber.slice(-4), routingNo })}
           >
             Save
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={onCancel}>
+            Cancel
           </button>
         </div>
       </div>
@@ -987,7 +985,6 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         )}
 
         <div className="txn-actions">
-          <span />
           <button
             type="button"
             className="btn btn-primary"
@@ -1045,11 +1042,11 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         )}
 
         <div className="txn-actions">
-          <button type="button" className="btn btn-ghost" onClick={onBack}>
-            Back
-          </button>
           <button type="button" className="btn btn-primary" disabled={!allocationsReady} onClick={onNext}>
             Continue
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={onBack}>
+            Back
           </button>
         </div>
 
@@ -1114,11 +1111,11 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
         )}
 
         <div className="txn-actions">
-          <button type="button" className="btn btn-ghost" onClick={onBack}>
-            Back
-          </button>
           <button type="button" className="btn btn-primary" onClick={onNext}>
             Continue
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={onBack}>
+            Back
           </button>
         </div>
       </div>
@@ -1365,7 +1362,6 @@ function AllocationSteps({ mode, step, plan, form, set, onNext, onBack, onSubmit
         )}
 
         <div className="txn-actions">
-          <span />
           <button type="button" className="btn btn-primary" disabled={!ready} onClick={onNext}>
             Continue
           </button>
@@ -1622,7 +1618,6 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
         </div>
 
         <div className="txn-actions">
-          <span />
           <button
             type="button"
             className="btn btn-primary"
@@ -1657,9 +1652,6 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
         <RolloverInvestmentTable plan={plan} form={form} set={set} editable />
 
         <div className="txn-actions">
-          <button type="button" className="btn btn-ghost" onClick={onBack}>
-            Back
-          </button>
           <button
             type="button"
             className="btn btn-primary"
@@ -1667,6 +1659,9 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
             onClick={onNext}
           >
             Continue
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={onBack}>
+            Back
           </button>
         </div>
       </div>
@@ -1744,9 +1739,6 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
         )}
 
         <div className="txn-actions">
-          <button type="button" className="btn btn-ghost" onClick={onBack}>
-            Back
-          </button>
           <button
             type="button"
             className="btn btn-primary"
@@ -1758,6 +1750,9 @@ function RolloverSteps({ step, plan, form, set, onNext, onBack, onSubmit, onEdit
             onClick={onNext}
           >
             Continue
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={onBack}>
+            Back
           </button>
         </div>
 
@@ -1887,11 +1882,11 @@ function DocumentsStep({ type, extraDocs = [], form, set, onNext, onBack }) {
         <DocumentUploadBlock key={d.id} doc={d} uploaded={!!docsState[d.id]} onUploaded={() => setDocUploaded(d.id)} />
       ))}
       <div className="txn-actions">
-        <button type="button" className="btn btn-ghost" onClick={onBack}>
-          Back
-        </button>
         <button type="button" className="btn btn-primary" disabled={docs.some((d) => d.required) && !allRequiredDone} onClick={onNext}>
           Continue
+        </button>
+        <button type="button" className="btn btn-ghost" onClick={onBack}>
+          Back
         </button>
       </div>
     </div>
@@ -1942,11 +1937,11 @@ function SummaryStep({ title, children, onBack, onSubmit, submitDisabled }) {
       </div>
       <div>{children}</div>
       <div className="txn-actions">
-        <button type="button" className="btn btn-ghost" onClick={onBack}>
-          Back
-        </button>
         <button type="button" className="btn btn-primary" disabled={submitDisabled} onClick={onSubmit}>
           Submit Request
+        </button>
+        <button type="button" className="btn btn-ghost" onClick={onBack}>
+          Back
         </button>
       </div>
     </div>

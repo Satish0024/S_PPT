@@ -119,9 +119,6 @@ function StatementModal({ plans, onClose, onGenerate }) {
           </div>
         </div>
         <div className="enroll-modal-actions">
-          <button type="button" className="btn btn-ghost" onClick={onClose}>
-            Cancel
-          </button>
           <button
             type="button"
             className="btn btn-primary"
@@ -134,6 +131,9 @@ function StatementModal({ plans, onClose, onGenerate }) {
             }}
           >
             Generate &amp; Download
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={onClose}>
+            Cancel
           </button>
         </div>
       </div>

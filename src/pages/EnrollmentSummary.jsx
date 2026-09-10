@@ -152,11 +152,11 @@ export default function EnrollmentSummary() {
 
         <p className="summary-note">You can update the enrollment selections any time.</p>
         <div className="enroll-nav">
-          <button type="button" className="btn btn-ghost" onClick={goHome}>
-            Cancel
-          </button>
           <button className="btn btn-primary" type="button" onClick={confirm}>
             {notEligible ? 'Confirm elections' : 'Confirm enrollment'}
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={goHome}>
+            Cancel
           </button>
         </div>
       </div>

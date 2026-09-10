@@ -246,16 +246,16 @@ export default function AddBeneficiary({ onCancel, onSave }) {
 
             {error && <p className="pr-error">{error}</p>}
             <div className="pr-savebar">
-              <button type="button" className="btn btn-secondary" onClick={() => setLeaveOpen(true)}>
-                Cancel
+              <button type="button" className="btn btn-primary" onClick={next}>
+                {step === 2 ? 'Save' : 'Next'}
               </button>
               {step > 0 && (
                 <button type="button" className="btn btn-secondary" onClick={() => setStep(step - 1)}>
                   Previous
                 </button>
               )}
-              <button type="button" className="btn btn-primary" onClick={next}>
-                {step === 2 ? 'Save' : 'Next'}
+              <button type="button" className="btn btn-secondary" onClick={() => setLeaveOpen(true)}>
+                Cancel
               </button>
             </div>
           </section>
@@ -274,11 +274,11 @@ export default function AddBeneficiary({ onCancel, onSave }) {
             <h4 id="pr-leave-title">Leave Without Saving?</h4>
             <p>If you leave now, the beneficiary details you entered will not be saved.</p>
             <div className="enroll-modal-actions">
-              <button type="button" className="btn btn-secondary" onClick={() => setLeaveOpen(false)}>
-                Keep Editing
-              </button>
               <button type="button" className="btn btn-primary" onClick={onCancel}>
                 Leave
+              </button>
+              <button type="button" className="btn btn-secondary" onClick={() => setLeaveOpen(false)}>
+                Keep Editing
               </button>
             </div>
           </div>

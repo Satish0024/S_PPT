@@ -30,11 +30,11 @@ export default function ConfirmDialog({ title, body, confirmLabel = 'Okay', canc
         <h4 id={titleId}>{title}</h4>
         <p id={bodyId}>{body}</p>
         <div className="confirm-dialog-actions">
-          <button type="button" className="btn btn-ghost" onClick={onCancel}>
-            {cancelLabel}
-          </button>
           <button type="button" className="btn btn-primary" onClick={onConfirm}>
             {confirmLabel}
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={onCancel}>
+            {cancelLabel}
           </button>
         </div>
       </div>

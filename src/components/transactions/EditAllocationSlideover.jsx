@@ -236,11 +236,11 @@ export default function EditAllocationSlideover({
       onClose={onClose}
       actions={
         <>
-          <button type="button" className="btn btn-ghost" onClick={onClose}>
-            Cancel
-          </button>
           <button type="button" className="btn btn-primary" disabled={!canSave} onClick={() => onSave(draft)}>
             Save
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={onClose}>
+            Cancel
           </button>
         </>
       }

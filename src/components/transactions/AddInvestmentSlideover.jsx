@@ -23,9 +23,6 @@ export default function AddInvestmentSlideover({ existingIds, onClose, onSave })
       onClose={onClose}
       actions={
         <>
-          <button type="button" className="btn btn-ghost" onClick={onClose}>
-            Cancel
-          </button>
           <button
             type="button"
             className="btn btn-primary"
@@ -33,6 +30,9 @@ export default function AddInvestmentSlideover({ existingIds, onClose, onSave })
             onClick={() => onSave(AVAILABLE_INVESTMENTS.filter((i) => picked.includes(i.id)))}
           >
             Save
+          </button>
+          <button type="button" className="btn btn-ghost" onClick={onClose}>
+            Cancel
           </button>
         </>
       }

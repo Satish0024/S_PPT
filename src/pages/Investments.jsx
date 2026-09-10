@@ -355,14 +355,14 @@ export function InvestmentEditor({
       {error && <p className="enroll-error" role="alert">{error}</p>}
 
       <div className="enroll-nav">
+        <button className="btn btn-primary" type="button" onClick={continueStep}>
+          {saveLabel}
+        </button>
         {onCancel && (
           <button className="btn btn-ghost" type="button" onClick={onCancel}>
             Cancel
           </button>
         )}
-        <button className="btn btn-primary" type="button" onClick={continueStep}>
-          {saveLabel}
-        </button>
       </div>
 
       {fundsOpen && (
@@ -389,11 +389,11 @@ export function InvestmentEditor({
               set your election to that mix. Do you consent to continue?
             </p>
             <div className="enroll-modal-actions">
-              <button type="button" className="btn btn-secondary" onClick={() => setRiskConsentOpen(false)}>
-                Decline
-              </button>
               <button type="button" className="btn btn-primary" onClick={confirmChooseRisk}>
                 I consent, continue
+              </button>
+              <button type="button" className="btn btn-secondary" onClick={() => setRiskConsentOpen(false)}>
+                Decline
               </button>
             </div>
           </div>
@@ -641,11 +641,11 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
               {modalError ? ` · ${modalError}` : ''}
             </span>
             <div className="enroll-modal-actions">
-              <button type="button" className="btn btn-ghost" onClick={onClose}>
-                Cancel
-              </button>
               <button type="button" className="btn btn-primary" onClick={apply}>
                 Apply
+              </button>
+              <button type="button" className="btn btn-ghost" onClick={onClose}>
+                Cancel
               </button>
             </div>
           </div>
