@@ -1,0 +1,29 @@
+/* Minimal global reset. Typeface, colors, and spacing come from Chakra
+   tokens in src/theme/system.ts (Inclusive Sans via fonts.body / fonts.heading).
+   Do not set font-family here — that would bypass the design system. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}

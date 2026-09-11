@@ -1,0 +1,104 @@
+{
+  "color": {
+    "primary": {
+      "50": "#F5F7FA", "100": "#E2E9F3", "200": "#BACEE9", "300": "#86ADDF",
+      "400": "#3275CD", "500": "#1F4F8D", "600": "#1B4479", "700": "#17365E",
+      "800": "#132A49", "900": "#102137", "950": "#0C1827"
+    },
+    "secondary": {
+      "50": "#F4F9FB", "100": "#DEEFF7", "200": "#AFDEF4", "300": "#71CAF4",
+      "400": "#56C3F5", "500": "#39BCF9", "600": "#07A8F2", "700": "#0B81B7",
+      "800": "#0B5E84", "900": "#0A3F57", "950": "#06212D"
+    },
+    "tertiary": {
+      "50": "#FFF8EA", "100": "#FEEBBE", "200": "#FCDB94", "300": "#FBCB6B",
+      "400": "#F2B244", "500": "#E89A1C", "600": "#C27A10", "700": "#95590A",
+      "800": "#784708", "900": "#5C3505", "950": "#382002"
+    },
+    "success": {
+      "50": "#EDFAF2", "100": "#D2F2E0", "200": "#A8E7C6", "300": "#7EDCAC",
+      "400": "#50C08A", "500": "#22A369", "600": "#178451", "700": "#116840",
+      "800": "#0E5233", "900": "#0A3D26", "950": "#052014"
+    },
+    "neutral": {
+      "white": "#FFFFFF", "black": "#000000",
+      "0": "#FFFFFF", "50": "#F7F7F9", "100": "#EEEEF2", "200": "#DFDFE6",
+      "300": "#C4C4CF", "400": "#9E9EAD", "500": "#787887", "600": "#5C5C6B",
+      "700": "#454452", "800": "#2E2D38", "900": "#1D1C24", "950": "#111017",
+      "1000": "#000000"
+    },
+    "red": {
+      "50": "#FDEFEF", "100": "#FAD4D4", "200": "#F4B1B1", "300": "#EF8E8E",
+      "400": "#E4686C", "500": "#D8434A", "600": "#B72E38", "700": "#8F212A",
+      "800": "#731922", "900": "#571119", "950": "#3B0B11"
+    },
+    "info": {
+      "50": "#EBF6FD", "100": "#CFEAFB", "200": "#A9D8F6", "300": "#84C7F1",
+      "400": "#56AEEB", "500": "#2E8CD6", "600": "#1D6DB0", "700": "#155187",
+      "800": "#103E69", "900": "#0B2E4E", "950": "#061C30"
+    },
+    "warning": {
+      "50": "#FFF8EA", "100": "#FEEBBE", "200": "#FCDB94", "300": "#FBCB6B",
+      "400": "#F2B244", "500": "#E89A1C", "600": "#C27A10", "700": "#95590A",
+      "800": "#784708", "900": "#5C3505", "950": "#382002"
+    }
+  },
+  "font": {
+    "family": "\"Inclusive Sans\", -apple-system, \"Segoe UI\", sans-serif",
+    "weight": { "regular": "400", "medium": "500", "semibold": "600", "bold": "700", "extrabold": "800" },
+    "letterSpacing": {
+      "tightest": "-0.1rem", "tighter": "-0.05rem", "tight": "-0.025rem", "snug": "-0.0125rem",
+      "normal": "0rem", "wide": "0.025rem", "wider": "0.05rem"
+    },
+    "size": {
+      "2xs": "0.75rem", "xs": "0.75rem", "sm": "0.875rem", "base": "1rem", "lg": "1.125rem",
+      "xl": "1.25rem", "2xl": "1.5rem", "3xl": "2rem", "4xl": "2.5rem", "5xl": "3rem"
+    },
+    "lineHeight": {
+      "2xs": "1.25rem", "xs": "1.25rem", "sm": "1.5", "base": "1.5", "lg": "1.75rem",
+      "xl": "1.75rem", "2xl": "2rem", "3xl": "2.5rem", "4xl": "3rem", "5xl": "3.75rem"
+    }
+  },
+  "spacing": {
+    "0": "0px", "2": "0.125rem", "3": "0.1875rem", "4": "0.25rem", "5": "0.3125rem",
+    "6": "0.375rem", "8": "0.5rem", "10": "0.625rem", "12": "0.75rem", "14": "0.875rem",
+    "16": "1rem", "18": "1.125rem", "20": "1.25rem", "22": "1.375rem", "24": "1.5rem",
+    "28": "1.75rem", "30": "1.875rem", "32": "2rem", "36": "2.25rem", "40": "2.5rem",
+    "48": "3rem", "56": "3.5rem", "64": "4rem", "72": "4.5rem", "80": "5rem"
+  },
+  "layout": {
+    "dropsidePaddingX": "1rem",
+    "headerHeight": "3.5rem",
+    "sidebarRailWidth": "7.5rem",
+    "sidebarColumn": "320px",
+    "asidePanel": "260px",
+    "asidePanelSm": "240px",
+    "chartHeight": "280px",
+    "donutChart": "220px",
+    "scoreRingLg": "140px",
+    "scoreRingMd": "112px",
+    "formMaxW": "400px",
+    "cardMaxW": "720px",
+    "wizardMaxW": "640px",
+    "loginFormMaxW": "360px",
+    "loginBrandMaxW": "440px",
+    "logoHeight": "24px",
+    "mobileNavOffset": "80px",
+    "filterMinW": "180px",
+    "selectMinW": "200px",
+    "planSelectMinW": "280px"
+  },
+  "chart": {
+    "series01": "#173D80",
+    "series02": "#178737",
+    "series03": "#037EA0",
+    "series04": "#EC9418",
+    "series05": "#C92830",
+    "series06": "#456499",
+    "series07": "#3E9B59",
+    "series08": "#2E94B0",
+    "series09": "#F2B244",
+    "series10": "#E4535A",
+    "series11": "#8b5cf6"
+  }
+}

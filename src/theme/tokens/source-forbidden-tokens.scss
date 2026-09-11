@@ -1,0 +1,111 @@
+/**
+ * FORBIDDEN THEME PALETTE TOKENS
+ *
+ * ⚠️ DO NOT USE these variables directly in application code, components,
+ * stylesheets, or new feature development.
+ *
+ * These tokens are internal implementation details and are not part of the
+ * public theme API. Use the variables exposed through `variables.scss` instead.
+ *
+ * If any variable from this file is currently being used directly,
+ * please update the reference in `variables.scss` and rename the variable
+ * according to the appropriate semantic context.
+ */
+
+:root {
+  /* ---------------------------------------------------------------------------------- */
+  /* Primitive Colors */
+  /* ---------------------------------------------------------------------------------- */
+
+  /* Primary colors --------------------------------------------------------------------------*/
+  --theme-primitive-color-primary-50: #E8ECF2;
+  --theme-primitive-color-primary-100: #B7C3D8;
+  --theme-primitive-color-primary-200: #94A6C5;
+  --theme-primitive-color-primary-300: #647DAA;
+  --theme-primitive-color-primary-400: #456499;
+  --theme-primitive-color-primary-500: #173D80;
+  --theme-primitive-color-primary-600: #153874;
+  --theme-primitive-color-primary-700: #152849;
+  --theme-primitive-color-primary-750: #132037;
+  --theme-primitive-color-primary-800: #111826;
+  --theme-primitive-color-primary-850: #0D1625;
+  --theme-primitive-color-primary-900: #091425;
+
+  /* Green --------------------------------------------------------------------------*/
+
+  --theme-colors-green-100: #e8f3eb;
+  --theme-colors-green-200: #a0cead;
+  --theme-colors-green-300: #78b98b;
+  --theme-colors-green-400: #3e9b59;
+  --theme-colors-green-500: #178737;
+  --theme-colors-green-600: #105f27;
+  --theme-colors-green-700: #0e5222;
+  --theme-colors-green-800: #073815;
+  --theme-colors-green-900: #03260d;
+
+  /* Neutral colors --------------------------------------------------------------------------*/
+
+  --theme-colors-neutral-grey-black: #0a0a0a;
+  --theme-colors-neutral-50: #cccccc;
+  --theme-colors-neutral-100: #969696;
+  --theme-colors-neutral-200: #707070;
+  --theme-colors-neutral-300: #575757;
+  --theme-colors-neutral-400: #3d3d3d;
+  --theme-colors-neutral-500: #292929;
+  --theme-colors-neutral-600: #242424;
+  --theme-colors-neutral-700: #1f1f1f;
+  --theme-colors-neutral-800: #1a1a1a;
+  --theme-colors-neutral-900: #121212;
+
+  /* Light Grey --------------------------------------------------------------------------*/
+
+  --theme-colors-neutral-lightgrey-white: #ffffff;
+  --theme-colors-neutral-lightgrey-50: #f5f5f5;
+  --theme-colors-neutral-lightgrey-100: #ededed;
+  --theme-colors-neutral-lightgrey-200: #e6e6e6;
+  --theme-colors-neutral-lightgrey-300: #e0e0e0;
+  --theme-colors-neutral-lightgrey-400: #d9d9d9;
+  --theme-colors-neutral-lightgrey-500: #cfcfcf;
+  --theme-colors-neutral-lightgrey-600: #c4c4c4;
+  --theme-colors-neutral-lightgrey-700: #b8b8b8;
+  --theme-colors-neutral-lightgrey-800: #b0b0b0;
+  --theme-colors-neutral-lightgrey-900: #a8a8a8;
+
+  /* Red --------------------------------------------------------------------------*/
+
+  --theme-colors-red-100: #fceaeb;
+  --theme-colors-red-200: #f2aaad;
+  --theme-colors-red-300: #ec878c;
+  --theme-colors-red-400: #e4535a;
+  --theme-colors-red-500: #c92830;
+  --theme-colors-red-600: #9c2227;
+  --theme-colors-red-700: #881d22;
+  --theme-colors-red-800: #590e0e;
+  --theme-colors-red-900: #1f0505;
+
+  /* Teal --------------------------------------------------------------------------*/
+
+  --theme-colors-teal-100: #e6f2f6;
+  --theme-colors-teal-200: #98cad8;
+  --theme-colors-teal-300: #6db4c8;
+  --theme-colors-teal-400: #2e94b0;
+  --theme-colors-teal-500: #037ea0;
+  --theme-colors-teal-600: #025870;
+  --theme-colors-teal-700: #024d62;
+  --theme-colors-teal-800: #013645;
+  --theme-colors-teal-900: #011c24;
+
+  /* Yellow --------------------------------------------------------------------------*/
+
+  --theme-colors-yellow-100: #fdf4e8;
+  --theme-colors-yellow-200: #f7d3a0;
+  --theme-colors-yellow-300: #f4c179;
+  --theme-colors-yellow-400: #efa63f;
+  --theme-colors-yellow-500: #ec9418;
+  --theme-colors-yellow-600: #a56811;
+  --theme-colors-yellow-700: #905a0f;
+  --theme-colors-yellow-800: #362106;
+  --theme-colors-yellow-900: #170e03;
+
+}
+
