@@ -317,6 +317,82 @@
 .ds-logo-variant .ds-logo-preview img{max-height:48px;max-width:200px;object-fit:contain}
 .ds-logo-variant code{font-size:var(--text-body-xs-size);color:var(--muted);word-break:break-all}
 
+/* ---------- Baseline color boards (light/dark side by side) ---------- */
+.ds-baseline-boards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--space-4);margin-bottom:var(--space-6)}
+.ds-baseline-board{border:1px solid var(--line);border-radius:var(--radius-xl);overflow:hidden;background:var(--panel)}
+.ds-baseline-board-title{padding:var(--space-3) var(--space-4);font-size:var(--text-caption-size);font-weight:800;text-transform:uppercase;letter-spacing:var(--ls-wide);color:var(--muted);border-bottom:1px solid var(--line);background:var(--surface-2)}
+.ds-baseline-board-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:var(--space-2-5);padding:var(--space-3-5)}
+.ds-baseline-swatch{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel);cursor:pointer;padding:var(--space-0);font:inherit;text-align:left}
+.ds-baseline-swatch:hover{box-shadow:var(--shadow-lg)}
+.ds-baseline-swatch-fill{height:40px;border-bottom:1px solid var(--line)}
+.ds-baseline-swatch-meta{display:flex;flex-direction:column;padding:var(--space-1-5) var(--space-2)}
+.ds-baseline-swatch-meta b{font-size:var(--text-body-xs-size);font-weight:700;color:var(--ink)}
+.ds-baseline-swatch-meta code{font-size:var(--text-xs-size);color:var(--muted);font-family:ui-monospace,monospace}
+.ds-baseline-swatch-meta span{font-size:var(--text-xs-size);color:var(--ink-soft);font-family:ui-monospace,monospace;text-transform:uppercase}
+
+/* ---------- Brand color sandbox demo ---------- */
+.ds-brand-sandbox{
+  border:1px dashed var(--line-strong);border-radius:var(--radius-xl);padding:var(--space-4) var(--space-5);
+  margin-bottom:var(--space-6);background:var(--surface-2)
+}
+.ds-brand-sandbox-controls{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-4)}
+.ds-brand-sandbox-presets{display:flex;gap:var(--space-1-5)}
+.ds-brand-sandbox-preset{width:28px;height:28px;border-radius:50%;border:2px solid var(--panel);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:var(--space-0)}
+.ds-brand-sandbox-preset.active{box-shadow:0 0 0 2px var(--brand)}
+.ds-brand-sandbox-picker{display:inline-flex;align-items:center;gap:var(--space-1-5);font-size:var(--text-body-xs-size);color:var(--ink-soft);cursor:pointer}
+.ds-brand-sandbox-picker input[type="color"]{width:28px;height:28px;border:1px solid var(--line);border-radius:8px;padding:var(--space-0);cursor:pointer;background:none}
+.ds-brand-sandbox-controls code{font-size:var(--text-xs-size);color:var(--muted);font-family:ui-monospace,monospace;text-transform:uppercase}
+.ds-brand-sandbox-swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:var(--space-2-5)}
+.ds-brand-sandbox-swatch{
+  height:56px;border-radius:10px;border:1px solid var(--line);display:flex;align-items:flex-end;
+  padding:var(--space-1-5) var(--space-2);font-size:var(--text-xs-size);font-weight:700;color:#fff;
+  text-shadow:0 1px 2px rgba(0,0,0,.35)
+}
+
+/* ---------- Grid foundations demo ---------- */
+.ds-grid-lede{margin-bottom:var(--space-3)}
+.ds-grid-row{display:flex;gap:var(--space-1-5);margin-bottom:var(--space-2-5)}
+.ds-grid-col{
+  height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:var(--text-caption-size);font-weight:700;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3)
+}
+.ds-grid-col.empty{background:transparent !important;border:1px dashed var(--line-strong);color:var(--muted);text-shadow:none}
+.ds-grid-usage-card{padding:var(--space-4) var(--space-5)}
+.ds-grid-usage-item{padding:var(--space-3) var(--space-0);border-bottom:1px solid var(--line)}
+.ds-grid-usage-item:last-child{border-bottom:none}
+.ds-grid-usage-item b{display:block;color:var(--ink);margin-bottom:var(--space-1)}
+.ds-grid-usage-item code{display:block;font-size:var(--text-body-xs-size);color:var(--brand);background:var(--surface-2);padding:var(--space-1-5) var(--space-2-5);border-radius:6px;margin-top:var(--space-1);overflow-x:auto;white-space:pre}
+
+/* ---------- Three-column shell: right-hand "On this page" rail ---------- */
+.ds-toc{
+  width:200px;flex:0 0 200px;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;
+  padding:var(--space-6) var(--space-4) var(--space-14) var(--space-3);border-left:1px solid var(--line)
+}
+.ds-toc-title{font-size:var(--text-xs-size);font-weight:800;text-transform:uppercase;letter-spacing:var(--ls-wider);color:var(--muted);margin-bottom:var(--space-2-5)}
+.ds-toc a{
+  display:block;padding:var(--space-1-5) var(--space-2-5);border-left:2px solid transparent;font-size:var(--text-caption-size);
+  font-weight:600;color:var(--ink-soft);text-decoration:none;line-height:1.4
+}
+.ds-toc a:hover{color:var(--ink)}
+.ds-toc a.active{border-left-color:var(--brand);color:var(--brand)}
+@media(max-width:1180px){.ds-toc{display:none}}
+
+/* ---------- Prev / Next page navigation ---------- */
+.ds-pagenav{display:flex;justify-content:space-between;gap:var(--space-4);margin:var(--space-10) var(--space-0);max-width:var(--ds-content-max)}
+.ds-pagenav-btn{
+  flex:1 1 0;display:flex;flex-direction:column;gap:var(--space-1);border:1px solid var(--line);border-radius:var(--radius-lg);
+  padding:var(--space-3-5) var(--space-4);background:var(--panel);text-decoration:none;color:var(--ink);cursor:pointer;font:inherit
+}
+.ds-pagenav-btn:hover{border-color:var(--brand);box-shadow:var(--shadow)}
+.ds-pagenav-btn.next{text-align:right;align-items:flex-end}
+.ds-pagenav-dir{font-size:var(--text-xs-size);font-weight:800;text-transform:uppercase;letter-spacing:var(--ls-wide);color:var(--muted)}
+.ds-pagenav-label{font-size:var(--text-body-md-size);font-weight:700;color:var(--brand)}
+.ds-pagenav-spacer{flex:1 1 0}
+
+/* ---------- Sidebar logo ---------- */
+.ds-nav-logo{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-0) var(--space-3) var(--space-5)}
+.ds-nav-logo img{height:36px;width:auto;max-width:200px;object-fit:contain}
+
 /* Legacy aliases — prefer real app classes (.btn-danger, .icon-btn-sm) */
 .ds-btn-danger{background:var(--red);color:var(--brand-text-primary-oncolor);border-color:transparent}
 .ds-icon-btn-sm{width:var(--icon-btn-size-sm) !important;height:var(--icon-btn-size-sm) !important}

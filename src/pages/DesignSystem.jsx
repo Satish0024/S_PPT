@@ -25,6 +25,7 @@ const NAV = [
     { id: 'type', label: 'Typography' },
     { id: 'icons', label: 'Icons' },
     { id: 'space', label: 'Spacing & radius' },
+    { id: 'grid', label: 'Grid' },
     { id: 'elevation', label: 'Elevation' },
   ] },
   { group: 'Components', items: [
@@ -63,30 +64,55 @@ const COLORS = [
 // name, var — hex values are resolved live (see useDualThemeTokens) from
 // whichever brand build is actually running, never hardcoded, so this table
 // is correct on every brand (CORE, Saturna, LendGuard, or any future one).
+// Categories follow the M3 "baseline color tokens" language (Primary /
+// Secondary / Tertiary / Error / Neutral-Surface / Neutral-Text /
+// Neutral-Border), mapped onto our REAL token groups — no invented tokens.
 const COLOR_GROUPS = [
-  { title: 'Brand', tokens: [
+  { title: 'Primary (brand)', tokens: [
     ['Brand', '--brand'], ['Brand dark (hover)', '--brand-dark'], ['Brand fill (solid surfaces)', '--brand-fill'],
     ['Accent', '--accent'], ['Link', '--link'],
   ] },
-  { title: 'Neutrals', tokens: [
-    ['Ink (primary text)', '--ink'], ['Ink soft (secondary text)', '--ink-soft'], ['Muted (tertiary text)', '--muted'],
-    ['Line (border)', '--line'], ['Line strong (emphasized border)', '--line-strong'], ['Background', '--bg'],
-    ['Panel', '--panel'], ['Surface 2', '--surface-2'], ['Surface 3', '--surface-3'],
-    ['Active bg', '--active-bg'], ['Hover bg', '--hover-bg'],
-  ] },
-  { title: 'Status — success', tokens: [
+  { title: 'Secondary (success / green)', tokens: [
     ['Green', '--green'], ['Green bg', '--green-bg'], ['Green line', '--green-line'],
   ] },
-  { title: 'Status — warning', tokens: [
+  { title: 'Tertiary (warning / amber)', tokens: [
     ['Amber', '--amber'], ['Amber bg', '--amber-bg'], ['Amber line', '--amber-line'],
   ] },
-  { title: 'Status — danger', tokens: [
+  { title: 'Error (danger / red)', tokens: [
     ['Red', '--red'], ['Red bg', '--red-bg'], ['Red line', '--red-line'],
   ] },
-  { title: 'Chart colors — primary palette (use first 6 for most charts)', tokens: [
+  { title: 'Neutral — surface', tokens: [
+    ['Background', '--bg'], ['Panel', '--panel'], ['Surface 2', '--surface-2'], ['Surface 3', '--surface-3'],
+    ['Active bg', '--active-bg'], ['Hover bg', '--hover-bg'],
+  ] },
+  { title: 'Neutral — text', tokens: [
+    ['Ink (primary text)', '--ink'], ['Ink soft (secondary text)', '--ink-soft'], ['Muted (tertiary text)', '--muted'],
+  ] },
+  { title: 'Neutral — border', tokens: [
+    ['Line (border)', '--line'], ['Line strong (emphasized border)', '--line-strong'],
+  ] },
+  { title: 'Add-ons — chart colors (use first 6 for most charts)', tokens: [
     ['Chart 1 (brand)', '--chart-1'], ['Chart 2 (green)', '--chart-2'], ['Chart 3 (amber)', '--chart-3'],
     ['Chart 4 (red)', '--chart-4'], ['Chart 5 (accent)', '--chart-5'], ['Chart 6 (purple)', '--chart-6'],
   ] },
+]
+
+// Core roles shown on the light/dark "Baseline colors" board — a curated
+// subset of COLOR_GROUPS' tokens representing each M3-style role.
+const BASELINE_BOARD_ROLES = [
+  { role: 'Primary', var: '--brand' },
+  { role: 'Secondary', var: '--green' },
+  { role: 'Tertiary', var: '--amber' },
+  { role: 'Error', var: '--red' },
+  { role: 'Surface', var: '--panel' },
+  { role: 'Surface (bg)', var: '--bg' },
+  { role: 'Surface 2', var: '--surface-2' },
+  { role: 'Surface 3', var: '--surface-3' },
+  { role: 'Text', var: '--ink' },
+  { role: 'Text (soft)', var: '--ink-soft' },
+  { role: 'Text (muted)', var: '--muted' },
+  { role: 'Border', var: '--line' },
+  { role: 'Border (strong)', var: '--line-strong' },
 ]
 
 // Illustrative tint/shade ramp derived live from --brand via CSS color-mix —
@@ -197,6 +223,22 @@ const SPACE_SEMANTIC = [
     { name: '--page-padding-*-md', px: '20 / 16 / 40', use: 'Tablet page padding (y/x/bottom)' },
     { name: '--page-padding-*-sm', px: '16 / 16 / 32', use: 'Mobile page padding (y/x/bottom)' },
   ]},
+]
+
+/** 12-column grid demo rows — column spans out of 12, with a display fraction/percent label. */
+const GRID_ROWS = [
+  { label: 'Full width', tint: 0, cols: [{ span: 12, text: '12/12 · 100%' }] },
+  { label: 'Halves', tint: 15, cols: [{ span: 6, text: '6/12 · 50%' }, { span: 6, text: '6/12 · 50%' }] },
+  { label: 'Thirds', tint: 30, cols: [{ span: 4, text: '4/12 · 33.33%' }, { span: 4, text: '4/12 · 33.33%' }, { span: 4, text: '4/12 · 33.33%' }] },
+  { label: 'Quarters', tint: 45, cols: [{ span: 3, text: '3/12 · 25%' }, { span: 3, text: '3/12 · 25%' }, { span: 3, text: '3/12 · 25%' }, { span: 3, text: '3/12 · 25%' }] },
+  { label: 'Asymmetric split', tint: 15, cols: [{ span: 8, text: '8/12 · 66.66%' }, { span: 4, text: '4/12 · 33.33%' }] },
+]
+
+/** Real grid usages already in the app — genuine selectors/columns, not invented. */
+const REAL_GRID_USAGES = [
+  { name: 'Dashboard layout (main + side column)', selector: '.dash-layout', file: 'src/styles/index.css', def: 'display:grid; grid-template-columns: 7fr 3fr;' },
+  { name: "Dashboard ‘My Plans’ card grid", selector: '.plans-grid', file: 'src/styles/index.css', def: 'display:grid; grid-template-columns: repeat(2, minmax(0, 1fr));' },
+  { name: 'Account Summary shell (nav + content)', selector: '.as-shell', file: 'src/styles/account-summary.css', def: 'display:grid; grid-template-columns: minmax(260px,300px) minmax(0,1fr);' },
 ]
 
 const KEYBOARD_ROWS = [
@@ -381,6 +423,54 @@ function useScrollSpy(ids) {
   return active
 }
 
+function slugify(text) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+}
+
+/**
+ * Builds the "On this page" list for the CURRENTLY ACTIVE section: its own
+ * <h3 className="ds-sub"> sub-headings (falling back to the section's own
+ * <h2> when it has none), assigning a stable id derived from the heading
+ * text if one isn't already present. Reuses the same rAF-free scroll
+ * listener pattern as useScrollSpy, scoped to just these ids so it never
+ * fights with the left-nav's own scroll spy.
+ */
+function useOnPageHeadings(activeSectionId) {
+  const [headings, setHeadings] = useState([])
+  const [activeHeading, setActiveHeading] = useState(null)
+
+  useEffect(() => {
+    const section = document.getElementById(activeSectionId)
+    if (!section) { setHeadings([]); return }
+    const subs = Array.from(section.querySelectorAll('h3.ds-sub'))
+    const nodes = subs.length > 0 ? subs : Array.from(section.querySelectorAll(':scope > h2'))
+    const list = nodes.map((el) => {
+      if (!el.id) el.id = `${activeSectionId}--${slugify(el.textContent || '')}`
+      return { id: el.id, label: el.textContent }
+    })
+    setHeadings(list)
+    setActiveHeading(list[0]?.id ?? null)
+  }, [activeSectionId])
+
+  useEffect(() => {
+    if (headings.length === 0) return
+    const ids = headings.map((h) => h.id)
+    const onScroll = () => {
+      let current = ids[0]
+      for (const id of ids) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top - 100 <= 0) current = id
+      }
+      setActiveHeading(current)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [headings])
+
+  return { headings, activeHeading }
+}
+
 function Code({ children }) {
   return (
     <div className="ds-code-wrap">
@@ -443,11 +533,61 @@ function Component({ id, title, desc, tags = [], demo, dos = [], donts = [], cod
   )
 }
 
+/**
+ * Scoped "try a different brand color" sandbox for the Color section.
+ * Sets --brand only on this wrapper div (never :root) so the demo never
+ * leaks into the rest of the page/app. Every derived swatch below reads
+ * var(--brand) via the same color-mix() formulas the real app CSS uses.
+ */
+function BrandColorSandbox() {
+  const PRESETS = ['#0270a9', '#7c3aed', '#e11d48', '#059669', '#ea580c']
+  const [color, setColor] = useState(PRESETS[0])
+  return (
+    <div className="ds-brand-sandbox" style={{ '--brand': color }}>
+      <div className="ds-brand-sandbox-controls">
+        <div className="ds-brand-sandbox-presets">
+          {PRESETS.map((p) => (
+            <button
+              key={p}
+              type="button"
+              className={`ds-brand-sandbox-preset${p === color ? ' active' : ''}`}
+              style={{ background: p }}
+              aria-label={`Use ${p} as brand color`}
+              onClick={() => setColor(p)}
+            />
+          ))}
+        </div>
+        <label className="ds-brand-sandbox-picker">
+          <input type="color" value={color} onChange={(e) => setColor(e.target.value)} aria-label="Pick a custom brand color" />
+          <span>Custom…</span>
+        </label>
+        <code>{color}</code>
+      </div>
+      <div className="ds-brand-sandbox-swatches">
+        <div className="ds-brand-sandbox-swatch" style={{ background: 'var(--brand)' }}><span>Primary</span></div>
+        <div className="ds-brand-sandbox-swatch" style={{ background: 'color-mix(in srgb, var(--brand) 70%, black)' }}><span>Brand dark</span></div>
+        <div className="ds-brand-sandbox-swatch" style={{ background: 'color-mix(in srgb, var(--brand) 25%, white)' }}><span>Secondary tint</span></div>
+        <div className="ds-brand-sandbox-swatch" style={{ background: 'color-mix(in srgb, var(--brand) 55%, black)' }}><span>Tertiary shade</span></div>
+        <div className="ds-brand-sandbox-swatch" style={{ background: 'color-mix(in srgb, var(--brand) 10%, white)' }}><span>Error-analog tint</span></div>
+        <div className="ds-brand-sandbox-swatch" style={{ background: 'color-mix(in srgb, var(--brand) 8%, white)', color: 'color-mix(in srgb, var(--brand) 80%, black)' }}><span>Surface</span></div>
+      </div>
+    </div>
+  )
+}
+
 export default function DesignSystem() {
-  const ids = NAV.flatMap((g) => g.items.map((i) => i.id))
+  const flatItems = NAV.flatMap((g) => g.items)
+  const ids = flatItems.map((i) => i.id)
   const active = useScrollSpy(ids)
+  const { headings: onPageHeadings, activeHeading } = useOnPageHeadings(active)
+  const activeIndex = flatItems.findIndex((i) => i.id === active)
+  const prevItem = activeIndex > 0 ? flatItems[activeIndex - 1] : null
+  const nextItem = activeIndex >= 0 && activeIndex < flatItems.length - 1 ? flatItems[activeIndex + 1] : null
   const tokenValues = useResolvedTokens(COLORS.map(([, v]) => v))
-  const dualTokens = useDualThemeTokens(COLOR_GROUPS.flatMap((g) => g.tokens.map(([, v]) => v)))
+  const dualTokens = useDualThemeTokens([
+    ...COLOR_GROUPS.flatMap((g) => g.tokens.map(([, v]) => v)),
+    ...BASELINE_BOARD_ROLES.map((r) => r.var),
+  ])
   const { theme, toggle } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef(null)
@@ -471,10 +611,6 @@ export default function DesignSystem() {
     <div className="ds">
       <header className="ds-top">
         <div className="ds-logo">
-          <img
-            src={theme === 'dark' ? '/core-logo-dark.svg' : '/core-logo.svg'}
-            alt="Design System"
-          />
           <span className="ds-logo-title">Design System</span>
         </div>
         <div className="ds-meta">
@@ -534,6 +670,12 @@ export default function DesignSystem() {
 
       <div className="ds-shell">
         <nav className="ds-nav" aria-label="Design system sections">
+          <div className="ds-nav-logo">
+            <img
+              src={theme === 'dark' ? '/core-logo-dark.svg' : '/core-logo.svg'}
+              alt={`${BRAND.name} logo`}
+            />
+          </div>
           {NAV.map((g) => (
             <div key={g.group} className="ds-nav-group">
               <h4>{g.group}</h4>
@@ -573,6 +715,10 @@ export default function DesignSystem() {
           {/* ---------------- OVERVIEW / PRINCIPLES ---------------- */}
           <section id="overview" className="ds-section">
             <h2>Overview</h2>
+            <p className="ds-lede">
+              This design system documents the components, tokens, and patterns used to build the{' '}
+              <b>{BRAND.name}</b> Participant Portal.
+            </p>
             <p className="ds-lede">
               The portal ships as one React codebase with three brand skins selected by build
               branch. Every component below is pulled from the real app CSS — no separate mockup
@@ -629,6 +775,50 @@ export default function DesignSystem() {
               always shows the page's <b>current</b> theme; the tables further down show
               <b> both</b> light and dark values side by side, plus the neutral and status ramps.
             </p>
+
+            <h3 className="ds-sub">Baseline colors</h3>
+            <p className="ds-lede">
+              The full palette, side by side in both themes — read live from <code>dualTokens</code>,
+              never assumed.
+            </p>
+            <div className="ds-baseline-boards">
+              {['light', 'dark'].map((mode) => (
+                <div key={mode} className="ds-baseline-board" data-mode={mode}>
+                  <div className="ds-baseline-board-title">{mode === 'light' ? 'Light theme' : 'Dark theme'}</div>
+                  <div className="ds-baseline-board-grid">
+                    {BASELINE_BOARD_ROLES.map(({ role, var: v }) => {
+                      const hex = dualTokens[mode][v]
+                      return (
+                        <button
+                          key={v}
+                          type="button"
+                          className="ds-baseline-swatch"
+                          onClick={() => hex && copyToClipboard(hex)}
+                          title={`Copy ${v} (${mode})`}
+                        >
+                          <span className="ds-baseline-swatch-fill" style={{ background: hex }} />
+                          <span className="ds-baseline-swatch-meta">
+                            <b>{role}</b>
+                            <code>{v}</code>
+                            <span>{hex}</span>
+                          </span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <h3 className="ds-sub">Try a different brand color</h3>
+            <p className="ds-lede">
+              This is the actual mechanism a white-label rebrand uses — change <code>--brand</code> once,
+              every derived tone below updates with it. Try it:
+            </p>
+            <BrandColorSandbox />
+
+            <h3 className="ds-sub">Baseline color tokens</h3>
+            <p className="ds-lede">Current theme, grouped by category — click any swatch to copy its value.</p>
             <div className="ds-token-grid">
               {COLORS.map(([name, varName]) => {
                 const hex = tokenValues[varName]
@@ -905,6 +1095,65 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
               <div className="ds-panel">
                 <div className="ds-panel-row"><b>Radius — </b>8px (--radius-sm) buttons/inputs, 14px (--radius-lg) cards, 999px pills.</div>
               </div>
+            </div>
+          </section>
+
+          {/* ---------------- GRID ---------------- */}
+          <section id="grid" className="ds-section">
+            <h2>Grid</h2>
+            <p className="ds-lede ds-grid-lede">
+              This app does not enforce a single global grid system today — real pages use ad hoc
+              flex layouts and per-component <code>grid-template-columns</code>. The 12-column
+              reference below is a <b>new proposed convention</b> for Figma handoff and future
+              layout consistency, not a retroactive claim about existing code.
+            </p>
+            <div className="ds-card">
+              <div style={{ padding: 'var(--space-4) var(--space-5)' }}>
+                {GRID_ROWS.map((row) => (
+                  <div key={row.label}>
+                    <div className="ds-demo-label">{row.label}</div>
+                    <div className="ds-grid-row">
+                      {row.cols.map((c, i) => (
+                        <div
+                          key={i}
+                          className="ds-grid-col"
+                          style={{
+                            flex: `${c.span} 1 0`,
+                            background: row.tint === 0 ? 'var(--brand)' : `color-mix(in srgb, var(--brand) ${100 - row.tint}%, white ${row.tint}%)`,
+                          }}
+                        >
+                          {c.text}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
+                <div className="ds-demo-label">Gutter example (16px gap)</div>
+                <div className="ds-grid-row" style={{ gap: 'var(--space-4)' }}>
+                  {[4, 4, 4].map((span, i) => (
+                    <div key={i} className="ds-grid-col" style={{ flex: `${span} 1 0`, background: 'color-mix(in srgb, var(--brand) 70%, white 30%)' }}>4/12</div>
+                  ))}
+                </div>
+
+                <div className="ds-demo-label">Offset example (leading empty column)</div>
+                <div className="ds-grid-row">
+                  <div className="ds-grid-col empty" style={{ flex: '3 1 0' }} />
+                  <div className="ds-grid-col" style={{ flex: '9 1 0', background: 'color-mix(in srgb, var(--brand) 85%, white 15%)' }}>Offset 3, span 9/12</div>
+                </div>
+              </div>
+            </div>
+
+            <h3 className="ds-sub">Real grid usages in the app today</h3>
+            <p className="ds-lede">For comparison — genuine <code>display:grid</code> containers already shipping, named as-is.</p>
+            <div className="ds-card ds-grid-usage-card">
+              {REAL_GRID_USAGES.map((u) => (
+                <div key={u.selector} className="ds-grid-usage-item">
+                  <b>{u.name}</b>
+                  <span style={{ color: 'var(--muted)', fontSize: 'var(--text-caption-size)' }}>{u.selector} — {u.file}</span>
+                  <code>{u.def}</code>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -1320,11 +1569,35 @@ const { listening, start, stop: stopListening } = useVoiceNav(navigate)
             </div>
           </section>
 
+          <div className="ds-pagenav">
+            {prevItem ? (
+              <a href={`#${prevItem.id}`} className="ds-pagenav-btn prev">
+                <span className="ds-pagenav-dir">← Previous</span>
+                <span className="ds-pagenav-label">{prevItem.label}</span>
+              </a>
+            ) : <span className="ds-pagenav-spacer" />}
+            {nextItem ? (
+              <a href={`#${nextItem.id}`} className="ds-pagenav-btn next">
+                <span className="ds-pagenav-dir">Next →</span>
+                <span className="ds-pagenav-label">{nextItem.label}</span>
+              </a>
+            ) : <span className="ds-pagenav-spacer" />}
+          </div>
+
           <div style={{ borderTop: '1px solid var(--line)', paddingTop: 'var(--space-6)', fontSize: 'var(--text-caption-size)', color: 'var(--muted)', maxWidth: 'var(--ds-content-max)' }}>
             <MousePointerClick size={14} style={{ verticalAlign: -2, marginRight: 'var(--space-1-5)' }} />
             Generated from the live application codebase. Available at <code>/design-system</code> on every brand build.
           </div>
         </main>
+
+        {onPageHeadings.length > 0 && (
+          <aside className="ds-toc" aria-label="On this page">
+            <div className="ds-toc-title">On this page</div>
+            {onPageHeadings.map((h) => (
+              <a key={h.id} href={`#${h.id}`} className={activeHeading === h.id ? 'active' : ''}>{h.label}</a>
+            ))}
+          </aside>
+        )}
       </div>
     </div>
   )
