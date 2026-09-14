@@ -469,7 +469,7 @@ function line(series, data, order, hidden) {
     tension: 0.3,
     pointRadius: 4,
     pointHoverRadius: 6,
-    pointBackgroundColor: '#fff',
+    pointBackgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--panel').trim() || '#fff',
     pointBorderColor: series.color,
     pointBorderWidth: 2,
     borderWidth: 2.5,

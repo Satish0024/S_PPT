@@ -117,19 +117,19 @@
     --text-5xl-size: 3rem; --text-5xl-lh: 3.75rem;        /* 48/60 — ≥1.2× for large text */
 
     /* Display styles — hero / large numbers (lh ≥ 1.2×) */
-    --text-display-xl-size: 3rem; --text-display-xl-lh: 3.75rem; --text-display-xl-ls: -0.05rem; --text-display-xl-weight: 800; /* 48/60 */
-    --text-display-lg-size: 2rem; --text-display-lg-lh: 2.5rem; --text-display-lg-ls: -0.05rem; --text-display-lg-weight: 700; /* 32/40 — balance */
-    --text-display-md-size: 1.5rem; --text-display-md-lh: 2rem; --text-display-md-ls: -0.025rem; --text-display-md-weight: 700; /* 24/32 — stats */
-    --text-display-sm-size: 2.5rem; --text-display-sm-lh: 3rem; --text-display-sm-ls: -0.05rem; --text-display-sm-weight: 800; /* 40/48 — readiness */
+    /* Display — aligned to Muthu's Latest Format (DS v1.1) */
+    --text-display-xl-size: 3rem; --text-display-xl-lh: 1.25; --text-display-xl-ls: -0.8px; --text-display-xl-weight: 800; /* 48px */
+    --text-display-sm-size: 2.5rem; --text-display-sm-lh: 1.2; --text-display-sm-ls: -0.8px; --text-display-sm-weight: 800; /* 40px */
+    --text-display-lg-size: 2rem; --text-display-lg-lh: 1.25; --text-display-lg-ls: -0.8px; --text-display-lg-weight: 700; /* 32px */
+    --text-display-md-size: 1.5rem; --text-display-md-lh: 1.33; --text-display-md-ls: -0.4px; --text-display-md-weight: 700; /* 24px */
 
-    /* Heading styles H1–H6 — aligned to Core Design System v1.1
-       (packages/tokens/src/typography.json desktop sizes) */
-    --text-h1-size: 2rem; --text-h1-lh: 2.5rem; --text-h1-ls: -0.025rem; --text-h1-weight: 700; /* 32/40 — DS: 32px */
-    --text-h2-size: 1.75rem; --text-h2-lh: 2.275rem; --text-h2-ls: -0.021875rem; --text-h2-weight: 700; /* 28/36.4 — DS: 28px */
-    --text-h3-size: 1.5rem; --text-h3-lh: 2rem; --text-h3-ls: -0.01875rem; --text-h3-weight: 700; /* 24/32 — DS: 24px */
-    --text-h4-size: 1.25rem; --text-h4-lh: 1.75rem; --text-h4-ls: -0.0125rem; --text-h4-weight: 700; /* 20/28 — DS: 20px */
-    --text-h5-size: 1rem; --text-h5-lh: 1.5rem; --text-h5-ls: 0; --text-h5-weight: 700; /* 16/24 — DS: 16px */
-    --text-h6-size: 0.875rem; --text-h6-lh: 1.3125rem; --text-h6-ls: 0; --text-h6-weight: 700; /* 14/21 — DS: 14px */
+    /* Heading styles H1–H6 — aligned to Muthu's Latest Format (DS v1.1) */
+    --text-h1-size: 2rem; --text-h1-lh: 1.25; --text-h1-ls: -0.4px; --text-h1-weight: 700; /* 32px — DS: --text-h1-font-size */
+    --text-h2-size: 1.5rem; --text-h2-lh: 1.33; --text-h2-ls: -0.3px; --text-h2-weight: 700; /* 24px — DS: --text-h2-font-size */
+    --text-h3-size: 1.25rem; --text-h3-lh: 1.4; --text-h3-ls: -0.2px; --text-h3-weight: 700; /* 20px — DS: --text-h3-font-size */
+    --text-h4-size: 1rem; --text-h4-lh: 1.5; --text-h4-ls: 0; --text-h4-weight: 700; /* 16px — DS: --text-h4-font-size */
+    --text-h5-size: 1rem; --text-h5-lh: 1.5; --text-h5-ls: 0; --text-h5-weight: 700; /* 16px — DS: --text-h5-font-size */
+    --text-h6-size: 0.875rem; --text-h6-lh: 1.5; --text-h6-ls: 0; --text-h6-weight: 700; /* 14px — DS: --text-h6-font-size */
 
     /* Body text — unitless 1.5 lh for WCAG 1.4.12 Text Spacing */
     --text-body-lg-size: 1rem; --text-body-lg-lh: 1.5; --text-body-lg-weight: 400; /* 16 / 1.5 */
@@ -145,9 +145,9 @@
     --text-label-size: 0.875rem; --text-label-lh: 1.5; --text-label-weight: 700; --text-label-ls: 0; /* 14 / 1.5 */
 
     /* Caption / helper / eyebrow — 12px floor (never smaller) */
-    --text-caption-size: 0.75rem; --text-caption-lh: 1.5; --text-caption-weight: 500; --text-caption-ls: 0.025rem; /* 12 / 1.5 */
+    --text-caption-size: 0.75rem; --text-caption-lh: 1.5; --text-caption-weight: 500; --text-caption-ls: 0.4px; /* 12 / 1.5 — DS: 0.4px */
     --text-helper-size: 0.75rem; --text-helper-lh: 1.5; --text-helper-weight: 400; --text-helper-ls: 0; /* 12 / 1.5 */
-    --text-eyebrow-size: 0.75rem; --text-eyebrow-lh: 1.5; --text-eyebrow-weight: 800; --text-eyebrow-ls: 0.05rem; /* 12 / 1.5, uppercase */
+    --text-eyebrow-size: 0.75rem; --text-eyebrow-lh: 1.5; --text-eyebrow-weight: 800; --text-eyebrow-ls: 0.8px; /* 12 / 1.5, uppercase — DS: 0.8px */
 
     /* Button text */
     --text-button-lg-size: 1rem; --text-button-lg-lh: 1.5; --text-button-lg-weight: 700; /* 16 / 1.5 */
@@ -280,15 +280,18 @@
        as its own small scale rather than forced onto Tailwind's numbers,
        which would change the visual identity of every button/card/input
        in the app for no functional reason. */
-    /* Radius — aligned to Core DS v1.1 (primitives.json radius) */
-    --radius-xs: 4px; --radius-sm: 8px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-full: 9999px;
+    /* Radius — aligned to Muthu's Latest Format (DS v1.1)
+       sm=4px, md=8px, lg=16px. xs kept for 2px micro-radius. */
+    --radius-xs: 2px; --radius-sm: 0.25rem; --radius-md: 0.5rem; --radius-lg: 1rem; --radius-xl: 1.5rem; --radius-full: 9999px;
 
-    /* Elevation — DS v1.1 elevation ramp */
+    /* Elevation — aligned to Muthu's Latest Format (DS v1.1) */
     --elevation-0: none;
-    --elevation-1: 0 1px 2px rgba(17,16,23,0.06), 0 1px 1px rgba(17,16,23,0.04);
-    --elevation-2: 0 2px 6px rgba(17,16,23,0.08), 0 1px 2px rgba(17,16,23,0.05);
-    --elevation-3: 0 8px 16px rgba(17,16,23,0.10), 0 2px 4px rgba(17,16,23,0.06);
-    --elevation-4: 0 16px 32px rgba(17,16,23,0.14), 0 4px 8px rgba(17,16,23,0.08);
+    --elevation-01: 0px 2px 5px 0px var(--theme-colors-neutral-lightgrey-700, rgba(17,16,23,0.06));
+    --elevation-02: 0px 5px 18px -2px var(--theme-colors-neutral-lightgrey-600, rgba(17,16,23,0.08));
+    --elevation-03: 0px 8px 29px 1px var(--theme-colors-neutral-lightgrey-400, rgba(17,16,23,0.10));
+    /* Legacy aliases */
+    --elevation-1: var(--elevation-01); --elevation-2: var(--elevation-02);
+    --elevation-3: var(--elevation-03); --elevation-4: 0 16px 32px rgba(17,16,23,0.14), 0 4px 8px rgba(17,16,23,0.08);
 
     /* Focus ring — DS v1.1 component tokens */
     --focus-ring-color: var(--brand);
@@ -314,14 +317,158 @@
     /* Border widths — DS v1.1 */
     --border-hairline: 1px; --border-default: 1px; --border-thick: 2px; --border-focus: 2px;
 
-    /* DS typography bridge — map --typography-* names to our --text-* system */
-    --typography-font-family-sans: var(--font-family-sans);
-    --typography-heading-h1-size: var(--text-h1-size);
-    --typography-heading-h2-size: var(--text-h2-size);
-    --typography-heading-h3-size: var(--text-h3-size);
-    --typography-heading-h4-size: var(--text-h4-size);
-    --typography-heading-h5-size: var(--text-h5-size);
-    --typography-heading-h6-size: var(--text-h6-size);
+    /* ================================================================
+       MUTHU'S FORMAT — DS v1.1 SEMANTIC TOKEN BRIDGES
+       These map the DS's official naming convention to the portal's
+       internal token system. Use either naming convention in CSS;
+       both resolve to the same underlying value.
+       ================================================================ */
+
+    /* Brand Borders */
+    --brand-border-primary-default: var(--brand);
+    --brand-border-primary-hover: var(--brand-dark);
+    --brand-border-primary-disabled: var(--theme-primitive-color-primary-300, color-mix(in srgb, var(--brand) 40%, white));
+
+    /* Brand Text */
+    --brand-text-primary-default: var(--brand);
+    --brand-text-primary-hover: var(--brand-dark);
+    --brand-text-primary-active: var(--brand-dark);
+    --brand-text-primary-disabled: var(--theme-primitive-color-primary-300, color-mix(in srgb, var(--brand) 40%, white));
+    /* --brand-text-primary-oncolor: already defined above */
+
+    /* Brand Background */
+    --brand-background-primary-strong: var(--brand-fill);
+    --brand-background-primary-hover: var(--brand-dark);
+    --brand-background-primary-active: color-mix(in srgb, var(--brand) 70%, black);
+    --brand-background-primary-disabled: color-mix(in srgb, var(--brand) 25%, white);
+    --brand-background-primary-light: var(--active-bg);
+    --brand-background-primary-subtle: var(--hover-bg);
+
+    /* Neutral Text */
+    --neutral-text-default: var(--ink);
+    --neutral-text-subtle: var(--ink-soft);
+    --neutral-text-subtle-light: var(--muted);
+    --neutral-text-on-color: var(--brand-text-primary-oncolor);
+
+    /* Neutral Border */
+    --neutral-border-light: var(--line);
+    --neutral-border-strong: var(--line-strong);
+
+    /* Semantics — Critical */
+    --semantics-critical-border: var(--red-line, color-mix(in srgb, var(--red) 35%, var(--line)));
+    --semantics-critical-text: var(--red);
+    --semantics-critical-background-light: var(--red-bg);
+    --semantics-critical-background-strong: var(--red);
+
+    /* Semantics — Disabled */
+    --semantics-disabled-background: var(--surface-2);
+    --semantics-disabled-border: var(--line-strong);
+    --semantics-disabled-text: var(--muted);
+
+    /* Semantics — Highlight (teal) */
+    --semantics-highlight-border: var(--theme-colors-teal-600, #0d9488);
+    --semantics-highlight-text: var(--theme-colors-teal-500, #14b8a6);
+    --semantics-highlight-background-light: var(--theme-colors-teal-100, #ccfbf1);
+    --semantics-highlight-background-strong: var(--theme-colors-teal-500, #14b8a6);
+
+    /* Semantics — Success */
+    --semantics-success-border: var(--green-line, color-mix(in srgb, var(--green) 35%, var(--line)));
+    --semantics-success-text: var(--green);
+    --semantics-success-background-light: var(--green-bg);
+    --semantics-success-background-strong: var(--green);
+
+    /* Semantics — Warning */
+    --semantics-warning-border: var(--amber-line, color-mix(in srgb, var(--amber) 35%, var(--line)));
+    --semantics-warning-text: var(--amber);
+    --semantics-warning-background-light: var(--amber-bg);
+    --semantics-warning-background-strong: var(--amber);
+
+    /* Scrollbar */
+    --scrollbar-thumb: var(--muted);
+    --scrollbar-track: var(--surface-2);
+
+    /* Chart — DS v1.1 data-viz palette (Muthu's format) */
+    --chart-color-teal-700: var(--theme-colors-teal-700, #0f766e);
+    --chart-color-blue-600: var(--brand-dark);
+    --chart-color-purple-500: #8e3f91;
+    --chart-color-yellow-500: var(--amber);
+    --chart-color-red-400: var(--red);
+    --chart-color-green-400: var(--green);
+    --chart-color-lightgrey-700: var(--line-strong);
+
+    /* Font size scale (Muthu's --fs-* format) */
+    --fs-0: 0; --fs-1: 0.0625rem; --fs-5: 0.3125rem; --fs-6: 0.375rem;
+    --fs-7: 0.4375rem; --fs-8: 0.5rem; --fs-9: 0.5625rem; --fs-10: 0.625rem;
+    --fs-11: 0.6875rem; --fs-12: 0.75rem; --fs-13: 0.8125rem; --fs-14: 0.875rem;
+    --fs-15: 0.9375rem; --fs-16: 1rem; --fs-17: 1.0625rem; --fs-18: 1.125rem;
+    --fs-19: 1.1875rem; --fs-20: 1.25rem; --fs-21: 1.3125rem; --fs-22: 1.375rem;
+    --fs-24: 1.5rem; --fs-25: 1.5625rem; --fs-26: 1.625rem; --fs-28: 1.75rem;
+    --fs-29: 1.8125rem; --fs-30: 1.875rem; --fs-32: 2rem; --fs-36: 2.25rem;
+    --fs-40: 2.5rem; --fs-48: 3rem; --fs-50: 3.125rem; --fs-56: 3.5rem;
+    --fs-60: 3.75rem; --fs-72: 4.5rem; --fs-88: 5.5rem; --fs-96: 6rem;
+
+    /* Font weight aliases (Muthu's format) */
+    --font-regular: var(--font-weight-regular);
+    --font-medium: var(--font-weight-medium);
+    --font-semi-bold: var(--font-weight-semibold);
+    --font-bold: var(--font-weight-bold);
+    --font-extrabold: var(--font-weight-extrabold);
+    --font-family: var(--font-family-sans);
+
+    /* Spacing (Muthu's --spacing-* format) */
+    --spacing-4: 0.25rem; --spacing-6: 0.375rem; --spacing-8: 0.5rem;
+    --spacing-10: 0.625rem; --spacing-12: 0.75rem; --spacing-14: 0.875rem;
+    --spacing-16: 1rem; --spacing-18: 1.25rem; --spacing-24: 1.5rem; --spacing-32: 2rem;
+
+    /* Width tokens (Muthu's format) */
+    --w-xs: 9.375rem; --w-sm: 12.5rem; --w-md: 15.625rem; --w-lg: 18.75rem; --w-xl: 21.875rem;
+
+    /* Muthu's typography composite tokens (bridge to our --text-* system) */
+    --text-h1-font-size: var(--text-h1-size); --text-h1-font-weight: var(--text-h1-weight);
+    --text-h1-line-height: var(--text-h1-lh); --text-h1-letter-spacing: var(--text-h1-ls);
+    --text-h2-font-size: var(--text-h2-size); --text-h2-font-weight: var(--text-h2-weight);
+    --text-h2-line-height: var(--text-h2-lh); --text-h2-letter-spacing: var(--text-h2-ls);
+    --text-h3-font-size: var(--text-h3-size); --text-h3-font-weight: var(--text-h3-weight);
+    --text-h3-line-height: var(--text-h3-lh); --text-h3-letter-spacing: var(--text-h3-ls);
+    --text-h4-font-size: var(--text-h4-size); --text-h4-font-weight: var(--text-h4-weight);
+    --text-h4-line-height: var(--text-h4-lh); --text-h4-letter-spacing: var(--text-h4-ls);
+    --text-h5-font-size: var(--text-h5-size); --text-h5-font-weight: var(--text-h5-weight);
+    --text-h5-line-height: var(--text-h5-lh); --text-h5-letter-spacing: var(--text-h5-ls);
+    --text-h6-font-size: var(--text-h6-size); --text-h6-font-weight: var(--text-h6-weight);
+    --text-h6-line-height: var(--text-h6-lh); --text-h6-letter-spacing: var(--text-h6-ls);
+    --text-display-xl-font-size: var(--text-display-xl-size); --text-display-xl-font-weight: var(--text-display-xl-weight);
+    --text-display-xl-line-height: var(--text-display-xl-lh); --text-display-xl-letter-spacing: var(--text-display-xl-ls);
+    --text-display-sm-font-size: var(--text-display-sm-size); --text-display-sm-font-weight: var(--text-display-sm-weight);
+    --text-display-sm-line-height: var(--text-display-sm-lh); --text-display-sm-letter-spacing: var(--text-display-sm-ls);
+    --text-display-lg-font-size: var(--text-display-lg-size); --text-display-lg-font-weight: var(--text-display-lg-weight);
+    --text-display-lg-line-height: var(--text-display-lg-lh); --text-display-lg-letter-spacing: var(--text-display-lg-ls);
+    --text-display-md-font-size: var(--text-display-md-size); --text-display-md-font-weight: var(--text-display-md-weight);
+    --text-display-md-line-height: var(--text-display-md-lh); --text-display-md-letter-spacing: var(--text-display-md-ls);
+    --text-body-lg-font-size: var(--text-body-lg-size); --text-body-lg-font-weight: var(--text-body-lg-weight);
+    --text-body-lg-line-height: var(--text-body-lg-lh); --text-body-lg-letter-spacing: 0;
+    --text-body-md-font-size: var(--text-body-md-size); --text-body-md-font-weight: var(--text-body-md-weight);
+    --text-body-md-line-height: var(--text-body-md-lh); --text-body-md-letter-spacing: 0;
+    --text-body-xs-font-size: var(--text-body-xs-size); --text-body-xs-font-weight: var(--text-body-xs-weight);
+    --text-body-xs-line-height: var(--text-body-xs-lh); --text-body-xs-letter-spacing: 0;
+    --text-label-font-size: var(--text-label-size); --text-label-font-weight: var(--text-label-weight);
+    --text-label-line-height: var(--text-label-lh); --text-label-letter-spacing: var(--text-label-ls);
+    --text-eyebrow-font-size: var(--text-eyebrow-size); --text-eyebrow-font-weight: var(--text-eyebrow-weight);
+    --text-eyebrow-line-height: var(--text-eyebrow-lh); --text-eyebrow-letter-spacing: var(--text-eyebrow-ls);
+    --text-eyebrow-text-transform: uppercase;
+    --text-caption-font-size: var(--text-caption-size); --text-caption-font-weight: var(--text-caption-weight);
+    --text-caption-line-height: var(--text-caption-lh); --text-caption-letter-spacing: var(--text-caption-ls);
+    --text-helper-font-size: var(--text-helper-size); --text-helper-font-weight: var(--text-helper-weight);
+    --text-helper-line-height: var(--text-helper-lh); --text-helper-letter-spacing: var(--text-helper-ls);
+    --text-button-lg-font-size: var(--text-button-lg-size); --text-button-lg-font-weight: var(--text-button-lg-weight);
+    --text-button-lg-line-height: var(--text-button-lg-lh); --text-button-lg-letter-spacing: 0;
+    --text-button-md-font-size: var(--text-button-md-size); --text-button-md-font-weight: var(--text-button-md-weight);
+    --text-button-md-line-height: var(--text-button-md-lh); --text-button-md-letter-spacing: 0;
+    --text-button-sm-font-size: var(--text-button-sm-size); --text-button-sm-font-weight: var(--text-button-sm-weight);
+    --text-button-sm-line-height: var(--text-button-sm-lh); --text-button-sm-letter-spacing: 0;
+    --text-link-font-size: var(--text-link-size); --text-link-font-weight: var(--text-link-weight);
+    --text-link-line-height: var(--text-link-lh); --text-link-letter-spacing: var(--text-link-ls);
+    --text-placeholder-font-size: var(--text-placeholder-size); --text-placeholder-font-weight: var(--text-placeholder-weight);
+    --text-placeholder-line-height: var(--text-placeholder-lh); --text-placeholder-letter-spacing: var(--text-placeholder-ls);
 
     /* Surfaces layered above --panel, and the border ramp. Added when the
        palette was consolidated for dark mode: the light theme previously
