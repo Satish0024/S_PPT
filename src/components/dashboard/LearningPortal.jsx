@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom'
-import { Icon } from '../../lib/icons'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 
 // Financial Wellness sidebar widget: a light, editorial content-discovery
@@ -33,7 +31,6 @@ export default function LearningPortal() {
           </p>
           <Link className="learn2-cta" to="/enrich">
             Know More
-            <Icon icon={faArrowRight} size={13} aria-hidden="true" />
           </Link>
         </div>
       </section>
@@ -49,7 +46,6 @@ export default function LearningPortal() {
         <p className="learn2-desc">Learn about planning, saving, investing wisely</p>
         <Link className="learn2-cta" to="/enrich">
           Know More
-          <Icon icon={faArrowRight} size={13} aria-hidden="true" />
         </Link>
       </div>
     </section>

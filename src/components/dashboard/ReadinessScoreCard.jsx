@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Icon } from '../../lib/icons'
-import { faArrowRight, faInfoCircle, faSlidersH } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser, isOptedOutUser } from '../../data/participants'
 import {
@@ -182,13 +182,11 @@ export default function ReadinessScoreCard() {
           <span className="rgs-foot-actions">
             {started && (
               <Link className="rgs-foot-link" to="/retirement-goal">
-                <Icon icon={faSlidersH} size={12} aria-hidden="true" />
                 Adjust deferral rate and goal
               </Link>
             )}
             <button type="button" className="rgs-foot-link" onClick={() => setOpen(true)}>
               Disclaimer
-              <Icon icon={faArrowRight} size={12} aria-hidden="true" />
             </button>
           </span>
         </div>

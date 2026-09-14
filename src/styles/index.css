@@ -2973,47 +2973,43 @@ summary:focus-visible {
 }
 .rgs-cta:hover { filter: brightness(1.12); }
 .rgs-cta:focus-visible { outline: 2px solid var(--rgs-arc-1); outline-offset: 2px; }
+/* Single row (wraps as one unit on very narrow cards, not forced onto
+   two rows every time) -- note and actions sit on the same baseline
+   instead of the note always sitting a full row above the links, which
+   read as uneven top/bottom spacing between the two. */
 .rgs-foot {
-  display: flex; flex-direction: column; align-items: stretch; gap:var(--space-2);
+  display: flex; flex-wrap: wrap; align-items: baseline; gap:var(--space-1) var(--space-3-5);
   margin:var(--space-4) var(--space-0) var(--space-0); padding-top:var(--space-3-5);
   border-top: 1px solid var(--rgs-glass-border);
   font-size:var(--text-2xs-size);
 }
 .rgs-foot-note {
-  display: flex; align-items: flex-start; gap:var(--space-1-5);
-  width: 100%; min-width: 0; margin:var(--space-0);
+  display: inline-flex; align-items: baseline; gap:var(--space-1-5);
+  flex: 1 1 auto; min-width: 0; margin:var(--space-0);
   color: var(--rgs-muted); line-height: 1.45;
 }
-.rgs-foot-note svg { flex: 0 0 auto; margin-top:var(--space-px); }
+.rgs-foot-note svg { flex: 0 0 auto; align-self: center; }
 .rgs-foot-note > span { flex: 1; min-width: 0; }
-.rgs-foot-note .rgs-foot-link {
-  display: inline;
-  color: var(--brand-text-primary-default);
-  font-weight: var(--font-weight-extrabold);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  padding:var(--space-0);
-  margin:var(--space-0);
-  white-space: normal;
-  vertical-align: baseline;
-}
 /* justify-content:space-between only pushes Disclaimer to the right edge
    when the Adjust link is also present -- with a single child (Adjust
    hidden pre-"started") it collapses to the left instead. Disclaimer gets
    its own margin-left:auto so it's pinned to the right end regardless of
    whether its sibling renders. */
-.rgs-foot-actions { display: flex; flex-wrap: wrap; align-items: center; gap:var(--space-1) var(--space-3-5); width: 100%; }
+.rgs-foot-actions { display: flex; flex-wrap: wrap; align-items: baseline; gap:var(--space-1) var(--space-3-5); flex: 0 0 auto; margin-left: auto; }
 .rgs-foot-actions .rgs-foot-link:last-child { margin-left: auto; }
 .rgs-foot-link {
   /* Padding + matching negative margin lift the click target to the WCAG
-     2.5.8 24px minimum without moving the visible text. */
-  display: inline-flex; align-items: center; gap:var(--space-1);
+     2.5.8 24px minimum without moving the visible text. Underlined by
+     default, brand-colored -- matches the DS's plain-text Link style
+     (no icon, sentence case, underline) rather than a muted button. */
+  display: inline-flex; align-items: baseline;
   font: inherit; font-size:var(--text-2xs-size); font-weight: var(--font-weight-bold);
-  color: var(--rgs-ink); background: none; border: none; cursor: pointer;
+  color: var(--brand-text-primary-default); background: none; border: none; cursor: pointer;
   flex: 0 0 auto; white-space: nowrap;
+  text-decoration: underline; text-underline-offset: 2px;
   padding:var(--space-1-5) var(--space-1); margin:calc(-1 * var(--space-1-5)) calc(-1 * var(--space-1)); border-radius:var(--radius-sm);
 }
-.rgs-foot-link:hover { text-decoration: underline; }
+.rgs-foot-link:hover { color: var(--brand-text-primary-hover); }
 .rgs-foot-link:focus-visible { outline: 2px solid var(--rgs-arc-1); outline-offset: 2px; }
 
 /* ---------- Financial Wellness ----------
@@ -3106,11 +3102,9 @@ summary:focus-visible {
   margin:calc(-1 * var(--space-1-5)) calc(-1 * var(--space-1));
   border-radius:var(--radius-sm);
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
-.learn2-cta svg { transition: transform var(--motion-base) ease; }
-.learn2-cta:hover svg { transform: translateX(3px); }
-.learn2-cta:hover { text-decoration: underline; }
 .learn2-cta:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; }
 
 /* Enrich variant (prototype review #79): same card shell as Financial
@@ -3233,7 +3227,6 @@ summary:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .learn2-field { animation: none; }
   .risk3-field { animation: none; }
-  .learn2-cta svg { transition: none; }
 }
 
 @media (max-width: 1080px) {
