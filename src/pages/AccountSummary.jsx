@@ -5,6 +5,8 @@ import { Doughnut } from 'react-chartjs-2'
 import { Icon } from '../lib/icons'
 import { faArrowLeft, faChevronDown, faDatabase, faChartPie } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
+import { useSortableRows } from '../hooks/useSortableRows'
+import SortTh from '../components/common/SortTh.jsx'
 import {
   assetCategory,
   formatMoney,
@@ -63,6 +65,11 @@ export default function AccountSummary() {
   )
   const rows = tab === 'sources' ? summary.sources : tab === 'investments' ? summary.investments : summary.assetClasses
   const highlight = rows[active] || null
+  // Sorting is display-only -- it reorders a copy for the table, not
+  // `rows` itself, so the chart (built from `rows` in its original
+  // order) and the hover-highlight-by-index below stay correct
+  // regardless of how the table is currently sorted.
+  const { sortedRows, sortKey, sortDir, toggleSort } = useSortableRows(rows)
 
   // Segments stay full-color regardless of hover -- no dimming/fade effect
   // on the other slices, per feedback that the hover treatment felt like
@@ -232,14 +239,30 @@ export default function AccountSummary() {
                 <table className={tab === 'investments' || tab === 'assetclass' || tab === 'sources' ? 'as-table-accordion' : ''}>
                   <thead>
                     <tr>
-                      <th scope="col">{tab === 'sources' ? 'Source' : tab === 'assetclass' ? 'Asset class' : 'Investment'}</th>
-                      {tab === 'investments' ? <th scope="col" className="num">Units</th> : null}
-                      <th scope="col" className="num">Balance</th>
-                      <th scope="col" className="num">{tab === 'investments' ? 'Election Percentage' : 'Percent'}</th>
+                      <SortTh
+                        label={tab === 'sources' ? 'Source' : tab === 'assetclass' ? 'Asset class' : 'Investment'}
+                        sortKeyName="name"
+                        sortKey={sortKey}
+                        sortDir={sortDir}
+                        onSort={toggleSort}
+                      />
+                      {tab === 'investments' ? (
+                        <SortTh label="Units" sortKeyName="units" sortKey={sortKey} sortDir={sortDir} onSort={toggleSort} className="num" />
+                      ) : null}
+                      <SortTh label="Balance" sortKeyName="amount" sortKey={sortKey} sortDir={sortDir} onSort={toggleSort} className="num" />
+                      <SortTh
+                        label={tab === 'investments' ? 'Election Percentage' : 'Percent'}
+                        sortKeyName="pct"
+                        sortKey={sortKey}
+                        sortDir={sortDir}
+                        onSort={toggleSort}
+                        className="num"
+                      />
                     </tr>
                   </thead>
                   <tbody>
-                    {rows.map((row, i) => {
+                    {sortedRows.map((row) => {
+                      const i = rows.indexOf(row)
                       const isInvestment = tab === 'investments'
                       const isAssetClass = tab === 'assetclass'
                       const isSource = tab === 'sources'

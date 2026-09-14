@@ -68,20 +68,28 @@
   font-variant-numeric:tabular-nums;color:var(--neutral-text-default)}
 .as-donut-center em{font-style:normal;font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle)}
 
+/* Matches the live DS's own Data Table component exactly (computed
+   styles read directly off coredesignsystemv1.netlify.app's "Basic
+   Data Table" demo): th bg neutral-100, th text neutral-600 at 14px/
+   600-weight (not the 12px/700-weight caption style this used before),
+   16px horizontal padding (not 12px), row dividers in neutral-500 (not
+   the much lighter neutral-border-light), zebra rows in neutral-50
+   (not neutral-100 -- that was the same shade as the header, too dark),
+   and border-radius:0 -- the DS's table has no rounded corners. */
 .as-table-wrap{
-  border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:auto;background:var(--surface-default)}
+  border:1px solid var(--theme-colors-neutral-500);overflow:auto;background:var(--surface-default)}
 .as-table-wrap table{width:100%;border-collapse:collapse;font-size:var(--text-body-md-size);min-width:480px}
 .as-table-wrap th{
-  text-align:left;font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle);
-  background:var(--surface-muted);padding:var(--space-2-5) var(--space-3);border-bottom:1px solid var(--neutral-border-light)}
+  text-align:left;font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle);
+  background:var(--surface-muted);padding:var(--space-2-5) var(--space-4);border-bottom:1px solid var(--theme-colors-neutral-500)}
 .as-table-wrap td{
-  padding:var(--space-2-5) var(--space-3);border-bottom:1px solid var(--neutral-border-light);font-weight:var(--font-weight-semibold);color:var(--neutral-text-default);
+  padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--theme-colors-neutral-500);font-weight:var(--font-weight-semibold);color:var(--neutral-text-default);
   font-variant-numeric:tabular-nums}
-.as-table-wrap table:not(.as-table-accordion) tbody tr:nth-child(even){background:var(--surface-muted)}
+.as-table-wrap table:not(.as-table-accordion) tbody tr:nth-child(even){background:var(--surface-subtle)}
 .as-table-wrap tbody tr.on{background:var(--brand-background-primary-light)}
 .as-table-wrap tbody tr:last-child td{border-bottom:none}
 .as-table-wrap tfoot td{
-  background:var(--surface-muted);font-weight:var(--font-weight-extrabold);border-bottom:none;border-top:1px solid var(--neutral-border-light)}
+  background:var(--surface-muted);font-weight:var(--font-weight-extrabold);border-bottom:none;border-top:1px solid var(--theme-colors-neutral-500)}
 .as-table-wrap .num{text-align:right}
 .as-table-wrap td:first-child{font-weight:var(--font-weight-bold)}
 .as-swatch{

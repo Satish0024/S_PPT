@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Icon } from '../../lib/icons'
-import { faExclamationTriangle, faArrowRight, faBookmark, faChevronRight, faPlus, faChartLine } from '@fortawesome/free-solid-svg-icons'
+import { faExclamationTriangle, faBookmark, faChevronRight, faPlus, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser } from '../../data/participants'
 import {
@@ -150,7 +150,6 @@ export default function RetirementGoalSimulatorV2() {
           </p>
           <Link className="rr3-cta" to="/retirement-goal">
             Get started
-            <Icon icon={faArrowRight} size={15} aria-hidden="true" />
           </Link>
         </div>
       )}

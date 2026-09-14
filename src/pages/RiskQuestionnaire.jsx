@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Icon } from '../lib/icons'
-import { faArrowLeft, faArrowRight, faCheck, faRocket, faBalanceScale, faShieldAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faRocket, faBalanceScale, faShieldAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { LIKERT_OPTIONS, LIKERT_QUESTIONS, QUESTIONNAIRE_STEP_COUNT } from '../data/riskQuestionnaire'
 import { getRiskAnswers, getRiskLevel, scoreQuestionnaire, setRiskAnswers, setRiskProfileId } from '../lib/riskProfile'
@@ -83,7 +83,6 @@ export default function RiskQuestionnaire() {
         <h1 className="sr-only">Investment style questionnaire</h1>
         <div className="rqp-main-head">
           <button type="button" className="rqp-leave" onClick={leave}>
-            <Icon icon={faArrowLeft} size={15} />
             Back
           </button>
           {!isResultsStep && (
@@ -156,13 +155,11 @@ export default function RiskQuestionnaire() {
         <div className="rq-actions rqp-actions">
           {step > 0 && !isResultsStep && (
             <button type="button" className="btn btn-ghost" onClick={goBack}>
-              <Icon icon={faArrowLeft} size={15} />
               Back
             </button>
           )}
           <button type="button" className="btn btn-primary rq-next" disabled={!canContinue} onClick={goNext}>
             {isResultsStep ? 'Done' : isLastQuestion ? 'See my results' : 'Continue'}
-            {!isResultsStep && <Icon icon={faArrowRight} size={15} />}
           </button>
         </div>
       </main>

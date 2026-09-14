@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Icon } from '../lib/icons'
-import { faChevronDown, faDownload, faFileAlt } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
 import { addGeneratedStatement, getGeneratedStatements } from '../lib/generatedStatements.js'
@@ -320,7 +320,6 @@ export default function Reports() {
                 </div>
                 <span className="doc-plan">{d.plan}</span>
                 <button type="button" className="doc-dl" onClick={() => handleDownload(d)}>
-                  <Icon icon={faDownload} size={16} />
                   Download
                 </button>
               </article>

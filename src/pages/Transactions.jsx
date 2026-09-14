@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '../lib/icons'
-import { faExchangeAlt, faLandmark, faPlus, faBalanceScale, faRandom, faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { faExchangeAlt, faLandmark, faBalanceScale, faRandom, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { formatMoney, planBalance, planVested } from '../lib/accountSummary'
 import { TRANSACTION_TYPES, canRequest, requestStatusTone, requestsFor, transactablePlans } from '../data/transactions.js'
@@ -50,7 +50,6 @@ function NewRequestMenu({ plan, disabled }) {
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
       >
-        <Icon icon={faPlus} size={16} aria-hidden="true" />
         New request
       </button>
       {open && plan && (

@@ -1,7 +1,7 @@
 import { useId, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { Icon } from '../lib/icons'
-import { faExclamationTriangle, faArrowLeft, faCheck, faCopy, faInfoCircle, faPrint } from '@fortawesome/free-solid-svg-icons'
+import { faExclamationTriangle, faCheck, faCopy, faInfoCircle, faPrint } from '@fortawesome/free-solid-svg-icons'
 import { useFocusTrap } from '../hooks/useFocusTrap'
 import Header from '../components/layout/Header.jsx'
 import Sidebar from '../components/layout/Sidebar.jsx'
@@ -218,7 +218,7 @@ export default function TransactionRequest() {
         <div className="txn-wizard">
           <aside className="txn-steps">
             <Link to="/transactions" className="back">
-              <Icon icon={faArrowLeft} size={15} /> Back
+              Back
             </Link>
             <h1>{wizard.title}</h1>
             {/* An ordered list of buttons rather than clickable divs: steps

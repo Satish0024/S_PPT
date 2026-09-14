@@ -1356,7 +1356,7 @@
   .plan-card{
     background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);padding:var(--card-padding-sm) var(--space-4);
     box-shadow:var(--shadow);display:flex;flex-direction:column;gap:var(--space-3-5);min-width:0}
-  .plan-card.ineligible{background:var(--surface-muted);border-style:dashed}
+  .plan-card.ineligible{background:var(--surface-muted)}
   .plan-card.eligible-not{background:var(--surface-default)}
   .plan-badge.eligible{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
   .plan-badge.opted{background:var(--semantics-critical-background-light);color:var(--semantics-critical-text)}
@@ -3397,3 +3397,20 @@ summary:focus-visible {
 @media(max-width:480px){
   .demo-switcher-menu{width:calc(100vw - var(--space-6));right:calc(-1 * var(--space-3))}
 }
+
+/* ---------- Sortable table headers (shared across every data table) ---------- */
+/* The <button> fills the <th> so the whole cell is one click/keyboard
+   target, matching native <th> click-to-sort conventions without
+   needing per-table CSS. Icon is muted until the column is the active
+   sort, then switches to the brand-colored up/down glyph. */
+th:has(.th-sort){padding:0}
+.th-sort{
+  display:flex;align-items:center;gap:var(--space-1-5);width:100%;height:100%;
+  font:inherit;font-size:inherit;font-weight:inherit;color:inherit;text-align:inherit;
+  background:none;border:none;cursor:pointer;padding:var(--space-2-5) var(--space-4)}
+.num .th-sort{justify-content:flex-end}
+.th-sort svg{flex:0 0 auto;color:var(--neutral-text-subtle-light);opacity:.6}
+.th-sort:hover svg{opacity:1}
+.th-sort.active{color:var(--neutral-text-default)}
+.th-sort.active svg{color:var(--brand-text-primary-default);opacity:1}
+.th-sort:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:-2px}

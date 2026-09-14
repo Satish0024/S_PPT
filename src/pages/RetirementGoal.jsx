@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Icon } from '../lib/icons'
 import {
-  faArrowLeft,
   faMoneyBillWave,
   faCalendarAlt,
   faCheckCircle,
@@ -502,7 +501,6 @@ export default function RetirementGoal() {
       <div className="hi-bar">
         <div>
           <Link className="text-link rg-back" to="/">
-            <Icon icon={faArrowLeft} size={16} />
             Back to dashboard
           </Link>
           <h1>Retirement readiness</h1>

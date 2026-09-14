@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon } from '../lib/icons'
-import { faArrowLeft, faArrowRight, faBookOpen, faClock, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faBookOpen, faClock, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { BRAND } from '../config/brand.js'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { ARTICLES, CATS } from '../data/learning.js'
@@ -24,7 +24,6 @@ export default function Enrich() {
           <img src={theme === 'dark' ? BRAND.logoOnDark || BRAND.logo : BRAND.logo} alt={BRAND.name} />
         </div>
         <Link className="back" to="/">
-          <Icon icon={faArrowLeft} size={16} />
           Back to dashboard
         </Link>
       </header>
@@ -64,7 +63,6 @@ export default function Enrich() {
             </div>
             <span className="btn-go">
               Start path
-              <Icon icon={faArrowRight} size={16} />
             </span>
           </div>
         </a>

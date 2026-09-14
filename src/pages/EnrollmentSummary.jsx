@@ -198,7 +198,7 @@ export default function EnrollmentSummary() {
                 </div>
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-secondary"
                   onClick={() => navigate('/profile?section=beneficiary&add=1')}
                 >
                   Add beneficiary

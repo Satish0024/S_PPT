@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Icon } from '../../lib/icons'
-import { faCheck, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { ACCOUNT_TYPES, RELATIONSHIPS, emptyBeneficiary, ssnDigitsOnlyError } from '../../lib/profileDetails'
 import { PhoneField, SelectField, SsnField, TextField } from './ProfileFields.jsx'
 import { useEscapeToClose } from '../../hooks/useEscapeToClose'
@@ -65,7 +65,6 @@ export default function AddBeneficiary({ onCancel, onSave }) {
       <div className="hi-bar">
         <div>
           <button type="button" className="text-link pr-back" onClick={() => setLeaveOpen(true)}>
-            <Icon icon={faArrowLeft} size={16} />
             Back
           </button>
           <h1>Add beneficiary</h1>

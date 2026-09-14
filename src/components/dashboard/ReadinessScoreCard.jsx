@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Icon } from '../../lib/icons'
-import { faArrowRight, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isNotEligibleUser, isOptedOutUser } from '../../data/participants'
 import {
@@ -165,7 +165,6 @@ export default function ReadinessScoreCard() {
             </p>
             <Link className="rgs-cta" to="/retirement-goal">
               Get started
-              <Icon icon={faArrowRight} size={14} aria-hidden="true" />
             </Link>
           </div>
         )}
