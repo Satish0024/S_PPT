@@ -1804,10 +1804,28 @@
   .pr-name-trio{grid-template-columns:1fr 1fr 1fr}
   .pr-pair{grid-template-columns:1fr 1fr}
   .pr-name-trio input,.pr-pair input{max-width:none}
-  .pr-input-ico{display:flex;align-items:center;gap:var(--space-2);padding-right:var(--space-1-5)}
+  /* Zero vertical padding so the 32px eye button doesn't push this wrapper
+     past the shared 36px min-height and leave the SSN field standing taller
+     than every sibling field in the form. */
+  .pr-input-ico{display:flex;align-items:center;gap:var(--space-2);
+    padding-block:var(--space-0);padding-right:var(--space-1-5)}
   .pr-input-ico.is-invalid{border-color:var(--semantics-critical-text)}
   .pr-field small.pr-field-error{display:block;margin-top:var(--space-1);font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold);color:var(--semantics-critical-text)}
-  .pr-input-ico input{flex:1;min-height:0;max-width:none;border:0;padding:var(--space-0);background:transparent}
+  /* The wrapper owns the border, height and focus ring; the inner input has
+     to render completely bare or its own border and focus ring nest inside
+     the wrapper's and read as two stacked outlines. Needs the .pr-field
+     prefix and the :not() pair to outrank the shared base input rule above,
+     which is (0,3,1) and otherwise wins over a plain .pr-input-ico input. */
+  .pr-field .pr-input-ico input:not([type="radio"]):not([type="checkbox"]),
+  .pr-field .pr-input-ico input:not([type="radio"]):not([type="checkbox"]):focus{
+    flex:1;min-height:0;max-width:none;border:0;padding:var(--space-0);
+    background:transparent;box-shadow:none;outline:none}
+  .pr-input-ico:focus-within{
+    border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 15%, transparent)}
+  /* Keep the error state readable while focused instead of letting the
+     brand-colored focus ring above replace it. */
+  .pr-input-ico.is-invalid:focus-within{
+    border-color:var(--semantics-critical-text);box-shadow:0 0 0 3px color-mix(in srgb, var(--semantics-critical-text) 15%, transparent)}
   .pr-eye{
     width:32px;height:32px;border:none;border-radius:var(--radius-sm);background:transparent;color:var(--neutral-text-subtle);
     display:grid;place-items:center;cursor:pointer;flex:0 0 auto;font:inherit;font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold)}
