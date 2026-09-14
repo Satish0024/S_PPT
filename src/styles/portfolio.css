@@ -93,7 +93,7 @@
 
   .section h2{font-size:var(--text-h4-size);font-weight:var(--font-weight-bold);margin-bottom:var(--space-1);letter-spacing:var(--ls-snug)}
   .section .sub{color:var(--neutral-text-subtle);font-size:var(--text-body-md-size);margin-bottom:var(--space-3-5);line-height:1.45}
-  .table-wrap{border:1px solid var(--neutral-border-light);border-radius:var(--radius-lg);overflow:auto;background:var(--neutral-background-default);box-shadow:var(--shadow);
+  .table-wrap{border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:auto;background:var(--neutral-background-default);box-shadow:var(--shadow);
     -webkit-overflow-scrolling:touch}
   table{width:100%;border-collapse:collapse;font-size:var(--text-body-md-size);min-width:720px}
   thead th{position:sticky;top:0;background:var(--neutral-background-muted);text-align:left;font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle);
@@ -145,7 +145,7 @@
   .holdings-table th.sortable button:hover{color:var(--brand-text-primary-default)}
   .holdings-table th.sortable .sort-ico{opacity:.4;flex:0 0 auto}
   .holdings-table th.sortable.asc .sort-ico,.holdings-table th.sortable.desc .sort-ico{opacity:1;color:var(--brand-text-primary-default)}
-  .overall-card{border:1px solid var(--neutral-border-light);border-radius:var(--radius-lg);background:var(--neutral-background-default);box-shadow:var(--shadow);
+  .overall-card{border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);background:var(--neutral-background-default);box-shadow:var(--shadow);
     padding:var(--card-padding-sm);margin-bottom:var(--space-3-5)}
   .overall-card .overall-label{font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--brand-text-primary-default);margin-bottom:var(--space-3)}
   .overall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:var(--space-3) var(--space-4)}

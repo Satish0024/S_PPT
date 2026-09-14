@@ -5,7 +5,7 @@
   padding:var(--space-3) var(--space-4);
   background:var(--neutral-background-default);color:var(--neutral-text-default);
   border:1px solid var(--green-line, color-mix(in srgb, var(--semantics-success-text) 35%, var(--neutral-border-light)));
-  border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
+  border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);
   font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);line-height:1.3;
   animation:toast-in var(--motion-base) ease-out}
 .toast-ico{

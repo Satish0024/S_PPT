@@ -280,7 +280,7 @@
 .ds-nav-link:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:-2px}
 
 .ds-dialog-demo{
-  width:min(320px,100%);border:1px solid var(--neutral-border-light);border-radius:var(--radius-lg);
+  width:min(320px,100%);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);
   background:var(--neutral-background-default);box-shadow:var(--shadow-lg);overflow:hidden}
 .ds-dialog-demo-head{
   display:flex;justify-content:space-between;align-items:center;gap:var(--space-2);
@@ -311,7 +311,7 @@
 .ds-logo-variant{display:flex;flex-direction:column;gap:var(--space-2)}
 .ds-logo-variant .ds-logo-label{font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);text-transform:uppercase;letter-spacing:var(--ls-wide)}
 .ds-logo-variant .ds-logo-preview{
-  display:flex;align-items:center;justify-content:center;padding:var(--space-6);border-radius:var(--radius-lg);min-height:100px}
+  display:flex;align-items:center;justify-content:center;padding:var(--space-6);border-radius:var(--radius-sm);min-height:100px}
 .ds-logo-variant.light .ds-logo-preview{background:#f8f9fb;border:1px solid var(--neutral-border-light)}
 .ds-logo-variant.dark .ds-logo-preview{background:#1a1b23;border:1px solid rgba(255,255,255,.1)}
 .ds-logo-variant .ds-logo-preview img{max-height:48px;max-width:200px;object-fit:contain}
