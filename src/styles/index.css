@@ -1189,8 +1189,17 @@
   .rg-toggle b{font-size:var(--text-body-md-size);font-weight:var(--font-weight-extrabold);color:var(--neutral-text-default)}
   .rg-toggle.on{border-color:var(--semantics-success-border);background:var(--semantics-success-background-light)}
   .rg-auto{display:grid;grid-template-columns:1fr;gap:var(--space-2);margin:var(--space-0) var(--space-0) var(--space-2)}
+  /* When the ai-source-table lives inside the narrow rg-work sub-column,
+     the standard minmax(160px/120px) columns can exceed the available
+     width. Shrink the minimums so the table stays within the container
+     and add overflow-x:auto as a last resort safety valve. */
+  .rg-auto .ai-source-table{overflow-x:auto}
+  .rg-auto .ai-row{grid-template-columns:minmax(120px,1.4fr) minmax(80px,1fr) minmax(80px,1fr)}
   .rg-work .rg-target .ui-select-btn{min-width:124px}
-  .rg-nav{display:flex;flex-direction:row;align-items:center;gap:var(--space-4);margin-top:var(--space-2);padding-top:var(--space-2)}
+  /* Primary action (Confirm changes) must sit on the RIGHT, Cancel on the LEFT.
+     row-reverse keeps DOM order screen-reader-friendly (primary first = announced
+     first) while reversing the visual order so the primary lands on the end. */
+  .rg-nav{display:flex;flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:var(--space-4);margin-top:var(--space-2);padding-top:var(--space-2)}
   .rg-nav .btn{width:auto;min-width:140px;flex:0 0 auto}
   .panel.rg-live{
     position:sticky;top:20px;padding:var(--space-6) var(--space-5) var(--space-5);display:flex;flex-direction:column;gap:var(--space-4);
@@ -1721,8 +1730,13 @@
     margin:var(--space-0) var(--space-0) var(--space-3-5);padding:var(--space-0) var(--space-0) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light);background:none;
     box-shadow:none;border-radius:0}
   .pr-hero img{width:56px;height:56px;border-radius:var(--radius-sm);object-fit:cover;background:var(--brand-background-primary-light)}
-  .pr-hero-copy{min-width:0;display:flex;flex-direction:column;gap:var(--space-1-5)}
-  .pr-hero-name{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2) var(--space-2-5)}
+  /* gap replaced with individual margins so each pairing gets its own
+     DS-token spacing:
+       name row  →  space-1  (4 px) → company subtitle
+       company   →  space-0-5 (2 px) → employee-ID / metadata
+     This creates a clear visual hierarchy matching DS text-group guidelines. */
+  .pr-hero-copy{min-width:0;display:flex;flex-direction:column;gap:0}
+  .pr-hero-name{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2) var(--space-2-5);margin-bottom:var(--space-1)}
   .pr-hero-name h2{margin:var(--space-0);font-size:var(--text-h3-size);font-weight:var(--font-weight-extrabold);line-height:var(--text-h3-lh);letter-spacing:var(--text-h3-ls)}
   .pr-hero .badge{
     display:inline-flex;align-items:center;gap:var(--space-1);padding:var(--space-1) var(--space-2-5);border-radius:var(--radius-full);
@@ -1736,7 +1750,7 @@
      these are <p> tags inside .panel, so that rule was winning over a
      single-class selector and breaking .pr-hero-copy's flex `gap` into an
      uneven double-spaced gap before .pr-ids only. */
-  .pr-hero-copy .pr-co{margin:var(--space-0);font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--brand-text-primary-default)}
+  .pr-hero-copy .pr-co{margin:var(--space-0) var(--space-0) var(--space-0-5);font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--brand-text-primary-default)}
   .pr-hero-copy .pr-ids{margin:var(--space-0);font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
   .pr-hero-side{display:flex;flex-direction:column;align-items:flex-end;gap:var(--space-2)}
   .pr-hero-side small{font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle)}
@@ -2052,6 +2066,10 @@
     .panel.rg-live{position:static}
     .rg-live-visual{flex-direction:column;align-items:center}
     .rg-auto{grid-template-columns:1fr}
+    /* Stack rg-nav vertically on small screens – primary action stays on top
+       because it is first in the DOM (row-reverse only matters for row layout). */
+    .rg-nav{flex-direction:column;align-items:stretch}
+    .rg-nav .btn,.rg-nav .text-link{width:100%;min-width:0;text-align:center}
     .rg-target{flex-direction:column;align-items:stretch;justify-content:flex-start}
     /* flex-basis:220px from the desktop rule would otherwise apply to
        height once flex-direction switches to column, ballooning the card. */
