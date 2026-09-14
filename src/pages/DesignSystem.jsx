@@ -55,9 +55,9 @@ const NAV = [
 const COLORS = [
   ['Brand', '--brand-text-primary-default'], ['Brand hover', '--brand-text-primary-hover'], ['Brand active', '--brand-text-primary-active'],
   ['Text default', '--neutral-text-default'], ['Text subtle', '--neutral-text-subtle'], ['Text muted', '--neutral-text-subtle-light'],
-  ['Border', '--neutral-border-light'], ['Background', '--neutral-background-subtle'], ['Panel', '--neutral-background-default'],
+  ['Border', '--neutral-border-light'], ['Background', '--surface-subtle'], ['Panel', '--surface-default'],
   ['Active bg', '--brand-background-primary-light'], ['Success', '--semantics-success-text'], ['Warning', '--semantics-warning-text'],
-  ['Danger', '--semantics-critical-text'], ['Surface muted', '--neutral-background-muted'], ['Surface strong', '--neutral-background-strong'],
+  ['Danger', '--semantics-critical-text'], ['Surface muted', '--surface-muted'], ['Surface strong', '--surface-strong'],
 ]
 
 // name, var — hex values are resolved live (see useDualThemeTokens) from
@@ -73,8 +73,8 @@ const COLOR_GROUPS = [
   { title: 'Neutrals', tokens: [
     ['Text default', '--neutral-text-default'], ['Text subtle', '--neutral-text-subtle'], ['Text muted', '--neutral-text-subtle-light'],
     ['Border light', '--neutral-border-light'], ['Border strong', '--neutral-border-strong'],
-    ['Background default', '--neutral-background-default'], ['Background subtle', '--neutral-background-subtle'],
-    ['Background muted', '--neutral-background-muted'], ['Background strong', '--neutral-background-strong'],
+    ['Background default', '--surface-default'], ['Background subtle', '--surface-subtle'],
+    ['Background muted', '--surface-muted'], ['Background strong', '--surface-strong'],
   ] },
   { title: 'Status — success', tokens: [
     ['Text', '--semantics-success-text'], ['Background light', '--semantics-success-background-light'],
@@ -918,10 +918,16 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
           {/* ---------------- ELEVATION ---------------- */}
           <section id="elevation" className="ds-section">
             <h2>Elevation</h2>
-            <p className="ds-lede">Two shadow tokens — a resting shadow and an elevated one for overlays.</p>
-            <div className="ds-demo">
-              <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 14, background: 'var(--neutral-background-default)', boxShadow: 'var(--shadow)', border: '1px solid var(--neutral-border-light)' }}>--shadow (cards)</div>
-              <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 14, background: 'var(--neutral-background-default)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--neutral-border-light)' }}>--shadow-lg (dropdowns, dialogs)</div>
+            <p className="ds-lede">Core Design System ships exactly two elevation levels. Use elevation-1 for resting surfaces and elevation-2 for overlays.</p>
+            <div className="ds-demo" style={{ display: 'grid', gap: 'var(--space-4)', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))' }}>
+              <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 'var(--radius-sm)', background: 'var(--surface-default)', boxShadow: 'var(--core-elevation-1)', border: '1px solid var(--neutral-border-light)' }}>
+                <strong>--core-elevation-1</strong>
+                <div className="hint" style={{ marginTop: 'var(--space-2)' }}>Subtle raise — resting cards, table rows, segmented controls</div>
+              </div>
+              <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 'var(--radius-sm)', background: 'var(--surface-default)', boxShadow: 'var(--core-elevation-2)', border: '1px solid var(--neutral-border-light)' }}>
+                <strong>--core-elevation-2</strong>
+                <div className="hint" style={{ marginTop: 'var(--space-2)' }}>Medium raise — dropdowns, popovers, modals, sticky headers</div>
+              </div>
             </div>
           </section>
 
@@ -1022,7 +1028,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
   <span className="form-helper">Optional helper</span>
 </div>
 {error && <p className="form-error" role="alert">{error}</p>}`}
-            colors={[['Border', '--neutral-border-light'], ['Focus ring', '--brand-text-primary-default'], ['Error text', '--semantics-critical-text'], ['Panel bg', '--neutral-background-default']]}
+            colors={[['Border', '--neutral-border-light'], ['Focus ring', '--brand-text-primary-default'], ['Error text', '--semantics-critical-text'], ['Panel bg', '--surface-default']]}
             extra={
               <div className="ds-panel">
                 <div style={{ padding: 'var(--space-1) var(--space-5)' }}>
@@ -1061,7 +1067,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
   <input type="checkbox" checked={on} onChange={toggle} />
   <span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
 </label>`}
-            colors={[['Checked / on', '--brand-text-primary-default'], ['Track (off)', '--neutral-background-strong'], ['Border', '--neutral-border-strong']]}
+            colors={[['Checked / on', '--brand-text-primary-default'], ['Track (off)', '--surface-strong'], ['Border', '--neutral-border-strong']]}
           />
 
           {/* ---------------- BADGES / ALERTS ---------------- */}
@@ -1131,8 +1137,8 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
                 <tr><td>Bond Index</td><td>15%</td><td>-1.3%</td></tr>
               </tbody>
             </table>}
-            code={`tbody tr:nth-child(even){ background: var(--neutral-background-muted); }`}
-            colors={[['Zebra row', '--neutral-background-muted'], ['Row border', '--neutral-border-light'], ['Positive value', '--semantics-success-text']]}
+            code={`tbody tr:nth-child(even){ background: var(--surface-muted); }`}
+            colors={[['Zebra row', '--surface-muted'], ['Row border', '--neutral-border-light'], ['Positive value', '--semantics-success-text']]}
           />
 
           {/* ---------------- DIALOG ---------------- */}
@@ -1158,7 +1164,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
   <h3 id="dlg-title">Confirm rollover request</h3>
   ...
 </div>`}
-            colors={[['Panel bg', '--neutral-background-default'], ['Shadow', '--shadow-lg'], ['Border', '--neutral-border-light']]}
+            colors={[['Panel bg', '--surface-default'], ['Shadow', '--shadow-lg'], ['Border', '--neutral-border-light']]}
           />
 
           {/* ---------------- LEGEND ---------------- */}
@@ -1168,7 +1174,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
             tags={['New pattern']}
             demo={<div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)', border: '1px solid var(--neutral-border-light)', borderRadius: 8, padding: 'var(--space-1) var(--space-2-5)', fontSize: 'var(--text-caption-size)', fontWeight: 700 }}>
               Asset classes
-              <span style={{ display: 'inline-flex', alignItems: 'center', minWidth: 36, justifyContent: 'center', height: 18, borderRadius: 999, background: 'var(--neutral-background-muted)', fontSize: 'var(--text-2xs-size)', fontWeight: 800 }}>4/12</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', minWidth: 36, justifyContent: 'center', height: 18, borderRadius: 999, background: 'var(--surface-muted)', fontSize: 'var(--text-2xs-size)', fontWeight: 800 }}>4/12</span>
             </div>}
             code={`<ChartLegend label="Asset classes" items={series} onToggle={toggleSeries} />`}
           />
@@ -1189,7 +1195,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
             code={`const { speaking, speakPage, stop } = useReadAloud()
 const { listening, start, stop: stopListening } = useVoiceNav(navigate)
 <AccessibilityMenu />  // dropdown next to the theme toggle in Header.jsx`}
-            colors={[['Panel bg', '--neutral-background-default'], ['Active row', '--brand-background-primary-light'], ['Switch on', '--brand-text-primary-default']]}
+            colors={[['Panel bg', '--surface-default'], ['Active row', '--brand-background-primary-light'], ['Switch on', '--brand-text-primary-default']]}
           />
 
           {/* ---------------- WCAG CHECKLIST ---------------- */}

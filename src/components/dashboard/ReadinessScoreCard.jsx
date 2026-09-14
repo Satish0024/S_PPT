@@ -118,16 +118,14 @@ export default function ReadinessScoreCard() {
         {started ? (
           <>
             <div className="rgs-main">
-              <div className="rgs-orbit" role="img" aria-label={`${pct}% of your retirement goal`}>
-                <ScoreRing pct={pct} />
-                <div className="rgs-orbit-value">
-                  <b>{pct}%</b>
-                  <span>
-                    of your
-                    <br />
-                    goal
-                  </span>
+              <div className="rgs-orbit-wrap">
+                <div className="rgs-orbit" role="img" aria-label={`${pct}% of your retirement goal`}>
+                  <ScoreRing pct={pct} />
+                  <div className="rgs-orbit-value">
+                    <b>{pct}%</b>
+                  </div>
                 </div>
+                <p className="rgs-goal-label">of your goal</p>
               </div>
 
               <dl className="rgs-snap">

@@ -1,4 +1,4 @@
-.rqp-page{display:grid;grid-template-columns:3fr 7fr;min-height:100dvh;background:var(--neutral-background-default)}
+.rqp-page{display:grid;grid-template-columns:3fr 7fr;min-height:100dvh;background:var(--surface-default)}
 
 .rqp-side{
   position:relative;overflow:hidden;background:var(--scene-sky);min-height:100dvh}

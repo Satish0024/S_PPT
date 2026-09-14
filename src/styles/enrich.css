@@ -3,7 +3,7 @@
      only enrich-specific styles below. */
 
   /* .topbar already in index.css; enrich override only if needed */
-  .enrich-topbar{height:var(--header-h);background:var(--neutral-background-default);border-bottom:1px solid var(--neutral-border-light);display:flex;align-items:center;
+  .enrich-topbar{height:var(--header-h);background:var(--surface-default);border-bottom:1px solid var(--neutral-border-light);display:flex;align-items:center;
     justify-content:space-between;padding:var(--space-0) var(--space-6);position:sticky;top:0;z-index:10}
   .enrich-topbar .brand img{height:var(--control-sm)}
   .enrich-back{font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--brand-text-primary-default);display:inline-flex;align-items:center;gap:var(--space-1-5)}
@@ -18,7 +18,7 @@
   .page-intro p{font-size:var(--text-body-lg-size);color:var(--neutral-text-subtle);line-height:1.55;max-width:540px}
 
   .search-bar{
-    display:flex;align-items:center;gap:var(--space-2-5);padding:var(--space-3) var(--space-4);background:var(--neutral-background-default);
+    display:flex;align-items:center;gap:var(--space-2-5);padding:var(--space-3) var(--space-4);background:var(--surface-default);
     border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);box-shadow:var(--shadow);margin-bottom:var(--space-6);
     transition:border-color var(--motion-base),box-shadow var(--motion-base)}
   .search-bar:focus-within{border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 15%, transparent)}
@@ -28,7 +28,7 @@
   .search-bar input::placeholder{color:var(--neutral-text-subtle-light)}
 
   .featured{
-    display:grid;grid-template-columns:1fr 1fr;gap:var(--space-0);background:var(--neutral-background-default);border:1px solid var(--neutral-border-light);
+    display:grid;grid-template-columns:1fr 1fr;gap:var(--space-0);background:var(--surface-default);border:1px solid var(--neutral-border-light);
     border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow);margin-bottom:var(--space-7);
     transition:box-shadow var(--motion-base)}
   .featured:hover{box-shadow:var(--shadow-lg)}
@@ -63,7 +63,7 @@
   .cats{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-5)}
   .cat{
     padding:var(--space-1-5) var(--space-3-5);border-radius:var(--radius-full);font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);border:1px solid var(--neutral-border-light);
-    background:var(--neutral-background-default);color:var(--neutral-text-subtle);cursor:pointer;transition:all var(--motion-base)}
+    background:var(--surface-default);color:var(--neutral-text-subtle);cursor:pointer;transition:all var(--motion-base)}
   .cat:hover{border-color:var(--neutral-border-strong);color:var(--neutral-text-default)}
   .cat.on{background:var(--brand-background-primary-strong);border-color:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor)}
 
@@ -72,7 +72,7 @@
      the other left empty -- let it span the full row instead. */
   .grid > *:only-child{grid-column:1 / -1}
   .card{
-    background:var(--neutral-background-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:hidden;
+    background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:hidden;
     box-shadow:var(--shadow);transition:box-shadow var(--motion-base),border-color var(--motion-base);display:flex;flex-direction:column}
   .card:hover{box-shadow:var(--shadow-lg);border-color:var(--neutral-border-strong)}
   .card .thumb{height:96px;position:relative;overflow:hidden}
@@ -83,7 +83,7 @@
   .card.t4 .thumb .t-bg{background:linear-gradient(135deg,var(--semantics-critical-background-light) 0%,var(--semantics-critical-border) 100%)}
   .card .thumb .t-ico{
     position:absolute;left:18px;bottom:-16px;width:40px;height:40px;border-radius:var(--radius-sm);
-    display:grid;place-items:center;background:var(--neutral-background-default);box-shadow:0 2px 10px rgba(var(--shadow-color),.1)}
+    display:grid;place-items:center;background:var(--surface-default);box-shadow:var(--core-elevation-1)}
   .card .thumb .t-ico svg{width:var(--icon-md);height:var(--icon-md)}
   .card.t1 .thumb .t-ico{color:var(--brand-text-primary-default)}
   .card.t2 .thumb .t-ico{color:var(--semantics-success-text)}

@@ -6,13 +6,13 @@
   display:flex;flex-direction:column;gap:var(--space-4);background:transparent;border:none;
   border-radius:0;padding:var(--space-0);box-shadow:none;position:sticky;top:var(--space-5)}
 .as-plans-empty{
-  margin:var(--space-0);padding:var(--card-padding-sm);background:var(--neutral-background-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-xl);
+  margin:var(--space-0);padding:var(--card-padding-sm);background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-xl);
   box-shadow:var(--shadow);font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
 .as-plans button{
   display:flex;flex-direction:column;align-items:stretch;gap:var(--space-2);width:100%;
-  border:1px solid var(--neutral-border-light);background:var(--neutral-background-default);padding:var(--space-3-5) var(--space-3-5) var(--space-3-5) var(--space-4);border-radius:var(--radius-xl);
+  border:1px solid var(--neutral-border-light);background:var(--surface-default);padding:var(--space-3-5) var(--space-3-5) var(--space-3-5) var(--space-4);border-radius:var(--radius-xl);
   cursor:pointer;text-align:left;font:inherit;color:inherit;position:relative;box-shadow:var(--shadow)}
-.as-plans button:hover{background:var(--neutral-background-muted);border-color:var(--neutral-border-strong)}
+.as-plans button:hover{background:var(--surface-muted);border-color:var(--neutral-border-strong)}
 .as-plans button.on{background:var(--brand-background-primary-light);border-color:var(--neutral-border-strong)}
 .as-plans button.on::before{
   content:"";position:absolute;left:0;top:var(--space-2-5);bottom:var(--space-2-5);width:3px;
@@ -42,12 +42,12 @@
 .as-main-h p{margin:var(--space-1) var(--space-0) var(--space-0);font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
 
 .as-tabs{
-  display:inline-flex;gap:var(--space-1);padding:var(--space-1);background:var(--neutral-background-muted);border-radius:var(--radius-sm);margin-bottom:var(--space-4)}
+  display:inline-flex;gap:var(--space-1);padding:var(--space-1);background:var(--surface-muted);border-radius:var(--radius-sm);margin-bottom:var(--space-4)}
 .as-tabs button{
   display:flex;align-items:center;gap:var(--space-2);border:none;background:transparent;
   padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);font:inherit;font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);
   color:var(--neutral-text-subtle);cursor:pointer}
-.as-tabs button:hover{color:var(--neutral-text-default);background:var(--neutral-background-default)}
+.as-tabs button:hover{color:var(--neutral-text-default);background:var(--surface-default)}
 .as-tabs button.on{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
 .as-tabs .pr-nav-ico{width:26px;height:26px;border-radius:var(--radius-sm)}
 .as-tabs button.on .pr-nav-ico{background:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor)}
@@ -69,19 +69,19 @@
 .as-donut-center em{font-style:normal;font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle)}
 
 .as-table-wrap{
-  border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:auto;background:var(--neutral-background-default)}
+  border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:auto;background:var(--surface-default)}
 .as-table-wrap table{width:100%;border-collapse:collapse;font-size:var(--text-body-md-size);min-width:480px}
 .as-table-wrap th{
   text-align:left;font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle);
-  background:var(--neutral-background-muted);padding:var(--space-2-5) var(--space-3);border-bottom:1px solid var(--neutral-border-light)}
+  background:var(--surface-muted);padding:var(--space-2-5) var(--space-3);border-bottom:1px solid var(--neutral-border-light)}
 .as-table-wrap td{
   padding:var(--space-2-5) var(--space-3);border-bottom:1px solid var(--neutral-border-light);font-weight:var(--font-weight-semibold);color:var(--neutral-text-default);
   font-variant-numeric:tabular-nums}
-.as-table-wrap table:not(.as-table-accordion) tbody tr:nth-child(even){background:var(--neutral-background-muted)}
+.as-table-wrap table:not(.as-table-accordion) tbody tr:nth-child(even){background:var(--surface-muted)}
 .as-table-wrap tbody tr.on{background:var(--brand-background-primary-light)}
 .as-table-wrap tbody tr:last-child td{border-bottom:none}
 .as-table-wrap tfoot td{
-  background:var(--neutral-background-muted);font-weight:var(--font-weight-extrabold);border-bottom:none;border-top:1px solid var(--neutral-border-light)}
+  background:var(--surface-muted);font-weight:var(--font-weight-extrabold);border-bottom:none;border-top:1px solid var(--neutral-border-light)}
 .as-table-wrap .num{text-align:right}
 .as-table-wrap td:first-child{font-weight:var(--font-weight-bold)}
 .as-swatch{
@@ -104,7 +104,7 @@
      before the asset-class swatch/name, at the front of the row. */
   margin-right:var(--space-1-5);color:var(--neutral-text-subtle);transition:transform var(--motion-base) ease;flex:0 0 auto}
 .as-row-open .as-row-chevron{transform:rotate(180deg);color:var(--brand-text-primary-default)}
-.as-row-detail td{background:var(--neutral-background-muted);padding:var(--space-0);border-bottom:1px solid var(--neutral-border-light)}
+.as-row-detail td{background:var(--surface-muted);padding:var(--space-0);border-bottom:1px solid var(--neutral-border-light)}
 .as-row-detail:hover{background:transparent}
 .as-detail-grid{
   display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:var(--space-3-5);padding:var(--space-3-5) var(--space-4)}
@@ -117,7 +117,7 @@
   font-size:var(--text-caption-size);font-weight:var(--font-weight-extrabold);width:fit-content}
 .as-cat-badge.is-stock{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
 .as-cat-badge.is-bond{background:var(--semantics-success-background-light);color:var(--semantics-success-text)}
-.as-cat-badge.is-other{background:var(--neutral-background-muted);color:var(--neutral-text-subtle)}
+.as-cat-badge.is-other{background:var(--surface-muted);color:var(--neutral-text-subtle)}
 
 /* Asset class tab — each row expands to list the investments in that
    class, same accordion pattern as the Investments tab's detail grid. */
@@ -136,7 +136,7 @@
 
 .as-empty{
   display:grid;place-items:center;min-height:220px;padding:var(--space-6);text-align:center;
-  background:var(--neutral-background-muted);border-radius:var(--radius-sm)}
+  background:var(--surface-muted);border-radius:var(--radius-sm)}
 .as-empty p{margin:var(--space-0);font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
 
 @media(max-width:980px){

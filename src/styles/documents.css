@@ -7,7 +7,7 @@
 .field-label{font-size:var(--text-label-size);font-weight:var(--text-label-weight);line-height:var(--text-label-lh);color:var(--neutral-text-subtle);letter-spacing:var(--text-label-ls)}
 .doc-field input,.doc-field .ui-select-btn{
   min-height:var(--input-min-height);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);padding:var(--space-1-5) var(--space-2-5);
-  font:inherit;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-default);background:var(--neutral-background-default)}
+  font:inherit;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-default);background:var(--surface-default)}
 /* Text field + dropdown states, tested here first: matches CORE's cds-input/
    cds-select pattern (Field.tsx/FormControls.tsx -- hover uses
    input.borderHover, focus uses input.borderFocus + a 25%-opacity ring,
@@ -45,14 +45,14 @@
 .multi-select{position:relative;display:flex;flex-direction:column;gap:var(--form-label-gap);min-width:170px}
 .multi-select-btn{
   display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);min-height:var(--input-min-height);
-  border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);background:var(--neutral-background-default);padding:var(--space-1-5) var(--space-2-5);
+  border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);background:var(--surface-default);padding:var(--space-1-5) var(--space-2-5);
   font:inherit;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-default);cursor:pointer}
 .multi-select-btn:hover{border-color:var(--neutral-border-strong)}
 .multi-select-btn:focus-visible{outline:none;border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 12%, transparent)}
 .multi-select-btn svg{color:var(--neutral-text-subtle);flex:0 0 auto}
 .multi-select-menu{
   position:absolute;top:calc(100% + 4px);left:0;z-index:20;min-width:240px;max-height:280px;overflow-y:auto;
-  background:var(--neutral-background-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);padding:var(--space-1-5)}
+  background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);padding:var(--space-1-5)}
 .multi-select-row{
   display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-2);border-radius:var(--radius-sm);cursor:pointer;font-size:var(--text-body-sm-size)}
 .multi-select-row:hover{background:var(--brand-background-primary-subtle)}
