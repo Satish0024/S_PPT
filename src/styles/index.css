@@ -1823,7 +1823,13 @@
   .pr-flag b{font-size:var(--text-body-xs-size);font-weight:var(--font-weight-extrabold);color:var(--neutral-text-default)}
   .pr-flag.yes{background:var(--semantics-success-background-light);border-color:var(--semantics-success-border);color:var(--semantics-success-text)}
   .pr-flag.yes b{color:var(--semantics-success-text)}
-  .pr-savebar{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-4);padding-top:var(--space-4);border-top:1px solid var(--neutral-border-light)}
+  /* row-reverse + justify-content:flex-end keeps the group anchored at
+     the same left edge it always sat at, while putting the primary
+     action (first in DOM, for screen-reader/tab-order priority) on the
+     right and secondary actions on the left -- matching the convention
+     established for modals/dialogs (.enroll-modal-actions,
+     .confirm-dialog-actions, .txn-actions). */
+  .pr-savebar{display:flex;flex-direction:row-reverse;justify-content:flex-end;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-4);padding-top:var(--space-4);border-top:1px solid var(--neutral-border-light)}
   .pr-savebar .btn{width:auto !important;min-width:92px}
   .pr-class-tabs{
     display:flex;flex-wrap:nowrap;overflow-x:auto;column-gap:var(--space-1);margin:var(--space-0) var(--space-0) var(--space-4);padding-bottom:var(--space-2-5);border-bottom:1px solid var(--neutral-border-light)}
@@ -2186,7 +2192,11 @@
     display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-6);
     border-bottom:1px solid var(--neutral-border-light);flex:0 0 auto}
   .slideover-head h3{font-size:var(--text-lg-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-snug);margin:var(--space-0)}
-  .slideover-head-actions{display:flex;align-items:center;gap:var(--space-2-5);flex:0 0 auto}
+  /* row-reverse only -- this cluster is already sized to its own content
+     (flex:0 0 auto) inside the slideover header, so reversing direction
+     swaps internal button order (primary right, secondary left) without
+     moving the cluster itself. */
+  .slideover-head-actions{display:flex;flex-direction:row-reverse;align-items:center;gap:var(--space-2-5);flex:0 0 auto}
   .slideover-head-actions .btn{width:auto;flex:0 0 auto}
   .slideover-close{
     width:32px;height:32px;border-radius:var(--radius-full);border:none;background:var(--brand-background-primary-subtle);color:var(--neutral-text-subtle);
