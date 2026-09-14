@@ -1,5 +1,5 @@
 .login-page{
-  position:relative;min-height:100vh;display:grid;grid-template-columns:minmax(280px,.9fr) minmax(360px,1.1fr);
+  position:relative;min-height:100dvh;display:grid;grid-template-columns:minmax(280px,.9fr) minmax(360px,1.1fr);
   background:var(--neutral-background-default)}
 .login-brand{
   position:relative;background:linear-gradient(160deg,var(--brand-text-primary-hover) 0%,var(--brand-text-primary-default) 55%,color-mix(in srgb, var(--brand-text-primary-default) 60%, white) 100%);

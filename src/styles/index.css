@@ -116,6 +116,13 @@
     --header-h:56px;
     --footer-h:48px;
     --nav-w:120px;
+    /* Actual rendered height of .mobile-nav (content + its own padding,
+       excluding the safe-area inset which is added separately wherever
+       this is consumed) — kept as an explicit token so anything that
+       needs to clear the bar (e.g. .mobile-menu-sheet's margin-bottom)
+       can reference the same number instead of a second guessed
+       constant that silently drifts out of sync and overlaps it. */
+    --mobile-nav-h:72px;
     /* ================================================================
        TYPOGRAPHY SYSTEM — Design Spec Aligned, WCAG AA Compliant
        ================================================================
@@ -309,18 +316,25 @@
        as its own small scale rather than forced onto Tailwind's numbers,
        which would change the visual identity of every button/card/input
        in the app for no functional reason. */
-    /* Radius — aligned to Muthu's Latest Format (DS v1.1)
-       sm=4px, md=8px, lg=16px. xs kept for 2px micro-radius. */
-    --radius-xs: 2px; --radius-sm: 0.25rem; --radius-md: 0.5rem; --radius-lg: 1rem; --radius-xl: 1.5rem; --radius-full: 9999px;
+    /* Radius — confirmed against the LIVE Core Design System
+       (foundations/typography, "Border Radius" section):
+       none:0 xs:4 sm:8 md:8 lg:12 xl:16 full:9999. Muthu's file names
+       the same scale but with stale values that don't match what the
+       DS actually ships — the live site wins. */
+    --radius-xs: 4px; --radius-sm: 8px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px; --radius-full: 9999px;
 
-    /* Elevation — aligned to Muthu's Latest Format (DS v1.1) */
+    /* Elevation — confirmed against the LIVE Core Design System
+       (foundations/typography, "Elevation & Shadows" section): only 2
+       levels exist (not 3, as Muthu's file implies), with these exact
+       box-shadow values. */
     --elevation-0: none;
-    --elevation-01: 0px 2px 5px 0px var(--theme-colors-neutral-lightgrey-700, rgba(17,16,23,0.06));
-    --elevation-02: 0px 5px 18px -2px var(--theme-colors-neutral-lightgrey-600, rgba(17,16,23,0.08));
-    --elevation-03: 0px 8px 29px 1px var(--theme-colors-neutral-lightgrey-400, rgba(17,16,23,0.10));
-    /* Legacy aliases */
+    --elevation-01: 0 1px 2px rgba(17,16,23,0.06), 0 1px 1px rgba(17,16,23,0.04);
+    --elevation-02: 0 2px 6px rgba(17,16,23,0.08), 0 1px 2px rgba(17,16,23,0.05);
+    /* Legacy aliases (kept — this app has no elevation-3/4 in the DS,
+       but some components already reference higher levels internally) */
     --elevation-1: var(--elevation-01); --elevation-2: var(--elevation-02);
-    --elevation-3: var(--elevation-03); --elevation-4: 0 16px 32px rgba(17,16,23,0.14), 0 4px 8px rgba(17,16,23,0.08);
+    --elevation-3: 0 8px 20px rgba(17,16,23,0.10), 0 2px 4px rgba(17,16,23,0.06);
+    --elevation-4: 0 16px 32px rgba(17,16,23,0.14), 0 4px 8px rgba(17,16,23,0.08);
 
     /* Focus ring — DS v1.1 component tokens */
     --focus-ring-color: var(--brand-text-primary-default);
@@ -611,7 +625,7 @@
     --inv-elevation: 0 1px 2px rgba(0,0,0,.3), 0 16px 34px -14px rgba(0,0,0,.55);
   }
   *{box-sizing:border-box;margin:var(--space-0);padding:var(--space-0)}
-  html,body,#root{min-height:100vh}
+  html,body,#root{min-height:100dvh}
   /* WCAG 1.4.12 Text Spacing — allow user-agent overrides */
   html{text-size-adjust:100%;-webkit-text-size-adjust:100%}
   body{
@@ -675,8 +689,8 @@
   }
   .app-footer-copy{margin:0;font-size:var(--text-body-xs-size);color:var(--neutral-text-subtle-light)}
   .app-footer-links{display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap}
-  .app-footer-links a{font-size:var(--text-body-xs-size);color:var(--neutral-text-subtle-light);text-decoration:none}
-  .app-footer-links a:hover{color:var(--neutral-text-default);text-decoration:underline}
+  .app-footer-links a{font-size:var(--text-body-xs-size);color:var(--neutral-text-subtle-light);text-decoration:underline;text-underline-offset:2px}
+  .app-footer-links a:hover{color:var(--neutral-text-default)}
   .brand img{height:34px;max-width:200px;object-fit:contain;display:block;width:auto}
   .top-right{display:flex;align-items:center;gap:var(--space-2-5)}
   .icon-btn{
@@ -737,7 +751,7 @@
   .sign-out-ico{width:36px;height:36px;border-radius:var(--radius-full);background:var(--semantics-critical-background-light);color:var(--semantics-critical-text);
     display:grid;place-items:center;flex:0 0 auto}
 
-  .layout{display:flex;min-height:calc(100vh - var(--header-h));align-items:flex-start}
+  .layout{display:flex;min-height:calc(100dvh - var(--header-h));align-items:flex-start}
   .nav{width:var(--nav-w);border-right:1px solid var(--neutral-border-light);padding:var(--space-5) var(--space-0);
     display:flex;flex-direction:column;gap:var(--space-1);background:var(--sidebar);
     /* Truly fixed to the viewport (not sticky, not a flex sibling of its
@@ -751,7 +765,7 @@
        column there, so this one rule covers all of them without hardcoding
        each wrapper's own class name. */
     position:fixed;left:0;top:var(--header-h);z-index:30}
-  .nav + *{margin-left:var(--nav-w)}
+  .nav ~ *:not(.mobile-nav):not(.mobile-menu-bg){margin-left:var(--nav-w)}
   .nav a{text-decoration:none;color:var(--neutral-text-subtle);display:flex;flex-direction:column;align-items:center;
     gap:var(--space-1-5);padding:var(--space-3-5) var(--space-2);font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);position:relative;text-align:center}
   .nav a .ico{display:grid;place-items:center}
@@ -783,9 +797,8 @@
     font-weight:var(--text-link-weight);
     line-height:var(--text-link-lh);
     letter-spacing:var(--text-link-ls);
-    color:var(--brand-text-primary-default);text-decoration:none;background:none;border:none;cursor:pointer;padding:var(--space-0);
+    color:var(--brand-text-primary-default);text-decoration:underline;text-underline-offset:2px;background:none;border:none;cursor:pointer;padding:var(--space-0);
   }
-  .text-link:hover{text-decoration:underline}
 
   .scenario-banner{
     background:var(--neutral-background-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);
@@ -801,7 +814,7 @@
   .scenario-banner.navy .sb-tag{color:var(--brand-text-primary-default)}
   .scenario-banner.red .sb-tag{color:var(--semantics-critical-text)}
   .scenario-banner p{font-size:var(--text-paragraph-sm-size);line-height:1.55;color:var(--neutral-text-subtle);margin:var(--space-0)}
-  .scenario-banner a{color:var(--brand-text-primary-default);font-weight:var(--font-weight-bold);text-decoration:none}
+  .scenario-banner a{color:var(--brand-text-primary-default);font-weight:var(--font-weight-bold);text-decoration:underline;text-underline-offset:2px}
   .scenario-banner a:hover{text-decoration:underline}
   .scenario-banner .sb-reason{
     margin-top:var(--space-2-5);padding-top:var(--space-2-5);border-top:1px dashed var(--neutral-border-light);
@@ -1517,9 +1530,11 @@
   .section-card{background:var(--neutral-background-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-lg);padding:var(--card-padding-sm);box-shadow:var(--shadow)}
   .section-card.tx-compact{margin-top:var(--space-0)}
   .section-card .section-head{display:flex;align-items:center;justify-content:space-between;gap:var(--space-2-5);margin-bottom:var(--space-2)}
-  .section-card h3{font-size:var(--text-h6-size);font-weight:var(--font-weight-bold);margin:var(--space-0);letter-spacing:var(--ls-snug)}
+  .section-card h3{font-size:var(--text-h3-size);font-weight:var(--font-weight-bold);margin:var(--space-0);letter-spacing:var(--ls-snug)}
 
-  .tx-list{display:flex;flex-direction:column;border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:hidden}
+  /* No outer border/radius here -- .tx-list already sits inside
+     .section-card, which draws its own border. */
+  .tx-list{display:flex;flex-direction:column}
   .tx-row{
     display:grid;grid-template-columns:88px minmax(0,1fr) auto;gap:var(--space-2) var(--space-3);
     align-items:center;padding:var(--space-1-5) var(--space-2-5);background:var(--neutral-background-default);border-bottom:1px solid var(--neutral-border-light)}
@@ -1548,7 +1563,7 @@
     flex:0 0 auto;width:36px;height:36px;border-radius:var(--radius-sm);display:grid;place-items:center;
     background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
   .quick-link .q-ico svg{width:var(--icon-md);height:var(--icon-md)}
-  .quick-link .q-label{font-size:var(--text-body-sm-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-default);line-height:1.25}
+  .quick-link .q-label{flex:1 1 auto;min-width:0;font-size:var(--text-body-sm-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-default);line-height:1.25}
 
   .status-banner{display:flex;gap:var(--space-3-5);align-items:flex-start;padding:var(--space-4) var(--space-5);border-radius:var(--radius-lg);
     border:1px solid var(--neutral-border-light);background:var(--neutral-background-default);box-shadow:var(--shadow)}
@@ -1599,7 +1614,9 @@
   .btn-ghost:hover:not(:disabled){background:var(--brand-background-primary-subtle)}
   .btn-danger{background:var(--semantics-critical-text);color:var(--brand-text-primary-oncolor);border-color:transparent}
   .btn-danger:hover:not(:disabled){filter:brightness(.92)}
-  .btn:disabled,.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;pointer-events:none}
+  .btn:disabled,.btn[aria-disabled="true"]{
+    background:var(--neutral-background-muted);color:var(--neutral-text-subtle-light);border-color:var(--neutral-border-light);
+    opacity:1;cursor:not-allowed;pointer-events:none}
 
   /* ---------- Forms ---------- */
   .form-field{display:flex;flex-direction:column;gap:var(--form-label-gap);min-width:0}
@@ -1662,7 +1679,7 @@
   .pr-shell{display:grid;grid-template-columns:240px minmax(0,1fr);gap:var(--space-5);align-items:start}
   .pr-nav{
     display:flex;flex-direction:column;gap:var(--space-1);background:var(--neutral-background-default);border:1px solid var(--neutral-border-light);
-    border-radius:var(--radius-xl);padding:var(--space-2-5);box-shadow:var(--shadow);position:sticky;top:calc(var(--header-h) + var(--space-4));max-height:calc(100vh - var(--header-h) - var(--space-8));overflow-y:auto}
+    border-radius:var(--radius-xl);padding:var(--space-2-5);box-shadow:var(--shadow);position:sticky;top:calc(var(--header-h) + var(--space-4));max-height:calc(100dvh - var(--header-h) - var(--space-8));overflow-y:auto}
   .pr-nav button{
     display:flex;align-items:flex-start;gap:var(--space-2-5);width:100%;border:none;background:transparent;
     padding:var(--space-3) var(--space-3);border-radius:var(--radius-sm);font:inherit;font-size:var(--text-sm-size);font-weight:var(--font-weight-bold);
@@ -1904,7 +1921,9 @@
   .tx-table .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:var(--font-weight-bold)}
   .tx-table tbody tr:nth-child(even){background:var(--neutral-background-muted)}
 
-  .doc-list{display:flex;flex-direction:column;border:1px solid var(--neutral-border-light);border-radius:var(--radius-lg);overflow:hidden}
+  /* No outer border/radius here -- .doc-list already sits inside
+     .panel.doc-page, which draws its own border (same fix as .tx-list). */
+  .doc-list{display:flex;flex-direction:column}
   .doc-row{display:grid;grid-template-columns:40px minmax(0,1fr) auto auto;gap:var(--space-3);align-items:center;
     padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light);background:var(--neutral-background-default)}
   .doc-row:last-child{border-bottom:none}
@@ -2005,14 +2024,35 @@
     .app-footer{position:static;height:auto;flex-direction:column;align-items:flex-start;
       gap:var(--space-1);padding:var(--space-3) var(--page-padding-x-sm,var(--space-4));
       margin-left:var(--space-0);width:100%}
-    .nav + *{margin-left:var(--space-0)}
-    .nav{position:fixed;left:0;right:0;bottom:0;top:auto;width:100%;height:auto;
+    .nav ~ *:not(.mobile-nav):not(.mobile-menu-bg){margin-left:var(--space-0)}
+    /* Mobile swaps the 5-item desktop rail for a 3-item bottom bar
+       (Menu / Dashboard / Settings) -- everything else lives in the
+       "Menu" sheet, opened from Sidebar.jsx's own state. Same
+       fixed-bottom-bar mechanics as the old .nav treatment, just a
+       different item set matching the mobile reference pattern.
+       .nav itself is still rendered in the DOM (desktop uses it) but
+       hidden at this width. */
+    .nav{display:none}
+    .mobile-nav{
+      display:flex;position:fixed;left:0;right:0;bottom:0;width:100%;min-height:var(--mobile-nav-h);box-sizing:border-box;
       flex-direction:row;justify-content:space-around;padding:var(--space-1-5) var(--space-1) calc(var(--space-2) + env(safe-area-inset-bottom));
-      border-right:none;border-top:1px solid var(--neutral-border-light);background:var(--neutral-background-default);z-index:40}
-    .nav a{flex:1 1 0;min-width:0;padding:var(--space-2) var(--space-0-5) var(--space-1);font-size:var(--text-2xs-size);gap:var(--space-0-5)}
-    .nav a .nav-label{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
-      white-space:normal;line-height:1.15}
-    .nav a.active::before{left:28%;right:28%;top:0;bottom:auto;width:auto;height:3px;border-radius:0 0 var(--radius-xs) var(--radius-xs)}
+      border-top:1px solid var(--neutral-border-light);background:var(--neutral-background-default);z-index:40}
+    .mobile-nav-btn{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:var(--space-0-5);
+      padding:var(--space-2) var(--space-0-5) var(--space-1);font-size:var(--text-2xs-size);font-weight:var(--font-weight-semibold);
+      color:var(--neutral-text-subtle);text-decoration:none;background:none;border:none;cursor:pointer;position:relative}
+    .mobile-nav-btn.active,a.mobile-nav-btn.active{color:var(--brand-text-primary-default)}
+    .mobile-nav-btn.active::before{content:"";position:absolute;left:28%;right:28%;top:0;height:3px;border-radius:0 0 var(--radius-xs) var(--radius-xs);background:var(--brand-text-primary-default)}
+    .mobile-menu-bg{position:fixed;inset:0;z-index:41;background:color-mix(in srgb, var(--neutral-text-default) 46%, transparent);display:flex;align-items:flex-end}
+    .mobile-menu-sheet{
+      width:100%;background:var(--neutral-background-default);border-radius:var(--radius-xl) var(--radius-xl) 0 0;
+      padding:var(--space-3) var(--space-2) calc(var(--space-4) + env(safe-area-inset-bottom));
+      box-shadow:var(--shadow-lg);margin-bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom))}
+    .mobile-menu-sheet a{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-3);
+      border-radius:var(--radius-sm);color:var(--neutral-text-default);text-decoration:none;font-weight:var(--font-weight-semibold);font-size:var(--text-body-md-size)}
+    .mobile-menu-sheet a:hover{background:var(--brand-background-primary-subtle)}
+    .mobile-menu-sheet a.active{color:var(--brand-text-primary-default);background:var(--brand-background-primary-light)}
+    .mobile-menu-sheet .ico{display:grid;place-items:center;color:var(--neutral-text-subtle);flex:0 0 auto}
+    .mobile-menu-sheet a.active .ico{color:var(--brand-text-primary-default)}
     .page-body{padding:var(--page-padding-y-sm) var(--page-padding-x-sm) var(--page-padding-bottom-sm)}
     .hi-bar h1{font-size:var(--text-display-md-size)}
     .pr-row,.pr-field{grid-template-columns:1fr;gap:var(--space-1);align-items:start;padding:var(--space-2-5) 0}
@@ -2307,7 +2347,9 @@ summary:focus-visible {
   transition:border-color var(--motion-base),box-shadow var(--motion-base)}
 .ui-select-btn:focus-visible{outline:none;border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 15%, transparent)}
 .ui-select-btn:hover{border-color:var(--neutral-border-strong)}
-.ui-select.disabled .ui-select-btn{cursor:not-allowed;opacity:.6}
+.ui-select.disabled .ui-select-btn{
+  background:var(--neutral-background-muted);color:var(--neutral-text-subtle-light);border-color:var(--neutral-border-light);
+  cursor:not-allowed;opacity:1}
 .ui-select-value{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ui-select-caret{color:var(--neutral-text-subtle);flex:0 0 auto}
 .ui-select-menu{

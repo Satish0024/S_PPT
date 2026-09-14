@@ -4,7 +4,7 @@
    so every live example on this page is pixel-true to the app.
    ============================================================ */
 
-.ds{--ds-sidebar-w:260px;--ds-content-max:960px;background:var(--neutral-background-subtle);color:var(--neutral-text-default);min-height:100vh}
+.ds{--ds-sidebar-w:260px;--ds-content-max:960px;background:var(--neutral-background-subtle);color:var(--neutral-text-default);min-height:100dvh}
 
 /* ---------- Top bar ---------- */
 .ds-top{
@@ -38,7 +38,7 @@
 
 .ds-nav{
   width:var(--ds-sidebar-w);flex:0 0 var(--ds-sidebar-w);position:sticky;top:60px;
-  height:calc(100vh - 60px);overflow-y:auto;padding:var(--space-6) var(--space-3) var(--space-14);border-right:1px solid var(--neutral-border-light)
+  height:calc(100dvh - 60px);overflow-y:auto;padding:var(--space-6) var(--space-3) var(--space-14);border-right:1px solid var(--neutral-border-light)
 }
 .ds-nav-group{margin-bottom:var(--space-4)}
 .ds-nav-group h4{
