@@ -44,7 +44,10 @@
     --brand-background-primary-hover: var(--brand-text-primary-hover);
     --brand-background-primary-active: color-mix(in srgb, var(--brand-text-primary-default) 70%, black);
     --brand-background-primary-disabled: color-mix(in srgb, var(--brand-text-primary-default) 25%, white);
-    --brand-background-primary-light: color-mix(in srgb, var(--brand-text-primary-default) 12%, white);
+    /* Exact DS value (#F5F7FA), not primary-500 tinted at 12% opacity --
+       that approximation renders visibly more saturated/blue than what
+       the DS actually ships for this token. */
+    --brand-background-primary-light: var(--theme-brand-background-primary-light);
     --brand-background-primary-subtle: var(--theme-colors-neutral-50);
 
     /* Brand — Border */
@@ -459,7 +462,9 @@
     --brand-text-primary-active: color-mix(in srgb, var(--brand-text-primary-default) 90%, white);
     --brand-background-primary-hover: var(--brand-text-primary-hover);
     --brand-background-primary-active: color-mix(in srgb, var(--brand-text-primary-default) 80%, white);
-    --brand-background-primary-light: color-mix(in srgb, var(--brand-text-primary-default) 22%, black);
+    /* Exact DS dark-mode value (#102137), same reasoning as the light
+       override above. */
+    --brand-background-primary-light: var(--theme-brand-background-primary-light);
     --brand-background-primary-subtle: var(--theme-colors-neutral-800);
 
     /* Neutral — A11y: --neutral-text-subtle-light reads a primitive that
