@@ -63,8 +63,12 @@
     --neutral-text-subtle-light: var(--theme-colors-neutral-600);
     --neutral-text-on-color: var(--brand-text-primary-oncolor);
 
-    /* Surface tokens — PORTAL EXTENSION (DS has no neutral-background-* tokens)
-       Maps to DS color primitives. Use these for surface/container backgrounds. */
+    /* Surface tokens — PORTAL EXTENSION (confirmed against the live DS:
+       its Neutral group has only 8 text/border tokens, no background/
+       surface-role token by name). Every value here is still a literal
+       DS primitive from the Neutral scale, never an invented color:
+       neutral-white #FFFFFF, neutral-50 #F7F7F9, neutral-100 #EEEEF2,
+       neutral-200 #DFDFE6. Use these for surface/container backgrounds. */
     --surface-default: var(--theme-colors-neutral-white);
     --surface-subtle: var(--theme-colors-neutral-50);
     --surface-muted: var(--theme-colors-neutral-100);
@@ -473,7 +477,14 @@
     /* Neutral — A11y: --neutral-text-subtle-light reads a primitive that
        doesn't swap per theme; override to the semantic token. */
     --neutral-text-subtle-light: var(--theme-neutral-text-subtleleast);
-    /* Surface tokens — dark mode overrides */
+    /* Surface tokens — dark mode overrides. Every value on both sides of
+       this alias is a literal DS primitive from the live DS's Neutral
+       scale (coredesignsystemv1.netlify.app/#/foundations/color) — the
+       DS defines no background/surface-role token by name (confirmed:
+       its Neutral group only lists 8 text/border tokens), so these
+       names are the portal's own, but the colors themselves are never
+       invented: neutral-900 #1D1C24, neutral-950 #111017,
+       neutral-800 #2E2D38, neutral-700 #454452. */
     --surface-default: var(--theme-colors-neutral-900);
     --surface-subtle: var(--theme-colors-neutral-950);
     --surface-muted: var(--theme-colors-neutral-800);
@@ -1058,7 +1069,12 @@
   .rg-disc-top{flex:0 0 auto;white-space:nowrap;font-size:var(--text-sm-size);font-weight:var(--font-weight-extrabold);text-decoration:underline;text-underline-offset:2px}
   .rg-back{display:inline-flex;align-items:center;gap:var(--space-1-5);margin-bottom:var(--space-2)}
   .rg-intro{margin:var(--space-2) var(--space-0) var(--space-0);max-width:640px;font-size:var(--text-sm-size);line-height:1.5;color:var(--neutral-text-subtle);font-weight:var(--font-weight-medium)}
-  .rg-shell{display:grid;grid-template-columns:7fr 3fr;gap:var(--space-6);align-items:start;width:100%}
+  /* minmax(0,Nfr), not bare Nfr -- a plain fr track's automatic minimum
+     is its content's min-content size, so a wide descendant (the
+     auto-increase table's minmax-floored columns) refused to let this
+     column shrink below ~400px and instead overflowed straight into
+     the .rg-live column next to it at in-between widths. */
+  .rg-shell{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,3fr);gap:var(--space-6);align-items:start;width:100%}
   .rg-shell > .rg-live{grid-column:2;grid-row:1}
   .rg-shell > .rg-work{grid-column:1;grid-row:1}
   .rg-work{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--space-4);align-items:start;min-width:0}
@@ -1188,7 +1204,7 @@
   .rg-toggle span{display:flex;flex-direction:column;gap:var(--space-1);font-size:var(--text-sm-size);font-weight:var(--font-weight-semibold);line-height:1.45;color:var(--neutral-text-subtle)}
   .rg-toggle b{font-size:var(--text-body-md-size);font-weight:var(--font-weight-extrabold);color:var(--neutral-text-default)}
   .rg-toggle.on{border-color:var(--semantics-success-border);background:var(--semantics-success-background-light)}
-  .rg-auto{display:grid;grid-template-columns:1fr;gap:var(--space-2);margin:var(--space-0) var(--space-0) var(--space-2)}
+  .rg-auto{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-2);margin:var(--space-0) var(--space-0) var(--space-2)}
   /* When the ai-source-table lives inside the narrow rg-work sub-column,
      the standard minmax(160px/120px) columns can exceed the available
      width. Shrink the minimums so the table stays within the container
