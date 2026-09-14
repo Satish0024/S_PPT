@@ -1700,21 +1700,19 @@
     display:flex;flex-direction:column;gap:var(--space-1);background:var(--surface-default);border:1px solid var(--neutral-border-light);
     border-radius:var(--radius-xl);padding:var(--space-2-5);box-shadow:var(--core-elevation-2);position:sticky;top:calc(var(--header-h) + var(--space-4));max-height:calc(100dvh - var(--header-h) - var(--space-8));overflow-y:auto}
   .pr-nav button{
-    display:flex;align-items:flex-start;gap:var(--space-2-5);width:100%;border:none;background:transparent;
+    display:flex;align-items:center;gap:var(--space-2-5);width:100%;border:none;background:transparent;
     padding:var(--space-3) var(--space-3);border-radius:var(--radius-sm);font:inherit;font-size:var(--text-sm-size);font-weight:var(--font-weight-bold);
     color:var(--neutral-text-subtle);cursor:pointer;text-align:left}
   .pr-nav button:hover{background:var(--brand-background-primary-subtle);color:var(--neutral-text-default)}
   .pr-nav button.on{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
-  /* Labels like "Employment Information"/"Employee Classification" wrap
-     to 2 lines in this 240px sidebar -- align-items was center, so the
-     32px icon centered against the whole 2-line block instead of sitting
-     level with the first line, and the tight line-height made the wrapped
-     text look cramped against the icon. flex-start + a matching top
-     offset + real line-height fixes both. */
+  /* Labels like "Employment Information"/"Employee Classification" wrap to
+     2 lines in this 240px sidebar; the icon stays centered against the full
+     label block rather than tracking the first line. The roomier
+     line-height keeps the wrapped text from looking cramped. */
   .pr-nav-ico{
-    width:32px;height:32px;margin-top:1px;border-radius:var(--radius-sm);flex:0 0 auto;display:grid;place-items:center;
+    width:32px;height:32px;border-radius:var(--radius-sm);flex:0 0 auto;display:grid;place-items:center;
     background:var(--surface-muted);color:var(--neutral-text-subtle)}
-  .pr-nav-label{line-height:1.35;padding-top:var(--space-0-5)}
+  .pr-nav-label{line-height:1.35}
   .pr-nav button.on .pr-nav-ico{background:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor)}
   .pr-main{min-width:0;max-width:760px;display:flex;flex-direction:column;gap:var(--space-4)}
   .pr-main.pr-main-wide{max-width:none}
