@@ -59,7 +59,7 @@ export default function Select({ id, value, onChange, disabled, placeholder, cla
         onClick={() => !disabled && setOpen((v) => !v)}
         {...rest}
       >
-        <span className="ui-select-value">{current ? current.label : placeholder || opts[0]?.label}</span>
+        <span className="ui-select-value" title={current ? current.label : placeholder || opts[0]?.label}>{current ? current.label : placeholder || opts[0]?.label}</span>
         <Icon icon={faChevronDown} size={13} aria-hidden="true" className="ui-select-caret" />
       </button>
       {open && (

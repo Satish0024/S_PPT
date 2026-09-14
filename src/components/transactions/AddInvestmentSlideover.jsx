@@ -41,6 +41,7 @@ export default function AddInvestmentSlideover({ existingIds, onClose, onSave })
         <Icon icon={faSearch} size={15} />
         <input
           type="search"
+          aria-label="Search investments"
           placeholder="Search Investment name"
           value={query}
           onChange={(e) => setQuery(e.target.value)}

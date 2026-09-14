@@ -128,7 +128,7 @@ export default function Login() {
           Prototype demo — try a participant
         </button>
         {demoOpen && (
-          <div className="login-demo-menu" role="listbox">
+          <div className="login-demo-menu" role="listbox" aria-label="Select demo user">
             {participants.map((p) => (
               <button key={p.id} type="button" className="login-demo-row" role="option" onClick={() => pickDemoUser(p)}>
                 <img src={p.avatar} alt="" width={22} height={22} />

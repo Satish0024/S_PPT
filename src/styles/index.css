@@ -2254,7 +2254,7 @@ summary:focus-visible {
 .ui-datepicker-day.outside{color:var(--muted)}
 .ui-datepicker-day.today{color:var(--brand);font-weight:var(--font-weight-extrabold)}
 .ui-datepicker-day.selected{background:var(--brand-fill);color:var(--brand-text-primary-oncolor);font-weight:var(--font-weight-extrabold)}
-.ui-datepicker-day:disabled{color:var(--muted);cursor:not-allowed;opacity:.5}
+.ui-datepicker-day:disabled{color:var(--surface-3);cursor:not-allowed}
 .ui-datepicker-foot{
   display:flex;align-items:center;justify-content:space-between;margin-top:var(--space-2-5);padding-top:var(--space-2-5);
   border-top:1px solid var(--line)}
@@ -3154,7 +3154,10 @@ summary:focus-visible {
 .demo-switcher-text{display:flex;flex-direction:column;gap:var(--space-px);min-width:0}
 .demo-switcher-text strong{font-size:var(--text-body-sm-size);font-weight:var(--font-weight-bold);color:var(--ink)}
 .demo-switcher-text small{font-size:var(--text-xs-size);font-weight:var(--font-weight-semibold);color:var(--ink-soft)}
+@media(max-width:640px){
+  /* Mobile: bottom tab bar is ~56px + safe-area; push switcher above it */
+  .demo-switcher{right:var(--space-3);bottom:calc(60px + env(safe-area-inset-bottom) + var(--space-2))}
+}
 @media(max-width:480px){
-  .demo-switcher{right:var(--space-3);bottom:var(--space-3)}
-  .demo-switcher-menu{width:calc(100vw - 24px);right:-12px}
+  .demo-switcher-menu{width:calc(100vw - var(--space-6));right:calc(-1 * var(--space-3))}
 }
