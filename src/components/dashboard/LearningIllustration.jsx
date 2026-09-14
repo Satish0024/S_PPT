@@ -26,16 +26,16 @@ export default function LearningIllustration() {
       <g className="learn-illo-plant">
         <rect x="118" y="78" width="30" height="24" rx="4" fill="var(--brand-text-primary-hover)" />
         <rect x="121" y="74" width="24" height="8" rx="3" fill="var(--brand-text-primary-default)" />
-        <path d="M133 74c0-14-14-16-16-28 12 2 18 12 18 22 6-8 4-18-2-24 10 4 14 16 10 26z" fill="#2f9e5b" />
+        <path d="M133 74c0-14-14-16-16-28 12 2 18 12 18 22 6-8 4-18-2-24 10 4 14 16 10 26z" fill="var(--semantics-success-text)" />
       </g>
 
       <g className="learn-illo-books">
-        <rect x="70" y="88" width="66" height="16" rx="4" fill="#2f9e5b" />
-        <rect x="70" y="88" width="66" height="4" rx="2" fill="#ffffff" opacity="0.35" />
+        <rect x="70" y="88" width="66" height="16" rx="4" fill="var(--semantics-success-text)" />
+        <rect x="70" y="88" width="66" height="4" rx="2" fill="var(--neutral-background-default)" opacity="0.35" />
         <g transform="rotate(-6 100 76)">
           <rect x="66" y="66" width="68" height="20" rx="5" fill="url(#learn-book-a)" />
-          <rect x="66" y="66" width="68" height="5" rx="2.5" fill="#ffffff" opacity="0.4" />
-          <rect x="72" y="76" width="30" height="3" rx="1.5" fill="#ffffff" opacity="0.55" />
+          <rect x="66" y="66" width="68" height="5" rx="2.5" fill="var(--neutral-background-default)" opacity="0.4" />
+          <rect x="72" y="76" width="30" height="3" rx="1.5" fill="var(--neutral-background-default)" opacity="0.55" />
         </g>
       </g>
     </svg>

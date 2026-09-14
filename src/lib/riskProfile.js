@@ -3,6 +3,13 @@ import { LIKERT_QUESTIONS } from '../data/riskQuestionnaire'
 
 export const RISK_PROFILE_KEY = 'lendguardRiskProfile'
 
+// Resolve a CSS custom property at runtime so risk-level colors always
+// come from the DS palette, not hardcoded hex values.
+function cssVar(token, fallback) {
+  if (typeof document === 'undefined') return fallback
+  return getComputedStyle(document.documentElement).getPropertyValue(token).trim() || fallback
+}
+
 // Three canonical levels — these ids line up with the `risk` field already
 // used on fund rows in data/portfolio.js (conservative/moderate/aggressive).
 export const RISK_LEVELS = [
@@ -12,8 +19,8 @@ export const RISK_LEVELS = [
     badge: 'CONSERVATIVE',
     subtitle: 'Conservative risk',
     score: 15,
-    color: '#1a9d63',
-    accent: '#178a4a',
+    get color() { return cssVar('--semantics-success-text', '#1a9d63') },
+    get accent() { return cssVar('--semantics-success-background-strong', '#178a4a') },
     copy: "This investment style favors stability, leaning on bonds and cash to help protect what you've saved.",
     outlook: "You'd rather protect what you've saved than chase extra growth.",
     insights: [
@@ -29,8 +36,8 @@ export const RISK_LEVELS = [
     badge: 'MODERATE',
     subtitle: 'Moderate risk',
     score: 50,
-    color: '#d4a017',
-    accent: '#4338ca',
+    get color() { return cssVar('--semantics-warning-text', '#d4a017') },
+    get accent() { return cssVar('--brand-text-primary-default', '#4338ca') },
     copy: 'We picked this investment style based on how you answered the questionnaire.',
     outlook: "You're comfortable with some ups and downs for potential long-term growth.",
     insights: [
@@ -46,8 +53,8 @@ export const RISK_LEVELS = [
     badge: 'AGGRESSIVE',
     subtitle: 'Aggressive risk',
     score: 85,
-    color: '#c0392b',
-    accent: '#dc2626',
+    get color() { return cssVar('--semantics-critical-text', '#c0392b') },
+    get accent() { return cssVar('--semantics-critical-background-strong', '#dc2626') },
     outlook: "You're comfortable with larger swings in pursuit of higher long-term growth.",
     insights: [
       'Growth-focused approach that leans into equities.',

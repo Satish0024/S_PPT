@@ -12,7 +12,7 @@ export default function ReadinessSceneV2({ idle = false }) {
       <defs>
         <linearGradient id="rr2-sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="var(--brand-background-primary-light)" />
-          <stop offset="100%" stopColor="#ffffff" />
+          <stop offset="100%" stopColor="var(--neutral-background-default)" />
         </linearGradient>
         <linearGradient id="rr2-balloon-a" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="var(--brand-text-primary-active)" />
@@ -23,14 +23,14 @@ export default function ReadinessSceneV2({ idle = false }) {
       <rect x="0" y="0" width="240" height="130" rx="12" fill="url(#rr2-sky)" />
 
       <g className="rr2-cloud rr2-cloud-a" opacity="0.9">
-        <ellipse cx="34" cy="34" rx="22" ry="10" fill="#ffffff" />
-        <ellipse cx="52" cy="30" rx="16" ry="9" fill="#ffffff" />
-        <ellipse cx="18" cy="30" rx="12" ry="8" fill="#ffffff" />
+        <ellipse cx="34" cy="34" rx="22" ry="10" fill="var(--neutral-background-default)" />
+        <ellipse cx="52" cy="30" rx="16" ry="9" fill="var(--neutral-background-default)" />
+        <ellipse cx="18" cy="30" rx="12" ry="8" fill="var(--neutral-background-default)" />
       </g>
       <g className="rr2-cloud rr2-cloud-b" opacity="0.75">
-        <ellipse cx="172" cy="20" rx="20" ry="9" fill="#ffffff" />
-        <ellipse cx="188" cy="17" rx="13" ry="7" fill="#ffffff" />
-        <ellipse cx="158" cy="18" rx="11" ry="7" fill="#ffffff" />
+        <ellipse cx="172" cy="20" rx="20" ry="9" fill="var(--neutral-background-default)" />
+        <ellipse cx="188" cy="17" rx="13" ry="7" fill="var(--neutral-background-default)" />
+        <ellipse cx="158" cy="18" rx="11" ry="7" fill="var(--neutral-background-default)" />
       </g>
 
       <g className="rr2-balloon">
