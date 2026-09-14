@@ -781,6 +781,9 @@
      always stays inside the link and can never get clipped. */
   .nav a:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:-2px;border-radius:var(--radius-sm)}
 
+  /* Mobile nav is hidden by default — only shown at ≤640px via media query */
+  .mobile-nav,.mobile-menu-bg{display:none}
+
   .main{flex:1;min-width:0;display:flex;flex-direction:column}
   .page-body{padding:var(--page-padding-y) var(--page-padding-x) var(--page-padding-bottom);display:flex;flex-direction:column;gap:var(--page-gap);width:100%;max-width:none}
 
