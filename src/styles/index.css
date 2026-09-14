@@ -1134,7 +1134,7 @@
     color:var(--neutral-text-subtle);font-size:var(--text-body-sm-size);font-style:normal;font-weight:var(--font-weight-extrabold);border-right:1px solid var(--neutral-border-light)}
   .rg-affix.pct em{border-right:none;border-left:1px solid var(--neutral-border-light)}
   .rg-affix input,.rg-step input{
-    border:none;background:transparent;padding:var(--space-2) var(--space-2-5);width:108px;max-width:100%;font:inherit;font-size:var(--text-base-size);font-weight:var(--font-weight-extrabold);
+    border:none;background:transparent;padding:var(--space-2) var(--space-2-5);width:108px;max-width:100%;font:inherit;font-size:var(--text-body-sm-size);font-weight:var(--font-weight-extrabold);
     color:var(--neutral-text-default);font-variant-numeric:tabular-nums;outline:none}
   .rg-affix input::-webkit-outer-spin-button,.rg-affix input::-webkit-inner-spin-button,
   .rg-step input::-webkit-outer-spin-button,.rg-step input::-webkit-inner-spin-button{appearance:none;margin:var(--space-0)}

@@ -733,6 +733,15 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
   .cycle-opt{min-height:44px;padding:var(--space-2-5) var(--space-3)}
   .enroll-form-head{flex-wrap:wrap;align-items:flex-start}
   .form-head-left{flex-wrap:wrap;row-gap:var(--space-1-5)}
+  /* .enroll-modal.success-modal's max-height:88vh (below) is a plain
+     viewport-height percentage that doesn't know about the fixed
+     72px .mobile-nav bar reserved at this width -- at short viewports
+     (e.g. a landscape phone, or any height under ~600px) the modal's
+     own bottom edge can render past the visible content area and
+     overlap the nav bar instead of stopping above it. Subtracting the
+     bar's height keeps the modal (and its own internal scroll, already
+     set via overflow:auto) clear of the bar at any height. */
+  .enroll-modal.success-modal{max-height:calc(88vh - var(--mobile-nav-h))}
 }
 
 .fund-link.sname{color:var(--brand-text-primary-default);text-decoration:underline;text-underline-offset:2px}
