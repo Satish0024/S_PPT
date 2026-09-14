@@ -1561,7 +1561,7 @@
   .tx-empty{padding:var(--space-4) var(--space-3);font-size:var(--text-body-sm-size);color:var(--neutral-text-subtle);text-align:center;line-height:1.45}
 
   /* Quick links */
-  .quick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:var(--space-2-5)}
+  .quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:var(--space-2-5)}
   .quick-link{
     display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3-5);background:var(--neutral-background-default);border:1px solid var(--neutral-border-light);
     border-radius:var(--radius-sm);box-shadow:var(--shadow);text-decoration:none;color:inherit;min-width:0;
@@ -2005,7 +2005,7 @@
     .cards{grid-template-columns:1fr}
     .dash-layout{grid-template-columns:1fr}
     .plans-grid,.profile-grid,.pf-fields,.pd-grid,.plan-fact-row,.pr-shell,.pr-history li > div{grid-template-columns:1fr}
-    .quick-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+    .quick-grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
     .pr-nav,.pr-steps{position:static;flex-direction:row;flex-wrap:wrap}
     .pr-nav button{width:auto;flex:1 1 auto}
     .pr-hero{grid-template-columns:64px minmax(0,1fr)}
