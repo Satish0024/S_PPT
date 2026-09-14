@@ -2082,6 +2082,10 @@
     .hi-bar h1{font-size:var(--text-display-md-size)}
     .pr-row,.pr-field{grid-template-columns:1fr;gap:var(--space-1);align-items:start;padding:var(--space-2-5) 0}
     .pr-field input:not([type="radio"]):not([type="checkbox"]),.pr-field select,.pr-input-ico,.pr-phone{max-width:none}
+    .confirm-dialog-actions{flex-direction:column}
+    .confirm-dialog-actions .btn{width:100%}
+    .rg-confirm-actions{flex-direction:column;align-items:stretch}
+    .rg-confirm-actions .btn{width:100%;min-width:0}
   }
 
   /* ---------- Sidebar secondary CTA (risk questionnaire) + brand footer ---------- */

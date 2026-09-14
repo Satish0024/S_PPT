@@ -48,3 +48,8 @@
   .rqp-side{display:none}
   .rqp-main{padding:var(--space-7) var(--space-5)}
 }
+@media(max-width:480px){
+  .rqp-main{padding:var(--space-5) var(--page-padding-x-sm)}
+  .rqp-main-head{gap:var(--space-2-5);margin-bottom:var(--space-5)}
+  .rqp-actions{margin-top:var(--space-5)}
+}
