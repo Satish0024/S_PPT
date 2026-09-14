@@ -40,7 +40,7 @@ const POINT_STYLES = ['circle', 'triangle', 'rect', 'star']
 const DASHES = [[], [7, 4], [2, 3], [9, 3, 2, 3], [4, 3], [1, 3], [6, 3], [8, 4], [3, 2, 1, 2], [5, 4], [10, 3]]
 
 const SERIES_META = [
-  { key: 'total', label: 'Total portfolio', token: '--ink', dash: [], pointStyle: 'circle' },
+  { key: 'total', label: 'Total portfolio', token: '--neutral-text-default', dash: [], pointStyle: 'circle' },
   ...ASSET_CLASS_ORDER.map((label, i) => ({
     key: `ac-${i}`,
     label,
@@ -82,9 +82,9 @@ export default function Portfolio() {
   const chartOptions = useMemo(() => {
     const css = getComputedStyle(document.documentElement)
     return buildChartOptions({
-      axisTitle: css.getPropertyValue('--ink-soft').trim() || '#5c6078',
-      gridLine: css.getPropertyValue('--line').trim() || '#e8eaf2',
-      tick: css.getPropertyValue('--muted').trim() || '#8a8da3'
+      axisTitle: css.getPropertyValue('--neutral-text-subtle').trim() || '#5c6078',
+      gridLine: css.getPropertyValue('--neutral-border-light').trim() || '#e8eaf2',
+      tick: css.getPropertyValue('--neutral-text-subtle-light').trim() || '#8a8da3'
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme])
@@ -469,7 +469,7 @@ function line(series, data, order, hidden) {
     tension: 0.3,
     pointRadius: 4,
     pointHoverRadius: 6,
-    pointBackgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--panel').trim() || '#fff',
+    pointBackgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--neutral-background-default').trim() || '#fff',
     pointBorderColor: series.color,
     pointBorderWidth: 2,
     borderWidth: 2.5,
@@ -481,7 +481,7 @@ function line(series, data, order, hidden) {
 // Chart.js reads plain color strings, not CSS variables, so its palette has
 // to be rebuilt whenever the theme flips rather than defined once at import
 // time — this factory is called from the component with each render's
-// resolved --ink-soft/--line/--muted values.
+// resolved --neutral-text-subtle/--neutral-border-light/--neutral-text-subtle-light values.
 // Chart.js requires numeric px — keep in sync with --text-xs-size (12px)
 // and --font-weight-semibold (600) from the design-system type scale.
 const CHART_AXIS_FONT = { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' }

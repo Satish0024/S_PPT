@@ -1548,7 +1548,7 @@ function RolloverInvestmentTable({ plan, form, set, editable }) {
               ))}
               <tr className="alloc-total">
                 <td>Total Percentage</td>
-                <td className="num" style={Math.round(pctTotal) !== 100 ? { color: 'var(--amber)' } : undefined}>
+                <td className="num" style={Math.round(pctTotal) !== 100 ? { color: 'var(--semantics-warning-text)' } : undefined}>
                   {Math.round(pctTotal * 10) / 10}%
                 </td>
               </tr>

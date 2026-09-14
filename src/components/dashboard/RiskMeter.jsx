@@ -48,14 +48,14 @@ export default function RiskMeter() {
           <svg className="risk-gauge" viewBox="0 0 200 115" role="img" aria-label={`${level.badge} risk level`}>
             <defs>
               <linearGradient id="risk-arc" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="var(--green)" />
-                <stop offset="50%" stopColor="var(--amber)" />
-                <stop offset="100%" stopColor="var(--red)" />
+                <stop offset="0%" stopColor="var(--semantics-success-text)" />
+                <stop offset="50%" stopColor="var(--semantics-warning-text)" />
+                <stop offset="100%" stopColor="var(--semantics-critical-text)" />
               </linearGradient>
             </defs>
             <path d="M10 100A90 90 0 0 1 190 100" fill="none" stroke="url(#risk-arc)" strokeWidth="14" strokeLinecap="round" />
             <g className="risk-marker" style={{ transform: `rotate(${angle}deg)` }}>
-              <circle cx="100" cy="14" r="9" fill="var(--panel)" stroke={level.color} strokeWidth="4" />
+              <circle cx="100" cy="14" r="9" fill="var(--neutral-background-default)" stroke={level.color} strokeWidth="4" />
             </g>
           </svg>
           <div className="risk-center">

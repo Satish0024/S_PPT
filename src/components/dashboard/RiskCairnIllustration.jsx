@@ -14,18 +14,18 @@ export default function RiskCairnIllustration({ levelId, color }) {
     <svg className="risk-cairn" viewBox="0 0 140 130" role="img" aria-label="Illustration of balanced stacked stones">
       <defs>
         <linearGradient id="cairn-stone" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--accent)" />
-          <stop offset="100%" stopColor="var(--brand)" />
+          <stop offset="0%" stopColor="var(--brand-text-primary-active)" />
+          <stop offset="100%" stopColor="var(--brand-text-primary-default)" />
         </linearGradient>
       </defs>
 
-      <circle className="risk-cairn-glow" cx="70" cy="72" r="52" fill="var(--active-bg)" />
+      <circle className="risk-cairn-glow" cx="70" cy="72" r="52" fill="var(--brand-background-primary-light)" />
 
       <g className="risk-cairn-sparkle risk-cairn-sparkle-a">
-        <path d="M112 30l1.8 4.2 4.2 1.8-4.2 1.8-1.8 4.2-1.8-4.2-4.2-1.8 4.2-1.8z" fill="var(--accent)" />
+        <path d="M112 30l1.8 4.2 4.2 1.8-4.2 1.8-1.8 4.2-1.8-4.2-4.2-1.8 4.2-1.8z" fill="var(--brand-text-primary-active)" />
       </g>
       <g className="risk-cairn-sparkle risk-cairn-sparkle-b">
-        <circle cx="24" cy="50" r="2.6" fill="var(--brand)" />
+        <circle cx="24" cy="50" r="2.6" fill="var(--brand-text-primary-default)" />
       </g>
 
       <g className="risk-cairn-leaf risk-cairn-leaf-a">

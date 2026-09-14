@@ -6,26 +6,26 @@ export default function LearningIllustration() {
     <svg className="learn-illo" viewBox="0 0 160 120" role="img" aria-label="Stack of books beside a potted plant">
       <defs>
         <linearGradient id="learn-book-a" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--accent)" />
-          <stop offset="100%" stopColor="var(--brand)" />
+          <stop offset="0%" stopColor="var(--brand-text-primary-active)" />
+          <stop offset="100%" stopColor="var(--brand-text-primary-default)" />
         </linearGradient>
       </defs>
 
-      <circle className="learn-illo-glow" cx="96" cy="60" r="46" fill="var(--active-bg)" />
+      <circle className="learn-illo-glow" cx="96" cy="60" r="46" fill="var(--brand-background-primary-light)" />
 
       <g className="learn-illo-sparkle learn-illo-sparkle-a">
-        <path d="M118 20l2.4 6 6 2.4-6 2.4-2.4 6-2.4-6-6-2.4 6-2.4z" fill="var(--accent)" />
+        <path d="M118 20l2.4 6 6 2.4-6 2.4-2.4 6-2.4-6-6-2.4 6-2.4z" fill="var(--brand-text-primary-active)" />
       </g>
       <g className="learn-illo-sparkle learn-illo-sparkle-b">
-        <path d="M138 42l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="var(--brand)" />
+        <path d="M138 42l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="var(--brand-text-primary-default)" />
       </g>
       <g className="learn-illo-sparkle learn-illo-sparkle-c">
-        <path d="M100 14l1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2 3-1.2z" fill="var(--accent)" />
+        <path d="M100 14l1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2 3-1.2z" fill="var(--brand-text-primary-active)" />
       </g>
 
       <g className="learn-illo-plant">
-        <rect x="118" y="78" width="30" height="24" rx="4" fill="var(--brand-dark)" />
-        <rect x="121" y="74" width="24" height="8" rx="3" fill="var(--brand)" />
+        <rect x="118" y="78" width="30" height="24" rx="4" fill="var(--brand-text-primary-hover)" />
+        <rect x="121" y="74" width="24" height="8" rx="3" fill="var(--brand-text-primary-default)" />
         <path d="M133 74c0-14-14-16-16-28 12 2 18 12 18 22 6-8 4-18-2-24 10 4 14 16 10 26z" fill="#2f9e5b" />
       </g>
 

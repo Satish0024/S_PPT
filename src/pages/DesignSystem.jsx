@@ -53,11 +53,11 @@ const NAV = [
 ]
 
 const COLORS = [
-  ['Brand', '--brand'], ['Brand dark', '--brand-dark'], ['Accent', '--accent'],
-  ['Ink (text)', '--ink'], ['Ink soft', '--ink-soft'], ['Muted', '--muted'],
-  ['Line', '--line'], ['Background', '--bg'], ['Panel', '--panel'],
-  ['Active bg', '--active-bg'], ['Green (success)', '--green'], ['Amber (warning)', '--amber'],
-  ['Red (danger)', '--red'], ['Surface 2', '--surface-2'], ['Surface 3', '--surface-3'],
+  ['Brand', '--brand-text-primary-default'], ['Brand hover', '--brand-text-primary-hover'], ['Brand active', '--brand-text-primary-active'],
+  ['Text default', '--neutral-text-default'], ['Text subtle', '--neutral-text-subtle'], ['Text muted', '--neutral-text-subtle-light'],
+  ['Border', '--neutral-border-light'], ['Background', '--neutral-background-subtle'], ['Panel', '--neutral-background-default'],
+  ['Active bg', '--brand-background-primary-light'], ['Success', '--semantics-success-text'], ['Warning', '--semantics-warning-text'],
+  ['Danger', '--semantics-critical-text'], ['Surface muted', '--neutral-background-muted'], ['Surface strong', '--neutral-background-strong'],
 ]
 
 // name, var — hex values are resolved live (see useDualThemeTokens) from
@@ -65,23 +65,28 @@ const COLORS = [
 // is correct on every brand (CORE, Saturna, LendGuard, or any future one).
 const COLOR_GROUPS = [
   { title: 'Brand', tokens: [
-    ['Brand', '--brand'], ['Brand dark (hover)', '--brand-dark'], ['Brand fill (solid surfaces)', '--brand-fill'],
-    ['Accent', '--accent'], ['Link', '--link'],
+    ['Text default', '--brand-text-primary-default'], ['Text hover', '--brand-text-primary-hover'],
+    ['Background strong', '--brand-background-primary-strong'], ['Background light', '--brand-background-primary-light'],
+    ['Background subtle', '--brand-background-primary-subtle'], ['On-color text', '--brand-text-primary-oncolor'],
+    ['Active', '--brand-text-primary-active'], ['Border', '--brand-border-primary-default'],
   ] },
   { title: 'Neutrals', tokens: [
-    ['Ink (primary text)', '--ink'], ['Ink soft (secondary text)', '--ink-soft'], ['Muted (tertiary text)', '--muted'],
-    ['Line (border)', '--line'], ['Line strong (emphasized border)', '--line-strong'], ['Background', '--bg'],
-    ['Panel', '--panel'], ['Surface 2', '--surface-2'], ['Surface 3', '--surface-3'],
-    ['Active bg', '--active-bg'], ['Hover bg', '--hover-bg'],
+    ['Text default', '--neutral-text-default'], ['Text subtle', '--neutral-text-subtle'], ['Text muted', '--neutral-text-subtle-light'],
+    ['Border light', '--neutral-border-light'], ['Border strong', '--neutral-border-strong'],
+    ['Background default', '--neutral-background-default'], ['Background subtle', '--neutral-background-subtle'],
+    ['Background muted', '--neutral-background-muted'], ['Background strong', '--neutral-background-strong'],
   ] },
   { title: 'Status — success', tokens: [
-    ['Green', '--green'], ['Green bg', '--green-bg'], ['Green line', '--green-line'],
+    ['Text', '--semantics-success-text'], ['Background light', '--semantics-success-background-light'],
+    ['Border', '--semantics-success-border'],
   ] },
   { title: 'Status — warning', tokens: [
-    ['Amber', '--amber'], ['Amber bg', '--amber-bg'], ['Amber line', '--amber-line'],
+    ['Text', '--semantics-warning-text'], ['Background light', '--semantics-warning-background-light'],
+    ['Border', '--semantics-warning-border'],
   ] },
   { title: 'Status — danger', tokens: [
-    ['Red', '--red'], ['Red bg', '--red-bg'], ['Red line', '--red-line'],
+    ['Text', '--semantics-critical-text'], ['Background light', '--semantics-critical-background-light'],
+    ['Border', '--semantics-critical-border'],
   ] },
   { title: 'Chart colors — 11-color scale (fixed mapping order)', tokens: [
     ['1 Brand · U.S. Equity', '--chart-1'], ['2 Green · Intl Equity', '--chart-2'], ['3 Amber · EM', '--chart-3'],
@@ -643,7 +648,7 @@ export default function DesignSystem() {
                     aria-label={`Copy ${name} color value ${hex || ''}`}
                     title="Click to copy color value"
                   >
-                    <div className="ds-swatch-fill" style={{ background: `var(${varName})`, borderBottom: '1px solid var(--line)' }}>
+                    <div className="ds-swatch-fill" style={{ background: `var(${varName})`, borderBottom: '1px solid var(--neutral-border-light)' }}>
                       <Copy size={13} className="ds-swatch-copy-ico" />
                     </div>
                     <div className="ds-swatch-meta">
@@ -669,14 +674,14 @@ export default function DesignSystem() {
             <div className="ds-scale-row">
               {BRAND_SCALE.map(([stop, mixWith, pct]) => {
                 const bg = stop === 500
-                  ? 'var(--brand)'
-                  : `color-mix(in srgb, var(--brand) ${100 - pct}%, ${mixWith} ${pct}%)`
+                  ? 'var(--brand-text-primary-default)'
+                  : `color-mix(in srgb, var(--brand-text-primary-default) ${100 - pct}%, ${mixWith} ${pct}%)`
                 return (
                   <button
                     key={stop}
                     type="button"
                     className="ds-scale-chip"
-                    onClick={() => copyToClipboard(stop === 500 ? 'var(--brand)' : `color-mix(in srgb, var(--brand) ${100 - pct}%, ${mixWith} ${pct}%)`)}
+                    onClick={() => copyToClipboard(stop === 500 ? 'var(--brand-text-primary-default)' : `color-mix(in srgb, var(--brand-text-primary-default) ${100 - pct}%, ${mixWith} ${pct}%)`)}
                     title={`Copy brand-${stop} CSS`}
                   >
                     <span className="ds-scale-chip-fill" style={{ background: bg }} />
@@ -698,7 +703,7 @@ export default function DesignSystem() {
                         const dark = dualTokens.dark[varName]
                         return (
                           <tr key={varName}>
-                            <td><b style={{ color: 'var(--ink)' }}>{name}</b></td>
+                            <td><b style={{ color: 'var(--neutral-text-default)' }}>{name}</b></td>
                             <td><code>{varName}</code></td>
                             <td>
                               <button type="button" className="ds-hex-cell" onClick={() => light && copyToClipboard(light)} title="Copy light hex">
@@ -915,8 +920,8 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
             <h2>Elevation</h2>
             <p className="ds-lede">Two shadow tokens — a resting shadow and an elevated one for overlays.</p>
             <div className="ds-demo">
-              <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow)', border: '1px solid var(--line)' }}>--shadow (cards)</div>
-              <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 14, background: 'var(--panel)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--line)' }}>--shadow-lg (dropdowns, dialogs)</div>
+              <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 14, background: 'var(--neutral-background-default)', boxShadow: 'var(--shadow)', border: '1px solid var(--neutral-border-light)' }}>--shadow (cards)</div>
+              <div style={{ padding: 'var(--space-4-5) var(--space-6)', borderRadius: 14, background: 'var(--neutral-background-default)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--neutral-border-light)' }}>--shadow-lg (dropdowns, dialogs)</div>
             </div>
           </section>
 
@@ -961,7 +966,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
 <button type="button" className="btn btn-ghost">Ghost</button>
 <button type="button" className="btn btn-danger">Delete</button>
 <button type="button" className="icon-btn icon-btn-sm" aria-label="More"><ChevronDown size={16} /></button>`}
-            colors={[['Brand fill', '--brand-fill'], ['Brand dark (hover)', '--brand-dark'], ['Line', '--line'], ['Ink soft', '--ink-soft'], ['Danger', '--red']]}
+            colors={[['Brand fill', '--brand-background-primary-strong'], ['Brand hover', '--brand-text-primary-hover'], ['Border', '--neutral-border-light'], ['Text subtle', '--neutral-text-subtle'], ['Danger', '--semantics-critical-text']]}
             extra={
               <div className="ds-panel">
                 <div style={{ padding: 'var(--space-1) var(--space-5)' }}>
@@ -1017,7 +1022,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
   <span className="form-helper">Optional helper</span>
 </div>
 {error && <p className="form-error" role="alert">{error}</p>}`}
-            colors={[['Border', '--line'], ['Focus ring', '--brand'], ['Error text', '--red'], ['Panel bg', '--panel']]}
+            colors={[['Border', '--neutral-border-light'], ['Focus ring', '--brand-text-primary-default'], ['Error text', '--semantics-critical-text'], ['Panel bg', '--neutral-background-default']]}
             extra={
               <div className="ds-panel">
                 <div style={{ padding: 'var(--space-1) var(--space-5)' }}>
@@ -1056,7 +1061,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
   <input type="checkbox" checked={on} onChange={toggle} />
   <span className="a11y-switch-track"><span className="a11y-switch-thumb" /></span>
 </label>`}
-            colors={[['Checked / on', '--brand'], ['Track (off)', '--surface-3'], ['Border', '--line-strong']]}
+            colors={[['Checked / on', '--brand-text-primary-default'], ['Track (off)', '--neutral-background-strong'], ['Border', '--neutral-border-strong']]}
           />
 
           {/* ---------------- BADGES / ALERTS ---------------- */}
@@ -1075,7 +1080,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
             donts={[]}
             code={`<span className="badge green">Active</span>
 <div className="inline-alert">Your request was submitted.</div>`}
-            colors={[['Success', '--green'], ['Success bg', '--green-bg'], ['Warning', '--amber'], ['Warning bg', '--amber-bg'], ['Danger', '--red'], ['Danger bg', '--red-bg']]}
+            colors={[['Success', '--semantics-success-text'], ['Success bg', '--semantics-success-background-light'], ['Warning', '--semantics-warning-text'], ['Warning bg', '--semantics-warning-background-light'], ['Danger', '--semantics-critical-text'], ['Danger bg', '--semantics-critical-background-light']]}
           />
 
           {/* ---------------- NAV ---------------- */}
@@ -1090,9 +1095,9 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
             </div>}
             dos={[]}
             donts={[]}
-            code={`.nav a:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:8px}
+            code={`.nav a:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:-2px;border-radius:8px}
 /* inset offset survives a scrolling ancestor with overflow-y:auto */`}
-            colors={[['Active text', '--brand'], ['Active bg', '--active-bg'], ['Hover bg', '--hover-bg'], ['Default text', '--ink-soft']]}
+            colors={[['Active text', '--brand-text-primary-default'], ['Active bg', '--brand-background-primary-light'], ['Hover bg', '--brand-background-primary-subtle'], ['Default text', '--neutral-text-subtle']]}
           />
 
           {/* ---------------- TABS / STEPS ---------------- */}
@@ -1100,7 +1105,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
             id="tabs" title="Tabs & step navigator"
             desc="Tabs for switching views in place; the step navigator drives multi-step flows (enrollment, transaction requests)."
             tags={['Keyboard']}
-            demo={<div style={{ display: 'flex', gap: 'var(--space-1)', borderBottom: '1px solid var(--line)' }}>
+            demo={<div style={{ display: 'flex', gap: 'var(--space-1)', borderBottom: '1px solid var(--neutral-border-light)' }}>
               {['Summary', 'Activity', 'Documents'].map((t, i) => (
                 <button key={t} type="button" className={`tab ${i === 0 ? 'on' : ''}`}>{t}</button>
               ))}
@@ -1110,7 +1115,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
             code={`<button type="button" className={\`tab \${active ? 'on' : ''}\`} onClick={() => setActive(t)}>
   {t.label}
 </button>`}
-            colors={[['Active text', '--brand'], ['Active underline', '--brand'], ['Inactive text', '--ink-soft']]}
+            colors={[['Active text', '--brand-text-primary-default'], ['Active underline', '--brand-text-primary-default'], ['Inactive text', '--neutral-text-subtle']]}
           />
 
           {/* ---------------- TABLE ---------------- */}
@@ -1126,8 +1131,8 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
                 <tr><td>Bond Index</td><td>15%</td><td>-1.3%</td></tr>
               </tbody>
             </table>}
-            code={`tbody tr:nth-child(even){ background: var(--surface-2); }`}
-            colors={[['Zebra row', '--surface-2'], ['Row border', '--line'], ['Positive value', '--green']]}
+            code={`tbody tr:nth-child(even){ background: var(--neutral-background-muted); }`}
+            colors={[['Zebra row', '--neutral-background-muted'], ['Row border', '--neutral-border-light'], ['Positive value', '--semantics-success-text']]}
           />
 
           {/* ---------------- DIALOG ---------------- */}
@@ -1153,7 +1158,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
   <h3 id="dlg-title">Confirm rollover request</h3>
   ...
 </div>`}
-            colors={[['Panel bg', '--panel'], ['Shadow', '--shadow-lg'], ['Border', '--line']]}
+            colors={[['Panel bg', '--neutral-background-default'], ['Shadow', '--shadow-lg'], ['Border', '--neutral-border-light']]}
           />
 
           {/* ---------------- LEGEND ---------------- */}
@@ -1161,9 +1166,9 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
             id="legend" title="Chart legend (dropdown)"
             desc="The Asset class performance chart always uses a dropdown multi-select — not an inline row. The trigger shows how many of the 11 series are on; the panel is a scrollable checklist. Click outside or press Escape to close."
             tags={['New pattern']}
-            demo={<div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)', border: '1px solid var(--line)', borderRadius: 8, padding: 'var(--space-1) var(--space-2-5)', fontSize: 'var(--text-caption-size)', fontWeight: 700 }}>
+            demo={<div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-2)', border: '1px solid var(--neutral-border-light)', borderRadius: 8, padding: 'var(--space-1) var(--space-2-5)', fontSize: 'var(--text-caption-size)', fontWeight: 700 }}>
               Asset classes
-              <span style={{ display: 'inline-flex', alignItems: 'center', minWidth: 36, justifyContent: 'center', height: 18, borderRadius: 999, background: 'var(--surface-2)', fontSize: 'var(--text-2xs-size)', fontWeight: 800 }}>4/12</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', minWidth: 36, justifyContent: 'center', height: 18, borderRadius: 999, background: 'var(--neutral-background-muted)', fontSize: 'var(--text-2xs-size)', fontWeight: 800 }}>4/12</span>
             </div>}
             code={`<ChartLegend label="Asset classes" items={series} onToggle={toggleSeries} />`}
           />
@@ -1184,7 +1189,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
             code={`const { speaking, speakPage, stop } = useReadAloud()
 const { listening, start, stop: stopListening } = useVoiceNav(navigate)
 <AccessibilityMenu />  // dropdown next to the theme toggle in Header.jsx`}
-            colors={[['Panel bg', '--panel'], ['Active row', '--active-bg'], ['Switch on', '--brand']]}
+            colors={[['Panel bg', '--neutral-background-default'], ['Active row', '--brand-background-primary-light'], ['Switch on', '--brand-text-primary-default']]}
           />
 
           {/* ---------------- WCAG CHECKLIST ---------------- */}
@@ -1210,7 +1215,7 @@ const { listening, start, stop: stopListening } = useVoiceNav(navigate)
                       <tr key={sc}>
                         <td><code>{sc}</code></td>
                         <td><span className={`ds-wcag-level ${level === 'AA' ? 'aa' : 'a'}`}>{level}</span></td>
-                        <td><b style={{ color: 'var(--ink)' }}>{name}</b></td>
+                        <td><b style={{ color: 'var(--neutral-text-default)' }}>{name}</b></td>
                         <td>{how}</td>
                       </tr>
                     ))}
@@ -1318,7 +1323,7 @@ const { listening, start, stop: stopListening } = useVoiceNav(navigate)
             </div>
           </section>
 
-          <div style={{ borderTop: '1px solid var(--line)', paddingTop: 'var(--space-6)', fontSize: 'var(--text-caption-size)', color: 'var(--muted)', maxWidth: 'var(--ds-content-max)' }}>
+          <div style={{ borderTop: '1px solid var(--neutral-border-light)', paddingTop: 'var(--space-6)', fontSize: 'var(--text-caption-size)', color: 'var(--neutral-text-subtle-light)', maxWidth: 'var(--ds-content-max)' }}>
             <MousePointerClick size={14} style={{ verticalAlign: -2, marginRight: 'var(--space-1-5)' }} />
             Generated from the live application codebase. Available at <code>/design-system</code> on every brand build.
           </div>
