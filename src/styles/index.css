@@ -789,6 +789,19 @@
        each wrapper's own class name. */
     position:fixed;left:0;top:var(--header-h);bottom:0;overflow-y:auto;z-index:30}
   .nav ~ *:not(.mobile-nav):not(.mobile-menu-bg){margin-left:var(--nav-w)}
+  /* ...except EnrollmentLayout, the one layout that puts TWO in-flow columns
+     after the fixed .nav (aside.steps + main.main). .steps already carries
+     the nav offset from the rule above, so .main must not add a second one --
+     that double offset pushed .main a full --nav-w too far right and crushed
+     it to an unusable width (one character per line).
+     Needs the .layout prefix to match the (0,3,0) specificity of the rule
+     above, and sits after it so it wins. Scoped to the wide breakpoint only:
+     at <=980px the enrollment layout stacks .steps ABOVE .main instead of
+     beside it, so .main is no longer offset by .steps and needs the nav
+     margin back. */
+  @media(min-width:981px){
+    .layout .steps ~ .main{margin-left:var(--space-0)}
+  }
   .nav a{text-decoration:none;color:var(--neutral-text-subtle);display:flex;flex-direction:column;align-items:center;
     gap:var(--space-1-5);padding:var(--space-3-5) var(--space-2);font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);position:relative;text-align:center}
   .nav a .ico{display:grid;place-items:center}
@@ -2077,11 +2090,15 @@
     .doc-row{grid-template-columns:40px minmax(0,1fr);gap:var(--space-2) var(--space-3)}
     .doc-date,.doc-plan{grid-column:2;white-space:normal}
     .doc-dl{grid-column:2;justify-self:start;margin-top:var(--space-1)}
-    .rg-shell,.rg-work{grid-template-columns:1fr}
+    /* minmax(0,1fr), not a bare 1fr: 1fr's implicit `auto` minimum lets the
+       track grow to the widest item's min-content width, which made these
+       tracks 362px inside a 343px container at 375px and pushed the panels
+       past the page padding. */
+    .rg-shell,.rg-work{grid-template-columns:minmax(0,1fr)}
     .rg-shell > .rg-live,.rg-shell > .rg-work{grid-column:auto;grid-row:auto}
     .panel.rg-live{position:static}
     .rg-live-visual{flex-direction:column;align-items:center}
-    .rg-auto{grid-template-columns:1fr}
+    .rg-auto{grid-template-columns:minmax(0,1fr)}
     /* Stack rg-nav vertically on small screens – primary action stays on top
        because it is first in the DOM (row-reverse only matters for row layout). */
     .rg-nav{flex-direction:column;align-items:stretch}
