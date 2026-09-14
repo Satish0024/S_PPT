@@ -38,7 +38,7 @@
 .login-input input{border:none;outline:none;flex:1;min-width:0;padding:var(--input-padding-y) var(--space-0);font:inherit;font-weight:var(--font-weight-medium);background:transparent}
 .login-eye{
   border:none;background:transparent;color:var(--neutral-text-subtle-light);cursor:pointer;display:grid;place-items:center;
-  min-width:var(--input-min-height-sm);min-height:var(--input-min-height-sm);border-radius:var(--radius-sm)}
+  min-width:44px;min-height:44px;border-radius:var(--radius-sm)}
 .login-eye:hover{color:var(--neutral-text-default);background:var(--brand-background-primary-subtle)}
 .login-eye:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:1px}
 .login-error{color:var(--semantics-critical-text);font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);margin:calc(-1 * var(--space-1)) var(--space-0) var(--space-3)}

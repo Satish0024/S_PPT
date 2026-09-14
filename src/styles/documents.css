@@ -51,10 +51,10 @@
 .multi-select-btn:focus-visible{outline:none;border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 12%, transparent)}
 .multi-select-btn svg{color:var(--neutral-text-subtle);flex:0 0 auto}
 .multi-select-menu{
-  position:absolute;top:calc(100% + 4px);left:0;z-index:20;min-width:240px;max-height:280px;overflow-y:auto;
+  position:absolute;top:calc(100% + 4px);left:0;z-index:20;min-width:240px;max-width:calc(100vw - var(--space-8));max-height:280px;overflow-y:auto;
   background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);padding:var(--space-1-5)}
 .multi-select-row{
-  display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-2);border-radius:var(--radius-sm);cursor:pointer;font-size:var(--text-body-sm-size)}
+  display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-2);border-radius:var(--radius-sm);cursor:pointer;font-size:var(--text-body-sm-size);min-height:44px}
 .multi-select-row:hover{background:var(--brand-background-primary-subtle)}
 .multi-select-row.all{font-weight:var(--font-weight-bold);border-bottom:1px solid var(--neutral-border-light);border-radius:0;margin-bottom:var(--space-1);padding-bottom:var(--space-2-5)}
 .multi-select-row input{margin:var(--space-0);width:16px;height:16px;accent-color:var(--brand-text-primary-default);cursor:pointer;flex:0 0 auto}

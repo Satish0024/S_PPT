@@ -97,7 +97,7 @@
   .opt:focus-visible{outline:var(--focus-ring-width) solid var(--focus-ring-color);outline-offset:var(--focus-ring-offset)}
   .opt.selected{border-color:var(--brand-text-primary-default);background:var(--surface-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 10%, transparent)}
   .options.custom-open .opt[data-mode="custom"]{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:var(--neutral-border-light);box-shadow:none;z-index:1}
-  .opt .radio{width:20px;height:20px;border-radius:var(--radius-full);border:2px solid var(--neutral-border-strong);position:absolute;top:16px;right:16px;transition:var(--motion-base)}
+  .opt .radio{width:24px;height:24px;border-radius:var(--radius-full);border:2px solid var(--neutral-border-strong);position:absolute;top:14px;right:14px;transition:var(--motion-base)}
   .opt.selected .radio{border-color:var(--brand-text-primary-default);background:radial-gradient(circle,var(--brand-text-primary-default) 0 42%,var(--surface-default) 46% 100%)}
   .opt-head{display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-2);padding-right:var(--space-7)}
   .opt .oico{width:36px;height:36px;flex:0 0 36px;border-radius:var(--radius-sm);display:grid;place-items:center;
@@ -465,7 +465,7 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 }
 .choice:hover,.choice.on{border-color:var(--brand-text-primary-default);background:var(--brand-background-primary-light)}
 .choice.on{box-shadow:0 0 0 1px var(--brand-text-primary-default)}
-.choice-dot{width:18px;height:18px;flex:0 0 18px;margin-top:var(--space-0-5);border-radius:var(--radius-full);border:2px solid var(--neutral-border-strong);background:var(--surface-default)}
+.choice-dot{width:24px;height:24px;flex:0 0 24px;margin-top:var(--space-0-5);border-radius:var(--radius-full);border:2px solid var(--neutral-border-strong);background:var(--surface-default)}
 .choice.on .choice-dot{border-color:var(--brand-text-primary-default);background:radial-gradient(circle,var(--brand-text-primary-default) 0 42%,var(--surface-default) 46% 100%)}
 .choice b{display:block;font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold)}
 .choice small{display:block;color:var(--neutral-text-subtle);font-size:var(--text-body-sm-size);margin-top:var(--space-0-5);font-weight:var(--font-weight-medium)}
@@ -532,7 +532,7 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
   font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle);line-height:1.2
 }
 .funds-field.search{flex:0 1 280px;width:280px;max-width:100%}
-.funds-field.asset{flex:0 0 200px;width:200px}
+.funds-field.asset{flex:0 0 200px;width:200px;max-width:100%}
 .funds-filters input,.funds-filters .ui-select-btn{
   height:40px;border:1px solid var(--neutral-border-strong);border-radius:var(--radius-sm);padding:var(--space-0) var(--space-3);
   font:inherit;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-default);background:var(--surface-default);width:100%;
@@ -544,7 +544,7 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 .tval-wrap{display:flex;align-items:baseline;gap:var(--space-2-5)}
 .enroll-form .totalbar .tval{margin:var(--space-0)}
 .enroll-modal-bg{position:fixed;inset:0;background:color-mix(in srgb, var(--neutral-text-default) 46%, transparent);z-index:80;display:grid;place-items:center;padding:var(--space-5)}
-.enroll-modal{width:min(440px,100%);background:var(--surface-default);border-radius:var(--radius-xl);padding:var(--space-6) var(--space-5) var(--space-5);box-shadow:var(--shadow-lg)}
+.enroll-modal{width:min(440px,100%);background:var(--surface-default);border-radius:var(--radius-xl);padding:var(--space-6) var(--space-5) var(--space-5);box-shadow:var(--shadow-lg);max-height:90dvh;overflow:auto}
 .enroll-modal h4{font-size:var(--text-h4-size);font-weight:var(--font-weight-extrabold);margin-bottom:var(--space-2);letter-spacing:var(--ls-snug)}
 .enroll-modal p{font-size:var(--text-body-md-size);line-height:1.55;color:var(--neutral-text-subtle);margin-bottom:var(--space-4)}
 .enroll-modal.funds-modal{
@@ -728,13 +728,9 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 }
 @media(max-width:640px){
   .detail-body.enroll-simple{padding:var(--space-4) var(--space-3-5) var(--space-8)}
-  .ai-row,.bene-row{grid-template-columns:1fr}
+  .ai-row,.bene-row,.success-form .bene-row{grid-template-columns:1fr}
   .enroll-modal-actions{flex-direction:column}
-  /* At narrow widths "Deferral by source" + the "Use plan deferral rate"
-     chip + the %/$ toggle no longer fit on one row -- the label was
-     wrapping to 2-3 lines while squeezed against the nowrap chip instead
-     of the row reflowing, matching the same stack-on-mobile pattern used
-     by .section-top and .success-next above. */
+  .cycle-opt{min-height:44px;padding:var(--space-2-5) var(--space-3)}
   .enroll-form-head{flex-wrap:wrap;align-items:flex-start}
   .form-head-left{flex-wrap:wrap;row-gap:var(--space-1-5)}
 }

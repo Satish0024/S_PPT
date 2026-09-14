@@ -191,5 +191,6 @@
     .balance{font-size:var(--text-3xl-size)}
     .chart-wrap{height:220px}
     .overview-row .chart-wrap{min-height:220px;height:220px}
-    .period button{padding:var(--space-1-5) var(--space-2-5);font-size:var(--text-body-xs-size)}
+    .period button{padding:var(--space-2) var(--space-2-5);font-size:var(--text-body-xs-size);min-height:40px}
+    .legend-chip{min-height:44px;padding:var(--space-2) var(--space-2)}
   }
