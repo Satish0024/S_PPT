@@ -148,9 +148,9 @@
   .overall-card{border:1px solid var(--neutral-border-light);border-radius:var(--radius-lg);background:var(--neutral-background-default);box-shadow:var(--shadow);
     padding:var(--card-padding-sm);margin-bottom:var(--space-3-5)}
   .overall-card .overall-label{font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--brand-text-primary-default);margin-bottom:var(--space-3)}
-  .overall-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-3) var(--space-4)}
+  .overall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:var(--space-3) var(--space-4)}
   .overall-grid .stat-k{font-size:var(--text-caption-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);margin-bottom:var(--space-1)}
-  .overall-grid .stat-v{font-size:var(--text-h4-size);font-weight:var(--font-weight-bold);font-variant-numeric:tabular-nums;letter-spacing:var(--ls-snug)}
+  .overall-grid .stat-v{font-size:var(--text-h4-size);font-weight:var(--font-weight-bold);font-variant-numeric:tabular-nums;letter-spacing:var(--ls-snug);overflow-wrap:anywhere}
   .overall-grid .stat-v.pos{color:var(--semantics-success-text)}
   .bench{color:var(--neutral-text-subtle);font-size:var(--text-caption-size);white-space:normal;min-width:160px}
 
