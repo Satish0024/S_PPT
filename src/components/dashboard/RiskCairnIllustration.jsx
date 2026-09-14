@@ -29,20 +29,20 @@ export default function RiskCairnIllustration({ levelId, color }) {
       </g>
 
       <g className="risk-cairn-leaf risk-cairn-leaf-a">
-        <path d="M30 108c-14-4-20-18-16-32 14 2 24 12 26 26 1 3 -3 7 -10 6z" fill="#6fae6f" />
+        <path d="M30 108c-14-4-20-18-16-32 14 2 24 12 26 26 1 3 -3 7 -10 6z" fill="var(--semantics-success-text)" opacity="0.7" />
       </g>
       <g className="risk-cairn-leaf risk-cairn-leaf-b">
-        <path d="M112 104c11-5 15-17 10-28-11 3-19 12-20 23-1 3 3 6 10 5z" fill="#5f9c5f" />
+        <path d="M112 104c11-5 15-17 10-28-11 3-19 12-20 23-1 3 3 6 10 5z" fill="var(--semantics-success-text)" opacity="0.6" />
       </g>
 
       <g className="risk-cairn-stack">
         <ellipse cx="70" cy="106" rx="34" ry="15" fill="url(#cairn-stone)" />
-        <ellipse cx="70" cy="106" rx="34" ry="15" fill="#000" opacity="0.06" />
+        <ellipse cx="70" cy="106" rx="34" ry="15" fill="var(--neutral-text-default)" opacity="0.06" />
         <ellipse cx="70" cy="78" rx="25" ry="13" fill="url(#cairn-stone)" />
-        <ellipse cx="66" cy="73" rx="9" ry="5" fill="#fff" opacity="0.18" />
+        <ellipse cx="66" cy="73" rx="9" ry="5" fill="var(--neutral-background-default)" opacity="0.18" />
         <circle cx="70" cy="52" r="16" fill="url(#cairn-stone)" />
-        <ellipse cx="65" cy="47" rx="5" ry="3.4" fill="#fff" opacity="0.22" />
-        <circle className="risk-cairn-badge" cx="70" cy="52" r="11" fill="#fff" />
+        <ellipse cx="65" cy="47" rx="5" ry="3.4" fill="var(--neutral-background-default)" opacity="0.22" />
+        <circle className="risk-cairn-badge" cx="70" cy="52" r="11" fill="var(--neutral-background-default)" />
         <foreignObject x="59" y="41" width="22" height="22">
           <div style={{ display: 'grid', placeItems: 'center', width: '100%', height: '100%', color }}>
             <Icon icon={levelIcon} size={14} />

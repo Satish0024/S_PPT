@@ -1231,7 +1231,7 @@
     25%{opacity:1}
     100%{opacity:0;transform:scale(1.2) translateY(-28px)}
   }
-  .rg-live.win{box-shadow:0 0 0 2px var(--semantics-success-border),0 12px 28px rgba(26,157,99,.16);animation:rg-glow .6s ease}
+  .rg-live.win{box-shadow:0 0 0 2px var(--semantics-success-border),0 12px 28px color-mix(in srgb, var(--semantics-success-text) 16%, transparent);animation:rg-glow var(--motion-emphasis) ease}
   @keyframes rg-glow{
     0%{transform:scale(.985)}
     50%{transform:scale(1.012)}
@@ -2056,7 +2056,7 @@
   .rq-head{display:flex;align-items:center;gap:var(--space-3-5)}
   .rq-progress{flex:1;display:flex;align-items:center;gap:var(--space-2-5)}
   .rq-progress-track{flex:1;height:6px;border-radius:var(--radius-full);background:var(--neutral-border-light);overflow:hidden}
-  .rq-progress-fill{height:100%;background:var(--brand-text-primary-default);border-radius:var(--radius-full);transition:width .4s ease}
+  .rq-progress-fill{height:100%;background:var(--brand-text-primary-default);border-radius:var(--radius-full);transition:width var(--motion-slow) ease}
   .rq-progress span{font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);color:var(--neutral-text-subtle-light);white-space:nowrap}
   .rq-close{
     flex:0 0 auto;width:30px;height:30px;border-radius:var(--radius-full);border:none;background:var(--brand-background-primary-subtle);

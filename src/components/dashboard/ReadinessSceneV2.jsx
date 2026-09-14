@@ -38,8 +38,8 @@ export default function ReadinessSceneV2({ idle = false }) {
         <line x1="130" y1="72" x2="132" y2="94" stroke="var(--brand-text-primary-default)" strokeWidth="1.4" opacity="0.6" />
         <rect x="110" y="94" width="24" height="14" rx="3" fill="var(--brand-text-primary-hover)" />
         <ellipse cx="122" cy="55" rx="26" ry="30" fill="url(#rr2-balloon-a)" />
-        <path d="M100 45a26 30 0 0 1 12-14 34 38 0 0 0-8 24z" fill="#ffffff" opacity="0.28" />
-        <path d="M96 55h52M100 40h44M92 68h60" stroke="#ffffff" strokeOpacity="0.35" strokeWidth="3" />
+        <path d="M100 45a26 30 0 0 1 12-14 34 38 0 0 0-8 24z" fill="var(--neutral-background-default)" opacity="0.28" />
+        <path d="M96 55h52M100 40h44M92 68h60" stroke="var(--neutral-background-default)" strokeOpacity="0.35" strokeWidth="3" />
         <path d="M122 82c-3 4-5 7-5 10a5 5 0 0 0 10 0c0-3-2-6-5-10z" fill="var(--brand-text-primary-hover)" />
       </g>
 
