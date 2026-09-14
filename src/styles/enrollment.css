@@ -12,14 +12,14 @@
     justify-content:space-between;padding:var(--space-0) var(--space-6) var(--space-0) var(--space-2-5);position:sticky;top:0;background:var(--panel);z-index:30;
   }
   .icon-btn{
-    width:var(--icon-btn-size-md);height:var(--icon-btn-size-md);border-radius:50%;border:none;background:transparent;
+    width:var(--icon-btn-size-md);height:var(--icon-btn-size-md);border-radius:var(--radius-full);border:none;background:transparent;
     display:grid;place-items:center;cursor:pointer;color:var(--ink-soft);transition:background var(--motion-base),color var(--motion-base)}
   .icon-btn-sm svg{width:var(--icon-sm);height:var(--icon-sm)}
   .icon-btn-lg svg{width:var(--icon-lg);height:var(--icon-lg)}
   .user-chip{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-1) var(--space-3) var(--space-1) var(--space-1);border:1px solid var(--line);
     border-radius:var(--radius-full);cursor:pointer;transition:box-shadow var(--motion-base),border-color var(--motion-base);font-weight:var(--font-weight-semibold);font-size:var(--text-button-md-size);color:var(--ink);}
   .user-chip:hover{border-color:var(--line-strong);box-shadow:var(--shadow)}
-  .user-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover}
+  .user-chip img{width:28px;height:28px;border-radius:var(--radius-full);object-fit:cover}
 
   /* ---------- Layout ---------- */
   .layout{display:flex;min-height:calc(100vh - var(--header-h));align-items:flex-start;background:var(--panel)}
@@ -50,7 +50,7 @@
      disappear. */
   .step:focus-visible{outline:2px solid var(--brand);outline-offset:-2px;border-radius:var(--radius-sm)}
   .step .rail{display:flex;flex-direction:column;align-items:center;flex:0 0 32px;width:32px}
-  .step .num{width:var(--control-sm);height:var(--control-sm);flex:0 0 var(--control-sm);border-radius:50%;display:grid;place-items:center;
+  .step .num{width:var(--control-sm);height:var(--control-sm);flex:0 0 var(--control-sm);border-radius:var(--radius-full);display:grid;place-items:center;
     font-weight:var(--font-weight-bold);font-size:var(--text-body-sm-size);background:var(--surface-3);color:var(--muted);z-index:1;transition:var(--motion-base)}
   .step.current .num{background:var(--brand-fill);color:var(--brand-text-primary-oncolor)}
   .step.complete .num{background:var(--green);color:var(--brand-text-primary-oncolor)}
@@ -62,7 +62,7 @@
   .step .body p{color:var(--ink-soft);font-size:var(--text-body-sm-size);line-height:1.4;font-weight:var(--font-weight-regular)}
   .step.current .body .step-title{color:var(--brand)}
   .step-status{display:inline-flex;align-items:center;gap:var(--space-1-5);margin-top:var(--space-1-5);color:var(--brand);font-weight:var(--font-weight-semibold);font-size:var(--text-caption-size);letter-spacing:var(--ls-wider);}
-  .spinner{width:11px;height:11px;border-radius:50%;border:2px solid var(--line-strong);border-top-color:var(--brand);animation:spin 1s linear infinite;}
+  .spinner{width:11px;height:11px;border-radius:var(--radius-full);border:2px solid var(--line-strong);border-top-color:var(--brand);animation:spin 1s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg)}}
 
   /* ---------- Main ---------- */
@@ -72,7 +72,7 @@
   .detail-head h2{font-size:var(--text-h2-size);font-weight:var(--font-weight-bold);line-height:var(--text-h2-lh);margin:var(--space-1-5) var(--space-0) var(--space-1-5);letter-spacing:var(--text-h2-ls)}
   .plan-meta{display:flex;align-items:center;gap:var(--space-3);color:var(--ink-soft);font-size:var(--text-body-lg-size)}
   .plan-meta b{color:var(--ink)}
-  .dot{width:5px;height:5px;border-radius:50%;background:var(--surface-3)}
+  .dot{width:5px;height:5px;border-radius:var(--radius-full);background:var(--surface-3)}
   .tag{color:var(--accent);font-weight:var(--font-weight-semibold);cursor:pointer}
   .tag:hover{text-decoration:underline}
 
@@ -83,7 +83,7 @@
 
   /* new-user callout */
   .callout{display:flex;gap:var(--space-3);background:var(--info);border:1px solid var(--info-line);border-radius:var(--radius-lg);padding:var(--space-3-5) var(--space-4);margin-bottom:var(--space-5);}
-  .callout .cico{flex:0 0 34px;height:34px;border-radius:50%;background:var(--active-bg);display:grid;place-items:center;color:var(--brand);}
+  .callout .cico{flex:0 0 34px;height:34px;border-radius:var(--radius-full);background:var(--active-bg);display:grid;place-items:center;color:var(--brand);}
   .callout p{font-size:var(--text-body-md-size);color:var(--ink-soft);line-height:1.5}
   .callout b{color:var(--brand)}
 
@@ -97,7 +97,7 @@
   .opt:focus-visible{outline:var(--focus-ring-width) solid var(--focus-ring-color);outline-offset:var(--focus-ring-offset)}
   .opt.selected{border-color:var(--brand);background:var(--panel);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 10%, transparent)}
   .options.custom-open .opt[data-mode="custom"]{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:var(--line);box-shadow:none;z-index:1}
-  .opt .radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--line-strong);position:absolute;top:16px;right:16px;transition:var(--motion-base)}
+  .opt .radio{width:20px;height:20px;border-radius:var(--radius-full);border:2px solid var(--line-strong);position:absolute;top:16px;right:16px;transition:var(--motion-base)}
   .opt.selected .radio{border-color:var(--brand);background:radial-gradient(circle,var(--brand) 0 42%,var(--panel) 46% 100%)}
   .opt-head{display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-2);padding-right:var(--space-7)}
   .opt .oico{width:36px;height:36px;flex:0 0 36px;border-radius:var(--radius-sm);display:grid;place-items:center;
@@ -192,7 +192,7 @@
 
   /* Tooltip */
   /* Info tooltip — WCAG 2.5.8: min 24×24px touch target */
-  .info{position:relative;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;
+  .info{position:relative;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:var(--radius-full);
     background:var(--surface-2);color:var(--muted);font-size:var(--text-caption-size);font-weight:var(--font-weight-extrabold);cursor:help;flex:0 0 24px;
     text-transform:none;letter-spacing:0}
   .info:hover,.info:focus-visible{background:var(--brand-fill);color:var(--brand-text-primary-oncolor);outline:none}
@@ -320,7 +320,7 @@
 
   .warn{background:var(--amber-bg);border:1px solid var(--amber-line);border-radius:var(--radius-lg);padding:var(--card-padding-sm);color:var(--amber)}
   .warn-head{display:flex;gap:var(--space-3);align-items:flex-start}
-  .warn-ico{flex:0 0 var(--control-sm);width:var(--control-sm);height:var(--control-sm);border-radius:50%;background:var(--amber-bg);color:var(--amber);
+  .warn-ico{flex:0 0 var(--control-sm);width:var(--control-sm);height:var(--control-sm);border-radius:var(--radius-full);background:var(--amber-bg);color:var(--amber);
     display:grid;place-items:center;font-weight:var(--font-weight-extrabold);font-size:var(--text-body-lg-size)}
   .warn h4{font-size:var(--text-h5-size);font-weight:var(--font-weight-bold);margin-bottom:var(--space-1);color:var(--amber)}
   .warn p{font-size:var(--text-body-md-size);line-height:1.5;color:var(--amber)}
@@ -465,7 +465,7 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 }
 .choice:hover,.choice.on{border-color:var(--brand);background:var(--active-bg)}
 .choice.on{box-shadow:0 0 0 1px var(--brand)}
-.choice-dot{width:18px;height:18px;flex:0 0 18px;margin-top:var(--space-0-5);border-radius:50%;border:2px solid var(--line-strong);background:var(--panel)}
+.choice-dot{width:18px;height:18px;flex:0 0 18px;margin-top:var(--space-0-5);border-radius:var(--radius-full);border:2px solid var(--line-strong);background:var(--panel)}
 .choice.on .choice-dot{border-color:var(--brand);background:radial-gradient(circle,var(--brand) 0 42%,var(--panel) 46% 100%)}
 .choice b{display:block;font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold)}
 .choice small{display:block;color:var(--ink-soft);font-size:var(--text-body-sm-size);margin-top:var(--space-0-5);font-weight:var(--font-weight-medium)}
@@ -511,7 +511,7 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
   width:36px;height:20px;border-radius:var(--radius-full);background:var(--surface-3);position:relative;flex:0 0 auto;transition:background var(--motion-base)
 }
 .inv-toggle .switch::after{
-  content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--panel);
+  content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:var(--radius-full);background:var(--panel);
   box-shadow:0 1px 2px rgba(var(--shadow-color),.2);transition:transform var(--motion-base)
 }
 .inv-toggle.on{color:var(--brand)}
@@ -634,7 +634,7 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
   text-align:center;position:relative
 }
 .success-mark{
-  width:92px;height:92px;border-radius:50%;background:var(--green-bg);display:grid;place-items:center;margin-bottom:var(--space-4);
+  width:92px;height:92px;border-radius:var(--radius-full);background:var(--green-bg);display:grid;place-items:center;margin-bottom:var(--space-4);
   animation:success-pop .55s cubic-bezier(.2,1.3,.3,1) both
 }
 .success-mark svg{width:58px;height:58px}
@@ -674,7 +674,7 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 .success-actions .btn{width:auto;min-width:160px}
 .success-burst{position:absolute;inset:0 0 auto;height:140px;pointer-events:none}
 .success-burst i{
-  position:absolute;width:8px;height:8px;border-radius:50%;opacity:0;
+  position:absolute;width:8px;height:8px;border-radius:var(--radius-full);opacity:0;
   animation:burst .9s .2s ease-out both
 }
 .success-burst i:nth-child(1){left:22%;top:28px;background:var(--green);animation-delay:.18s}
@@ -741,7 +741,7 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 @keyframes risk-card-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .inv-risk-card-head{display:flex;align-items:center;gap:var(--space-2-5)}
 .inv-risk-card-ico{
-  display:grid;place-items:center;width:36px;height:36px;flex:0 0 auto;border-radius:50%;
+  display:grid;place-items:center;width:36px;height:36px;flex:0 0 auto;border-radius:var(--radius-full);
   background:color-mix(in srgb, var(--risk-color, var(--brand)) 18%, var(--panel));color:var(--risk-color, var(--brand))}
 .inv-risk-card-label{flex:1;min-width:0;color:var(--ink);font-size:var(--text-body-lg-size);font-weight:var(--font-weight-extrabold)}
 .inv-risk-card .text-btn{flex:0 0 auto;font-size:var(--text-caption-size);font-weight:var(--font-weight-bold)}

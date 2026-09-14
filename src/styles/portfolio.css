@@ -80,7 +80,7 @@
   .legend-row input[type="checkbox"]:disabled{cursor:not-allowed}
   .legend-swatch{width:14px;height:14px;flex:0 0 auto;background:var(--series-color);display:inline-block;border-radius:var(--radius-xs);opacity:.45}
   .legend-chip.on .legend-swatch{opacity:1}
-  .legend-swatch--circle{border-radius:50%}
+  .legend-swatch--circle{border-radius:var(--radius-full)}
   .legend-swatch--rect{border-radius:var(--radius-xs)}
   .legend-swatch--triangle{
     width:0;height:0;background:transparent;opacity:1;border-radius:0;

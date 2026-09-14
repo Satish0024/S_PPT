@@ -6,7 +6,7 @@
 .doc-field{display:flex;flex-direction:column;gap:var(--form-label-gap);min-width:150px}
 .field-label{font-size:var(--text-label-size);font-weight:var(--text-label-weight);line-height:var(--text-label-lh);color:var(--ink-soft);letter-spacing:var(--text-label-ls)}
 .doc-field input,.doc-field .ui-select-btn{
-  min-height:38px;border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--space-1-5) var(--space-2-5);
+  min-height:var(--input-min-height);border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--space-1-5) var(--space-2-5);
   font:inherit;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--ink);background:var(--panel)}
 /* Text field + dropdown states, tested here first: matches CORE's cds-input/
    cds-select pattern (Field.tsx/FormControls.tsx -- hover uses
@@ -24,7 +24,7 @@
 .doc-field-reset{min-width:0;flex:0 0 auto}
 .doc-field-reset .field-label{visibility:hidden}
 .doc-filter-actions{display:flex;align-items:center;gap:var(--space-3)}
-.doc-reset{min-height:38px;display:inline-flex;align-items:center}
+.doc-reset{min-height:var(--input-min-height);display:inline-flex;align-items:center}
 /* Search button states: wired to the CORE design system's dedicated brand
    hover/active/disabled tokens (Core-Design-system-1.1's Button.tsx /
    cds-btn--primary) instead of the app-wide .btn-primary's color-mix()
@@ -32,7 +32,7 @@
    core-color-palette.css ("Not yet applied") and are applied here first,
    scoped to this one button per the requested change. */
 .doc-search-btn{
-  width:auto;min-height:38px;padding:var(--space-1-5) var(--space-4);
+  width:auto;min-height:var(--input-min-height);padding:var(--space-1-5) var(--space-4);
   border-color:var(--theme-brand-borders-primary-default)}
 .doc-search-btn:hover:not(:disabled){
   background:var(--theme-brand-background-hover);border-color:var(--theme-brand-borders-hover)}
@@ -44,7 +44,7 @@
 
 .multi-select{position:relative;display:flex;flex-direction:column;gap:var(--form-label-gap);min-width:170px}
 .multi-select-btn{
-  display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);min-height:38px;
+  display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);min-height:var(--input-min-height);
   border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--panel);padding:var(--space-1-5) var(--space-2-5);
   font:inherit;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--ink);cursor:pointer}
 .multi-select-btn:hover{border-color:var(--line-strong)}
