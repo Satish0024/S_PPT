@@ -1,8 +1,8 @@
 export default function Transactions({ rows }) {
   return (
-    <>
+    <section>
       <h2 className="section-title">Recent transactions</h2>
-      <section className="section-card tx-compact">
+      <div className="section-card tx-compact">
         <div className="tx-list">
           {!rows?.length ? (
             <div className="tx-empty">No transactions yet.</div>
@@ -19,7 +19,7 @@ export default function Transactions({ rows }) {
             ))
           )}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   )
 }
