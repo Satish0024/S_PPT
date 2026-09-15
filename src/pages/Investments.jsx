@@ -251,23 +251,6 @@ export function InvestmentEditor({
             <small>Select preferred investments and set the allocation.</small>
           </span>
         </button>
-        <button
-          type="button"
-          className={`choice${usingRisk ? ' on' : ''}`}
-          role="radio"
-          aria-checked={usingRisk}
-          onClick={chooseRisk}
-        >
-          <span className="choice-dot" aria-hidden="true" />
-          <span>
-            <b>Not sure? Take our risk questionnaire</b>
-            <small>
-              {measuredLevel
-                ? `Matched to ${measuredLevel.label} — retake to change it.`
-                : "A few quick questions match you to a Conservative, Moderate, or Aggressive mix."}
-            </small>
-          </span>
-        </button>
       </div>
 
       {usingPlan && (
