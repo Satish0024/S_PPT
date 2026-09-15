@@ -1416,19 +1416,21 @@
   /* Not-eligible plans previously only swapped the card background, so the
      name, the "401(k)" type in full brand blue and the balance figures all
      rendered at the same strength as an eligible card — it did not read as
-     disabled at all. The whole card now steps down to the DS disabled
-     tokens while staying above 4.5:1, so it reads inactive but remains
-     readable (the notice text is still actionable copy, not decoration). */
-  .plan-card.ineligible{
-    background:var(--semantics-disabled-background);border-color:var(--semantics-disabled-border);box-shadow:none}
+     disabled at all. Text/stat colors step down to the DS disabled tokens
+     so it reads inactive but remains readable (the notice text is still
+     actionable copy, not decoration).
+     The card SHELL itself (background/border/shadow), however, stays
+     identical to every other plan card -- --semantics-disabled-border is
+     a deliberately strong, dark tone (correct for a disabled form
+     control, where legibility of the boundary is the point) that on a
+     whole card, next to plain siblings, made the *least* important card
+     the most visually prominent one in the grid -- a real UX regression,
+     not just an odd look. "Not eligible" is already communicated clearly
+     by the badge and the muted text/tiles below; the shell doesn't need
+     to diverge too. */
   .plan-card.ineligible .pc-name,
   .plan-card.ineligible .pc-type,
   .plan-card.ineligible .pc-meta{color:var(--semantics-disabled-text)}
-  /* Stat tiles default to --surface-muted, which is the same value as the
-     disabled card fill — they vanished into the card. Lifted to the plain
-     surface so they stay legible as tiles. */
-  .plan-card.ineligible .plan-stat{
-    background:var(--surface-default);border-color:var(--semantics-disabled-border)}
   .plan-card.ineligible .plan-stat .k,
   .plan-card.ineligible .plan-stat .v,
   .plan-card.ineligible .plan-stat.balance .v,
