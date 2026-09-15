@@ -539,7 +539,7 @@ export default function Profile() {
                 title={NAV.find((n) => n.id === section)?.label}
                 action={
                   section === 'beneficiary' ? (
-                    <button type="button" className="btn btn-primary pr-edit" onClick={() => go('beneficiary', true)}>
+                    <button type="button" className="btn btn-secondary pr-edit" onClick={() => go('beneficiary', true)}>
                       Add Beneficiary
                     </button>
                   ) : canEdit && !editing ? (

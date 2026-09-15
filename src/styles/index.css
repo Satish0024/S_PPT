@@ -859,7 +859,15 @@
     padding:var(--space-1) var(--space-0) var(--space-1)}
   .hi-bar h1{font-size:var(--text-h1-size);font-weight:var(--font-weight-bold);letter-spacing:var(--text-h1-ls);line-height:var(--text-h1-lh);margin:var(--space-0);color:var(--neutral-text-default);overflow-wrap:anywhere;word-break:break-word}
   .hi-bar .plan-badge{margin-top:var(--space-2)}
-  .hi-bar .hi-actions{display:flex;flex-wrap:wrap;gap:var(--space-2-5)}
+  /* margin-left:auto is a no-op in the normal (unwrapped) layout --
+     .hi-bar's own justify-content:space-between already pushes this to
+     the far right there. It matters once .hi-bar's flex-wrap puts
+     .hi-actions on its own line (long title + narrow viewport): a lone
+     wrapped flex item sits flush-left by default, which put any
+     absolutely-positioned dropdown anchored inside it (e.g.
+     .tx-new-request-menu's right:0) near the viewport's LEFT edge
+     instead of the right, pushing it mostly off-screen. */
+  .hi-bar .hi-actions{display:flex;flex-wrap:wrap;gap:var(--space-2-5);margin-left:auto}
   .text-link{
     font-family:var(--font-family-sans);
     font-size:var(--text-link-size);
