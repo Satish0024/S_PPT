@@ -142,11 +142,17 @@ visually distinct from each other at all.
 match **token names** or **rendered colors**. Where the two conflict, the code
 matches the *rendered* result and says so at the call site:
 
-- **Data tables** (`account-summary.css`) — the DS's table borders resolve to
-  neutral-500. Written as the literal `--theme-colors-neutral-500` rather than
-  the `--theme-neutral-border-primary-default` the DS names, because that token
-  resolves to `#DFDFE6` here and would render a far lighter table than the DS's.
-- **Radio / checkbox** (`transactions.css`) — same call, with an accessibility
+- **Data tables** (`account-summary.css`) — *reverted; the rendered-color rule
+  does not apply here.* Account Summary briefly hardcoded
+  `--theme-colors-neutral-500` to reproduce the live DS's `#787887` table
+  border. Two problems: it made Account Summary the only table in the app with
+  a dark mid-grey rule while every other table uses `--neutral-border-light`,
+  and a raw primitive has no per-theme value, so the border never swapped in
+  dark mode. Table borders now use `--neutral-border-light` app-wide. Internal
+  uniformity beats matching a palette version this repo doesn't ship — and a
+  border is a large, repeated element where a shade mismatch reads as a bug,
+  unlike a small control edge.
+- **Radio / checkbox** (`transactions.css`) — rendered-color call, with an accessibility
   reason on top: `#DFDFE6` as a control edge on white is 1.3:1 and fails the
   3:1 WCAG non-text contrast minimum. neutral-500 is 3.9:1.
 

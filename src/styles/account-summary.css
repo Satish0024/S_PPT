@@ -76,35 +76,34 @@
      td    12px 16px; 14px/400 (no weight override); text neutral-900
      last row  border-bottom:none
      zebra even rows neutral-50; and NO row hover state anywhere
-   Border colour stays on neutral-500 rather than the
-   --theme-neutral-border-primary-default the DS names, because the DS's own
-   palette resolves that token TO neutral-500 (#787887) while this repo's
-   copy of the palette resolves it to #DFDFE6 — so the literal primitive is
-   what actually reproduces the DS's rendered table here. See the note in
-   CORE_PALETTE_AUDIT.md about the two palette versions diverging. */
+   Borders use --neutral-border-light, the same token every other table in the
+   app uses. This table previously hardcoded the --theme-colors-neutral-500
+   primitive (#787887) to reproduce the *live* DS's rendered border, because
+   this repo's older copy of the palette resolves the DS's named border token
+   to #DFDFE6 instead (see CORE_PALETTE_AUDIT.md on the diverging palettes).
+   Chasing the live value made this the only table in the app with a dark
+   mid-grey rule, and because a raw primitive has no per-theme value it also
+   left the border un-swapped in dark mode. Matching the app's own tables is
+   worth more than matching a palette version this repo doesn't ship. */
 .as-table-wrap{
-  border:1px solid var(--theme-colors-neutral-500);border-radius:var(--radius-sm);
+  border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);
   overflow-x:auto;background:var(--surface-default)}
 .as-table-wrap table{width:100%;border-collapse:collapse;font-size:var(--text-body-md-size);min-width:480px}
 .as-table-wrap th{
   text-align:left;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle);
   background:var(--surface-muted);padding:var(--space-2-5) var(--space-4);
-  border-bottom:1px solid var(--theme-colors-neutral-500);white-space:nowrap}
+  border-bottom:1px solid var(--neutral-border-light);white-space:nowrap}
 .as-table-wrap td{
-  padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--theme-colors-neutral-500);color:var(--neutral-text-default);
+  padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--neutral-border-light);color:var(--neutral-text-default);
   font-variant-numeric:tabular-nums}
-.as-table-wrap table:not(.as-table-accordion) tbody tr:nth-child(even){background:var(--surface-subtle)}
+.as-table-wrap tbody tr.as-row-alt{background:var(--surface-subtle)}
 .as-table-wrap tbody tr.on{background:var(--brand-background-primary-light)}
 .as-table-wrap tbody tr:last-child td{border-bottom:none}
 .as-table-wrap tfoot td{
-  background:var(--surface-muted);font-weight:var(--font-weight-extrabold);border-bottom:none;border-top:1px solid var(--theme-colors-neutral-500)}
+  background:var(--surface-muted);font-weight:var(--font-weight-extrabold);border-bottom:none;border-top:1px solid var(--neutral-border-light)}
 .as-table-wrap .num{text-align:right}
 /* DS table cells are 400 — no per-column weight. The row-name column
    gets its emphasis from being a link/toggle, not from bolding. */
-.as-swatch{
-  display:inline-block;width:8px;height:8px;border-radius:var(--radius-xs);margin-right:var(--space-2);
-  vertical-align:middle}
-
 .as-row-toggle{
   display:flex;align-items:center;width:100%;border:none;background:transparent;padding:var(--space-0);
   font:inherit;color:var(--neutral-text-default);cursor:pointer;text-align:left;border-radius:var(--radius-sm);gap:var(--space-0)}

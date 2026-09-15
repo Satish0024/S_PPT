@@ -261,7 +261,7 @@ export default function AccountSummary() {
                     </tr>
                   </thead>
                   <tbody>
-                    {sortedRows.map((row) => {
+                    {sortedRows.map((row, displayIndex) => {
                       const i = rows.indexOf(row)
                       const isInvestment = tab === 'investments'
                       const isAssetClass = tab === 'assetclass'
@@ -269,10 +269,14 @@ export default function AccountSummary() {
                       const isExpandable = isInvestment || isAssetClass || isSource
                       const isOpen = isExpandable && expandedRow === row.id
                       const showHoldings = isOpen && (isSource || isAssetClass)
+                      // Striping follows the row's display position, not CSS nth-child: an
+                      // expanded row injects a detail <tr> into the same tbody, which flips
+                      // the parity of every row below it as sources open and close.
+                      const zebra = displayIndex % 2 === 1 ? 'as-row-alt' : ''
                       return (
                         <Fragment key={row.id}>
                           <tr
-                            className={`${active === i ? 'on' : ''} ${isOpen ? 'as-row-open' : ''}`.trim()}
+                            className={`${active === i ? 'on' : ''} ${isOpen ? 'as-row-open' : ''} ${zebra}`.trim()}
                             onMouseEnter={() => setActive(i)}
                             onMouseLeave={() => setActive(null)}
                           >
@@ -291,14 +295,10 @@ export default function AccountSummary() {
                                     className="as-row-chevron"
                                     aria-hidden="true"
                                   />
-                                  <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
                                   {row.name}
                                 </button>
                               ) : (
-                                <>
-                                  <span className="as-swatch" style={{ background: row.color }} aria-hidden="true" />
-                                  {row.name}
-                                </>
+                                row.name
                               )}
                             </td>
                             {isInvestment ? (
