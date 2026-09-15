@@ -96,16 +96,36 @@
     --semantics-critical-background-strong: var(--semantics-critical-text);
     --semantics-critical-border: var(--theme-semantics-critical-border, color-mix(in srgb, var(--semantics-critical-text) 35%, var(--neutral-border-light)));
 
-    /* Semantics — Disabled */
-    --semantics-disabled-background: var(--surface-muted);
-    --semantics-disabled-border: var(--neutral-border-strong);
+    /* Semantics — Disabled. These are the DS's own neutral disabled triplet,
+       verified against its source (theme-palette.css):
+         --semantics-disabled-background: neutral-100  #EEEEF2
+         --semantics-disabled-border:     neutral-500  #787887
+         --semantics-disabled-text:       neutral-600  #5C5C6B
+       Two things worth knowing here. First, the DS's *documentation* page
+       shows #F7F7F9/#454452 for the background and border, which disagrees
+       with what its own CSS resolves to — these follow the CSS, i.e. what
+       actually ships. Second, the DS never dims a disabled control: every
+       disabled rule in the system sets opacity:1 explicitly and recolours
+       instead, so nothing here should be paired with an opacity fade.
+       The branded tones (a disabled destructive button staying red-tinted)
+       keep their own semantic identity; this grey triplet is only for
+       neutral and non-branded controls. */
+    --semantics-disabled-background: var(--theme-colors-neutral-100);
+    --semantics-disabled-border: var(--theme-colors-neutral-500);
     --semantics-disabled-text: var(--neutral-text-subtle-light);
 
-    /* Semantics — Highlight (teal) */
-    --semantics-highlight-border: var(--theme-colors-teal-600, #0d9488);
-    --semantics-highlight-text: var(--theme-colors-teal-500, #14b8a6);
-    --semantics-highlight-background-light: var(--theme-colors-teal-100, #ccfbf1);
-    --semantics-highlight-background-strong: var(--theme-colors-teal-500, #14b8a6);
+    /* Semantics — Highlight. These read the DS's own Highlight group, which
+       is an info blue, not a teal. They previously pointed at
+       --theme-colors-teal-500/600/100 — a scale the DS does not define at
+       all (its primitive families are primary/secondary/tertiary/neutral/
+       success/warning/red/info; there is no teal). Every one of them
+       therefore silently resolved to its hardcoded var() fallback
+       (#0d9488/#14b8a6/#ccfbf1), i.e. three colors from outside the palette
+       that also never swapped for dark mode. */
+    --semantics-highlight-border: var(--theme-semantics-highlight-border);
+    --semantics-highlight-text: var(--theme-semantics-highlight-text);
+    --semantics-highlight-background-light: var(--theme-semantics-highlight-light-background);
+    --semantics-highlight-background-strong: var(--theme-semantics-highlight-strong-background);
 
     /* Miscellaneous */
     --sidebar: var(--theme-colors-neutral-white);
@@ -373,7 +393,10 @@
     /* (DS v1.1 semantic tokens are now defined at the top of :root) */
 
     /* Chart — DS v1.1 data-viz palette (Muthu's format) */
-    --chart-color-teal-700: var(--theme-colors-teal-700, #0f766e);
+    /* Named "teal" after the source spec's label, but the DS has no teal
+       family, so this fell through to a non-palette #0f766e. Pointed at the
+       DS Highlight strong background — the palette's nearest real hue. */
+    --chart-color-teal-700: var(--theme-semantics-highlight-strong-background);
     --chart-color-blue-600: var(--brand-text-primary-hover);
     --chart-color-purple-500: var(--chart-6, #8b5cf6); /* DS chart palette */
     --chart-color-yellow-500: var(--semantics-warning-text);
@@ -477,6 +500,12 @@
     /* Neutral — A11y: --neutral-text-subtle-light reads a primitive that
        doesn't swap per theme; override to the semantic token. */
     --neutral-text-subtle-light: var(--theme-neutral-text-subtleleast);
+    /* Same reason: the disabled fill is a raw primitive (neutral-100) so it
+       would stay a pale grey on dark cards. Stepped to the dark end of the
+       same ramp, which is the value the DS's own dark palette uses for its
+       disabled surfaces. The border stays on neutral-500 — it reads
+       correctly against both ends of the ramp. */
+    --semantics-disabled-background: var(--theme-colors-neutral-800);
     /* Surface tokens — dark mode overrides. Every value on both sides of
        this alias is a literal DS primitive from the live DS's Neutral
        scale (coredesignsystemv1.netlify.app/#/foundations/color) — the
@@ -722,7 +751,8 @@
     transition:background var(--motion-base),color var(--motion-base)}
   .icon-btn:hover{background:var(--brand-background-primary-subtle);color:var(--neutral-text-default)}
   .icon-btn:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:2px}
-  .icon-btn:disabled,.icon-btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;pointer-events:none}
+  .icon-btn:disabled,.icon-btn[aria-disabled="true"]{
+    opacity:1;color:var(--semantics-disabled-text);cursor:not-allowed;pointer-events:none}
   .icon-btn svg{width:20px;height:20px}
   .icon-btn-sm{width:var(--icon-btn-size-sm);height:var(--icon-btn-size-sm)}
   .icon-btn-sm svg{width:var(--icon-sm);height:var(--icon-sm)}
@@ -1099,8 +1129,8 @@
   .rg-confirm-table-wrap{width:100%;overflow-x:auto;margin:var(--space-0) var(--space-0) var(--space-4)}
   .rg-confirm-table{width:100%;border-collapse:collapse;margin:var(--space-0);font-size:var(--text-sm-size)}
   .rg-confirm-table th,.rg-confirm-table td{text-align:left;padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--neutral-border-light);vertical-align:top}
-  .rg-confirm-table th{color:var(--neutral-text-subtle-light);font-weight:var(--font-weight-extrabold);font-size:var(--text-xs-size);text-transform:uppercase;letter-spacing:var(--ls-wide)}
-  .rg-confirm-table th:not(:first-child),.rg-confirm-table td:not(:first-child){text-align:right;font-weight:var(--font-weight-bold);white-space:nowrap}
+  .rg-confirm-table th{color:var(--neutral-text-subtle);font-weight:var(--font-weight-semibold);font-size:var(--text-body-md-size);letter-spacing:0;white-space:nowrap}
+  .rg-confirm-table th:not(:first-child),.rg-confirm-table td:not(:first-child){text-align:right;white-space:nowrap}
   .rg-confirm-table td:first-child{overflow-wrap:anywhere;word-break:break-word}
 .rg-confirm-actions{display:flex;flex-direction:row-reverse;flex-wrap:wrap;justify-content:flex-start;align-items:center;gap:var(--space-2-5)}
 .rg-confirm-actions .btn{width:auto;min-width:120px}
@@ -1109,7 +1139,9 @@
     border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3);font:inherit;font-weight:var(--font-weight-bold);
     color:var(--neutral-text-default);transition:border-color var(--motion-base),box-shadow var(--motion-base)}
   .rg-plan-single .ui-select-btn:focus-visible{border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 15%, transparent);outline:none}
-  .rg-plan-single .ui-select.disabled .ui-select-btn{opacity:.65;cursor:default}
+  .rg-plan-single .ui-select.disabled .ui-select-btn{
+    opacity:1;cursor:default;background:var(--semantics-disabled-background);
+    color:var(--semantics-disabled-text);border-color:var(--semantics-disabled-border)}
   .rg-plan-card{border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);background:var(--surface-muted);margin:var(--space-0) var(--space-0) var(--space-3);overflow:hidden}
   .rg-plan-card.open{background:var(--surface-default);border-color:var(--neutral-border-strong)}
   .rg-plan-card-h{
@@ -1369,7 +1401,26 @@
   .plan-card{
     background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);padding:var(--card-padding-sm) var(--space-4);
     box-shadow:var(--shadow);display:flex;flex-direction:column;gap:var(--space-3-5);min-width:0}
-  .plan-card.ineligible{background:var(--surface-muted)}
+  /* Not-eligible plans previously only swapped the card background, so the
+     name, the "401(k)" type in full brand blue and the balance figures all
+     rendered at the same strength as an eligible card — it did not read as
+     disabled at all. The whole card now steps down to the DS disabled
+     tokens while staying above 4.5:1, so it reads inactive but remains
+     readable (the notice text is still actionable copy, not decoration). */
+  .plan-card.ineligible{
+    background:var(--semantics-disabled-background);border-color:var(--semantics-disabled-border);box-shadow:none}
+  .plan-card.ineligible .pc-name,
+  .plan-card.ineligible .pc-type,
+  .plan-card.ineligible .pc-meta{color:var(--semantics-disabled-text)}
+  /* Stat tiles default to --surface-muted, which is the same value as the
+     disabled card fill — they vanished into the card. Lifted to the plain
+     surface so they stay legible as tiles. */
+  .plan-card.ineligible .plan-stat{
+    background:var(--surface-default);border-color:var(--semantics-disabled-border)}
+  .plan-card.ineligible .plan-stat .k,
+  .plan-card.ineligible .plan-stat .v,
+  .plan-card.ineligible .plan-stat.balance .v,
+  .plan-card.ineligible .plan-stat.vested .v{color:var(--semantics-disabled-text)}
   .plan-card.eligible-not{background:var(--surface-default)}
   .plan-badge.eligible{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
   .plan-badge.opted{background:var(--semantics-critical-background-light);color:var(--semantics-critical-text)}
@@ -1382,7 +1433,13 @@
   .plan-card .pc-meta{font-size:var(--text-body-xs-size);color:var(--neutral-text-subtle);line-height:1.35}
   .plan-badge{display:inline-flex;padding:var(--space-0-5) var(--space-2);border-radius:var(--radius-full);font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold);
     background:var(--semantics-success-background-light);color:var(--semantics-success-text);flex-shrink:0}
-  .plan-badge.muted{background:var(--surface-muted);color:var(--neutral-text-subtle-light)}
+  /* The "Not Eligible" badge only ever sits on a .plan-card.ineligible,
+     whose fill is the same --surface-muted this used — the badge was
+     invisible against its own card. Given the plain surface plus a
+     disabled-token ring so the pill has a visible edge in both themes. */
+  .plan-badge.muted{
+    background:var(--surface-default);color:var(--semantics-disabled-text);
+    box-shadow:inset 0 0 0 1px var(--semantics-disabled-border)}
   .plan-stats{
     display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;
     column-gap:var(--space-2-5);row-gap:0}
@@ -1414,7 +1471,12 @@
   .plan-notice a{color:var(--brand-text-primary-default);font-weight:var(--font-weight-bold);text-decoration:underline;text-underline-offset:2px}
   .plan-notice a:hover{color:var(--brand-text-primary-hover)}
   .plan-notice.eligible-notice{background:var(--brand-background-primary-light);border-color:var(--neutral-border-strong)}
-  .plan-notice.ineligible-notice{background:var(--surface-muted);border-color:var(--neutral-border-light)}
+  /* Same collision as the badge: this notice sits inside the disabled card
+     and shared its fill. Kept on the plain surface with a disabled edge —
+     the copy and its "Provide elections in advance" link stay at full
+     strength because that link is still live and must remain actionable. */
+  .plan-notice.ineligible-notice{
+    background:var(--surface-default);border-color:var(--semantics-disabled-border)}
   .plan-notice.opted-notice{background:var(--semantics-critical-background-light);border-color:var(--semantics-critical-border)}
   .plan-cash-note{
     font-size:var(--text-body-sm-size);color:var(--neutral-text-subtle);line-height:1.5;padding:var(--space-3) var(--space-3-5);border-radius:var(--radius-sm);
@@ -1597,7 +1659,10 @@
   .tx-row:last-child{border-bottom:none}
   /* Zebra striping — alternate rows get a faint tint so a dense list of
      same-height rows stays scannable without adding more borders. */
-  .tx-row:nth-child(even){background:var(--surface-2, var(--brand-background-primary-subtle))}
+  /* Same zebra fill as every real table (DS neutral-50), so this div-based
+     list doesn't stripe in a different colour to the tables beside it. Was
+     --surface-2, a legacy alias, falling back to a brand tint. */
+  .tx-row:nth-child(even){background:var(--surface-subtle)}
   .tx-row .tx-date{font-size:var(--text-xs-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);white-space:nowrap}
   .tx-row .tx-type{font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-default);line-height:1.2}
   .tx-row .tx-plan{font-size:var(--text-xs-size);color:var(--neutral-text-subtle-light);margin-top:var(--space-0);display:inline;font-weight:var(--font-weight-medium)}
@@ -1672,7 +1737,8 @@
   .btn-danger{background:var(--semantics-critical-text);color:var(--brand-text-primary-oncolor);border-color:transparent}
   .btn-danger:hover:not(:disabled){filter:brightness(.92)}
   .btn:disabled,.btn[aria-disabled="true"]{
-    background:var(--surface-muted);color:var(--neutral-text-subtle-light);border-color:var(--neutral-border-light);
+    background:var(--semantics-disabled-background);color:var(--semantics-disabled-text);
+    border-color:var(--semantics-disabled-border);
     opacity:1;cursor:not-allowed;pointer-events:none}
 
   /* ---------- Forms ---------- */
@@ -1692,7 +1758,9 @@
   .form-control:focus,.form-control:focus-visible{
     outline:none;border-color:var(--brand-text-primary-default);
     box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 15%, transparent)}
-  .form-control:disabled{background:var(--surface-muted);color:var(--neutral-text-subtle);cursor:not-allowed}
+  .form-control:disabled{
+    background:var(--semantics-disabled-background);color:var(--semantics-disabled-text);
+    border-color:var(--semantics-disabled-border);cursor:not-allowed}
   .form-error{
     display:flex;gap:var(--space-1-5);align-items:center;margin:var(--space-0);
     font-size:var(--text-helper-size);font-weight:var(--font-weight-semibold);line-height:var(--text-helper-lh);color:var(--semantics-critical-text)}
@@ -1840,7 +1908,9 @@
   .pr-field input:not([type="radio"]):not([type="checkbox"]):hover:not(:disabled),.pr-field select:hover:not(:disabled),.pr-field .ui-select-btn:hover{border-color:var(--neutral-border-strong)}
   .pr-field input:not([type="radio"]):not([type="checkbox"]):focus,.pr-field select:focus,.pr-field .ui-select-btn:focus-visible{
     outline:none;border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 15%, transparent)}
-  .pr-field input:disabled,.pr-field select:disabled{background:var(--surface-muted);color:var(--neutral-text-subtle);cursor:not-allowed}
+  .pr-field input:disabled,.pr-field select:disabled{
+    background:var(--semantics-disabled-background);color:var(--semantics-disabled-text);
+    border-color:var(--semantics-disabled-border);cursor:not-allowed}
   .pr-name-trio,.pr-pair{display:grid;gap:var(--space-2);width:100%;max-width:360px}
   .pr-name-trio{grid-template-columns:1fr 1fr 1fr}
   .pr-pair{grid-template-columns:1fr 1fr}
@@ -1914,11 +1984,17 @@
   .pr-history b{display:block;margin-top:var(--space-1);font-size:var(--text-sm-size);font-weight:var(--font-weight-extrabold);color:var(--neutral-text-default)}
   .pr-table{margin:var(--space-0)}
   .pr-table table{width:100%;border-collapse:collapse;font-size:var(--text-sm-size)}
-  .pr-table th{text-align:left;font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle);background:var(--surface-muted);padding:var(--space-2-5) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light)}
-  .pr-table td{padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light);font-weight:var(--font-weight-semibold);color:var(--neutral-text-default)}
+  /* Header + cell typography and zebra normalised to the DS Data Table
+     (.cds-table): th 14px/600, sentence case, no tracking; td 400; zebra on
+     neutral-50. Horizontal padding is left per-table because column density
+     genuinely differs and the DS ships a compact density for exactly that.
+     Zebra was --surface-muted, the same value as the header fill, so striped
+     rows and the header read as one block. */
+  .pr-table th{text-align:left;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle);background:var(--surface-muted);padding:var(--space-2-5) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light);white-space:nowrap}
+  .pr-table td{padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light);color:var(--neutral-text-default)}
   .pr-table tr:last-child td{border-bottom:none}
   .pr-table .num{text-align:right;font-variant-numeric:tabular-nums}
-  .pr-table tbody tr:nth-child(even){background:var(--surface-muted)}
+  .pr-table tbody tr:nth-child(even){background:var(--surface-subtle)}
   .pr-pill{
     display:inline-flex;align-items:center;padding:var(--space-0-5) var(--space-2);border-radius:var(--radius-full);border:1px solid transparent;
     /* --surface-3 (not --surface-2) so the pill still reads as a pill on
@@ -1998,12 +2074,12 @@
   .tx-plan-select .ui-select-btn{font-size:var(--text-body-sm-size)}
   .table-wrap{border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:auto;background:var(--surface-default)}
   .tx-table{width:100%;border-collapse:collapse;font-size:var(--text-sm-size)}
-  .tx-table th{text-align:left;font-size:var(--text-body-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle);background:var(--surface-muted);
-    padding:var(--space-2-5) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light)}
+  .tx-table th{text-align:left;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle);background:var(--surface-muted);
+    padding:var(--space-2-5) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light);white-space:nowrap}
   .tx-table td{padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light)}
   .tx-table tr:last-child td{border-bottom:none}
-  .tx-table .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:var(--font-weight-bold)}
-  .tx-table tbody tr:nth-child(even){background:var(--surface-muted)}
+  .tx-table .num{text-align:right;font-variant-numeric:tabular-nums}
+  .tx-table tbody tr:nth-child(even){background:var(--surface-subtle)}
 
   /* No outer border/radius here -- .doc-list already sits inside
      .panel.doc-page, which draws its own border (same fix as .tx-list). */
@@ -2402,13 +2478,13 @@
   /* ---------- Withdrawal allocation summary table ---------- */
   .wd-alloc-table{width:100%;border-collapse:collapse;font-size:var(--text-body-sm-size)}
   .wd-alloc-table th{
-    text-align:left;font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--neutral-text-subtle-light);
-    padding:var(--space-0) var(--space-2-5) var(--space-2);border-bottom:1px solid var(--neutral-border-light)}
+    text-align:left;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);letter-spacing:0;color:var(--neutral-text-subtle);
+    padding:var(--space-2-5) var(--space-2-5);border-bottom:1px solid var(--neutral-border-light);white-space:nowrap}
   .wd-alloc-table td{padding:var(--space-3) var(--space-2-5);border-bottom:1px solid var(--neutral-border-light);color:var(--neutral-text-subtle)}
-  .wd-alloc-table td:first-child{color:var(--neutral-text-default);font-weight:var(--font-weight-bold)}
+  .wd-alloc-table td:first-child{color:var(--neutral-text-default)}
   .wd-alloc-table .num{text-align:right;font-variant-numeric:tabular-nums}
   .wd-alloc-table tr:last-child td{border-bottom:none}
-  .wd-alloc-table tbody tr:nth-child(even){background:var(--surface-muted)}
+  .wd-alloc-table tbody tr:nth-child(even){background:var(--surface-subtle)}
   .wd-alloc-edit{
     font:inherit;font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--brand-text-primary-default);background:none;border:none;
     padding:var(--space-0);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
@@ -2464,8 +2540,8 @@ summary:focus-visible {
 .ui-select-btn:focus-visible{outline:none;border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 15%, transparent)}
 .ui-select-btn:hover{border-color:var(--neutral-border-strong)}
 .ui-select.disabled .ui-select-btn{
-  background:var(--surface-muted);color:var(--neutral-text-subtle-light);border-color:var(--neutral-border-light);
-  cursor:not-allowed;opacity:1}
+  background:var(--semantics-disabled-background);color:var(--semantics-disabled-text);
+  border-color:var(--semantics-disabled-border);cursor:not-allowed;opacity:1}
 .ui-select-value{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ui-select-caret{color:var(--neutral-text-subtle);flex:0 0 auto}
 .ui-select-menu{
@@ -2477,14 +2553,16 @@ summary:focus-visible {
   padding:var(--space-2) var(--space-2-5);font:inherit;font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-default)}
 .ui-select-opt:hover{background:var(--brand-background-primary-subtle)}
 .ui-select-opt.active{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
-.ui-select-opt:disabled{color:var(--neutral-text-subtle-light);cursor:not-allowed}
+.ui-select-opt:disabled{color:var(--semantics-disabled-text);cursor:not-allowed}
 
 /* ---------- Custom Date Picker (replaces native <input type="date">) ---------- */
 /* The native date input's calendar is an OS-level popup CSS can never
    restyle (Chrome's own blue, Safari's system UI). This one uses the same
    brand token as every other selected/active state in the app. */
 .ui-datepicker{position:relative;display:inline-block;width:100%}
-.ui-datepicker.disabled .ui-datepicker-btn{cursor:not-allowed;opacity:.6}
+.ui-datepicker.disabled .ui-datepicker-btn{
+  cursor:not-allowed;opacity:1;background:var(--semantics-disabled-background);
+  color:var(--semantics-disabled-text);border-color:var(--semantics-disabled-border)}
 .ui-datepicker-btn{gap:var(--space-2)}
 .ui-datepicker-panel{
   position:absolute;top:calc(100% + 4px);left:0;z-index:20;width:280px;
@@ -2506,7 +2584,9 @@ summary:focus-visible {
 .ui-datepicker-day.outside{color:var(--neutral-text-subtle-light)}
 .ui-datepicker-day.today{color:var(--brand-text-primary-default);font-weight:var(--font-weight-extrabold)}
 .ui-datepicker-day.selected{background:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor);font-weight:var(--font-weight-extrabold)}
-.ui-datepicker-day:disabled{color:var(--surface-strong);cursor:not-allowed}
+/* Was --surface-strong (#DFDFE6) as a *text* colour — 1.5:1 on white, an
+   effectively invisible date rather than a disabled one. */
+.ui-datepicker-day:disabled{color:var(--semantics-disabled-text);cursor:not-allowed}
 .ui-datepicker-foot{
   display:flex;align-items:center;justify-content:space-between;margin-top:var(--space-2-5);padding-top:var(--space-2-5);
   border-top:1px solid var(--neutral-border-light)}
@@ -2919,6 +2999,19 @@ summary:focus-visible {
    rounded cap. This replaces the old scattered dotted rings and floating
    particles, which read as unfinished noise rather than intent. The arc
    is aria-hidden decoration — the percentage next to it is real text. */
+/* The ring and its "of your goal" caption share one centered column.
+   Without a rule here this wrapper was an unstyled block, so the ring sat
+   at its left edge while the caption centered itself independently — on a
+   375px viewport the caption is wider than the ring and the two visibly
+   fell out of alignment. The definite flex-basis also gives .rgs-orbit's
+   width:100% a resolvable parent instead of a content-sized one. */
+.rgs-orbit-wrap {
+  flex: 0 0 116px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .rgs-orbit {
   position: relative;
   flex: 0 0 auto;
@@ -2930,6 +3023,10 @@ summary:focus-visible {
   aspect-ratio: 1;
   display: grid;
   place-items: center;
+  /* Lets the value below size itself against the ring's own width (cqw)
+     rather than a fixed px step, so it stays clear of the stroke at every
+     ring size instead of only at the widest one. */
+  container-type: inline-size;
 }
 .rgs-orbit-rings { position: absolute; inset: 0; width: 100%; height: 100%; }
 .rgs-orbit-value {
@@ -2945,14 +3042,22 @@ summary:focus-visible {
      capping the column to the ring's usable inner width (the track sits
      ~8px inside the SVG's edge) keeps it clear of the circumference at
      every ring size. Padding gives the text room to breathe inside the
-     ring instead of crowding the stroke. */
-  width: 74%;
-  padding: var(--space-2) var(--space-0);
+     ring instead of crowding the stroke.
+     74% was measured off the inner *diameter*, but text is a horizontal
+     band across the circle, so the space it actually has is the inscribed
+     square — ~0.707 of that diameter, not all of it. At 74% a 3-digit
+     value ("100%") rendered ~74px wide inside ~70px of clear room and
+     collided with the stroke. */
+  width: 70%;
+  padding: var(--space-1) var(--space-0);
   box-sizing: border-box;
   text-align: center;
 }
 .rgs-orbit-value b {
-  font-size:var(--text-h2-size);
+  /* Caps at the h2 step for 1-2 digit values but shrinks with the ring so
+     "100%" still clears the stroke. 22cqw of the 116px ring is ~25px, which
+     renders "100%" at ~67px inside the ~70px inscribed square. */
+  font-size: min(var(--text-h2-size), 22cqw);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--ls-tighter);
   line-height: 1.1;
@@ -3098,27 +3203,46 @@ summary:focus-visible {
 }
 .rgs-foot-note svg { flex: 0 0 auto; align-self: center; }
 .rgs-foot-note > span { flex: 1; min-width: 0; }
-/* justify-content:space-between only pushes Disclaimer to the right edge
-   when the Adjust link is also present -- with a single child (Adjust
-   hidden pre-"started") it collapses to the left instead. Disclaimer gets
-   its own margin-left:auto so it's pinned to the right end regardless of
-   whether its sibling renders. */
-.rgs-foot-actions { display: flex; flex-wrap: wrap; align-items: baseline; gap:var(--space-1) var(--space-3-5); flex: 0 0 auto; margin-left: auto; }
-.rgs-foot-actions .rgs-foot-link:last-child { margin-left: auto; }
-.rgs-foot-link {
-  /* Padding + matching negative margin lift the click target to the WCAG
-     2.5.8 24px minimum without moving the visible text. Underlined by
-     default, brand-colored -- matches the DS's plain-text Link style
-     (no icon, sentence case, underline) rather than a muted button. */
-  display: inline-flex; align-items: baseline;
-  font: inherit; font-size:var(--text-2xs-size); font-weight: var(--font-weight-bold);
-  color: var(--brand-text-primary-default); background: none; border: none; cursor: pointer;
-  flex: 0 0 auto; white-space: nowrap;
-  text-decoration: underline; text-underline-offset: 2px;
-  padding:var(--space-1-5) var(--space-1); margin:calc(-1 * var(--space-1-5)) calc(-1 * var(--space-1)); border-radius:var(--radius-sm);
+/* Neither of these is a primary action, but both used to render as bold,
+   underlined, brand-blue text sitting side by side at the right edge — two
+   equally loud links reading as a pair of primary CTAs. They are now proper
+   DS button types with a real hierarchy: "Adjust deferral rate and goal" is
+   a secondary (outlined) button, "Disclaimer" a tertiary/text button in
+   muted neutral. flex-basis:100% gives the pair their own full-width row and
+   space-between pushes them to opposite ends instead of crowding them
+   together. */
+.rgs-foot-actions {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap:var(--space-2) var(--space-3); flex: 1 1 100%;
 }
-.rgs-foot-link:hover { color: var(--brand-text-primary-hover); }
-.rgs-foot-link:focus-visible { outline: 2px solid var(--rgs-arc-1); outline-offset: 2px; }
+.rgs-foot-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  font: inherit; font-size:var(--text-button-sm-size); font-weight:var(--text-button-sm-weight);
+  line-height:var(--text-button-sm-lh);
+  padding:var(--btn-padding-y-sm) var(--btn-padding-x-sm); min-height:var(--icon-btn-size-sm);
+  border-radius:var(--radius-sm); border:1px solid transparent;
+  background: none; cursor: pointer; text-decoration: none;
+  flex: 0 0 auto; white-space: nowrap;
+}
+.rgs-foot-link:focus-visible { outline: 2px solid var(--brand-text-primary-default); outline-offset: 2px; }
+/* Secondary — same tokens as the global .btn-secondary. */
+.rgs-foot-link.is-secondary {
+  background: var(--surface-default); color: var(--brand-text-primary-default);
+  border-color: var(--neutral-border-light);
+}
+.rgs-foot-link.is-secondary:hover {
+  background: var(--brand-background-primary-subtle); border-color: var(--brand-border-primary-default);
+}
+/* Tertiary — a disclaimer is informational, not an action to be drawn to,
+   so this drops the brand colour for the neutral subtle text token (still
+   4.5:1+ on the card) and keeps only the underline as its affordance. */
+.rgs-foot-link.is-tertiary {
+  background: transparent; color: var(--neutral-text-subtle); border-color: transparent;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+.rgs-foot-link.is-tertiary:hover {
+  color: var(--neutral-text-default); background: var(--brand-background-primary-subtle);
+}
 
 /* ---------- Financial Wellness ----------
    Light, editorial content card. Typography leads on the left; the
@@ -3352,7 +3476,9 @@ summary:focus-visible {
    decorative fields back so they never crowd the copy. */
 @media (max-width: 340px) {
   .rgs-main { flex-direction: column; align-items: stretch; gap:var(--space-3); }
-  .rgs-orbit { align-self: center; }
+  /* Centres the ring+caption column, not the ring alone — align-self on
+     .rgs-orbit did nothing, since its parent is .rgs-orbit-wrap. */
+  .rgs-orbit-wrap { align-self: center; }
   .risk3-body { max-width: 100%; }
   .risk3-field { width: 34%; min-width: 0; opacity: .5; }
 }

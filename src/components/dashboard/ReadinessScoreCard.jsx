@@ -178,11 +178,11 @@ export default function ReadinessScoreCard() {
               showing it alongside "Get started" duplicated the same CTA. */}
           <span className="rgs-foot-actions">
             {started && (
-              <Link className="rgs-foot-link" to="/retirement-goal">
+              <Link className="rgs-foot-link is-secondary" to="/retirement-goal">
                 Adjust deferral rate and goal
               </Link>
             )}
-            <button type="button" className="rgs-foot-link" onClick={() => setOpen(true)}>
+            <button type="button" className="rgs-foot-link is-tertiary" onClick={() => setOpen(true)}>
               Disclaimer
             </button>
           </span>

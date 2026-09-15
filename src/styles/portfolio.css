@@ -73,7 +73,9 @@
     line-height:1.25;min-width:0}
   .legend-chip:hover{background:var(--brand-background-primary-subtle);color:var(--neutral-text-subtle)}
   .legend-chip.on{color:var(--neutral-text-default)}
-  .legend-chip.disabled{opacity:.5;cursor:not-allowed}
+  /* DS: disabled states recolour, never fade (every disabled rule in the
+     system pins opacity:1). */
+  .legend-chip.disabled{opacity:1;color:var(--semantics-disabled-text);cursor:not-allowed}
   .legend-row input[type="checkbox"]{width:14px;height:14px;flex:0 0 auto;margin:var(--space-0);cursor:pointer;accent-color:var(--brand-text-primary-default)}
   .legend-row input[type="checkbox"]:disabled{cursor:not-allowed}
   .legend-swatch{width:12px;height:12px;flex:0 0 auto;background:var(--series-color);display:inline-block;border-radius:var(--radius-xs);opacity:.45}
@@ -96,8 +98,8 @@
   .table-wrap{border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:auto;background:var(--surface-default);box-shadow:var(--shadow);
     -webkit-overflow-scrolling:touch}
   table{width:100%;border-collapse:collapse;font-size:var(--text-body-md-size);min-width:720px}
-  thead th{position:sticky;top:0;background:var(--surface-muted);text-align:left;font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle);
-    letter-spacing:var(--ls-wide);padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light);white-space:nowrap}
+  thead th{position:sticky;top:0;background:var(--surface-muted);text-align:left;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle);
+    letter-spacing:0;padding:var(--space-2-5) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light);white-space:nowrap}
   tbody td{padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light);vertical-align:middle;white-space:nowrap}
   tbody tr:last-child td{border-bottom:none}
   tbody tr:hover{background:transparent}
@@ -111,7 +113,14 @@
   .alloc-bar i{display:block;height:100%;background:var(--brand-text-primary-default);border-radius:var(--radius-full)}
 
   .plan-table{min-width:980px;border-collapse:collapse}
-  .plan-table thead th{text-align:center;vertical-align:bottom;white-space:normal;line-height:1.25;padding:var(--space-2-5) var(--space-2);font-size:var(--text-caption-size);color:var(--neutral-text-default);background:var(--surface-strong);border:1px solid var(--neutral-border-light);font-weight:var(--font-weight-bold)}
+  /* Deliberate exception to the normalised table header above: this is the
+     fund-comparison matrix — a two-level grouped header over a fully
+     bordered grid of narrow numeric columns. The DS has no grouped-header
+     variant, and at 14px these headings wrap badly in columns this narrow,
+     so it stays on the caption step (the DS's own compact density exists for
+     dense tables like this). Alignment, grid borders and the --surface-strong
+     group fill are the grouping affordance and are kept. */
+  .plan-table thead th{text-align:center;vertical-align:bottom;white-space:normal;line-height:1.25;padding:var(--space-2-5) var(--space-2);font-size:var(--text-caption-size);color:var(--neutral-text-default);background:var(--surface-strong);border:1px solid var(--neutral-border-light);font-weight:var(--font-weight-semibold)}
   .plan-table thead th.fund-col{text-align:left;min-width:200px}
   .plan-table thead .group-h{background:var(--surface-strong)}
   .plan-table thead .sub-h{font-size:var(--text-caption-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle);background:var(--surface-muted)}
@@ -133,9 +142,9 @@
   .plan-table tr.bench-row td{background:var(--surface-muted);color:var(--neutral-text-subtle);border-top:none;font-size:var(--text-body-sm-size)}
   .plan-table tr.bench-row .fund-title{font-weight:var(--font-weight-semibold);font-size:var(--text-body-sm-size);color:var(--neutral-text-subtle)}
   .plan-table tr.group-end td{border-bottom:1px solid var(--neutral-border-light)}
-  .plan-table tbody tr:nth-child(even):not(.bench-row) td{background:var(--surface-muted)}
+  .plan-table tbody tr:nth-child(even):not(.bench-row) td{background:var(--surface-subtle)}
   .holdings-table{min-width:820px}
-  .holdings-table tbody tr:nth-child(even){background:var(--surface-muted)}
+  .holdings-table tbody tr:nth-child(even){background:var(--surface-subtle)}
   .holdings-table th.num,.holdings-table td.num{text-align:right;white-space:nowrap}
   .holdings-table th.sortable{padding:var(--space-0)}
   .holdings-table th.sortable button{

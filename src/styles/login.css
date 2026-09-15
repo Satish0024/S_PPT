@@ -46,7 +46,11 @@
   font-weight:var(--text-button-lg-weight);font-size:var(--text-button-lg-size);line-height:var(--text-button-lg-lh);cursor:pointer;margin-top:var(--form-control-gap)}
 .login-submit:hover{background:var(--brand-text-primary-hover)}
 .login-submit:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:2px}
-.login-submit:disabled{opacity:.5;cursor:not-allowed}
+/* DS primary-button disabled: the brand tone keeps its identity (tinted
+   fill + brand text), it is not faded out. */
+.login-submit:disabled{
+  opacity:1;cursor:not-allowed;background:var(--brand-background-primary-disabled);
+  color:var(--brand-text-primary-disabled)}
 .login-hint{margin:var(--space-3) var(--space-0) var(--space-2);font-size:var(--text-caption-size);color:var(--neutral-text-subtle)}
 .login-hint b{color:var(--neutral-text-default)}
 .login-demos{position:relative}

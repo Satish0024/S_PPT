@@ -112,3 +112,65 @@ CORE's). If LendGuard's blue should stay as the brand color while only
 the *neutral/semantic* (text, border, background, success/warning/danger)
 tokens adopt the CORE palette, say so and `--brand`/`--brand-fill`/dark
 `--brand` can be reverted to the old hex in one place.
+
+---
+
+## 6. Two palette versions are in play (discovered 2026-09-15)
+
+`src/styles/core-color-palette.css` is a verbatim copy of the supplied
+`Core-Color-Palette (2).scss`. That file is **not** the same version as the
+palette the live design system currently ships
+(`apps/docs-site/src/theme-palette.css` in `Satish0024/Core-Design-system-1.1`).
+The primitive ramps (neutral/success/warning/red/info/primary/secondary/
+tertiary) are identical, but four **semantic neutral** tokens point at
+different rungs of that ramp:
+
+| Token | This repo's copy | Live DS |
+|---|---|---|
+| `--theme-neutral-border-primary-default` | `#DFDFE6` (neutral-200) | `#787887` (neutral-500) |
+| `--theme-neutral-border-subtle` | `#EEEEF2` (neutral-100) | `#787887` (neutral-500) |
+| `--theme-neutral-border-strong` | `#9E9EAD` (neutral-400) | `#5C5C6B` (neutral-600) |
+| `--theme-neutral-text-subtleleast` | `#787887` (neutral-500) | `#5C5C6B` (neutral-600) |
+
+The live DS's borders are therefore **much darker** than this repo's — its
+`border-subtle` and `border-primary-default` are the same `#787887`, i.e. not
+visually distinct from each other at all.
+
+### Why this matters, and how it's been handled
+
+"Match the design system" has two different answers depending on whether you
+match **token names** or **rendered colors**. Where the two conflict, the code
+matches the *rendered* result and says so at the call site:
+
+- **Data tables** (`account-summary.css`) — the DS's table borders resolve to
+  neutral-500. Written as the literal `--theme-colors-neutral-500` rather than
+  the `--theme-neutral-border-primary-default` the DS names, because that token
+  resolves to `#DFDFE6` here and would render a far lighter table than the DS's.
+- **Radio / checkbox** (`transactions.css`) — same call, with an accessibility
+  reason on top: `#DFDFE6` as a control edge on white is 1.3:1 and fails the
+  3:1 WCAG non-text contrast minimum. neutral-500 is 3.9:1.
+
+### Tokens the live DS has that this copy does not
+
+- `--theme-colors-neutral-lightgrey-50` / `-700`
+- The per-tone disabled sets (`--theme-semantics-{critical,success,warning,
+  highlight}-disabled-{border,strong-background,strong-text}`), which the DS
+  uses so a disabled destructive button stays red-tinted instead of going grey.
+- The neutral disabled triplet as named tokens (`--semantics-disabled-background`
+  / `-border` / `-text`). Their values are replicated in `index.css`:
+  neutral-100 / neutral-500 / neutral-600.
+
+### Also worth knowing
+
+- **The DS never dims a disabled control.** Every disabled rule in its
+  `components.css` pins `opacity: 1` and recolors instead. Nine opacity fades
+  in this app were converted to that pattern on 2026-09-15.
+- **The DS's own docs disagree with its own CSS** on disabled colors: the Color
+  foundations page publishes `#F7F7F9` background / `#454452` border, but the
+  shipped CSS resolves to `#EEEEF2` / `#787887`. This app follows the CSS.
+- **Focus rings**: the DS defines `--core-focusRing-color` (`#1F4F8D`) but no
+  component uses it — every component hardcodes primary-400 `#3275CD`. This app
+  currently focuses with `--brand-text-primary-default` (`#1F4F8D`, the unused
+  token's value), so app focus rings are a darker blue than the DS's actual
+  rendered ones. Not yet reconciled.
+- **The DS's table has no row hover state** and no `text-transform` on headers.

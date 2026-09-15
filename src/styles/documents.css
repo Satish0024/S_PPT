@@ -20,7 +20,11 @@
    keyboard-accessibility gap on top of the visual guideline. */
 .doc-field input:hover:not(:disabled),.doc-field .ui-select-btn:hover{border-color:var(--neutral-border-strong)}
 .doc-field input:focus,.doc-field .ui-select-btn:focus-visible{outline:none;border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 12%, transparent)}
-.doc-field input:disabled{opacity:.5;cursor:not-allowed;border-color:var(--neutral-border-light)}
+/* DS inputs recolour when disabled rather than fading (opacity pinned to 1). */
+.doc-field input:disabled{
+  opacity:1;cursor:not-allowed;background:var(--semantics-disabled-background);
+  color:var(--semantics-disabled-text);border-color:var(--semantics-disabled-border)}
+.doc-field input:disabled::placeholder{color:var(--theme-colors-neutral-400)}
 .doc-field-reset{min-width:0;flex:0 0 auto}
 .doc-field-reset .field-label{visibility:hidden}
 .doc-filter-actions{display:flex;align-items:center;gap:var(--space-3)}
