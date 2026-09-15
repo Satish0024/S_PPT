@@ -1473,9 +1473,22 @@
     min-width:0;padding:var(--space-3);border-radius:var(--radius-sm);background:var(--surface-muted);border:1px solid var(--neutral-border-light)}
   .plan-stat .k{
     font-size:var(--text-eyebrow-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);
-    text-transform:uppercase;letter-spacing:var(--ls-wide);line-height:1.3}
+    text-transform:uppercase;letter-spacing:var(--ls-wide);line-height:1.3;width:100%;word-break:break-word}
+  /* --text-h4-size (20px) genuinely doesn't fit a real 6-figure balance
+     in this 2-col tile's content width -- reproduced live even at a
+     normal 1200px desktop width, the text overflowed the tile's own
+     padding box by several px with the old white-space:nowrap.
+     word-break instead of nowrap "fixed" the overflow but broke the
+     currency string mid-digit ("$12,840." / "00"), which reads worse
+     than the overflow did. --text-h5-size (16px) is the same size
+     Account Summary's own equivalent plan-stat already uses
+     successfully at this width (.as-plan-stats b) -- dropping to it
+     here lets the whole value sit on one line with room to spare,
+     which is the actual fix; nowrap is safe again once the content
+     fits, and doesn't need word-break as a numeric fallback since
+     tabular-nums digits never benefit from breaking anyway. */
   .plan-stat .v{
-    font-size:var(--text-h4-size);font-weight:var(--font-weight-bold);letter-spacing:0;line-height:1.25;color:var(--neutral-text-default);
+    font-size:var(--text-h5-size);font-weight:var(--font-weight-bold);letter-spacing:0;line-height:1.25;color:var(--neutral-text-default);
     font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
   .plan-stat.balance .v{color:var(--brand-text-primary-default)}
   .plan-stat.vested .v{color:var(--semantics-success-text)}
