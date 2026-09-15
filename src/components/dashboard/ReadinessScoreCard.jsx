@@ -181,12 +181,12 @@ export default function ReadinessScoreCard() {
         )}
 
         <div className="rgs-foot">
-          <span className="rgs-foot-note">
-            <Icon icon={faInfoCircle} size={13} aria-hidden="true" />
-            Not guaranteed results.
-          </span>
           {/* Adjust link only shown once the widget is already started —
-              showing it alongside "Get started" duplicated the same CTA. */}
+              showing it alongside "Get started" duplicated the same CTA.
+              Disclaimer still gets margin-left:auto below, so it stays
+              pinned to the same right-aligned spot in this row whether
+              or not Adjust is present -- no placement shift between
+              scenarios. */}
           <span className="rgs-foot-actions">
             {started && (
               <Link className="rgs-foot-link is-secondary" to="/retirement-goal">
@@ -196,6 +196,10 @@ export default function ReadinessScoreCard() {
             <button type="button" className="rgs-foot-link is-tertiary" onClick={() => setOpen(true)}>
               Disclaimer
             </button>
+          </span>
+          <span className="rgs-foot-note">
+            <Icon icon={faInfoCircle} size={13} aria-hidden="true" />
+            Not guaranteed results.
           </span>
         </div>
       </div>

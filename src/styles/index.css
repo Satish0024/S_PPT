@@ -3246,10 +3246,20 @@ summary:focus-visible {
    muted neutral. flex-basis:100% gives the pair their own full-width row and
    space-between pushes them to opposite ends instead of crowding them
    together. */
+/* justify-content:flex-start (the default) + margin-left:auto on the
+   last child, not justify-content:space-between -- space-between only
+   pins Disclaimer to the right when Adjust is also present (2
+   children); with Adjust absent (participant hasn't started yet)
+   Disclaimer is the row's only child, and space-between silently
+   collapses to flex-start, jumping it to the LEFT instead -- a real
+   placement shift between the two scenarios. margin-left:auto on
+   :last-child pins Disclaimer to the same right-aligned spot whether
+   it's alone or paired with Adjust. */
 .rgs-foot-actions {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  display: flex; flex-wrap: wrap; align-items: center;
   gap:var(--space-2) var(--space-3); flex: 1 1 100%;
 }
+.rgs-foot-actions .rgs-foot-link:last-child { margin-left: auto; }
 .rgs-foot-link {
   display: inline-flex; align-items: center; justify-content: center;
   font: inherit; font-size:var(--text-button-sm-size); font-weight:var(--text-button-sm-weight);
