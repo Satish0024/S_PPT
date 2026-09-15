@@ -50,13 +50,6 @@
   .featured .f-meta{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-5)}
   .featured .f-meta span{font-size:var(--text-body-xs-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);display:inline-flex;align-items:center;gap:var(--space-1)}
   .featured .f-meta span svg{width:var(--icon-sm);height:var(--icon-sm)}
-  .btn-go{
-    display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--btn-padding-y-md) var(--btn-padding-x-md);border-radius:var(--radius-sm);
-    background:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor);font-size:var(--text-button-md-size);font-weight:var(--text-button-md-weight);width:fit-content;
-    transition:background var(--motion-base)}
-  .btn-go:hover{background:var(--brand-text-primary-hover)}
-  .btn-go svg{width:var(--icon-sm);height:var(--icon-sm);transition:transform var(--motion-base)}
-  .btn-go:hover svg{transform:translateX(3px)}
 
   .section-label{font-size:var(--text-body-sm-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-default);margin-bottom:var(--space-3-5);letter-spacing:var(--ls-snug)}
 

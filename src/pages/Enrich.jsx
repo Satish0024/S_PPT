@@ -61,7 +61,7 @@ export default function Enrich() {
                 <Icon icon={faClock} size={14} /> ~12 min
               </span>
             </div>
-            <span className="btn-go">
+            <span className="btn btn-primary">
               Start path
             </span>
           </div>

@@ -71,7 +71,7 @@ export default function RetirementGoalSimulator() {
               <span>{status.body}</span>
               {updated && <em>Updated just now</em>}
             </div>
-            <Link className="rr-status-go" to="/retirement-goal">
+            <Link className="rr-status-link" to="/retirement-goal">
               Adjust your goal
             </Link>
           </div>
@@ -81,7 +81,7 @@ export default function RetirementGoalSimulator() {
           <p className="rr-lead">
             This estimates how much of your retirement spending is covered by your savings, by using deferrals, age, and location.
           </p>
-          <Link className="rr-cta" to="/retirement-goal">
+          <Link className="btn btn-primary" to="/retirement-goal">
             Get started
           </Link>
         </div>

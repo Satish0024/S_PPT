@@ -162,7 +162,7 @@ export default function ReadinessScoreCard() {
             {isEligibleNotEnrolledUser(participant) ? (
               <>
                 <p>Please enroll to get started with your retirement readiness set up.</p>
-                <span className="rgs-cta rgs-cta--disabled" aria-disabled="true">
+                <span className="rgs-primary-cta rgs-primary-cta--disabled" aria-disabled="true">
                   Get started
                 </span>
               </>
@@ -172,7 +172,7 @@ export default function ReadinessScoreCard() {
                   This estimates how much of your retirement spending is covered by your savings, using your deferrals, age,
                   and location.
                 </p>
-                <Link className="rgs-cta" to="/retirement-goal">
+                <Link className="rgs-primary-cta" to="/retirement-goal">
                   Get started
                 </Link>
               </>

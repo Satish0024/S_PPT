@@ -148,7 +148,7 @@ export default function RetirementGoalSimulatorV2() {
             This estimates how much of your retirement spending is covered by your savings, by using deferrals, age, and
             location.
           </p>
-          <Link className="rr3-cta" to="/retirement-goal">
+          <Link className="btn btn-primary" to="/retirement-goal">
             Get started
           </Link>
         </div>
