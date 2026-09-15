@@ -1338,7 +1338,14 @@
   .rg-live .rr-score b{transition:transform var(--motion-slow) ease}
   .rg-save-bg{overflow:hidden}
   .rg-save{position:relative;z-index:2;width:min(460px,100%);animation:rg-modal-in .32s ease both}
-  .rg-save--big{width:min(600px,100%)}
+  /* Compound selector, not a bare .rg-save--big{} -- .enroll-modal{}
+     (enrollment.css) sets its own width at equal specificity and loads
+     later in the bundle (that file is imported per-page, after this
+     one's global import), so a same-specificity rule here silently
+     lost the cascade and this modal rendered at 440px regardless of
+     the --big modifier -- exactly why its comparison table always
+     looked cramped/cut off instead of "bigger", per item 87. */
+  .rg-save.rg-save--big{width:min(600px,100%)}
   .rg-save-hero{text-align:center;margin:var(--space-0) var(--space-0) var(--space-2-5)}
   .rg-save-mark{
     width:56px;height:56px;border-radius:var(--radius-full);background:var(--brand-background-primary-light);color:var(--brand-text-primary-default);
