@@ -297,7 +297,7 @@ export function InvestmentEditor({
             </div>
             <p>
               <Icon icon={faCircleInfo} size={14} aria-hidden="true" />
-              Your investment style is based on your risk questionnaire responses. View or edit your responses to
+              Your investment style is based on your questionnaire responses. View or edit your responses to
               reassess your style.
             </p>
           </div>

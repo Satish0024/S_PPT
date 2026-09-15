@@ -9,6 +9,7 @@ import {
   readSession
 } from '../data/participants'
 import { useParticipant } from '../context/ParticipantContext.jsx'
+import { loadProfile } from '../lib/profileDetails'
 
 const CYCLES = {
   calendar: { title: 'Calendar year', next: 'January 1, 2027' },
@@ -29,6 +30,15 @@ export default function EnrollmentSummary() {
   const navigate = useNavigate()
   const { participant } = useParticipant()
   const notEligible = isNotEligibleUser(participant)
+  // Item #92/49/50/51: the success popup's beneficiary card reads
+  // differently once the participant already has a beneficiary on file --
+  // reusing the same loadProfile() source the Profile beneficiary tab
+  // renders from, so this reflects real saved beneficiaries, not just the
+  // static seed data.
+  const hasBeneficiary = useMemo(() => {
+    const benes = loadProfile(participant).beneficiaries
+    return !!((benes?.primary?.length || 0) + (benes?.contingent?.length || 0))
+  }, [participant])
   const deferral = useMemo(() => readSession(DEFERRAL_KEY), [])
   const autoInc = useMemo(() => readSession(AUTO_INCREASE_KEY), [])
   const investment = useMemo(() => readSession(INVESTMENT_KEY), [])
@@ -186,22 +196,30 @@ export default function EnrollmentSummary() {
               </div>
               <h3 id="success-title">{notEligible ? 'Your Elections Are Saved' : "You're Enrolled"}</h3>
               <p className="success-lead">
-                {notEligible
+                {hasBeneficiary
+                  ? 'Your enrollment preferences are saved. Take a moment to review your beneficiary information and help ensure your savings go to the right person.'
+                  : notEligible
                   ? "The enrollment preferences have been saved and will take effect once you're eligible for the plan. Take a moment to designate a beneficiary and help ensure your savings go to the right person."
                   : 'Your enrollment preferences are saved. Take a moment to designate a beneficiary and help ensure your savings go to the right person.'}
               </p>
 
               <div className="success-next">
                 <div>
-                  <b>Add a beneficiary</b>
-                  <span>Recommended so your account can pass to someone you choose.</span>
+                  <b>{hasBeneficiary ? 'View Beneficiary' : 'Add a beneficiary'}</b>
+                  <span>
+                    {hasBeneficiary
+                      ? 'Recommended to ensure your account passes to someone you choose.'
+                      : 'Recommended so your account can pass to someone you choose.'}
+                  </span>
                 </div>
                 <button
                   type="button"
                   className="btn btn-secondary"
-                  onClick={() => navigate('/profile?section=beneficiary&add=1')}
+                  onClick={() =>
+                    navigate(hasBeneficiary ? '/profile?section=beneficiary' : '/profile?section=beneficiary&add=1')
+                  }
                 >
-                  Add beneficiary
+                  {hasBeneficiary ? 'View beneficiary' : 'Add beneficiary'}
                 </button>
               </div>
 

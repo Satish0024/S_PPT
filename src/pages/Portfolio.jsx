@@ -24,7 +24,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 // 'si' (Since inception) stays out of the graph's own period toggle — it's
 // still available as a column in the holdings table below.
 const PERIODS = ['1m', '3m', '6m', 'ytd', '1y', '3y', '5y', '10y']
-const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1Y', '3y': '3Y', '5y': '5Y', '10y': '10Y', si: 'Since inception' }
+const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1Y', '3y': '3Y', '5y': '5Y', '10y': '10Y' }
 
 // Each series carries its own dash pattern and point shape, not just a
 // color — a color-blind or low-vision reader (or a black-and-white
@@ -501,7 +501,7 @@ function buildChartOptions({ axisTitle, gridLine, tick }) {
       x: {
         title: {
           display: true,
-          text: 'Time Period',
+          text: 'Period of return',
           color: axisTitle,
           font: CHART_AXIS_FONT,
           padding: { top: 8 }

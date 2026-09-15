@@ -342,7 +342,6 @@ export default function AccountSummary() {
                                 <ul className="as-class-members">
                                   {(row.members || []).map((m) => (
                                     <li key={m.id}>
-                                      <span className="as-swatch" style={{ background: m.color }} aria-hidden="true" />
                                       <span className="as-class-member-name">
                                         {m.name}
                                         {m.price != null && <small className="as-class-member-nav">NAV {formatMoney(m.price)}</small>}

@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Icon } from '../../lib/icons'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
-import { isNotEligibleUser, isOptedOutUser } from '../../data/participants'
+import { isEligibleNotEnrolledUser, isNotEligibleUser, isOptedOutUser } from '../../data/participants'
 import {
   READINESS_KEY,
   ageFromDob,
@@ -159,13 +159,24 @@ export default function ReadinessScoreCard() {
           </>
         ) : (
           <div className="rgs-intro">
-            <p>
-              This estimates how much of your retirement spending is covered by your savings, using your deferrals, age,
-              and location.
-            </p>
-            <Link className="rgs-cta" to="/retirement-goal">
-              Get started
-            </Link>
+            {isEligibleNotEnrolledUser(participant) ? (
+              <>
+                <p>Please enroll to get started with your retirement readiness set up.</p>
+                <span className="rgs-cta rgs-cta--disabled" aria-disabled="true">
+                  Get started
+                </span>
+              </>
+            ) : (
+              <>
+                <p>
+                  This estimates how much of your retirement spending is covered by your savings, using your deferrals, age,
+                  and location.
+                </p>
+                <Link className="rgs-cta" to="/retirement-goal">
+                  Get started
+                </Link>
+              </>
+            )}
           </div>
         )}
 

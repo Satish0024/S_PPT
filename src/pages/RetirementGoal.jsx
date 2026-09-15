@@ -30,7 +30,6 @@ import {
   parseMoney,
   scoreGoal,
   setRateOn,
-  statusCopy,
   writeMap
 } from '../lib/retirementGoal'
 
@@ -161,6 +160,18 @@ function RangeField({ min, max, value, origin, onChange, step = 1, ariaLabel }) 
 
 function AutoIncreaseRow({ label, hint, inc, cap, onInc, onCap }) {
   const capMin = Math.min(15, Math.max(1, inc + 1))
+  // The max limit input used to silently clamp any out-of-range typing back
+  // to a valid value on every keystroke, so an entry at/under the deferral
+  // rate above it could never actually be seen or explained -- it just
+  // snapped. This keeps what's typed on screen and shows a real inline
+  // error instead, only committing the clamped value once the field loses
+  // focus (or immediately, for a value that's already valid).
+  const [capDraft, setCapDraft] = useState(String(cap))
+  useEffect(() => {
+    setCapDraft(String(cap))
+  }, [cap])
+  const capDraftNum = Math.round(+capDraft || 0)
+  const capInvalid = capDraft !== '' && capDraftNum <= inc
   return (
     <div className="ai-row">
       <span className="ai-source">
@@ -177,15 +188,26 @@ function AutoIncreaseRow({ label, hint, inc, cap, onInc, onCap }) {
         />
         <span className="pct">%</span>
       </span>
-      <span className="sval">
-        <input
-          type="number"
-          value={cap}
-          min={capMin}
-          max={15}
-          onChange={(e) => onCap(Math.min(15, Math.max(capMin, Math.round(+e.target.value || capMin))))}
-        />
-        <span className="pct">%</span>
+      <span className="ai-cap-wrap">
+        <span className="sval">
+          <input
+            type="number"
+            className={capInvalid ? 'invalid' : ''}
+            value={capDraft}
+            min={capMin}
+            max={15}
+            aria-invalid={capInvalid}
+            aria-describedby={capInvalid ? `${label}-cap-error` : undefined}
+            onChange={(e) => setCapDraft(e.target.value)}
+            onBlur={() => onCap(Math.min(15, Math.max(capMin, capDraftNum || capMin)))}
+          />
+          <span className="pct">%</span>
+        </span>
+        {capInvalid && (
+          <small id={`${label}-cap-error`} className="ai-cap-error" role="alert">
+            Max limit must be greater than the deferral rate ({inc}%).
+          </small>
+        )}
       </span>
     </div>
   )
@@ -391,7 +413,6 @@ export default function RetirementGoal() {
     [draft, currentAge, balance]
   )
   const shownScore = useAnimatedNumber(live.score)
-  const liveStatus = statusCopy(live.score)
 
   useEffect(() => {
     const prev = prevScore.current
@@ -787,7 +808,7 @@ export default function RetirementGoal() {
               stayed in the good/ok tier shouldn't still get confetti. */}
           {saveTone !== 'warn' && saveScoreDelta > 0 && <Confetti />}
           <div
-            className={`enroll-modal rr-modal rg-save ${saveTone}`}
+            className={`enroll-modal rr-modal rg-save rg-save--big ${saveTone}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="rg-saved-title"
@@ -796,8 +817,7 @@ export default function RetirementGoal() {
               <span className="rg-save-mark" aria-hidden="true">
                 <Icon icon={saveIcon} size={26} />
               </span>
-              <h4 id="rg-saved-title">{saveTone === 'warn' ? 'Goal saved · Needs attention' : 'Goal saved'}</h4>
-              <p>{liveStatus.body}</p>
+              <h4 id="rg-saved-title">Goal saved</h4>
             </div>
             <div
               className="rg-save-score"
@@ -816,34 +836,34 @@ export default function RetirementGoal() {
                 )}
                 <b>{scoreNow}%</b>
               </div>
-              <small>
-                {scoreDelta !== 0 ? `${scoreDelta > 0 ? '+' : ''}${scoreDelta} points · ` : ''}
-                {liveStatus.title}
-              </small>
             </div>
             {inputChanges.length ? (
-              <>
-                <p className="rr-modal-k">What changed</p>
-                <ul className="rg-changes">
-                  {inputChanges.map((row) => (
-                    <li key={row.label}>
-                      <span>{row.label}</span>
-                      <b>
-                        {row.was} → {row.now}
-                      </b>
-                    </li>
-                  ))}
-                </ul>
-              </>
+              <div className="rg-confirm-table-wrap">
+                <table className="rg-confirm-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Setting</th>
+                      <th scope="col">Previous value</th>
+                      <th scope="col">Updated value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {inputChanges.map((row) => (
+                      <tr key={row.label}>
+                        <td>{row.label}</td>
+                        <td>{row.was}</td>
+                        <td>{row.now}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             ) : (
               <p>No inputs changed. Your current goal is saved.</p>
             )}
             <div className="enroll-modal-actions">
               <button type="button" className="btn btn-primary" onClick={() => navigate('/', { state: { goalSaved: true } })}>
-                Save &amp; go to dashboard
-              </button>
-              <button type="button" className="btn btn-secondary" onClick={() => setSavedOpen(false)}>
-                Keep editing
+                Go to dashboard
               </button>
             </div>
           </div>

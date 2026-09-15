@@ -1338,6 +1338,7 @@
   .rg-live .rr-score b{transition:transform var(--motion-slow) ease}
   .rg-save-bg{overflow:hidden}
   .rg-save{position:relative;z-index:2;width:min(460px,100%);animation:rg-modal-in .32s ease both}
+  .rg-save--big{width:min(600px,100%)}
   .rg-save-hero{text-align:center;margin:var(--space-0) var(--space-0) var(--space-2-5)}
   .rg-save-mark{
     width:56px;height:56px;border-radius:var(--radius-full);background:var(--brand-background-primary-light);color:var(--brand-text-primary-default);
@@ -3186,6 +3187,8 @@ summary:focus-visible {
 }
 .rgs-cta:hover { filter: brightness(1.12); }
 .rgs-cta:focus-visible { outline: 2px solid var(--rgs-arc-1); outline-offset: 2px; }
+.rgs-cta--disabled { background: var(--semantics-disabled-background); color: var(--semantics-disabled-text); cursor: not-allowed; }
+.rgs-cta--disabled:hover { filter: none; }
 /* Single row (wraps as one unit on very narrow cards, not forced onto
    two rows every time) -- note and actions sit on the same baseline
    instead of the note always sitting a full row above the links, which

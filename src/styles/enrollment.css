@@ -504,6 +504,10 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 .ai-source b{display:block;font-size:var(--text-body-md-size)}
 .ai-source small{display:block;margin-top:var(--space-0-5);color:var(--neutral-text-subtle-light);font-size:var(--text-body-xs-size);font-weight:var(--font-weight-medium)}
 .ai-row .sval{width:100%;max-width:140px}
+.ai-cap-wrap{display:flex;flex-direction:column;width:100%;max-width:140px}
+.ai-row .sval input.invalid{color:var(--semantics-critical-text)}
+.ai-row .sval:has(input.invalid){border-color:var(--semantics-critical-border)}
+.ai-cap-error{display:block;margin-top:var(--space-1);font-size:var(--text-body-xs-size);font-weight:var(--font-weight-semibold);color:var(--semantics-critical-text);white-space:normal;max-width:180px}
 .ai-next{margin-top:var(--space-3);font-size:var(--text-body-md-size);color:var(--neutral-text-subtle)}
 .ai-next b{color:var(--brand-text-primary-default)}
 .enroll-error{color:var(--semantics-critical-text);font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);margin:var(--space-3) var(--space-0) var(--space-0)}
