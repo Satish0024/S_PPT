@@ -313,6 +313,40 @@ function sumShares(shares) {
 
 const blankAuto = () => ({ on: false, pctPre: 1, capPre: 10, pctRoth: 1, capRoth: 10 })
 
+// Shared by both the single-plan (draft/baseline) and multi-plan
+// (planShares/baselineShares) branches of the pre-save confirmation
+// diff -- same comparison logic, just fed different before/after
+// shapes, so the two branches can't silently drift out of sync with
+// each other the way they did when this was duplicated inline (the
+// single-plan branch was missing entirely, which is why the modal
+// always said "No deferral changes to confirm" for anyone on a single
+// plan -- the overwhelmingly common case).
+function pushDeferralDiffRows(rows, before, after, beforeAuto, afterAuto, prefix) {
+  if ((before.pre || 0) !== (after.pre || 0)) {
+    rows.push({ label: `${prefix}Pre-Tax %`, was: `${before.pre || 0}%`, now: `${after.pre || 0}%` })
+  }
+  if ((before.roth || 0) !== (after.roth || 0)) {
+    rows.push({ label: `${prefix}Roth %`, was: `${before.roth || 0}%`, now: `${after.roth || 0}%` })
+  }
+  if (!!beforeAuto.on !== !!afterAuto.on) {
+    rows.push({ label: `${prefix}Auto increase`, was: beforeAuto.on ? 'Yes' : 'No', now: afterAuto.on ? 'Yes' : 'No' })
+  }
+  if (afterAuto.on && (beforeAuto.pctPre !== afterAuto.pctPre || beforeAuto.capPre !== afterAuto.capPre)) {
+    rows.push({
+      label: `${prefix}Auto increase rate (Pre-Tax)`,
+      was: `+${beforeAuto.pctPre}% to ${beforeAuto.capPre}%`,
+      now: `+${afterAuto.pctPre}% to ${afterAuto.capPre}%`
+    })
+  }
+  if (afterAuto.on && (beforeAuto.pctRoth !== afterAuto.pctRoth || beforeAuto.capRoth !== afterAuto.capRoth)) {
+    rows.push({
+      label: `${prefix}Auto increase rate (Roth)`,
+      was: `+${beforeAuto.pctRoth}% to ${beforeAuto.capRoth}%`,
+      now: `+${afterAuto.pctRoth}% to ${afterAuto.capRoth}%`
+    })
+  }
+}
+
 function initialAuto(plans, seed) {
   const auto = {}
   plans.forEach((p, i) => {
@@ -469,37 +503,36 @@ export default function RetirementGoal() {
   // screen's Deferrals panel can actually change: per-plan Pre-Tax/Roth
   // rates and auto-increase on/off + rate. The auto-increase cycle itself
   // is never editable here, so it's never part of this diff.
-  const deferralChangeRows = deferralPlans.reduce((rows, p) => {
-    const before = baselineShares[p.id] || { pre: 0, roth: 0 }
-    const after = planShares[p.id] || { pre: 0, roth: 0 }
-    const prefix = `${p.name} - `
-    if ((before.pre || 0) !== (after.pre || 0)) {
-      rows.push({ label: `${prefix}Pre-Tax %`, was: `${before.pre || 0}%`, now: `${after.pre || 0}%` })
-    }
-    if ((before.roth || 0) !== (after.roth || 0)) {
-      rows.push({ label: `${prefix}Roth %`, was: `${before.roth || 0}%`, now: `${after.roth || 0}%` })
-    }
-    const beforeAuto = baselineAuto[p.id] || blankAuto()
-    const afterAuto = planAuto[p.id] || blankAuto()
-    if (!!beforeAuto.on !== !!afterAuto.on) {
-      rows.push({ label: `${prefix}Auto increase`, was: beforeAuto.on ? 'Yes' : 'No', now: afterAuto.on ? 'Yes' : 'No' })
-    }
-    if (afterAuto.on && (beforeAuto.pctPre !== afterAuto.pctPre || beforeAuto.capPre !== afterAuto.capPre)) {
-      rows.push({
-        label: `${prefix}Auto increase rate (Pre-Tax)`,
-        was: `+${beforeAuto.pctPre}% to ${beforeAuto.capPre}%`,
-        now: `+${afterAuto.pctPre}% to ${afterAuto.capPre}%`
-      })
-    }
-    if (afterAuto.on && (beforeAuto.pctRoth !== afterAuto.pctRoth || beforeAuto.capRoth !== afterAuto.capRoth)) {
-      rows.push({
-        label: `${prefix}Auto increase rate (Roth)`,
-        was: `+${beforeAuto.pctRoth}% to ${beforeAuto.capRoth}%`,
-        now: `+${afterAuto.pctRoth}% to ${afterAuto.capRoth}%`
-      })
-    }
-    return rows
-  }, [])
+  const deferralChangeRows = multiPlan
+    ? deferralPlans.reduce((rows, p) => {
+        const before = baselineShares[p.id] || { pre: 0, roth: 0 }
+        const after = planShares[p.id] || { pre: 0, roth: 0 }
+        const beforeAuto = baselineAuto[p.id] || blankAuto()
+        const afterAuto = planAuto[p.id] || blankAuto()
+        pushDeferralDiffRows(rows, before, after, beforeAuto, afterAuto, `${p.name} - `)
+        return rows
+      }, [])
+    : (() => {
+        const rows = []
+        const before = { pre: baseline.pre || 0, roth: baseline.roth || 0 }
+        const after = { pre: draft.pre || 0, roth: draft.roth || 0 }
+        const beforeAuto = {
+          on: baseline.autoOn,
+          pctPre: baseline.autoPct,
+          capPre: baseline.autoCap,
+          pctRoth: baseline.autoPctRoth,
+          capRoth: baseline.autoCapRoth
+        }
+        const afterAuto = {
+          on: draft.autoOn,
+          pctPre: draft.autoPct,
+          capPre: draft.autoCap,
+          pctRoth: draft.autoPctRoth,
+          capRoth: draft.autoCapRoth
+        }
+        pushDeferralDiffRows(rows, before, after, beforeAuto, afterAuto, '')
+        return rows
+      })()
 
   const autoPct = Math.max(1, +draft.autoPct || 1)
   const autoCap = Math.max(autoPct, +draft.autoCap || 10)
