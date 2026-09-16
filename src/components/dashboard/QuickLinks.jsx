@@ -7,7 +7,7 @@ import { faFileAlt, faChartLine, faUsers, faFileInvoiceDollar } from '@fortaweso
 export default function QuickLinks({ showGenerateStatement }) {
   return (
     <section>
-      <h2 className="section-title">Quick Links</h2>
+      <h2 className="section-title">Quick actions</h2>
       <div className="quick-grid">
         <Link className="quick-link" to="/profile?section=beneficiary&add=1">
           <span className="q-ico" aria-hidden="true">

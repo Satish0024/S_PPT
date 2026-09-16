@@ -794,12 +794,11 @@
     border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);padding:var(--space-2);display:none;z-index:50
   }
   .user-dropdown.open{display:block}
-  .user-dropdown .dd-label{font-size:var(--text-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);text-transform:uppercase;
-    letter-spacing:var(--ls-wide);padding:var(--space-2) var(--space-2-5) var(--space-1-5)}
+  .user-dropdown .dd-label{font-size:var(--text-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);    letter-spacing:var(--ls-wide);padding:var(--space-2) var(--space-2-5) var(--space-1-5)}
   .user-dropdown-email{
     display:flex;flex-direction:column;gap:var(--space-0-5);padding:var(--space-2-5);margin-bottom:var(--space-1-5);
     border-bottom:1px solid var(--neutral-border-light)}
-  .user-dropdown-email .label{font-size:var(--text-2xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);text-transform:uppercase;letter-spacing:var(--ls-wide)}
+  .user-dropdown-email .label{font-size:var(--text-2xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);letter-spacing:var(--ls-wide)}
   .user-dropdown-email .value{font-size:var(--text-body-sm-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-default);overflow-wrap:anywhere}
   .user-option{display:flex;align-items:center;gap:var(--space-2-5);width:100%;border:none;background:transparent;
     padding:var(--space-2-5);border-radius:var(--radius-sm);cursor:pointer;text-align:left;transition:background var(--motion-base)}
@@ -897,7 +896,7 @@
   .scenario-banner.navy{border-left-color:var(--brand-text-primary-default)}
   .scenario-banner.red{border-left-color:var(--semantics-critical-text)}
   .scenario-banner .sb-tag{
-    font-size:var(--text-xs-size);font-weight:var(--font-weight-bold);text-transform:uppercase;letter-spacing:var(--ls-wide);margin-bottom:var(--space-2)}
+    font-size:var(--text-xs-size);font-weight:var(--font-weight-bold);letter-spacing:var(--ls-wide);margin-bottom:var(--space-2)}
   .scenario-banner.green .sb-tag{color:var(--semantics-success-text)}
   .scenario-banner.amber .sb-tag{color:var(--semantics-warning-text)}
   .scenario-banner.navy .sb-tag{color:var(--brand-text-primary-default)}
@@ -934,11 +933,14 @@
   .overall-balance .ob-loan{
     margin-top:var(--space-3-5);padding-top:var(--space-3-5);border-top:1px solid var(--neutral-border-light)}
   .overall-balance .ob-loan-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--space-2)}
-  .overall-balance .ob-loan .loan-k{font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);display:inline-flex;align-items:center}
-  .overall-balance .ob-loan .loan-k .field-tip{margin-left:var(--space-0);margin-right:var(--space-1)}
+  .overall-balance .ob-loan .loan-k{font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light)}
   .overall-balance .ob-loan .loan-v{font-size:var(--text-body-lg-size);font-weight:var(--font-weight-bold);color:var(--semantics-warning-text);font-variant-numeric:tabular-nums}
   .overall-balance .ob-loan .loan-note{
+    display:flex;gap:var(--space-1-5);align-items:flex-start;
     margin-top:var(--space-1-5);font-size:var(--text-caption-size);line-height:1.45;color:var(--neutral-text-subtle-light);width:100%}
+  /* Note wraps to two lines, so the icon aligns to the first line's optical
+     centre rather than the flex box's centre. */
+  .overall-balance .ob-loan .loan-note svg{flex:0 0 auto;margin-top:var(--space-0-5)}
   .overall-balance .ob-footnote{font-size:var(--text-xs-size);color:var(--neutral-text-subtle-light);line-height:1.5;margin:var(--space-3) var(--space-0) var(--space-0);padding-top:var(--space-3);border-top:1px solid var(--neutral-border-light)}
 
   .rr-card{
@@ -952,8 +954,7 @@
     background:var(--brand-background-primary-light);color:var(--brand-text-primary-default);display:grid;place-items:center}
   .rr-copy{min-width:0}
   .rr-tag{
-    display:block;font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wider);text-transform:uppercase;
-    color:var(--brand-text-primary-default);margin-bottom:var(--space-px)}
+    display:block;font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wider);    color:var(--brand-text-primary-default);margin-bottom:var(--space-px)}
   .rr-head h3{font-size:var(--text-base-size);font-weight:var(--font-weight-extrabold);margin:var(--space-0);letter-spacing:var(--ls-snug);color:var(--neutral-text-default)}
   .rr-lead{font-size:var(--text-body-sm-size);line-height:1.45;color:var(--neutral-text-subtle);margin:var(--space-0)}
   .rr-intro{display:flex;flex-direction:column;gap:var(--space-3)}
@@ -1035,7 +1036,7 @@
     width:48px;height:48px;border-radius:var(--radius-sm);flex:0 0 auto;
     background:var(--brand-background-primary-light);color:var(--brand-text-primary-default);display:grid;place-items:center}
   .rr2-copy{min-width:0;display:flex;flex-direction:column;gap:var(--space-0-5)}
-  .rr2-tag{font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wider);text-transform:uppercase;color:var(--brand-text-primary-default)}
+  .rr2-tag{font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wider);color:var(--brand-text-primary-default)}
   .rr2-head h3{font-size:var(--text-h4-size);font-weight:var(--font-weight-extrabold);margin:var(--space-0);letter-spacing:var(--ls-snug);color:var(--neutral-text-default)}
 
   .rr2-hero{display:flex;align-items:center;gap:var(--space-4);min-height:130px}
@@ -1151,7 +1152,7 @@
   .rg-confirm-table td:first-child{overflow-wrap:anywhere;word-break:break-word}
 .rg-confirm-actions{display:flex;flex-direction:row-reverse;flex-wrap:wrap;justify-content:flex-start;align-items:center;gap:var(--space-2-5)}
 .rg-confirm-actions .btn{width:auto;min-width:120px}
-  .rg-plan-single span{font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--neutral-text-subtle-light)}
+  .rg-plan-single span{font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);color:var(--neutral-text-subtle-light)}
   .rg-plan-single .ui-select-btn{
     border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3);font:inherit;font-weight:var(--font-weight-bold);
     color:var(--neutral-text-default);transition:border-color var(--motion-base),box-shadow var(--motion-base)}
@@ -1432,18 +1433,27 @@
      disabled at all. Text/stat colors step down to the DS disabled tokens
      so it reads inactive but remains readable (the notice text is still
      actionable copy, not decoration).
-     The card SHELL itself (background/border/shadow), however, stays
-     identical to every other plan card -- --semantics-disabled-border is
-     a deliberately strong, dark tone (correct for a disabled form
-     control, where legibility of the boundary is the point) that on a
-     whole card, next to plain siblings, made the *least* important card
-     the most visually prominent one in the grid -- a real UX regression,
-     not just an odd look. "Not eligible" is already communicated clearly
-     by the badge and the muted text/tiles below; the shell doesn't need
-     to diverge too. */
+     Text alone wasn't enough: --semantics-disabled-text resolves to
+     neutral-600, the exact same value as --neutral-text-subtle used for
+     ordinary secondary copy everywhere else, so a muted heading just read
+     as normal body text rather than as inactive. The card now also takes
+     --semantics-disabled-background so it recedes against its white
+     siblings. That is the DS's own disabled surface, and unlike a
+     --semantics-disabled-border shell (tried previously) it makes the
+     least important card quieter instead of ringing it in the darkest
+     tone in the grid.
+     Recede, don't dim: opacity stays 1 and every value below still clears
+     WCAG AA -- disabled-text on this surface is 5.7:1. */
+  .plan-card.ineligible{background:var(--semantics-disabled-background)}
   .plan-card.ineligible .pc-name,
   .plan-card.ineligible .pc-type,
   .plan-card.ineligible .pc-meta{color:var(--semantics-disabled-text)}
+  /* Stat tiles and the notice are normally --surface-muted / white on a
+     white card. On the disabled surface that nesting collapses, so inner
+     containers invert to the plain surface -- which also leaves the live
+     "Provide elections in advance" link sitting on the one white panel in
+     the card, reading correctly as the only actionable thing on it. */
+  .plan-card.ineligible .plan-stat{background:var(--surface-default)}
   .plan-card.ineligible .plan-stat .k,
   .plan-card.ineligible .plan-stat .v,
   .plan-card.ineligible .plan-stat.balance .v,
@@ -1486,7 +1496,7 @@
     min-width:0;padding:var(--space-3);border-radius:var(--radius-sm);background:var(--surface-muted);border:1px solid var(--neutral-border-light)}
   .plan-stat .k{
     font-size:var(--text-eyebrow-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);
-    text-transform:uppercase;letter-spacing:var(--ls-wide);line-height:1.3;width:100%;word-break:break-word}
+    letter-spacing:var(--ls-wide);line-height:1.3;width:100%;word-break:break-word}
   /* --text-h4-size (20px) genuinely doesn't fit a real 6-figure balance
      in this 2-col tile's content width -- reproduced live even at a
      normal 1200px desktop width, the text overflowed the tile's own
@@ -1509,7 +1519,7 @@
     display:inline-flex;align-items:center;gap:var(--space-1);margin:var(--space-0);flex-shrink:0;
     padding:var(--space-0-5) var(--space-2) var(--space-0-5) var(--space-1-5);border-radius:var(--radius-full);line-height:1.2;white-space:nowrap}
   .plan-return b{font-size:var(--text-body-sm-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-snug);font-variant-numeric:tabular-nums}
-  .plan-return i{font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);font-style:normal;letter-spacing:var(--ls-wide);text-transform:uppercase;opacity:.8}
+  .plan-return i{font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);font-style:normal;letter-spacing:var(--ls-wide);opacity:.8}
   .plan-return.pos{background:var(--semantics-success-background-light);color:var(--semantics-success-text)}
   .plan-return.neg{background:var(--semantics-critical-background-light);color:var(--semantics-critical-text)}
   .plan-reason{
@@ -1523,11 +1533,15 @@
   .plan-notice a:hover{color:var(--brand-text-primary-hover)}
   .plan-notice.eligible-notice{background:var(--brand-background-primary-light);border-color:var(--neutral-border-strong)}
   /* Same collision as the badge: this notice sits inside the disabled card
-     and shared its fill. Kept on the plain surface with a disabled edge —
+     and shared its fill. Kept on the plain surface with a quiet edge —
      the copy and its "Provide elections in advance" link stay at full
-     strength because that link is still live and must remain actionable. */
+     strength because that link is still live and must remain actionable.
+     The edge is --neutral-border-light, not --semantics-disabled-border:
+     that token is a dark mid-grey meant for a disabled control boundary,
+     and around a passive notice it out-weighed everything else on the
+     card, which is what stopped the card reading as inactive. */
   .plan-notice.ineligible-notice{
-    background:var(--surface-default);border-color:var(--semantics-disabled-border)}
+    background:var(--surface-default);border-color:var(--neutral-border-light)}
   .plan-notice.opted-notice{background:var(--semantics-critical-background-light);border-color:var(--semantics-critical-border)}
   .plan-cash-note{
     font-size:var(--text-body-sm-size);color:var(--neutral-text-subtle);line-height:1.5;padding:var(--space-3) var(--space-3-5);border-radius:var(--radius-sm);
@@ -1537,7 +1551,7 @@
     display:none;margin-top:var(--space-0-5);padding-top:var(--space-3-5);border-top:1px solid var(--neutral-border-light)}
   .plan-details.open{display:block}
   .plan-details .pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2-5) var(--space-4)}
-  .plan-details .pd-grid div{font-size:var(--text-xs-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);text-transform:uppercase;letter-spacing:var(--ls-wide)}
+  .plan-details .pd-grid div{font-size:var(--text-xs-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);letter-spacing:var(--ls-wide)}
   .plan-details .pd-grid b{display:block;font-size:var(--text-body-sm-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-default);margin-top:var(--space-0-5);text-transform:none;letter-spacing:0;font-variant-numeric:tabular-nums}
   .plan-details .pd-grid b.muted{color:var(--neutral-text-subtle-light);font-weight:var(--font-weight-semibold)}
 
@@ -1553,7 +1567,7 @@
     width:48px;height:48px;border-radius:var(--radius-sm);flex:0 0 auto;
     background:var(--brand-background-primary-light);color:var(--brand-text-primary-default);display:grid;place-items:center}
   .learn-card-tag{
-    font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wider);text-transform:uppercase;color:var(--brand-text-primary-default)}
+    font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wider);color:var(--brand-text-primary-default)}
   .learn-card h4{font-size:var(--text-h4-size);font-weight:var(--font-weight-extrabold);color:var(--neutral-text-default);margin:var(--space-0);letter-spacing:var(--ls-snug)}
   .learn-card p{
     font-size:var(--text-body-sm-size);color:var(--neutral-text-subtle);line-height:1.5;margin:var(--space-0);position:relative;z-index:1;
@@ -1598,7 +1612,7 @@
     width:48px;height:48px;border-radius:var(--radius-sm);flex:0 0 auto;
     background:var(--brand-background-primary-light);color:var(--brand-text-primary-default);display:grid;place-items:center}
   .risk-copy{min-width:0;display:flex;flex-direction:column;gap:var(--space-0-5)}
-  .risk-tag{font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wider);text-transform:uppercase;color:var(--brand-text-primary-default)}
+  .risk-tag{font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wider);color:var(--brand-text-primary-default)}
   .risk-head h3{font-size:var(--text-h4-size);font-weight:var(--font-weight-extrabold);margin:var(--space-0);letter-spacing:var(--ls-snug);color:var(--neutral-text-default)}
 
   .risk-body{display:flex;align-items:flex-start;gap:var(--space-5);flex-wrap:wrap}
@@ -1628,7 +1642,7 @@
   @keyframes risk-sparkle-spin{0%,100%{transform:rotate(0) scale(1)}50%{transform:rotate(18deg) scale(1.15)}}
 
   .risk-picker{display:flex;flex-direction:column;gap:var(--space-2)}
-  .risk-picker-label{font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--neutral-text-subtle-light)}
+  .risk-picker-label{font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);color:var(--neutral-text-subtle-light)}
   .risk-picker-opt{
     text-align:left;border:1px solid var(--neutral-border-light);background:var(--surface-default);border-radius:var(--radius-sm);padding:var(--space-2-5) var(--space-3);
     font:inherit;font-size:var(--text-body-sm-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle);cursor:pointer;transition:var(--motion-base)}
@@ -1755,7 +1769,7 @@
 
   .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3-5)}
   .card{background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);padding:var(--card-padding-sm);box-shadow:var(--shadow);min-width:0}
-  .card .k{font-size:var(--text-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);text-transform:uppercase;letter-spacing:var(--ls-wide);margin-bottom:var(--space-2)}
+  .card .k{font-size:var(--text-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);letter-spacing:var(--ls-wide);margin-bottom:var(--space-2)}
   .card .v{font-size:var(--text-display-md-size);font-weight:var(--font-weight-bold);letter-spacing:var(--ls-tight);line-height:1.15;overflow-wrap:anywhere}
   .card .s{margin-top:var(--space-1-5);font-size:var(--text-body-sm-size);color:var(--neutral-text-subtle);line-height:1.4}
   .card .v.pos{color:var(--semantics-success-text)}
@@ -1891,7 +1905,7 @@
   .pr-hero-name h2{margin:var(--space-0);font-size:var(--text-h3-size);font-weight:var(--font-weight-extrabold);line-height:var(--text-h3-lh);letter-spacing:var(--text-h3-ls)}
   .pr-hero .badge{
     display:inline-flex;align-items:center;gap:var(--space-1);padding:var(--space-1) var(--space-2-5);border-radius:var(--radius-full);
-    font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);text-transform:uppercase}
+    font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide)}
   .pr-hero .badge.green{background:var(--semantics-success-background-light);color:var(--semantics-success-text)}
   .pr-hero .badge.amber{background:var(--semantics-warning-background-light);color:var(--semantics-warning-text)}
   .pr-hero .badge.navy{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
@@ -1919,7 +1933,7 @@
      every field row, which read as a dense grid of lines instead of a
      single section break. */
   .pr-block h3{margin:var(--space-0) var(--space-0) var(--space-2-5) !important;padding-bottom:var(--space-2-5);
-    border-bottom:1px solid var(--neutral-border-light);font-size:var(--text-eyebrow-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);color:var(--neutral-text-subtle);text-transform:uppercase}
+    border-bottom:1px solid var(--neutral-border-light);font-size:var(--text-eyebrow-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);color:var(--neutral-text-subtle)}
   .pr-rows,.pr-form{display:flex;flex-direction:column;max-width:540px}
 
   /* ---------- Settings page ---------- */
@@ -2100,7 +2114,7 @@
   .pr-steps p{margin:var(--space-0-5) var(--space-0) var(--space-1) !important;font-size:var(--text-paragraph-xs-size);line-height:1.35;color:var(--neutral-text-subtle);font-weight:var(--font-weight-medium)}
   .pr-steps em{
     display:inline-flex;align-items:center;gap:var(--space-1);font-style:normal;font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);
-    letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--brand-text-primary-default)}
+    letter-spacing:var(--ls-wide);color:var(--brand-text-primary-default)}
   .pr-steps em.ok{color:var(--semantics-success-text)}
   .pr-panel > h3{margin:var(--space-0) var(--space-0) var(--space-3);font-size:var(--text-h5-size);font-weight:var(--font-weight-extrabold)}
 
@@ -2119,7 +2133,7 @@
   .profile-grid .panel{margin:var(--space-0)}
   .profile-grid .panel h3{margin-bottom:var(--space-3-5)}
   .pf-fields{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3-5) var(--space-4)}
-  .pf-k{display:block;font-size:var(--text-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);text-transform:uppercase;letter-spacing:var(--ls-wide);margin-bottom:var(--space-1)}
+  .pf-k{display:block;font-size:var(--text-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);letter-spacing:var(--ls-wide);margin-bottom:var(--space-1)}
   .pf-v{display:block;font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-default)}
   .bene-name{display:block;color:var(--neutral-text-default);font-weight:var(--font-weight-bold);margin-bottom:var(--space-0-5)}
   .profile-grid .panel .actions{margin-top:var(--space-3-5)}
@@ -2139,7 +2153,10 @@
   .tx-table{width:100%;border-collapse:collapse;font-size:var(--text-sm-size)}
   .tx-table th{text-align:left;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle);background:var(--surface-muted);
     padding:var(--space-2-5) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light);white-space:nowrap}
-  .tx-table td{padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light)}
+  /* color was omitted here while every other table sets it, so these cells
+     inherited the ancestor's lighter grey and the dashboard's Recent
+     Transactions read as a washed-out version of the same table elsewhere. */
+  .tx-table td{padding:var(--space-3) var(--space-3-5);border-bottom:1px solid var(--neutral-border-light);color:var(--neutral-text-default)}
   .tx-table tr:last-child td{border-bottom:none}
   .tx-table .num{text-align:right;font-variant-numeric:tabular-nums}
   .tx-table tbody tr:nth-child(even){background:var(--surface-subtle)}
@@ -2167,7 +2184,7 @@
   }
   .plan-overview-left{display:flex;flex-direction:column;gap:var(--space-3-5);min-width:220px;max-width:360px}
   .plan-overview .plan-stats{width:min(360px,100%);flex:0 0 auto}
-  .plan-fact{font-size:var(--text-xs-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);text-transform:uppercase;letter-spacing:var(--ls-wide)}
+  .plan-fact{font-size:var(--text-xs-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);letter-spacing:var(--ls-wide)}
   .plan-fact b{display:block;font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-default);margin-top:var(--space-1);text-transform:none;letter-spacing:0}
   .plan-fact-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3) var(--space-4)}
   .enroll-embed{padding:var(--space-0)}
@@ -2187,7 +2204,7 @@
   .detail-rows b{color:var(--neutral-text-default);text-align:right}
   .detail-rows small{font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);margin-left:var(--space-2)}
   .pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3) var(--space-4)}
-  .pd-grid div{font-size:var(--text-xs-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);text-transform:uppercase;letter-spacing:var(--ls-wide)}
+  .pd-grid div{font-size:var(--text-xs-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);letter-spacing:var(--ls-wide)}
   .pd-grid b{display:block;font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-default);margin-top:var(--space-1);text-transform:none;letter-spacing:0}
   /* Not-yet-eligible plan's fallback section -- was a bare <h3>+<p>. The
      notice now reads as a real inline alert, and when the participant has
@@ -2222,10 +2239,66 @@
     .dash-layout{grid-template-columns:1fr}
     .plans-grid,.profile-grid,.pf-fields,.pd-grid,.plan-fact-row,.pr-shell,.pr-history li > div{grid-template-columns:1fr}
     .quick-grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
-    .pr-nav,.pr-steps{position:static;flex-direction:row;flex-wrap:wrap}
-    .pr-nav button{width:auto;flex:1 1 auto}
+    /* Horizontal stepper for mobile. The old rule set flex-direction:row on
+       .pr-steps, but .pr-steps is a plain block <ol> -- it never sets
+       display:flex -- so that did nothing and the stepper stayed a
+       full-height vertical list, pushing the actual form fields off-screen
+       on a phone. */
+    .pr-steps{
+      position:static;display:flex;flex-direction:row;flex-wrap:nowrap;align-items:flex-start;
+      gap:var(--space-0);padding:var(--space-3) var(--space-2);border-radius:var(--radius-lg)}
+    .pr-steps li{flex:1 1 0;min-width:0;position:relative}
+    /* Connector track: spans the previous step's centre to this one's, inset
+       past both circles so it reads as a rail between them rather than
+       touching the numbers. Sits behind the circles, which are opaque. */
+    .pr-steps li + li::before{
+      content:'';position:absolute;top:16px;left:-50%;right:50%;
+      margin:var(--space-0) 22px;height:2px;background:var(--neutral-border-light)}
+    .pr-steps li.on::before,.pr-steps li.done::before{background:var(--brand-background-primary-strong)}
+    .pr-steps button{
+      display:flex;flex-direction:column;align-items:center;gap:var(--space-1-5);
+      padding:var(--space-0);text-align:center}
+    .pr-steps button:hover:not(:disabled),.pr-steps li.on button{background:transparent}
+    /* Circles, not the desktop rounded squares: with a connector rail
+       running between them a square reads as a chip, not a step marker. */
+    .pr-steps b{border-radius:var(--radius-full);position:relative;z-index:1}
+    .pr-steps strong{font-size:var(--text-caption-size);line-height:1.3}
+    /* The hint sentence and the COMPLETED/IN PROGRESS label are the vertical
+       list's affordances; three columns of them at phone width wrap into an
+       unreadable block, and both states are already carried by the check
+       icon and the active colour. */
+    .pr-steps p,.pr-steps em{display:none}
+    /* Mobile variant: the sidebar becomes a horizontally scrolling tab strip
+       rather than the wrapped row it used to be. Wrapping five items of very
+       uneven width ("Bank Details" next to "Employee Classification") built a
+       ragged 2-2-1 grid that read as a card of buttons, not as navigation,
+       and gave no cue which item was the current section.
+       This is deliberately the same text-only scrolling-tab language as
+       .pr-class-tabs, the sub-tab strip already on this page, so Profile has
+       one nav idiom on mobile instead of two. Icon chips are dropped here:
+       at 375px a 32px chip per tab left barely 1.5 tabs visible, hiding the
+       fact that the strip scrolls at all. */
+    .pr-nav{
+      position:static;flex-direction:row;flex-wrap:nowrap;gap:var(--space-1);
+      overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;
+      max-height:none;background:transparent;border:none;border-radius:0;box-shadow:none;
+      padding:var(--space-0) var(--space-0) var(--space-2-5);
+      border-bottom:1px solid var(--neutral-border-light)}
+    .pr-nav button{
+      width:auto;flex:0 0 auto;scroll-snap-align:start;white-space:nowrap;min-height:44px;
+      padding:var(--space-2) var(--space-2-5);border-radius:0;
+      border-bottom:2px solid transparent;background:transparent}
+    .pr-nav button:hover{background:transparent;color:var(--neutral-text-default)}
+    .pr-nav button.on{
+      background:transparent;color:var(--brand-text-primary-default);
+      border-bottom-color:var(--brand-text-primary-default)}
+    .pr-nav .pr-nav-ico{display:none}
     .pr-hero{grid-template-columns:64px minmax(0,1fr)}
-    .pr-hero-side{grid-column:2;align-items:flex-start}
+    /* Stays flex-end, matching desktop: the status badge belongs directly
+       above the Edit button on the right. Left-aligning it here dropped the
+       badge under the name where it read as part of the identity block
+       instead of pairing with the action it sits with everywhere else. */
+    .pr-hero-side{grid-column:2;align-items:flex-end}
     .tx-row{grid-template-columns:1fr auto;gap:var(--space-0-5) var(--space-2-5)}
     .tx-row .tx-date{grid-column:1 / -1}
     .doc-row{grid-template-columns:minmax(0,1fr);gap:var(--space-2) var(--space-3)}
@@ -2252,11 +2325,20 @@
   }
   @media(max-width:640px){
     .layout{display:block;padding-bottom:calc(var(--space-18) + env(safe-area-inset-bottom))}
+    /* That clearance is for the fixed tab bar, but the footer is a SIBLING
+       after .layout (see AppLayout.jsx), so it sat outside the padded box and
+       the tab bar covered it once you scrolled to the end of the page. Where
+       a footer follows, it carries the clearance instead — otherwise
+       .layout's padding and the footer's would stack into ~144px of dead
+       space above the bar. Routes with no footer (EnrollmentLayout,
+       TransactionRequest) keep relying on .layout's padding. */
+    .layout:has(+ .app-footer){padding-bottom:var(--space-0)}
     /* Mobile swaps the sidebar for a fixed bottom tab bar (below) --
        no room left for a second fixed bar, so the footer collapses
        into the page flow instead of floating above the tab bar. */
     .app-footer{position:static;height:auto;flex-direction:column;align-items:flex-start;
       gap:var(--space-1);padding:var(--space-3) var(--page-padding-x-sm,var(--space-4));
+      padding-bottom:calc(var(--space-3) + var(--mobile-nav-h) + env(safe-area-inset-bottom));
       margin-left:var(--space-0);width:100%}
     .nav ~ *:not(.mobile-nav):not(.mobile-menu-bg){margin-left:var(--space-0)}
     /* Mobile swaps the 5-item desktop rail for a 3-item bottom bar
@@ -2278,11 +2360,26 @@
     .mobile-nav-btn .ico svg{width:var(--icon-md);height:var(--icon-md)}
     .mobile-nav-btn.active,a.mobile-nav-btn.active{color:var(--brand-text-primary-default)}
     .mobile-nav-btn.active::before{content:"";position:absolute;left:28%;right:28%;top:0;height:3px;border-radius:0 0 var(--radius-xs) var(--radius-xs);background:var(--brand-text-primary-default)}
-    .mobile-menu-bg{position:fixed;inset:0;z-index:41;background:color-mix(in srgb, var(--neutral-text-default) 46%, transparent);display:flex;align-items:flex-end}
+    /* Sheet was appearing instantly with no transition, so it read as a jump
+       rather than as a panel coming up from the tab bar it belongs to. The
+       scrim fades and the panel slides; both are skipped under
+       prefers-reduced-motion below. */
+    .mobile-menu-bg{position:fixed;inset:0;z-index:41;background:color-mix(in srgb, var(--neutral-text-default) 46%, transparent);display:flex;align-items:flex-end;
+      animation:sheet-scrim-in var(--motion-base) ease both}
     .mobile-menu-sheet{
       width:100%;background:var(--surface-default);border-radius:var(--radius-xl) var(--radius-xl) 0 0;
       padding:var(--space-3) var(--space-2) calc(var(--space-4) + env(safe-area-inset-bottom));
-      box-shadow:var(--shadow-lg);margin-bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom))}
+      box-shadow:var(--shadow-lg);margin-bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom));
+      animation:sheet-in .24s cubic-bezier(.22,.61,.36,1) both}
+    /* Grabber: the conventional cue that a bottom sheet is dismissible. */
+    .mobile-menu-sheet::before{
+      content:'';display:block;width:36px;height:4px;margin:var(--space-0) auto var(--space-2);
+      border-radius:var(--radius-full);background:var(--neutral-border-strong)}
+    @keyframes sheet-scrim-in{from{opacity:0}to{opacity:1}}
+    @keyframes sheet-in{from{transform:translateY(100%)}to{transform:translateY(0)}}
+    @media(prefers-reduced-motion:reduce){
+      .mobile-menu-bg,.mobile-menu-sheet{animation:none}
+    }
     .mobile-menu-sheet a{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-3);
       border-radius:var(--radius-sm);color:var(--neutral-text-default);text-decoration:none;font-weight:var(--font-weight-semibold);font-size:var(--text-body-md-size)}
     .mobile-menu-sheet a:hover{background:var(--brand-background-primary-subtle)}
@@ -2379,8 +2476,7 @@
     position:absolute;inset:0;width:64px;height:64px;margin:auto;border-radius:var(--radius-full);
     background:color-mix(in srgb, var(--level-color, var(--brand-text-primary-default)) 14%, var(--surface-default));display:grid;place-items:center}
   .rq-results-tag{
-    font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);text-transform:uppercase;
-    animation:rq-fade-up .4s ease both var(--motion-base)}
+    font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);    animation:rq-fade-up .4s ease both var(--motion-base)}
   .rq-results h2{font-size:var(--text-display-md-size);margin:var(--space-1-5) var(--space-0) var(--space-0);animation:rq-fade-up .4s ease both .25s}
   .rq-results p{
     font-size:var(--text-sm-size);color:var(--neutral-text-subtle);line-height:1.5;max-width:38ch;margin:var(--space-2) var(--space-0) var(--space-0);
@@ -2474,7 +2570,7 @@
   .loan-calc-result > b{font-size:var(--text-2xl-size);font-weight:var(--font-weight-extrabold);color:var(--brand-text-primary-default);letter-spacing:var(--ls-snug);margin:var(--space-0-5) var(--space-0) var(--space-2-5)}
   .loan-calc-breakdown{display:flex;gap:var(--space-5);padding-top:var(--space-2-5);border-top:1px solid rgba(var(--shadow-color),.08)}
   .loan-calc-breakdown div{display:flex;flex-direction:column;gap:var(--space-0-5)}
-  .loan-calc-breakdown span{font-size:var(--text-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);text-transform:uppercase;letter-spacing:var(--ls-wide)}
+  .loan-calc-breakdown span{font-size:var(--text-xs-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);letter-spacing:var(--ls-wide)}
   .loan-calc-breakdown b{font-size:var(--text-body-md-size);font-weight:var(--font-weight-extrabold);color:var(--neutral-text-default)}
 
   /* ---------- Edit Allocation slideover ---------- */
@@ -2498,7 +2594,7 @@
   .edit-alloc-fee{
     flex:0 0 260px;background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);padding:var(--space-4);
     position:sticky;top:0;display:flex;flex-direction:column;gap:var(--space-2-5)}
-  .edit-alloc-fee-title{font-size:var(--text-eyebrow-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--neutral-text-subtle)}
+  .edit-alloc-fee-title{font-size:var(--text-eyebrow-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);color:var(--neutral-text-subtle)}
   .edit-alloc-fee-row{display:flex;justify-content:space-between;gap:var(--space-2-5);font-size:var(--text-caption-size);color:var(--neutral-text-subtle)}
   .edit-alloc-fee-row b{font-size:var(--text-body-sm-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-default)}
   .edit-alloc-fee-row.total{padding-top:var(--space-2-5);border-top:1px solid var(--neutral-border-light)}
@@ -2609,10 +2705,22 @@ summary:focus-visible {
   border-color:var(--semantics-disabled-border);cursor:not-allowed;opacity:1}
 .ui-select-value{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ui-select-caret{color:var(--neutral-text-subtle);flex:0 0 auto}
+/* Fixed, not absolute: the menu is portaled to <body> and anchored from the
+   --sel-* measurements Select.jsx supplies, so no ancestor's overflow can
+   clip it. z-index clears the modal scrim (80) and the slideover (95) — it
+   was 20, which sat under the fixed mobile tab bar (40) and swallowed taps
+   on the lower options. */
 .ui-select-menu{
-  position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:20;max-height:280px;overflow-y:auto;
+  position:fixed;top:var(--sel-top);left:var(--sel-left);width:var(--sel-width);
+  z-index:120;max-height:var(--sel-max-h,280px);overflow-y:auto;
   background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);
   padding:var(--space-1-5);margin:0;list-style:none}
+@media(max-width:640px){
+  /* Full-bleed on phones. Matching the trigger's width meant a control capped
+     at 240px (e.g. .plan-select-wrap) produced a cramped 240px menu with
+     truncated option labels. */
+  .ui-select-menu{left:var(--space-4);right:var(--space-4);width:auto}
+}
 .ui-select-opt{
   display:block;width:100%;text-align:left;background:none;border:none;border-radius:var(--radius-sm);cursor:pointer;
   padding:var(--space-2) var(--space-2-5);font:inherit;font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-default)}
@@ -2726,7 +2834,6 @@ summary:focus-visible {
   font-size:var(--text-2xs-size);
   font-weight: var(--font-weight-extrabold);
   letter-spacing:var(--ls-wider);
-  text-transform: uppercase;
   color: var(--neutral-text-subtle-light);
 }
 .rr3-title {
@@ -3035,7 +3142,6 @@ summary:focus-visible {
   font-size:var(--text-eyebrow-size);
   font-weight: var(--text-eyebrow-weight);
   letter-spacing:var(--ls-wider);
-  text-transform: uppercase;
   color: var(--rgs-muted);
 }
 .rgs-headline {
@@ -3170,7 +3276,6 @@ summary:focus-visible {
   white-space: nowrap;
 }
 .rgs-snap-row.expense .rgs-snap-label {
-  text-transform: uppercase;
   letter-spacing:var(--ls-wider);
   font-size:var(--text-2xs-size);
   font-weight: var(--font-weight-bold);
@@ -3331,7 +3436,6 @@ summary:focus-visible {
   font-size: var(--text-eyebrow-size);
   font-weight: var(--font-weight-bold);
   letter-spacing:var(--ls-wider);
-  text-transform: uppercase;
   color: var(--learn-accent);
   background: var(--learn-accent-bg);
   margin-bottom:var(--space-3);
@@ -3372,16 +3476,20 @@ summary:focus-visible {
 .learn2-link:focus-visible { outline: 2px solid var(--learn-accent); outline-offset: 3px; }
 
 /* Enrich variant (prototype review #79): same card shell as Financial
-   Wellness, but its own tertiary (gold) accent tone -- via --enrich-*
+   Wellness, with its own tertiary (gold) accent tone -- via --enrich-*
    tokens, all CORE-palette-sourced (see core-color-palette.css) -- so it
    reads as visually distinct from the brand-blue generic card, without
-   inventing a hardcoded color. */
+   inventing a hardcoded color.
+   The gold is scoped to the card's identity (gradient wash + "ENRICH"
+   category tag) and deliberately NOT the CTA: "Know More" is the same
+   action as on the generic card, and every other link in the app is
+   brand blue, so tinting this one gold made an identical CTA look like a
+   different kind of control. Actions stay one colour app-wide; the
+   variant expresses itself through the tag and the wash instead. */
 .learn2-enrich {
   background: linear-gradient(135deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 52%, var(--enrich-surface-2) 100%);
 }
 .learn2-enrich .learn2-tag { color: var(--enrich-accent); background: var(--enrich-accent-bg); }
-.learn2-enrich .learn2-link { color: var(--enrich-accent); }
-.learn2-enrich .learn2-link:focus-visible { outline-color: var(--enrich-accent); }
 /* The supplied Enrich illustration has a denser, more square bounding
    box than the generic Learning artwork (which is wider/shorter) --
    sized down and pulled in from the edge so it sits inside the card
@@ -3456,7 +3564,6 @@ summary:focus-visible {
   font-size:var(--text-2xs-size);
   font-weight: var(--font-weight-bold);
   letter-spacing:var(--ls-wider);
-  text-transform: uppercase;
   color: var(--inv-desc);
 }
 .risk3-badge {
@@ -3466,7 +3573,6 @@ summary:focus-visible {
   font-size:var(--text-2xs-size);
   font-weight: var(--font-weight-bold);
   letter-spacing:var(--ls-wide);
-  text-transform: uppercase;
   background: var(--inv-accent-bg);
   color: var(--inv-accent);
   white-space: nowrap;
@@ -3552,7 +3658,7 @@ summary:focus-visible {
   padding:var(--space-1-5);display:flex;flex-direction:column;gap:var(--space-px)
 }
 .demo-switcher-label{
-  font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);text-transform:uppercase;letter-spacing:var(--ls-wide);color:var(--neutral-text-subtle-light);
+  font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);color:var(--neutral-text-subtle-light);
   padding:var(--space-2) var(--space-2) var(--space-1-5)
 }
 .demo-switcher-row{
@@ -3589,3 +3695,69 @@ th:has(.th-sort){padding:0}
 .th-sort.active{color:var(--neutral-text-default)}
 .th-sort.active svg{color:var(--brand-text-primary-default);opacity:1}
 .th-sort:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:-2px}
+
+/* ---------- Mobile: tables become stacked cards ----------
+   Every data table in the app previously survived narrow screens by
+   horizontally scrolling inside .table-wrap, several with a min-width of
+   640-980px. On a 375px screen that means a participant reads a balance by
+   dragging the table sideways, with the row's identity column scrolled out of
+   view by the time they reach the number.
+
+   At <=640px an opted-in table drops its header row and re-flows each <tr>
+   into a card, each cell becoming a "label / value" line. The label comes from
+   the cell's own data-label attribute, so the header text stays in one place
+   in the markup and screen readers keep the real <th> association above.
+
+   This mirrors .ai-row / .doc-row, which already collapse to a single column
+   at this breakpoint, and uses only DS tokens -- the same surface, border,
+   radius and spacing values the desktop table and .panel already use. */
+@media(max-width:640px){
+  .t-stack thead{
+    /* Not display:none: that drops the cells from the accessibility tree and
+       with them the column associations the data-labels are mirroring. */
+    position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .t-stack,.t-stack tbody,.t-stack tr,.t-stack td{display:block;width:auto}
+  .t-stack{min-width:0;border-collapse:separate}
+  .t-stack tr{
+    background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);
+    padding:var(--space-1) var(--space-3-5);margin:var(--space-0) var(--space-0) var(--space-3)}
+  .t-stack tr:last-child{margin-bottom:var(--space-0)}
+  /* Zebra striping is a row-scanning cue for a grid; once rows are separate
+     cards the card edge does that job and alternating fills just look like
+     two kinds of card. */
+  .t-stack tbody tr:nth-child(even),.t-stack tbody tr.as-row-alt{background:var(--surface-default)}
+  .t-stack td{
+    display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-4);
+    padding:var(--space-2) var(--space-0);text-align:left;border-bottom:1px solid var(--neutral-border-light);white-space:normal}
+  .t-stack td:last-child{border-bottom:none}
+  .t-stack td::before{
+    content:attr(data-label);flex:0 0 auto;
+    font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
+  /* A cell with no label is a full-width slot (row actions, an expand
+     control, a colSpan message) rather than a label/value pair. */
+  .t-stack td:not([data-label])::before{content:none}
+  .t-stack td:not([data-label]){display:block}
+  /* An unlabelled leading cell is the card's title — the fund or source name
+     the rest of the values belong to — so it gets heading weight instead of
+     sitting in the label column of a pair. */
+  .t-stack td:first-child:not([data-label]){
+    padding-top:var(--space-2-5);font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold)}
+  /* .num right-aligns numerics against a desktop column edge; in a card the
+     value already sits opposite its label, so the override only has to stop
+     the text collapsing to the left of the flex line. */
+  .t-stack td.num{text-align:right}
+  .t-stack tfoot{display:block}
+  .t-stack tfoot tr{
+    background:var(--surface-muted);border-color:var(--neutral-border-strong)}
+  /* A benchmark is a comparison for the fund card above it, not a fund in its
+     own right. As a grid row the dashed rule and muted fill carried that; as a
+     card it needs to stay visibly subordinate, so it's tucked in and tinted
+     rather than presented as an equal sibling. */
+  .t-stack tr.bench-row{
+    background:var(--surface-subtle);margin:calc(-1 * var(--space-2)) var(--space-0) var(--space-3) var(--space-4);
+    border-color:var(--neutral-border-light)}
+  .t-stack tr.bench-row td:first-child{font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
+  /* The wrapper's scroll affordance and min-width are what forced the sideways
+     drag; with cards there is nothing left to scroll. */
+  .t-stack-wrap{overflow:visible;border:none;border-radius:0;background:transparent;box-shadow:none}
+}

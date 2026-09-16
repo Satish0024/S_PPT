@@ -83,3 +83,19 @@ export function labelsFor(period) {
 
 export const money = (n) =>
   n.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+
+// Plan-table value columns in render order, shared by a fund row and its
+// benchmark row, and by both copies of the table (Portfolio's "Plan
+// investments" tab and the Investments funds modal). The table's own <thead>
+// splits these across two rows with colspan groups, which a stacked mobile
+// card can't reuse, so each cell carries its column name as a data-label.
+export const PLAN_COL_LABELS = [
+  'Return YTD',
+  '1 yr.',
+  '5 yr.',
+  '10 yr.',
+  'Since inception',
+  'As a %',
+  'Per $1,000',
+  'Shareholder-type fees'
+]

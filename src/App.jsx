@@ -19,8 +19,14 @@ import RetirementGoal from './pages/RetirementGoal.jsx'
 import AccountSummary from './pages/AccountSummary.jsx'
 import RiskQuestionnaire from './pages/RiskQuestionnaire.jsx'
 import DesignSystem from './pages/DesignSystem.jsx'
+import { useOverlayScrollLock } from './hooks/useOverlayScrollLock'
 
 export default function App() {
+  // Above <Routes> so it covers every layout — AppLayout, EnrollmentLayout and
+  // the standalone shells (TransactionRequest, RiskQuestionnaire) all open
+  // dialogs, and each has its own page chrome.
+  useOverlayScrollLock()
+
   return (
     <Routes>
       <Route path="/design-system" element={<DesignSystem />} />

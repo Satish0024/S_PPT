@@ -24,25 +24,24 @@
   color:var(--neutral-text-subtle);cursor:pointer;transition:var(--motion-base)}
 .req-plan-tabs button:hover{border-color:var(--neutral-border-strong)}
 .req-plan-tabs button.on{border-color:var(--brand-text-primary-default);background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
-.req-plan-badge{font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--neutral-text-subtle-light)}
+.req-plan-badge{font-size:var(--text-2xs-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);color:var(--neutral-text-subtle-light)}
 .req-plan-tabs button.on .req-plan-badge{color:var(--brand-text-primary-default)}
 
 .req-plan-strip{
   display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-5);padding:var(--card-padding-sm);margin-bottom:var(--space-5);
   border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);background:var(--surface-muted)}
 .req-plan-strip .btn{width:auto;flex:0 0 auto}
-.req-plan-strip .eyebrow{font-size:var(--text-eyebrow-size);font-weight:var(--font-weight-bold);letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--neutral-text-subtle-light);display:block;margin-bottom:var(--space-0-5)}
+.req-plan-strip .eyebrow{font-size:var(--text-eyebrow-size);font-weight:var(--font-weight-bold);letter-spacing:var(--ls-wide);color:var(--neutral-text-subtle-light);display:block;margin-bottom:var(--space-0-5)}
 .req-plan-strip h2{margin:var(--space-0);font-size:var(--text-h5-size);font-weight:var(--font-weight-extrabold);color:var(--neutral-text-default)}
 .req-plan-strip .plan-meta{margin:var(--space-0-5) var(--space-0) var(--space-0);font-size:var(--text-caption-size);color:var(--neutral-text-subtle);font-weight:var(--font-weight-semibold)}
 .req-plan-stats{display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-6);margin-left:auto}
 .req-plan-stats div{display:flex;flex-direction:column;gap:var(--space-0-5)}
-.req-plan-stats span{font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);text-transform:uppercase;letter-spacing:var(--ls-wide)}
+.req-plan-stats span{font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle-light);letter-spacing:var(--ls-wide)}
 .req-plan-stats b{font-size:var(--text-h5-size);font-weight:var(--font-weight-extrabold);color:var(--neutral-text-default);font-variant-numeric:tabular-nums}
 
 .quick-actions{margin-bottom:var(--space-5)}
 .quick-actions-label{
-  display:block;font-size:var(--text-caption-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);text-transform:uppercase;
-  color:var(--neutral-text-subtle-light);margin-bottom:var(--space-2-5)}
+  display:block;font-size:var(--text-caption-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);  color:var(--neutral-text-subtle-light);margin-bottom:var(--space-2-5)}
 .quick-actions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:var(--space-3)}
 .quick-action{
   display:flex;align-items:flex-start;gap:var(--space-3);text-align:left;border:1px solid var(--neutral-border-light);
@@ -169,7 +168,7 @@
 .txn-upload .tabs2{display:inline-flex;border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:var(--space-3-5)}
 .txn-upload .tabs2 button{border:none;background:var(--surface-default);padding:var(--space-1-5) var(--space-3-5);font:inherit;font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle);cursor:pointer}
 .txn-upload .tabs2 button.on{background:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor)}
-.txn-doc-required{font-size:var(--text-caption-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);text-transform:uppercase;color:var(--semantics-critical-text);margin-bottom:var(--space-2);display:block}
+.txn-doc-required{font-size:var(--text-caption-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-wide);color:var(--semantics-critical-text);margin-bottom:var(--space-2);display:block}
 
 .txn-summary-row{display:flex;justify-content:space-between;gap:var(--space-3);padding:var(--space-2-5) var(--space-0);border-bottom:1px solid var(--neutral-border-light);font-size:var(--text-body-md-size)}
 .txn-summary-row:last-child{border-bottom:none}

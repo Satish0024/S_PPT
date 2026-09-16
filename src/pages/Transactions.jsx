@@ -91,7 +91,7 @@ function QuickActions({ plan }) {
 
   return (
     <div className="quick-actions">
-      <span className="quick-actions-label">Quick Links</span>
+      <span className="quick-actions-label">Quick actions</span>
       <div className="quick-actions-grid" role="group" aria-label="Start a transaction request">
         {TRANSACTION_TYPES.map((t) => {
           const icon = TYPE_ICON[t.id]
@@ -182,8 +182,8 @@ function RequestsPanel({ participant, planId, onPlanChange }) {
       ) : (
         <>
           <span className="quick-actions-label">Recent requests</span>
-          <div className="table-wrap">
-          <table className="tx-table">
+          <div className="table-wrap t-stack-wrap">
+          <table className="tx-table t-stack">
             <thead>
               <tr>
                 <th scope="col">Type</th>
@@ -199,13 +199,15 @@ function RequestsPanel({ participant, planId, onPlanChange }) {
             <tbody>
               {requests.map((r) => (
                 <tr key={r.id}>
-                  <td>{r.typeLabel}</td>
-                  <td>{r.plan}</td>
-                  <td>{r.date}</td>
-                  <td>
+                  <td data-label="Type">{r.typeLabel}</td>
+                  <td data-label="Plan">{r.plan}</td>
+                  <td data-label="Date">{r.date}</td>
+                  <td data-label="Status">
                     <span className={`req-status ${requestStatusTone(r.status)}`}>{r.status}</span>
                   </td>
-                  <td className="num">{r.amount}</td>
+                  <td className="num" data-label="Amount">{r.amount}</td>
+                  {/* No data-label: this is the row's action slot, not a
+                      label/value pair, so it goes full width on mobile. */}
                   <td className="num">
                     {r.type === 'loan' && r.status === 'Approved' && (
                       <button type="button" className="tx-calc-link" onClick={() => setCalcLoan(r)}>
@@ -292,8 +294,8 @@ function HistoryPanel({ participant }) {
       {!rows.length ? (
         <div className="tx-empty">No transactions yet.</div>
       ) : (
-        <div className="table-wrap">
-          <table className="tx-table">
+        <div className="table-wrap t-stack-wrap">
+          <table className="tx-table t-stack">
             <thead>
               <tr>
                 <th scope="col">Date</th>
@@ -305,10 +307,10 @@ function HistoryPanel({ participant }) {
             <tbody>
               {rows.map((r, i) => (
                 <tr key={`${r.date}-${r.type}-${i}`} className={r.kind}>
-                  <td>{r.date}</td>
-                  <td>{r.type}</td>
-                  <td>{r.plan}</td>
-                  <td className={`num tx-amt ${r.kind}`}>{r.amt}</td>
+                  <td data-label="Date">{r.date}</td>
+                  <td data-label="Type">{r.type}</td>
+                  <td data-label="Plan">{r.plan}</td>
+                  <td className={`num tx-amt ${r.kind}`} data-label="Amount">{r.amt}</td>
                 </tr>
               ))}
             </tbody>

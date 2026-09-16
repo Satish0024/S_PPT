@@ -25,8 +25,8 @@ export default function Transactions({ rows }) {
         {!rows?.length ? (
           <div className="tx-empty">No transactions yet.</div>
         ) : (
-          <div className="table-wrap">
-            <table className="tx-table">
+          <div className="table-wrap t-stack-wrap">
+            <table className="tx-table t-stack">
               <thead>
                 <tr>
                   <SortTh label="Date" sortKeyName="dateValue" sortKey={sortKey} sortDir={sortDir} onSort={toggleSort} />
@@ -45,10 +45,10 @@ export default function Transactions({ rows }) {
               <tbody>
                 {sortedRows.map((r) => (
                   <tr key={r._key} className={r.kind}>
-                    <td>{r.date}</td>
-                    <td>{r.type}</td>
-                    <td>{r.plan}</td>
-                    <td className={`num tx-amt ${r.kind}`}>{r.amt}</td>
+                    <td data-label="Date">{r.date}</td>
+                    <td data-label="Type">{r.type}</td>
+                    <td data-label="Plan">{r.plan}</td>
+                    <td className={`num tx-amt ${r.kind}`} data-label="Amount">{r.amt}</td>
                   </tr>
                 ))}
               </tbody>

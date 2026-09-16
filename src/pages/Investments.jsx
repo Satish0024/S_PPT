@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { Icon } from '../lib/icons'
 import { faRocket, faBalanceScale, faShieldAlt, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { INVESTMENT_KEY, readSession, writeSession } from '../data/participants'
-import { PLAN_FUNDS } from '../data/portfolio'
+import { PLAN_FUNDS, PLAN_COL_LABELS } from '../data/portfolio'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { RISK_LEVELS, getRiskLevel, getRiskProfileId } from '../lib/riskProfile'
@@ -541,7 +541,7 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
           {selectable ? ' Check the investments you want, then apply them to your allocation.' : ' Compare performance, expenses, and fees.'}
         </p>
         <div className="table-wrap">
-          <table className="plan-table">
+          <table className="plan-table t-stack">
             <thead>
               <tr>
                 {selectable && (
@@ -602,26 +602,25 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
                           <span className="fund-cat">{f.cat}</span>
                         </div>
                       </td>
-                      <td>{f.ytd}</td>
-                      <td>{f.y1}</td>
-                      <td>{f.y5}</td>
-                      <td>{f.y10}</td>
-                      <td>{f.si}</td>
-                      <td>{f.exp}</td>
-                      <td>{f.perK}</td>
-                      <td>{f.fees}</td>
+                      {[f.ytd, f.y1, f.y5, f.y10, f.si, f.exp, f.perK, f.fees].map((v, i) => (
+                        <td key={`${f.name}-v-${i}`} data-label={PLAN_COL_LABELS[i]}>
+                          {v}
+                        </td>
+                      ))}
                     </tr>
                     <tr className="bench-row group-end">
                       {selectable && <td className="check-col" />}
                       <td className="fund-cell">
                         <div className="fund-title">{f.bench}</div>
                       </td>
-                      {f.b.map((v, i) => (
-                        <td key={`${f.name}-b-${i}`}>{v}</td>
+                      {/* Benchmarks only carry the return columns, so the
+                          trailing expense/fee cells are padded out to keep both
+                          rows aligned to the same header set. */}
+                      {[...f.b, '—', '—', 'N/A'].map((v, i) => (
+                        <td key={`${f.name}-b-${i}`} data-label={PLAN_COL_LABELS[i]}>
+                          {v}
+                        </td>
                       ))}
-                      <td>—</td>
-                      <td>—</td>
-                      <td>N/A</td>
                     </tr>
                   </Fragment>
                 )

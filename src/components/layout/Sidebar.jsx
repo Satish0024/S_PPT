@@ -22,14 +22,18 @@ const ITEMS = [
   { to: '/reports', label: 'Document Center', icon: faFileAlt }
 ]
 
-// Mobile bottom bar shows only 3 items (Menu / Dashboard / Settings),
-// matching the reference pattern -- everything else (Investment portfolio,
-// Transactions, My profile, Document Center) moves into the "Menu" sheet.
+// Mobile bottom bar carries just two targets (Dashboard / Menu); everything
+// else lives in the "Menu" sheet. Settings used to sit in the bar as a third
+// item, which gave a secondary screen the same weight as the dashboard while
+// the four primary destinations were hidden behind the menu.
 // Desktop's full 5-item vertical rail is unaffected; this is purely a
 // mobile-width (<640px) presentation, driven by CSS, not a different route
 // structure -- every link still points at the same routes as the desktop
 // nav above.
-const MENU_ITEMS = ITEMS.filter((i) => i.to !== '/')
+const MENU_ITEMS = [
+  ...ITEMS.filter((i) => i.to !== '/'),
+  { to: '/settings', label: 'Settings', icon: faCog }
+]
 
 export default function Sidebar() {
   const { pathname } = useLocation()
@@ -73,6 +77,12 @@ export default function Sidebar() {
       </nav>
 
       <nav className="mobile-nav" aria-label="Primary (mobile)">
+        <NavLink to="/" end className={() => (isActiveTo('/') ? 'mobile-nav-btn active' : 'mobile-nav-btn')}>
+          <span className="ico" aria-hidden="true">
+            <Icon icon={faThLarge} size={22} />
+          </span>
+          <span className="nav-label">Dashboard</span>
+        </NavLink>
         <button
           type="button"
           className={`mobile-nav-btn${menuOpen ? ' active' : ''}`}
@@ -85,18 +95,6 @@ export default function Sidebar() {
           </span>
           <span className="nav-label">Menu</span>
         </button>
-        <NavLink to="/" end className={() => (isActiveTo('/') ? 'mobile-nav-btn active' : 'mobile-nav-btn')}>
-          <span className="ico" aria-hidden="true">
-            <Icon icon={faThLarge} size={22} />
-          </span>
-          <span className="nav-label">Dashboard</span>
-        </NavLink>
-        <NavLink to="/settings" className={({ isActive }) => (isActive ? 'mobile-nav-btn active' : 'mobile-nav-btn')}>
-          <span className="ico" aria-hidden="true">
-            <Icon icon={faCog} size={22} />
-          </span>
-          <span className="nav-label">Settings</span>
-        </NavLink>
       </nav>
 
       {menuOpen && (

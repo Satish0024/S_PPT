@@ -113,7 +113,7 @@ function PersonalView({ data, editing, showSsn, onToggleSsn, set }) {
           <TextField label="Date Of Birth" value={p.dob} hint={age} onChange={(v) => set('dob', v)} />
           <SsnField label="SSN" revealed={showSsn} value={p.ssn} onToggle={onToggleSsn} onChange={(v) => set('ssn', v)} />
         </ProfileBlock>
-        <ProfileBlock title="Contact Details" form>
+        <ProfileBlock title="Contact details" form>
           <TextField label="Email" value={p.email} onChange={(v) => set('email', v)} />
           <PhoneField
             label="Primary Phone"
@@ -156,7 +156,7 @@ function PersonalView({ data, editing, showSsn, onToggleSsn, set }) {
           <SsnRow label="SSN" value={showSsn ? fullSsn(p.ssn) : maskSsn(p.ssn)} revealed={showSsn} onToggle={onToggleSsn} />
         </div>
       </ProfileBlock>
-      <ProfileBlock title="Contact Details">
+      <ProfileBlock title="Contact details">
         <div className="pr-rows">
           <Row label="Email" value={p.email} />
           <Row label="Primary Phone" value={formatPhone(p.phoneCountry, p.phone)} />
@@ -318,8 +318,8 @@ function ClassificationHistory({ history }) {
 
   return (
     <ProfileBlock title="History">
-      <div className="table-wrap pr-table pr-class-history">
-        <table>
+      <div className="table-wrap pr-table pr-class-history t-stack-wrap">
+        <table className="t-stack">
           <thead>
             <tr>
               <SortTh label="Type" sortKeyName="type" sortKey={sortKey} sortDir={sortDir} onSort={toggleSort} />
@@ -331,10 +331,10 @@ function ClassificationHistory({ history }) {
           <tbody>
             {sortedRows.map((item) => (
               <tr key={item._key}>
-                <td>{item.type}</td>
-                <td>{item.code}</td>
-                <td>{item.start || '—'}</td>
-                <td>{item.end || '—'}</td>
+                <td data-label="Type">{item.type}</td>
+                <td data-label="Code">{item.code}</td>
+                <td data-label="Start date">{item.start || '—'}</td>
+                <td data-label="End date">{item.end || '—'}</td>
               </tr>
             ))}
           </tbody>
@@ -353,30 +353,32 @@ function BeneficiaryTable({ primary, contingent, onPercent, onSelect }) {
     return <p className="pr-empty">No beneficiaries on file.</p>
   }
   return (
-    <div className="table-wrap pr-table">
-      <table>
+    <div className="table-wrap pr-table t-stack-wrap">
+      <table className="t-stack">
         <thead>
           <tr>
             <th scope="col">Type</th>
             <th scope="col">Name</th>
             <th scope="col">Relationship</th>
             <th scope="col" className="num">Share</th>
-            <th scope="col">Set %</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((row) => (
             <tr key={row.id}>
-              <td>
+              <td data-label="Type">
                 <span className={`pr-pill${row.group === 'Primary' ? ' on' : ''}`}>{row.group}</span>
               </td>
-              <td>
+              <td data-label="Name">
                 <button type="button" className="text-link" onClick={() => onSelect(row)}>
                   {row.name}
                 </button>
               </td>
-              <td>{row.relationship || '—'}</td>
-              <td className="num">{row.share}%</td>
+              <td data-label="Relationship">{row.relationship || '—'}</td>
+              <td className="num" data-label="Share">{row.share}%</td>
+              {/* Unlabelled so the action gets its own full-width line on a
+                  card rather than being squeezed opposite an "Actions" label. */}
               <td>
                 <button
                   type="button"

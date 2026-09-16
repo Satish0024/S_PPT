@@ -11,7 +11,7 @@ import {
   Tooltip
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
-import { HOLDINGS, PLAN_FUNDS, PLAN_STATS, cumSeries, labelsFor, ENDS, money } from '../data/portfolio'
+import { HOLDINGS, PLAN_FUNDS, PLAN_STATS, PLAN_COL_LABELS, cumSeries, labelsFor, ENDS, money } from '../data/portfolio'
 import { ASSET_CLASS_ORDER, chartTokenForAsset } from '../lib/chartPalette.js'
 import { useTheme } from '../context/ThemeContext.jsx'
 import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
@@ -276,8 +276,8 @@ export default function Portfolio() {
             </div>
             <section className="section">
               <h2>Investments</h2>
-              <div className="table-wrap">
-                <table className="holdings-table">
+              <div className="table-wrap t-stack-wrap">
+                <table className="holdings-table t-stack">
                   <thead>
                     <tr>
                       {[
@@ -325,18 +325,21 @@ export default function Portfolio() {
                   <tbody>
                     {holdings.map((h) => (
                       <tr key={h.cusip}>
+                        {/* The fund name is the card's title on mobile, so it
+                            stays unlabelled and full width rather than sitting
+                            opposite an "Investment name" label. */}
                         <td className="name">
                           <button type="button" className="fund-link" onClick={() => setOpenFund(h)}>
                             {h.name}
                           </button>
                         </td>
-                        <td>{h.asset}</td>
-                        <td className="muted">{h.cusip}</td>
-                        <td className="num pos">{h.returnPct.toFixed(2)}%</td>
-                        <td className="num">{money(h.invested)}</td>
-                        <td className="num">{money(h.current)}</td>
-                        <td className="num pos">+{money(h.gain).slice(1)}</td>
-                        <td className="num">{h.units.toFixed(2)}</td>
+                        <td data-label="Asset class">{h.asset}</td>
+                        <td className="muted" data-label="CUSIP">{h.cusip}</td>
+                        <td className="num pos" data-label="Fund return YTD">{h.returnPct.toFixed(2)}%</td>
+                        <td className="num" data-label="Invested balance">{money(h.invested)}</td>
+                        <td className="num" data-label="Current balance">{money(h.current)}</td>
+                        <td className="num pos" data-label="Gain/loss">+{money(h.gain).slice(1)}</td>
+                        <td className="num" data-label="Unit balance">{h.units.toFixed(2)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -350,8 +353,8 @@ export default function Portfolio() {
             <section className="section">
               <h2>Plan investments</h2>
               <p className="sub">Browse and compare the funds available within the retirement plan.</p>
-              <div className="table-wrap">
-                <table className="plan-table">
+              <div className="table-wrap t-stack-wrap">
+                <table className="plan-table t-stack">
                   <thead>
                     <tr>
                       <th scope="col" className="fund-col" rowSpan={2}>
@@ -400,25 +403,24 @@ export default function Portfolio() {
                               <span className="fund-cat">{f.cat}</span>
                             </div>
                           </td>
-                          <td>{f.ytd}</td>
-                          <td>{f.y1}</td>
-                          <td>{f.y5}</td>
-                          <td>{f.y10}</td>
-                          <td>{f.si}</td>
-                          <td>{f.exp}</td>
-                          <td>{f.perK}</td>
-                          <td>{f.fees}</td>
+                          {[f.ytd, f.y1, f.y5, f.y10, f.si, f.exp, f.perK, f.fees].map((v, i) => (
+                            <td key={`${f.name}-v-${i}`} data-label={PLAN_COL_LABELS[i]}>
+                              {v}
+                            </td>
+                          ))}
                         </tr>
                         <tr className="bench-row group-end">
                           <td className="fund-cell">
                             <div className="fund-title">{f.bench}</div>
                           </td>
-                          {f.b.map((v, i) => (
-                            <td key={`${f.name}-b-${i}`}>{v}</td>
+                          {/* Benchmarks only carry the return columns, so the
+                              trailing expense/fee cells are padded out to keep
+                              both rows aligned to the same header set. */}
+                          {[...f.b, '—', '—', 'N/A'].map((v, i) => (
+                            <td key={`${f.name}-b-${i}`} data-label={PLAN_COL_LABELS[i]}>
+                              {v}
+                            </td>
                           ))}
-                          <td>—</td>
-                          <td>—</td>
-                          <td>N/A</td>
                         </tr>
                       </Fragment>
                     ))}
