@@ -91,7 +91,7 @@ function QuickActions({ plan }) {
 
   return (
     <div className="quick-actions">
-      <span className="quick-actions-label">Quick actions</span>
+      <span className="quick-actions-label">Quick links</span>
       <div className="quick-actions-grid" role="group" aria-label="Start a transaction request">
         {TRANSACTION_TYPES.map((t) => {
           const icon = TYPE_ICON[t.id]
