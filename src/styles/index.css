@@ -815,7 +815,12 @@
   .sign-out-ico{width:36px;height:36px;border-radius:var(--radius-full);background:var(--semantics-critical-background-light);color:var(--semantics-critical-text);
     display:grid;place-items:center;flex:0 0 auto}
 
-  .layout{display:flex;min-height:calc(100dvh - var(--header-h));align-items:flex-start}
+  .layout{display:flex;min-height:calc(100dvh - var(--header-h));align-items:flex-start;
+    /* Create a stacking context so nothing inside .layout (the fixed nav
+       at z:30, page content, cards, portaled menus) can ever paint above
+       the sticky header (z:40). Without this, late-painted content in
+       normal flow could composite on top of the header during scroll. */
+    position:relative;z-index:1}
   .nav{width:var(--nav-w);border-right:1px solid var(--neutral-border-light);padding:var(--space-5) var(--space-0);
     display:flex;flex-direction:column;gap:var(--space-1);background:var(--sidebar);
     /* Truly fixed to the viewport (not sticky, not a flex sibling of its
