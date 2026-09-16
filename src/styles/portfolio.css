@@ -211,7 +211,13 @@
        dashed bottom borders on fund rows. In card mode these create a
        double-outline and ugly dashed lines inside each card. Strip them
        so cards match the clean t-stack pattern. */
-    /* ---- Plan & Holdings: kill min-width so cards fill viewport ---- */
+    /* ---- Wrapper: portfolio.css's .table-wrap (overflow:auto, border,
+       box-shadow) overrides index.css's .t-stack-wrap because it loads
+       later at the same specificity. Force it off. ---- */
+    .table-wrap.t-stack-wrap{
+      overflow:visible!important;border:none!important;border-radius:0!important;
+      background:transparent!important;box-shadow:none!important}
+    /* ---- Tables: kill min-width so cards fill viewport ---- */
     table.t-stack{min-width:0!important}
     .plan-table.t-stack,
     .holdings-table.t-stack{min-width:0!important}
