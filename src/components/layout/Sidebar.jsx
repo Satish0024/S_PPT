@@ -8,9 +8,6 @@ import {
   faCog,
   faExchangeAlt,
   faFileAlt,
-  faMoon,
-  faQuestionCircle,
-  faSun,
   faThLarge,
   faTimes,
   faUser,
@@ -40,7 +37,7 @@ const MENU_ITEMS = [
 
 export default function Sidebar() {
   const { pathname } = useLocation()
-  const { theme, toggle: toggleTheme } = useTheme()
+  const { theme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
   const onEnrollment = pathname.startsWith('/enrollment')
   const onGoal = pathname.startsWith('/retirement-goal')
@@ -117,31 +114,6 @@ export default function Sidebar() {
                 <span className="nav-label">{label}</span>
               </NavLink>
             ))}
-
-            {/* Utility actions - hidden in header on mobile, shown here */}
-            <div className="mobile-menu-utils">
-              <button
-                type="button"
-                className="mobile-menu-util-btn"
-                onClick={toggleTheme}
-                aria-pressed={theme === 'dark'}
-              >
-                <span className="ico" aria-hidden="true">
-                  <Icon icon={theme === 'dark' ? faSun : faMoon} size={20} />
-                </span>
-                <span className="nav-label">{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
-              </button>
-              <button
-                type="button"
-                className="mobile-menu-util-btn"
-                onClick={() => setMenuOpen(false)}
-              >
-                <span className="ico" aria-hidden="true">
-                  <Icon icon={faQuestionCircle} size={20} />
-                </span>
-                <span className="nav-label">Help</span>
-              </button>
-            </div>
           </div>
         </div>
       )}

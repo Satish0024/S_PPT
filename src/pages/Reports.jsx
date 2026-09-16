@@ -22,18 +22,10 @@ function toDateInput(d) {
   return d.toISOString().slice(0, 10)
 }
 
-function useOutsideClose(onClose) {
-  const ref = useRef(null)
-  const handler = (e) => {
-    if (ref.current && !ref.current.contains(e.target)) onClose()
-  }
-  return { ref, handler }
-}
-
 function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, getSub, getKey = (o) => o }) {
   const [open, setOpen] = useState(false)
   const labelId = useId()
-  const { ref, handler } = useOutsideClose(() => setOpen(false))
+  const ref = useRef(null)
 
   const allChecked = options.length > 0 && selected.length === options.length
   const summary = selected.length === 0 || allChecked ? 'All' : selected.length === 1 ? getLabel(selected[0]) : `${selected.length} selected`
@@ -43,8 +35,31 @@ function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, 
   }
   const toggleAll = () => onChange(allChecked ? [] : [...options])
 
+  // Close on outside click - use mousedown to catch before any focus change
+  useEffect(() => {
+    if (!open) return
+    const handleOutsideClick = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false)
+      }
+    }
+    // Use mousedown instead of click to fire before focus changes
+    document.addEventListener('mousedown', handleOutsideClick)
+    return () => document.removeEventListener('mousedown', handleOutsideClick)
+  }, [open])
+
+  // Close on Escape
+  useEffect(() => {
+    if (!open) return
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [open])
+
   return (
-    <div className="multi-select" ref={ref} onBlur={(e) => !ref.current?.contains(e.relatedTarget) && setOpen(false)}>
+    <div className="multi-select" ref={ref}>
       <span className="field-label" id={labelId}>
         {label}
       </span>
@@ -55,7 +70,6 @@ function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, 
         aria-expanded={open}
         aria-haspopup="listbox"
         onClick={() => setOpen((v) => !v)}
-        onFocus={() => document.addEventListener('click', handler, { once: true })}
       >
         <span id={`${labelId}-value`}>{summary}</span>
         <Icon icon={faChevronDown} size={15} aria-hidden="true" />
