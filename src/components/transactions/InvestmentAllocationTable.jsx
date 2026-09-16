@@ -16,7 +16,7 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
   const totalsMatch = Math.round(afterPctTotal) === 100
 
   return (
-    <div className="table-scroll">
+    <div className="table-scroll alloc-table-wrap">
       <table className="alloc-table">
         <thead>
           <tr className="alloc-group-row">
@@ -55,6 +55,7 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
             return (
               <Fragment key={r.id}>
                 <tr>
+                  {/* Name cell has no data-label: it becomes the card title on mobile */}
                   <td className="alloc-name-col">
                     <button type="button" className="fund-link alloc-name" onClick={() => setOpenFund(r)}>
                       {r.name}
@@ -63,11 +64,11 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
                       Nav <b>{formatMoney(r.nav)}</b>
                     </span>
                   </td>
-                  <td className="num">{r.units.toFixed(2)}</td>
-                  <td className="num">{r.pct} %</td>
-                  <td className="num">{formatMoney(r.amount)}</td>
-                  <td className="num alloc-after">{afterUnits.toFixed(2)}</td>
-                  <td className="num alloc-after">
+                  <td className="num" data-label="Current units">{r.units.toFixed(2)}</td>
+                  <td className="num" data-label="Current %">{r.pct} %</td>
+                  <td className="num" data-label="Current amount">{formatMoney(r.amount)}</td>
+                  <td className="num alloc-after" data-label={`${afterLabel} units`}>{afterUnits.toFixed(2)}</td>
+                  <td className="num alloc-after" data-label={`${afterLabel} %`}>
                     {editable ? (
                       <span className="alloc-pct-input">
                         <input
@@ -85,7 +86,7 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
                       `${r.afterPct} %`
                     )}
                   </td>
-                  <td className="num alloc-after">{formatMoney(afterAmount)}</td>
+                  <td className="num alloc-after" data-label={`${afterLabel} amount`}>{formatMoney(afterAmount)}</td>
                 </tr>
                 {heldCompetitors.length > 0 && (
                   <tr className="alloc-restricted-row">
@@ -101,11 +102,11 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
           <tr className="alloc-total">
             <td className="alloc-name-col">Total</td>
             <td className="num" />
-            <td className="num">{Math.round(currentPctTotal)} %</td>
-            <td className="num">{formatMoney(currentAmountTotal)}</td>
+            <td className="num" data-label="Current %">{Math.round(currentPctTotal)} %</td>
+            <td className="num" data-label="Current amount">{formatMoney(currentAmountTotal)}</td>
             <td className="num alloc-after" />
-            <td className={`num alloc-after${totalsMatch ? '' : ' alloc-off'}`}>{Math.round(afterPctTotal)} %</td>
-            <td className="num alloc-after">{formatMoney(afterAmountTotal)}</td>
+            <td className={`num alloc-after${totalsMatch ? '' : ' alloc-off'}`} data-label={`${afterLabel} %`}>{Math.round(afterPctTotal)} %</td>
+            <td className="num alloc-after" data-label={`${afterLabel} amount`}>{formatMoney(afterAmountTotal)}</td>
           </tr>
         </tbody>
       </table>

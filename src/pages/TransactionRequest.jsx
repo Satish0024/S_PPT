@@ -1447,8 +1447,8 @@ function rolloverPct(form, investments, name) {
 function RolloverSourcesTable({ form, set, editable }) {
   const total = rolloverTotal(form)
   return (
-    <div className="table-wrap">
-      <table className="alloc-table">
+    <div className="table-wrap rollover-table-wrap">
+      <table className="alloc-table rollover-table">
         <thead>
           <tr>
             <th scope="col">Sources Mapping</th>
@@ -1464,34 +1464,35 @@ function RolloverSourcesTable({ form, set, editable }) {
               set((f) => ({ sources: { ...f.sources, [s.id]: { ...f.sources[s.id], [field]: val } } }))
             return (
               <tr key={s.id}>
+                {/* Source name has no data-label: it becomes the card title on mobile */}
                 <td>{s.label}</td>
-                <td className="num">
+                <td className="num" data-label="Contribution(s)">
                   {editable ? (
                     <input
                       type="number"
                       min={0}
                       value={row.contribution}
                       onChange={(e) => setField('contribution', e.target.value)}
-                      style={{ width: 100, textAlign: 'right' }}
+                      className="rollover-input"
                     />
                   ) : (
                     formatMoney(+row.contribution || 0)
                   )}
                 </td>
-                <td className="num">
+                <td className="num" data-label="Earning(s)">
                   {editable ? (
                     <input
                       type="number"
                       min={0}
                       value={row.earning}
                       onChange={(e) => setField('earning', e.target.value)}
-                      style={{ width: 100, textAlign: 'right' }}
+                      className="rollover-input"
                     />
                   ) : (
                     formatMoney(+row.earning || 0)
                   )}
                 </td>
-                <td className="num">{formatMoney(rolloverSourceAmount(form, s.id))}</td>
+                <td className="num" data-label="Amount">{formatMoney(rolloverSourceAmount(form, s.id))}</td>
               </tr>
             )
           })}
@@ -1499,7 +1500,7 @@ function RolloverSourcesTable({ form, set, editable }) {
             <td>Total rollover amount</td>
             <td />
             <td />
-            <td className="num">{formatMoney(total)}</td>
+            <td className="num" data-label="Total">{formatMoney(total)}</td>
           </tr>
         </tbody>
       </table>
@@ -1516,8 +1517,8 @@ function RolloverInvestmentTable({ plan, form, set, editable }) {
       {!investments.length ? (
         <p className="hint">No investment lineup on file for this plan yet.</p>
       ) : (
-        <div className="table-wrap">
-          <table className="alloc-table">
+        <div className="table-wrap rollover-table-wrap">
+          <table className="alloc-table rollover-table">
             <thead>
               <tr>
                 <th scope="col">Investment names</th>
@@ -1527,8 +1528,9 @@ function RolloverInvestmentTable({ plan, form, set, editable }) {
             <tbody>
               {investments.map((inv) => (
                 <tr key={inv.name}>
+                  {/* Investment name has no data-label: it becomes the card title on mobile */}
                   <td>{inv.name}</td>
-                  <td className="num">
+                  <td className="num" data-label="Percentage">
                     {editable ? (
                       <input
                         type="number"
@@ -1538,7 +1540,7 @@ function RolloverInvestmentTable({ plan, form, set, editable }) {
                         onChange={(e) =>
                           set((f) => ({ investmentPct: { ...f.investmentPct, [inv.name]: e.target.value } }))
                         }
-                        style={{ width: 80, textAlign: 'right' }}
+                        className="rollover-input"
                       />
                     ) : (
                       `${rolloverPct(form, investments, inv.name)}%`
@@ -1548,7 +1550,7 @@ function RolloverInvestmentTable({ plan, form, set, editable }) {
               ))}
               <tr className="alloc-total">
                 <td>Total Percentage</td>
-                <td className="num" style={Math.round(pctTotal) !== 100 ? { color: 'var(--semantics-warning-text)' } : undefined}>
+                <td className="num" data-label="Total" style={Math.round(pctTotal) !== 100 ? { color: 'var(--semantics-warning-text)' } : undefined}>
                   {Math.round(pctTotal * 10) / 10}%
                 </td>
               </tr>
@@ -1955,7 +1957,7 @@ function SummaryStep({ title, children, onBack, onSubmit, submitDisabled }) {
 // last remaining allocation — there must always be at least one recipient).
 function AllocationTable({ allocations, withdrawalTypeId, onEdit, onRemove }) {
   return (
-    <div className="table-wrap">
+    <div className="table-wrap wd-alloc-table-wrap">
       <table className="wd-alloc-table">
         <thead>
           <tr>
@@ -1973,6 +1975,7 @@ function AllocationTable({ allocations, withdrawalTypeId, onEdit, onRemove }) {
             const rowFees = computeWithdrawalFees(a.amount, withdrawalTypeId, a.paymentMethod)
             return (
               <tr key={a.id} className={incomplete ? 'wd-alloc-incomplete' : undefined}>
+                {/* Recipient name has no data-label: it becomes the card title on mobile */}
                 <td>{a.name || (a.recipientType === 'self' ? 'Self' : 'Beneficiary')}</td>
                 {incomplete ? (
                   <td className="num wd-alloc-incomplete-cell" colSpan={4}>
@@ -1980,10 +1983,10 @@ function AllocationTable({ allocations, withdrawalTypeId, onEdit, onRemove }) {
                   </td>
                 ) : (
                   <>
-                    <td className="num">{formatMoney(rowFees.federalTax)}</td>
-                    <td className="num">{formatMoney(rowFees.feeAndTax - rowFees.federalTax)}</td>
-                    <td className="num">{formatMoney(rowFees.penalty)}</td>
-                    <td className="num">{formatMoney(rowFees.requested)}</td>
+                    <td className="num" data-label="Tax">{formatMoney(rowFees.federalTax)}</td>
+                    <td className="num" data-label="Fee">{formatMoney(rowFees.feeAndTax - rowFees.federalTax)}</td>
+                    <td className="num" data-label="Penalty">{formatMoney(rowFees.penalty)}</td>
+                    <td className="num" data-label="Amount">{formatMoney(rowFees.requested)}</td>
                   </>
                 )}
                 <td className="num wd-alloc-actions">
