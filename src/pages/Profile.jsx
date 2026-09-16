@@ -12,6 +12,8 @@ import {
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import AddBeneficiary from '../components/profile/AddBeneficiary.jsx'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
+import { useSortableRows } from '../hooks/useSortableRows'
+import SortTh from '../components/common/SortTh.jsx'
 import {
   Flag,
   NameFields,
@@ -69,7 +71,9 @@ function SaveBar({ onSave, onCancel }) {
 }
 
 function formatAddress(p) {
-  return [p.address1, p.address2, p.address3, [p.city, p.state, p.zip].filter(Boolean).join(', '), p.country].filter(Boolean)
+  const street = [p.address1, p.address2, p.address3].filter(Boolean).join(', ')
+  const locality = [[p.city, p.state, p.zip].filter(Boolean).join(', '), p.country].filter(Boolean).join(', ')
+  return [street, locality].filter(Boolean)
 }
 
 function formatPhone(country, number) {
@@ -109,7 +113,7 @@ function PersonalView({ data, editing, showSsn, onToggleSsn, set }) {
           <TextField label="Date Of Birth" value={p.dob} hint={age} onChange={(v) => set('dob', v)} />
           <SsnField label="SSN" revealed={showSsn} value={p.ssn} onToggle={onToggleSsn} onChange={(v) => set('ssn', v)} />
         </ProfileBlock>
-        <ProfileBlock title="Contact" form>
+        <ProfileBlock title="Contact Details" form>
           <TextField label="Email" value={p.email} onChange={(v) => set('email', v)} />
           <PhoneField
             label="Primary Phone"
@@ -152,7 +156,7 @@ function PersonalView({ data, editing, showSsn, onToggleSsn, set }) {
           <SsnRow label="SSN" value={showSsn ? fullSsn(p.ssn) : maskSsn(p.ssn)} revealed={showSsn} onToggle={onToggleSsn} />
         </div>
       </ProfileBlock>
-      <ProfileBlock title="Contact">
+      <ProfileBlock title="Contact Details">
         <div className="pr-rows">
           <Row label="Email" value={p.email} />
           <Row label="Primary Phone" value={formatPhone(p.phoneCountry, p.phone)} />
@@ -168,7 +172,7 @@ function PersonalView({ data, editing, showSsn, onToggleSsn, set }) {
   )
 }
 
-function BankView({ data, editing, set }) {
+function BankView({ data, editing, set, showAccount, onToggleAccount }) {
   const b = data
   if (editing) {
     return (
@@ -204,7 +208,12 @@ function BankView({ data, editing, set }) {
         <Row label="Account Holder" value={b.holderName} />
         <Row label="Bank Name" value={b.bankName} />
         <Row label="Account Type" value={b.accountType} />
-        <Row label="Account Number" value={b.accountNumber} />
+        <SsnRow
+          label="Account Number"
+          value={showAccount ? b.accountFull || b.accountNumber : b.accountNumber}
+          revealed={showAccount}
+          onToggle={onToggleAccount}
+        />
         <Row label="ABA Routing Number" value={b.routing} />
       </div>
     </ProfileBlock>
@@ -298,31 +307,40 @@ function ClassificationView({ data }) {
           <Row label="End Date" value={row.end} />
         </div>
       </ProfileBlock>
-      <ProfileBlock title="History">
-        <div className="table-wrap pr-table">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Type</th>
-                <th scope="col">Code</th>
-                <th scope="col">Start date</th>
-                <th scope="col">End date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(row.history || []).map((item, i) => (
-                <tr key={`${item.code}-${i}`}>
-                  <td>{item.type}</td>
-                  <td>{item.code}</td>
-                  <td>{item.start || '—'}</td>
-                  <td>{item.end || '—'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </ProfileBlock>
+      <ClassificationHistory history={row.history} />
     </div>
+  )
+}
+
+function ClassificationHistory({ history }) {
+  const rows = useMemo(() => (history || []).map((item, i) => ({ ...item, _key: `${item.code}-${i}` })), [history])
+  const { sortedRows, sortKey, sortDir, toggleSort } = useSortableRows(rows)
+
+  return (
+    <ProfileBlock title="History">
+      <div className="table-wrap pr-table pr-class-history">
+        <table>
+          <thead>
+            <tr>
+              <SortTh label="Type" sortKeyName="type" sortKey={sortKey} sortDir={sortDir} onSort={toggleSort} />
+              <SortTh label="Code" sortKeyName="code" sortKey={sortKey} sortDir={sortDir} onSort={toggleSort} />
+              <SortTh label="Start Date" sortKeyName="start" sortKey={sortKey} sortDir={sortDir} onSort={toggleSort} />
+              <SortTh label="End Date" sortKeyName="end" sortKey={sortKey} sortDir={sortDir} onSort={toggleSort} />
+            </tr>
+          </thead>
+          <tbody>
+            {sortedRows.map((item) => (
+              <tr key={item._key}>
+                <td>{item.type}</td>
+                <td>{item.code}</td>
+                <td>{item.start || '—'}</td>
+                <td>{item.end || '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </ProfileBlock>
   )
 }
 
@@ -385,6 +403,7 @@ export default function Profile() {
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState(null)
   const [showSsn, setShowSsn] = useState(false)
+  const [showAccount, setShowAccount] = useState(false)
   const [percentGroup, setPercentGroup] = useState(null)
   const [percentDraft, setPercentDraft] = useState([])
   const [percentError, setPercentError] = useState('')
@@ -519,9 +538,6 @@ export default function Profile() {
                 <div className="pr-hero-copy">
                   <div className="pr-hero-name">
                     <h2>{fullName}</h2>
-                    <span className={`badge ${badgeClass}`}>
-                      <Icon icon={faCheck} size={12} /> Active
-                    </span>
                   </div>
                   <p className="pr-co">{record.personal.company}</p>
                   <p className="pr-ids">
@@ -530,6 +546,9 @@ export default function Profile() {
                   </p>
                 </div>
                 <div className="pr-hero-side">
+                  <span className={`badge ${badgeClass}`}>
+                    <Icon icon={faCheck} size={12} /> Active
+                  </span>
                   {!editing && <EditBtn onClick={startEdit} />}
                 </div>
               </div>
@@ -558,7 +577,15 @@ export default function Profile() {
                 set={setField}
               />
             )}
-            {section === 'bank' && <BankView data={live} editing={editing} set={setField} />}
+            {section === 'bank' && (
+              <BankView
+                data={live}
+                editing={editing}
+                set={setField}
+                showAccount={showAccount}
+                onToggleAccount={() => setShowAccount((v) => !v)}
+              />
+            )}
             {section === 'employment' && <EmploymentView data={live} editing={editing} set={setField} />}
             {section === 'classification' && <ClassificationView data={record.classifications} />}
             {section === 'beneficiary' && (

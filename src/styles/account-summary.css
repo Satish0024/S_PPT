@@ -13,10 +13,11 @@
   border:1px solid var(--neutral-border-light);background:var(--surface-default);padding:var(--space-3-5) var(--space-3-5) var(--space-3-5) var(--space-4);border-radius:var(--radius-xl);
   cursor:pointer;text-align:left;font:inherit;color:inherit;position:relative;box-shadow:var(--shadow)}
 .as-plans button:hover{background:var(--surface-muted);border-color:var(--neutral-border-strong)}
-.as-plans button.on{background:var(--brand-background-primary-light);border-color:var(--neutral-border-strong)}
-.as-plans button.on::before{
-  content:"";position:absolute;left:0;top:var(--space-2-5);bottom:var(--space-2-5);width:3px;
-  background:var(--brand-text-primary-default);border-radius:0 2px 2px 0}
+/* Active state: a primary-color border + soft ring around the whole
+   card, same convention as .opt.selected -- not a left accent bar. */
+.as-plans button.on{
+  background:var(--brand-background-primary-light);border-color:var(--brand-text-primary-default);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 10%, transparent)}
 .as-plan-top{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-2)}
 .as-plan-top strong{
   font-size:var(--text-body-md-size);font-weight:var(--font-weight-extrabold);letter-spacing:var(--ls-snug);color:var(--neutral-text-default);line-height:1.3}

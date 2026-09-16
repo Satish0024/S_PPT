@@ -251,6 +251,19 @@ export function InvestmentEditor({
             <small>Select preferred investments and set the allocation.</small>
           </span>
         </button>
+        <button
+          type="button"
+          className={`choice${usingRisk ? ' on' : ''}`}
+          role="radio"
+          aria-checked={usingRisk}
+          onClick={chooseRisk}
+        >
+          <span className="choice-dot" aria-hidden="true" />
+          <span>
+            <b>Match my investments to my risk style</b>
+            <small>Answer a few questions and we&apos;ll set your allocation to match your risk tolerance.</small>
+          </span>
+        </button>
       </div>
 
       {usingPlan && (

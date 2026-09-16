@@ -84,7 +84,7 @@ export default function AccessibilityMenu() {
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-label="Accessibility options"
-        title="Accessibility options"
+        data-tip="Accessibility options"
         onClick={() => setOpen((v) => !v)}
       >
         <Icon icon={faUniversalAccess} size={19} />

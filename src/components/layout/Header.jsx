@@ -34,21 +34,21 @@ export default function Header() {
         <img src={theme === 'dark' ? BRAND.logoOnDark || BRAND.logo : BRAND.logo} alt={BRAND.name} />
       </div>
       <div className="top-right">
-        <a
+        <button
+          type="button"
           className="icon-btn help-btn"
-          href={`mailto:${BRAND.supportEmail}`}
           aria-label="Get help"
-          title="Get help"
+          data-tip="Get help"
         >
           <Icon icon={faQuestionCircle} size={19} />
-        </a>
+        </button>
         <button
           type="button"
           className="icon-btn theme-toggle"
           onClick={toggle}
           aria-pressed={theme === 'dark'}
           aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-          title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          data-tip={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
         >
           {theme === 'dark' ? <Icon icon={faSun} size={19} /> : <Icon icon={faMoon} size={19} />}
         </button>

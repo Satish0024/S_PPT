@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Icon } from '../lib/icons'
-import { faChevronDown, faFileAlt } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { DOCUMENT_TYPES, PLAN_DOCS, STATEMENTS } from '../data/documents.js'
 import { addGeneratedStatement, getGeneratedStatements } from '../lib/generatedStatements.js'
@@ -309,9 +309,6 @@ export default function Reports() {
           <div className="doc-list">
             {docs.map((d) => (
               <article className="doc-row" key={d.id}>
-                <span className="doc-ico" aria-hidden="true">
-                  <Icon icon={faFileAlt} size={18} />
-                </span>
                 <div className="doc-copy">
                   <h2 className="doc-name">{d.name}</h2>
                   <p>

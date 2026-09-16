@@ -24,7 +24,7 @@ export function SsnRow({ label, value, revealed, onToggle }) {
       <div>
         <b className="pr-ssn">
           {value}
-          <button type="button" className="pr-eye inline" aria-label={revealed ? 'Hide SSN' : 'Show SSN'} onClick={onToggle}>
+          <button type="button" className="pr-eye inline" aria-label={revealed ? `Hide ${label}` : `Show ${label}`} onClick={onToggle}>
             {revealed ? <Icon icon={faEyeSlash} size={14} /> : <Icon icon={faEye} size={14} />}
           </button>
         </b>
