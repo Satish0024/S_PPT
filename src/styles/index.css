@@ -721,7 +721,12 @@
 
   .topbar{
     height:var(--header-h);border-bottom:1px solid var(--neutral-border-light);display:flex;align-items:center;
-    justify-content:space-between;padding:var(--space-0) var(--space-6);position:sticky;top:0;background:var(--surface-default);z-index:40;
+    justify-content:space-between;padding:var(--space-0) var(--space-6);
+    /* Fixed, not sticky: sticky leaves a gap above the header when the
+       user scrolls past its original position (the scroll-container's
+       top edge is above the viewport). Fixed pins it to the viewport
+       so no gap ever appears. */
+    position:fixed;top:0;left:0;right:0;background:var(--surface-default);z-index:40;
   }
   .brand{display:inline-flex;align-items:center}
 
@@ -816,10 +821,10 @@
     display:grid;place-items:center;flex:0 0 auto}
 
   .layout{display:flex;min-height:calc(100dvh - var(--header-h));align-items:flex-start;
-    /* Create a stacking context so nothing inside .layout (the fixed nav
-       at z:30, page content, cards, portaled menus) can ever paint above
-       the sticky header (z:40). Without this, late-painted content in
-       normal flow could composite on top of the header during scroll. */
+    /* Header is position:fixed, so push layout below it. */
+    margin-top:var(--header-h);
+    /* Stacking context: keep all layout children (fixed nav z:30, cards,
+       portaled menus) below the fixed header (z:40). */
     position:relative;z-index:1}
   .nav{width:var(--nav-w);border-right:1px solid var(--neutral-border-light);padding:var(--space-5) var(--space-0);
     display:flex;flex-direction:column;gap:var(--space-1);background:var(--sidebar);
