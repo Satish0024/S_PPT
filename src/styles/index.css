@@ -2386,6 +2386,20 @@
     .mobile-menu-sheet a.active{color:var(--brand-text-primary-default);background:var(--brand-background-primary-light)}
     .mobile-menu-sheet .ico{display:grid;place-items:center;color:var(--neutral-text-subtle);flex:0 0 auto}
     .mobile-menu-sheet a.active .ico{color:var(--brand-text-primary-default)}
+    /* Utility actions (help, theme toggle) - moved from header to menu on mobile */
+    .mobile-menu-utils{
+      display:flex;gap:var(--space-2);padding:var(--space-3) var(--space-3) var(--space-0);margin-top:var(--space-2);
+      border-top:1px solid var(--neutral-border-light)}
+    .mobile-menu-util-btn{
+      flex:1;display:flex;align-items:center;justify-content:center;gap:var(--space-2);
+      padding:var(--space-2-5) var(--space-3);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);
+      background:var(--surface-default);color:var(--neutral-text-default);font:inherit;font-size:var(--text-body-sm-size);
+      font-weight:var(--font-weight-semibold);cursor:pointer;transition:var(--motion-base)}
+    .mobile-menu-util-btn:hover{background:var(--brand-background-primary-subtle);border-color:var(--brand-text-primary-default)}
+    .mobile-menu-util-btn .ico{color:var(--neutral-text-subtle)}
+    .mobile-menu-util-btn:hover .ico{color:var(--brand-text-primary-default)}
+    /* Hide header utility buttons on mobile - they're in the menu */
+    .topbar .help-btn,.topbar .theme-toggle{display:none}
     .page-body{padding:var(--page-padding-y-sm) var(--page-padding-x-sm) var(--page-padding-bottom-sm)}
     .hi-bar h1{font-size:var(--text-display-md-size)}
     .pr-row,.pr-field{grid-template-columns:1fr;gap:var(--space-1);align-items:start;padding:var(--space-2-5) 0}
