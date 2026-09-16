@@ -291,13 +291,13 @@ export default function AccountSummary() {
                                   aria-expanded={isOpen}
                                   aria-controls={`${row.id}-detail`}
                                 >
+                                  {row.name}
                                   <Icon
                                     icon={faChevronDown}
                                     size={15}
                                     className="as-row-chevron"
                                     aria-hidden="true"
                                   />
-                                  {row.name}
                                 </button>
                               ) : (
                                 row.name

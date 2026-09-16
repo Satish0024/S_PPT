@@ -114,12 +114,9 @@
   display:inline;min-width:0;margin-right:var(--space-2)}
 .as-asset-cell{font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
 .as-row-chevron{
-  /* Was margin-left:auto, which pushed the chevron to the far right edge
-     of the (often much wider than its content) name cell -- it landed
-     floating in the middle of the row instead of reading as part of the
-     name. Now the first element in .as-row-toggle (JSX order), right
-     before the asset-class swatch/name, at the front of the row. */
-  margin-right:var(--space-1-5);color:var(--neutral-text-subtle);transition:transform var(--motion-base) ease;flex:0 0 auto}
+  /* Chevron positioned at the right edge of the name cell, after the text.
+     margin-left:auto pushes it to the far right within the flex container. */
+  margin-left:auto;color:var(--neutral-text-subtle);transition:transform var(--motion-base) ease;flex:0 0 auto}
 .as-row-open .as-row-chevron{transform:rotate(180deg);color:var(--brand-text-primary-default)}
 .as-row-detail td{background:var(--surface-muted);padding:var(--space-0);border-bottom:1px solid var(--neutral-border-light)}
 .as-row-detail:hover{background:transparent}
@@ -204,9 +201,9 @@
   .as-table td:first-child:not([data-label]){
     padding-top:var(--space-0);padding-bottom:var(--space-2-5);border-bottom:1px solid var(--neutral-border-light)}
   .as-table td.num{text-align:right}
-  /* Row toggle in mobile: full width, chevron on right */
-  .as-row-toggle{justify-content:space-between;flex-direction:row-reverse;gap:var(--space-2)}
-  .as-row-chevron{margin-right:var(--space-0);margin-left:auto}
+  /* Row toggle in mobile: chevron stays on right */
+  .as-row-toggle{justify-content:space-between;gap:var(--space-2)}
+  .as-row-chevron{margin-left:auto}
   /* Detail row: attached card below the parent, muted background */
   .as-table tr.as-row-detail{
     background:var(--surface-muted);border:1px solid var(--neutral-border-light);border-top:none;
