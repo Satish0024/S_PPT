@@ -1709,17 +1709,15 @@
   .empty-side p{font-size:var(--text-caption-size);color:var(--neutral-text-subtle);line-height:1.45;margin-bottom:var(--space-3)}
   .empty-side .btn,.empty-side .btn-sm{width:100%}
 
-  /* Recent transactions */
+  /* Recent transactions — same .table-wrap pattern as Transactions page /
+     Account Summary / Profile tables. No extra section-card wrapper: that
+     added a second padded border around the table and made this section
+     look different from every other data table. */
   .section-card{background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);padding:var(--card-padding-sm);box-shadow:var(--shadow)}
-  .section-card.tx-compact{margin-top:var(--space-0)}
-  /* .section-card already draws the outer border -- .table-wrap's own
-     border inside it doubled up as a second stroke around the table. */
-  .section-card.tx-compact .table-wrap{border:none;border-radius:var(--space-0)}
   .section-card .section-head{display:flex;align-items:center;justify-content:space-between;gap:var(--space-2-5);margin-bottom:var(--space-2)}
   .section-card h3{font-size:var(--text-h3-size);font-weight:var(--font-weight-bold);margin:var(--space-0);letter-spacing:var(--ls-snug)}
 
-  /* No outer border/radius here -- .tx-list already sits inside
-     .section-card, which draws its own border. */
+  /* No outer border/radius here -- .tx-list sits inside a bordered parent. */
   .tx-list{display:flex;flex-direction:column}
   .tx-row{
     display:grid;grid-template-columns:88px minmax(0,1fr) auto;gap:var(--space-2) var(--space-3);
