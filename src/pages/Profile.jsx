@@ -617,7 +617,7 @@ export default function Profile() {
               {percentDraft.map((row, i) => (
                 <label key={row.id}>
                   <span>{row.name}</span>
-                  <span className="pr-pct-input">
+                  <span className={`pr-pct-input${percentError ? ' is-invalid' : ''}`}>
                     <input
                       type="number"
                       min={0}
