@@ -42,16 +42,21 @@
 .as-main-h h2{margin:var(--space-0);font-size:var(--text-h4-size);font-weight:var(--font-weight-extrabold);line-height:var(--text-h4-lh);letter-spacing:var(--text-h4-ls)}
 .as-main-h p{margin:var(--space-1) var(--space-0) var(--space-0);font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
 
+/* DS Tabs (cds-tabs/cds-tab) treatment — underline style, matches the
+   canonical DS tab design used on Portfolio/Transactions (.tabs/.tab).
+   Was a pill/segmented-background control; visual change intentional
+   per DS reconciliation (icon kept, restyled to sit inline with label). */
 .as-tabs{
-  display:inline-flex;gap:var(--space-1);padding:var(--space-1);background:var(--surface-muted);border-radius:var(--radius-sm);margin-bottom:var(--space-4)}
+  display:flex;gap:var(--space-1);border-bottom:1px solid var(--neutral-border-light);margin-bottom:var(--space-4)}
 .as-tabs button{
   display:flex;align-items:center;gap:var(--space-2);border:none;background:transparent;
-  padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);font:inherit;font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);
-  color:var(--neutral-text-subtle);cursor:pointer}
-.as-tabs button:hover{color:var(--neutral-text-default);background:var(--surface-default)}
-.as-tabs button.on{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
-.as-tabs .pr-nav-ico{width:26px;height:26px;border-radius:var(--radius-sm)}
-.as-tabs button.on .pr-nav-ico{background:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor)}
+  padding:var(--space-2-5) var(--space-1);margin-right:var(--space-5);font:inherit;font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);
+  color:var(--neutral-text-subtle);cursor:pointer;border-bottom:2px solid transparent}
+.as-tabs button:hover{color:var(--neutral-text-default)}
+.as-tabs button.on{color:var(--brand-text-primary-default);border-bottom-color:var(--brand-text-primary-default);font-weight:var(--font-weight-bold)}
+.as-tabs button:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:2px}
+.as-tabs .pr-nav-ico{width:18px;height:18px;color:inherit}
+.as-tabs button.on .pr-nav-ico{background:none;color:inherit}
 
 .as-viz{
   display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--space-3);margin:var(--space-0) var(--space-0) var(--space-5)}
