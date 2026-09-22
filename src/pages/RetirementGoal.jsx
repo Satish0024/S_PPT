@@ -776,7 +776,7 @@ export default function RetirementGoal() {
 
       <div className="rg-nav">
         <button type="button" className="btn btn-primary" onClick={requestSave}>
-          Confirm changes
+          Update
         </button>
         <Link className="text-link" to="/">
           Cancel
@@ -825,7 +825,7 @@ export default function RetirementGoal() {
             )}
             <div className="rg-confirm-actions">
               <button type="button" className="btn btn-primary" onClick={confirmSave}>
-                Update
+                Confirm changes
               </button>
               <button type="button" className="btn btn-secondary" onClick={() => setConfirmSaveOpen(false)}>
                 Cancel

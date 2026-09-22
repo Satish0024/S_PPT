@@ -1153,7 +1153,7 @@
   .rg-plan-note{margin:var(--space-0) var(--space-0) var(--space-3-5);font-size:var(--text-caption-size);font-weight:var(--font-weight-medium);color:var(--neutral-text-subtle);line-height:1.4}
   .rg-plan-single{display:flex;flex-direction:column;gap:var(--space-1);margin:var(--space-0) var(--space-0) var(--space-4);max-width:320px}
   .rg-plan-single--top{margin-bottom:var(--space-3)}
-  .rg-confirm-modal{width:min(760px,100%)}
+  .enroll-modal.rg-confirm-modal{width:min(820px,100%)}
   .rg-confirm-table-wrap{width:100%;overflow-x:auto;margin:var(--space-0) var(--space-0) var(--space-4)}
   .rg-confirm-table{width:100%;border-collapse:collapse;margin:var(--space-0);font-size:var(--text-sm-size)}
   .rg-confirm-table th,.rg-confirm-table td{text-align:left;padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--neutral-border-light);vertical-align:top}
