@@ -343,7 +343,6 @@ export default function PlanDetails() {
                     saveLabel="Save changes"
                     onCancel={cancelEdit}
                     onComplete={refresh}
-                    riskReturnPath={`/plans/${plan.id}?openInvestments=1`}
                   />
                 ) : (
                   <>
