@@ -769,7 +769,7 @@
   .icon-btn:hover{background:var(--brand-background-primary-subtle);color:var(--neutral-text-default)}
   .icon-btn:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:2px}
   .icon-btn:disabled,.icon-btn[aria-disabled="true"]{
-    opacity:1;color:var(--semantics-disabled-text);cursor:not-allowed;pointer-events:none}
+    opacity:1;color:var(--semantics-disabled-text);cursor:not-allowed}
   .icon-btn svg{width:20px;height:20px}
   .icon-btn-sm{width:var(--icon-btn-size-sm);height:var(--icon-btn-size-sm)}
   .icon-btn-sm svg{width:var(--icon-sm);height:var(--icon-sm)}
