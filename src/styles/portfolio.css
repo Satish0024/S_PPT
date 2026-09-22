@@ -135,7 +135,6 @@
   .plan-table thead th.sortable button{
     all:unset;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:var(--space-1-5);width:100%;font:inherit;font-weight:var(--font-weight-bold);
     text-align:center;line-height:1.25;color:inherit}
-  .plan-table thead th.sortable:hover,.plan-table thead th.sortable button:hover{color:var(--brand-text-primary-default)}
   .plan-table thead th.sortable .sort-ico{opacity:.4;flex:0 0 auto}
   .plan-table thead th.sortable.asc .sort-ico,.plan-table thead th.sortable.desc .sort-ico{opacity:1;color:var(--brand-text-primary-default)}
   .plan-table tr.fund-row td{border-bottom-style:dashed;border-bottom-color:var(--neutral-border-strong)}
@@ -151,7 +150,6 @@
     all:unset;cursor:pointer;user-select:none;display:flex;align-items:center;gap:var(--space-1-5);width:100%;
     padding:var(--space-3) var(--space-3-5);font:inherit;font-weight:inherit;color:inherit;box-sizing:border-box}
   .holdings-table th.num.sortable button{justify-content:flex-end}
-  .holdings-table th.sortable button:hover{color:var(--brand-text-primary-default)}
   .holdings-table th.sortable .sort-ico{opacity:.4;flex:0 0 auto}
   .holdings-table th.sortable.asc .sort-ico,.holdings-table th.sortable.desc .sort-ico{opacity:1;color:var(--brand-text-primary-default)}
   .overall-card{border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);background:var(--surface-default);box-shadow:var(--shadow);
