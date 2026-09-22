@@ -124,6 +124,7 @@
   font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);line-height:var(--text-body-md-lh);
   color:var(--neutral-text-default);background:var(--surface-default)}
 .txn-field input:disabled{background:var(--surface-muted);color:var(--neutral-text-subtle)}
+.txn-field input:hover:not(:disabled),.txn-field select:hover:not(:disabled),.txn-field .ui-select-btn:hover{border-color:var(--neutral-border-strong)}
 .txn-field input:focus,.txn-field select:focus,.txn-field .ui-select-btn:focus-visible{outline:none;border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 15%, transparent)}
 .txn-field .note{font-size:var(--text-helper-size);font-weight:var(--text-helper-weight);line-height:var(--text-helper-lh);color:var(--neutral-text-subtle)}
 .txn-field .note.warn{color:var(--semantics-warning-text)}
@@ -270,6 +271,7 @@
 .alloc-pct-input{
   display:inline-flex;align-items:center;border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-default);
   transition:border-color var(--motion-base),box-shadow var(--motion-base)}
+.alloc-pct-input:hover:not(:focus-within){border-color:var(--neutral-border-strong)}
 .alloc-pct-input:focus-within{border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 15%, transparent)}
 .alloc-pct-input input{
   width:52px;border:none;padding:var(--space-1-5) var(--space-2);font:inherit;font-size:var(--text-body-sm-size);font-weight:var(--font-weight-bold);color:var(--neutral-text-default);
@@ -289,6 +291,7 @@
   display:flex;align-items:center;gap:var(--space-2);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);
   padding:var(--space-2) var(--space-3);margin-bottom:var(--space-3-5);color:var(--neutral-text-subtle-light);background:var(--surface-default);
   transition:border-color var(--motion-base),box-shadow var(--motion-base)}
+.add-inv-search:hover:not(:focus-within){border-color:var(--neutral-border-strong)}
 .add-inv-search:focus-within{border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 15%, transparent)}
 .add-inv-search input{border:none;flex:1;font:inherit;font-size:var(--text-body-md-size);color:var(--neutral-text-default);background:transparent}
 .add-inv-search input:focus{outline:none}

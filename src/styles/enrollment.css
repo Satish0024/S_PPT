@@ -605,6 +605,7 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
   border:1px solid var(--neutral-border-strong);border-radius:var(--radius-sm);padding:var(--space-2) var(--space-2-5);font-size:var(--text-body-md-size);font-weight:var(--font-weight-semibold);
   color:var(--neutral-text-default);background:var(--surface-default);width:100%
 }
+.bene-row input:hover:not(:focus),.bene-row select:hover:not(:focus){border-color:var(--neutral-text-subtle)}
 .bene-row input:focus,.bene-row select:focus{outline:none;border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 12%, transparent)}
 .bene-row .sval{width:100%}
 .bene-row .sval input{border:none;border-radius:0;box-shadow:none;padding:var(--space-1-5) var(--space-1-5)}

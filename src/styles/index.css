@@ -2483,8 +2483,10 @@
   .rq-field select,.rq-field input,.rq-field .ui-select-btn{
     border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);padding:var(--space-2-5) var(--space-3);font:inherit;font-weight:var(--font-weight-semibold);
     color:var(--neutral-text-default);background:var(--surface-default)}
+  .rq-field select:hover:not(:disabled),.rq-field input:hover:not(:disabled),.rq-field .ui-select-btn:hover{border-color:var(--neutral-border-strong)}
   .rq-field select:focus,.rq-field input:focus,.rq-field .ui-select-btn:focus-visible{outline:none;border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px var(--brand-background-primary-light)}
   .rq-money{display:flex;align-items:center;border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:hidden;transition:border-color var(--motion-base),box-shadow var(--motion-base)}
+  .rq-money:hover:not(:focus-within){border-color:var(--neutral-border-strong)}
   .rq-money:focus-within{border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px var(--brand-background-primary-light)}
   .rq-money span{padding:var(--space-2-5) var(--space-0) var(--space-2-5) var(--space-3);font-weight:var(--font-weight-bold);color:var(--neutral-text-subtle)}
   .rq-money input{border:none;flex:1;padding:var(--space-2-5) var(--space-3) var(--space-2-5) var(--space-1)}
