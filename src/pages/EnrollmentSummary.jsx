@@ -10,6 +10,8 @@ import {
 } from '../data/participants'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { loadProfile } from '../lib/profileDetails'
+import { useEscapeToClose } from '../hooks/useEscapeToClose'
+import { useFocusTrap } from '../hooks/useFocusTrap'
 
 const CYCLES = {
   calendar: { title: 'Calendar year', next: 'January 1, 2027' },
@@ -62,6 +64,8 @@ export default function EnrollmentSummary() {
     setDone(true)
   }
   const goHome = () => navigate('/', { replace: true })
+  const successTrapRef = useFocusTrap(done)
+  useEscapeToClose(done, goHome)
 
   return (
     <div className="detail-body enroll-simple">
@@ -174,10 +178,12 @@ export default function EnrollmentSummary() {
       {done && (
         <div className="enroll-modal-bg success-bg" role="presentation">
           <div
+            ref={successTrapRef}
             className="enroll-modal success-modal"
             role="dialog"
             aria-modal="true"
             aria-labelledby="success-title"
+            tabIndex={-1}
           >
             <div className="enroll-success">
               <div className="success-burst" aria-hidden="true">

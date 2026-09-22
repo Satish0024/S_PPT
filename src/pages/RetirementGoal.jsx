@@ -391,6 +391,8 @@ export default function RetirementGoal() {
   const [baselineAuto, setBaselineAuto] = useState(() => initialAuto(deferralPlans, draft))
   const [open, setOpen] = useState(false)
   const [savedOpen, setSavedOpen] = useState(false)
+  const savedTrapRef = useFocusTrap(savedOpen)
+  useEscapeToClose(savedOpen, () => navigate('/', { state: { goalSaved: true } }))
   const [confirmSaveOpen, setConfirmSaveOpen] = useState(false)
   const [changes, setChanges] = useState([])
   const [delta, setDelta] = useState(null)
@@ -841,10 +843,12 @@ export default function RetirementGoal() {
               stayed in the good/ok tier shouldn't still get confetti. */}
           {saveTone !== 'warn' && saveScoreDelta > 0 && <Confetti />}
           <div
+            ref={savedTrapRef}
             className={`enroll-modal rr-modal rg-save rg-save--big ${saveTone}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="rg-saved-title"
+            tabIndex={-1}
           >
             <div className="rg-save-hero">
               <span className="rg-save-mark" aria-hidden="true">

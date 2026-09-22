@@ -12,6 +12,7 @@ import {
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import AddBeneficiary from '../components/profile/AddBeneficiary.jsx'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
+import { useFocusTrap } from '../hooks/useFocusTrap'
 import { useSortableRows } from '../hooks/useSortableRows'
 import SortTh from '../components/common/SortTh.jsx'
 import {
@@ -412,6 +413,8 @@ export default function Profile() {
   const [selectedBene, setSelectedBene] = useState(null)
   useEscapeToClose(!!percentGroup, () => setPercentGroup(null))
   useEscapeToClose(!!selectedBene, () => setSelectedBene(null))
+  const percentTrapRef = useFocusTrap(!!percentGroup)
+  const beneTrapRef = useFocusTrap(!!selectedBene)
 
   useEffect(() => {
     setRecord(loadProfile(participant))
@@ -607,7 +610,7 @@ export default function Profile() {
 
       {percentGroup && (
         <div className="enroll-modal-bg" role="presentation" onClick={() => setPercentGroup(null)}>
-          <div className="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="pr-pct-title" onClick={(e) => e.stopPropagation()}>
+          <div ref={percentTrapRef} className="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="pr-pct-title" tabIndex={-1} onClick={(e) => e.stopPropagation()}>
             <h4 id="pr-pct-title">Set percentage</h4>
             <p>Shares for {percentGroup} beneficiaries must add up to 100%.</p>
             <div className="pr-pct-list">
@@ -646,7 +649,7 @@ export default function Profile() {
 
       {selectedBene && (
         <div className="enroll-modal-bg" role="presentation" onClick={() => setSelectedBene(null)}>
-          <div className="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="pr-bene-title" onClick={(e) => e.stopPropagation()}>
+          <div ref={beneTrapRef} className="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="pr-bene-title" tabIndex={-1} onClick={(e) => e.stopPropagation()}>
             <h4 id="pr-bene-title">{selectedBene.name}</h4>
             <ul className="detail-rows">
               <li>

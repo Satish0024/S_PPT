@@ -5,6 +5,7 @@ import { faRocket, faBalanceScale, faShieldAlt, faCircleInfo } from '@fortawesom
 import { INVESTMENT_KEY, readSession, writeSession } from '../data/participants'
 import { PLAN_FUNDS, PLAN_COL_LABELS } from '../data/portfolio'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
+import { useFocusTrap } from '../hooks/useFocusTrap'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { RISK_LEVELS, getRiskLevel, getRiskProfileId } from '../lib/riskProfile'
 import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
@@ -92,6 +93,8 @@ export function InvestmentEditor({
   const [error, setError] = useState('')
   const [fundsOpen, setFundsOpen] = useState(false)
   const [riskConsentOpen, setRiskConsentOpen] = useState(false)
+  useEscapeToClose(riskConsentOpen, () => setRiskConsentOpen(false))
+  const riskConsentTrapRef = useFocusTrap(riskConsentOpen)
 
   const usingCustom = mode === 'custom'
   const usingPlan = mode === 'plan'
@@ -377,10 +380,12 @@ export function InvestmentEditor({
       {riskConsentOpen && (
         <div className="enroll-modal-bg" role="presentation" onClick={() => setRiskConsentOpen(false)}>
           <div
+            ref={riskConsentTrapRef}
             className="enroll-modal"
             role="dialog"
             aria-modal="true"
             aria-labelledby="risk-consent-title"
+            tabIndex={-1}
             onClick={(e) => e.stopPropagation()}
           >
             <h4 id="risk-consent-title">Consent to take the risk questionnaire</h4>
@@ -477,6 +482,7 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
   const [picks, setPicks] = useState(() => selected || [])
   const [modalError, setModalError] = useState('')
   useEscapeToClose(true, onClose)
+  const trapRef = useFocusTrap(true)
   const funds = useMemo(() => {
     const q = query.trim().toLowerCase()
     return ENROLL_FUNDS.filter((f) => {
@@ -502,10 +508,12 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
   return (
     <div className="enroll-modal-bg" role="presentation" onClick={onClose}>
       <div
+        ref={trapRef}
         className="enroll-modal funds-modal"
         role="dialog"
         aria-modal="true"
         aria-labelledby="funds-title"
+        tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="review-h">

@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { Icon } from '../lib/icons'
 import { faExclamationTriangle, faCheck, faCopy, faInfoCircle, faPrint } from '@fortawesome/free-solid-svg-icons'
 import { useFocusTrap } from '../hooks/useFocusTrap'
+import { useEscapeToClose } from '../hooks/useEscapeToClose'
 import Header from '../components/layout/Header.jsx'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import ConfirmDialog from '../components/common/ConfirmDialog.jsx'
@@ -348,6 +349,7 @@ function SubmittedPanel({ type, transactionId, navigate }) {
   const [copied, setCopied] = useState(false)
   const trapRef = useFocusTrap(true)
   const titleId = useId()
+  useEscapeToClose(true, () => navigate('/transactions'))
 
   const copyId = () => {
     if (navigator.clipboard?.writeText) navigator.clipboard.writeText(transactionId)
@@ -841,14 +843,18 @@ function AddBankDialog({ bank, onCancel, onSave }) {
   const [bankName, setBankName] = useState(bank?.bankName || '')
   const [accountNumber, setAccountNumber] = useState('')
   const [routingNo, setRoutingNo] = useState(bank?.routingNo || '')
+  const trapRef = useFocusTrap(true)
+  useEscapeToClose(true, onCancel)
 
   return (
     <div className="enroll-modal-bg" role="presentation" onClick={onCancel}>
       <div
+        ref={trapRef}
         className="confirm-dialog"
         role="dialog"
         aria-modal="true"
         aria-labelledby="add-bank-title"
+        tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         style={{ textAlign: 'left' }}
       >

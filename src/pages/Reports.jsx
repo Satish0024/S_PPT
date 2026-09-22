@@ -9,6 +9,8 @@ import { downloadDocumentFile } from '../lib/downloadDocument.js'
 import Toast from '../components/common/Toast.jsx'
 import Select, { Option } from '../components/common/Select.jsx'
 import DatePicker from '../components/common/DatePicker.jsx'
+import { useEscapeToClose } from '../hooks/useEscapeToClose'
+import { useFocusTrap } from '../hooks/useFocusTrap'
 import '../styles/documents.css'
 
 const STATEMENT_PERIODS = [
@@ -101,10 +103,12 @@ function MultiSelect({ label, options, selected, onChange, getLabel = (o) => o, 
 function StatementModal({ plans, onClose, onGenerate }) {
   const [planId, setPlanId] = useState('')
   const [period, setPeriod] = useState('3m')
+  const trapRef = useFocusTrap(true)
+  useEscapeToClose(true, onClose)
 
   return (
     <div className="enroll-modal-bg" role="presentation" onClick={onClose}>
-      <div className="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="stmt-title" onClick={(e) => e.stopPropagation()}>
+      <div ref={trapRef} className="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="stmt-title" tabIndex={-1} onClick={(e) => e.stopPropagation()}>
         <h4 id="stmt-title">Generate new statement</h4>
         <div className="pr-form">
           <div className="pr-field">

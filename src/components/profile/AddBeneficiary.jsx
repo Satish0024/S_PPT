@@ -4,6 +4,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { ACCOUNT_TYPES, RELATIONSHIPS, emptyBeneficiary, ssnDigitsOnlyError } from '../../lib/profileDetails'
 import { PhoneField, SelectField, SsnField, TextField } from './ProfileFields.jsx'
 import { useEscapeToClose } from '../../hooks/useEscapeToClose'
+import { useFocusTrap } from '../../hooks/useFocusTrap'
 
 const STEPS = [
   { id: 'basic', title: 'Basic details', hint: 'Specify the basic details of the beneficiary.' },
@@ -18,6 +19,7 @@ export default function AddBeneficiary({ onCancel, onSave }) {
   const [error, setError] = useState('')
   const [leaveOpen, setLeaveOpen] = useState(false)
   useEscapeToClose(leaveOpen, () => setLeaveOpen(false))
+  const leaveTrapRef = useFocusTrap(leaveOpen)
 
   const set = (key, value) => {
     setError('')
@@ -264,10 +266,12 @@ export default function AddBeneficiary({ onCancel, onSave }) {
       {leaveOpen && (
         <div className="enroll-modal-bg" role="presentation" onClick={() => setLeaveOpen(false)}>
           <div
+            ref={leaveTrapRef}
             className="enroll-modal"
             role="dialog"
             aria-modal="true"
             aria-labelledby="pr-leave-title"
+            tabIndex={-1}
             onClick={(e) => e.stopPropagation()}
           >
             <h4 id="pr-leave-title">Leave Without Saving?</h4>

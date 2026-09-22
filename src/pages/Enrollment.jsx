@@ -11,6 +11,7 @@ import {
 } from '../data/participants'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
+import { useFocusTrap } from '../hooks/useFocusTrap'
 
 const PLAN_PRE = 6
 const PLAN_ROTH = 2
@@ -60,6 +61,7 @@ export function DeferralEditor({
   const [error, setError] = useState('')
   const [optOutOpen, setOptOutOpen] = useState(false)
   useEscapeToClose(optOutOpen, () => setOptOutOpen(false))
+  const optOutTrapRef = useFocusTrap(optOutOpen)
 
   const setSource = (src, val) => {
     const next = unit === '$' ? pctFromPay(val) : clampPct(val)
@@ -321,10 +323,12 @@ export function DeferralEditor({
       {optOutOpen && (
         <div className="enroll-modal-bg" role="presentation" onClick={() => setOptOutOpen(false)}>
           <div
+            ref={optOutTrapRef}
             className="enroll-modal"
             role="dialog"
             aria-modal="true"
             aria-labelledby="optout-title"
+            tabIndex={-1}
             onClick={(e) => e.stopPropagation()}
           >
             <h4 id="optout-title">Are you sure you want to opt out?</h4>

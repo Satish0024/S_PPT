@@ -18,6 +18,7 @@ import { PlanStats } from '../components/dashboard/PlanCard.jsx'
 import { DeferralEditor } from './Enrollment.jsx'
 import { InvestmentEditor } from './Investments.jsx'
 import { useEscapeToClose } from '../hooks/useEscapeToClose'
+import { useFocusTrap } from '../hooks/useFocusTrap'
 import '../styles/enrollment.css'
 
 const CYCLES = {
@@ -70,6 +71,7 @@ export default function PlanDetails() {
   const [optOutOpen, setOptOutOpen] = useState(false)
   const [optedOut, setOptedOut] = useState(!!savedDeferral?.optedOut)
   useEscapeToClose(optOutOpen, () => setOptOutOpen(false))
+  const optOutTrapRef = useFocusTrap(optOutOpen)
   const [tab, setTab] = useState('deferral')
   const [editing, setEditing] = useState(false)
   const editSnapshot = useRef(null)
@@ -419,10 +421,12 @@ export default function PlanDetails() {
       {optOutOpen && (
         <div className="enroll-modal-bg" role="presentation" onClick={() => setOptOutOpen(false)}>
           <div
+            ref={optOutTrapRef}
             className="enroll-modal"
             role="dialog"
             aria-modal="true"
             aria-labelledby="optout-title"
+            tabIndex={-1}
             onClick={(e) => e.stopPropagation()}
           >
             <h4 id="optout-title">Are you sure you want to opt out?</h4>
