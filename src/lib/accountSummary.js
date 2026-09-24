@@ -42,10 +42,16 @@ const COLORS = ['#e05a4f', '#5ba3d9', '#1a9d63', '#7c6bc4', '#e08a3a', '#2e3192'
 // categories it's made up of rather than a single label.
 const ASSET_CATEGORY = {
   'U.S. Equity': ['Stock'],
+  'Sector Equity': ['Stock'],
+  'Allocation': ['Stock', 'Bond'],
   'International Equity': ['Stock'],
-  'U.S. Bond': ['Bond'],
-  'International Bond': ['Bond'],
-  'Target-Date': ['Stock', 'Bond'],
+  'Alternative': ['Other'],
+  'Commodities': ['Other'],
+  'Taxable Bond': ['Bond'],
+  'Municipal Bond': ['Bond'],
+  'Money Market': ['Other'],
+  'Miscellaneous': ['Other'],
+  'Nontraditional Equity': ['Stock'],
   Balanced: ['Stock', 'Bond']
 }
 

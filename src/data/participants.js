@@ -105,9 +105,9 @@ export const PARTICIPANTS = [
         investments: [
           { name: 'Vanguard 500 Index Fund', asset: 'U.S. Equity', amount: 3467, price: 96.3, units: 36.002 },
           { name: 'Fidelity 500 Index Fund', asset: 'U.S. Equity', amount: 3467, price: 185.42, units: 18.698 },
-          { name: 'Vanguard Total Bond Market', asset: 'U.S. Bond', amount: 2311, price: 10.12, units: 228.36 },
-          { name: 'Fidelity U.S. Bond Index', asset: 'U.S. Bond', amount: 2311, price: 10.85, units: 212.995 },
-          { name: 'Vanguard Wellington Fund', asset: 'Balanced', amount: 1284, price: 44.8, units: 28.661 }
+          { name: 'Vanguard Total Bond Market', asset: 'Taxable Bond', amount: 2311, price: 10.12, units: 228.36 },
+          { name: 'Fidelity U.S. Bond Index', asset: 'Taxable Bond', amount: 2311, price: 10.85, units: 212.995 },
+          { name: 'Vanguard Wellington Fund', asset: 'Allocation', amount: 1284, price: 44.8, units: 28.661 }
         ]
       },
       {
@@ -272,9 +272,9 @@ export const PARTICIPANTS = [
         investments: [
           { name: 'Vanguard 500 Index Fund', asset: 'U.S. Equity', amount: 28705, price: 96.3, units: 298.079 },
           { name: 'Fidelity 500 Index Fund', asset: 'U.S. Equity', amount: 20691, price: 185.42, units: 111.59 },
-          { name: 'Vanguard Total Bond Market', asset: 'U.S. Bond', amount: 15777, price: 10.12, units: 1558.992 },
-          { name: 'Fidelity U.S. Bond Index', asset: 'U.S. Bond', amount: 13159, price: 10.85, units: 1212.811 },
-          { name: 'Vanguard Target Retirement 2050', asset: 'Target-Date', amount: 8834, price: 45.18, units: 195.529 }
+          { name: 'Vanguard Total Bond Market', asset: 'Taxable Bond', amount: 15777, price: 10.12, units: 1558.992 },
+          { name: 'Fidelity U.S. Bond Index', asset: 'Taxable Bond', amount: 13159, price: 10.85, units: 1212.811 },
+          { name: 'Vanguard Target Retirement 2050', asset: 'Allocation', amount: 8834, price: 45.18, units: 195.529 }
         ]
       }
     ],

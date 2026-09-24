@@ -27,11 +27,37 @@ const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1
 // printout) can still tell the lines apart. Chart.js applies `dash` as
 // `borderDash` and `pointStyle` as-is; the legend swatches below draw the
 // same dash pattern in CSS so the key matches the chart.
+// Review item #83: the asset-class list shown on the portfolio chart.
+export const ASSET_CLASSES = [
+  'U.S. Equity',
+  'Sector Equity',
+  'Allocation',
+  'International Equity',
+  'Alternative',
+  'Commodities',
+  'Taxable Bond',
+  'Municipal Bond',
+  'Money Market',
+  'Miscellaneous',
+  'Nontraditional Equity'
+]
+const CLASS_COLORS = ['#1a9d63', '#0270a9', '#d4a017', '#7c6bc4', '#0e7490', '#8a5a12', '#2e3192', '#be185d', '#4d7c0f', '#c2410c', '#5ba3d9']
+const CLASS_DASHES = [[7, 4], [2, 3], [9, 3, 2, 3], [4, 3], [1, 3], [6, 3], [8, 4], [3, 2, 1, 2], [5, 4], [10, 3], [3, 3]]
+const CLASS_POINTS = ['triangle', 'rect', 'star', 'circle']
+// Each class's end-of-period return, as a multiple of the period's equity return.
+const CLASS_SCALE = [1, 0.92, 0.68, 0.78, 0.4, 0.3, 0.34, 0.28, 0.18, 0.5, 0.95]
+
 const SERIES = [
   { key: 'total', label: 'Total portfolio', color: '#e05a4f', dash: [], pointStyle: 'circle' },
-  { key: 'equity', label: 'U.S. Equity', color: '#1a9d63', dash: [7, 4], pointStyle: 'triangle' },
-  { key: 'bond', label: 'U.S. Bond', color: '#2e3192', dash: [2, 3], pointStyle: 'rect' },
-  { key: 'target', label: 'Target-Date', color: '#d4a017', dash: [9, 3, 2, 3], pointStyle: 'star' }
+  ...ASSET_CLASSES.map((label, i) => ({
+    key: `ac-${i}`,
+    label,
+    color: CLASS_COLORS[i],
+    dash: CLASS_DASHES[i],
+    pointStyle: CLASS_POINTS[i % CLASS_POINTS.length],
+    scale: CLASS_SCALE[i],
+    seed: 1 + i * 3
+  }))
 ]
 
 const COLS = {
@@ -53,7 +79,7 @@ export default function Portfolio() {
   const [planId, setPlanId] = useState('saturna-401k')
   const [sort, setSort] = useState({ key: null, dir: 1 })
   const [ytdDir, setYtdDir] = useState(null)
-  const [visible, setVisible] = useState({ total: true, equity: false, bond: false, target: false })
+  const [visible, setVisible] = useState(() => Object.fromEntries(SERIES.map((s) => [s.key, s.key === 'total'])))
   const plan = PLAN_STATS[planId]
 
   // Re-read the resolved CSS variables whenever the theme flips so the grid
@@ -97,7 +123,10 @@ export default function Portfolio() {
     const bond = cumSeries(n, ends.bond, 4)
     const target = cumSeries(n, ends.target, 7)
     const total = equity.map((e, i) => Math.round((e * 0.64 + bond[i] * 0.23 + target[i] * 0.13) * 100) / 100)
-    const dataByKey = { total, equity, bond, target }
+    const dataByKey = { total }
+    SERIES.forEach((s) => {
+      if (s.key !== 'total') dataByKey[s.key] = cumSeries(n, Math.round(ends.equity * s.scale * 100) / 100, s.seed)
+    })
     return {
       labels: labs,
       datasets: SERIES.map((s) => line(s, dataByKey[s.key], s.key === 'total' ? 0 : undefined, !visible[s.key]))
@@ -110,7 +139,8 @@ export default function Portfolio() {
   const toggleSeries = (key) => {
     setVisible((v) => {
       if (key === 'total') {
-        return v.total ? { total: false, equity: false, bond: false, target: false } : { total: true, equity: false, bond: false, target: false }
+        const cleared = Object.fromEntries(SERIES.map((s) => [s.key, false]))
+        return v.total ? cleared : { ...cleared, total: true }
       }
       return { ...v, total: false, [key]: !v[key] }
     })
@@ -451,7 +481,7 @@ function buildChartOptions({ axisTitle, gridLine, tick }) {
       x: {
         title: {
           display: true,
-          text: 'Time Period',
+          text: 'Period of return',
           color: axisTitle,
           font: { size: 12, weight: '600', family: 'Inclusive Sans, sans-serif' },
           padding: { top: 8 }
