@@ -236,7 +236,7 @@ export default function AccountSummary() {
               </div>
 
               <div className="as-table-wrap">
-                <table className={`as-table ${tab === 'investments' || tab === 'assetclass' || tab === 'sources' ? 'as-table-accordion' : ''}`}>
+                <table className={tab === 'investments' || tab === 'assetclass' || tab === 'sources' ? 'as-table-accordion' : ''}>
                   <thead>
                     <tr>
                       <SortTh
@@ -273,7 +273,6 @@ export default function AccountSummary() {
                       // expanded row injects a detail <tr> into the same tbody, which flips
                       // the parity of every row below it as sources open and close.
                       const zebra = displayIndex % 2 === 1 ? 'as-row-alt' : ''
-                      const nameLabel = tab === 'sources' ? 'Source' : tab === 'assetclass' ? 'Asset class' : 'Investment'
                       return (
                         <Fragment key={row.id}>
                           <tr
@@ -281,7 +280,6 @@ export default function AccountSummary() {
                             onMouseEnter={() => setActive(i)}
                             onMouseLeave={() => setActive(null)}
                           >
-                            {/* Name cell has no data-label: it becomes the card title on mobile */}
                             <td>
                               {isExpandable ? (
                                 <button
@@ -304,10 +302,10 @@ export default function AccountSummary() {
                               )}
                             </td>
                             {isInvestment ? (
-                              <td className="num" data-label="Units">{row.units != null ? formatUnits(row.units) : '—'}</td>
+                              <td className="num">{row.units != null ? formatUnits(row.units) : '—'}</td>
                             ) : null}
-                            <td className="num" data-label="Balance">{formatMoney(row.amount)}</td>
-                            <td className="num" data-label="Percent">{formatPct(row.pct)}</td>
+                            <td className="num">{formatMoney(row.amount)}</td>
+                            <td className="num">{formatPct(row.pct)}</td>
                           </tr>
                           {isOpen && isInvestment ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
