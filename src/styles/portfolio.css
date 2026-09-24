@@ -203,36 +203,4 @@
     .overview-row .chart-wrap{min-height:220px;height:220px}
     .period button{padding:var(--space-2) var(--space-2-5);font-size:var(--text-body-xs-size);min-height:40px}
     .legend-chip{min-height:44px;padding:var(--space-2) var(--space-2)}
-
-    /* ---- Plan investments & Holdings: mobile card overrides ----
-       The plan-table has border:1px solid on every <td> (grid mode) and
-       dashed bottom borders on fund rows. In card mode these create a
-       double-outline and ugly dashed lines inside each card. Strip them
-       so cards match the clean t-stack pattern. */
-    .plan-table.t-stack tbody td,
-    .plan-table.t-stack thead th{border:none}
-    .plan-table.t-stack tbody td{
-      border-bottom:1px solid var(--neutral-border-light);
-      border-left:none;border-right:none;border-top:none}
-    .plan-table.t-stack tbody td:last-child{border-bottom:none}
-    /* Fund row dashed bottom → clean solid in card mode */
-    .plan-table.t-stack tr.fund-row td{border-bottom-style:solid}
-    /* Fund name cell → card title */
-    .plan-table.t-stack td.fund-cell{
-      padding-top:var(--space-0);padding-bottom:var(--space-2-5);
-      border-bottom:1px solid var(--neutral-border-light);min-width:0}
-    /* Benchmark card: tuck under its fund card (no gap) */
-    .plan-table.t-stack tr.fund-row{margin-bottom:var(--space-0);border-bottom-left-radius:0;border-bottom-right-radius:0}
-    .plan-table.t-stack tr.bench-row{
-      margin-top:0;border-top:1px dashed var(--neutral-border-strong);
-      border-top-left-radius:0;border-top-right-radius:0;
-      background:var(--surface-subtle)}
-    .plan-table.t-stack tr.bench-row td{background:transparent}
-    .plan-table.t-stack tr.group-end td{border-bottom:1px solid var(--neutral-border-light)}
-    .plan-table.t-stack tr.group-end td:last-child{border-bottom:none}
-
-    /* Holdings table: same clean-up */
-    .holdings-table.t-stack tbody td{border:none;
-      border-bottom:1px solid var(--neutral-border-light)}
-    .holdings-table.t-stack tbody td:last-child{border-bottom:none}
   }
