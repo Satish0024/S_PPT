@@ -193,12 +193,6 @@
 
 @media(max-width:640px){
   .quick-actions-grid{grid-template-columns:1fr}
-  .txn-actions{flex-direction:column;align-items:stretch}
-  .txn-actions .btn{width:100%;min-width:0}
-  .txn-main{padding:var(--page-padding-y-sm) var(--page-padding-x-sm)}
-  .txn-plan-head{flex-direction:column;align-items:flex-start}
-  .req-plan-strip{flex-direction:column;align-items:stretch;gap:var(--space-3)}
-  .req-plan-stats{margin-left:var(--space-0)}
 }
 
 .wd-note.warn{background:var(--semantics-critical-background-light);color:var(--semantics-critical-text)}

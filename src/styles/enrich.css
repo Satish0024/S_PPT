@@ -101,7 +101,3 @@
     .grid{grid-template-columns:1fr}
     .page-intro h1{font-size:var(--text-display-md-size)}
   }
-  @media(max-width:480px){
-    .page{padding:var(--page-padding-y-sm) var(--page-padding-x-sm) var(--page-padding-bottom-sm)}
-    .enrich-topbar{padding:var(--space-0) var(--page-padding-x-sm)}
-  }
