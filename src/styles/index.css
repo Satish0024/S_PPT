@@ -933,14 +933,9 @@
   .overall-balance .ob-loan{
     margin-top:var(--space-3-5);padding-top:var(--space-3-5);border-top:1px solid var(--neutral-border-light)}
   .overall-balance .ob-loan-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--space-2)}
-  .overall-balance .ob-loan .loan-k{font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light)}
+  .overall-balance .ob-loan .loan-k{font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle-light);display:inline-flex;align-items:center}
+  .overall-balance .ob-loan .loan-k .field-tip{margin-left:var(--space-0);margin-right:var(--space-1)}
   .overall-balance .ob-loan .loan-v{font-size:var(--text-body-lg-size);font-weight:var(--font-weight-bold);color:var(--semantics-warning-text);font-variant-numeric:tabular-nums}
-  .overall-balance .ob-loan .loan-note{
-    display:flex;gap:var(--space-1-5);align-items:flex-start;
-    margin-top:var(--space-1-5);font-size:var(--text-caption-size);line-height:1.45;color:var(--neutral-text-subtle-light);width:100%}
-  /* Note wraps to two lines, so the icon aligns to the first line's optical
-     centre rather than the flex box's centre. */
-  .overall-balance .ob-loan .loan-note svg{flex:0 0 auto;margin-top:var(--space-0-5)}
   .overall-balance .ob-footnote{font-size:var(--text-xs-size);color:var(--neutral-text-subtle-light);line-height:1.5;margin:var(--space-3) var(--space-0) var(--space-0);padding-top:var(--space-3);border-top:1px solid var(--neutral-border-light)}
 
   .rr-card{
@@ -2239,60 +2234,8 @@
     .dash-layout{grid-template-columns:1fr}
     .plans-grid,.profile-grid,.pf-fields,.pd-grid,.plan-fact-row,.pr-shell,.pr-history li > div{grid-template-columns:1fr}
     .quick-grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
-    /* Horizontal stepper for mobile. The old rule set flex-direction:row on
-       .pr-steps, but .pr-steps is a plain block <ol> -- it never sets
-       display:flex -- so that did nothing and the stepper stayed a
-       full-height vertical list, pushing the actual form fields off-screen
-       on a phone. */
-    .pr-steps{
-      position:static;display:flex;flex-direction:row;flex-wrap:nowrap;align-items:flex-start;
-      gap:var(--space-0);padding:var(--space-3) var(--space-2);border-radius:var(--radius-lg)}
-    .pr-steps li{flex:1 1 0;min-width:0;position:relative}
-    /* Connector track: spans the previous step's centre to this one's, inset
-       past both circles so it reads as a rail between them rather than
-       touching the numbers. Sits behind the circles, which are opaque. */
-    .pr-steps li + li::before{
-      content:'';position:absolute;top:16px;left:-50%;right:50%;
-      margin:var(--space-0) 22px;height:2px;background:var(--neutral-border-light)}
-    .pr-steps li.on::before,.pr-steps li.done::before{background:var(--brand-background-primary-strong)}
-    .pr-steps button{
-      display:flex;flex-direction:column;align-items:center;gap:var(--space-1-5);
-      padding:var(--space-0);text-align:center}
-    .pr-steps button:hover:not(:disabled),.pr-steps li.on button{background:transparent}
-    /* Circles, not the desktop rounded squares: with a connector rail
-       running between them a square reads as a chip, not a step marker. */
-    .pr-steps b{border-radius:var(--radius-full);position:relative;z-index:1}
-    .pr-steps strong{font-size:var(--text-caption-size);line-height:1.3}
-    /* The hint sentence and the COMPLETED/IN PROGRESS label are the vertical
-       list's affordances; three columns of them at phone width wrap into an
-       unreadable block, and both states are already carried by the check
-       icon and the active colour. */
-    .pr-steps p,.pr-steps em{display:none}
-    /* Mobile variant: the sidebar becomes a horizontally scrolling tab strip
-       rather than the wrapped row it used to be. Wrapping five items of very
-       uneven width ("Bank Details" next to "Employee Classification") built a
-       ragged 2-2-1 grid that read as a card of buttons, not as navigation,
-       and gave no cue which item was the current section.
-       This is deliberately the same text-only scrolling-tab language as
-       .pr-class-tabs, the sub-tab strip already on this page, so Profile has
-       one nav idiom on mobile instead of two. Icon chips are dropped here:
-       at 375px a 32px chip per tab left barely 1.5 tabs visible, hiding the
-       fact that the strip scrolls at all. */
-    .pr-nav{
-      position:static;flex-direction:row;flex-wrap:nowrap;gap:var(--space-1);
-      overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;
-      max-height:none;background:transparent;border:none;border-radius:0;box-shadow:none;
-      padding:var(--space-0) var(--space-0) var(--space-2-5);
-      border-bottom:1px solid var(--neutral-border-light)}
-    .pr-nav button{
-      width:auto;flex:0 0 auto;scroll-snap-align:start;white-space:nowrap;min-height:44px;
-      padding:var(--space-2) var(--space-2-5);border-radius:0;
-      border-bottom:2px solid transparent;background:transparent}
-    .pr-nav button:hover{background:transparent;color:var(--neutral-text-default)}
-    .pr-nav button.on{
-      background:transparent;color:var(--brand-text-primary-default);
-      border-bottom-color:var(--brand-text-primary-default)}
-    .pr-nav .pr-nav-ico{display:none}
+    .pr-nav,.pr-steps{position:static;flex-direction:row;flex-wrap:wrap}
+    .pr-nav button{width:auto;flex:1 1 auto}
     .pr-hero{grid-template-columns:64px minmax(0,1fr)}
     /* Stays flex-end, matching desktop: the status badge belongs directly
        above the Edit button on the right. Left-aligning it here dropped the
@@ -2325,20 +2268,11 @@
   }
   @media(max-width:640px){
     .layout{display:block;padding-bottom:calc(var(--space-18) + env(safe-area-inset-bottom))}
-    /* That clearance is for the fixed tab bar, but the footer is a SIBLING
-       after .layout (see AppLayout.jsx), so it sat outside the padded box and
-       the tab bar covered it once you scrolled to the end of the page. Where
-       a footer follows, it carries the clearance instead — otherwise
-       .layout's padding and the footer's would stack into ~144px of dead
-       space above the bar. Routes with no footer (EnrollmentLayout,
-       TransactionRequest) keep relying on .layout's padding. */
-    .layout:has(+ .app-footer){padding-bottom:var(--space-0)}
     /* Mobile swaps the sidebar for a fixed bottom tab bar (below) --
        no room left for a second fixed bar, so the footer collapses
        into the page flow instead of floating above the tab bar. */
     .app-footer{position:static;height:auto;flex-direction:column;align-items:flex-start;
       gap:var(--space-1);padding:var(--space-3) var(--page-padding-x-sm,var(--space-4));
-      padding-bottom:calc(var(--space-3) + var(--mobile-nav-h) + env(safe-area-inset-bottom));
       margin-left:var(--space-0);width:100%}
     .nav ~ *:not(.mobile-nav):not(.mobile-menu-bg){margin-left:var(--space-0)}
     /* Mobile swaps the 5-item desktop rail for a 3-item bottom bar
@@ -2360,26 +2294,11 @@
     .mobile-nav-btn .ico svg{width:var(--icon-md);height:var(--icon-md)}
     .mobile-nav-btn.active,a.mobile-nav-btn.active{color:var(--brand-text-primary-default)}
     .mobile-nav-btn.active::before{content:"";position:absolute;left:28%;right:28%;top:0;height:3px;border-radius:0 0 var(--radius-xs) var(--radius-xs);background:var(--brand-text-primary-default)}
-    /* Sheet was appearing instantly with no transition, so it read as a jump
-       rather than as a panel coming up from the tab bar it belongs to. The
-       scrim fades and the panel slides; both are skipped under
-       prefers-reduced-motion below. */
-    .mobile-menu-bg{position:fixed;inset:0;z-index:41;background:color-mix(in srgb, var(--neutral-text-default) 46%, transparent);display:flex;align-items:flex-end;
-      animation:sheet-scrim-in var(--motion-base) ease both}
+    .mobile-menu-bg{position:fixed;inset:0;z-index:41;background:color-mix(in srgb, var(--neutral-text-default) 46%, transparent);display:flex;align-items:flex-end}
     .mobile-menu-sheet{
       width:100%;background:var(--surface-default);border-radius:var(--radius-xl) var(--radius-xl) 0 0;
       padding:var(--space-3) var(--space-2) calc(var(--space-4) + env(safe-area-inset-bottom));
-      box-shadow:var(--shadow-lg);margin-bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom));
-      animation:sheet-in .24s cubic-bezier(.22,.61,.36,1) both}
-    /* Grabber: the conventional cue that a bottom sheet is dismissible. */
-    .mobile-menu-sheet::before{
-      content:'';display:block;width:36px;height:4px;margin:var(--space-0) auto var(--space-2);
-      border-radius:var(--radius-full);background:var(--neutral-border-strong)}
-    @keyframes sheet-scrim-in{from{opacity:0}to{opacity:1}}
-    @keyframes sheet-in{from{transform:translateY(100%)}to{transform:translateY(0)}}
-    @media(prefers-reduced-motion:reduce){
-      .mobile-menu-bg,.mobile-menu-sheet{animation:none}
-    }
+      box-shadow:var(--shadow-lg);margin-bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom))}
     .mobile-menu-sheet a{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-3);
       border-radius:var(--radius-sm);color:var(--neutral-text-default);text-decoration:none;font-weight:var(--font-weight-semibold);font-size:var(--text-body-md-size)}
     .mobile-menu-sheet a:hover{background:var(--brand-background-primary-subtle)}
@@ -2718,12 +2637,6 @@ summary:focus-visible {
   z-index:120;max-height:var(--sel-max-h,280px);overflow-y:auto;
   background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);
   padding:var(--space-1-5);margin:0;list-style:none}
-@media(max-width:640px){
-  /* Full-bleed on phones. Matching the trigger's width meant a control capped
-     at 240px (e.g. .plan-select-wrap) produced a cramped 240px menu with
-     truncated option labels. */
-  .ui-select-menu{left:var(--space-4);right:var(--space-4);width:auto}
-}
 .ui-select-opt{
   display:block;width:100%;text-align:left;background:none;border:none;border-radius:var(--radius-sm);cursor:pointer;
   padding:var(--space-2) var(--space-2-5);font:inherit;font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-default)}
@@ -3699,68 +3612,4 @@ th:has(.th-sort){padding:0}
 .th-sort.active svg{color:var(--brand-text-primary-default);opacity:1}
 .th-sort:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:-2px}
 
-/* ---------- Mobile: tables become stacked cards ----------
-   Every data table in the app previously survived narrow screens by
-   horizontally scrolling inside .table-wrap, several with a min-width of
-   640-980px. On a 375px screen that means a participant reads a balance by
-   dragging the table sideways, with the row's identity column scrolled out of
-   view by the time they reach the number.
 
-   At <=640px an opted-in table drops its header row and re-flows each <tr>
-   into a card, each cell becoming a "label / value" line. The label comes from
-   the cell's own data-label attribute, so the header text stays in one place
-   in the markup and screen readers keep the real <th> association above.
-
-   This mirrors .ai-row / .doc-row, which already collapse to a single column
-   at this breakpoint, and uses only DS tokens -- the same surface, border,
-   radius and spacing values the desktop table and .panel already use. */
-@media(max-width:640px){
-  .t-stack thead{
-    /* Not display:none: that drops the cells from the accessibility tree and
-       with them the column associations the data-labels are mirroring. */
-    position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-  .t-stack,.t-stack tbody,.t-stack tr,.t-stack td{display:block;width:auto}
-  .t-stack{min-width:0;border-collapse:separate}
-  .t-stack tr{
-    background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);
-    padding:var(--space-1) var(--space-3-5);margin:var(--space-0) var(--space-0) var(--space-3)}
-  .t-stack tr:last-child{margin-bottom:var(--space-0)}
-  /* Zebra striping is a row-scanning cue for a grid; once rows are separate
-     cards the card edge does that job and alternating fills just look like
-     two kinds of card. */
-  .t-stack tbody tr:nth-child(even),.t-stack tbody tr.as-row-alt{background:var(--surface-default)}
-  .t-stack td{
-    display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-4);
-    padding:var(--space-2) var(--space-0);text-align:left;border-bottom:1px solid var(--neutral-border-light);white-space:normal}
-  .t-stack td:last-child{border-bottom:none}
-  .t-stack td::before{
-    content:attr(data-label);flex:0 0 auto;
-    font-size:var(--text-body-sm-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
-  /* A cell with no label is a full-width slot (row actions, an expand
-     control, a colSpan message) rather than a label/value pair. */
-  .t-stack td:not([data-label])::before{content:none}
-  .t-stack td:not([data-label]){display:block}
-  /* An unlabelled leading cell is the card's title — the fund or source name
-     the rest of the values belong to — so it gets heading weight instead of
-     sitting in the label column of a pair. */
-  .t-stack td:first-child:not([data-label]){
-    padding-top:var(--space-2-5);font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold)}
-  /* .num right-aligns numerics against a desktop column edge; in a card the
-     value already sits opposite its label, so the override only has to stop
-     the text collapsing to the left of the flex line. */
-  .t-stack td.num{text-align:right}
-  .t-stack tfoot{display:block}
-  .t-stack tfoot tr{
-    background:var(--surface-muted);border-color:var(--neutral-border-strong)}
-  /* A benchmark is a comparison for the fund card above it, not a fund in its
-     own right. As a grid row the dashed rule and muted fill carried that; as a
-     card it needs to stay visibly subordinate, so it's tucked in and tinted
-     rather than presented as an equal sibling. */
-  .t-stack tr.bench-row{
-    background:var(--surface-subtle);margin:calc(-1 * var(--space-2)) var(--space-0) var(--space-3) var(--space-4);
-    border-color:var(--neutral-border-light)}
-  .t-stack tr.bench-row td:first-child{font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
-  /* The wrapper's scroll affordance and min-width are what forced the sideways
-     drag; with cards there is nothing left to scroll. */
-  .t-stack-wrap{overflow:visible;border:none;border-radius:0;background:transparent;box-shadow:none}
-}

@@ -192,10 +192,7 @@
     .page-head{padding:var(--space-3-5) var(--space-4)}
     .page-head h1{font-size:var(--text-h4-size)}
     .page-head-row{gap:var(--space-2-5)}
-    /* Full width on phones. The 240px cap truncated every real plan name
-       ("LendGuard Employees Savings and Re…"), and there's nothing beside it
-       at this width to share the row with. Desktop keeps its 220–320px range. */
-    .plan-select-wrap{flex:1 1 100%;width:100%;min-width:0;max-width:none}
+    .plan-select-wrap{min-width:180px;max-width:240px}
     .tabs{padding:var(--space-0) var(--space-4);overflow-x:auto}
     .page-body{padding:var(--page-padding-y-sm) var(--page-padding-x-sm) var(--page-padding-bottom-sm);gap:var(--page-gap)}
     .balance{font-size:var(--text-3xl-size)}
