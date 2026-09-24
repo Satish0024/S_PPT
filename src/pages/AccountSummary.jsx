@@ -2,7 +2,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ArcElement, Chart as ChartJS, Tooltip } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
-import { ArrowLeft, ChevronDown, Database, PieChart, Wallet } from 'lucide-react'
+import { ArrowLeft, ChevronDown, Database, PieChart } from 'lucide-react'
 import { useParticipant } from '../context/ParticipantContext.jsx'
 import {
   assetCategory,
@@ -24,11 +24,15 @@ import '../styles/account-summary.css'
 
 ChartJS.register(ArcElement, Tooltip)
 
+// #54: the asset-class view carries the "Investments" label; the old
+// per-fund Investments tab was removed.
 const TABS = [
   { id: 'sources', label: 'Sources', icon: Database },
-  { id: 'investments', label: 'Investments', icon: Wallet },
-  { id: 'assetclass', label: 'Asset class', icon: PieChart }
+  { id: 'assetclass', label: 'Investments', icon: PieChart }
 ]
+
+// Funds are priced once per business day, so a NAV needs its date (#57).
+const NAV_AS_OF = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 
 function fade(hex, on) {
   if (on) return hex
@@ -217,30 +221,6 @@ export default function AccountSummary() {
                     <em>{highlight ? formatPct(highlight.pct) : '100.00%'}</em>
                   </div>
                 </div>
-                <ul className="as-legend">
-                  {rows.map((row, i) => (
-                    <li key={row.id}>
-                      <button
-                        type="button"
-                        className={active === i ? 'on' : ''}
-                        onMouseEnter={() => setActive(i)}
-                        onMouseLeave={() => setActive(null)}
-                        onFocus={() => setActive(i)}
-                        onBlur={() => setActive(null)}
-                      >
-                        <i style={{ background: row.color }} aria-hidden="true" />
-                        <span className="as-leg-copy">
-                          <b>{row.name}</b>
-                          {row.asset ? <small>{row.asset}</small> : null}
-                        </span>
-                        <span className="as-leg-amt">
-                          <b>{formatMoney(row.amount)}</b>
-                          <small>{formatPct(row.pct)}</small>
-                        </span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
               </div>
 
               <div className="as-table-wrap">
@@ -252,7 +232,6 @@ export default function AccountSummary() {
                       {tab === 'investments' ? <th scope="col" className="num">Units</th> : null}
                       <th scope="col" className="num">Balance</th>
                       <th scope="col" className="num">{tab === 'investments' ? 'Election Percentage' : 'Percent'}</th>
-                      {tab === 'sources' ? <th scope="col" className="num">Vested</th> : null}
                     </tr>
                   </thead>
                   <tbody>
@@ -300,7 +279,6 @@ export default function AccountSummary() {
                             ) : null}
                             <td className="num">{formatMoney(row.amount)}</td>
                             <td className="num">{formatPct(row.pct)}</td>
-                            {tab === 'sources' ? <td className="num">{formatMoney(row.vested)}</td> : null}
                           </tr>
                           {isOpen && isInvestment ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
@@ -326,12 +304,15 @@ export default function AccountSummary() {
                           ) : null}
                           {isOpen && (isAssetClass || isSource) ? (
                             <tr className="as-row-detail" id={`${row.id}-detail`}>
-                              <td colSpan={isSource ? 5 : 3}>
+                              <td colSpan={3}>
+                                <p className="as-class-asof">NAV as of {NAV_AS_OF}</p>
                                 <ul className="as-class-members">
-                                  {row.members.map((m) => (
+                                  {(row.members || []).map((m) => (
                                     <li key={m.id}>
-                                      <span className="as-swatch" style={{ background: m.color }} aria-hidden="true" />
-                                      <span className="as-class-member-name">{m.name}</span>
+                                      <span className="as-class-member-name">
+                                        {m.name}
+                                        {m.price != null && <small className="as-class-member-nav">NAV {formatMoney(m.price)}</small>}
+                                      </span>
                                       <span className="as-class-member-units">
                                         {m.units != null ? `${formatUnits(m.units)} units` : ''}
                                       </span>
@@ -353,7 +334,6 @@ export default function AccountSummary() {
                       {tab === 'investments' ? <td /> : null}
                       <td className="num">{formatMoney(summary.balance)}</td>
                       <td className="num">100.00%</td>
-                      {tab === 'sources' ? <td className="num">{formatMoney(summary.vested)}</td> : null}
                     </tr>
                   </tfoot>
                 </table>
