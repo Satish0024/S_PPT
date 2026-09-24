@@ -235,7 +235,7 @@ export default function Portfolio() {
                       key: s.key,
                       label: s.label,
                       color: s.color,
-                      pointStyle: s.pointStyle,
+                      dash: s.dash,
                       checked: visible[s.key],
                       // Total portfolio is an aggregate of the other three
                       // series, so picking it clears and disables them

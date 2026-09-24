@@ -79,7 +79,8 @@
   .legend input[type="checkbox"]:disabled{cursor:not-allowed}
   /* A distinct shape per series — alongside the chart's own dash patterns —
      so the legend key doesn't rely on color alone to tell lines apart. */
-  .legend-swatch{width:10px;height:10px;flex:0 0 auto;background:var(--series-color);display:inline-block}
+  .legend-line{flex:0 0 auto;display:block}
+.legend-swatch{width:10px;height:10px;flex:0 0 auto;background:var(--series-color);display:inline-block}
   .legend-swatch--circle{border-radius:50%}
   .legend-swatch--rect{border-radius:2px}
   .legend-swatch--triangle{width:0;height:0;background:transparent;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:9px solid var(--series-color)}
