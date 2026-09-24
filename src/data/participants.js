@@ -1,4 +1,4 @@
-export const PLAN_401K = 'Saturna 401(k) Plan'
+export const PLAN_401K = 'Saturna Employees Savings and Retirement 401(k) Plan'
 export const PLAN_ROTH = 'Saturna Roth 401(k) Plan'
 export const PLAN_DC = 'Saturna Deferred Comp Plan'
 export const PLAN_CB = 'Saturna Cash Balance Plan'

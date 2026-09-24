@@ -1,6 +1,6 @@
 export const PLAN_STATS = {
   'saturna-401k': {
-    label: 'Saturna 401(k) Plan',
+    label: 'Saturna Employees Savings and Retirement 401(k) Plan',
     current: '$100,416.00',
     invested: '$90,500.00',
     gain: '+$9,916.00',

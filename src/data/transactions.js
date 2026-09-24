@@ -419,7 +419,7 @@ export const TRANSACTION_REQUESTS = {
       id: 'req-1001',
       type: 'loan',
       typeLabel: 'Loan',
-      plan: 'Saturna 401(k) Plan',
+      plan: 'Saturna Employees Savings and Retirement 401(k) Plan',
       amount: '$2,500.00',
       date: 'Jan 10, 2026',
       status: 'Approved',
