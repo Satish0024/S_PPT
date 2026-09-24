@@ -211,12 +211,8 @@ export default function EnrollmentSummary() {
 
               <div className="success-next">
                 <div>
-                  <b>{hasBeneficiary ? 'View Beneficiary' : 'Add a beneficiary'}</b>
-                  <span>
-                    {hasBeneficiary
-                      ? 'Recommended to ensure your account passes to someone you choose.'
-                      : 'Recommended so your account can pass to someone you choose.'}
-                  </span>
+                  <b>{hasBeneficiary ? 'View beneficiary' : 'Add a beneficiary'}</b>
+                  <span>Recommended to ensure your account passes to someone you choose.</span>
                 </div>
                 <button
                   type="button"
