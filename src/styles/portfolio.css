@@ -209,13 +209,6 @@
        dashed bottom borders on fund rows. In card mode these create a
        double-outline and ugly dashed lines inside each card. Strip them
        so cards match the clean t-stack pattern. */
-    /* ---- Kill min-width so cards don't force a wide scroll ---- */
-    table.t-stack{min-width:0!important}
-    .plan-table.t-stack{min-width:0!important}
-    .holdings-table.t-stack{min-width:0!important}
-    .plan-table.t-stack td.fund-cell,
-    .plan-table.t-stack th.fund-col{min-width:0}
-
     .plan-table.t-stack tbody td,
     .plan-table.t-stack thead th{border:none}
     .plan-table.t-stack tbody td{
@@ -239,7 +232,6 @@
     .plan-table.t-stack tr.group-end td:last-child{border-bottom:none}
 
     /* Holdings table: same clean-up */
-    .holdings-table.t-stack{min-width:0!important}
     .holdings-table.t-stack tbody td{border:none;
       border-bottom:1px solid var(--neutral-border-light)}
     .holdings-table.t-stack tbody td:last-child{border-bottom:none}
