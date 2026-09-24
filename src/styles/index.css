@@ -1683,9 +1683,6 @@
   @media(prefers-reduced-motion:reduce){.risk2-edit-btn svg{animation:none}}
   @media(max-width:520px){
     .risk2-top{flex-direction:column;text-align:center}
-    .risk3-body{max-width:100%}
-    .risk3-field{width:40%;min-width:0;opacity:.4}
-    .rgs-banner-art{min-width:0;width:50%}
   }
 
   .side-card{background:var(--surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--radius-xl);padding:var(--space-4);box-shadow:var(--shadow)}
@@ -2230,7 +2227,7 @@
     .cards{grid-template-columns:1fr}
     .dash-layout{grid-template-columns:1fr}
     .plans-grid,.profile-grid,.pf-fields,.pd-grid,.plan-fact-row,.pr-shell,.pr-history li > div{grid-template-columns:1fr}
-    .quick-grid{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+    .quick-grid{grid-template-columns:1fr}
     .pr-nav,.pr-steps{position:static;flex-direction:row;flex-wrap:wrap}
     .pr-nav button{width:auto;flex:1 1 auto}
     .pr-hero{grid-template-columns:64px minmax(0,1fr)}
@@ -2407,19 +2404,6 @@
   .slideover-body{flex:1;overflow-y:auto;padding:var(--space-5) var(--space-6);background:var(--surface-muted)}
   @media(max-width:640px){
     .slideover-panel,.slideover-panel.slideover-wide{max-width:100%}
-    .section-title{font-size:var(--text-h3-size)}
-    .learn-illo{width:100px;height:75px;opacity:.35}
-    .learn-card p{max-width:100%}
-  }
-  @media(max-width:520px){
-    .slideover-head{padding:var(--space-4)}
-    .slideover-body{padding:var(--space-4)}
-    .txn-success-modal{padding:var(--space-5) var(--space-4) var(--space-4)}
-    .overall-balance .ob-v{font-size:var(--text-display-md-size)}
-  }
-  @media(max-width:420px){
-    .enroll-modal-bg,.rq-bg{padding:var(--space-3)}
-    .quick-grid{grid-template-columns:1fr}
   }
 
   /* ---------- Confirm dialog (centered, distinct from Slideover) ---------- */

@@ -151,12 +151,6 @@
 
 @media(max-width:640px){
   .as-detail-grid{grid-template-columns:repeat(2,1fr)}
-  .as-tabs{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
-  .as-tabs button{min-height:44px}
-}
-@media(max-width:520px){
-  .as-donut{width:200px;height:200px;flex:0 0 200px}
-  .as-main{padding:var(--space-3)}
 }
 
 .as-empty{
