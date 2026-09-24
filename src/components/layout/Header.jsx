@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Check, ChevronDown, CircleHelp, LogOut, Moon, Settings, Sun } from 'lucide-react'
+import { CircleHelp, KeyRound, LogOut, Moon, Sun } from 'lucide-react'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { useTheme } from '../../context/ThemeContext.jsx'
 import { BRAND } from '../../config/brand.js'
 
 export default function Header() {
-  const { participant, participants, selectParticipant, logout } = useParticipant()
+  const { participant, logout } = useParticipant()
   const { theme, toggle } = useTheme()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
@@ -54,40 +54,22 @@ export default function Header() {
         <div className="user-menu" ref={menuRef}>
           <button
             type="button"
-            className={`user-chip${open ? ' open' : ''}`}
+            className={`user-chip avatar-only${open ? ' open' : ''}`}
             aria-haspopup="menu"
             aria-expanded={open}
+            aria-label={`Account menu for ${participant.name}`}
             onClick={() => setOpen((v) => !v)}
           >
             <img src={participant.avatar} alt="" />
-            <span className="chip-text">
-              <span className="chip-name">{participant.name}</span>
-            </span>
-            <ChevronDown className="chev" size={14} strokeWidth={2.2} />
           </button>
+          {/* #81: same account menu as the existing portal -- who is signed in,
+              then account actions. Switching demo participants lives in the
+              corner "Prototype demo" control (DemoScenarioSwitcher). */}
           <div className={`user-dropdown${open ? ' open' : ''}`} role="menu" aria-label="Account">
-            <div className="dd-label">Participants</div>
-            {participants.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                className={`user-option${p.id === participant.id ? ' on' : ''}`}
-                role="menuitemradio"
-                aria-checked={p.id === participant.id}
-                onClick={() => {
-                  selectParticipant(p.id)
-                  setOpen(false)
-                  navigate('/', { replace: true })
-                }}
-              >
-                <img src={p.avatar} alt="" />
-                <span className="meta">
-                  <span className="name">{p.name}</span>
-                  <span className="scenario">{p.scenario}</span>
-                </span>
-                <Check className="check" size={18} strokeWidth={2.4} />
-              </button>
-            ))}
+            <div className="user-dropdown-email" role="presentation">
+              <span className="label">Username</span>
+              <span className="value">{participant.profile?.email}</span>
+            </div>
             <button
               type="button"
               className="user-option"
@@ -98,10 +80,10 @@ export default function Header() {
               }}
             >
               <span className="sign-out-ico" aria-hidden="true">
-                <Settings size={16} strokeWidth={2.2} />
+                <KeyRound size={16} strokeWidth={2.2} />
               </span>
               <span className="meta">
-                <span className="name">Settings</span>
+                <span className="name">Change Password</span>
               </span>
             </button>
             <a
@@ -131,7 +113,7 @@ export default function Header() {
                 <LogOut size={16} strokeWidth={2.2} />
               </span>
               <span className="meta">
-                <span className="name">Sign out</span>
+                <span className="name">Log out</span>
               </span>
             </button>
           </div>

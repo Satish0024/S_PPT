@@ -231,6 +231,12 @@
   .user-chip .chev{width:14px;height:14px;color:var(--muted);flex:0 0 auto;margin-left:2px;transition:transform .15s}
   .user-chip.open .chev{transform:rotate(180deg)}
 
+  .user-chip.avatar-only{padding:0;border-radius:9999px;border-color:transparent;background:transparent}
+  .user-chip.avatar-only:hover,.user-chip.avatar-only.open{border-color:var(--line);box-shadow:var(--shadow)}
+  .user-chip.avatar-only img{width:32px;height:32px}
+  .user-dropdown-email{display:flex;flex-direction:column;gap:2px;padding:8px 10px 10px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .user-dropdown-email .label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.04em}
+  .user-dropdown-email .value{font-size:13px;font-weight:700;color:var(--ink);overflow-wrap:anywhere}
   .user-dropdown{
     position:absolute;right:0;top:calc(100% + 8px);width:300px;background:var(--panel);border:1px solid var(--line);
     border-radius:14px;box-shadow:var(--shadow-lg);padding:8px;display:none;z-index:50
