@@ -5,16 +5,16 @@ export const CHART_TOKEN_COUNT = 11
 
 export const ASSET_CLASS_ORDER = [
   'U.S. Equity',
+  'Sector Equity',
+  'Allocation',
   'International Equity',
-  'Emerging Markets',
-  'U.S. Small Cap',
-  'U.S. Mid Cap',
-  'U.S. Bond',
-  'International Bond',
-  'High Yield',
-  'Target-Date',
-  'Real Estate',
-  'Cash / Stable Value'
+  'Alternative',
+  'Commodities',
+  'Taxable Bond',
+  'Municipal Bond',
+  'Money Market',
+  'Miscellaneous',
+  'Nontraditional Equity'
 ]
 
 const FALLBACKS = [
