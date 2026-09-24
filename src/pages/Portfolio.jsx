@@ -267,7 +267,8 @@ export default function Portfolio() {
                     key: s.key,
                     label: s.label,
                     color: s.color,
-                    pointStyle: s.pointStyle,
+                    dash: s.dash,
+                    stroke: `var(${s.token})`,
                     checked: visible[s.key]
                   }))}
                   onToggle={toggleSeries}
