@@ -10,7 +10,7 @@
   .enrich-back:hover{text-decoration:underline}
   .enrich-back svg{width:var(--icon-sm);height:var(--icon-sm)}
 
-  .page{max-width:960px;margin:var(--header-h) auto var(--space-0);padding:var(--page-padding-x) var(--page-padding-y) var(--page-padding-bottom)}
+  .page{max-width:960px;margin:var(--space-0) auto;padding:var(--page-padding-x) var(--page-padding-y) var(--page-padding-bottom)}
 
   .page-intro{margin-bottom:var(--space-7)}
   .page-intro .eyebrow{font-size:var(--text-eyebrow-size);font-weight:var(--text-eyebrow-weight);color:var(--brand-text-primary-active);letter-spacing:var(--ls-wide);margin-bottom:var(--space-2)}
