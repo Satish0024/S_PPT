@@ -47,7 +47,11 @@ const pct = (n) => Math.round((+n || 0) * 10) / 10 + '%'
 const fundRows = (alloc) => Object.entries(alloc || {}).filter(([, v]) => +v > 0)
 const planCode = (meta) => String(meta || '').match(/ID\s+(\d+)/i)?.[1] || '—'
 const canDefer = (plan) => /401|deferred/i.test(`${plan.type} ${plan.id}`)
-const isParticipating = (plan) => /enrolled|participating/i.test(`${plan.badge} ${plan.details?.status || ''}`)
+// Exact statuses, not a substring match: 'Eligible — Not Enrolled' contains
+// 'Enrolled', which made eligible-only plans (e.g. Roth) read as enrolled and
+// offer Opt out (#85).
+const isParticipating = (plan) =>
+  /participating/i.test(plan.badge || '') || /^(auto )?enrolled$/i.test(plan.details?.status || '')
 const isEligibleOnly = (plan) => plan.badge === 'Eligible' || plan.badgeClass === 'eligible'
 const electionSnapshot = () => ({
   deferral: readSession(DEFERRAL_KEY),
@@ -308,7 +312,8 @@ export default function PlanDetails() {
                     </>
                   )}
                 </section>
-                {!editing && (
+                {/* #85: only a plan the participant is enrolled in can be opted out of. */}
+                {!editing && enrolled && (
                   <div className="plan-optout">
                     <button type="button" className="text-link danger" onClick={() => setOptOutOpen(true)}>
                       Opt out of paycheck deferral
