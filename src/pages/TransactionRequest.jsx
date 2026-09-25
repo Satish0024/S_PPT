@@ -160,7 +160,17 @@ function blankForm(type) {
   }
 }
 
+// Keyed by request type: switching between request types without leaving
+// this route (e.g. Loan -> Withdrawal via the New request menu or browser
+// history) must start a fresh wizard -- otherwise the previous type's form,
+// step index and progress carry over and the new wizard reads fields the old
+// form never had (WithdrawalSteps crashed on a Loan form's missing allocations).
 export default function TransactionRequest() {
+  const { type } = useParams()
+  return <TransactionRequestWizard key={type} />
+}
+
+function TransactionRequestWizard() {
   const { type } = useParams()
   const [params] = useSearchParams()
   const navigate = useNavigate()
