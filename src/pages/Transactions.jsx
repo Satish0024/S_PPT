@@ -286,7 +286,7 @@ function HistoryPanel({ participant }) {
             className="text-link"
             onClick={() => navigate('/reports', { state: { openStatement: true } })}
           >
-            Download periodic statement
+            Generate statement
           </button>
         </div>
       </div>

@@ -468,7 +468,7 @@ function AllocPanel({ title, funds, alloc, locked, showReset, onChange, onReset 
             { label: '1 yr. return', value: openFund.y1 },
             { label: '5 yr. return', value: openFund.y5 },
             { label: '10 yr. return', value: openFund.y10 },
-            { label: 'Total annual operating expenses', value: openFund.exp }
+            { label: 'Total expense ratio', value: openFund.exp }
           ]}
         />
       )}
@@ -567,7 +567,7 @@ function FundsModal({ selectable, selected, onApply, onClose }) {
                   Average annual total return
                 </th>
                 <th scope="col" className="group-h" colSpan={2}>
-                  Total annual operating expenses
+                  Total expense ratio
                 </th>
                 <th scope="col" rowSpan={2}>
                   Shareholder-
