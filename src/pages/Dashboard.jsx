@@ -1,17 +1,16 @@
 import { useParticipant } from '../context/ParticipantContext.jsx'
-import { isNotEligibleUser } from '../data/participants'
 import { hasAccountSummary } from '../lib/accountSummary'
 import OverallBalance from '../components/dashboard/OverallBalance.jsx'
 import PlanCard from '../components/dashboard/PlanCard.jsx'
 import QuickLinks from '../components/dashboard/QuickLinks.jsx'
 import Transactions from '../components/dashboard/Transactions.jsx'
 import LearningPortal from '../components/dashboard/LearningPortal.jsx'
-import ReadinessScoreCard from '../components/dashboard/ReadinessScoreCard.jsx'
+
+const HIDDEN_PLAN_TYPES = ['Profit Sharing', 'Nonqualified Deferred Compensation', '401(k) — Roth']
 
 export default function Dashboard() {
   const { participant } = useParticipant()
   const first = participant.name.split(' ')[0]
-  const showReadiness = !isNotEligibleUser(participant)
   // Cash Balance is a notional benefit, not real plan assets — carried
   // separately from every balance total already (see planBalance /
   // isSummaryPlan), same as an outstanding loan. Surfaced explicitly here
@@ -33,8 +32,10 @@ export default function Dashboard() {
           <section>
             <h2 className="section-title">My plans</h2>
             <div className="plans-grid">
+              {/* Saturna: Roth 401(k) and Deferred Comp stay in the participant
+                  data but are hidden from the dashboard plan grid. */}
               {participant.plans
-                .filter((plan) => plan.type !== 'Profit Sharing')
+                .filter((plan) => !HIDDEN_PLAN_TYPES.includes(plan.type))
                 .map((plan) => (
                   <PlanCard key={plan.id} plan={plan} />
                 ))}
@@ -44,7 +45,6 @@ export default function Dashboard() {
           <Transactions rows={participant.transactions.slice(0, 5)} />
         </div>
         <aside className="dash-side">
-          {showReadiness && <ReadinessScoreCard />}
           <LearningPortal />
         </aside>
       </div>

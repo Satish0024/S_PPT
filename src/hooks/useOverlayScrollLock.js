@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 // Every full-viewport scrim in the app. .confirm-dialog and .fund-detail-dialog
 // are panels rendered *inside* .enroll-modal-bg, so they're covered by it and
 // must not be listed separately.
-const OVERLAY_SELECTOR = '.enroll-modal-bg, .slideover-bg, .mobile-menu-bg, .rq-bg'
+const OVERLAY_SELECTOR = '.enroll-modal-bg, .slideover-bg'
 
 // Freezes background scrolling while any overlay is open.
 //

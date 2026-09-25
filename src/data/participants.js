@@ -85,17 +85,6 @@ export const PARTICIPANTS = [
       ]
     },
     overall: { total: '$14,590.00', vested: '$13,870.00', loan: '$2,500.00' },
-    // false (not true, unlike the other demo participants below): the
-    // Auto Enrolled scenario is meant to show the Retirement Readiness
-    // widget's "Get started" intro copy first — the widget isn't
-    // "not enrolled" for this scenario (isEnrolledUser() already
-    // includes 'Auto Enrolled'), so the CTA is a real, active link to
-    // /retirement-goal, not the disabled one shown for Eligible — Not
-    // Enrolled. Only after the participant completes that questionnaire
-    // should the score/ring view replace the intro. showSimulator:true
-    // was skipping straight to the pre-filled score, so this intro
-    // state — and its real CTA — never actually appeared for this scenario.
-    showSimulator: false,
     plans: [
       {
         id: '401k',
@@ -217,7 +206,6 @@ export const PARTICIPANTS = [
       beneficiaries: []
     },
     overall: { total: '$0.00', vested: '$0.00' },
-    showSimulator: false,
     plans: [
       {
         id: '401k',
@@ -267,7 +255,6 @@ export const PARTICIPANTS = [
       beneficiaries: []
     },
     overall: { total: '$0.00', vested: '$0.00' },
-    showSimulator: false,
     plans: [
       {
         id: '401k',
@@ -319,7 +306,6 @@ export const PARTICIPANTS = [
       ]
     },
     overall: { total: '$100,416.00', vested: '$92,400.00', loan: '$8,500.00' },
-    showSimulator: true,
     plans: [
       {
         id: '401k',
@@ -409,7 +395,6 @@ export const PARTICIPANTS = [
       ]
     },
     overall: { total: '$0.00', vested: '$0.00' },
-    showSimulator: false,
     plans: [
       {
         id: '401k',

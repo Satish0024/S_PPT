@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
+import { useMemo, useRef, useState } from 'react'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { Icon } from '../lib/icons'
 import { faPercent, faChartLine, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../context/ParticipantContext.jsx'
@@ -75,18 +75,6 @@ export default function PlanDetails() {
   const [tab, setTab] = useState('deferral')
   const [editing, setEditing] = useState(false)
   const editSnapshot = useRef(null)
-  const [searchParams] = useSearchParams()
-
-  // Coming back from the risk questionnaire (View/Edit questionnaire,
-  // opened from this page's Investments edit view): reopen the same
-  // Investments tab in edit mode instead of landing on the plain page.
-  useEffect(() => {
-    if (searchParams.get('openInvestments') === '1') {
-      setTab('investments')
-      setEditing(true)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   if (!plan) return <Navigate to="/" replace />
 

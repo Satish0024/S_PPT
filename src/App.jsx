@@ -15,15 +15,13 @@ import Transactions from './pages/Transactions.jsx'
 import TransactionRequest from './pages/TransactionRequest.jsx'
 import Reports from './pages/Reports.jsx'
 import Login from './pages/Login.jsx'
-import RetirementGoal from './pages/RetirementGoal.jsx'
 import AccountSummary from './pages/AccountSummary.jsx'
-import RiskQuestionnaire from './pages/RiskQuestionnaire.jsx'
 import DesignSystem from './pages/DesignSystem.jsx'
 import { useOverlayScrollLock } from './hooks/useOverlayScrollLock'
 
 export default function App() {
   // Above <Routes> so it covers every layout — AppLayout, EnrollmentLayout and
-  // the standalone shells (TransactionRequest, RiskQuestionnaire) all open
+  // the standalone shells (TransactionRequest) all open
   // dialogs, and each has its own page chrome.
   useOverlayScrollLock()
 
@@ -37,7 +35,6 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/account-summary" element={<AccountSummary />} />
-          <Route path="/retirement-goal" element={<RetirementGoal />} />
           <Route path="/plans/:planId" element={<PlanDetails />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/profile" element={<Profile />} />
@@ -47,7 +44,6 @@ export default function App() {
           <Route path="/accounts" element={<Navigate to="/reports" replace />} />
         </Route>
         <Route path="/transactions/request/:type" element={<TransactionRequest />} />
-        <Route path="/risk-check-in" element={<RiskQuestionnaire />} />
         <Route element={<EnrollmentLayout />}>
           <Route path="/enrollment" element={<Enrollment />} />
           <Route path="/enrollment/auto-increase" element={<Navigate to="/enrollment" replace />} />

@@ -21,7 +21,6 @@ export default function Sidebar() {
   const { pathname } = useLocation()
   const { theme } = useTheme()
   const onEnrollment = pathname.startsWith('/enrollment')
-  const onGoal = pathname.startsWith('/retirement-goal')
   const onSummary = pathname.startsWith('/account-summary')
 
   return (
@@ -31,7 +30,7 @@ export default function Sidebar() {
           key={to}
           to={to}
           end={end}
-          className={({ isActive }) => (isActive || (to === '/' && (onEnrollment || onGoal || onSummary)) ? 'active' : '')}
+          className={({ isActive }) => (isActive || (to === '/' && (onEnrollment || onSummary)) ? 'active' : '')}
         >
           <span className="ico" aria-hidden="true">
             <Icon icon={icon} size={23} />
