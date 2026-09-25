@@ -114,12 +114,12 @@
 .as-row-expandable:hover td{color:var(--brand-text-primary-default)}
 /* Legend colour for each source / asset class -- matches its donut slice. */
 .as-row-name-cell{display:inline-flex;align-items:center;gap:var(--space-2-5)}
-.as-swatch{width:10px;height:10px;border-radius:var(--radius-full);flex:0 0 auto}
+.as-swatch{width:var(--space-2-5);height:var(--space-2-5);border-radius:var(--radius-full);flex:0 0 auto}
 /* Chevron sits in its own last column, at the row's right edge. */
-.as-chev-col{width:56px}
+.as-chev-col{width:var(--space-14)}
 .as-table-wrap td.as-chev-cell{text-align:right;padding-top:var(--space-1);padding-bottom:var(--space-1)}
 .as-row-toggle{
-  display:inline-grid;place-items:center;width:32px;height:32px;border:none;background:transparent;padding:var(--space-0);
+  display:inline-grid;place-items:center;width:var(--icon-btn-size-sm);height:var(--icon-btn-size-sm);border:none;background:transparent;padding:var(--space-0);
   color:var(--neutral-text-subtle);cursor:pointer;border-radius:var(--radius-sm)}
 .as-row-toggle:hover{background:var(--brand-background-primary-subtle);color:var(--brand-text-primary-default)}
 .as-row-toggle:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:2px}

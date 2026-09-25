@@ -1,6 +1,6 @@
 import { useMemo, useState, Fragment } from 'react'
 import { Icon } from '../lib/icons'
-import { faSort, faSortUp, faSortDown, faDownload, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -18,6 +18,7 @@ import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
 import ChartLegend from '../components/common/ChartLegend.jsx'
 import Select, { Option } from '../components/common/Select.jsx'
 import { exportCsv } from '../lib/exportCsv.js'
+import '../styles/documents.css'
 import '../styles/portfolio.css'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
@@ -301,18 +302,20 @@ export default function Portfolio() {
             <section className="section">
               <h2>Investments</h2>
               <div className="table-tools">
-                <label className="table-search">
-                  <Icon icon={faSearch} size={14} aria-hidden="true" />
+                {/* Same search field + plain secondary button as Documents. */}
+                <div className="doc-field table-search">
+                  <label className="field-label" htmlFor="holdingsQuery-search">
+                    Search
+                  </label>
                   <input
-                    type="search"
+                    id="holdingsQuery-search"
+                    type="text"
                     value={holdingsQuery}
                     onChange={(e) => setHoldingsQuery(e.target.value)}
                     placeholder="Search investment name or CUSIP"
-                    aria-label="Search investment name or CUSIP"
                   />
-                </label>
+                </div>
                 <button type="button" className="btn btn-secondary table-export" onClick={exportHoldings}>
-                  <Icon icon={faDownload} size={14} aria-hidden="true" />
                   Export
                 </button>
               </div>
@@ -399,18 +402,20 @@ export default function Portfolio() {
               <h2>Plan investments</h2>
               <p className="sub">Browse and compare the funds available within the retirement plan.</p>
               <div className="table-tools">
-                <label className="table-search">
-                  <Icon icon={faSearch} size={14} aria-hidden="true" />
+                {/* Same search field + plain secondary button as Documents. */}
+                <div className="doc-field table-search">
+                  <label className="field-label" htmlFor="planQuery-search">
+                    Search
+                  </label>
                   <input
-                    type="search"
+                    id="planQuery-search"
+                    type="text"
                     value={planQuery}
                     onChange={(e) => setPlanQuery(e.target.value)}
                     placeholder="Search investment name or category"
-                    aria-label="Search investment name or category"
                   />
-                </label>
+                </div>
                 <button type="button" className="btn btn-secondary table-export" onClick={exportPlanFunds}>
-                  <Icon icon={faDownload} size={14} aria-hidden="true" />
                   Export
                 </button>
               </div>
