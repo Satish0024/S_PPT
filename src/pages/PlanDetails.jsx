@@ -42,13 +42,8 @@ const DEFAULT_FUNDS = [
   ['Vanguard Total Bond Market Index Fund Admiral Shares', 20],
   ['Fidelity U.S. Bond Index Fund Institutional Premium', 20]
 ]
-const SALARY = 85000
-const PERIODS = 26
 
 const pct = (n) => Math.round((+n || 0) * 10) / 10 + '%'
-const payFromPct = (rate) => Math.round((SALARY * (+rate || 0)) / 100 / PERIODS)
-const money = (n) =>
-  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n)
 const fundRows = (alloc) => Object.entries(alloc || {}).filter(([, v]) => +v > 0)
 const planCode = (meta) => String(meta || '').match(/ID\s+(\d+)/i)?.[1] || '—'
 const canDefer = (plan) => /401|deferred/i.test(`${plan.type} ${plan.id}`)
@@ -277,13 +272,13 @@ export default function PlanDetails() {
                         <li>
                           <span>Pre-Tax</span>
                           <b>
-                            {pct(deferral.pre)} <small>{money(payFromPct(deferral.pre))} / paycheck</small>
+                            {pct(deferral.pre)}
                           </b>
                         </li>
                         <li>
                           <span>Roth</span>
                           <b>
-                            {pct(deferral.roth)} <small>{money(payFromPct(deferral.roth))} / paycheck</small>
+                            {pct(deferral.roth)}
                           </b>
                         </li>
                       </ul>
