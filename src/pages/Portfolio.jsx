@@ -1,6 +1,6 @@
 import { useMemo, useState, Fragment } from 'react'
 import { Icon } from '../lib/icons'
-import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
+import { faSort, faSortUp, faSortDown, faDownload, faSearch } from '@fortawesome/free-solid-svg-icons'
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -17,6 +17,7 @@ import { useTheme } from '../context/ThemeContext.jsx'
 import FundDetailDialog from '../components/common/FundDetailDialog.jsx'
 import ChartLegend from '../components/common/ChartLegend.jsx'
 import Select, { Option } from '../components/common/Select.jsx'
+import { exportCsv } from '../lib/exportCsv.js'
 import '../styles/portfolio.css'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
@@ -71,6 +72,8 @@ export default function Portfolio() {
   const [planId, setPlanId] = useState('lendguard-401k')
   const [sort, setSort] = useState({ key: null, dir: 1 })
   const [ytdDir, setYtdDir] = useState(null)
+  const [holdingsQuery, setHoldingsQuery] = useState('')
+  const [planQuery, setPlanQuery] = useState('')
   const [visible, setVisible] = useState(() =>
     Object.fromEntries(SERIES_META.map((s) => [s.key, s.key === 'total' || s.key === 'ac-0' || s.key === 'ac-5' || s.key === 'ac-8']))
   )
@@ -97,7 +100,9 @@ export default function Portfolio() {
   }, [theme])
 
   const holdings = useMemo(() => {
-    const rows = [...HOLDINGS]
+    // #97: live search on investment name or CUSIP, applied before sorting.
+    const q = holdingsQuery.trim().toLowerCase()
+    const rows = HOLDINGS.filter((h) => !q || h.name.toLowerCase().includes(q) || h.cusip.toLowerCase().includes(q))
     if (!sort.key) return rows
     const col = COLS[sort.key]
     rows.sort((a, b) => {
@@ -107,14 +112,32 @@ export default function Portfolio() {
       return String(av).localeCompare(String(bv), undefined, { sensitivity: 'base' }) * sort.dir
     })
     return rows
-  }, [sort])
+  }, [sort, holdingsQuery])
 
   const planFunds = useMemo(() => {
-    const rows = [...PLAN_FUNDS]
+    const q = planQuery.trim().toLowerCase()
+    const rows = PLAN_FUNDS.filter((f) => !q || f.name.toLowerCase().includes(q) || f.cat.toLowerCase().includes(q))
     if (!ytdDir) return rows
     rows.sort((a, b) => (parsePct(a.ytd) - parsePct(b.ytd)) * ytdDir)
     return rows
-  }, [ytdDir])
+  }, [ytdDir, planQuery])
+
+  // #95 / #96: export exactly what the table shows (current search + sort).
+  const exportHoldings = () =>
+    exportCsv(
+      'my-portfolio-investments.csv',
+      ['Investment name', 'Asset class', 'CUSIP', 'Fund return YTD', 'Invested balance', 'Current balance', 'Gain/loss', 'Unit balance'],
+      holdings.map((h) => [h.name, h.asset, h.cusip, `${h.returnPct.toFixed(2)}%`, money(h.invested), money(h.current), money(h.gain), h.units.toFixed(2)])
+    )
+  const exportPlanFunds = () =>
+    exportCsv(
+      'plan-investments.csv',
+      ['Fund name', 'Category', ...PLAN_COL_LABELS],
+      planFunds.flatMap((f) => [
+        [f.name, f.cat, f.ytd, f.y1, f.y5, f.y10, f.si, f.exp, f.perK, f.fees],
+        [f.bench, 'Benchmark', ...f.b, '—', '—', 'N/A']
+      ])
+    )
 
   const chart = useMemo(() => {
     const ends = ENDS[period]
@@ -223,7 +246,7 @@ export default function Portfolio() {
                       <div className="stat-v pos">{plan.gain}</div>
                     </div>
                     <div className="stat-block">
-                      <div className="stat-k">Fund return YTD</div>
+                      <div className="stat-k">YTD return</div>
                       <div className="stat-v pos" aria-label={`${plan.ret} year to date`}>
                         {plan.ret}
                       </div>
@@ -277,6 +300,22 @@ export default function Portfolio() {
             </div>
             <section className="section">
               <h2>Investments</h2>
+              <div className="table-tools">
+                <label className="table-search">
+                  <Icon icon={faSearch} size={14} aria-hidden="true" />
+                  <input
+                    type="search"
+                    value={holdingsQuery}
+                    onChange={(e) => setHoldingsQuery(e.target.value)}
+                    placeholder="Search investment name or CUSIP"
+                    aria-label="Search investment name or CUSIP"
+                  />
+                </label>
+                <button type="button" className="btn btn-secondary table-export" onClick={exportHoldings}>
+                  <Icon icon={faDownload} size={14} aria-hidden="true" />
+                  Export
+                </button>
+              </div>
               <div className="table-wrap t-stack-wrap">
                 <table className="holdings-table t-stack">
                   <thead>
@@ -324,6 +363,11 @@ export default function Portfolio() {
                     </tr>
                   </thead>
                   <tbody>
+                    {!holdings.length && (
+                      <tr>
+                        <td colSpan={8} className="table-empty">No record(s) found</td>
+                      </tr>
+                    )}
                     {holdings.map((h) => (
                       <tr key={h.cusip}>
                         {/* The fund name is the card's title on mobile, so it
@@ -354,6 +398,22 @@ export default function Portfolio() {
             <section className="section">
               <h2>Plan investments</h2>
               <p className="sub">Browse and compare the funds available within the retirement plan.</p>
+              <div className="table-tools">
+                <label className="table-search">
+                  <Icon icon={faSearch} size={14} aria-hidden="true" />
+                  <input
+                    type="search"
+                    value={planQuery}
+                    onChange={(e) => setPlanQuery(e.target.value)}
+                    placeholder="Search investment name or category"
+                    aria-label="Search investment name or category"
+                  />
+                </label>
+                <button type="button" className="btn btn-secondary table-export" onClick={exportPlanFunds}>
+                  <Icon icon={faDownload} size={14} aria-hidden="true" />
+                  Export
+                </button>
+              </div>
               <div className="table-wrap t-stack-wrap">
                 <table className="plan-table t-stack">
                   <thead>
@@ -393,6 +453,11 @@ export default function Portfolio() {
                     </tr>
                   </thead>
                   <tbody>
+                    {!planFunds.length && (
+                      <tr>
+                        <td colSpan={9} className="table-empty">No record(s) found</td>
+                      </tr>
+                    )}
                     {planFunds.map((f) => (
                       <Fragment key={f.name}>
                         <tr className="fund-row">
