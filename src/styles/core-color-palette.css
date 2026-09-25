@@ -31,17 +31,17 @@
   /* ---------------------------------------------------------------------------------- */
 
   /* Primary (Brand) colors ----------------------------------------------------------*/
-  --theme-primitive-color-primary-50: #F5F7FA;   /* Not yet applied */
-  --theme-primitive-color-primary-100: #E2E9F3;  /* Not yet applied */
-  --theme-primitive-color-primary-200: #BACEE9;  /* Not yet applied */
-  --theme-primitive-color-primary-300: #86ADDF;  /* Not yet applied (dark-mode brand now comes from the semantic --theme-brand-background-strong token below, not this primitive directly) */
-  --theme-primitive-color-primary-400: #3275CD;  /* Not yet applied */
-  --theme-primitive-color-primary-500: #1F4F8D;  /* Not yet applied (same hex as light --theme-brand-background-strong, already applied through that token) */
-  --theme-primitive-color-primary-600: #1B4479;  /* Not yet applied */
-  --theme-primitive-color-primary-700: #17365E;  /* Not yet applied */
-  --theme-primitive-color-primary-800: #132A49;  /* Not yet applied (dark scene/widget surfaces now come from --theme-brand-background-primary-subtle instead) */
-  --theme-primitive-color-primary-900: #102137;  /* Not yet applied */
-  --theme-primitive-color-primary-950: #0C1827;  /* Not yet applied */
+  --theme-primitive-color-primary-50: #F5F5FC;   /* Not yet applied */
+  --theme-primitive-color-primary-100: #E3E4F6;  /* Not yet applied */
+  --theme-primitive-color-primary-200: #BFC2EE;  /* Not yet applied */
+  --theme-primitive-color-primary-300: #868DF0;  /* Not yet applied (dark-mode brand now comes from the semantic --theme-brand-background-strong token below, not this primitive directly) */
+  --theme-primitive-color-primary-400: #555FDB;  /* Not yet applied */
+  --theme-primitive-color-primary-500: #2E3192;  /* Not yet applied (same hex as light --theme-brand-background-strong, already applied through that token) */
+  --theme-primitive-color-primary-600: #282A7E;  /* Not yet applied */
+  --theme-primitive-color-primary-700: #1F2268;  /* Not yet applied */
+  --theme-primitive-color-primary-800: #191B52;  /* Not yet applied (dark scene/widget surfaces now come from --theme-brand-background-primary-subtle instead) */
+  --theme-primitive-color-primary-900: #13153D;  /* Not yet applied */
+  --theme-primitive-color-primary-950: #0D0E2A;  /* Not yet applied */
 
   /* Secondary colors ----------------------------------------------------------------*/
   --theme-primitive-color-secondary-50: #F4F9FB;   /* Not yet applied */
@@ -143,24 +143,24 @@
   /* ---------------------------------------------------------------------------------- */
   /* Brand / Text ----------------------------------------------------------*/
   --theme-brand-text-primary-oncolor: #FFFFFF;   /* Applied at: index.css --brand-text-primary-oncolor (light+dark) */
-  --theme-brand-text-primary-disabled: #86ADDF;  /* Not yet applied */
-  --theme-brand-text-primary-default: #1F4F8D;   /* Not yet applied */
-  --theme-brand-text-primary-hover: #1B4479;     /* Not yet applied */
-  --theme-brand-text-primary-active: #17365E;    /* Not yet applied */
+  --theme-brand-text-primary-disabled: #868DF0;  /* Not yet applied */
+  --theme-brand-text-primary-default: #2E3192;   /* Not yet applied */
+  --theme-brand-text-primary-hover: #282A7E;     /* Not yet applied */
+  --theme-brand-text-primary-active: #1F2268;    /* Not yet applied */
 
   /* Brand / Background ------------------------------------------------------*/
-  --theme-brand-background-primary-light: #F5F7FA;   /* Applied at: index.css --learn-surface-2 (light) */
-  --theme-brand-background-primary-subtle: #E2E9F3;  /* Applied at: index.css --scene-sky (light) */
+  --theme-brand-background-primary-light: #F5F5FC;   /* Applied at: index.css --learn-surface-2 (light) */
+  --theme-brand-background-primary-subtle: #E3E4F6;  /* Applied at: index.css --scene-sky (light) */
   --theme-brand-background-disabled-light: #EEEEF2;  /* Not yet applied */
-  --theme-brand-background-disabled-strong: #BACEE9; /* Not yet applied */
-  --theme-brand-background-strong: #1F4F8D;          /* Applied at: index.css --brand, --brand-fill (light) */
-  --theme-brand-background-hover: #1B4479;           /* Not yet applied */
-  --theme-brand-background-active: #17365E;          /* Not yet applied */
+  --theme-brand-background-disabled-strong: #BFC2EE; /* Not yet applied */
+  --theme-brand-background-strong: #2E3192;          /* Applied at: index.css --brand, --brand-fill (light) */
+  --theme-brand-background-hover: #282A7E;           /* Not yet applied */
+  --theme-brand-background-active: #1F2268;          /* Not yet applied */
 
   /* Brand / Borders -----------------------------------------------------*/
-  --theme-brand-borders-primary-disabled: #BACEE9;  /* Not yet applied */
-  --theme-brand-borders-primary-default: #3275CD;   /* Not yet applied */
-  --theme-brand-borders-hover: #1B4479;             /* Not yet applied */
+  --theme-brand-borders-primary-disabled: #BFC2EE;  /* Not yet applied */
+  --theme-brand-borders-primary-default: #555FDB;   /* Not yet applied */
+  --theme-brand-borders-hover: #282A7E;             /* Not yet applied */
 
   /* Secondary / Text -----------------------------------------------------*/
   --theme-secondary-text-primary-oncolor: #FFFFFF;   /* Not yet applied */
@@ -248,23 +248,23 @@
   /* Brand / Text ----------------------------------------------------------*/
   --theme-brand-text-primary-oncolor: #FFFFFF;
   --theme-brand-text-primary-disabled: #5C5C6B;
-  --theme-brand-text-primary-default: #86ADDF;   /* Applied at: index.css --brand-dark's source chain via --brand (dark) */
-  --theme-brand-text-primary-hover: #3275CD;
-  --theme-brand-text-primary-active: #BACEE9;
+  --theme-brand-text-primary-default: #868DF0;   /* Applied at: index.css --brand-dark's source chain via --brand (dark) */
+  --theme-brand-text-primary-hover: #555FDB;
+  --theme-brand-text-primary-active: #BFC2EE;
 
   /* Brand / Background ------------------------------------------------------*/
-  --theme-brand-background-primary-light: #102137;   /* Applied at: index.css --learn-surface-2 (dark) */
-  --theme-brand-background-primary-subtle: #132A49;  /* Applied at: index.css --scene-sky, --rgs-base-1, --learn-surface-1 (dark) */
+  --theme-brand-background-primary-light: #13153D;   /* Applied at: index.css --learn-surface-2 (dark) */
+  --theme-brand-background-primary-subtle: #191B52;  /* Applied at: index.css --scene-sky, --rgs-base-1, --learn-surface-1 (dark) */
   --theme-brand-background-disabled-light: #2E2D38;
-  --theme-brand-background-disabled-strong: #17365E;
-  --theme-brand-background-strong: #3275CD;          /* Applied at: index.css --brand, --brand-fill (dark) */
-  --theme-brand-background-hover: #1B4479;
-  --theme-brand-background-active: #1F4F8D;
+  --theme-brand-background-disabled-strong: #1F2268;
+  --theme-brand-background-strong: #555FDB;          /* Applied at: index.css --brand, --brand-fill (dark) */
+  --theme-brand-background-hover: #282A7E;
+  --theme-brand-background-active: #2E3192;
 
   /* Brand / Borders -----------------------------------------------------*/
-  --theme-brand-borders-primary-disabled: #17365E;
-  --theme-brand-borders-primary-default: #3275CD;
-  --theme-brand-borders-hover: #86ADDF;
+  --theme-brand-borders-primary-disabled: #1F2268;
+  --theme-brand-borders-primary-default: #555FDB;
+  --theme-brand-borders-hover: #868DF0;
 
   /* Secondary / Text -----------------------------------------------------*/
   --theme-secondary-text-primary-oncolor: #FFFFFF;

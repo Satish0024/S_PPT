@@ -68,7 +68,7 @@ export default function Portfolio() {
   const [tab, setTab] = useState('overview')
   const [openFund, setOpenFund] = useState(null)
   const [period, setPeriod] = useState('1y')
-  const [planId, setPlanId] = useState('lendguard-401k')
+  const [planId, setPlanId] = useState('saturna-401k')
   const [sort, setSort] = useState({ key: null, dir: 1 })
   const [ytdDir, setYtdDir] = useState(null)
   const [visible, setVisible] = useState(() =>

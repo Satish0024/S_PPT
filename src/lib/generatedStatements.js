@@ -4,7 +4,7 @@
 // creates a real new record (not a re-used mock row), scoped per
 // participant, so the Documents list actually grows and the newest
 // statement is always the one just generated.
-const GENERATED_STATEMENTS_KEY = 'lendguardGeneratedStatements'
+const GENERATED_STATEMENTS_KEY = 'saturnaGeneratedStatements'
 
 function todayLabel() {
   return new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })

@@ -4,16 +4,13 @@
 // touch this file (plus its CSS theme tokens in src/styles/index.css and its
 // own /public logo asset) instead of scattered JSX across the app.
 export const BRAND = {
-  name: 'LendGuard',
-  shortName: 'LendGuard',
-  // Logo on light/white surfaces (topbar, design-system header, login card).
-  // logo-lockup-light.svg has dark blue text, visible on light backgrounds.
-  logo: '/logo-lockup-light.svg',
-  // Logo on dark/colored surfaces (login hero, dark theme chrome).
-  // logo-lockup-dark.svg has white text, visible on dark backgrounds.
-  logoOnDark: '/logo-lockup-dark.svg',
-  tagline: 'Your Path To A Confident Retirement.',
+  name: 'Saturna Capital',
+  shortName: 'Saturna',
+  // PNG with its own light backing, readable on both themes -- no separate
+  // dark-surface variant (Header/Login fall back to this when logoOnDark is unset).
+  logo: '/saturna_logo.png',
+  tagline: 'Plan With Confidence.',
   taglineBody: 'Access your 401(k), deferrals, and retirement tools in one secure participant portal.',
-  supportPlanNoun: 'your LendGuard plan',
-  supportEmail: 'support@lendguard.com'
+  supportPlanNoun: 'your Saturna plan',
+  supportEmail: 'support@saturna.com'
 }

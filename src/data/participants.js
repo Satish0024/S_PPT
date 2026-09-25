@@ -1,18 +1,18 @@
-export const PLAN_401K = 'LendGuard Employees Savings and Retirement 401(k) Plan'
-export const PLAN_PSP = 'LendGuard Profit Sharing and Employee Ownership Plan'
-export const PLAN_ROTH = 'LendGuard Roth 401(k) Plan'
-export const PLAN_DC = 'LendGuard Deferred Comp Plan'
-export const PLAN_CB = 'LendGuard Cash Balance Plan'
+export const PLAN_401K = 'Saturna Employees Savings and Retirement 401(k) Plan'
+export const PLAN_PSP = 'Saturna Profit Sharing and Employee Ownership Plan'
+export const PLAN_ROTH = 'Saturna Roth 401(k) Plan'
+export const PLAN_DC = 'Saturna Deferred Comp Plan'
+export const PLAN_CB = 'Saturna Cash Balance Plan'
 
-export const STORAGE_KEY = 'lendguardParticipant'
-export const AUTH_KEY = 'lendguardAuth'
-export const DEMO_PASSWORD = 'LendGuard2026'
-export const DEFERRAL_KEY = 'lendguardDeferral'
-export const AUTO_INCREASE_KEY = 'lendguardAutoIncrease'
-export const INVESTMENT_KEY = 'lendguardInvestment'
-export const BENEFICIARY_KEY = 'lendguardBeneficiary'
-export const PLAN_STATUS_KEY = 'lendguardPlanStatus'
-export const ADVANCE_ELECTIONS_KEY = 'lendguardAdvanceElections'
+export const STORAGE_KEY = 'saturnaParticipant'
+export const AUTH_KEY = 'saturnaAuth'
+export const DEMO_PASSWORD = 'Saturna2026'
+export const DEFERRAL_KEY = 'saturnaDeferral'
+export const AUTO_INCREASE_KEY = 'saturnaAutoIncrease'
+export const INVESTMENT_KEY = 'saturnaInvestment'
+export const BENEFICIARY_KEY = 'saturnaBeneficiary'
+export const PLAN_STATUS_KEY = 'saturnaPlanStatus'
+export const ADVANCE_ELECTIONS_KEY = 'saturnaAdvanceElections'
 
 export function readSession(key) {
   try {
@@ -75,7 +75,7 @@ export const PARTICIPANTS = [
       phone: '(512) 555-0148',
       address: '1842 Barton Springs Rd',
       city: 'Austin, TX 78704',
-      employer: 'LendGuard',
+      employer: 'Saturna Capital',
       employeeId: 'EMP-10482',
       hireDate: 'Jan 12, 2025',
       workStatus: 'Full-Time',
@@ -190,7 +190,7 @@ export const PARTICIPANTS = [
       { kind: 'employer', date: 'Feb 28, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$208.00' },
       { kind: 'deferral', date: 'Feb 14, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$312.00' },
       { kind: 'employer', date: 'Feb 14, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$208.00' },
-      { kind: 'employer', date: 'Jan 31, 2026', type: 'Employer Contribution', plan: 'LendGuard Profit Sharing', amt: '$450.00' },
+      { kind: 'employer', date: 'Jan 31, 2026', type: 'Employer Contribution', plan: 'Saturna Profit Sharing', amt: '$450.00' },
       { kind: 'deferral', date: 'Jan 31, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$312.00' },
       { kind: 'employer', date: 'Jan 31, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$208.00' },
       { kind: 'loan', date: 'Jan 15, 2026', type: 'Loan Repayment', plan: PLAN_401K, amt: '$125.00' },
@@ -210,7 +210,7 @@ export const PARTICIPANTS = [
       phone: '(303) 555-0194',
       address: '920 Pearl St Apt 4B',
       city: 'Denver, CO 80203',
-      employer: 'LendGuard',
+      employer: 'Saturna Capital',
       employeeId: 'EMP-11026',
       hireDate: 'Mar 3, 2026',
       workStatus: 'Full-Time',
@@ -260,7 +260,7 @@ export const PARTICIPANTS = [
       phone: '(312) 555-0167',
       address: '441 N Wabash Ave',
       city: 'Chicago, IL 60611',
-      employer: 'LendGuard',
+      employer: 'Saturna Capital',
       employeeId: 'EMP-10891',
       hireDate: 'Nov 18, 2025',
       workStatus: 'Full-Time',
@@ -310,7 +310,7 @@ export const PARTICIPANTS = [
       phone: '(206) 555-0132',
       address: '718 Pine St Unit 12',
       city: 'Seattle, WA 98101',
-      employer: 'LendGuard',
+      employer: 'Saturna Capital',
       employeeId: 'EMP-09217',
       hireDate: 'Jun 4, 2018',
       workStatus: 'Full-Time',
@@ -380,7 +380,7 @@ export const PARTICIPANTS = [
       { kind: 'employer', date: 'Feb 28, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$410.00' },
       { kind: 'deferral', date: 'Feb 14, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$820.00' },
       { kind: 'employer', date: 'Feb 14, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$410.00' },
-      { kind: 'employer', date: 'Jan 31, 2026', type: 'Employer Contribution', plan: 'LendGuard Profit Sharing', amt: '$1,200.00' },
+      { kind: 'employer', date: 'Jan 31, 2026', type: 'Employer Contribution', plan: 'Saturna Profit Sharing', amt: '$1,200.00' },
       { kind: 'deferral', date: 'Jan 31, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$820.00' },
       { kind: 'employer', date: 'Jan 31, 2026', type: 'Employer Contribution', plan: PLAN_401K, amt: '$410.00' },
       { kind: 'deferral', date: 'Jan 17, 2026', type: 'My Deferral', plan: PLAN_401K, amt: '$820.00' },
@@ -400,7 +400,7 @@ export const PARTICIPANTS = [
       phone: '(404) 555-0188',
       address: '155 Piedmont Ave NE',
       city: 'Atlanta, GA 30308',
-      employer: 'LendGuard',
+      employer: 'Saturna Capital',
       employeeId: 'EMP-10144',
       hireDate: 'Aug 22, 2024',
       workStatus: 'Full-Time',

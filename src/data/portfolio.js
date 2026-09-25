@@ -1,13 +1,13 @@
 export const PLAN_STATS = {
-  'lendguard-401k': {
-    label: 'LendGuard Employees Savings and Retirement 401(k) Plan',
+  'saturna-401k': {
+    label: 'Saturna Employees Savings and Retirement 401(k) Plan',
     current: '$100,416.00',
     invested: '$90,500.00',
     gain: '+$9,916.00',
     ret: '8.00%'
   },
-  'lendguard-profit-sharing': {
-    label: 'LendGuard Profit Sharing and Employee Ownership Plan',
+  'saturna-profit-sharing': {
+    label: 'Saturna Profit Sharing and Employee Ownership Plan',
     current: '$42,180.00',
     invested: '$38,750.00',
     gain: '+$3,430.00',

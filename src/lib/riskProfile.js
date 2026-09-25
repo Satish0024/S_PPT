@@ -1,7 +1,7 @@
 import { ageFromDob } from './retirementGoal'
 import { LIKERT_QUESTIONS } from '../data/riskQuestionnaire'
 
-export const RISK_PROFILE_KEY = 'lendguardRiskProfile'
+export const RISK_PROFILE_KEY = 'saturnaRiskProfile'
 
 // Resolve a CSS custom property at runtime so risk-level colors always
 // come from the DS palette, not hardcoded hex values.
@@ -103,7 +103,7 @@ export function setRiskProfileId(participantId, levelId) {
   window.dispatchEvent(new CustomEvent(RISK_PROFILE_UPDATED_EVENT, { detail: { participantId, levelId } }))
 }
 
-const RISK_ANSWERS_KEY = 'lendguardRiskAnswers'
+const RISK_ANSWERS_KEY = 'saturnaRiskAnswers'
 
 // Raw per-question likert answers, kept alongside the derived level so
 // re-opening the questionnaire (View/Edit questionnaire) can show what the

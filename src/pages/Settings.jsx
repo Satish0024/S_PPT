@@ -17,7 +17,7 @@ const APPEARANCE_OPTIONS = [
   { id: 'system', label: 'Match device', icon: faDesktop }
 ]
 
-const NOTIFICATIONS_KEY = 'lendguardNotificationPrefs'
+const NOTIFICATIONS_KEY = 'saturnaNotificationPrefs'
 
 function loadNotificationPrefs(participantId) {
   try {
@@ -124,7 +124,7 @@ export default function Settings() {
         </ProfileBlock>
 
         <ProfileBlock title="Notifications">
-          <p className="settings-block-lede">Choose what LendGuard emails you about.</p>
+          <p className="settings-block-lede">Choose what Saturna emails you about.</p>
           <NotificationRow
             label="Transaction confirmations"
             hint="Get an email when a deferral, loan, or transfer request is submitted or processed."
