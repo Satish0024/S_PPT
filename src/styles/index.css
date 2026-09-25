@@ -2263,6 +2263,15 @@
        past the page padding. */
     .rg-shell,.rg-work{grid-template-columns:minmax(0,1fr)}
     .rg-shell > .rg-live,.rg-shell > .rg-work{grid-column:auto;grid-row:auto}
+    /* Desktop places rg-live (the readiness ring) as a sidebar via explicit
+       grid-column/row, independent of source order -- but it comes BEFORE
+       rg-work (Retirement target + Deferrals) in the markup. Once this
+       breakpoint clears that explicit placement, elements fall back to
+       source order, so the ring jumped to the top instead of staying a
+       trailing summary. order puts the actionable form first and the
+       result card last on phones. */
+    .rg-shell > .rg-work{order:1}
+    .rg-shell > .rg-live{order:2}
     .panel.rg-live{position:static}
     .rg-live-visual{flex-direction:column;align-items:center}
     .rg-auto{grid-template-columns:minmax(0,1fr)}
