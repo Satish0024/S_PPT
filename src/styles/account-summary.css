@@ -110,18 +110,24 @@
 .as-table-wrap .num{text-align:right}
 /* DS table cells are 400 — no per-column weight. The row-name column
    gets its emphasis from being a link/toggle, not from bolding. */
+.as-row-expandable{cursor:pointer}
+.as-row-expandable:hover td{color:var(--brand-text-primary-default)}
+/* Legend colour for each source / asset class -- matches its donut slice. */
+.as-row-name-cell{display:inline-flex;align-items:center;gap:var(--space-2-5)}
+.as-swatch{width:10px;height:10px;border-radius:var(--radius-full);flex:0 0 auto}
+/* Chevron sits in its own last column, at the row's right edge. */
+.as-chev-col{width:56px}
+.as-table-wrap td.as-chev-cell{text-align:right;padding-top:var(--space-1);padding-bottom:var(--space-1)}
 .as-row-toggle{
-  display:flex;align-items:center;width:100%;border:none;background:transparent;padding:var(--space-0);
-  font:inherit;color:var(--neutral-text-default);cursor:pointer;text-align:left;border-radius:var(--radius-sm);gap:var(--space-0)}
-.as-row-toggle:hover{color:var(--brand-text-primary-default)}
+  display:inline-grid;place-items:center;width:32px;height:32px;border:none;background:transparent;padding:var(--space-0);
+  color:var(--neutral-text-subtle);cursor:pointer;border-radius:var(--radius-sm)}
+.as-row-toggle:hover{background:var(--brand-background-primary-subtle);color:var(--brand-text-primary-default)}
 .as-row-toggle:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:2px}
 .as-row-name{
   display:inline;min-width:0;margin-right:var(--space-2)}
 .as-asset-cell{font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
 .as-row-chevron{
-  /* Chevron positioned at the right edge of the name cell, after the text.
-     margin-left:auto pushes it to the far right within the flex container. */
-  margin-left:auto;color:var(--neutral-text-subtle);transition:transform var(--motion-base) ease;flex:0 0 auto}
+  color:inherit;transition:transform var(--motion-base) ease;flex:0 0 auto}
 .as-row-open .as-row-chevron{transform:rotate(180deg);color:var(--brand-text-primary-default)}
 .as-row-detail td{background:var(--surface-muted);padding:var(--space-0);border-bottom:1px solid var(--neutral-border-light)}
 .as-row-detail:hover{background:transparent}
