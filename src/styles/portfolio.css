@@ -95,15 +95,12 @@
   .chart-wrap canvas{width:100%!important;height:100%!important}
 
   .section h2{font-size:var(--text-h4-size);font-weight:var(--font-weight-bold);margin-bottom:var(--space-1);letter-spacing:var(--ls-snug)}
-  /* Search + Export row above the investment tables (#95-#97). */
-  .table-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-3);margin:var(--space-3) var(--space-0)}
-  .table-search{display:flex;align-items:center;gap:var(--space-2);flex:1 1 280px;max-width:360px;min-height:var(--input-min-height);
-    padding:var(--space-0) var(--space-3);border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);background:var(--surface-default);color:var(--neutral-text-subtle)}
-  .table-search:hover{border-color:var(--neutral-border-strong)}
-  .table-search:focus-within{border-color:var(--brand-text-primary-default);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand-text-primary-default) 15%, transparent)}
-  .table-search input{flex:1;min-width:0;border:none;outline:none;background:transparent;font:inherit;font-size:var(--text-body-md-size);color:var(--neutral-text-default)}
-  .table-search input::placeholder{color:var(--neutral-text-subtle-light)}
-  .table-export{width:auto;flex:0 0 auto;gap:var(--space-2)}
+  /* Search + Export row above the investment tables (#95-#97). The field and
+     button reuse Documents' .doc-field / .btn-secondary styles as-is; this only
+     lays them out. */
+  .table-tools{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--space-3);margin:var(--space-3) var(--space-0)}
+  .table-search{flex:1 1 280px;max-width:360px}
+  .table-export{width:auto;flex:0 0 auto}
   .table-empty{text-align:center !important;color:var(--neutral-text-subtle);padding:var(--space-6) var(--space-4) !important}
   .section .sub{color:var(--neutral-text-subtle);font-size:var(--text-body-md-size);margin-bottom:var(--space-3-5);line-height:1.45}
   .table-wrap{border:1px solid var(--neutral-border-light);border-radius:var(--radius-sm);overflow:auto;background:var(--surface-default);box-shadow:var(--shadow);

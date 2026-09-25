@@ -3199,7 +3199,7 @@ summary:focus-visible {
   font-weight: var(--font-weight-bold);
   color: var(--rgs-muted);
 }
-.rgs-dot { width: 6px; height: 6px; border-radius: var(--radius-full); flex: 0 0 auto; background: currentColor; }
+.rgs-dot { width: var(--space-1-5); height: var(--space-1-5); border-radius: var(--radius-full); flex: 0 0 auto; background: currentColor; }
 .rgs-snap-row.income .rgs-snap-label { color: var(--rgs-success); }
 .rgs-snap-row.shortfall .rgs-snap-label { color: var(--rgs-danger); }
 .rgs-snap-row dd { margin:var(--space-0) var(--space-0) var(--space-0) auto; min-width: 0; }
