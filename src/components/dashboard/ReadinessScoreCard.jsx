@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Icon } from '../../lib/icons'
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faInfoCircle, faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { useParticipant } from '../../context/ParticipantContext.jsx'
 import { isEligibleNotEnrolledUser, isNotEligibleUser, isOptedOutUser } from '../../data/participants'
 import {
@@ -137,13 +137,19 @@ export default function ReadinessScoreCard() {
                 </div>
                 <div className="rgs-snap-div" aria-hidden="true" />
                 <div className="rgs-snap-row income">
-                  <dt className="rgs-snap-label">All income</dt>
+                  <dt className="rgs-snap-label">
+                    <span className="rgs-dot" aria-hidden="true" />
+                    All income
+                  </dt>
                   <dd>
                     <b>{money(income)}</b>
                   </dd>
                 </div>
                 <div className="rgs-snap-row shortfall">
-                  <dt className="rgs-snap-label">Short fall</dt>
+                  <dt className="rgs-snap-label">
+                    <span className="rgs-dot" aria-hidden="true" />
+                    Short fall
+                  </dt>
                   <dd>
                     <b>{money(shortfall)}</b>
                   </dd>
@@ -175,19 +181,6 @@ export default function ReadinessScoreCard() {
         )}
 
         <div className="rgs-foot">
-          {/* Adjust is one full-width primary action, shown only once the
-              widget is already started (showing it alongside "Get started"
-              duplicated the same CTA). The info note and Disclaimer used to
-              be two visually separate rows for what is really one sentence
-              ("Not guaranteed results. Disclaimer") -- now a single line.
-              With Adjust absent, this row simply has one child instead of
-              two -- flex-direction:column + gap only applies *between*
-              children, so there's no leftover button-sized gap to "hug". */}
-          {started && (
-            <Link className="rgs-adjust-btn" to="/retirement-goal">
-              Adjust Deferral Rate and Goal
-            </Link>
-          )}
           <p className="rgs-foot-note">
             <Icon icon={faInfoCircle} size={13} aria-hidden="true" />
             <span>
@@ -197,6 +190,14 @@ export default function ReadinessScoreCard() {
               </button>
             </span>
           </p>
+          {/* Only once the widget is started -- before that, "Get started"
+              above is the single call to action. */}
+          {started && (
+            <Link className="rgs-foot-link" to="/retirement-goal">
+              <Icon icon={faSlidersH} size={12} aria-hidden="true" />
+              Adjust deferral rate and goal
+            </Link>
+          )}
         </div>
       </div>
 
