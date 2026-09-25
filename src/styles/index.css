@@ -242,12 +242,14 @@
     /* Chart / data-visualization palette — 11 colors, fixed order.
        Account-summary slices and Portfolio line series map the same
        asset class to the same --chart-N (see lib/chartPalette.js).
-       1–4 track semantic tokens so they follow brand/theme; 5–11 are
+       2–4 track semantic tokens so they follow the theme; 5–11 are
        distinct hues so an 11-slice donut never repeats a color. */
-    --chart-1: var(--brand-text-primary-default);          /* 1  Brand blue — U.S. Equity */
-    --chart-2: var(--semantics-success-text);          /* 2  Green — International Equity */
-    --chart-3: var(--semantics-warning-text);          /* 3  Amber — Emerging Markets */
-    --chart-4: var(--semantics-critical-text);            /* 4  Red — U.S. Small Cap */
+    /* Saturna: series 1 is a fixed blue, not the brand token -- the indigo
+       brand would collide with chart-6 (purple) and chart-9 (indigo). */
+    --chart-1: #0270a9;               /* 1  Blue — U.S. Equity */
+    --chart-2: var(--semantics-success-text);          /* 2  Green — Sector Equity */
+    --chart-3: var(--semantics-warning-text);          /* 3  Amber — Allocation */
+    --chart-4: var(--semantics-critical-text);            /* 4  Red — International Equity */
     /* 5-11: intentional exception to "palette-only colors" -- these are
        a QUALITATIVE data-viz palette (an 11-slice donut/legend needs 11
        hues no two of which are confusable), and Core-Color-Palette (2)
@@ -258,13 +260,13 @@
        Left as the app's existing distinct hues rather than forcing a
        collision; flagged in the palette-audit checklist, not silently
        skipped. */
-    --chart-5: #0e7490;               /* 5  Cyan — U.S. Mid Cap */
-    --chart-6: #8b5cf6;               /* 6  Purple — U.S. Bond */
-    --chart-7: #0f766e;               /* 7  Teal — International Bond */
-    --chart-8: #be185d;               /* 8  Rose — High Yield */
-    --chart-9: #4338ca;               /* 9  Indigo — Target-Date */
-    --chart-10: #4d7c0f;              /* 10 Olive — Real Estate */
-    --chart-11: #c2410c;              /* 11 Orange — Cash / Stable Value */
+    --chart-5: #0e7490;               /* 5  Cyan — Alternative */
+    --chart-6: #8b5cf6;               /* 6  Purple — Commodities */
+    --chart-7: #0f766e;               /* 7  Teal — Taxable Bond */
+    --chart-8: #be185d;               /* 8  Rose — Municipal Bond */
+    --chart-9: #4338ca;               /* 9  Indigo — Money Market */
+    --chart-10: #4d7c0f;              /* 10 Olive — Miscellaneous */
+    --chart-11: #c2410c;              /* 11 Orange — Nontraditional Equity */
 
     /* Spacing — Tailwind's canonical scale (tailwindcss.com/docs/spacing),
        exact values, not invented. Additive: not yet wired into any real
@@ -529,6 +531,7 @@
     --core-elevation-2: 0 2px 6px rgba(0,0,0,0.50), 0 1px 2px rgba(0,0,0,0.35);
     --shadow: var(--core-elevation-1);
     --shadow-lg: var(--core-elevation-2);
+    --chart-1: #38bdf8;
     --chart-5: #22d3ee;
     --chart-6: #a78bfa;
     --chart-7: #2dd4bf;
