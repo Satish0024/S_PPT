@@ -858,6 +858,9 @@
      always stays inside the link and can never get clipped. */
   .nav a:focus-visible{outline:2px solid var(--brand-text-primary-default);outline-offset:-2px;border-radius:var(--radius-sm)}
 
+  /* Mobile nav is hidden by default — only shown at ≤640px via media query */
+  .mobile-nav,.mobile-menu-bg{display:none}
+
   .main{flex:1;min-width:0;display:flex;flex-direction:column}
   .page-body{padding:var(--page-padding-y) var(--page-padding-x) var(--page-padding-bottom);display:flex;flex-direction:column;gap:var(--page-gap);width:100%;max-width:none}
 
@@ -2282,13 +2285,36 @@
       gap:var(--space-1);padding:var(--space-3) var(--page-padding-x-sm,var(--space-4));
       margin-left:var(--space-0);width:100%}
     .nav ~ *:not(.mobile-nav):not(.mobile-menu-bg){margin-left:var(--space-0)}
-    .nav{position:fixed;left:0;right:0;bottom:0;top:auto;width:100%;height:auto;min-height:0;overflow:visible;
+    /* Mobile swaps the 5-item desktop rail for a 3-item bottom bar
+       (Menu / Dashboard / Settings) -- everything else lives in the
+       "Menu" sheet, opened from Sidebar.jsx's own state. Same
+       fixed-bottom-bar mechanics as the old .nav treatment, just a
+       different item set matching the mobile reference pattern.
+       .nav itself is still rendered in the DOM (desktop uses it) but
+       hidden at this width. */
+    .nav{display:none}
+    .mobile-nav{
+      display:flex;position:fixed;left:0;right:0;bottom:0;width:100%;min-height:var(--mobile-nav-h);box-sizing:border-box;
       flex-direction:row;justify-content:space-around;padding:var(--space-1-5) var(--space-1) calc(var(--space-2) + env(safe-area-inset-bottom));
-      border-right:none;border-top:1px solid var(--neutral-border-light);background:var(--surface-default);z-index:40}
-    .nav a{flex:1 1 0;min-width:0;padding:var(--space-2) var(--space-0-5) var(--space-1);font-size:var(--text-2xs-size);gap:var(--space-0-5)}
-    .nav a .nav-label{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
-      white-space:normal;line-height:1.15;overflow-wrap:normal;word-break:normal;hyphens:none}
-    .nav a.active::before{left:28%;right:28%;top:0;bottom:auto;width:auto;height:3px;border-radius:0 0 4px 4px}
+      border-top:1px solid var(--neutral-border-light);background:var(--surface-default);z-index:40}
+    .mobile-nav-btn{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:var(--space-0-5);
+      padding:var(--space-2) var(--space-0-5) var(--space-1);font-size:var(--text-2xs-size);font-weight:var(--font-weight-semibold);
+      color:var(--neutral-text-subtle);text-decoration:none;background:none;border:none;cursor:pointer;position:relative}
+    .mobile-nav-btn .ico{display:grid;place-items:center;width:var(--icon-lg);height:var(--icon-lg)}
+    .mobile-nav-btn .ico svg{width:var(--icon-md);height:var(--icon-md)}
+    .mobile-nav-btn.active,a.mobile-nav-btn.active{color:var(--brand-text-primary-default)}
+    .mobile-nav-btn.active::before{content:"";position:absolute;left:28%;right:28%;top:0;height:3px;border-radius:0 0 var(--radius-xs) var(--radius-xs);background:var(--brand-text-primary-default)}
+    .mobile-menu-bg{position:fixed;inset:0;z-index:41;background:color-mix(in srgb, var(--neutral-text-default) 46%, transparent);display:flex;align-items:flex-end}
+    .mobile-menu-sheet{
+      width:100%;background:var(--surface-default);border-radius:var(--radius-xl) var(--radius-xl) 0 0;
+      padding:var(--space-3) var(--space-2) calc(var(--space-4) + env(safe-area-inset-bottom));
+      box-shadow:var(--shadow-lg);margin-bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom))}
+    .mobile-menu-sheet a{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-3);
+      border-radius:var(--radius-sm);color:var(--neutral-text-default);text-decoration:none;font-weight:var(--font-weight-semibold);font-size:var(--text-body-md-size)}
+    .mobile-menu-sheet a:hover{background:var(--brand-background-primary-subtle)}
+    .mobile-menu-sheet a.active{color:var(--brand-text-primary-default);background:var(--brand-background-primary-light)}
+    .mobile-menu-sheet .ico{display:grid;place-items:center;color:var(--neutral-text-subtle);flex:0 0 auto}
+    .mobile-menu-sheet a.active .ico{color:var(--brand-text-primary-default)}
     .page-body{padding:var(--page-padding-y-sm) var(--page-padding-x-sm) var(--page-padding-bottom-sm)}
     .hi-bar h1{font-size:var(--text-display-md-size)}
     .pr-row,.pr-field{grid-template-columns:1fr;gap:var(--space-1);align-items:start;padding:var(--space-2-5) 0}
@@ -3557,7 +3583,7 @@ summary:focus-visible {
 .demo-switcher-text small{font-size:var(--text-xs-size);font-weight:var(--font-weight-semibold);color:var(--neutral-text-subtle)}
 @media(max-width:640px){
   /* Mobile: bottom tab bar is ~56px + safe-area; push switcher above it */
-  .demo-switcher{right:var(--space-3);bottom:calc(var(--space-18) + env(safe-area-inset-bottom) + var(--space-2))}
+  .demo-switcher{right:var(--space-3);bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom) + var(--space-2))}
 }
 @media(max-width:480px){
   .demo-switcher-menu{width:calc(100vw - var(--space-6));right:calc(-1 * var(--space-3))}
