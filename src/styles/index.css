@@ -1523,16 +1523,15 @@
      so each tab's table looked like it had different padding/alignment. */
   .pr-class-history table{table-layout:fixed}
   .pr-class-history th,.pr-class-history td{width:25%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  /* DS soft-badge pattern: a 1px tone border keeps both chips visible on
+     either zebra stripe (the old Primary fill matched --surface-subtle and
+     disappeared on every other row), and each text/fill pair clears WCAG AA
+     (Primary ~6.9:1 light / ~6.6:1 dark; Contingent uses full-contrast text). */
   .pr-pill{
-    display:inline-flex;align-items:center;padding:var(--space-0-5) var(--space-2);border-radius:var(--radius-full);border:1px solid transparent;
-    /* --surface-3 (not --surface-2) so the pill still reads as a pill on
-       the table's own even-row background -- .pr-table's striping uses
-       --surface-2, so a same-color fill vanished into the row on every
-       other beneficiary. Both states keep the same 1px border treatment
-       (transparent here, tinted to match the fill when .on) so neither
-       looks like a different pill style from the other. */
-    background:var(--surface-strong);font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);color:var(--neutral-text-subtle)}
-  .pr-pill.on{background:var(--brand-background-primary-light);border-color:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
+    display:inline-flex;align-items:center;padding:var(--space-0-5) var(--space-2);border-radius:var(--radius-full);
+    border:1px solid var(--neutral-text-subtle-light);background:var(--surface-default);
+    font-size:var(--text-xs-size);font-weight:var(--font-weight-extrabold);color:var(--neutral-text-default)}
+  .pr-pill.on{background:var(--theme-brand-background-primary-subtle);border-color:var(--brand-border-primary-default);color:var(--brand-text-primary-default)}
   .pr-row-edit{
     display:inline-flex;align-items:center;gap:var(--space-1);border:1px solid var(--neutral-border-light);background:var(--surface-default);
     color:var(--brand-text-primary-default);border-radius:var(--radius-sm);padding:var(--space-1-5) var(--space-2-5);font:inherit;font-size:var(--text-caption-size);font-weight:var(--font-weight-bold);cursor:pointer}
