@@ -26,27 +26,27 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 const PERIODS = ['1m', '3m', '6m', 'ytd', '1y', '3y', '5y', '10y']
 const PERIOD_LABELS = { '1m': '1M', '3m': '3M', '6m': '6M', ytd: 'YTD', '1y': '1Y', '3y': '3Y', '5y': '5Y', '10y': '10Y' }
 
-// Each series carries its own dash pattern and point shape, not just a
-// color — a color-blind or low-vision reader (or a black-and-white
-// printout) can still tell the lines apart. Chart.js applies `dash` as
-// `borderDash` and `pointStyle` as-is; the legend swatches below draw the
-// same dash pattern in CSS so the key matches the chart.
+// Each series carries its own dash pattern, not just a color — a
+// color-blind or low-vision reader (or a black-and-white printout) can
+// still tell the lines apart. Chart.js applies `dash` as `borderDash`; the
+// legend draws the same colour + dash as a line sample so the key matches.
 // Color is resolved from the live CSS custom properties at render time
 // (see the `chartOptions`-style useMemo below) instead of being a fixed
 // hex here -- Chart.js/canvas can't read var() directly, so it needs the
 // browser-resolved value, but the value itself still tracks --brand/
 // --green/--red/--amber like everything else in the app.
-const POINT_STYLES = ['circle', 'triangle', 'rect', 'star']
-const DASHES = [[], [7, 4], [2, 3], [9, 3, 2, 3], [4, 3], [1, 3], [6, 3], [8, 4], [3, 2, 1, 2], [5, 4], [10, 3]]
+// Asset-class lines are told apart by colour + a dash pattern that is unique
+// per series (and never solid, which is reserved for Total portfolio). Only
+// Total draws point markers: 4 marker shapes across 12 lines had to repeat.
+const DASHES = [[12, 3], [7, 4], [2, 3], [9, 3, 2, 3], [4, 3], [1, 3], [6, 3], [8, 4], [3, 2, 1, 2], [5, 4], [10, 3]]
 
 const SERIES_META = [
-  { key: 'total', label: 'Total portfolio', token: '--neutral-text-default', dash: [], pointStyle: 'circle' },
+  { key: 'total', label: 'Total portfolio', token: '--neutral-text-default', dash: [], markers: true },
   ...ASSET_CLASS_ORDER.map((label, i) => ({
     key: `ac-${i}`,
     label,
     token: chartTokenForAsset(label, i),
     dash: DASHES[i] || [4, 3],
-    pointStyle: POINT_STYLES[i % POINT_STYLES.length],
     endScale: [1, 0.78, 0.92, 1.08, 0.95, 0.34, 0.28, 0.41, 0.68, 0.55, 0.18][i],
     seed: 11 + i * 3
   }))
@@ -468,10 +468,10 @@ function line(series, data, order, hidden) {
     borderColor: series.color,
     backgroundColor: series.color,
     borderDash: series.dash,
-    pointStyle: series.pointStyle,
     tension: 0.3,
-    pointRadius: 4,
-    pointHoverRadius: 6,
+    pointRadius: series.markers ? 4 : 0,
+    pointHoverRadius: 5,
+    pointHitRadius: 8,
     pointBackgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--surface-default').trim() || '#fff',
     pointBorderColor: series.color,
     pointBorderWidth: 2,
