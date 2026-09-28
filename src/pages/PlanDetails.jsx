@@ -207,7 +207,7 @@ export default function PlanDetails() {
 
       {sessionOptOut && (
         <section className="panel">
-          <h3>You opted out</h3>
+          <h2 className="panel-title">You opted out</h2>
           <p>Paycheck deferrals are stopped for this plan. You can enroll again at any time.</p>
           <div className="actions">
             <Link className="btn btn-primary" to="/enrollment">
@@ -219,7 +219,7 @@ export default function PlanDetails() {
 
       {eligible && (
         <section className="panel">
-          <h3>Not enrolled yet</h3>
+          <h2 className="panel-title">Not enrolled yet</h2>
           <p>You are eligible to participate. Set a deferral rate and investments to join this plan.</p>
           <div className="actions">
             <Link className="btn btn-primary" to="/enrollment">
@@ -279,7 +279,7 @@ export default function PlanDetails() {
                   ) : (
                     <>
                       <div className="panel-h">
-                        <h3>Deferral &amp; auto increase</h3>
+                        <h2 className="panel-title">Deferral &amp; auto increase</h2>
                         <button type="button" className="text-link" onClick={beginEdit}>
                           Edit
                         </button>
@@ -298,7 +298,7 @@ export default function PlanDetails() {
                           </b>
                         </li>
                       </ul>
-                      <h4 className="src-label">Auto increase</h4>
+                      <h3 className="src-label">Auto increase</h3>
                       {skippedAi ? (
                         <p>No automatic increase is turned on.</p>
                       ) : (
@@ -348,7 +348,7 @@ export default function PlanDetails() {
                 ) : (
                   <>
                     <div className="panel-h">
-                      <h3>Investments</h3>
+                      <h2 className="panel-title">Investments</h2>
                       <button type="button" className="text-link" onClick={beginEdit}>
                         Edit
                       </button>
@@ -362,7 +362,7 @@ export default function PlanDetails() {
                     ) : (
                       ['pre', 'roth'].map((src) => (
                         <div key={src}>
-                          <h4 className="src-label">{src === 'pre' ? 'Pre-Tax' : 'Roth'}</h4>
+                          <h3 className="src-label">{src === 'pre' ? 'Pre-Tax' : 'Roth'}</h3>
                           <FundList rows={fundRows(savedInv?.bySource?.[src])} />
                         </div>
                       ))
@@ -382,7 +382,7 @@ export default function PlanDetails() {
               <Icon icon={faCircleInfo} size={18} />
             </span>
             <div>
-              <h3>Enrollment</h3>
+              <h2 className="panel-title">Enrollment</h2>
               <p>{plan.notice}</p>
             </div>
           </div>
@@ -411,7 +411,7 @@ export default function PlanDetails() {
                   <b>{pct(deferral?.roth)}</b>
                 </li>
               </ul>
-              <h4 className="src-label">Investments</h4>
+              <h3 className="src-label">Investments</h3>
               <FundList rows={funds} />
             </div>
           )}

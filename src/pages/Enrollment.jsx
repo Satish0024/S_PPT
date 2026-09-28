@@ -142,7 +142,7 @@ export function DeferralEditor({
             <h3 className="section-title">{embedded ? 'Edit deferral' : 'Set my deferral rate'}</h3>
           </div>
           {canOptOut && (
-            <button type="button" className="optout-link" onClick={() => setOptOutOpen(true)}>
+            <button type="button" className="text-link optout-link" onClick={() => setOptOutOpen(true)}>
               Opt out
             </button>
           )}

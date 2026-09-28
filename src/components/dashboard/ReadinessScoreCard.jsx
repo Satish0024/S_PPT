@@ -36,7 +36,7 @@ function ScoreRing({ pct }) {
         cy="64"
         r={RING_R}
         fill="none"
-        stroke="var(--rgs-arc-2)"
+        stroke="var(--brand-text-primary-default)"
         strokeWidth="8"
         strokeLinecap="round"
         strokeDasharray={`${dash} ${RING_C}`}
@@ -55,13 +55,11 @@ function DecorLayers() {
         <path
           d="M-10 220 C 70 190, 130 260, 210 210 S 340 150, 380 190"
           fill="none"
-          stroke="rgba(143,160,255,.18)"
           strokeWidth="1.5"
         />
         <path
           d="M-10 260 C 60 250, 140 300, 220 250 S 330 210, 380 240"
           fill="none"
-          stroke="rgba(123,230,200,.14)"
           strokeWidth="1.5"
         />
       </svg>
@@ -185,7 +183,7 @@ export default function ReadinessScoreCard() {
             <Icon icon={faInfoCircle} size={13} aria-hidden="true" />
             <span>
               Not guaranteed results.{' '}
-              <button type="button" className="rgs-disclaimer-link" onClick={() => setOpen(true)}>
+              <button type="button" className="text-link rgs-disclaimer-link" onClick={() => setOpen(true)}>
                 Disclaimer
               </button>
             </span>
