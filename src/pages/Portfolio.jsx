@@ -86,9 +86,9 @@ export default function Portfolio() {
   const chartOptions = useMemo(() => {
     const css = getComputedStyle(document.documentElement)
     return buildChartOptions({
-      axisTitle: css.getPropertyValue('--neutral-text-subtle').trim() || '#5c6078',
-      gridLine: css.getPropertyValue('--neutral-border-light').trim() || '#e8eaf2',
-      tick: css.getPropertyValue('--neutral-text-subtle-light').trim() || '#8a8da3'
+      axisTitle: css.getPropertyValue('--neutral-text-subtle').trim() || '#5C5C6B',
+      gridLine: css.getPropertyValue('--neutral-border-light').trim() || '#787887',
+      tick: css.getPropertyValue('--neutral-text-subtle-light').trim() || '#5C5C6B'
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme])
@@ -96,7 +96,7 @@ export default function Portfolio() {
   // Same brand-derived-not-fixed-hex reasoning as chartOptions above.
   const SERIES = useMemo(() => {
     const css = getComputedStyle(document.documentElement)
-    return SERIES_META.map((s) => ({ ...s, color: css.getPropertyValue(s.token).trim() || '#666' }))
+    return SERIES_META.map((s) => ({ ...s, color: css.getPropertyValue(s.token).trim() || '#5C5C6B' }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme])
 
@@ -377,7 +377,7 @@ export default function Portfolio() {
                             stays unlabelled and full width rather than sitting
                             opposite an "Investment name" label. */}
                         <td className="name">
-                          <button type="button" className="fund-link" onClick={() => setOpenFund(h)}>
+                          <button type="button" className="text-link fund-link" onClick={() => setOpenFund(h)}>
                             {h.name}
                           </button>
                         </td>
@@ -467,7 +467,7 @@ export default function Portfolio() {
                       <Fragment key={f.name}>
                         <tr className="fund-row">
                           <td className="fund-cell">
-                            <button type="button" className="fund-link fund-title" onClick={() => setOpenFund(f)}>
+                            <button type="button" className="text-link fund-link fund-title" onClick={() => setOpenFund(f)}>
                               {f.name}
                             </button>
                             <div className="fund-meta">
@@ -542,7 +542,7 @@ function line(series, data, order, hidden) {
     pointRadius: series.markers ? 4 : 0,
     pointHoverRadius: 5,
     pointHitRadius: 8,
-    pointBackgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--surface-default').trim() || '#fff',
+    pointBackgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--core-color-surface-default').trim() || '#FFFFFF',
     pointBorderColor: series.color,
     pointBorderWidth: 2,
     borderWidth: 2.5,

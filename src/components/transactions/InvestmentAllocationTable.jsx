@@ -56,7 +56,7 @@ export default function InvestmentAllocationTable({ rows, sourceTotal, afterLabe
               <Fragment key={r.id}>
                 <tr>
                   <td className="alloc-name-col">
-                    <button type="button" className="fund-link alloc-name" onClick={() => setOpenFund(r)}>
+                    <button type="button" className="text-link fund-link alloc-name" onClick={() => setOpenFund(r)}>
                       {r.name}
                     </button>
                     <span className="alloc-nav">

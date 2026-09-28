@@ -157,7 +157,7 @@ export function InvestmentEditor({
           <h3 className="section-title">{embedded ? 'Edit investments' : 'Investment election'}</h3>
           <p className="section-sub">Choose how the deferrals are invested. The allocations must total to 100%.</p>
         </div>
-        <button type="button" className="optout-link" onClick={() => setFundsOpen('view')}>
+        <button type="button" className="text-link optout-link" onClick={() => setFundsOpen('view')}>
           View plan investments
         </button>
       </div>
@@ -285,7 +285,7 @@ function AllocPanel({ title, funds, alloc, locked, showReset, onChange, onReset 
           <div className="source" key={f.name}>
             <div className="srow">
               <span className="smeta">
-                <button type="button" className="fund-link sname" onClick={() => setOpenFund(f)}>
+                <button type="button" className="text-link fund-link sname" onClick={() => setOpenFund(f)}>
                   {f.name}
                 </button>
                 <span className="shelp">{f.cat}</span>

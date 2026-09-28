@@ -1,22 +1,24 @@
+/* CORE .cds-toast inside the .cds-toast-viewport (fixed bottom-right). */
 .toast{
-  position:fixed;top:calc(var(--header-h) + var(--space-3));right:var(--space-6);left:auto;bottom:auto;
-  z-index:120;display:inline-flex;align-items:center;gap:var(--space-2);
-  max-width:min(420px,calc(100vw - 32px));
-  padding:var(--space-3) var(--space-4);
-  background:var(--surface-default);color:var(--neutral-text-default);
-  border:1px solid var(--green-line, color-mix(in srgb, var(--semantics-success-text) 35%, var(--neutral-border-light)));
-  border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);
-  font-size:var(--text-body-md-size);font-weight:var(--font-weight-bold);line-height:1.3;
-  animation:toast-in var(--motion-base) ease-out}
+  position:fixed;right:var(--core-space-5);bottom:calc(var(--core-layout-footer-minHeight) + var(--core-space-5));left:auto;top:auto;
+  z-index:120;display:flex;align-items:center;gap:var(--core-space-3);
+  min-width:280px;max-width:min(360px,calc(100vw - var(--core-space-8)));box-sizing:border-box;
+  padding:var(--core-space-4);
+  background:var(--core-color-surface-default);color:var(--neutral-text-default);
+  border:none;box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light),var(--core-elevation-3);
+  border-radius:var(--core-radius-sm);
+  font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-bold);line-height:var(--typography-body-md-line-height);
+  animation:toast-in var(--core-motion-duration-base) ease-out}
 .toast-ico{
-  flex:0 0 auto;width:var(--icon-lg);height:var(--icon-lg);border-radius:var(--radius-full);
+  flex:0 0 auto;width:var(--core-size-control-sm);height:var(--core-size-control-sm);border-radius:var(--core-radius-full);
   display:grid;place-items:center;
   background:var(--semantics-success-background-light);color:var(--semantics-success-text)}
-/* Error tone -- same shape, red theme tokens instead of green. */
-.toast-error{border-color:var(--red-line, color-mix(in srgb, var(--semantics-critical-text) 35%, var(--neutral-border-light)))}
 .toast-error .toast-ico{background:var(--semantics-critical-background-light);color:var(--semantics-critical-text)}
+@media(max-width:640px){
+  .toast{right:var(--core-space-4);left:var(--core-space-4);max-width:none;min-width:0;bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom) + var(--core-space-4))}
+}
 @keyframes toast-in{
-  from{opacity:0;transform:translateY(-8px)}
+  from{opacity:0;transform:translateY(8px)}
   to{opacity:1;transform:translateY(0)}
 }
 @media (prefers-reduced-motion: reduce){
