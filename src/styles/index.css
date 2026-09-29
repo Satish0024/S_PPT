@@ -622,11 +622,9 @@ this grey triplet is only for
   .overall-balance .ob-loan .loan-k{font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle-light)}
   .overall-balance .ob-loan .loan-v{font-size:var(--typography-body-lg-size);font-weight:var(--typography-font-weight-bold);color:var(--semantics-warning-text);font-variant-numeric:tabular-nums}
   .overall-balance .ob-loan .loan-note{
-    display:flex;gap:var(--core-space-2);align-items:flex-start;
+    display:flex;gap:var(--core-space-2);align-items:center;
     margin-top:var(--core-space-2);font-size:var(--typography-caption-size);line-height:var(--typography-caption-line-height);color:var(--neutral-text-subtle-light);width:100%}
-  /* Note wraps to two lines, so the icon aligns to the first line's optical
-     centre rather than the flex box's centre. */
-  .overall-balance .ob-loan .loan-note svg{flex:0 0 auto;margin-top:var(--core-space-1)}
+  .overall-balance .ob-loan .loan-note svg{flex:0 0 auto}
   .overall-balance .ob-footnote{font-size:var(--typography-font-size-xs);color:var(--neutral-text-subtle-light);line-height:var(--typography-body-xs-line-height);margin:var(--core-space-3) var(--core-space-0) var(--core-space-0);padding-top:var(--core-space-3);border-top:1px solid var(--neutral-border-light)}
 
   .rr-card{
