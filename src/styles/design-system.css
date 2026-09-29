@@ -276,7 +276,7 @@
   font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle)}
 .ds-nav-link:hover{background:var(--brand-background-primary-subtle);color:var(--neutral-text-default)}
 .ds-nav-link.on{color:var(--brand-text-primary-default);background:var(--brand-background-primary-light)}
-.ds-nav-link:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:calc(-1 * var(--core-focusRing-width))}
+.ds-nav-link:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:calc(-1 * var(--core-focusRing-width))}
 
 .ds-dialog-demo{
   width:min(320px,100%);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);

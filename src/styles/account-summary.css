@@ -15,14 +15,14 @@
   transition:box-shadow var(--core-motion-duration-fast),border-color var(--core-motion-duration-fast),background var(--core-motion-duration-fast)}
 /* Same state set as .quick-link (CORE .cds-quicklink): rest / hover /
    focus-visible, plus the selected "on" state these buttons also carry. */
-.as-plans button:hover{background:var(--core-color-surface-sunken);border-color:var(--neutral-border-strong)}
-.as-plans button:focus-visible{outline:none;border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
+.as-plans button:hover{border-color:var(--theme-colors-neutral-300);box-shadow:var(--core-elevation-2)}
+.as-plans button:active{box-shadow:var(--core-elevation-1)}
+.as-plans button:focus-visible{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
 /* Active state: a primary-color border + soft ring around the whole
    card, same convention as .opt.selected -- not a left accent bar. */
 .as-plans button.on{
-  background:var(--brand-background-primary-light);border-color:var(--brand-text-primary-default);
-  box-shadow:var(--cds-focus-glow)}
-.as-plans button.on:focus-visible{box-shadow:var(--cds-focus-glow),var(--core-elevation-1)}
+  border-color:var(--brand-border-primary-default);background:var(--theme-brand-background-primary-subtle);box-shadow:var(--core-elevation-1)}
+.as-plans button.on:focus-visible{border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
 .as-plan-top{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--core-space-2)}
 .as-plan-top strong{
   font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);line-height:var(--typography-body-md-line-height)}
@@ -118,8 +118,9 @@
 .as-row-toggle{
   display:inline-grid;place-items:center;width:var(--core-size-control-sm);height:var(--core-size-control-sm);border:none;background:transparent;padding:var(--core-space-0);
   color:var(--neutral-text-subtle);cursor:pointer;border-radius:var(--core-radius-sm)}
-.as-row-toggle:hover{background:var(--brand-background-primary-subtle);color:var(--brand-text-primary-default)}
-.as-row-toggle:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:var(--core-focusRing-offset)}
+.as-row-toggle:hover{background:color-mix(in srgb,var(--brand-background-primary-strong) 8%,transparent);color:var(--brand-text-primary-hover)}
+.as-row-toggle:active{background:color-mix(in srgb,var(--brand-background-primary-strong) 16%,transparent);color:var(--brand-text-primary-active)}
+.as-row-toggle:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
 .as-row-name{
   display:inline;min-width:0;margin-right:var(--core-space-2)}
 .as-asset-cell{font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle)}

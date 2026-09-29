@@ -1,6 +1,6 @@
 import { useMemo, useState, Fragment } from 'react'
 import { Icon } from '../lib/icons'
-import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
+import SortIconCore from '../components/common/SortIcon.jsx'
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -172,9 +172,7 @@ export default function Portfolio() {
     setSort((s) => (s.key === key ? { key, dir: s.dir * -1 } : { key, dir: 1 }))
   }
 
-  const SortIcon = ({ active, dir }) => (
-    <Icon icon={active ? (dir === 1 ? faSortUp : faSortDown) : faSort} size={12} aria-hidden="true" className="sort-ico" />
-  )
+  const SortIcon = ({ active, dir }) => <SortIconCore direction={active ? (dir === 1 ? 'asc' : 'desc') : null} />
 
   const toggleYtd = () => {
     setYtdDir((d) => (d === 1 ? -1 : 1))

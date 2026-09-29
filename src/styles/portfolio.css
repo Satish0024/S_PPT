@@ -121,10 +121,8 @@
   .plan-table thead th.sortable button{
     all:unset;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:var(--core-space-2);width:100%;font:inherit;font-weight:var(--typography-font-weight-semibold);
     text-align:center;line-height:inherit;color:inherit}
-  .plan-table thead th.sortable button:focus-visible,.holdings-table th.sortable button:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:calc(-1 * var(--core-focusRing-width))}
-  .plan-table thead th.sortable .sort-ico{opacity:.5;flex:0 0 auto}
+  .plan-table thead th.sortable button:focus-visible,.holdings-table th.sortable button:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:calc(-1 * var(--core-focusRing-width))}
   .plan-table thead th.sortable button:hover,.holdings-table th.sortable button:hover{color:var(--neutral-text-default)}
-  .plan-table thead th.sortable.asc .sort-ico,.plan-table thead th.sortable.desc .sort-ico{opacity:1;color:var(--brand-text-primary-default)}
   .plan-table tr.fund-row td{border-bottom-style:dashed;border-bottom-color:var(--neutral-border-light)}
   .plan-table tr.bench-row td{background:var(--core-color-surface-sunken);color:var(--neutral-text-subtle);border-top:none;font-size:var(--typography-body-sm-size)}
   .plan-table tr.bench-row .fund-title{font-weight:var(--typography-font-weight-semibold);font-size:var(--typography-body-sm-size);color:var(--neutral-text-subtle)}
@@ -138,8 +136,6 @@
     all:unset;cursor:pointer;user-select:none;display:flex;align-items:center;gap:var(--core-space-2);width:100%;
     padding:var(--core-space-3) var(--core-space-4);font:inherit;font-weight:inherit;color:inherit;box-sizing:border-box}
   .holdings-table th.num.sortable button{justify-content:flex-end}
-  .holdings-table th.sortable .sort-ico{opacity:.5;flex:0 0 auto}
-  .holdings-table th.sortable.asc .sort-ico,.holdings-table th.sortable.desc .sort-ico{opacity:1;color:var(--brand-text-primary-default)}
   .overall-card{border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);background:var(--core-color-surface-default);box-shadow:var(--core-elevation-1);
     padding:var(--core-space-4);margin-bottom:var(--core-space-4)}
   .overall-card .overall-label{font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-bold);color:var(--brand-text-primary-default);margin-bottom:var(--core-space-3)}

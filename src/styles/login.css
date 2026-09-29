@@ -31,22 +31,25 @@
 .login-card h2{font-size:var(--typography-heading-h2-size);font-weight:var(--typography-font-weight-bold);letter-spacing:var(--typography-heading-h2-letter-spacing);margin:var(--core-space-0) var(--core-space-0) var(--core-space-2)}
 .login-lead{color:var(--neutral-text-subtle);font-size:var(--typography-body-md-size);margin:var(--core-space-0) var(--core-space-0) var(--core-space-5)}
 .login-field{display:flex;flex-direction:column;gap:var(--core-space-2);font-size:var(--typography-label-size);font-weight:var(--typography-label-weight);line-height:var(--typography-label-line-height);margin-bottom:var(--core-space-4)}
-.login-input{display:flex;align-items:center;gap:var(--core-space-2);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-0) var(--core-space-3);
+.login-input{display:flex;align-items:center;gap:var(--core-space-2);border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);padding:var(--core-space-0) var(--core-space-3);
   background:var(--core-color-surface-default);transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-.login-input:hover:not(:focus-within){border-color:var(--neutral-border-strong)}
-.login-input:focus-within{border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
-.login-input svg{color:var(--neutral-text-subtle-light);flex:0 0 auto}
+.login-input:hover:not(:focus-within){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+.login-input:focus-within{border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
+.login-input svg{color:var(--theme-neutral-text-subtleleast);flex:0 0 auto}
+.login-input:hover svg,.login-input:focus-within svg{color:var(--neutral-text-subtle)}
 .login-input input{border:none;outline:none;flex:1;min-width:0;padding:var(--core-space-2) var(--core-space-0);font:inherit;font-weight:var(--typography-font-weight-regular);background:transparent}
 .login-eye{
   border:none;background:transparent;color:var(--neutral-text-subtle-light);cursor:pointer;display:grid;place-items:center;
   min-width:44px;min-height:44px;border-radius:var(--core-radius-sm)}
-.login-eye:hover{color:var(--neutral-text-default);background:var(--brand-background-primary-subtle)}
-.login-eye:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:var(--core-focusRing-offset)}
+.login-eye:hover{background:color-mix(in srgb,var(--brand-background-primary-strong) 8%,transparent);color:var(--brand-text-primary-hover)}
+.login-eye:active{background:color-mix(in srgb,var(--brand-background-primary-strong) 16%,transparent);color:var(--brand-text-primary-active)}
+.login-eye:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
 .login-error{color:var(--semantics-critical-text);font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-semibold);margin:calc(-1 * var(--core-space-1)) var(--core-space-0) var(--core-space-3)}
 .login-submit{width:100%;border:none;border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-4);background:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor);
   font-weight:var(--typography-button-lg-weight);font-size:var(--typography-button-lg-size);line-height:var(--typography-button-lg-line-height);cursor:pointer;margin-top:var(--core-space-4)}
-.login-submit:hover{background:var(--brand-text-primary-hover)}
-.login-submit:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:var(--core-focusRing-offset)}
+.login-submit:hover{background:var(--brand-background-primary-hover)}
+.login-submit:active:not(:disabled){background:var(--brand-background-primary-active)}
+.login-submit:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
 /* DS primary-button disabled: the brand tone keeps its identity (tinted
    fill + brand text), it is not faded out. */
 .login-submit:disabled{
@@ -72,7 +75,8 @@
   border-radius:0;background:var(--core-color-surface-default);padding:var(--core-space-2) var(--core-space-3);min-height:0;line-height:var(--core-font-lineHeight-tight);cursor:pointer;text-align:left;
   appearance:none;-webkit-appearance:none;font:inherit}
 .login-page .lp-row:last-child{border-bottom:0}
-.login-page .lp-row:hover,.login-page .lp-row.on{background:var(--brand-background-primary-light)}
+.login-page .lp-row:hover,.login-page .lp-row.on{background:color-mix(in srgb,currentColor 8%,transparent)}
+.login-page .lp-row.on{background:var(--brand-background-primary-subtle);color:var(--brand-text-primary-default)}
 .login-page .lp-row img{width:24px;height:24px;border-radius:var(--core-radius-full);object-fit:cover;flex:0 0 auto}
 .login-page .lp-text{display:flex;flex-direction:column;align-items:flex-start;gap:var(--core-space-0);min-width:0}
 .login-page .lp-text strong{font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);letter-spacing:0;text-transform:none}
@@ -107,7 +111,8 @@
   display:flex;align-items:center;gap:var(--core-space-3);width:100%;border:none;background:transparent;padding:var(--core-space-2);
   border-radius:var(--core-radius-sm);cursor:pointer;text-align:left;font:inherit
 }
-.login-demo-row:hover{background:var(--brand-background-primary-subtle)}
+.login-demo-row:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:-2px}
+.login-demo-row:hover{background:color-mix(in srgb,currentColor 8%,transparent)}
 .login-demo-row img{border-radius:var(--core-radius-full);flex:0 0 auto;object-fit:cover}
 .login-demo-text{display:flex;flex-direction:column;gap:var(--core-border-width-hairline);min-width:0}
 .login-demo-text strong{font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}

@@ -16,11 +16,12 @@
 
   .search-bar{
     display:flex;align-items:center;gap:var(--core-space-3);padding:var(--core-space-3) var(--core-space-4);background:var(--core-color-surface-default);
-    border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-1);margin-bottom:var(--core-space-6);
+    border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-1);margin-bottom:var(--core-space-6);
     transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-  .search-bar:hover:not(:focus-within){border-color:var(--neutral-border-strong)}
-  .search-bar:focus-within{border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
-  .search-bar svg{width:18px;height:18px;color:var(--neutral-text-subtle-light);flex-shrink:0}
+  .search-bar:hover:not(:focus-within){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .search-bar:focus-within{border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
+  .search-bar svg{width:18px;height:18px;color:var(--theme-neutral-text-subtleleast);flex-shrink:0}
+  .search-bar:hover svg,.search-bar:focus-within svg{color:var(--neutral-text-subtle)}
   .search-bar input{
     flex:1;border:none;outline:none;font:inherit;font-size:var(--typography-body-md-size);color:var(--neutral-text-default);background:transparent}
   .search-bar input::placeholder{color:var(--neutral-text-subtle-light)}
@@ -56,7 +57,7 @@
   .cat{
     padding:var(--core-space-2) var(--core-space-4);border-radius:var(--core-radius-full);font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-semibold);border:1px solid var(--neutral-border-light);
     background:var(--core-color-surface-default);color:var(--neutral-text-subtle);cursor:pointer;transition:all var(--core-motion-duration-base)}
-  .cat:hover{border-color:var(--neutral-border-strong);color:var(--neutral-text-default)}
+  .cat:hover{background:color-mix(in srgb,var(--theme-neutral-border-primary-default) 22%,var(--core-color-surface-sunken));border-color:var(--neutral-border-strong);color:var(--neutral-text-default)}
   .cat.on{background:var(--brand-background-primary-strong);border-color:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor)}
 
   .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--core-space-4)}
@@ -67,6 +68,8 @@
     background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);overflow:hidden;
     box-shadow:var(--core-elevation-1);transition:box-shadow var(--core-motion-duration-base),border-color var(--core-motion-duration-base);display:flex;flex-direction:column}
   .card:hover{box-shadow:var(--core-elevation-2);border-color:var(--neutral-border-strong)}
+  .card:active{transform:translateY(1px);box-shadow:none;border-color:var(--brand-border-primary-default);background:var(--brand-background-primary-subtle)}
+  .card:focus-visible,.featured:focus-visible{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .card .thumb{height:96px;position:relative;overflow:hidden}
   .card .thumb .t-bg{position:absolute;inset:0}
   .card.t1 .thumb .t-bg{background:linear-gradient(135deg,var(--brand-background-primary-light) 0%,var(--brand-background-primary-subtle) 100%)}

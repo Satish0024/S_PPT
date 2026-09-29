@@ -364,7 +364,7 @@ this grey triplet is only for
   /* Global focus-visible — WCAG 2.4.7: every interactive element gets a
      visible focus indicator. Individual components can override with a
      more specific rule. */
-  :focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:var(--core-focusRing-offset)}
+  :focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
   /* Skip-to-content link for WCAG 2.4.1 */
   .skip-to-main{
     position:absolute;top:calc(-1 * var(--core-space-12));left:var(--core-space-4);z-index:999;
@@ -437,7 +437,8 @@ this grey triplet is only for
     display:grid;place-items:center;cursor:pointer;color:var(--neutral-text-subtle);flex:0 0 auto;
     transition:background var(--core-motion-duration-base),color var(--core-motion-duration-base)}
   .icon-btn:hover{background:color-mix(in srgb,var(--brand-background-primary-strong) 8%,transparent);color:var(--brand-text-primary-hover)}
-  .icon-btn:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:var(--core-focusRing-offset)}
+  .icon-btn:active:not(:disabled){background:color-mix(in srgb,var(--brand-background-primary-strong) 16%,transparent);color:var(--brand-text-primary-active)}
+  .icon-btn:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
   .icon-btn:disabled,.icon-btn[aria-disabled="true"]{
     opacity:1;color:var(--semantics-disabled-text);cursor:not-allowed}
   .icon-btn svg{width:var(--core-size-icon-md);height:var(--core-size-icon-md)}
@@ -477,7 +478,8 @@ this grey triplet is only for
   .user-dropdown-email .value{font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);overflow-wrap:anywhere}
   .user-option{display:flex;align-items:center;gap:var(--core-space-3);width:100%;border:none;background:transparent;
     padding:var(--core-space-3);border-radius:var(--core-radius-sm);cursor:pointer;text-align:left;transition:background var(--core-motion-duration-base)}
-  .user-option:hover,.user-option.on{background:var(--brand-background-primary-light)}
+  .user-option:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:-2px}
+  .user-option:hover,.user-option.on{background:color-mix(in srgb,currentColor 8%,transparent)}
   .user-option img{width:36px;height:36px;border-radius:var(--core-radius-full);object-fit:cover;flex:0 0 auto}
   .user-option .meta{min-width:0;flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:var(--core-space-1)}
   .user-option .name{display:block;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
@@ -486,7 +488,7 @@ this grey triplet is only for
   .user-option.on .check{opacity:1}
   .user-option.sign-out{margin-top:var(--core-space-2);border-top:1px solid var(--neutral-border-light);border-radius:0 0 var(--core-radius-sm) var(--core-radius-sm);color:var(--semantics-critical-text)}
   .user-option.sign-out .name{color:var(--semantics-critical-text)}
-  .user-option.sign-out:hover,.user-option.sign-out.on{background:var(--semantics-critical-background-light)}
+  .user-option.sign-out:hover,.user-option.sign-out.on{background:color-mix(in srgb,currentColor 8%,transparent)}
   .sign-out-ico{width:36px;height:36px;border-radius:var(--core-radius-full);background:var(--semantics-critical-background-light);color:var(--semantics-critical-text);
     display:grid;place-items:center;flex:0 0 auto}
 
@@ -526,13 +528,13 @@ this grey triplet is only for
   .nav a .ico svg{width:var(--core-size-icon-lg);height:var(--core-size-icon-lg)}
   .nav a .nav-label{overflow-wrap:anywhere;max-width:100%}
   .nav a:hover{background:var(--brand-background-primary-subtle);color:var(--brand-text-primary-default)}
-  .nav a.active{color:var(--brand-text-primary-default);background:var(--brand-background-primary-subtle);font-weight:var(--typography-font-weight-bold);box-shadow:inset 3px 0 0 var(--brand-background-primary-strong)}
+  .nav a.active{color:var(--brand-text-primary-default);background:var(--brand-background-primary-subtle);font-weight:var(--typography-font-weight-bold);box-shadow:inset 3px 0 0 var(--brand-border-primary-default)}
   /* .nav has overflow-y:auto for scrolling on short viewports, which clips
      any outline that renders outside the link's own box (the browser
      default outline-offset is positive) — the keyboard focus ring was
      silently disappearing on every nav item. Draw it inset instead so it
      always stays inside the link and can never get clipped. */
-  .nav a:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:calc(-1 * var(--core-focusRing-width));border-radius:var(--core-radius-sm)}
+  .nav a:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:calc(-1 * var(--core-focusRing-width));border-radius:var(--core-radius-sm)}
 
   /* Mobile nav is hidden by default — only shown at ≤640px via media query */
   .mobile-nav,.mobile-menu-bg{display:none}
@@ -567,7 +569,7 @@ this grey triplet is only for
   }
   .text-link:hover,.text-btn:hover{color:var(--brand-text-primary-hover);text-decoration-thickness:var(--core-border-width-thick)}
   .text-link:active,.text-btn:active{color:var(--brand-text-primary-active);text-decoration-thickness:var(--core-border-width-thick)}
-  .text-link:focus-visible,.text-btn:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:var(--core-focusRing-offset);border-radius:var(--core-radius-sm)}
+  .text-link:focus-visible,.text-btn:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset);border-radius:var(--core-radius-sm)}
   /* Back links: one pattern app-wide (CORE link + icon), 24px minimum target (WCAG 2.5.8). */
   .back,.rg-back,.pr-back{display:inline-flex;align-items:center;gap:var(--core-space-2);min-height:var(--core-space-6)}
   .text-link:disabled,.text-btn:disabled,.text-link[aria-disabled="true"]{color:var(--semantics-disabled-text);cursor:not-allowed}
@@ -587,7 +589,7 @@ this grey triplet is only for
   .scenario-banner.red .sb-tag{color:var(--semantics-critical-text)}
   .scenario-banner p{font-size:var(--typography-body-md-relaxed-size);line-height:var(--typography-body-md-relaxed-line-height);color:var(--neutral-text-subtle);margin:var(--core-space-0)}
   .scenario-banner a{color:var(--brand-text-primary-default);font-weight:var(--typography-font-weight-bold);text-decoration:underline;text-underline-offset:var(--link-underline-offset)}
-  .scenario-banner a:hover{text-decoration:underline}
+  .scenario-banner a:hover{color:var(--brand-text-primary-hover);text-decoration:underline;text-decoration-thickness:var(--core-border-width-thick)}
   .scenario-banner .sb-reason{
     margin-top:var(--core-space-3);padding-top:var(--core-space-3);border-top:1px dashed var(--neutral-border-light);
     font-size:var(--typography-body-sm-size);color:var(--neutral-text-subtle);line-height:var(--typography-body-sm-line-height)}
@@ -694,7 +696,7 @@ this grey triplet is only for
   .rr-field{display:flex;flex-direction:column;gap:var(--core-space-2);font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);margin:var(--core-space-0) var(--core-space-0) var(--core-space-3)}
   .rr-field span{display:inline-flex;align-items:center;gap:var(--core-space-2)}
   .rr-field input,.rr-field select{
-    border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);font:inherit;font-weight:var(--typography-font-weight-regular);color:var(--neutral-text-default)}
+    border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);font:inherit;font-weight:var(--typography-font-weight-regular);color:var(--neutral-text-default)}
   .rr-intro .btn{width:100%}
   .rr-foot{
     display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--core-space-1) var(--core-space-3);margin-top:var(--core-space-1);padding:var(--core-space-3) var(--core-space-3);
@@ -788,8 +790,8 @@ this grey triplet is only for
   }
   .rr-modal-h{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--core-space-3);margin-bottom:var(--core-space-2)}
   .rr-modal-h h4{margin:var(--core-space-0)}
-  .rr-modal-x{display:grid;place-items:center;width:28px;height:28px;border:none;background:transparent;color:var(--neutral-text-subtle);cursor:pointer;padding:var(--core-space-0);border-radius:var(--core-radius-sm)}   /* CORE close button */
-  .rr-modal-x:hover{background:var(--core-color-surface-sunken);color:var(--neutral-text-default)}
+  .rr-modal-x{display:grid;place-items:center;width:28px;height:28px;border:none;background:transparent;color:var(--theme-neutral-text-subtleleast);cursor:pointer;padding:var(--core-space-0);border-radius:var(--core-radius-sm)}   /* CORE close button */
+  .rr-modal-x:hover{background:var(--core-color-surface-raised);color:var(--neutral-text-default)}
   .rr-modal-k{font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default) !important;margin:var(--core-space-4) var(--core-space-0) var(--core-space-2) !important}
   .rr-modal ul{margin:var(--core-space-0) var(--core-space-0) var(--core-space-4);padding-left:var(--core-space-4);color:var(--neutral-text-subtle);font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height)}
   .rr-modal li{margin:var(--core-space-0) var(--core-space-0) var(--core-space-2)}
@@ -835,9 +837,9 @@ this grey triplet is only for
 .rg-confirm-actions .btn{width:auto;min-width:120px}
   .rg-plan-single span{font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle-light)}
   .rg-plan-single .ui-select-btn{
-    border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);font:inherit;font-weight:var(--typography-font-weight-regular);
+    border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);font:inherit;font-weight:var(--typography-font-weight-regular);
     color:var(--neutral-text-default);transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-  .rg-plan-single .ui-select-btn:focus-visible{border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow);outline:none}
+  .rg-plan-single .ui-select-btn:focus-visible{border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow);outline:none}
   .rg-plan-single .ui-select.disabled .ui-select-btn{
     opacity:1;cursor:default;background:var(--semantics-disabled-background);
     color:var(--semantics-disabled-text);border-color:var(--semantics-disabled-border)}
@@ -881,10 +883,12 @@ this grey triplet is only for
   .rg-target-copy small{display:block;margin-top:var(--core-border-width-hairline);font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-medium);color:var(--neutral-text-subtle);line-height:var(--typography-body-xs-line-height)}
   .rg-target-ctrl{flex:0 0 auto}
   .rg-target .ui-select-btn,.rg-affix,.rg-step{
-    border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);background:var(--core-color-surface-default);min-height:var(--core-size-control-md);
+    border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);background:var(--core-color-surface-default);min-height:var(--core-size-control-md);
     transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
+  .rg-target .ui-select-btn:hover,.rg-affix:hover:not(:focus-within),.rg-plan-single .ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .rg-step:hover:not(:focus-within){border-color:var(--neutral-border-strong)}
   .rg-target .ui-select-btn:focus-visible,.rg-affix:focus-within,.rg-step:focus-within{
-    border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow);outline:none}
+    border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow);outline:none}
   .rg-target .ui-select-btn{
     padding:var(--core-space-2) var(--core-space-3);font:inherit;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-regular);color:var(--neutral-text-default);
     min-width:148px}
@@ -892,8 +896,10 @@ this grey triplet is only for
   .rg-affix em{
     /* CORE .cds-input-group-addon */
     display:grid;place-items:center;padding:var(--core-space-0) var(--core-space-3);align-self:stretch;background:var(--core-color-surface-sunken);
-    color:var(--neutral-text-subtle);font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height);font-style:normal;font-weight:var(--typography-font-weight-regular);border-right:1px solid var(--neutral-border-light)}
-  .rg-affix.pct em{border-right:none;border-left:1px solid var(--neutral-border-light)}
+    color:var(--neutral-text-subtle);font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height);font-style:normal;font-weight:var(--typography-font-weight-regular);border-right:1px solid var(--core-color-border-control)}
+  .rg-affix.pct em{border-right:none;border-left:1px solid var(--core-color-border-control)}
+  .rg-affix:hover:not(:focus-within) em{border-color:var(--neutral-border-strong)}
+  .rg-affix:focus-within em{border-color:var(--cds-focus-color)}
   .rg-affix input,.rg-step input{
     border:none;background:transparent;padding:var(--core-space-2) var(--core-space-3);width:108px;max-width:100%;font:inherit;font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-regular);
     color:var(--neutral-text-default);font-variant-numeric:tabular-nums;outline:none}
@@ -901,8 +907,13 @@ this grey triplet is only for
   .rg-step input::-webkit-outer-spin-button,.rg-step input::-webkit-inner-spin-button{appearance:none;margin:var(--core-space-0)}
   .rg-step{display:inline-flex;align-items:stretch;overflow:hidden}
   .rg-step button{
-    width:36px;border:none;background:var(--core-color-surface-sunken);color:var(--brand-text-primary-default);font-size:var(--typography-heading-h4-size);font-weight:var(--typography-font-weight-bold);cursor:pointer}
-  .rg-step button:hover{background:var(--brand-background-primary-light)}
+    width:36px;border:none;background:transparent;color:var(--neutral-text-subtle);font-size:var(--typography-heading-h4-size);font-weight:var(--typography-font-weight-bold);cursor:pointer;
+    transition:background var(--core-motion-duration-fast),color var(--core-motion-duration-fast)}
+  .rg-step button:first-child{border-right:1px solid var(--theme-neutral-border-primary-default)}
+  .rg-step button:last-child{border-left:1px solid var(--theme-neutral-border-primary-default)}
+  .rg-step button:hover{background:color-mix(in srgb,currentColor 16%,transparent);color:var(--neutral-text-default)}
+  .rg-step button:active{background:color-mix(in srgb,currentColor 24%,transparent)}
+  .rg-step button:disabled{color:var(--semantics-disabled-text);cursor:not-allowed}
   .rg-step input{width:52px;text-align:center;padding-left:var(--core-space-1);padding-right:var(--core-space-1)}
   .rg-source{margin:var(--core-space-0) var(--core-space-0) var(--core-space-4);padding-bottom:var(--core-space-1)}
   .rg-source-h{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--core-space-3);margin-bottom:var(--core-space-2)}
@@ -921,12 +932,15 @@ this grey triplet is only for
     position:relative;z-index:3;width:100%;margin:var(--core-space-0);background:transparent;appearance:none;height:22px;accent-color:var(--brand-text-primary-default)}
   .rg-range input[type=range]::-webkit-slider-runnable-track{height:8px;background:transparent;border:none}
   .rg-range input[type=range]::-webkit-slider-thumb{
-    appearance:none;width:18px;height:18px;border-radius:var(--core-radius-full);background:var(--brand-text-primary-default);border:2px solid var(--core-color-surface-default);
-    box-shadow:0 0 0 1px var(--brand-text-primary-default);margin-top:calc(-1 * var(--core-space-1));cursor:pointer}
+    appearance:none;width:var(--core-size-icon-md);height:var(--core-size-icon-md);border-radius:var(--core-radius-full);background:var(--brand-background-primary-strong);border:2px solid var(--theme-colors-neutral-0);
+    box-shadow:0 0 0 2px var(--brand-background-primary-strong);margin-top:calc((8px - var(--core-size-icon-md)) / 2);cursor:pointer}
   .rg-range input[type=range]::-moz-range-track{height:8px;background:transparent;border:none}
   .rg-range input[type=range]::-moz-range-thumb{
-    width:18px;height:18px;border-radius:var(--core-radius-full);background:var(--brand-text-primary-default);border:2px solid var(--core-color-surface-default);
-    box-shadow:0 0 0 1px var(--brand-text-primary-default);cursor:pointer}
+    width:var(--core-size-icon-md);height:var(--core-size-icon-md);border-radius:var(--core-radius-full);background:var(--brand-background-primary-strong);border:2px solid var(--theme-colors-neutral-0);
+    box-shadow:0 0 0 2px var(--brand-background-primary-strong);cursor:pointer}
+  .rg-range input[type=range]:focus-visible{outline:none}
+  .rg-range input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 var(--core-focusRing-width) var(--cds-focus-color)}
+  .rg-range input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 var(--core-focusRing-width) var(--cds-focus-color)}
   .rg-range-note{
     position:absolute;left:0;right:0;top:100%;display:flex;justify-content:space-between;gap:var(--core-space-2);
     margin-top:var(--core-space-1);font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-bold)}
@@ -934,11 +948,11 @@ this grey triplet is only for
   .rg-range-note em{font-style:normal;color:var(--semantics-warning-text)}
   .rg-range-note b{color:var(--brand-text-primary-default)}
   .rg-range--up .rg-range-fill{background:var(--semantics-success-text)}
-  .rg-range--up input[type=range]::-webkit-slider-thumb{background:var(--semantics-success-text);box-shadow:0 0 0 1px var(--semantics-success-text)}
-  .rg-range--up input[type=range]::-moz-range-thumb{background:var(--semantics-success-text);box-shadow:0 0 0 1px var(--semantics-success-text)}
+  .rg-range--up input[type=range]::-webkit-slider-thumb{background:var(--semantics-success-text);box-shadow:0 0 0 2px var(--semantics-success-text)}
+  .rg-range--up input[type=range]::-moz-range-thumb{background:var(--semantics-success-text);box-shadow:0 0 0 2px var(--semantics-success-text)}
   .rg-range--down .rg-range-fill{background:var(--semantics-warning-text)}
-  .rg-range--down input[type=range]::-webkit-slider-thumb{background:var(--semantics-warning-text);box-shadow:0 0 0 1px var(--semantics-warning-text)}
-  .rg-range--down input[type=range]::-moz-range-thumb{background:var(--semantics-warning-text);box-shadow:0 0 0 1px var(--semantics-warning-text)}
+  .rg-range--down input[type=range]::-webkit-slider-thumb{background:var(--semantics-warning-text);box-shadow:0 0 0 2px var(--semantics-warning-text)}
+  .rg-range--down input[type=range]::-moz-range-thumb{background:var(--semantics-warning-text);box-shadow:0 0 0 2px var(--semantics-warning-text)}
   .rg-range-new--up{color:var(--semantics-success-text) !important}
   .rg-range-new--down{color:var(--semantics-warning-text) !important}
   .rg-range-new--same{color:var(--neutral-text-subtle) !important}
@@ -1221,7 +1235,9 @@ this grey triplet is only for
     background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
     box-shadow:var(--core-elevation-1);position:relative;overflow:hidden;
     transition:box-shadow var(--core-motion-duration-base) ease,border-color var(--core-motion-duration-base) ease,transform var(--core-motion-duration-base) ease}
-  .learn-card:hover{box-shadow:var(--core-elevation-2);border-color:var(--neutral-border-strong);transform:translateY(-1px)}
+  .learn-card:hover{box-shadow:var(--core-elevation-2);border-color:var(--neutral-border-strong);transform:none}
+  .learn-card:active{transform:translateY(1px);box-shadow:none;border-color:var(--brand-border-primary-default);background:var(--brand-background-primary-subtle)}
+  .learn-card:focus-visible{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .learn-card-top{display:flex;align-items:center;gap:var(--core-space-3);position:relative;z-index:1}
   .learn-card-ico{
     width:48px;height:48px;border-radius:var(--core-radius-sm);flex:0 0 auto;
@@ -1300,7 +1316,7 @@ this grey triplet is only for
     text-decoration:none;transition:background var(--core-motion-duration-fast),border-color var(--core-motion-duration-fast)}
   .risk-edit-btn:hover{background:var(--brand-background-primary-subtle);border-color:var(--brand-border-primary-hover)}
   .risk-edit-btn:active{background:var(--brand-background-primary-hover);color:var(--brand-text-primary-oncolor)}
-  .risk-edit-btn:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:var(--core-focusRing-offset)}
+  .risk-edit-btn:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
   .risk-edit-btn svg{animation:risk-sparkle-spin 3.5s ease-in-out infinite}
   @keyframes risk-sparkle-spin{0%,100%{transform:rotate(0) scale(1)}50%{transform:rotate(18deg) scale(1.15)}}
 
@@ -1309,8 +1325,8 @@ this grey triplet is only for
   .risk-picker-opt{
     text-align:left;border:1px solid var(--neutral-border-light);background:var(--core-color-surface-default);border-radius:var(--core-radius-sm);padding:var(--core-space-3) var(--core-space-3);
     font:inherit;font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle);cursor:pointer;transition:var(--core-motion-duration-base)}
-  .risk-picker-opt:hover{border-color:var(--neutral-border-strong)}
-  .risk-picker-opt.on{border-color:var(--brand-text-primary-default);background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
+  .risk-picker-opt:hover{border-color:var(--theme-colors-neutral-300);box-shadow:var(--core-elevation-2)}
+  .risk-picker-opt.on{border-color:var(--brand-border-primary-default);background:var(--theme-brand-background-primary-subtle);color:var(--brand-text-primary-default)}
   @media(prefers-reduced-motion:reduce){
     .risk-marker,.risk-center-ico,.risk-edit-btn svg{animation:none;transition:none}
   }
@@ -1400,8 +1416,9 @@ this grey triplet is only for
     box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light);
     border-radius:var(--core-radius-sm);text-decoration:none;color:inherit;min-width:0;
     transition:box-shadow var(--core-motion-duration-fast)}
-  .quick-link:hover{box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-strong),var(--core-elevation-1)}
-  .quick-link:focus-visible{outline:none;box-shadow:inset 0 0 0 var(--core-border-width-default) var(--theme-primitive-color-primary-400),var(--cds-focus-glow)}
+  .quick-link:hover{box-shadow:inset 0 0 0 var(--core-border-width-default) var(--theme-colors-neutral-300),var(--core-elevation-2)}
+  .quick-link:active{box-shadow:inset 0 0 0 var(--core-border-width-default) var(--theme-colors-neutral-300),var(--core-elevation-1)}
+  .quick-link:focus-visible{outline:none;box-shadow:inset 0 0 0 var(--core-border-width-default) var(--cds-focus-color),var(--cds-focus-glow)}
   .quick-link .q-ico{
     flex:0 0 auto;width:var(--core-size-control-md);height:var(--core-size-control-md);border-radius:var(--core-radius-sm);display:grid;place-items:center;
     background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
@@ -1448,7 +1465,7 @@ this grey triplet is only for
     background:var(--core-color-surface-default);color:var(--neutral-text-default);width:auto;min-height:var(--core-size-control-md);
     transition:background var(--core-motion-duration-fast),border-color var(--core-motion-duration-fast),color var(--core-motion-duration-fast)}
   .btn:active:not(:disabled){transform:translateY(1px)}
-  .btn:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:var(--core-focusRing-offset)}
+  .btn:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
   .btn-sm{
     padding:var(--core-space-1) var(--core-space-3);
     font-size:var(--typography-text12-semibold-size);font-weight:var(--typography-button-sm-weight);line-height:var(--typography-text12-semibold-line-height);
@@ -1488,21 +1505,26 @@ this grey triplet is only for
   input[type="checkbox"],input[type="radio"]{
     appearance:none;-webkit-appearance:none;flex:0 0 auto;box-sizing:border-box;margin:var(--core-space-0);
     width:var(--core-size-icon-md);height:var(--core-size-icon-md);background:var(--core-color-surface-default);
-    border:var(--core-border-width-default) solid var(--neutral-border-light);cursor:pointer;
+    border:var(--core-border-width-default) solid var(--core-color-border-control);cursor:pointer;
     display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;
     transition:background var(--core-motion-duration-fast) ease,border-color var(--core-motion-duration-fast) ease}
   input[type="checkbox"]{border-radius:var(--core-radius-xs)}
   input[type="radio"]{border-radius:var(--core-radius-full)}
-  input[type="checkbox"]:hover:not(:disabled):not(:checked),input[type="radio"]:hover:not(:disabled):not(:checked){
-    border-color:var(--theme-primitive-color-primary-400);background:var(--brand-background-primary-subtle)}
+  input[type="checkbox"]:hover:not(:disabled):not(:checked),input[type="radio"]:hover:not(:disabled):not(:checked){border-color:var(--cds-focus-color);background:var(--brand-background-primary-subtle)}
+  label:hover > input[type="checkbox"]:not(:disabled):not(:checked),label:hover > input[type="radio"]:not(:disabled):not(:checked){border-color:var(--cds-focus-color);background:var(--brand-background-primary-subtle)}
+  input[type="checkbox"]:checked:hover:not(:disabled),input[type="radio"]:checked:hover:not(:disabled),
+  label:hover > input[type="checkbox"]:checked:not(:disabled),label:hover > input[type="radio"]:checked:not(:disabled){background:var(--brand-background-primary-hover);border-color:var(--brand-background-primary-hover)}
+  input[type="checkbox"]:active:not(:disabled):not(:checked),input[type="radio"]:active:not(:disabled):not(:checked){border-color:var(--brand-background-primary-strong);background:var(--brand-background-primary-subtle)}
+  input[type="checkbox"]:active:not(:disabled):checked,input[type="radio"]:active:not(:disabled):checked{background:var(--brand-background-primary-strong);border-color:var(--brand-background-primary-strong)}
   input[type="checkbox"]:checked,input[type="radio"]:checked{background:var(--brand-background-primary-strong);border-color:var(--brand-background-primary-strong)}
   input[type="radio"]::before{content:"";width:var(--core-space-2);height:var(--core-space-2);border-radius:var(--core-radius-full);background:var(--core-color-surface-default);opacity:0;transition:opacity var(--core-motion-duration-instant) ease}
   input[type="checkbox"]::before{
     content:"";width:10px;height:5px;border-left:2px solid var(--brand-text-primary-oncolor);border-bottom:2px solid var(--brand-text-primary-oncolor);
     transform:rotate(-45deg) translate(1px,-2px);opacity:0;transition:opacity var(--core-motion-duration-instant) ease}
   input[type="checkbox"]:checked::before,input[type="radio"]:checked::before{opacity:1}
-  input[type="checkbox"]:focus-visible,input[type="radio"]:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:var(--core-focusRing-offset)}
-  input[type="checkbox"]:disabled,input[type="radio"]:disabled{background:var(--semantics-disabled-background);border-color:var(--neutral-border-light);opacity:1;cursor:not-allowed}
+  input[type="checkbox"]:focus-visible,input[type="radio"]:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
+  input[type="checkbox"]:focus-visible:not(:checked),input[type="radio"]:focus-visible:not(:checked){border-color:var(--cds-focus-color);background:var(--core-color-surface-default)}
+  input[type="checkbox"]:disabled,input[type="radio"]:disabled{background:var(--semantics-disabled-background);border-color:var(--theme-neutral-border-primary-default);opacity:1;cursor:not-allowed}
   input[type="checkbox"]:disabled:checked,input[type="radio"]:disabled:checked{background:var(--theme-colors-neutral-500);border-color:var(--theme-colors-neutral-500)}
   input[type="checkbox"].sm,.legend-row input[type="checkbox"]{width:var(--core-size-icon-sm);height:var(--core-size-icon-sm)}
   .legend-row input[type="checkbox"]::before{width:8px;height:4px}
@@ -1514,7 +1536,7 @@ this grey triplet is only for
     letter-spacing:var(--typography-label-letter-spacing);color:var(--neutral-text-subtle)}
   .form-control{
     width:100%;min-height:var(--core-size-control-md);box-sizing:border-box;
-    padding:var(--core-space-2) var(--core-space-3);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);
+    padding:var(--core-space-2) var(--core-space-3);border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);
     font:inherit;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-regular);line-height:var(--typography-body-md-line-height);
     color:var(--neutral-text-default);background:var(--core-color-surface-default);transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
   .form-control-sm{min-height:var(--core-size-control-sm);padding:var(--core-space-1) var(--core-space-3)}
@@ -1524,7 +1546,7 @@ this grey triplet is only for
   .form-control:hover:not(:disabled):not(:focus){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
   .form-control[aria-invalid="true"]{border-color:var(--semantics-critical-border)}
   .form-control:focus,.form-control:focus-visible{
-    outline:none;border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
+    outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .form-control:disabled{
     background:var(--semantics-disabled-background);color:var(--semantics-disabled-text);
     border-color:var(--semantics-disabled-border);cursor:not-allowed}
@@ -1557,8 +1579,10 @@ this grey triplet is only for
     line-height:var(--typography-body-lg-line-height);color:var(--neutral-text-subtle);cursor:pointer;
     box-shadow:inset 0 -3px 0 transparent;border-radius:0;transition:color var(--core-motion-duration-fast)}
   .tab:hover,.as-tabs button:hover,.pr-class-tabs button:hover{color:var(--neutral-text-default)}
+  .tab:hover:not(.on):not([aria-selected="true"]):not(:disabled),.as-tabs button:hover:not(.on),.pr-class-tabs button:hover:not(.on){box-shadow:inset 0 -3px 0 var(--neutral-border-strong)}
+  .tab:disabled,.as-tabs button:disabled,.pr-class-tabs button:disabled{color:var(--theme-colors-neutral-400);cursor:not-allowed}
   .tab.on,.tab[aria-selected="true"],.as-tabs button.on,.pr-class-tabs button.on{color:var(--brand-text-primary-default);font-weight:var(--typography-font-weight-semibold);box-shadow:inset 0 -3px 0 var(--brand-background-primary-strong)}
-  .tab:focus-visible,.as-tabs button:focus-visible,.pr-class-tabs button:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:var(--core-focusRing-offset)}
+  .tab:focus-visible,.as-tabs button:focus-visible,.pr-class-tabs button:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
 
   /* ---------- Toggle group (CORE .cds-toggle-group) ---------- */
   .tx-filters,.period,.txn-upload .tabs2{display:inline-flex;flex-wrap:wrap;align-items:center;gap:var(--core-space-1);padding:var(--core-space-1);background:var(--core-color-surface-sunken);border-radius:var(--core-radius-sm);max-width:100%}
@@ -1568,7 +1592,7 @@ this grey triplet is only for
     color:var(--neutral-text-subtle);transition:color var(--core-motion-duration-fast),background var(--core-motion-duration-fast)}
   .tx-filters button:hover:not(.on),.period button:hover:not(.on),.txn-upload .tabs2 button:hover:not(.on){color:var(--brand-text-primary-default)}
   .tx-filters button.on,.period button.on,.txn-upload .tabs2 button.on{background:var(--brand-background-primary-subtle);color:var(--brand-text-primary-active)}
-  .tx-filters button:focus-visible,.period button:focus-visible,.txn-upload .tabs2 button:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:var(--core-focusRing-offset);position:relative;z-index:1}
+  .tx-filters button:focus-visible,.period button:focus-visible,.txn-upload .tabs2 button:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset);position:relative;z-index:1}
 
   .list{display:flex;flex-direction:column;gap:var(--core-space-0);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);overflow:hidden}
   .list-row{display:flex;justify-content:space-between;gap:var(--core-space-3);padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--neutral-border-light);
@@ -1587,17 +1611,18 @@ this grey triplet is only for
     display:flex;align-items:center;gap:var(--core-space-3);width:100%;border:none;background:transparent;
     padding:var(--core-space-3) var(--core-space-3);border-radius:var(--core-radius-sm);font:inherit;font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-bold);
     color:var(--neutral-text-subtle);cursor:pointer;text-align:left}
-  .pr-nav button:hover{background:var(--brand-background-primary-subtle);color:var(--neutral-text-default)}
-  .pr-nav button.on{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
+  .pr-nav button:hover{background:var(--core-sidebar-item-hoverBg);color:var(--neutral-text-default)}
+  .pr-nav button.on{background:var(--core-sidebar-item-activeBg);color:var(--core-sidebar-item-activeText);font-weight:var(--typography-font-weight-semibold)}
   /* Labels like "Employment Information"/"Employee Classification" wrap to
      2 lines in this 240px sidebar; the icon stays centered against the full
      label block rather than tracking the first line. The roomier
      line-height keeps the wrapped text from looking cramped. */
   .pr-nav-ico{
     width:32px;height:32px;border-radius:var(--core-radius-sm);flex:0 0 auto;display:grid;place-items:center;
-    background:var(--core-color-surface-sunken);color:var(--neutral-text-subtle)}
+    background:var(--core-sidebar-icon-bg);color:var(--core-sidebar-icon-text)}
   .pr-nav-label{line-height:var(--typography-body-md-line-height)}
-  .pr-nav button.on .pr-nav-ico{background:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor)}
+  .pr-nav button.on .pr-nav-ico{background:var(--core-sidebar-icon-activeBg);color:var(--core-sidebar-icon-activeText)}
+  .pr-nav button:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:-2px}
   .pr-main{min-width:0;max-width:760px;display:flex;flex-direction:column;gap:var(--core-space-4)}
   .pr-main.pr-main-wide{max-width:none}
   .pr-hero{
@@ -1656,8 +1681,8 @@ this grey triplet is only for
   .settings-appearance-opt{
     display:flex;align-items:center;gap:var(--core-space-2);padding:var(--core-space-3) var(--core-space-4);border-radius:var(--core-radius-sm);
     border:1px solid var(--neutral-border-light);background:var(--core-color-surface-default);color:var(--neutral-text-subtle);font:inherit;font-weight:var(--typography-font-weight-semibold);cursor:pointer;transition:var(--core-motion-duration-base)}
-  .settings-appearance-opt:hover{border-color:var(--neutral-border-strong);color:var(--neutral-text-default)}
-  .settings-appearance-opt.on{border-color:var(--brand-text-primary-default);color:var(--brand-text-primary-default);background:var(--brand-background-primary-light)}
+  .settings-appearance-opt:hover{border-color:var(--theme-colors-neutral-300);box-shadow:var(--core-elevation-2);color:var(--neutral-text-default)}
+  .settings-appearance-opt.on{border-color:var(--brand-border-primary-default);background:var(--theme-brand-background-primary-subtle);color:var(--brand-text-primary-default)}
   .settings-toggle-row{
     display:flex;align-items:flex-start;gap:var(--core-space-3);padding:var(--core-space-3) var(--core-space-0);
     border-top:1px solid var(--neutral-border-light);cursor:pointer}
@@ -1682,13 +1707,13 @@ this grey triplet is only for
   .pr-addr span{display:block;text-transform:none;letter-spacing:0;font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);margin:var(--core-space-0)}
   .pr-field i{color:var(--semantics-critical-text);font-style:normal;margin-left:var(--core-space-1)}
   .pr-field input:not([type="radio"]):not([type="checkbox"]),.pr-field select,.pr-field .ui-select-btn,.pr-input-ico,.pr-phone{
-    width:100%;max-width:360px;min-height:var(--core-size-control-sm);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);
+    width:100%;max-width:360px;min-height:var(--core-size-control-sm);border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);
     background:var(--core-color-surface-default);color:var(--neutral-text-default);font:inherit;font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-regular);
     padding:var(--core-space-2) var(--core-space-3);box-sizing:border-box;
     transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
   .pr-field input:not([type="radio"]):not([type="checkbox"]):hover:not(:disabled),.pr-field select:hover:not(:disabled),.pr-field .ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
   .pr-field input:not([type="radio"]):not([type="checkbox"]):focus,.pr-field select:focus,.pr-field .ui-select-btn:focus-visible{
-    outline:none;border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
+    outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .pr-field input:disabled,.pr-field select:disabled{
     background:var(--semantics-disabled-background);color:var(--semantics-disabled-text);
     border-color:var(--semantics-disabled-border);cursor:not-allowed}
@@ -1713,7 +1738,8 @@ this grey triplet is only for
     flex:1;min-height:0;max-width:none;border:0;padding:var(--core-space-0);
     background:transparent;box-shadow:none;outline:none}
   .pr-input-ico:focus-within{
-    border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
+    border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
+  .pr-input-ico:hover:not(:focus-within){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
   /* Keep the error state readable while focused instead of letting the
      brand-colored focus ring above replace it. */
   .pr-input-ico.is-invalid:focus-within{
@@ -1721,7 +1747,8 @@ this grey triplet is only for
   .pr-eye{
     width:32px;height:32px;border:none;border-radius:var(--core-radius-sm);background:transparent;color:var(--neutral-text-subtle);
     display:grid;place-items:center;cursor:pointer;flex:0 0 auto;font:inherit;font-size:var(--typography-body-xs-size);font-weight:var(--typography-font-weight-bold)}
-  .pr-eye:hover{background:var(--theme-neutral-border-primary-default);color:var(--neutral-text-default)}
+  .pr-eye:hover{background:color-mix(in srgb,var(--brand-background-primary-strong) 8%,transparent);color:var(--brand-text-primary-hover)}
+  .pr-eye:active{background:color-mix(in srgb,var(--brand-background-primary-strong) 16%,transparent);color:var(--brand-text-primary-active)}
   .pr-eye.inline{width:24px;height:24px;display:inline-grid;vertical-align:middle;color:var(--brand-text-primary-default);padding:var(--core-space-0)}
   .pr-phone{display:grid;grid-template-columns:72px minmax(0,1fr);gap:var(--core-space-2);padding:var(--core-space-0);border:none;background:transparent;min-height:0}
   .pr-phone input{max-width:none}
@@ -1795,10 +1822,10 @@ this grey triplet is only for
   .pr-pct-list label{display:flex;justify-content:space-between;align-items:center;gap:var(--core-space-3);font-weight:var(--typography-font-weight-bold)}
   .pr-pct-input{display:inline-flex;align-items:center;gap:var(--core-space-2);font-weight:var(--typography-font-weight-regular)}
   .pr-pct-input input{
-    width:72px;border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);font:inherit;font-weight:var(--typography-font-weight-regular);
+    width:72px;border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);font:inherit;font-weight:var(--typography-font-weight-regular);
     transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-  .pr-pct-input input:hover:not(:disabled):not(:focus){border-color:var(--neutral-border-strong)}
-  .pr-pct-input input:focus{outline:none;border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
+  .pr-pct-input input:hover:not(:disabled):not(:focus){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .pr-pct-input input:focus{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .pr-pct-input.is-invalid input{border-color:var(--semantics-critical-text)}
   .pr-pct-input.is-invalid input:focus{border-color:var(--semantics-critical-text);box-shadow:0 0 0 3px color-mix(in srgb, var(--semantics-critical-border) 25%, transparent)}
   p.pr-error{color:var(--semantics-critical-text);font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);margin:var(--core-space-3) var(--core-space-0) var(--core-space-0)}
@@ -1812,8 +1839,8 @@ this grey triplet is only for
     width:100%;border:none;background:transparent;padding:var(--core-space-3) var(--core-space-3);border-radius:var(--core-radius-sm);
     font:inherit;text-align:left;cursor:pointer;color:var(--neutral-text-subtle)}
   .pr-steps button:disabled{cursor:default}
-  .pr-steps button:hover:not(:disabled){background:var(--brand-background-primary-subtle)}
-  .pr-steps li.on button{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
+  .pr-steps button:hover:not(:disabled){background:var(--core-sidebar-item-hoverBg)}
+  .pr-steps li.on button{background:var(--core-sidebar-item-activeBg);color:var(--core-sidebar-item-activeText)}
   .pr-steps b{width:var(--step-marker-size);height:var(--step-marker-size);flex:0 0 var(--step-marker-size);border-radius:var(--core-radius-sm);display:grid;place-items:center;box-sizing:border-box;
     font-size:var(--typography-body-xs-size);line-height:var(--typography-body-xs-line-height);font-weight:var(--typography-font-weight-bold);background:var(--core-color-surface-raised);border:var(--core-border-width-default) solid var(--theme-neutral-border-primary-default);color:var(--theme-neutral-text-subtle);z-index:1;transition:background var(--core-motion-duration-fast),color var(--core-motion-duration-fast)}
   .pr-steps li.on b{background:var(--brand-background-primary-strong);border-color:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor)}
@@ -2015,10 +2042,11 @@ this grey triplet is only for
     .mobile-nav-btn{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:var(--core-space-1);
       padding:var(--core-space-2) var(--core-space-1) var(--core-space-1);font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-semibold);
       color:var(--neutral-text-subtle);text-decoration:none;background:none;border:none;cursor:pointer;position:relative}
+  .mobile-nav-btn:hover:not(.active){color:var(--neutral-text-default);background:var(--core-color-surface-sunken)}
     .mobile-nav-btn .ico{display:grid;place-items:center;width:var(--core-size-icon-lg);height:var(--core-size-icon-lg)}
     .mobile-nav-btn .ico svg{width:var(--core-size-icon-md);height:var(--core-size-icon-md)}
     .mobile-nav-btn.active,a.mobile-nav-btn.active{color:var(--brand-text-primary-default)}
-    .mobile-nav-btn.active::before{content:"";position:absolute;left:28%;right:28%;top:0;height:3px;border-radius:0 0 var(--core-radius-xs) var(--core-radius-xs);background:var(--brand-text-primary-default)}
+    .mobile-nav-btn.active::before{content:"";position:absolute;left:28%;right:28%;top:0;height:3px;border-radius:0 0 var(--core-radius-xs) var(--core-radius-xs);background:var(--brand-border-primary-default)}
     .mobile-menu-bg{position:fixed;inset:0;z-index:41;background:var(--core-overlay-scrim);display:flex;align-items:flex-end}
     .mobile-menu-sheet{
       width:100%;background:var(--core-color-surface-default);border-radius:var(--core-radius-sm) var(--core-radius-sm) 0 0;
@@ -2026,8 +2054,8 @@ this grey triplet is only for
       box-shadow:var(--core-elevation-2);margin-bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom))}
     .mobile-menu-sheet a{display:flex;align-items:center;gap:var(--core-space-3);padding:var(--core-space-3) var(--core-space-3);
       border-radius:var(--core-radius-sm);color:var(--neutral-text-default);text-decoration:none;font-weight:var(--typography-font-weight-semibold);font-size:var(--typography-body-md-size)}
-    .mobile-menu-sheet a:hover{background:var(--brand-background-primary-subtle)}
-    .mobile-menu-sheet a.active{color:var(--brand-text-primary-default);background:var(--brand-background-primary-light)}
+    .mobile-menu-sheet a:hover{background:var(--core-color-surface-sunken)}
+    .mobile-menu-sheet a.active{color:var(--brand-text-primary-default);background:var(--brand-background-primary-subtle)}
     .mobile-menu-sheet .ico{display:grid;place-items:center;color:var(--neutral-text-subtle);flex:0 0 auto}
     .mobile-menu-sheet a.active .ico{color:var(--brand-text-primary-default)}
     .page-body{padding:var(--core-space-4) var(--core-space-4) var(--core-space-8)}
@@ -2043,7 +2071,7 @@ this grey triplet is only for
     border:none;border-radius:var(--core-radius-full);background:var(--brand-background-primary-light);color:var(--brand-text-primary-default);
     display:grid;place-items:center;cursor:pointer;text-decoration:none;
     transition:background var(--core-motion-duration-base),transform var(--core-motion-duration-base)}
-  .nav-cta:hover{background:var(--brand-background-primary-light);transform:translateY(-1px)}
+  .nav-cta:hover{background:var(--brand-background-primary-light);transform:none}
   .nav-cta.active{background:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor)}
   .nav-cta svg{animation:nav-cta-pulse 2.6s ease-in-out infinite}
   @keyframes nav-cta-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
@@ -2077,8 +2105,8 @@ this grey triplet is only for
   .rq-progress span{font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle-light);white-space:nowrap}
   .rq-close{
     flex:0 0 auto;width:28px;height:28px;border-radius:var(--core-radius-sm);border:none;background:transparent;
-    color:var(--neutral-text-subtle);display:grid;place-items:center;cursor:pointer}
-  .rq-close:hover{background:var(--core-color-surface-sunken);color:var(--neutral-text-default)}
+    color:var(--theme-neutral-text-subtleleast);display:grid;place-items:center;cursor:pointer}
+  .rq-close:hover{background:var(--core-color-surface-raised);color:var(--neutral-text-default)}
   .rq-step{display:flex;flex-direction:column;gap:var(--core-space-4);animation:rq-step-in .35s ease}
   @keyframes rq-step-in{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
   .rq-step h2,.rq-step h3{font-size:var(--typography-font-size-lg);font-weight:var(--typography-font-weight-bold);line-height:var(--typography-heading-h4-line-height);margin:var(--core-space-0);color:var(--neutral-text-default)}
@@ -2087,23 +2115,23 @@ this grey triplet is only for
     display:flex;align-items:center;gap:var(--core-space-3);text-align:left;border:1px solid var(--neutral-border-light);background:var(--core-color-surface-default);
     border-radius:var(--core-radius-sm);padding:var(--core-space-3) var(--core-space-4);font:inherit;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle);
     cursor:pointer;transition:var(--core-motion-duration-base)}
-  .rq-opt:hover{border-color:var(--neutral-border-strong)}
-  .rq-opt.on{border-color:var(--brand-text-primary-default);background:var(--brand-background-primary-light);color:var(--brand-text-primary-default);font-weight:var(--typography-font-weight-bold)}
+  .rq-opt:hover{border-color:var(--theme-colors-neutral-300);box-shadow:var(--core-elevation-2)}
+  .rq-opt.on{border-color:var(--brand-border-primary-default);background:var(--theme-brand-background-primary-subtle);color:var(--brand-text-primary-default);font-weight:var(--typography-font-weight-bold)}
   .rq-opt-dot{
-    width:18px;height:18px;border-radius:var(--core-radius-full);border:2px solid var(--neutral-border-light);flex:0 0 auto;
+    width:18px;height:18px;border-radius:var(--core-radius-full);border:2px solid var(--core-color-border-control);flex:0 0 auto;
     display:grid;place-items:center;color:var(--brand-text-primary-oncolor);transition:var(--core-motion-duration-base)}
   .rq-opt.on .rq-opt-dot{background:var(--brand-text-primary-default);border-color:var(--brand-text-primary-default)}
   .rq-hint{font-size:var(--typography-caption-size);color:var(--neutral-text-subtle-light);margin:var(--core-space-0)}
   .rq-field{display:flex;flex-direction:column;gap:var(--core-space-2);margin-bottom:var(--core-space-1)}
   .rq-field label{font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
   .rq-field select,.rq-field input,.rq-field .ui-select-btn{
-    border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);font:inherit;font-weight:var(--typography-font-weight-regular);
+    border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);font:inherit;font-weight:var(--typography-font-weight-regular);
     color:var(--neutral-text-default);background:var(--core-color-surface-default)}
   .rq-field select:hover:not(:disabled),.rq-field input:hover:not(:disabled),.rq-field .ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
-  .rq-field select:focus,.rq-field input:focus,.rq-field .ui-select-btn:focus-visible{outline:none;border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
-  .rq-money{display:flex;align-items:center;border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);overflow:hidden;transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-  .rq-money:hover:not(:focus-within){border-color:var(--neutral-border-strong)}
-  .rq-money:focus-within{border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
+  .rq-field select:focus,.rq-field input:focus,.rq-field .ui-select-btn:focus-visible{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
+  .rq-money{display:flex;align-items:center;border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);overflow:hidden;transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
+  .rq-money:hover:not(:focus-within){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .rq-money:focus-within{border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .rq-money span{padding:var(--core-space-3) var(--core-space-0) var(--core-space-3) var(--core-space-3);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle)}
   .rq-money input{border:none;flex:1;background:transparent;color:var(--neutral-text-default);padding:var(--core-space-3) var(--core-space-3) var(--core-space-3) var(--core-space-1)}
   .rq-money input:focus{outline:none;box-shadow:none}
@@ -2150,9 +2178,9 @@ this grey triplet is only for
   .slideover-head-actions .btn{width:auto;flex:0 0 auto}
   .slideover-close{
     /* CORE .cds-drawer-close */
-    width:28px;height:28px;min-width:28px;border-radius:var(--core-radius-sm);border:none;background:transparent;color:var(--neutral-text-subtle);
+    width:28px;height:28px;min-width:28px;border-radius:var(--core-radius-sm);border:none;background:transparent;color:var(--theme-neutral-text-subtleleast);
     display:grid;place-items:center;cursor:pointer;flex:0 0 auto}
-  .slideover-close:hover{background:var(--core-color-surface-sunken);color:var(--neutral-text-default)}
+  .slideover-close:hover{background:var(--core-color-surface-raised);color:var(--neutral-text-default)}
   .slideover-body{flex:1;overflow-y:auto;padding:var(--core-space-4);font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height)}
   @media(max-width:640px){
     .slideover-panel,.slideover-panel.slideover-wide{max-width:100%}
@@ -2245,11 +2273,11 @@ this grey triplet is only for
   .wd-source-metrics span{font-size:var(--typography-body-xs-size);color:var(--neutral-text-subtle)}
   .wd-source-metrics b{font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);overflow-wrap:anywhere}
   .wd-source-metrics input{
-    width:100%;max-width:146px;border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);
+    width:100%;max-width:146px;border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);
     font:inherit;font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-regular);color:var(--neutral-text-default);background:var(--core-color-surface-default);
     transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-  .wd-source-metrics input:hover:not(:disabled):not(:focus){border-color:var(--neutral-border-strong)}
-  .wd-source-metrics input:focus{outline:none;border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
+  .wd-source-metrics input:hover:not(:disabled):not(:focus){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .wd-source-metrics input:focus{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .wd-source-funds{border-top:1px solid var(--neutral-border-light);padding:var(--core-space-1) 0}
   .wd-source-fund{padding:var(--core-space-4) var(--core-space-4);border-bottom:1px solid var(--neutral-border-light)}
   .wd-source-fund:last-child{border-bottom:none}
@@ -2310,7 +2338,7 @@ select:focus-visible,
 textarea:focus-visible,
 [tabindex]:focus-visible,
 summary:focus-visible {
-  outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);
+  outline:var(--core-focusRing-width) solid var(--cds-focus-color);
   outline-offset:var(--core-focusRing-offset);
   border-radius:var(--core-radius-xs);
 }
@@ -2322,11 +2350,11 @@ summary:focus-visible {
 .ui-select{position:relative;display:inline-block;width:100%}
 .ui-select-btn{
   display:flex;align-items:center;justify-content:space-between;gap:var(--core-space-2);width:100%;
-  min-height:var(--core-size-control-md);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);background:var(--core-color-surface-default);
+  min-height:var(--core-size-control-md);border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);background:var(--core-color-surface-default);
   padding:var(--core-space-2) var(--core-space-3);font:inherit;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-regular);
   color:var(--neutral-text-default);cursor:pointer;text-align:left;
   transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-.ui-select-btn:focus-visible{outline:none;border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
+.ui-select-btn:focus-visible{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
 .ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
 .ui-select.disabled .ui-select-btn{
   background:var(--semantics-disabled-background);color:var(--semantics-disabled-text);
@@ -2346,8 +2374,9 @@ summary:focus-visible {
 .ui-select-opt{
   display:block;width:100%;text-align:left;background:none;border:none;border-radius:var(--core-radius-sm);cursor:pointer;
   padding:var(--core-space-2) var(--core-space-3);font:inherit;font-size:var(--typography-body-lg-size);line-height:var(--typography-body-lg-line-height);font-weight:var(--typography-font-weight-regular);color:var(--neutral-text-default)}
+  .ui-select-opt:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:-2px}
 /* CORE .cds-select-option: 18% brand tint on hover; selected is semibold. */
-.ui-select-opt:hover{background:color-mix(in srgb,var(--brand-text-primary-default) 18%,var(--core-color-surface-default))}
+.ui-select-opt:hover{background:color-mix(in srgb,var(--brand-text-primary-default) 18%,var(--core-color-surface-overlay))}
 .ui-select-opt.active{font-weight:var(--typography-font-weight-semibold)}
 .ui-select-opt:disabled{color:var(--semantics-disabled-text);cursor:not-allowed}
 
@@ -2369,17 +2398,17 @@ summary:focus-visible {
 .ui-datepicker-head button{
   width:26px;height:26px;border:none;border-radius:var(--core-radius-sm);background:transparent;color:var(--neutral-text-subtle);
   cursor:pointer;display:grid;place-items:center}
-.ui-datepicker-head button:hover{background:var(--brand-background-primary-subtle);color:var(--neutral-text-default)}
+.ui-datepicker-head button:hover{background:color-mix(in srgb,var(--brand-background-primary-strong) 8%,transparent);color:var(--brand-text-primary-hover)}
 .ui-datepicker-weekdays,.ui-datepicker-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--core-space-1)}
 .ui-datepicker-weekdays span{
   text-align:center;font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle);padding:var(--core-space-1) var(--core-space-0)}
 .ui-datepicker-day{
   aspect-ratio:1;border:none;border-radius:var(--core-radius-sm);background:transparent;font:inherit;
   font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-default);cursor:pointer;display:grid;place-items:center}
-.ui-datepicker-day:hover:not(:disabled){background:var(--brand-background-primary-subtle)}
+.ui-datepicker-day:hover:not(:disabled){background:color-mix(in srgb,currentColor 12%,transparent)}
 .ui-datepicker-day.outside{color:var(--neutral-text-subtle-light)}
 .ui-datepicker-day.today{color:var(--brand-text-primary-default);font-weight:var(--typography-font-weight-bold)}
-.ui-datepicker-day.selected{background:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor);font-weight:var(--typography-font-weight-bold)}
+.ui-datepicker-day.selected{background:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor);font-weight:var(--typography-font-weight-semibold)}
 /* Was --surface-strong (#DFDFE6) as a *text* colour — 1.5:1 on white, an
    effectively invisible date rather than a disabled one. */
 .ui-datepicker-day:disabled{color:var(--semantics-disabled-text);cursor:not-allowed}
@@ -2948,7 +2977,7 @@ summary:focus-visible {
 }
 .rgs-primary-cta:hover { background: var(--brand-background-primary-hover); border-color: var(--brand-border-primary-hover); }
 .rgs-primary-cta:active { background: var(--brand-background-primary-active); border-color: var(--brand-background-primary-active); }
-.rgs-primary-cta:focus-visible { outline: var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400); outline-offset: var(--core-focusRing-offset); }
+.rgs-primary-cta:focus-visible { outline: var(--core-focusRing-width) solid var(--cds-focus-color); outline-offset: var(--core-focusRing-offset); }
 .rgs-primary-cta--disabled, .rgs-primary-cta--disabled:hover { background: var(--brand-background-primary-disabled); color: var(--brand-text-primary-disabled); border-color: var(--brand-border-primary-disabled); cursor: not-allowed; }
 /* One column: a full-width Adjust button (when present) stacked above a
    single info-note line. With Adjust absent the row has just one child,
@@ -2969,7 +2998,7 @@ summary:focus-visible {
   padding:var(--core-space-2) var(--core-space-1); margin:calc(-1 * var(--core-space-2)) calc(-1 * var(--core-space-1)); border-radius:var(--core-radius-sm);
 }
 .rgs-foot-link:hover { text-decoration: underline; }
-.rgs-foot-link:focus-visible { outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400); outline-offset:var(--core-focusRing-offset); }
+.rgs-foot-link:focus-visible { outline:var(--core-focusRing-width) solid var(--cds-focus-color); outline-offset:var(--core-focusRing-offset); }
 /* Info icon + "Not guaranteed results." + the Disclaimer trigger read as
    one sentence, so they're one <p>, not a note row plus a separate
    actions row -- Disclaimer is an inline text button, not a second CTA. */
@@ -3218,6 +3247,8 @@ summary:focus-visible {
 .fund-link{
   background:none;border:none;padding:var(--core-space-0);font-family:inherit;font-size:inherit;cursor:pointer;text-align:left;
   white-space:normal;overflow-wrap:anywhere;word-break:break-word;max-width:100%}
+  .text-link.fund-link{font-weight:var(--typography-font-weight-semibold);text-decoration-color:color-mix(in srgb,currentColor 35%,transparent);text-underline-offset:2px}
+  .text-link.fund-link:hover{color:var(--brand-text-primary-hover);text-decoration-color:color-mix(in srgb,currentColor 35%,transparent);text-decoration-thickness:var(--core-border-width-default)}
 
 
 /* ---------- Prototype-only demo scenario switcher ---------- */
@@ -3248,8 +3279,9 @@ summary:focus-visible {
   display:flex;align-items:center;gap:var(--core-space-3);width:100%;border:none;background:transparent;padding:var(--core-space-2);
   border-radius:var(--core-radius-sm);cursor:pointer;text-align:left;font:inherit
 }
-.demo-switcher-row:hover{background:var(--brand-background-primary-subtle)}
-.demo-switcher-row.on{background:var(--brand-background-primary-light)}
+  .demo-switcher-row:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:-2px}
+.demo-switcher-row:hover{background:color-mix(in srgb,currentColor 8%,transparent)}
+.demo-switcher-row.on{background:var(--brand-background-primary-subtle);color:var(--brand-text-primary-default)}
 .demo-switcher-row img{border-radius:var(--core-radius-full);flex:0 0 auto;object-fit:cover}
 .demo-switcher-text{display:flex;flex-direction:column;gap:var(--core-border-width-hairline);min-width:0}
 .demo-switcher-text strong{font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
@@ -3273,11 +3305,10 @@ summary:focus-visible {
   font:inherit;font-size:inherit;font-weight:inherit;color:inherit;text-align:inherit;
   background:none;border:none;cursor:pointer;padding:var(--core-space-3) var(--core-space-4)}
 .num .th-sort{justify-content:flex-end}
-.th-sort svg{flex:0 0 auto;color:var(--neutral-text-subtle-light);opacity:.5}
+.sort-icon{flex:0 0 auto;color:var(--neutral-text-subtle)}   /* CORE .cds-sort-icon */
+.sort-icon--active{color:var(--brand-text-primary-default)}
 .th-sort:hover{color:var(--neutral-text-default)}   /* CORE sortable header hover */
-.th-sort:hover svg{opacity:1}
 .th-sort.active{color:var(--neutral-text-default)}
-.th-sort.active svg{color:var(--brand-text-primary-default);opacity:1}
-.th-sort:focus-visible{outline:var(--core-focusRing-width) solid var(--theme-primitive-color-primary-400);outline-offset:calc(-1 * var(--core-focusRing-width))}
+.th-sort:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:calc(-1 * var(--core-focusRing-width))}
 
 
