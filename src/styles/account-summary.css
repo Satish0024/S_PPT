@@ -102,12 +102,6 @@
   padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--table-border);color:var(--neutral-text-default);
   font-variant-numeric:tabular-nums}
 .as-table-wrap tbody tr.as-row-alt{background:var(--core-color-bg-page)}
-.as-table-wrap tbody tr.on{background:var(--brand-background-primary-light)}
-/* An already-open row is already distinguished (brand-coloured name +
-   rotated chevron) -- the "active" row tint (set on hover, to sync with
-   the donut slice) would double up on top of that. Keep the chart-sync
-   behaviour, drop the redundant background. */
-.as-table-wrap tbody tr.as-row-open.on{background:transparent}
 .as-table-wrap tbody tr:last-child td{border-bottom:none}
 .as-table-wrap tfoot td{
   background:var(--core-color-surface-sunken);font-weight:var(--typography-font-weight-bold);border-bottom:none;border-top:1px solid var(--table-border)}
@@ -115,11 +109,6 @@
 /* DS table cells are 400 — no per-column weight. The row-name column
    gets its emphasis from being a link/toggle, not from bolding. */
 .as-row-expandable{cursor:pointer}
-.as-row-expandable:hover td{background:var(--core-color-surface-sunken)}   /* CORE accordion-trigger hover */
-/* An already-open row is already distinguished (brand-coloured name +
-   rotated chevron) -- re-tinting it on hover on top of that reads as a
-   second, unrelated highlight state. Rest it back to plain. */
-.as-row-open:hover td{background:transparent}
 /* Legend colour for each source / asset class -- matches its donut slice. */
 .as-row-name-cell{display:inline-flex;align-items:center;gap:var(--core-space-3)}
 .as-swatch{width:var(--core-space-3);height:var(--core-space-3);border-radius:var(--core-radius-full);flex:0 0 auto}
