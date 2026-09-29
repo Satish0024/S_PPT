@@ -6,7 +6,7 @@
 .doc-field{display:flex;flex-direction:column;gap:var(--core-space-2);min-width:150px}
 .field-label{font-size:var(--typography-label-size);font-weight:var(--typography-label-weight);line-height:var(--typography-label-line-height);color:var(--neutral-text-subtle);letter-spacing:var(--typography-label-letter-spacing)}
 .doc-field input,.doc-field .ui-select-btn{
-  min-height:var(--core-size-control-md);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);
+  min-height:var(--core-size-control-md);border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);
   font:inherit;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-regular);color:var(--neutral-text-default);background:var(--core-color-surface-default)}
 /* Text field + dropdown states, tested here first: matches CORE's cds-input/
    cds-select pattern (Field.tsx/FormControls.tsx -- hover uses
@@ -18,8 +18,8 @@
    hover/disabled state at all before this; the two dropdowns (Plan Name/ID,
    Document Type) had a hover but no visible focus ring, which is a real
    keyboard-accessibility gap on top of the visual guideline. */
-.doc-field input:hover:not(:disabled),.doc-field .ui-select-btn:hover{border-color:var(--neutral-border-strong)}
-.doc-field input:focus,.doc-field .ui-select-btn:focus-visible{outline:none;border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
+.doc-field input:hover:not(:disabled),.doc-field .ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+.doc-field input:focus,.doc-field .ui-select-btn:focus-visible{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
 /* DS inputs recolour when disabled rather than fading (opacity pinned to 1). */
 .doc-field input:disabled{
   opacity:1;cursor:not-allowed;background:var(--semantics-disabled-background);
@@ -37,7 +37,7 @@
    scoped to this one button per the requested change. */
 .doc-search-btn{
   width:auto;min-height:var(--core-size-control-md);padding:var(--core-space-2) var(--core-space-4);
-  border-color:var(--theme-primitive-color-primary-400)}
+  border-color:var(--brand-border-primary-default)}
 .doc-search-btn:hover:not(:disabled){
   background:var(--brand-background-primary-hover);border-color:var(--brand-border-primary-hover)}
 .doc-search-btn:active:not(:disabled){
@@ -49,17 +49,18 @@
 .multi-select{position:relative;display:flex;flex-direction:column;gap:var(--core-space-2);min-width:170px}
 .multi-select-btn{
   display:flex;align-items:center;justify-content:space-between;gap:var(--core-space-2);min-height:var(--core-size-control-md);
-  border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);background:var(--core-color-surface-default);padding:var(--core-space-2) var(--core-space-3);
+  border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);background:var(--core-color-surface-default);padding:var(--core-space-2) var(--core-space-3);
   font:inherit;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-regular);color:var(--neutral-text-default);cursor:pointer}
-.multi-select-btn:hover{border-color:var(--neutral-border-strong)}
-.multi-select-btn:focus-visible{outline:none;border-color:var(--theme-primitive-color-primary-400);box-shadow:var(--cds-focus-glow)}
+.multi-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+.multi-select-btn:focus-visible{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
 .multi-select-btn svg{color:var(--neutral-text-subtle);flex:0 0 auto}
 .multi-select-menu{
   position:absolute;top:calc(100% + 4px);left:0;z-index:20;min-width:240px;max-width:calc(100vw - var(--core-space-8));max-height:280px;overflow-y:auto;
   background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-3);padding:var(--core-space-1)}
 .multi-select-row{
   display:flex;align-items:center;gap:var(--core-space-2);padding:var(--core-space-2) var(--core-space-2);border-radius:var(--core-radius-sm);cursor:pointer;font-size:var(--typography-body-sm-size);min-height:44px}
-.multi-select-row:hover{background:var(--brand-background-primary-subtle)}
+.multi-select-row:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:-2px}
+.multi-select-row:hover{background:color-mix(in srgb,var(--brand-text-primary-default) 18%,var(--core-color-surface-overlay))}
 .multi-select-row.all{font-weight:var(--typography-font-weight-bold);border-bottom:1px solid var(--neutral-border-light);border-radius:0;margin-bottom:var(--core-space-1);padding-bottom:var(--core-space-3)}
 
 .multi-select-row b{font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-default);display:block}
