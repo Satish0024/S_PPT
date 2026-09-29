@@ -1118,7 +1118,7 @@ function WithdrawalSteps({ step, plan, participant, form, set, onNext, onBack, o
 
         {allocations.some((a) => a.addressChanged) && (
           <div className="address-banner">
-            <Icon icon={faInfoCircle} size={16} />
+            <Icon icon={faExclamationTriangle} size={20} />
             <div>
               <b>Custom address on this request</b>
               This request will be flagged for admin review, noting the address was changed within the last 3 days.

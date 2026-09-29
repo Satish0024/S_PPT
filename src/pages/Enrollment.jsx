@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Icon } from '../lib/icons'
-import { faCalendar, faLandmark, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faCalendar, faLandmark, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
 import {
   AUTO_INCREASE_KEY,
   DEFERRAL_KEY,
@@ -237,7 +237,7 @@ export function DeferralEditor({
           {skipping && (
             <div className="warn">
               <div className="warn-head">
-                <span className="warn-ico">!</span>
+                <span className="warn-ico" aria-hidden="true"><Icon icon={faTriangleExclamation} size={20} /></span>
                 <div>
                   <h4>Keep the current deferral rate</h4>
                   <p>
