@@ -1571,26 +1571,31 @@ this grey triplet is only for
   .inline-alert.danger{background:var(--semantics-critical-background-light);color:var(--semantics-critical-text)}
 
   /* ---------- Tabs (CORE .cds-tab) — every tab strip in the app ---------- */
-  .tab,.as-tabs button,.pr-class-tabs button{
+  .tab,.as-tabs button{
     border:none;background:transparent;padding:var(--core-space-3);
     font-family:inherit;font-weight:var(--typography-font-weight-medium);font-size:var(--typography-body-lg-size);
     line-height:var(--typography-body-lg-line-height);color:var(--neutral-text-subtle);cursor:pointer;
     box-shadow:inset 0 -3px 0 transparent;border-radius:0;transition:color var(--core-motion-duration-fast)}
-  .tab:hover,.as-tabs button:hover,.pr-class-tabs button:hover{color:var(--neutral-text-default)}
-  .tab:hover:not(.on):not([aria-selected="true"]):not(:disabled),.as-tabs button:hover:not(.on),.pr-class-tabs button:hover:not(.on){box-shadow:inset 0 -3px 0 var(--neutral-border-strong)}
-  .tab:disabled,.as-tabs button:disabled,.pr-class-tabs button:disabled{color:var(--theme-colors-neutral-400);cursor:not-allowed}
-  .tab.on,.tab[aria-selected="true"],.as-tabs button.on,.pr-class-tabs button.on{color:var(--brand-text-primary-default);font-weight:var(--typography-font-weight-semibold);box-shadow:inset 0 -3px 0 var(--brand-background-primary-strong)}
-  .tab:focus-visible,.as-tabs button:focus-visible,.pr-class-tabs button:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
+  .tab:hover,.as-tabs button:hover{color:var(--neutral-text-default)}
+  .tab:hover:not(.on):not([aria-selected="true"]):not(:disabled),.as-tabs button:hover:not(.on){box-shadow:inset 0 -3px 0 var(--neutral-border-strong)}
+  .tab:disabled,.as-tabs button:disabled{color:var(--theme-colors-neutral-400);cursor:not-allowed}
+  .tab.on,.tab[aria-selected="true"],.as-tabs button.on{color:var(--brand-text-primary-default);font-weight:var(--typography-font-weight-semibold);box-shadow:inset 0 -3px 0 var(--brand-background-primary-strong)}
+  .tab:focus-visible,.as-tabs button:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
 
-  /* ---------- Toggle group (CORE .cds-toggle-group) ---------- */
-  .tx-filters,.period,.txn-upload .tabs2{display:inline-flex;flex-wrap:wrap;align-items:center;gap:var(--core-space-1);padding:var(--core-space-1);background:var(--core-color-surface-sunken);border-radius:var(--core-radius-sm);max-width:100%}
-  .tx-filters button,.period button,.txn-upload .tabs2 button{
-    display:inline-flex;align-items:center;gap:var(--core-space-1);border:none;background:transparent;border-radius:var(--core-radius-sm);cursor:pointer;
-    padding:var(--core-space-2) var(--core-space-3);font:inherit;font-size:var(--typography-text12-semibold-size);line-height:var(--typography-text12-semibold-line-height);font-weight:var(--typography-button-sm-weight);
-    color:var(--neutral-text-subtle);transition:color var(--core-motion-duration-fast),background var(--core-motion-duration-fast)}
-  .tx-filters button:hover:not(.on),.period button:hover:not(.on),.txn-upload .tabs2 button:hover:not(.on){color:var(--brand-text-primary-default)}
-  .tx-filters button.on,.period button.on,.txn-upload .tabs2 button.on{background:var(--brand-background-primary-subtle);color:var(--brand-text-primary-active)}
-  .tx-filters button:focus-visible,.period button:focus-visible,.txn-upload .tabs2 button:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset);position:relative;z-index:1}
+  /* ---------- Pill (segmented) tabs (CORE .cds-tabs--pill / .cds-tab--pill) ----------
+     Sunken track, 4px padding; the selected segment is a raised white surface
+     with elevation-1 and primary text; hover on the rest is a 60% surface. */
+  .tx-filters,.period,.txn-upload .tabs2,.pr-class-tabs{display:inline-flex;flex-wrap:wrap;align-items:center;gap:var(--core-space-1);padding:var(--core-space-1);background:var(--core-color-surface-sunken);border-radius:var(--core-radius-sm);max-width:100%;box-sizing:border-box;border:0}
+  .tx-filters button,.period button,.txn-upload .tabs2 button,.pr-class-tabs button{
+    display:inline-flex;align-items:center;gap:var(--core-space-1);border:none;background:transparent;border-radius:var(--core-radius-xs);cursor:pointer;box-shadow:none;margin:0;
+    padding:var(--core-space-2) var(--core-space-4);font-family:inherit;font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height);font-weight:var(--typography-font-weight-medium);
+    color:var(--neutral-text-subtle);white-space:nowrap;transition:color var(--core-motion-duration-fast) ease,background-color var(--core-motion-duration-fast) ease,box-shadow var(--core-motion-duration-fast) ease}
+  .tx-filters button:hover:not(.on):not(:disabled),.period button:hover:not(.on):not(:disabled),.txn-upload .tabs2 button:hover:not(.on):not(:disabled),.pr-class-tabs button:hover:not(.on):not(:disabled){
+    background:color-mix(in srgb,var(--core-color-surface-default) 60%,transparent);color:var(--neutral-text-default);box-shadow:none}
+  .tx-filters button.on,.period button.on,.txn-upload .tabs2 button.on,.pr-class-tabs button.on{
+    background:var(--core-color-surface-default);color:var(--neutral-text-default);box-shadow:var(--core-elevation-1);font-weight:var(--typography-font-weight-semibold)}
+  .tx-filters button:disabled,.period button:disabled,.txn-upload .tabs2 button:disabled,.pr-class-tabs button:disabled{color:var(--theme-colors-neutral-400);cursor:not-allowed}
+  .tx-filters button:focus-visible,.period button:focus-visible,.txn-upload .tabs2 button:focus-visible,.pr-class-tabs button:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset);position:relative;z-index:1}
 
   .list{display:flex;flex-direction:column;gap:var(--core-space-0);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);overflow:hidden}
   .list-row{display:flex;justify-content:space-between;gap:var(--core-space-3);padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--neutral-border-light);
@@ -1769,9 +1774,8 @@ this grey triplet is only for
      .confirm-dialog-actions, .txn-actions). */
   .pr-savebar{display:flex;flex-direction:row-reverse;justify-content:flex-end;flex-wrap:wrap;gap:var(--core-space-2);margin-top:var(--core-space-4);padding-top:var(--core-space-4);border-top:1px solid var(--neutral-border-light)}
   .pr-savebar .btn{width:auto !important;min-width:92px}
-  .pr-class-tabs{
-    display:flex;flex-wrap:nowrap;overflow-x:auto;column-gap:var(--core-space-4);margin:var(--core-space-0) var(--core-space-0) var(--core-space-4);border-bottom:1px solid var(--neutral-border-light)}
-  .pr-class-tabs button{flex:0 0 auto;white-space:nowrap}
+  .pr-class-tabs{flex-wrap:nowrap;overflow-x:auto;margin:var(--core-space-0) var(--core-space-0) var(--core-space-4)}
+  .pr-class-tabs button{flex:0 0 auto}
   .pr-history{list-style:none;margin:var(--core-space-0);padding:var(--core-space-0)}
   .pr-history li{display:grid;grid-template-columns:16px minmax(0,1fr);gap:var(--core-space-3);align-items:stretch}
   .pr-history i{
