@@ -521,9 +521,15 @@ button.opt { width:100%; text-align:left; color:inherit; appearance:none; -webki
 }
 .inv-toggle.on .switch{background:var(--brand-background-primary-strong)}
 .inv-toggle.on .switch::after{transform:translateX(16px)}
-.enroll-form.locked{background:var(--core-color-surface-sunken)}
-.enroll-form.locked .sval{opacity:.7}
-.enroll-form.locked input{background:var(--core-color-surface-sunken);color:var(--neutral-text-subtle);cursor:not-allowed}
+/* Locked plan-selected allocations: only the percent fields are disabled (CORE disabled
+   input + input-group addon); the panel, fund links, categories and total stay normal. */
+.enroll-form .sval:has(input:disabled),.enroll-form .sval:has(input:disabled):hover{
+  background:var(--semantics-disabled-background);border-color:var(--semantics-disabled-border);box-shadow:none;cursor:not-allowed}
+.enroll-form .sval input:disabled{
+  background:transparent;color:var(--semantics-disabled-text);opacity:1;cursor:not-allowed}
+.enroll-form .sval input:disabled::placeholder{color:var(--core-color-control-disabled-placeholder)}
+.enroll-form .sval:has(input:disabled) .pct{
+  background:var(--brand-background-primary-disabled-light);color:var(--theme-neutral-text-subtleleast);cursor:not-allowed}
 .funds-filters{display:flex;gap:var(--core-space-4);align-items:flex-end;margin:var(--core-space-0) var(--core-space-0) var(--core-space-4)}
 .funds-field{
   display:flex;flex-direction:column;gap:var(--core-space-2);margin:var(--core-space-0);
