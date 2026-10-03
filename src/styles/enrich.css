@@ -3,7 +3,7 @@
      only enrich-specific styles below. */
 
   /* .topbar already in index.css; enrich override only if needed */
-  .enrich-topbar{height:var(--core-layout-header-height);background:var(--core-color-surface-default);border-bottom:1px solid var(--neutral-border-light);display:flex;align-items:center;
+  .enrich-topbar{height:var(--core-layout-header-height);background:var(--neutral-surface-layer-01);border-bottom:1px solid var(--neutral-border-light);display:flex;align-items:center;
     justify-content:space-between;padding:var(--core-space-0) var(--core-space-6);position:sticky;top:0;z-index:10}
   .enrich-topbar .brand img{height:var(--core-size-control-sm)}
 
@@ -15,10 +15,10 @@
   .page-intro p{font-size:var(--typography-body-lg-size);color:var(--neutral-text-subtle);line-height:var(--typography-body-lg-line-height);max-width:540px}
 
   .search-bar{
-    display:flex;align-items:center;gap:var(--core-space-3);padding:var(--core-space-3) var(--core-space-4);background:var(--core-color-surface-default);
+    display:flex;align-items:center;gap:var(--core-space-3);padding:var(--core-space-3) var(--core-space-4);background:var(--neutral-surface-layer-01);
     border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-1);margin-bottom:var(--core-space-6);
     transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-  .search-bar:hover:not(:focus-within){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .search-bar:hover:not(:focus-within){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--neutral-surface-layer-01))}
   .search-bar:focus-within{border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .search-bar svg{width:18px;height:18px;color:var(--theme-neutral-text-subtleleast);flex-shrink:0}
   .search-bar:hover svg,.search-bar:focus-within svg{color:var(--neutral-text-subtle)}
@@ -29,7 +29,7 @@
   /* Card links (CORE .cds-card--interactive): no underline on the card's text; the inner "Read" link keeps the CORE link style. */
   a.featured,a.card{text-decoration:none;color:inherit}
   .featured{
-    display:grid;grid-template-columns:1fr 1fr;gap:var(--core-space-0);background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);
+    display:grid;grid-template-columns:1fr 1fr;gap:var(--core-space-0);background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);
     border-radius:var(--core-radius-sm);overflow:hidden;box-shadow:var(--core-elevation-1);margin-bottom:var(--core-space-8);
     transition:box-shadow var(--core-motion-duration-base)}
   .featured:hover{box-shadow:var(--core-elevation-2)}
@@ -56,8 +56,8 @@
   .cats{display:flex;flex-wrap:wrap;gap:var(--core-space-2);margin-bottom:var(--core-space-5)}
   .cat{
     padding:var(--core-space-2) var(--core-space-4);border-radius:var(--core-radius-full);font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-semibold);border:1px solid var(--neutral-border-light);
-    background:var(--core-color-surface-default);color:var(--neutral-text-subtle);cursor:pointer;transition:all var(--core-motion-duration-base)}
-  .cat:hover{background:color-mix(in srgb,var(--theme-neutral-border-primary-default) 22%,var(--core-color-surface-sunken));border-color:var(--neutral-border-strong);color:var(--neutral-text-default)}
+    background:var(--neutral-surface-layer-01);color:var(--neutral-text-subtle);cursor:pointer;transition:all var(--core-motion-duration-base)}
+  .cat:hover{background:color-mix(in srgb,var(--theme-neutral-border-primary-default) 22%,var(--neutral-surface-layer-03));border-color:var(--neutral-border-strong);color:var(--neutral-text-default)}
   .cat.on{background:var(--brand-background-primary-strong);border-color:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor)}
 
   .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--core-space-4)}
@@ -65,7 +65,7 @@
      the other left empty -- let it span the full row instead. */
   .grid > *:only-child{grid-column:1 / -1}
   .card{
-    background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);overflow:hidden;
+    background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);overflow:hidden;
     box-shadow:var(--core-elevation-1);transition:box-shadow var(--core-motion-duration-base),border-color var(--core-motion-duration-base);display:flex;flex-direction:column}
   .card:hover{box-shadow:var(--core-elevation-2);border-color:var(--neutral-border-strong)}
   .card:active{transform:translateY(1px);box-shadow:none;border-color:var(--brand-border-primary-default);background:var(--brand-background-primary-subtle)}
@@ -78,7 +78,7 @@
   .card.t4 .thumb .t-bg{background:linear-gradient(135deg,var(--semantics-critical-background-light) 0%,var(--semantics-critical-border) 100%)}
   .card .thumb .t-ico{
     position:absolute;left:18px;bottom:-16px;width:40px;height:40px;border-radius:var(--core-radius-sm);
-    display:grid;place-items:center;background:var(--core-color-surface-default);box-shadow:var(--core-elevation-1)}
+    display:grid;place-items:center;background:var(--neutral-surface-layer-01);box-shadow:var(--core-elevation-1)}
   .card .thumb .t-ico svg{width:var(--core-size-icon-md);height:var(--core-size-icon-md)}
   .card.t1 .thumb .t-ico{color:var(--brand-text-primary-default)}
   .card.t2 .thumb .t-ico{color:var(--semantics-success-text)}
