@@ -30,7 +30,7 @@ function ScoreRing({ pct }) {
   const dash = (Math.max(0, Math.min(100, pct)) / 100) * RING_C
   return (
     <svg className="rgs-orbit-rings" viewBox="0 0 128 128" aria-hidden="true" focusable="false">
-      <circle cx="64" cy="64" r={RING_R} fill="none" stroke="var(--rgs-track)" strokeWidth="8" />
+      <circle cx="64" cy="64" r={RING_R} fill="none" stroke="var(--neutral-surface-layer-03)" strokeWidth="8" />
       <circle
         cx="64"
         cy="64"

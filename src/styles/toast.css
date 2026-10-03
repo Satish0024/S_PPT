@@ -4,7 +4,7 @@
   z-index:120;display:flex;align-items:center;gap:var(--core-space-3);
   min-width:280px;max-width:min(360px,calc(100vw - var(--core-space-8)));box-sizing:border-box;
   padding:var(--core-space-4);
-  background:var(--core-color-surface-default);
+  background:var(--neutral-surface-layer-01);
   border:0;box-shadow:inset 0 0 0 var(--core-border-width-default) var(--theme-neutral-border-primary-default),var(--core-elevation-3);
   border-radius:var(--core-radius-sm);
   animation:toast-in var(--core-motion-duration-base) ease-out}
@@ -25,7 +25,7 @@
 .toast-close{
   flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:var(--core-space-1);
   background:none;border:none;border-radius:var(--core-radius-sm);cursor:pointer;color:var(--theme-neutral-text-subtleleast)}
-.toast-close:hover{color:var(--neutral-text-default);background:var(--core-color-surface-sunken)}
+.toast-close:hover{color:var(--neutral-text-default);background:var(--neutral-surface-layer-03)}
 .toast-close:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
 @media(max-width:640px){
   .toast{right:var(--core-space-4);left:var(--core-space-4);max-width:none;min-width:0;bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom) + var(--core-space-4))}

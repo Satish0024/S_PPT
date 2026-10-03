@@ -914,19 +914,19 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
             <h2>Elevation</h2>
             <p className="ds-lede">CORE ships four elevation levels: 1 resting surfaces, 2 hover and the account menu, 3 menus, listboxes and toasts, 4 modals and drawers.</p>
             <div className="ds-demo" style={{ display: 'grid', gap: 'var(--core-space-4)', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))' }}>
-              <div style={{ padding: 'var(--core-space-4) var(--core-space-6)', borderRadius: 'var(--core-radius-sm)', background: 'var(--core-color-surface-default)', boxShadow: 'var(--core-elevation-1)', border: '1px solid var(--neutral-border-light)' }}>
+              <div style={{ padding: 'var(--core-space-4) var(--core-space-6)', borderRadius: 'var(--core-radius-sm)', background: 'var(--neutral-surface-layer-01)', boxShadow: 'var(--core-elevation-1)', border: '1px solid var(--neutral-border-light)' }}>
                 <strong>--core-elevation-1</strong>
                 <div className="hint" style={{ marginTop: 'var(--core-space-2)' }}>Subtle raise — resting cards, accordions</div>
               </div>
-              <div style={{ padding: 'var(--core-space-4) var(--core-space-6)', borderRadius: 'var(--core-radius-sm)', background: 'var(--core-color-surface-default)', boxShadow: 'var(--core-elevation-2)', border: '1px solid var(--neutral-border-light)' }}>
+              <div style={{ padding: 'var(--core-space-4) var(--core-space-6)', borderRadius: 'var(--core-radius-sm)', background: 'var(--neutral-surface-layer-01)', boxShadow: 'var(--core-elevation-2)', border: '1px solid var(--neutral-border-light)' }}>
                 <strong>--core-elevation-2</strong>
                 <div className="hint" style={{ marginTop: 'var(--core-space-2)' }}>Medium raise — interactive-card hover, account menu</div>
               </div>
-              <div style={{ padding: 'var(--core-space-4) var(--core-space-6)', borderRadius: 'var(--core-radius-sm)', background: 'var(--core-color-surface-default)', boxShadow: 'var(--core-elevation-3)', border: '1px solid var(--neutral-border-light)' }}>
+              <div style={{ padding: 'var(--core-space-4) var(--core-space-6)', borderRadius: 'var(--core-radius-sm)', background: 'var(--neutral-surface-layer-01)', boxShadow: 'var(--core-elevation-3)', border: '1px solid var(--neutral-border-light)' }}>
                 <strong>--core-elevation-3</strong>
                 <div className="hint" style={{ marginTop: 'var(--core-space-2)' }}>Floating — menus, listboxes, popovers, toasts</div>
               </div>
-              <div style={{ padding: 'var(--core-space-4) var(--core-space-6)', borderRadius: 'var(--core-radius-sm)', background: 'var(--core-color-surface-default)', boxShadow: 'var(--core-elevation-4)', border: '1px solid var(--neutral-border-light)' }}>
+              <div style={{ padding: 'var(--core-space-4) var(--core-space-6)', borderRadius: 'var(--core-radius-sm)', background: 'var(--neutral-surface-layer-01)', boxShadow: 'var(--core-elevation-4)', border: '1px solid var(--neutral-border-light)' }}>
                 <strong>--core-elevation-4</strong>
                 <div className="hint" style={{ marginTop: 'var(--core-space-2)' }}>Overlay — modals, drawers</div>
               </div>
@@ -1139,7 +1139,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
                 <tr><td>Bond Index</td><td>15%</td><td>-1.3%</td></tr>
               </tbody>
             </table>}
-            code={`tbody tr:nth-child(even){ background: var(--core-color-surface-sunken); }`}
+            code={`tbody tr:nth-child(even){ background: var(--neutral-surface-layer-03); }`}
             colors={[['Zebra row', '--core-color-surface-sunken'], ['Row border', '--neutral-border-light'], ['Positive value', '--semantics-success-text']]}
           />
 
@@ -1176,7 +1176,7 @@ import { faHome, faCog, faUser } from '@fortawesome/free-solid-svg-icons'
             tags={['New pattern']}
             demo={<div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--core-space-2)', border: '1px solid var(--neutral-border-light)', borderRadius: 'var(--core-radius-sm)', padding: 'var(--core-space-1) var(--core-space-3)', fontSize: 'var(--typography-caption-size)', fontWeight: 'var(--typography-font-weight-bold)' }}>
               Asset classes
-              <span style={{ display: 'inline-flex', alignItems: 'center', minWidth: 'var(--core-space-10)', justifyContent: 'center', height: 'var(--core-space-5)', borderRadius: 'var(--core-radius-full)', background: 'var(--core-color-surface-sunken)', fontSize: 'var(--typography-font-size-xs)', fontWeight: 'var(--typography-font-weight-bold)' }}>4/12</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', minWidth: 'var(--core-space-10)', justifyContent: 'center', height: 'var(--core-space-5)', borderRadius: 'var(--core-radius-full)', background: 'var(--neutral-surface-layer-03)', fontSize: 'var(--typography-font-size-xs)', fontWeight: 'var(--typography-font-weight-bold)' }}>4/12</span>
             </div>}
             code={`<ChartLegend label="Asset classes" items={series} onToggle={toggleSeries} />`}
           />

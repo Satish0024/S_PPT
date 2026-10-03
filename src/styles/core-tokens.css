@@ -834,9 +834,27 @@
   --typography-text16-semibold-line-height: 1.5rem;
   --typography-text16-semibold-size: 1rem;
   --typography-text16-semibold-weight: 700;
+  /* CORE release surface names (same values as surface-default/raised/sunken, bg-page) */
+  --neutral-surface-layer-01: #FFFFFF;
+  --neutral-surface-layer-02: #FFFFFF;
+  --neutral-surface-layer-03: #EEEEF2;
+  --neutral-background: #F7F7F9;
+  --theme-neutral-surface-layer-01: #FFFFFF;
+  --theme-neutral-surface-layer-02: #FFFFFF;
+  --theme-neutral-surface-layer-03: #EEEEF2;
+  --theme-neutral-background: #F7F7F9;
 }
 
 :root[data-theme="dark"] {
+  --neutral-surface-layer-01: #1D1C24;
+  --neutral-surface-layer-02: #2E2D38;
+  --neutral-surface-layer-03: #111017;
+  --neutral-background: #111017;
+  --theme-neutral-surface-layer-01: #1D1C24;
+  --theme-neutral-surface-layer-02: #2E2D38;
+  --theme-neutral-surface-layer-03: #111017;
+  --theme-neutral-background: #111017;
+
   --brand-background-primary-active: #1B4479;
   --brand-background-primary-disabled: #132A49;
   --brand-background-primary-disabled-light: #2E2D38;

@@ -208,12 +208,12 @@ this grey triplet is only for
     /* Control sizes — DS v1.1 size tokens */
 /* CORE --core-tooltip-* */
     /* CORE --cds-table-border-color (table frame and row dividers). */
-    --table-border: var(--theme-neutral-border-primary-default);
+
     /* CORE .cds-step-* */
-    --step-marker-size: 28px;
+
     /* CORE .cds-link underline (1px, 2px on hover/active, 3px offset; tertiary button 4px) */
-    --link-underline-offset: 3px;
-    --btn-underline-offset: 4px;
+
+
     --modal-max-width: 480px;   /* CORE .cds-modal max-width */
     --drawer-width: 360px;      /* CORE .cds-drawer width */
 
@@ -292,17 +292,17 @@ this grey triplet is only for
        the #f4f5f9 page, so the card never read as a raised surface —
        hence the washed-out look. Now: flat white + crisp hairline +
        real elevation, with colour carried by the accents instead. */
-    --rgs-base-1: var(--core-color-surface-default); --rgs-base-2: var(--core-color-surface-default); --rgs-base-3: var(--core-color-bg-page);
+
     /* Was a hardcoded RGB triplet (46,49,146 -- CORE's indigo, literally),
        so on any other brand this glow rendered off-brand. Now a real
        color read via color-mix() further down, itself derived from
        --brand/--green. */
-    --rgs-ink: var(--neutral-text-default); --rgs-ink-soft: var(--neutral-text-subtle); --rgs-muted: var(--neutral-text-subtle-light);
-    --rgs-border: var(--theme-neutral-border-primary-default); --rgs-glass: var(--core-color-bg-page);
-    --rgs-glass-border: var(--theme-neutral-border-primary-default);
-    --rgs-success: var(--semantics-success-text); --rgs-warn: var(--semantics-warning-text); --rgs-danger: var(--semantics-critical-text);
-    --rgs-success-bg: var(--semantics-success-background-light); --rgs-warn-bg: var(--semantics-warning-background-light); --rgs-danger-bg: var(--semantics-critical-background-light);
-    --rgs-track: var(--core-color-surface-sunken);
+
+
+
+
+
+
     /* Was #4a63c7/#2e3192 -- CORE's hex, hardcoded regardless of brand. */
     /* Corner tint + atmosphere strength. Light keeps only a whisper of
        tint and switches the dotted/wave layers off entirely. */
@@ -320,8 +320,8 @@ this grey triplet is only for
     /* learn-surface-2 was a bespoke faint-lavender tint (#faf8ff) with no
        equivalent hue in the CORE palette -- swapped for the palette's own
        cool light tint instead of inventing a new hardcoded near-white. */
-    --learn-surface-1: var(--core-color-surface-default); --learn-surface-2: var(--brand-background-primary-light);
-    --learn-ink: var(--neutral-text-default); --learn-desc: var(--neutral-text-subtle);
+
+
     --learn-pattern: color-mix(in srgb, var(--brand-text-primary-default) 34%, transparent); --learn-pattern-soft: color-mix(in srgb, var(--brand-text-primary-default) 7%, transparent);
 
     /* Enrich card (Auto Enrolled participants only) -- deliberately its
@@ -341,8 +341,8 @@ this grey triplet is only for
     /* inv-surface-2's faint mint tint now sources from the palette's own
        success-light-background, which is the closest real token to the
        card's existing mint identity. */
-    --inv-surface-1: var(--core-color-surface-default); --inv-surface-2: var(--semantics-success-background-light);
-    --inv-ink: var(--neutral-text-default); --inv-desc: var(--neutral-text-subtle);
+
+
     --inv-pattern: color-mix(in srgb, var(--brand-text-primary-default) 26%, transparent); --inv-node: var(--brand-text-primary-default);
   }
 
@@ -358,7 +358,7 @@ this grey triplet is only for
     font-family:var(--typography-font-family-sans);
     font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-regular);
     line-height:var(--typography-body-md-line-height);
-    color:var(--neutral-text-default);background:var(--core-color-bg-page);-webkit-font-smoothing:antialiased;
+    color:var(--neutral-text-default);background:var(--neutral-background);-webkit-font-smoothing:antialiased;
   }
   button,a{font-family:inherit}
   /* Global focus-visible — WCAG 2.4.7: every interactive element gets a
@@ -395,7 +395,7 @@ this grey triplet is only for
 
   .topbar{
     height:var(--core-layout-header-height);border-bottom:1px solid var(--neutral-border-light);display:flex;align-items:center;
-    justify-content:space-between;gap:var(--core-space-4);padding:var(--core-space-0) var(--core-space-6);position:sticky;top:0;background:var(--core-color-surface-default);z-index:40;
+    justify-content:space-between;gap:var(--core-space-4);padding:var(--core-space-0) var(--core-space-6);position:sticky;top:0;background:var(--neutral-surface-layer-01);z-index:40;
   }
   .brand{display:inline-flex;align-items:center}
 
@@ -411,12 +411,12 @@ this grey triplet is only for
     display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
     gap:var(--core-space-1) var(--core-space-4);
     padding:var(--core-space-2) var(--core-space-6);
-    background:var(--core-color-surface-default);border-top:1px solid var(--neutral-border-light);
+    background:var(--neutral-surface-layer-01);border-top:1px solid var(--neutral-border-light);
     font-size:var(--typography-body-xs-size);line-height:var(--typography-body-xs-line-height);color:var(--neutral-text-subtle);
   }
   .app-footer-copy{margin:0;font-size:var(--typography-body-xs-size);line-height:var(--typography-body-xs-line-height);color:var(--neutral-text-subtle)}
   .app-footer-links{display:flex;align-items:center;gap:var(--core-space-4);flex-wrap:wrap}
-  .app-footer-links a{font-size:var(--typography-body-xs-size);line-height:var(--typography-body-xs-line-height);color:var(--neutral-text-subtle);text-decoration:underline;text-underline-offset:var(--link-underline-offset);display:inline-flex;align-items:center;min-height:var(--core-space-6)}
+  .app-footer-links a{font-size:var(--typography-body-xs-size);line-height:var(--typography-body-xs-line-height);color:var(--neutral-text-subtle);text-decoration:underline;text-underline-offset:calc(var(--core-border-width-thick) + var(--core-border-width-default));display:inline-flex;align-items:center;min-height:var(--core-space-6)}
   .app-footer-links a:hover{color:var(--neutral-text-default)}
   .brand img{height:var(--core-space-8);max-width:200px;object-fit:contain;display:block;width:auto}   /* CORE .cds-app-header-brand logo: 32px */
   .top-right{display:flex;align-items:center;gap:var(--core-space-2)}
@@ -428,7 +428,7 @@ this grey triplet is only for
   [data-tip]::after{
     content:attr(data-tip);position:absolute;left:50%;top:calc(100% + var(--core-tooltip-offset));transform:translateX(-50%) translateY(-4px);
     width:max-content;max-width:var(--core-tooltip-maxWidth);padding:var(--core-space-1) var(--core-space-2);border-radius:var(--core-radius-sm);
-    background:var(--neutral-text-default);color:var(--core-color-surface-default);font-size:var(--typography-body-xs-size);
+    background:var(--neutral-text-default);color:var(--neutral-surface-layer-01);font-size:var(--typography-body-xs-size);
     font-weight:var(--typography-font-weight-regular);line-height:var(--typography-body-xs-line-height);text-align:center;box-shadow:var(--core-elevation-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     opacity:0;visibility:hidden;pointer-events:none;transition:opacity var(--core-motion-duration-fast),transform var(--core-motion-duration-fast);z-index:30}
   [data-tip]:hover::after,[data-tip]:focus-visible::after{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
@@ -450,7 +450,7 @@ this grey triplet is only for
   .user-menu{position:relative}
   .user-chip{display:flex;align-items:center;gap:var(--core-space-2);padding:var(--core-space-1) var(--core-space-3) var(--core-space-1) var(--core-space-1);border:1px solid var(--neutral-border-light);
     border-radius:var(--core-radius-full);cursor:pointer;transition:box-shadow var(--core-motion-duration-base),border-color var(--core-motion-duration-base);font-weight:var(--typography-font-weight-semibold);font-size:var(--typography-body-md-size);
-    color:var(--neutral-text-default);background:var(--core-color-surface-default);min-width:0}
+    color:var(--neutral-text-default);background:var(--neutral-surface-layer-01);min-width:0}
   .user-chip:hover,.user-chip.open{border-color:var(--neutral-border-strong);box-shadow:var(--core-elevation-1)}
   .user-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;flex:0 0 auto;box-sizing:border-box;border:var(--core-border-width-default) solid var(--neutral-border-light)}   /* CORE .cds-avatar ring */
   .user-chip .chip-text{display:flex;flex-direction:column;align-items:flex-start;min-width:0;line-height:var(--core-font-lineHeight-tight)}
@@ -466,7 +466,7 @@ this grey triplet is only for
   .user-chip.avatar-only img{width:32px;height:32px}
 
   .user-dropdown{
-    position:absolute;right:0;top:calc(100% + var(--core-space-2));width:260px;background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);
+    position:absolute;right:0;top:calc(100% + var(--core-space-2));width:260px;background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);
     border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-2);padding:var(--core-space-2);display:none;z-index:50
   }
   .user-dropdown.open{display:block}
@@ -494,7 +494,7 @@ this grey triplet is only for
 
   .layout{display:flex;min-height:calc(100dvh - var(--core-layout-header-height));align-items:flex-start}
   .nav{width:var(--core-layout-sidebar-railWidth);border-right:1px solid var(--neutral-border-light);padding:var(--core-space-4) var(--core-space-0);
-    display:flex;flex-direction:column;gap:var(--core-space-2);background:var(--core-color-surface-raised);
+    display:flex;flex-direction:column;gap:var(--core-space-2);background:var(--neutral-surface-layer-02);
     /* Truly fixed to the viewport (not sticky, not a flex sibling of its
        content column) -- it never scrolls with the page and is sized to
        its own nav-links content, not stretched to match main's height.
@@ -564,7 +564,7 @@ this grey triplet is only for
     font-weight:var(--typography-link-weight);
     line-height:var(--typography-link-line-height);
     letter-spacing:var(--typography-link-letter-spacing);
-    color:var(--brand-text-primary-default);text-decoration:underline;text-decoration-thickness:var(--core-border-width-default);text-underline-offset:var(--link-underline-offset);background:none;border:none;cursor:pointer;padding:var(--core-space-0);
+    color:var(--brand-text-primary-default);text-decoration:underline;text-decoration-thickness:var(--core-border-width-default);text-underline-offset:calc(var(--core-border-width-thick) + var(--core-border-width-default));background:none;border:none;cursor:pointer;padding:var(--core-space-0);
     transition:color var(--core-motion-duration-fast),text-decoration-color var(--core-motion-duration-fast);
   }
   .text-link:hover,.text-btn:hover{color:var(--brand-text-primary-hover);text-decoration-thickness:var(--core-border-width-thick)}
@@ -575,7 +575,7 @@ this grey triplet is only for
   .text-link:disabled,.text-btn:disabled,.text-link[aria-disabled="true"]{color:var(--semantics-disabled-text);cursor:not-allowed}
 
   .scenario-banner{
-    background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
+    background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
     box-shadow:var(--core-elevation-1);border-left:4px solid var(--brand-text-primary-default)}
   .scenario-banner.green{border-left-color:var(--semantics-success-text)}
   .scenario-banner.amber{border-left-color:var(--semantics-warning-text)}
@@ -588,7 +588,7 @@ this grey triplet is only for
   .scenario-banner.navy .sb-tag{color:var(--brand-text-primary-default)}
   .scenario-banner.red .sb-tag{color:var(--semantics-critical-text)}
   .scenario-banner p{font-size:var(--typography-body-md-relaxed-size);line-height:var(--typography-body-md-relaxed-line-height);color:var(--neutral-text-subtle);margin:var(--core-space-0)}
-  .scenario-banner a{color:var(--brand-text-primary-default);font-weight:var(--typography-font-weight-bold);text-decoration:underline;text-underline-offset:var(--link-underline-offset)}
+  .scenario-banner a{color:var(--brand-text-primary-default);font-weight:var(--typography-font-weight-bold);text-decoration:underline;text-underline-offset:calc(var(--core-border-width-thick) + var(--core-border-width-default))}
   .scenario-banner a:hover{color:var(--brand-text-primary-hover);text-decoration:underline;text-decoration-thickness:var(--core-border-width-thick)}
   .scenario-banner .sb-reason{
     margin-top:var(--core-space-3);padding-top:var(--core-space-3);border-top:1px dashed var(--neutral-border-light);
@@ -596,7 +596,7 @@ this grey triplet is only for
   .scenario-banner .sb-reason strong{font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
 
   .overall-balance{
-    background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
+    background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
     box-shadow:var(--core-elevation-1)}
   .overall-balance .ob-top{
     display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:var(--core-space-4) var(--core-space-6)}
@@ -620,7 +620,7 @@ this grey triplet is only for
     margin-top:var(--core-space-4);padding-top:var(--core-space-4);border-top:1px solid var(--neutral-border-light)}
   .overall-balance .ob-loan-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--core-space-2)}
   .overall-balance .ob-loan .loan-k{font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle-light)}
-  .overall-balance .ob-loan .loan-v{font-size:var(--typography-body-lg-size);font-weight:var(--typography-font-weight-bold);color:var(--semantics-warning-text);font-variant-numeric:tabular-nums}
+  .overall-balance .ob-loan .loan-v{font-size:var(--typography-body-lg-size);line-height:var(--typography-text16-semibold-line-height);font-weight:var(--typography-font-weight-bold);color:var(--semantics-warning-text);font-variant-numeric:tabular-nums}
   .overall-balance .ob-loan .loan-note{
     display:flex;gap:var(--core-space-2);align-items:center;
     margin-top:var(--core-space-2);font-size:var(--typography-caption-size);line-height:var(--typography-caption-line-height);color:var(--neutral-text-subtle-light);width:100%}
@@ -628,7 +628,7 @@ this grey triplet is only for
   .overall-balance .ob-footnote{font-size:var(--typography-font-size-xs);color:var(--neutral-text-subtle-light);line-height:var(--typography-body-xs-line-height);margin:var(--core-space-3) var(--core-space-0) var(--core-space-0);padding-top:var(--core-space-3);border-top:1px solid var(--neutral-border-light)}
 
   .rr-card{
-    background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);overflow:hidden;box-shadow:var(--core-elevation-1);
+    background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);overflow:hidden;box-shadow:var(--core-elevation-1);
     padding:var(--core-space-4);display:flex;flex-direction:column;gap:var(--core-space-4);position:relative}
   .rr-card::before{
     content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--brand-text-primary-default),var(--semantics-success-text))}
@@ -671,12 +671,12 @@ this grey triplet is only for
   .rr-legend .income::before{background:var(--semantics-success-text)}
   .rr-legend .short::before{background:var(--semantics-critical-text)}
   .rr-legend b{
-    margin-left:auto;font-size:var(--typography-font-size-md);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);font-variant-numeric:tabular-nums}
+    margin-left:auto;font-size:var(--typography-font-size-md);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);font-variant-numeric:tabular-nums;line-height:var(--typography-text16-semibold-line-height)}
   .rr-legend .income b{color:var(--semantics-success-text)}
   .rr-legend .short b{color:var(--semantics-critical-text)}
   .rr-status-link{
     flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
-    border:none;background:var(--core-color-surface-default);color:var(--brand-text-primary-default);border-radius:var(--core-radius-sm);text-decoration:none;
+    border:none;background:var(--neutral-surface-layer-01);color:var(--brand-text-primary-default);border-radius:var(--core-radius-sm);text-decoration:none;
     padding:var(--core-space-2) var(--core-space-3);font:inherit;font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-bold);cursor:pointer;
     box-shadow:0 0 0 1px var(--theme-neutral-border-primary-default);box-sizing:border-box;width:100%}
   .rr-status-link:hover{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
@@ -684,12 +684,12 @@ this grey triplet is only for
      through the label text itself, not through a traffic-light color. */
   .rr-status{
     display:flex;flex-direction:column;align-items:stretch;gap:var(--core-space-3);
-    border-radius:var(--core-radius-sm);padding:var(--core-space-3) var(--core-space-3);background:var(--core-color-surface-sunken)}
+    border-radius:var(--core-radius-sm);padding:var(--core-space-3) var(--core-space-3);background:var(--neutral-surface-layer-03)}
   .rr-status-copy{flex:1;min-width:0}
   .rr-status b{display:block;font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);margin-bottom:var(--core-space-1)}
   .rr-status span{font-size:var(--typography-font-size-xs);line-height:var(--typography-body-xs-line-height);color:var(--neutral-text-subtle)}
   .rr-status em{display:block;margin-top:var(--core-space-1);font-style:normal;font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
-  .rr-status.ok,.rr-status.warn,.rr-status.good{background:var(--core-color-surface-sunken)}
+  .rr-status.ok,.rr-status.warn,.rr-status.good{background:var(--neutral-surface-layer-03)}
   .rr-status.ok b,.rr-status.ok em,.rr-status.warn b,.rr-status.warn em,.rr-status.good b,.rr-status.good em{color:var(--neutral-text-default)}
   .rr-field{display:flex;flex-direction:column;gap:var(--core-space-2);font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);margin:var(--core-space-0) var(--core-space-0) var(--core-space-3)}
   .rr-field span{display:inline-flex;align-items:center;gap:var(--core-space-2)}
@@ -698,7 +698,7 @@ this grey triplet is only for
   .rr-intro .btn{width:100%}
   .rr-foot{
     display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--core-space-1) var(--core-space-3);margin-top:var(--core-space-1);padding:var(--core-space-3) var(--core-space-3);
-    border-radius:var(--core-radius-sm);background:var(--core-color-surface-sunken);border:1px solid var(--neutral-border-light);text-align:left;line-height:var(--core-font-lineHeight-normal)}
+    border-radius:var(--core-radius-sm);background:var(--neutral-surface-layer-03);border:1px solid var(--neutral-border-light);text-align:left;line-height:var(--core-font-lineHeight-normal)}
   .rr-foot-note{font-size:var(--typography-caption-size);font-weight:var(--typography-font-weight-semibold);font-style:normal;color:var(--neutral-text-subtle)}
   .rr-disclaimer-link{font-family:inherit;font-size:inherit;font-size:var(--typography-caption-size);font-style:normal}
   .rr-modal{max-height:min(86vh,720px)}
@@ -710,7 +710,7 @@ this grey triplet is only for
 
   /* ---------- Retirement Readiness widget v2 ---------- */
   .rr2-card{
-    background:var(--core-color-surface-default);border-radius:var(--core-radius-sm);overflow:hidden;box-shadow:var(--core-elevation-1);
+    background:var(--neutral-surface-layer-01);border-radius:var(--core-radius-sm);overflow:hidden;box-shadow:var(--core-elevation-1);
     padding:var(--core-space-6);display:flex;flex-direction:column;gap:var(--core-space-5)}
   .rr2-head{display:flex;align-items:center;gap:var(--core-space-3)}
   .rr2-ico{
@@ -789,7 +789,7 @@ this grey triplet is only for
   .rr-modal-h{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--core-space-3);margin-bottom:var(--core-space-2)}
   .rr-modal-h h4{margin:var(--core-space-0)}
   .rr-modal-x{display:grid;place-items:center;width:28px;height:28px;border:none;background:transparent;color:var(--theme-neutral-text-subtleleast);cursor:pointer;padding:var(--core-space-0);border-radius:var(--core-radius-sm)}   /* CORE close button */
-  .rr-modal-x:hover{background:var(--core-color-surface-raised);color:var(--neutral-text-default)}
+  .rr-modal-x:hover{background:var(--neutral-surface-layer-02);color:var(--neutral-text-default)}
   .rr-modal-k{font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default) !important;margin:var(--core-space-4) var(--core-space-0) var(--core-space-2) !important}
   .rr-modal ul{margin:var(--core-space-0) var(--core-space-0) var(--core-space-4);padding-left:var(--core-space-4);color:var(--neutral-text-subtle);font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height)}
   .rr-modal li{margin:var(--core-space-0) var(--core-space-0) var(--core-space-2)}
@@ -799,7 +799,7 @@ this grey triplet is only for
   /* Now sits inside .rg-disc alongside the disclaimer note text, so the
      link and its note read as one card element instead of the link
      living in the page header, far from what it's disclaiming. */
-  .rg-disc-top{flex:0 0 auto;white-space:nowrap;font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-bold);text-decoration:underline;text-underline-offset:var(--link-underline-offset)}
+  .rg-disc-top{flex:0 0 auto;white-space:nowrap;font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-bold);text-decoration:underline;text-underline-offset:calc(var(--core-border-width-thick) + var(--core-border-width-default))}
   .rg-back{margin-bottom:var(--core-space-2)}
   .rg-intro{margin:var(--core-space-2) var(--core-space-0) var(--core-space-0);max-width:640px;font-size:var(--typography-font-size-sm);line-height:var(--typography-body-md-line-height);color:var(--neutral-text-subtle);font-weight:var(--typography-font-weight-medium)}
   /* minmax(0,Nfr), not bare Nfr -- a plain fr track's automatic minimum
@@ -822,7 +822,7 @@ this grey triplet is only for
      (Auto layout let the unwrapped label claim the width and pushed
      "Updated value" out of view.) Phones keep a scrollable table, below. */
   .rg-confirm-table{width:100%;border-collapse:collapse;margin:var(--core-space-0);font-size:var(--typography-font-size-sm);table-layout:fixed}
-  .rg-confirm-table th,.rg-confirm-table td{text-align:left;padding:var(--core-space-2) var(--core-space-3);border-bottom:1px solid var(--table-border);vertical-align:top}
+  .rg-confirm-table th,.rg-confirm-table td{text-align:left;padding:var(--core-space-2) var(--core-space-3);border-bottom:1px solid var(--theme-neutral-border-primary-default);vertical-align:top}
   .rg-confirm-table th{color:var(--neutral-text-subtle);font-weight:var(--typography-font-weight-semibold);font-size:var(--typography-body-md-size);letter-spacing:0;white-space:nowrap}
   .rg-confirm-table th:not(:first-child),.rg-confirm-table td:not(:first-child){text-align:right;white-space:nowrap}
   .rg-confirm-table th:not(:first-child),.rg-confirm-table td:not(:first-child){width:150px}
@@ -841,8 +841,8 @@ this grey triplet is only for
   .rg-plan-single .ui-select.disabled .ui-select-btn{
     opacity:1;cursor:default;background:var(--semantics-disabled-background);
     color:var(--semantics-disabled-text);border-color:var(--semantics-disabled-border)}
-  .rg-plan-card{border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);background:var(--core-color-surface-sunken);margin:var(--core-space-0) var(--core-space-0) var(--core-space-3);overflow:hidden}
-  .rg-plan-card.open{background:var(--core-color-surface-default);border-color:var(--neutral-border-strong)}
+  .rg-plan-card{border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);background:var(--neutral-surface-layer-03);margin:var(--core-space-0) var(--core-space-0) var(--core-space-3);overflow:hidden}
+  .rg-plan-card.open{background:var(--neutral-surface-layer-01);border-color:var(--neutral-border-strong)}
   .rg-plan-card-h{
     display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--core-space-2) var(--core-space-4);
     width:100%;border:none;background:transparent;padding:var(--core-space-4) var(--core-space-4);cursor:pointer;text-align:left;font:inherit}
@@ -871,19 +871,19 @@ this grey triplet is only for
      height enough that the 5-card list needed two scrolls to get through. */
   .rg-target{
     display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--core-space-2) var(--core-space-3);
-    border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-3) var(--core-space-3);background:var(--core-color-surface-sunken)}
+    border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-3) var(--core-space-3);background:var(--neutral-surface-layer-03)}
   .rg-target-head{display:flex;align-items:flex-start;gap:var(--core-space-3);min-width:0;flex:1 1 220px}
   .rg-target-ico{
     width:30px;height:30px;border-radius:var(--core-radius-sm);background:var(--brand-background-primary-light);color:var(--brand-text-primary-default);
     display:grid;place-items:center;flex:0 0 auto;margin-top:var(--core-border-width-hairline)}
   .rg-target-copy{min-width:0}
   .rg-target-copy span{display:block;font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
-  .rg-target-copy small{display:block;margin-top:var(--core-border-width-hairline);font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-medium);color:var(--neutral-text-subtle);line-height:var(--typography-body-xs-line-height)}
+  .rg-target-copy small{display:block;margin-top:var(--core-space-0);font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-medium);color:var(--neutral-text-subtle);line-height:var(--typography-body-xs-line-height)}
   .rg-target-ctrl{flex:0 0 auto}
   .rg-target .ui-select-btn,.rg-affix,.rg-step{
-    border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);background:var(--core-color-surface-default);min-height:var(--core-size-control-md);
+    border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);background:var(--neutral-surface-layer-01);min-height:var(--core-size-control-md);
     transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-  .rg-target .ui-select-btn:hover,.rg-affix:hover:not(:focus-within),.rg-plan-single .ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .rg-target .ui-select-btn:hover,.rg-affix:hover:not(:focus-within),.rg-plan-single .ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--neutral-surface-layer-01))}
   .rg-step:hover:not(:focus-within){border-color:var(--neutral-border-strong)}
   .rg-target .ui-select-btn:focus-visible,.rg-affix:focus-within,.rg-step:focus-within{
     border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow);outline:none}
@@ -893,7 +893,7 @@ this grey triplet is only for
   .rg-affix{display:inline-flex;align-items:center;overflow:hidden}
   .rg-affix em{
     /* CORE .cds-input-group-addon */
-    display:grid;place-items:center;padding:var(--core-space-0) var(--core-space-3);align-self:stretch;background:var(--core-color-surface-sunken);
+    display:grid;place-items:center;padding:var(--core-space-0) var(--core-space-3);align-self:stretch;background:var(--neutral-surface-layer-03);
     color:var(--neutral-text-subtle);font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height);font-style:normal;font-weight:var(--typography-font-weight-regular);border-right:1px solid var(--core-color-border-control)}
   .rg-affix.pct em{border-right:none;border-left:1px solid var(--core-color-border-control)}
   .rg-affix:hover:not(:focus-within) em{border-color:var(--neutral-border-strong)}
@@ -925,7 +925,7 @@ this grey triplet is only for
     position:absolute;left:0;height:8px;border-radius:var(--core-radius-full);background:var(--brand-text-primary-default);pointer-events:none}
   .rg-range-origin{
     position:absolute;top:50%;width:11px;height:11px;margin-left:calc(-11px / 2);border-radius:var(--core-radius-full);
-    background:var(--core-color-surface-default);border:2px solid var(--semantics-warning-text);transform:translateY(-50%);pointer-events:none;z-index:2}
+    background:var(--neutral-surface-layer-01);border:2px solid var(--semantics-warning-text);transform:translateY(-50%);pointer-events:none;z-index:2}
   .rg-range input[type=range]{
     position:relative;z-index:3;width:100%;margin:var(--core-space-0);background:transparent;appearance:none;height:22px;accent-color:var(--brand-text-primary-default)}
   .rg-range input[type=range]::-webkit-slider-runnable-track{height:8px;background:transparent;border:none}
@@ -956,7 +956,7 @@ this grey triplet is only for
   .rg-range-new--same{color:var(--neutral-text-subtle) !important}
   .rg-toggle{
     display:flex;align-items:flex-start;gap:var(--core-space-3);margin:var(--core-space-2) var(--core-space-0) var(--core-space-4);padding:var(--core-space-4) var(--core-space-4);
-    border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);cursor:pointer;background:var(--core-color-surface-sunken)}
+    border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);cursor:pointer;background:var(--neutral-surface-layer-03)}
 
   .rg-toggle span{display:flex;flex-direction:column;gap:var(--core-space-1);font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-semibold);line-height:var(--typography-body-md-line-height);color:var(--neutral-text-subtle)}
   .rg-toggle b{font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
@@ -972,11 +972,11 @@ this grey triplet is only for
   /* Primary action (Confirm changes) must sit on the RIGHT, Cancel on the LEFT.
      row-reverse keeps DOM order screen-reader-friendly (primary first = announced
      first) while reversing the visual order so the primary lands on the end. */
-  .rg-nav{display:flex;flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:var(--core-space-4);margin-top:var(--core-space-2);padding-top:var(--core-space-2)}
+  .rg-nav{display:flex;flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:var(--core-space-4);margin-top:var(--core-space-0);padding-top:var(--core-space-2)}
   .rg-nav .btn{width:auto;min-width:140px;flex:0 0 auto}
   .panel.rg-live{
-    position:sticky;top:20px;padding:var(--core-space-6) var(--core-space-5) var(--core-space-5);display:flex;flex-direction:column;gap:var(--core-space-4);
-    background:var(--core-color-surface-default)}
+    position:sticky;top:var(--core-space-5);padding:var(--core-space-4);display:flex;flex-direction:column;gap:var(--core-space-4);
+    background:var(--neutral-surface-layer-01)}
   .rg-live .rg-level{align-self:center;margin:var(--core-space-0)}
   .rg-live-visual{
     display:flex;align-items:center;justify-content:center;gap:var(--core-space-4)}
@@ -991,16 +991,16 @@ this grey triplet is only for
   .rg-live .rg-facts,.rg-live .rg-disc{margin:var(--core-space-0) !important}
   .rg-live .rg-disc{font-size:var(--typography-caption-size);font-style:normal;text-align:center;color:var(--neutral-text-subtle);
     display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:var(--core-space-1) var(--core-space-3);
-    padding:var(--core-space-3) var(--core-space-3);border-radius:var(--core-radius-sm);background:var(--core-color-surface-sunken);border:1px solid var(--neutral-border-light);line-height:var(--typography-caption-line-height)}
+    padding:var(--core-space-3) var(--core-space-3);border-radius:var(--core-radius-sm);background:var(--neutral-surface-layer-03);border:1px solid var(--neutral-border-light);line-height:var(--typography-caption-line-height)}
   .rg-facts{
     display:grid;gap:var(--core-space-2);margin:var(--core-space-0);padding:var(--core-space-3) var(--core-space-4);
-    background:var(--core-color-surface-sunken);border-radius:var(--core-radius-sm)}
+    background:var(--neutral-surface-layer-03);border-radius:var(--core-radius-sm)}
   .rg-facts div{display:flex;justify-content:space-between;align-items:baseline;gap:var(--core-space-3)}
   .rg-facts dt{font-size:var(--typography-body-xs-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle);min-width:0;overflow-wrap:anywhere}
   .rg-facts dd{margin:var(--core-space-0);font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);text-align:right;min-width:0}
   .rg-disc{
     margin:var(--core-space-0) !important;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;
-    gap:var(--core-space-1) var(--core-space-3);padding:var(--core-space-3) var(--core-space-3);border-radius:var(--core-radius-sm);background:var(--core-color-surface-sunken);border:1px solid var(--neutral-border-light);
+    gap:var(--core-space-1) var(--core-space-3);padding:var(--core-space-3) var(--core-space-3);border-radius:var(--core-radius-sm);background:var(--neutral-surface-layer-03);border:1px solid var(--neutral-border-light);
     font-size:var(--typography-caption-size);font-style:normal;color:var(--neutral-text-subtle);text-align:center;line-height:var(--typography-caption-line-height)}
   .rg-level{
     display:inline-flex;align-items:center;justify-content:center;gap:var(--core-space-2);align-self:center;
@@ -1026,7 +1026,7 @@ this grey triplet is only for
     background:linear-gradient(90deg,var(--semantics-critical-text),var(--semantics-warning-text) 55%,var(--semantics-success-text));
     transition:width var(--motion-emphasis) ease}
   .rg-meter em{
-    position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--core-color-surface-default);opacity:.85;border-radius:var(--core-radius-xs)}
+    position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--neutral-surface-layer-01);opacity:.85;border-radius:var(--core-radius-xs)}
   .rg-burst span{
     position:absolute;width:8px;height:8px;border-radius:var(--core-radius-full);
     animation:rg-burst .9s ease-out forwards}
@@ -1072,10 +1072,10 @@ this grey triplet is only for
   .rg-save .rg-save-hero p{margin-bottom:var(--core-space-0)}
   .rg-save-score{
     display:flex;flex-direction:column;align-items:center;gap:var(--core-space-1);
-    margin:var(--core-space-4) var(--core-space-0) var(--core-space-4);padding:var(--core-space-4) var(--core-space-4);border-radius:var(--core-radius-sm);background:var(--core-color-surface-sunken)}
+    margin:var(--core-space-4) var(--core-space-0) var(--core-space-4);padding:var(--core-space-4) var(--core-space-4);border-radius:var(--core-radius-sm);background:var(--neutral-surface-layer-03)}
   .rg-save.good .rg-save-score{background:var(--semantics-success-background-light)}
   .rg-save.warn .rg-save-score{background:var(--semantics-critical-background-light)}
-  .rg-save.ok .rg-save-score{background:var(--core-color-surface-sunken)}
+  .rg-save.ok .rg-save-score{background:var(--neutral-surface-layer-03)}
   .rg-save-score-row{display:flex;align-items:baseline;gap:var(--core-space-3)}
   .rg-save-score-row span{font-size:var(--typography-font-size-xl);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle);}
   .rg-save-score-row em{font-style:normal;font-size:var(--typography-heading-h4-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle)}
@@ -1114,12 +1114,12 @@ this grey triplet is only for
   .section-title{font-size:var(--typography-heading-h2-size);font-weight:var(--typography-font-weight-bold);letter-spacing:var(--typography-heading-h2-letter-spacing);line-height:var(--typography-heading-h2-line-height);margin:var(--core-space-0) var(--core-space-0) var(--core-space-3);color:var(--neutral-text-default);overflow-wrap:anywhere}
 
   /* My Plans */
-  .plans-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--core-space-4)}
+  .plans-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--core-space-5)}
   /* A single plan shouldn't sit in one column with the other left empty --
      let it span the full row instead. */
   .plans-grid > *:only-child{grid-column:1 / -1}
   .plan-card{
-    background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
+    background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
     box-shadow:var(--core-elevation-1);display:flex;flex-direction:column;gap:var(--core-space-4);min-width:0}
   /* Not-eligible plans previously only swapped the card background, so the
      name, the "401(k)" type in full brand blue and the balance figures all
@@ -1147,12 +1147,12 @@ this grey triplet is only for
      containers invert to the plain surface -- which also leaves the live
      "Provide elections in advance" link sitting on the one white panel in
      the card, reading correctly as the only actionable thing on it. */
-  .plan-card.ineligible .plan-stat{background:var(--core-color-surface-default)}
+  .plan-card.ineligible .plan-stat{background:var(--neutral-surface-layer-01)}
   .plan-card.ineligible .plan-stat .k,
   .plan-card.ineligible .plan-stat .v,
   .plan-card.ineligible .plan-stat.balance .v,
   .plan-card.ineligible .plan-stat.vested .v{color:var(--semantics-disabled-text)}
-  .plan-card.eligible-not{background:var(--core-color-surface-default)}
+  .plan-card.eligible-not{background:var(--neutral-surface-layer-01)}
   .plan-badge.eligible{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
   .plan-badge.opted{background:var(--semantics-critical-background-light);color:var(--semantics-critical-text)}
   .plan-card .pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--core-space-3)}
@@ -1164,13 +1164,13 @@ this grey triplet is only for
   .plan-card .pc-meta{font-size:var(--typography-body-xs-size);color:var(--neutral-text-subtle);line-height:var(--typography-body-xs-line-height)}
   .plan-badge{background:var(--semantics-success-background-light);color:var(--semantics-success-text);flex-shrink:0}
   /* CORE neutral soft badge: sunken fill, neutral text, default-border stroke. */
-  .plan-badge.muted{background:var(--core-color-surface-sunken);color:var(--neutral-text-default);box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light)}
+  .plan-badge.muted{background:var(--neutral-surface-layer-03);color:var(--neutral-text-default);box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light)}
   .plan-stats{
     display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;
     column-gap:var(--core-space-3);row-gap:0}
   .plan-stat{
     display:grid;grid-template-rows:subgrid;grid-row:span 2;row-gap:var(--core-space-2);
-    min-width:0;padding:var(--core-space-3);border-radius:var(--core-radius-sm);background:var(--core-color-surface-sunken);border:1px solid var(--neutral-border-light)}
+    min-width:0;padding:var(--core-space-3);border-radius:var(--core-radius-sm);background:var(--neutral-surface-layer-03);border:1px solid var(--neutral-border-light)}
   .plan-stat .k{
     font-size:var(--typography-eyebrow-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle-light);
     line-height:var(--typography-eyebrow-line-height);width:100%;word-break:break-word}
@@ -1201,7 +1201,7 @@ this grey triplet is only for
   .plan-return.neg{background:var(--semantics-critical-background-light);color:var(--semantics-critical-text)}
   .plan-reason{
     font-size:var(--typography-body-sm-size);color:var(--neutral-text-subtle);line-height:var(--typography-body-sm-line-height);padding:var(--core-space-3) var(--core-space-4);border-radius:var(--core-radius-sm);
-    background:var(--core-color-surface-sunken);border:1px solid var(--neutral-border-light)}
+    background:var(--neutral-surface-layer-03);border:1px solid var(--neutral-border-light)}
   .plan-reason strong{display:block;font-size:var(--typography-body-xs-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);margin-bottom:var(--core-space-1)}
   /* Plan notices and the cash-balance note: CORE .cds-alert anatomy —
      tone background, tone text, 1px inset stroke in the text colour,
@@ -1210,13 +1210,13 @@ this grey triplet is only for
     font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height);padding:var(--core-space-4);border-radius:var(--core-radius-sm);
     border:0;box-shadow:inset 0 0 0 var(--core-border-width-default) currentColor;margin:var(--core-space-0);
     background:var(--semantics-success-background-light);color:var(--semantics-success-text)}
-  .plan-notice a,.plan-cash-note a{color:var(--brand-text-primary-default);font-weight:var(--typography-link-weight);text-decoration:underline;text-underline-offset:var(--link-underline-offset)}
+  .plan-notice a,.plan-cash-note a{color:var(--brand-text-primary-default);font-weight:var(--typography-link-weight);text-decoration:underline;text-underline-offset:calc(var(--core-border-width-thick) + var(--core-border-width-default))}
   .plan-notice a:hover,.plan-cash-note a:hover{color:var(--brand-text-primary-hover);text-decoration-thickness:var(--core-border-width-thick)}
   .plan-notice.eligible-notice,.plan-cash-note{background:var(--semantics-highlight-background-light);color:var(--semantics-highlight-text)}
   /* Not eligible: CORE has no neutral alert tone. Neutral surface, default
      border token and subtle text so the notice reads as inactive. */
   .plan-notice.ineligible-notice{
-    background:var(--core-color-surface-default);color:var(--neutral-text-subtle);box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light)}
+    background:var(--neutral-surface-layer-01);color:var(--neutral-text-subtle);box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light)}
   .plan-notice.opted-notice{background:var(--semantics-critical-background-light);color:var(--semantics-critical-text)}
   .plan-cash-note b{color:var(--neutral-text-default);font-weight:var(--typography-font-weight-bold)}
   .plan-details{
@@ -1230,7 +1230,7 @@ this grey triplet is only for
   /* Enrich + readiness side */
   .learn-card{
     display:flex;flex-direction:column;gap:var(--core-space-4);text-decoration:none;color:inherit;
-    background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
+    background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
     box-shadow:var(--core-elevation-1);position:relative;overflow:hidden;
     transition:box-shadow var(--core-motion-duration-base) ease,border-color var(--core-motion-duration-base) ease,transform var(--core-motion-duration-base) ease}
   .learn-card:hover{box-shadow:var(--core-elevation-2);border-color:var(--neutral-border-strong);transform:none}
@@ -1279,7 +1279,7 @@ this grey triplet is only for
 
   /* ---------- Investment risk meter ---------- */
   .risk-card{
-    background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
+    background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
     box-shadow:var(--core-elevation-1);display:flex;flex-direction:column;gap:var(--core-space-4)}
   .risk-head{display:flex;align-items:center;gap:var(--core-space-3)}
   .risk-ico{
@@ -1297,7 +1297,7 @@ this grey triplet is only for
     position:absolute;left:50%;top:85px;transform:translate(-50%,-50%);width:112px;height:112px;
     border-radius:var(--core-radius-full);background:var(--semantics-warning-background-light);
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--core-space-1);
-    box-shadow:inset 0 0 0 var(--core-border-width-default) var(--table-border)}
+    box-shadow:inset 0 0 0 var(--core-border-width-default) var(--theme-neutral-border-primary-default)}
   .risk-center-ico{display:grid;place-items:center;animation:risk-pop .5s ease}
   .risk-center b{font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-bold);margin-top:var(--core-space-1)}
   .risk-center span{font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle-light)}
@@ -1321,7 +1321,7 @@ this grey triplet is only for
   .risk-picker{display:flex;flex-direction:column;gap:var(--core-space-2)}
   .risk-picker-label{font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle-light)}
   .risk-picker-opt{
-    text-align:left;border:1px solid var(--neutral-border-light);background:var(--core-color-surface-default);border-radius:var(--core-radius-sm);padding:var(--core-space-3) var(--core-space-3);
+    text-align:left;border:1px solid var(--neutral-border-light);background:var(--neutral-surface-layer-01);border-radius:var(--core-radius-sm);padding:var(--core-space-3) var(--core-space-3);
     font:inherit;font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle);cursor:pointer;transition:var(--core-motion-duration-base)}
   .risk-picker-opt:hover{border-color:var(--theme-colors-neutral-300);box-shadow:var(--core-elevation-2)}
   .risk-picker-opt.on{border-color:var(--brand-border-primary-default);background:var(--theme-brand-background-primary-subtle);color:var(--brand-text-primary-default)}
@@ -1363,12 +1363,12 @@ this grey triplet is only for
     .risk2-top{flex-direction:column;text-align:center}
   }
 
-  .side-card{background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);box-shadow:var(--core-elevation-1)}
+  .side-card{background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);box-shadow:var(--core-elevation-1)}
   .empty-side{text-align:center;padding:var(--core-space-1) 0}
   .empty-side .e-ring{
     width:64px;height:64px;border-radius:var(--core-radius-full);margin:var(--core-space-0) auto var(--core-space-3);position:relative;display:grid;place-items:center;
     background:conic-gradient(var(--semantics-success-text) 0deg,var(--semantics-success-text) 72deg,var(--theme-neutral-border-primary-default) 72deg);padding:var(--core-space-1)}
-  .empty-side .e-ring::after{content:"";position:absolute;inset:3px;border-radius:var(--core-radius-full);background:var(--core-color-surface-default)}
+  .empty-side .e-ring::after{content:"";position:absolute;inset:3px;border-radius:var(--core-radius-full);background:var(--neutral-surface-layer-01)}
   .empty-side .e-ico{position:relative;z-index:1;width:32px;height:32px;border-radius:var(--core-radius-full);
     background:var(--semantics-success-background-light);color:var(--semantics-success-text);display:grid;place-items:center}
   .empty-side .e-ico svg{width:var(--core-size-icon-sm);height:var(--core-size-icon-sm)}
@@ -1380,7 +1380,7 @@ this grey triplet is only for
      Account Summary / Profile tables. No extra section-card wrapper: that
      added a second padded border around the table and made this section
      look different from every other data table. */
-  .section-card{background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);box-shadow:var(--core-elevation-1)}
+  .section-card{background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);box-shadow:var(--core-elevation-1)}
   .section-card .section-head{display:flex;align-items:center;justify-content:space-between;gap:var(--core-space-3);margin-bottom:var(--core-space-2)}
   .section-card h3{font-size:var(--typography-heading-h3-size);font-weight:var(--typography-font-weight-bold);margin:var(--core-space-0);}
 
@@ -1388,14 +1388,14 @@ this grey triplet is only for
   .tx-list{display:flex;flex-direction:column}
   .tx-row{
     display:grid;grid-template-columns:88px minmax(0,1fr) auto;gap:var(--core-space-2) var(--core-space-3);
-    align-items:center;padding:var(--core-space-2) var(--core-space-3);background:var(--core-color-surface-default);border-bottom:1px solid var(--neutral-border-light)}
+    align-items:center;padding:var(--core-space-2) var(--core-space-3);background:var(--neutral-surface-layer-01);border-bottom:1px solid var(--neutral-border-light)}
   .tx-row:last-child{border-bottom:none}
   /* Zebra striping — alternate rows get a faint tint so a dense list of
      same-height rows stays scannable without adding more borders. */
   /* Same zebra fill as every real table (DS neutral-50), so this div-based
      list doesn't stripe in a different colour to the tables beside it. Was
      --surface-2, a legacy alias, falling back to a brand tint. */
-  .tx-row:nth-child(even){background:var(--core-color-bg-page)}
+  .tx-row:nth-child(even){background:var(--neutral-background)}
   .tx-row .tx-date{font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle-light);white-space:nowrap}
   .tx-row .tx-type{font-size:var(--typography-caption-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);line-height:var(--typography-caption-line-height)}
   .tx-row .tx-plan{font-size:var(--typography-font-size-xs);color:var(--neutral-text-subtle-light);margin-top:var(--core-space-0);display:inline;font-weight:var(--typography-font-weight-medium)}
@@ -1407,10 +1407,10 @@ this grey triplet is only for
   .tx-empty{padding:var(--core-space-4);font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height);color:var(--neutral-text-subtle);text-align:center}   /* CORE .cds-table-empty */
 
   /* Quick links */
-  .quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:var(--core-space-3)}
+  .quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:var(--core-space-5)}
   .quick-link{
     /* CORE .cds-quicklink */
-    display:flex;align-items:center;gap:var(--core-space-3);padding:var(--core-space-4);background:var(--core-color-surface-default);border:none;
+    display:flex;align-items:center;gap:var(--core-space-3);padding:var(--core-space-4);background:var(--neutral-surface-layer-01);border:none;
     box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light);
     border-radius:var(--core-radius-sm);text-decoration:none;color:inherit;min-width:0;
     transition:box-shadow var(--core-motion-duration-fast)}
@@ -1425,7 +1425,7 @@ this grey triplet is only for
     overflow-wrap:anywhere;word-break:break-word}
 
   .status-banner{display:flex;gap:var(--core-space-4);align-items:flex-start;padding:var(--core-space-4);border-radius:var(--core-radius-sm);
-    border:1px solid var(--neutral-border-light);background:var(--core-color-surface-default);box-shadow:var(--core-elevation-1)}
+    border:1px solid var(--neutral-border-light);background:var(--neutral-surface-layer-01);box-shadow:var(--core-elevation-1)}
   .status-banner .badge{flex:0 0 auto;padding:var(--core-space-2) var(--core-space-3);border-radius:var(--core-radius-full);font-size:var(--typography-body-xs-size);font-weight:var(--typography-font-weight-bold);
     white-space:nowrap}
   .status-banner .badge.green{background:var(--semantics-success-background-light);color:var(--semantics-success-text)}
@@ -1437,13 +1437,13 @@ this grey triplet is only for
   .status-banner p{color:var(--neutral-text-subtle);font-size:var(--typography-body-md-relaxed-size);line-height:var(--typography-body-md-relaxed-line-height)}
 
   .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--core-space-4)}
-  .card{background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);box-shadow:var(--core-elevation-1);min-width:0}
+  .card{background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);box-shadow:var(--core-elevation-1);min-width:0}
   .card .k{font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle-light);margin-bottom:var(--core-space-2)}
   .card .v{font-size:var(--typography-font-size-xl);font-weight:var(--typography-font-weight-bold);line-height:var(--typography-heading-h3-line-height);overflow-wrap:anywhere}
   .card .s{margin-top:var(--core-space-2);font-size:var(--typography-body-sm-size);color:var(--neutral-text-subtle);line-height:var(--typography-body-sm-line-height)}
   .card .v.pos{color:var(--semantics-success-text)}
 
-  .panel{background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);box-shadow:var(--core-elevation-1)}
+  .panel{background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);box-shadow:var(--core-elevation-1)}
   .panel h3,.panel .panel-title{font-size:var(--typography-heading-h5-size);line-height:var(--typography-heading-h5-line-height);font-weight:var(--typography-font-weight-bold);margin:var(--core-space-4) var(--core-space-0) var(--core-space-2)}
   .panel p{color:var(--neutral-text-subtle);font-size:var(--typography-body-md-relaxed-size);line-height:var(--typography-body-md-relaxed-line-height);margin-bottom:var(--core-space-4)}
   .actions{display:flex;flex-wrap:wrap;gap:var(--core-space-3)}
@@ -1460,7 +1460,7 @@ this grey triplet is only for
     padding:var(--core-space-2) var(--core-space-3);border-radius:var(--core-radius-sm);
     font-family:inherit;font-weight:var(--typography-button-md-weight);font-size:var(--typography-button-md-size);
     line-height:var(--typography-button-md-line-height);text-decoration:none;border:var(--core-border-width-default) solid transparent;cursor:pointer;
-    background:var(--core-color-surface-default);color:var(--neutral-text-default);width:auto;min-height:var(--core-size-control-md);
+    background:var(--neutral-surface-layer-01);color:var(--neutral-text-default);width:auto;min-height:var(--core-size-control-md);
     transition:background var(--core-motion-duration-fast),border-color var(--core-motion-duration-fast),color var(--core-motion-duration-fast)}
   .btn:active:not(:disabled){transform:translateY(1px)}
   .btn:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
@@ -1482,7 +1482,7 @@ this grey triplet is only for
   .btn-secondary:active:not(:disabled){background:color-mix(in srgb,var(--brand-background-primary-strong) 24%,transparent);color:var(--brand-text-primary-active);border-color:var(--brand-border-primary-hover)}
   /* Ghost = CORE tertiary */
   .btn-ghost{background:transparent;color:var(--brand-text-primary-default);border-color:transparent}
-  .btn-ghost:hover:not(:disabled){background:color-mix(in srgb,var(--brand-background-primary-strong) 8%,transparent);color:var(--brand-text-primary-hover);text-decoration:underline;text-decoration-thickness:var(--core-border-width-default);text-underline-offset:var(--btn-underline-offset)}
+  .btn-ghost:hover:not(:disabled){background:color-mix(in srgb,var(--brand-background-primary-strong) 8%,transparent);color:var(--brand-text-primary-hover);text-decoration:underline;text-decoration-thickness:var(--core-border-width-default);text-underline-offset:var(--core-space-1)}
   .btn-ghost:active:not(:disabled){background:color-mix(in srgb,var(--brand-background-primary-strong) 16%,transparent);color:var(--brand-text-primary-active)}
   .btn-ghost:focus-visible{outline:none;border-color:var(--brand-border-primary-default);background:transparent}
   /* Destructive */
@@ -1502,7 +1502,7 @@ this grey triplet is only for
      20px box, 1px default border, 4px (checkbox) / 50% (radio) radius. */
   input[type="checkbox"],input[type="radio"]{
     appearance:none;-webkit-appearance:none;flex:0 0 auto;box-sizing:border-box;margin:var(--core-space-0);
-    width:var(--core-size-icon-md);height:var(--core-size-icon-md);background:var(--core-color-surface-default);
+    width:var(--core-size-icon-md);height:var(--core-size-icon-md);background:var(--neutral-surface-layer-01);
     border:var(--core-border-width-default) solid var(--core-color-border-control);cursor:pointer;
     display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;
     transition:background var(--core-motion-duration-fast) ease,border-color var(--core-motion-duration-fast) ease}
@@ -1515,13 +1515,13 @@ this grey triplet is only for
   input[type="checkbox"]:active:not(:disabled):not(:checked),input[type="radio"]:active:not(:disabled):not(:checked){border-color:var(--brand-background-primary-strong);background:var(--brand-background-primary-subtle)}
   input[type="checkbox"]:active:not(:disabled):checked,input[type="radio"]:active:not(:disabled):checked{background:var(--brand-background-primary-strong);border-color:var(--brand-background-primary-strong)}
   input[type="checkbox"]:checked,input[type="radio"]:checked{background:var(--brand-background-primary-strong);border-color:var(--brand-background-primary-strong)}
-  input[type="radio"]::before{content:"";width:var(--core-space-2);height:var(--core-space-2);border-radius:var(--core-radius-full);background:var(--core-color-surface-default);opacity:0;transition:opacity var(--core-motion-duration-instant) ease}
+  input[type="radio"]::before{content:"";width:var(--core-space-2);height:var(--core-space-2);border-radius:var(--core-radius-full);background:var(--neutral-surface-layer-01);opacity:0;transition:opacity var(--core-motion-duration-instant) ease}
   input[type="checkbox"]::before{
     content:"";width:10px;height:5px;border-left:2px solid var(--brand-text-primary-oncolor);border-bottom:2px solid var(--brand-text-primary-oncolor);
     transform:rotate(-45deg) translate(1px,-2px);opacity:0;transition:opacity var(--core-motion-duration-instant) ease}
   input[type="checkbox"]:checked::before,input[type="radio"]:checked::before{opacity:1}
   input[type="checkbox"]:focus-visible,input[type="radio"]:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset)}
-  input[type="checkbox"]:focus-visible:not(:checked),input[type="radio"]:focus-visible:not(:checked){border-color:var(--cds-focus-color);background:var(--core-color-surface-default)}
+  input[type="checkbox"]:focus-visible:not(:checked),input[type="radio"]:focus-visible:not(:checked){border-color:var(--cds-focus-color);background:var(--neutral-surface-layer-01)}
   input[type="checkbox"]:disabled,input[type="radio"]:disabled{background:var(--semantics-disabled-background);border-color:var(--theme-neutral-border-primary-default);opacity:1;cursor:not-allowed}
   input[type="checkbox"]:disabled:checked,input[type="radio"]:disabled:checked{background:var(--theme-colors-neutral-500);border-color:var(--theme-colors-neutral-500)}
   input[type="checkbox"].sm,.legend-row input[type="checkbox"]{width:var(--core-size-icon-sm);height:var(--core-size-icon-sm)}
@@ -1536,12 +1536,12 @@ this grey triplet is only for
     width:100%;min-height:var(--core-size-control-md);box-sizing:border-box;
     padding:var(--core-space-2) var(--core-space-3);border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);
     font:inherit;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-regular);line-height:var(--typography-body-md-line-height);
-    color:var(--neutral-text-default);background:var(--core-color-surface-default);transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
+    color:var(--neutral-text-default);background:var(--neutral-surface-layer-01);transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
   .form-control-sm{min-height:var(--core-size-control-sm);padding:var(--core-space-1) var(--core-space-3)}
   .form-control-lg{
     min-height:var(--core-size-control-lg);padding:var(--core-space-2) var(--core-space-4);
     font-size:var(--typography-body-lg-size);line-height:var(--typography-body-lg-line-height)}
-  .form-control:hover:not(:disabled):not(:focus){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .form-control:hover:not(:disabled):not(:focus){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--neutral-surface-layer-01))}
   .form-control[aria-invalid="true"]{border-color:var(--semantics-critical-border)}
   .form-control:focus,.form-control:focus-visible{
     outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
@@ -1585,15 +1585,15 @@ this grey triplet is only for
   /* ---------- Pill (segmented) tabs (CORE .cds-tabs--pill / .cds-tab--pill) ----------
      Sunken track, 4px padding; the selected segment is a raised white surface
      with elevation-1 and primary text; hover on the rest is a 60% surface. */
-  .tx-filters,.period,.txn-upload .tabs2,.pr-class-tabs{display:inline-flex;flex-wrap:wrap;align-items:center;gap:var(--core-space-1);padding:var(--core-space-1);background:var(--core-color-surface-sunken);border-radius:var(--core-radius-sm);max-width:100%;box-sizing:border-box;border:0}
+  .tx-filters,.period,.txn-upload .tabs2,.pr-class-tabs{display:inline-flex;flex-wrap:wrap;align-items:center;gap:var(--core-space-1);padding:var(--core-space-1);background:var(--neutral-surface-layer-03);border-radius:var(--core-radius-sm);max-width:100%;box-sizing:border-box;border:0}
   .tx-filters button,.period button,.txn-upload .tabs2 button,.pr-class-tabs button{
     display:inline-flex;align-items:center;gap:var(--core-space-1);border:none;background:transparent;border-radius:var(--core-radius-xs);cursor:pointer;box-shadow:none;margin:0;
     padding:var(--core-space-2) var(--core-space-4);font-family:inherit;font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height);font-weight:var(--typography-font-weight-medium);
     color:var(--neutral-text-subtle);white-space:nowrap;transition:color var(--core-motion-duration-fast) ease,background-color var(--core-motion-duration-fast) ease,box-shadow var(--core-motion-duration-fast) ease}
   .tx-filters button:hover:not(.on):not(:disabled),.period button:hover:not(.on):not(:disabled),.txn-upload .tabs2 button:hover:not(.on):not(:disabled),.pr-class-tabs button:hover:not(.on):not(:disabled){
-    background:color-mix(in srgb,var(--core-color-surface-default) 60%,transparent);color:var(--neutral-text-default);box-shadow:none}
+    background:color-mix(in srgb,var(--neutral-surface-layer-01) 60%,transparent);color:var(--neutral-text-default);box-shadow:none}
   .tx-filters button.on,.period button.on,.txn-upload .tabs2 button.on,.pr-class-tabs button.on{
-    background:var(--core-color-surface-default);color:var(--neutral-text-default);box-shadow:var(--core-elevation-1);font-weight:var(--typography-font-weight-semibold)}
+    background:var(--neutral-surface-layer-01);color:var(--neutral-text-default);box-shadow:var(--core-elevation-1);font-weight:var(--typography-font-weight-semibold)}
   .tx-filters button:disabled,.period button:disabled,.txn-upload .tabs2 button:disabled,.pr-class-tabs button:disabled{color:var(--theme-colors-neutral-400);cursor:not-allowed}
   .tx-filters button:focus-visible,.period button:focus-visible,.txn-upload .tabs2 button:focus-visible,.pr-class-tabs button:focus-visible{outline:var(--core-focusRing-width) solid var(--cds-focus-color);outline-offset:var(--core-focusRing-offset);position:relative;z-index:1}
 
@@ -1604,11 +1604,11 @@ this grey triplet is only for
   .list-row span{color:var(--neutral-text-subtle)}
   .list-row b{font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);text-align:right}
 
-  .pr-page{gap:var(--core-space-4)}
-  .pr-intro{margin:var(--core-space-2) var(--core-space-0) var(--core-space-0);font-size:var(--typography-body-md-relaxed-size);line-height:var(--typography-body-md-relaxed-line-height);color:var(--neutral-text-subtle);font-weight:var(--typography-font-weight-medium)}
+  .pr-page{gap:var(--core-space-5)}
+  .pr-intro{margin:var(--core-space-2) var(--core-space-0) var(--core-space-0);font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height);color:var(--neutral-text-subtle);font-weight:var(--typography-font-weight-medium)}
   .pr-shell{display:grid;grid-template-columns:240px minmax(0,1fr);gap:var(--core-space-5);align-items:start}
   .pr-nav{
-    display:flex;flex-direction:column;gap:var(--core-space-1);background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);
+    display:flex;flex-direction:column;gap:var(--core-space-1);background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);
     border-radius:var(--core-radius-sm);padding:var(--core-space-3);box-shadow:var(--core-elevation-2);position:sticky;top:calc(var(--core-layout-header-height) + var(--core-space-4));max-height:calc(100dvh - var(--core-layout-header-height) - var(--core-space-8));overflow-y:auto}
   .pr-nav button{
     display:flex;align-items:center;gap:var(--core-space-3);width:100%;border:none;background:transparent;
@@ -1659,7 +1659,7 @@ this grey triplet is only for
   .pr-hero-side small{font-size:var(--typography-body-xs-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle)}
   .pr-edit{width:auto !important;flex:0 0 auto;padding:var(--core-space-2) var(--core-space-3);font-size:var(--typography-body-sm-size);white-space:nowrap}
   .pr-panel .btn{width:auto !important}
-  .pr-panel{padding:var(--core-space-5)}
+  .pr-panel{padding:var(--core-space-4)}
   .pr-sec-h{display:flex;align-items:center;justify-content:space-between;gap:var(--core-space-3);margin:var(--core-space-0) var(--core-space-0) var(--core-space-4)}
   .pr-sec-h h3{margin:var(--core-space-0) !important;font-size:var(--typography-heading-h5-size);font-weight:var(--typography-font-weight-bold);line-height:var(--typography-heading-h5-line-height);flex:1;min-width:0}
   .pr-sec-actions{display:flex;align-items:center;gap:var(--core-space-2);flex:0 0 auto}
@@ -1676,14 +1676,14 @@ this grey triplet is only for
 
   /* ---------- Settings page ---------- */
   .settings-shell{display:flex;flex-direction:column;gap:var(--core-space-5);max-width:640px}
-  .settings-shell .pr-block{background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);box-shadow:var(--core-elevation-1)}
-  .settings-shell .pr-block + .pr-block{padding-top:var(--core-space-5);margin-top:var(--core-space-0);border-top:none}
+  .settings-shell .pr-block{background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);box-shadow:var(--core-elevation-1)}
+  .settings-shell .pr-block + .pr-block{padding-top:var(--core-space-4);margin-top:var(--core-space-0);border-top:none}
   .settings-shell .pr-block h3{font-size:var(--typography-heading-h5-size) !important;font-weight:var(--typography-font-weight-bold);letter-spacing:0 !important;color:var(--neutral-text-default) !important;text-transform:none !important;margin-bottom:var(--core-space-1) !important;padding-bottom:var(--core-space-0);border-bottom:none}
   .settings-block-lede{font-size:var(--typography-body-sm-size);color:var(--neutral-text-subtle);margin:var(--core-space-0) var(--core-space-0) var(--core-space-4)}
   .settings-appearance-options{display:flex;flex-wrap:wrap;gap:var(--core-space-3)}
   .settings-appearance-opt{
     display:flex;align-items:center;gap:var(--core-space-2);padding:var(--core-space-3) var(--core-space-4);border-radius:var(--core-radius-sm);
-    border:1px solid var(--neutral-border-light);background:var(--core-color-surface-default);color:var(--neutral-text-subtle);font:inherit;font-weight:var(--typography-font-weight-semibold);cursor:pointer;transition:var(--core-motion-duration-base)}
+    border:1px solid var(--neutral-border-light);background:var(--neutral-surface-layer-01);color:var(--neutral-text-subtle);font:inherit;font-weight:var(--typography-font-weight-semibold);cursor:pointer;transition:var(--core-motion-duration-base)}
   .settings-appearance-opt:hover{border-color:var(--theme-colors-neutral-300);box-shadow:var(--core-elevation-2);color:var(--neutral-text-default)}
   .settings-appearance-opt.on{border-color:var(--brand-border-primary-default);background:var(--theme-brand-background-primary-subtle);color:var(--brand-text-primary-default)}
   .settings-toggle-row{
@@ -1711,10 +1711,10 @@ this grey triplet is only for
   .pr-field i{color:var(--semantics-critical-text);font-style:normal;margin-left:var(--core-space-1)}
   .pr-field input:not([type="radio"]):not([type="checkbox"]),.pr-field select,.pr-field .ui-select-btn,.pr-input-ico,.pr-phone{
     width:100%;max-width:360px;min-height:var(--core-size-control-sm);border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);
-    background:var(--core-color-surface-default);color:var(--neutral-text-default);font:inherit;font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-regular);
+    background:var(--neutral-surface-layer-01);color:var(--neutral-text-default);font:inherit;font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-regular);
     padding:var(--core-space-2) var(--core-space-3);box-sizing:border-box;
     transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-  .pr-field input:not([type="radio"]):not([type="checkbox"]):hover:not(:disabled),.pr-field select:hover:not(:disabled),.pr-field .ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .pr-field input:not([type="radio"]):not([type="checkbox"]):hover:not(:disabled),.pr-field select:hover:not(:disabled),.pr-field .ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--neutral-surface-layer-01))}
   .pr-field input:not([type="radio"]):not([type="checkbox"]):focus,.pr-field select:focus,.pr-field .ui-select-btn:focus-visible{
     outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .pr-field input:disabled,.pr-field select:disabled{
@@ -1742,7 +1742,7 @@ this grey triplet is only for
     background:transparent;box-shadow:none;outline:none}
   .pr-input-ico:focus-within{
     border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
-  .pr-input-ico:hover:not(:focus-within){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .pr-input-ico:hover:not(:focus-within){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--neutral-surface-layer-01))}
   /* Keep the error state readable while focused instead of letting the
      brand-colored focus ring above replace it. */
   .pr-input-ico.is-invalid:focus-within{
@@ -1762,7 +1762,7 @@ this grey triplet is only for
   .pr-flags{display:flex;flex-wrap:wrap;gap:var(--core-space-2)}
   .pr-flag{
     display:inline-flex;align-items:center;gap:var(--core-space-2);padding:var(--core-space-2) var(--core-space-3);border-radius:var(--core-radius-full);
-    background:var(--core-color-surface-sunken);border:1px solid var(--neutral-border-light);font-size:var(--typography-caption-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle)}
+    background:var(--neutral-surface-layer-03);border:1px solid var(--neutral-border-light);font-size:var(--typography-caption-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle)}
   .pr-flag b{font-size:var(--typography-body-xs-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
   .pr-flag.yes{background:var(--semantics-success-background-light);border-color:var(--semantics-success-border);color:var(--semantics-success-text)}
   .pr-flag.yes b{color:var(--semantics-success-text)}
@@ -1786,7 +1786,7 @@ this grey triplet is only for
   .pr-history li:last-child i::before{display:none}
   .pr-history li > div{
     display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--core-space-3) var(--core-space-4);
-    border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4) var(--core-space-4);background:var(--core-color-surface-sunken)}
+    border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4) var(--core-space-4);background:var(--neutral-surface-layer-03)}
   .pr-history span{font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle)}
   .pr-history b{display:block;margin-top:var(--core-space-1);font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
   .pr-table{margin:var(--core-space-0)}
@@ -1797,11 +1797,11 @@ this grey triplet is only for
      genuinely differs and the DS ships a compact density for exactly that.
      Zebra was --surface-muted, the same value as the header fill, so striped
      rows and the header read as one block. */
-  .pr-table th{text-align:left;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle);background:var(--core-color-surface-sunken);padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--table-border);white-space:nowrap}
-  .pr-table td{padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--table-border);color:var(--neutral-text-default)}
+  .pr-table th{text-align:left;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle);background:var(--neutral-surface-layer-03);padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--theme-neutral-border-primary-default);white-space:nowrap}
+  .pr-table td{padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--theme-neutral-border-primary-default);color:var(--neutral-text-default)}
   .pr-table tr:last-child td{border-bottom:none}
   .pr-table .num{text-align:right;font-variant-numeric:tabular-nums}
-  .pr-table tbody tr:nth-child(even){background:var(--core-color-surface-sunken)}
+  .pr-table tbody tr:nth-child(even){background:var(--neutral-surface-layer-03)}
   /* Fixed, even columns so switching Employee Classification tabs (whose
      history rows carry different text lengths per category) doesn't reflow
      column widths or misalign the header from the body -- was auto layout,
@@ -1813,7 +1813,7 @@ this grey triplet is only for
      disappeared on every other row), and each text/fill pair clears WCAG AA
      (Primary ~6.9:1 light / ~6.6:1 dark; Contingent uses full-contrast text). */
   /* Contingent = CORE neutral soft badge; Primary (.on) = CORE primary soft badge. */
-  .pr-pill{background:var(--core-color-surface-sunken);color:var(--neutral-text-default);box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light)}
+  .pr-pill{background:var(--neutral-surface-layer-03);color:var(--neutral-text-default);box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light)}
   .pr-pill.on{background:var(--brand-background-primary-light);color:var(--brand-text-primary-default);box-shadow:inset 0 0 0 var(--core-border-width-default) currentColor}
   /* CORE secondary button, sm */
   .pr-row-edit{
@@ -1826,25 +1826,25 @@ this grey triplet is only for
   .pr-pct-input input{
     width:72px;border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);font:inherit;font-weight:var(--typography-font-weight-regular);
     transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-  .pr-pct-input input:hover:not(:disabled):not(:focus){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .pr-pct-input input:hover:not(:disabled):not(:focus){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--neutral-surface-layer-01))}
   .pr-pct-input input:focus{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .pr-pct-input.is-invalid input{border-color:var(--semantics-critical-text)}
   .pr-pct-input.is-invalid input:focus{border-color:var(--semantics-critical-text);box-shadow:0 0 0 3px color-mix(in srgb, var(--semantics-critical-border) 25%, transparent)}
   p.pr-error{color:var(--semantics-critical-text);font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);margin:var(--core-space-3) var(--core-space-0) var(--core-space-0)}
   .pr-back{margin-bottom:var(--core-space-2)}
   .pr-steps{
-    list-style:none;margin:var(--core-space-0);padding:var(--core-space-3);background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);
+    list-style:none;margin:var(--core-space-0);padding:var(--core-space-3);background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);
     border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-2);position:sticky;top:calc(var(--core-layout-header-height) + var(--core-space-4))}
   .pr-steps li{margin:var(--core-space-0)}
   .pr-steps button{
-    display:grid;grid-template-columns:var(--step-marker-size) minmax(0,1fr);gap:var(--core-space-3);align-items:flex-start;
+    display:grid;grid-template-columns:var(--core-stepper-marker-size) minmax(0,1fr);gap:var(--core-space-3);align-items:flex-start;
     width:100%;border:none;background:transparent;padding:var(--core-space-3) var(--core-space-3);border-radius:var(--core-radius-sm);
     font:inherit;text-align:left;cursor:pointer;color:var(--neutral-text-subtle)}
   .pr-steps button:disabled{cursor:default}
   .pr-steps button:hover:not(:disabled){background:var(--core-sidebar-item-hoverBg)}
   .pr-steps li.on button{background:var(--core-sidebar-item-activeBg);color:var(--core-sidebar-item-activeText)}
-  .pr-steps b{width:var(--step-marker-size);height:var(--step-marker-size);flex:0 0 var(--step-marker-size);border-radius:var(--core-radius-sm);display:grid;place-items:center;box-sizing:border-box;
-    font-size:var(--typography-body-xs-size);line-height:var(--typography-body-xs-line-height);font-weight:var(--typography-font-weight-bold);background:var(--core-color-surface-raised);border:var(--core-border-width-default) solid var(--theme-neutral-border-primary-default);color:var(--theme-neutral-text-subtle);z-index:1;transition:background var(--core-motion-duration-fast),color var(--core-motion-duration-fast)}
+  .pr-steps b{width:var(--core-stepper-marker-size);height:var(--core-stepper-marker-size);flex:0 0 var(--core-stepper-marker-size);border-radius:var(--core-radius-sm);display:grid;place-items:center;box-sizing:border-box;
+    font-size:var(--typography-body-xs-size);line-height:var(--typography-body-xs-line-height);font-weight:var(--typography-font-weight-bold);background:var(--neutral-surface-layer-02);border:var(--core-border-width-default) solid var(--theme-neutral-border-primary-default);color:var(--theme-neutral-text-subtle);z-index:1;transition:background var(--core-motion-duration-fast),color var(--core-motion-duration-fast)}
   .pr-steps li.on b{background:var(--brand-background-primary-strong);border-color:var(--brand-background-primary-strong);color:var(--brand-text-primary-oncolor)}
   .pr-steps li.done b{background:var(--theme-semantics-success-strong-background);border-color:var(--theme-semantics-success-strong-background);color:var(--brand-text-primary-oncolor)}
   .pr-steps strong{display:block;font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
@@ -1857,7 +1857,7 @@ this grey triplet is only for
   .pr-panel > h3{margin:var(--core-space-0) var(--core-space-0) var(--core-space-3);font-size:var(--typography-heading-h5-size);font-weight:var(--typography-font-weight-bold)}
 
   .profile-hero{
-    display:flex;align-items:center;gap:var(--core-space-4);background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);
+    display:flex;align-items:center;gap:var(--core-space-4);background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);
     border-radius:var(--core-radius-sm);padding:var(--core-space-4);box-shadow:var(--core-elevation-1)}
   .profile-hero img{width:64px;height:64px;border-radius:var(--core-radius-full);object-fit:cover;flex:0 0 auto}
   .profile-hero-copy h2{font-size:var(--typography-font-size-lg);font-weight:var(--typography-font-weight-bold);margin:var(--core-space-0) var(--core-space-0) var(--core-space-1);}
@@ -1877,7 +1877,7 @@ this grey triplet is only for
   .profile-grid .panel .actions{margin-top:var(--core-space-4)}
   .profile-grid .panel p{margin-bottom:var(--core-space-0)}
 
-  .tx-page{padding:var(--core-space-4) var(--core-space-5)}
+  .tx-page{padding:var(--core-space-4)}
   .tx-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--core-space-3);margin-bottom:var(--core-space-4)}
   .tx-toolbar-actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--core-space-3);max-width:100%}
   .tx-toolbar-actions .text-link{flex:0 0 auto;white-space:nowrap}
@@ -1885,22 +1885,22 @@ this grey triplet is only for
   .tx-plan-select .ui-select-btn{font-size:var(--typography-body-sm-size)}
   /* ---------- Table (CORE .cds-table-wrap / .cds-table) ---------- */
   /* position:relative keeps absolutely-positioned sr-only labels inside the scroller. */
-  .table-wrap{border:1px solid var(--table-border);border-radius:var(--core-radius-sm);overflow:auto;position:relative;background:var(--core-color-surface-default);-webkit-overflow-scrolling:touch}
+  .table-wrap{border:1px solid var(--theme-neutral-border-primary-default);border-radius:var(--core-radius-sm);overflow:auto;position:relative;background:var(--neutral-surface-layer-01);-webkit-overflow-scrolling:touch}
   .table-wrap table{width:100%;border-collapse:collapse;font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height)}
-  .table-wrap thead th{background:var(--core-color-surface-sunken);text-align:left;font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle);
-    padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--table-border);white-space:nowrap}
-  .table-wrap tbody td{padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--table-border);vertical-align:middle;color:var(--neutral-text-default)}
+  .table-wrap thead th{background:var(--neutral-surface-layer-03);text-align:left;font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle);
+    padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--theme-neutral-border-primary-default);white-space:nowrap}
+  .table-wrap tbody td{padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--theme-neutral-border-primary-default);vertical-align:middle;color:var(--neutral-text-default)}
   .table-wrap tbody tr:last-child td{border-bottom:none}
   .tx-table{width:100%;border-collapse:collapse;font-size:var(--typography-font-size-sm)}
-  .tx-table th{text-align:left;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle);background:var(--core-color-surface-sunken);
-    padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--table-border);white-space:nowrap}
+  .tx-table th{text-align:left;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle);background:var(--neutral-surface-layer-03);
+    padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--theme-neutral-border-primary-default);white-space:nowrap}
   /* color was omitted here while every other table sets it, so these cells
      inherited the ancestor's lighter grey and the dashboard's Recent
      Transactions read as a washed-out version of the same table elsewhere. */
-  .tx-table td{padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--table-border);color:var(--neutral-text-default)}
+  .tx-table td{padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--theme-neutral-border-primary-default);color:var(--neutral-text-default)}
   .tx-table tr:last-child td{border-bottom:none}
   .tx-table .num{text-align:right;font-variant-numeric:tabular-nums}
-  .tx-table tbody tr:nth-child(even){background:var(--core-color-surface-sunken)}
+  .tx-table tbody tr:nth-child(even){background:var(--neutral-surface-layer-03)}
 
   /* No outer border/radius here -- .doc-list already sits inside
      .panel.doc-page, which draws its own border (same fix as .tx-list). */
@@ -1910,12 +1910,12 @@ this grey triplet is only for
      double-padding rows relative to the filters/heading above them. Only
      vertical padding is a row's own responsibility. */
   .doc-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:var(--core-space-3);align-items:center;
-    padding:var(--core-space-3) var(--core-space-0);border-bottom:1px solid var(--neutral-border-light);background:var(--core-color-surface-default)}
+    padding:var(--core-space-3) var(--core-space-0);border-bottom:1px solid var(--neutral-border-light);background:var(--neutral-surface-layer-01)}
   .doc-row:last-child{border-bottom:none}
   .doc-copy .doc-name{font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-bold);margin:var(--core-space-0) var(--core-space-0) var(--core-space-1)}
-  .doc-copy p{font-size:var(--typography-body-xs-relaxed-size);color:var(--neutral-text-subtle-light);margin:var(--core-space-0)}
+  .doc-copy p{font-size:var(--typography-body-xs-size);line-height:var(--typography-body-xs-line-height);color:var(--neutral-text-subtle-light);margin:var(--core-space-0)}
   .doc-date{font-size:var(--typography-body-xs-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle);white-space:nowrap}
-  .doc-dl{display:inline-flex;align-items:center;gap:var(--core-space-2);border:1px solid var(--neutral-border-light);background:var(--core-color-surface-default);
+  .doc-dl{display:inline-flex;align-items:center;gap:var(--core-space-2);border:1px solid var(--neutral-border-light);background:var(--neutral-surface-layer-01);
     color:var(--brand-text-primary-default);font-weight:var(--typography-font-weight-bold);font-size:var(--typography-body-sm-size);padding:var(--core-space-2) var(--core-space-3);border-radius:var(--core-radius-sm);cursor:pointer}
   .doc-dl:hover{background:var(--brand-background-primary-subtle)}
 
@@ -1925,8 +1925,8 @@ this grey triplet is only for
   }
   .plan-overview-left{display:flex;flex-direction:column;gap:var(--core-space-4);min-width:220px;max-width:360px}
   .plan-overview .plan-stats{width:min(360px,100%);flex:0 0 auto}
-  .plan-fact{font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle-light);}
-  .plan-fact b{display:block;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);margin-top:var(--core-space-1);text-transform:none;letter-spacing:0}
+  .plan-fact{font-size:var(--typography-font-size-xs);line-height:var(--typography-text12-semibold-line-height);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle-light);}
+  .plan-fact b{display:block;font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);margin-top:var(--core-space-1);text-transform:none;letter-spacing:0}
   .plan-fact-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--core-space-3) var(--core-space-4)}
   .enroll-embed{padding:var(--core-space-0)}
   .enroll-embed .section-title{font-size:var(--typography-heading-h4-size)}
@@ -1958,13 +1958,13 @@ this grey triplet is only for
   .pd-enrollment-ico{
     display:grid;place-items:center;width:36px;height:36px;flex:0 0 auto;border-radius:var(--core-radius-full);
     background:var(--brand-background-primary-light);color:var(--brand-text-primary-default)}
-  .pd-advance-card{padding:var(--core-space-4);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-lg,12px);background:var(--core-color-surface-sunken)}
+  .pd-advance-card{padding:var(--core-space-4);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-lg,12px);background:var(--neutral-surface-layer-03)}
   .plan-optout{padding:var(--core-space-1) var(--core-space-1) var(--core-space-1)}
   .enroll-modal-bg{position:fixed;inset:0;background:var(--core-overlay-scrim);z-index:80;display:grid;place-items:center;padding:var(--core-space-5)}
   /* CORE .cds-modal — every centred dialog (.enroll-modal, .confirm-dialog, .rq-modal) */
   .enroll-modal,.confirm-dialog,.rq-modal,.txn-success-modal,.fund-detail-dialog{
     width:100%;max-width:var(--modal-max-width);max-height:90dvh;overflow:auto;box-sizing:border-box;
-    background:var(--core-color-surface-default);color:var(--neutral-text-default);border-radius:var(--core-radius-sm);
+    background:var(--neutral-surface-layer-01);color:var(--neutral-text-default);border-radius:var(--core-radius-sm);
     padding:var(--core-space-4);box-shadow:var(--core-elevation-4)}
   .enroll-modal h4,.confirm-dialog h4{font-size:var(--typography-heading-h3-size);line-height:var(--typography-heading-h3-line-height);font-weight:var(--typography-heading-h3-weight);margin:var(--core-space-0) var(--core-space-0) var(--core-space-2)}
   .enroll-modal p:not(.pr-error),.confirm-dialog p{font-size:var(--typography-body-lg-size);line-height:var(--typography-body-lg-line-height);color:var(--neutral-text-subtle);margin:var(--core-space-0) var(--core-space-0) var(--core-space-4)}
@@ -2040,23 +2040,23 @@ this grey triplet is only for
     .mobile-nav{
       display:flex;position:fixed;left:0;right:0;bottom:0;width:100%;min-height:var(--mobile-nav-h);box-sizing:border-box;
       flex-direction:row;justify-content:space-around;padding:var(--core-space-2) var(--core-space-1) calc(var(--core-space-2) + env(safe-area-inset-bottom));
-      border-top:1px solid var(--neutral-border-light);background:var(--core-color-surface-default);z-index:40}
+      border-top:1px solid var(--neutral-border-light);background:var(--neutral-surface-layer-01);z-index:40}
     .mobile-nav-btn{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:var(--core-space-1);
       padding:var(--core-space-2) var(--core-space-1) var(--core-space-1);font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-semibold);
       color:var(--neutral-text-subtle);text-decoration:none;background:none;border:none;cursor:pointer;position:relative}
-  .mobile-nav-btn:hover:not(.active){color:var(--neutral-text-default);background:var(--core-color-surface-sunken)}
+  .mobile-nav-btn:hover:not(.active){color:var(--neutral-text-default);background:var(--neutral-surface-layer-03)}
     .mobile-nav-btn .ico{display:grid;place-items:center;width:var(--core-size-icon-lg);height:var(--core-size-icon-lg)}
     .mobile-nav-btn .ico svg{width:var(--core-size-icon-md);height:var(--core-size-icon-md)}
     .mobile-nav-btn.active,a.mobile-nav-btn.active{color:var(--brand-text-primary-default)}
     .mobile-nav-btn.active::before{content:"";position:absolute;left:28%;right:28%;top:0;height:3px;border-radius:0 0 var(--core-radius-xs) var(--core-radius-xs);background:var(--brand-border-primary-default)}
     .mobile-menu-bg{position:fixed;inset:0;z-index:41;background:var(--core-overlay-scrim);display:flex;align-items:flex-end}
     .mobile-menu-sheet{
-      width:100%;background:var(--core-color-surface-default);border-radius:var(--core-radius-sm) var(--core-radius-sm) 0 0;
+      width:100%;background:var(--neutral-surface-layer-01);border-radius:var(--core-radius-sm) var(--core-radius-sm) 0 0;
       padding:var(--core-space-3) var(--core-space-2) calc(var(--core-space-4) + env(safe-area-inset-bottom));
       box-shadow:var(--core-elevation-2);margin-bottom:calc(var(--mobile-nav-h) + env(safe-area-inset-bottom))}
     .mobile-menu-sheet a{display:flex;align-items:center;gap:var(--core-space-3);padding:var(--core-space-3) var(--core-space-3);
       border-radius:var(--core-radius-sm);color:var(--neutral-text-default);text-decoration:none;font-weight:var(--typography-font-weight-semibold);font-size:var(--typography-body-md-size)}
-    .mobile-menu-sheet a:hover{background:var(--core-color-surface-sunken)}
+    .mobile-menu-sheet a:hover{background:var(--neutral-surface-layer-03)}
     .mobile-menu-sheet a.active{color:var(--brand-text-primary-default);background:var(--brand-background-primary-subtle)}
     .mobile-menu-sheet .ico{display:grid;place-items:center;color:var(--neutral-text-subtle);flex:0 0 auto}
     .mobile-menu-sheet a.active .ico{color:var(--brand-text-primary-default)}
@@ -2102,25 +2102,25 @@ this grey triplet is only for
   .rq-head{display:flex;align-items:center;gap:var(--core-space-4)}
   .rq-progress{flex:1;display:flex;align-items:center;gap:var(--core-space-3)}
   /* CORE .cds-progress */
-  .rq-progress-track{flex:1;height:var(--core-space-2);border-radius:var(--core-radius-sm);background:var(--core-color-surface-sunken);box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light);overflow:hidden}
+  .rq-progress-track{flex:1;height:var(--core-space-2);border-radius:var(--core-radius-sm);background:var(--neutral-surface-layer-03);box-shadow:inset 0 0 0 var(--core-border-width-default) var(--neutral-border-light);overflow:hidden}
   .rq-progress-fill{height:100%;background:var(--brand-background-primary-strong);border-radius:var(--core-radius-sm);transition:width var(--core-motion-duration-slow) ease}
   .rq-progress span{font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle-light);white-space:nowrap}
   .rq-close{
     flex:0 0 auto;width:28px;height:28px;border-radius:var(--core-radius-sm);border:none;background:transparent;
     color:var(--theme-neutral-text-subtleleast);display:grid;place-items:center;cursor:pointer}
-  .rq-close:hover{background:var(--core-color-surface-raised);color:var(--neutral-text-default)}
+  .rq-close:hover{background:var(--neutral-surface-layer-02);color:var(--neutral-text-default)}
   .rq-step{display:flex;flex-direction:column;gap:var(--core-space-4);animation:rq-step-in .35s ease}
   @keyframes rq-step-in{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
   .rq-step h2,.rq-step h3{font-size:var(--typography-font-size-lg);font-weight:var(--typography-font-weight-bold);line-height:var(--typography-heading-h4-line-height);margin:var(--core-space-0);color:var(--neutral-text-default)}
   .rq-options{display:flex;flex-direction:column;gap:var(--core-space-2)}
   .rq-opt{
-    display:flex;align-items:center;gap:var(--core-space-3);text-align:left;border:1px solid var(--neutral-border-light);background:var(--core-color-surface-default);
+    display:flex;align-items:center;gap:var(--core-space-3);text-align:left;border:1px solid var(--neutral-border-light);background:var(--neutral-surface-layer-01);
     border-radius:var(--core-radius-sm);padding:var(--core-space-3) var(--core-space-4);font:inherit;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-semibold);color:var(--neutral-text-subtle);
     cursor:pointer;transition:var(--core-motion-duration-base)}
   .rq-opt:hover{border-color:var(--theme-colors-neutral-300);box-shadow:var(--core-elevation-2)}
   .rq-opt.on{border-color:var(--brand-border-primary-default);background:var(--theme-brand-background-primary-subtle);color:var(--brand-text-primary-default);font-weight:var(--typography-font-weight-bold)}
   .rq-opt-dot{
-    width:18px;height:18px;border-radius:var(--core-radius-full);border:2px solid var(--core-color-border-control);flex:0 0 auto;
+    width:var(--core-size-icon-md);height:var(--core-size-icon-md);border-radius:var(--core-radius-full);border:var(--core-border-width-default) solid var(--core-color-border-control);flex:0 0 auto;
     display:grid;place-items:center;color:var(--brand-text-primary-oncolor);transition:var(--core-motion-duration-base)}
   .rq-opt.on .rq-opt-dot{background:var(--brand-text-primary-default);border-color:var(--brand-text-primary-default)}
   .rq-hint{font-size:var(--typography-caption-size);color:var(--neutral-text-subtle-light);margin:var(--core-space-0)}
@@ -2128,11 +2128,11 @@ this grey triplet is only for
   .rq-field label{font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
   .rq-field select,.rq-field input,.rq-field .ui-select-btn{
     border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);font:inherit;font-weight:var(--typography-font-weight-regular);
-    color:var(--neutral-text-default);background:var(--core-color-surface-default)}
-  .rq-field select:hover:not(:disabled),.rq-field input:hover:not(:disabled),.rq-field .ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+    color:var(--neutral-text-default);background:var(--neutral-surface-layer-01)}
+  .rq-field select:hover:not(:disabled),.rq-field input:hover:not(:disabled),.rq-field .ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--neutral-surface-layer-01))}
   .rq-field select:focus,.rq-field input:focus,.rq-field .ui-select-btn:focus-visible{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .rq-money{display:flex;align-items:center;border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);overflow:hidden;transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-  .rq-money:hover:not(:focus-within){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .rq-money:hover:not(:focus-within){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--neutral-surface-layer-01))}
   .rq-money:focus-within{border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .rq-money span{padding:var(--core-space-3) var(--core-space-0) var(--core-space-3) var(--core-space-3);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-subtle)}
   .rq-money input{border:none;flex:1;background:transparent;color:var(--neutral-text-default);padding:var(--core-space-3) var(--core-space-3) var(--core-space-3) var(--core-space-1)}
@@ -2146,7 +2146,7 @@ this grey triplet is only for
     transition:stroke-dasharray var(--motion-emphasis) cubic-bezier(.4,0,.2,1) .2s}
   .rq-results-ico{
     position:absolute;inset:0;width:64px;height:64px;margin:auto;border-radius:var(--core-radius-full);
-    background:color-mix(in srgb, var(--level-color, var(--brand-text-primary-default)) 14%, var(--core-color-surface-default));display:grid;place-items:center}
+    background:color-mix(in srgb, var(--level-color, var(--brand-text-primary-default)) 14%, var(--neutral-surface-layer-01));display:grid;place-items:center}
   .rq-results-tag{
     font-size:var(--typography-font-size-xs);font-weight:var(--typography-font-weight-bold);    animation:rq-fade-up .4s ease both var(--core-motion-duration-base)}
   .rq-results h2{font-size:var(--typography-font-size-xl);margin:var(--core-space-2) var(--core-space-0) var(--core-space-0);animation:rq-fade-up .4s ease both .25s}
@@ -2164,7 +2164,7 @@ this grey triplet is only for
   /* ---------- Slideover (right-side panel) ---------- */
   .slideover-bg{position:fixed;inset:0;background:var(--core-overlay-scrim);z-index:95;display:flex;justify-content:flex-end}
   .slideover-panel{
-    width:100%;max-width:var(--drawer-width);height:100%;background:var(--core-color-surface-default);box-shadow:var(--core-elevation-4);
+    width:100%;max-width:var(--drawer-width);height:100%;background:var(--neutral-surface-layer-01);box-shadow:var(--core-elevation-4);
     display:flex;flex-direction:column;animation:slideover-in .28s cubic-bezier(.2,.9,.3,1)}
   .slideover-panel.slideover-wide{max-width:680px}
   @keyframes slideover-in{from{transform:translateX(100%)}to{transform:translateX(0)}}
@@ -2182,7 +2182,7 @@ this grey triplet is only for
     /* CORE .cds-drawer-close */
     width:28px;height:28px;min-width:28px;border-radius:var(--core-radius-sm);border:none;background:transparent;color:var(--theme-neutral-text-subtleleast);
     display:grid;place-items:center;cursor:pointer;flex:0 0 auto}
-  .slideover-close:hover{background:var(--core-color-surface-raised);color:var(--neutral-text-default)}
+  .slideover-close:hover{background:var(--neutral-surface-layer-02);color:var(--neutral-text-default)}
   .slideover-body{flex:1;overflow-y:auto;padding:var(--core-space-4);font-size:var(--typography-body-md-size);line-height:var(--typography-body-md-line-height)}
   @media(max-width:640px){
     .slideover-panel,.slideover-panel.slideover-wide{max-width:100%}
@@ -2236,17 +2236,17 @@ this grey triplet is only for
   .edit-alloc-main h4{font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);margin:var(--core-space-4) var(--core-space-0) var(--core-space-3)}
   .edit-alloc-main h4:first-child{margin-top:var(--core-space-0)}
   .edit-alloc-readcard{
-    background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-3) var(--core-space-4);
+    background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-3) var(--core-space-4);
     display:flex;flex-direction:column;gap:var(--core-space-1);margin-bottom:var(--core-space-4)}
   .edit-alloc-readcard b{font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
   .edit-alloc-readcard span{font-size:var(--typography-caption-size);color:var(--neutral-text-subtle)}
   .edit-alloc-bankcard{
     flex-direction:row;flex-wrap:wrap;gap:var(--core-space-4) var(--core-space-6);align-items:flex-start;
-    background:var(--core-color-surface-sunken)}
+    background:var(--neutral-surface-layer-03)}
   .edit-alloc-bankcard > div{display:flex;flex-direction:column;gap:var(--core-space-1);min-width:110px;flex:1}
   .edit-alloc-bankcard > div:not(:last-child){border-right:1px solid var(--neutral-border-light);padding-right:var(--core-space-4)}
   .edit-alloc-fee{
-    flex:0 0 260px;background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
+    flex:0 0 260px;background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);padding:var(--core-space-4);
     position:sticky;top:0;display:flex;flex-direction:column;gap:var(--core-space-3)}
   .edit-alloc-fee-title{font-size:var(--typography-eyebrow-size);font-weight:var(--typography-font-weight-extrabold);color:var(--neutral-text-subtle)}
   .edit-alloc-fee-row{display:flex;justify-content:space-between;gap:var(--core-space-3);font-size:var(--typography-caption-size);color:var(--neutral-text-subtle)}
@@ -2263,7 +2263,7 @@ this grey triplet is only for
   .wd-fee-subrows{display:flex;flex-direction:column;gap:var(--core-space-2);margin:var(--core-space-1) var(--core-space-0) var(--core-space-1);border-left:2px solid var(--brand-text-primary-default);margin-left:var(--core-space-2);padding-left:var(--core-space-3)}
   .wd-source-panel{margin-top:var(--core-space-4)}
   .wd-source-list{display:flex;flex-direction:column;gap:var(--core-space-3)}
-  .wd-source-card{border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);background:var(--core-color-surface-default);overflow:hidden}
+  .wd-source-card{border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);background:var(--neutral-surface-layer-01);overflow:hidden}
   .wd-source-head{
     width:100%;display:flex;align-items:center;justify-content:space-between;gap:var(--core-space-3);
     border:none;background:transparent;padding:var(--core-space-4) var(--core-space-4) var(--core-space-2);font:inherit;cursor:pointer;text-align:left}
@@ -2276,9 +2276,9 @@ this grey triplet is only for
   .wd-source-metrics b{font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default);overflow-wrap:anywhere}
   .wd-source-metrics input{
     width:100%;max-width:146px;border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);padding:var(--core-space-2) var(--core-space-3);
-    font:inherit;font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-regular);color:var(--neutral-text-default);background:var(--core-color-surface-default);
+    font:inherit;font-size:var(--typography-font-size-sm);font-weight:var(--typography-font-weight-regular);color:var(--neutral-text-default);background:var(--neutral-surface-layer-01);
     transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
-  .wd-source-metrics input:hover:not(:disabled):not(:focus){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+  .wd-source-metrics input:hover:not(:disabled):not(:focus){border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--neutral-surface-layer-01))}
   .wd-source-metrics input:focus{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
   .wd-source-funds{border-top:1px solid var(--neutral-border-light);padding:var(--core-space-1) 0}
   .wd-source-fund{padding:var(--core-space-4) var(--core-space-4);border-bottom:1px solid var(--neutral-border-light)}
@@ -2297,20 +2297,20 @@ this grey triplet is only for
   .wd-alloc-table{width:100%;border-collapse:collapse;font-size:var(--typography-body-sm-size)}
   .wd-alloc-table th{
     text-align:left;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-semibold);letter-spacing:0;color:var(--neutral-text-subtle);
-    background:var(--core-color-surface-sunken);
-    padding:var(--core-space-3) var(--core-space-3);border-bottom:1px solid var(--table-border);white-space:nowrap}
-  .wd-alloc-table td{padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--table-border);color:var(--neutral-text-subtle)}
+    background:var(--neutral-surface-layer-03);
+    padding:var(--core-space-3) var(--core-space-3);border-bottom:1px solid var(--theme-neutral-border-primary-default);white-space:nowrap}
+  .wd-alloc-table td{padding:var(--core-space-3) var(--core-space-4);border-bottom:1px solid var(--theme-neutral-border-primary-default);color:var(--neutral-text-subtle)}
   .wd-alloc-table td:first-child{color:var(--neutral-text-default)}
   .wd-alloc-table .num{text-align:right;font-variant-numeric:tabular-nums}
   .wd-alloc-table tr:last-child td{border-bottom:none}
-  .wd-alloc-table tbody tr:nth-child(even){background:var(--core-color-surface-sunken)}
+  .wd-alloc-table tbody tr:nth-child(even){background:var(--neutral-surface-layer-03)}
   .wd-alloc-edit{
     font:inherit;font-size:var(--typography-caption-size);font-weight:var(--typography-font-weight-bold);color:var(--brand-text-primary-default);background:none;border:none;
-    padding:var(--core-space-0);cursor:pointer;text-decoration:underline;text-underline-offset:var(--link-underline-offset)}
+    padding:var(--core-space-0);cursor:pointer;text-decoration:underline;text-underline-offset:calc(var(--core-border-width-thick) + var(--core-border-width-default))}
   .wd-alloc-actions{display:flex;align-items:center;justify-content:flex-end;gap:var(--core-space-3)}
   .wd-alloc-remove{
     font:inherit;font-size:var(--typography-caption-size);font-weight:var(--typography-font-weight-bold);color:var(--semantics-critical-text);background:none;border:none;
-    padding:var(--core-space-0);cursor:pointer;text-decoration:underline;text-underline-offset:var(--link-underline-offset)}
+    padding:var(--core-space-0);cursor:pointer;text-decoration:underline;text-underline-offset:calc(var(--core-border-width-thick) + var(--core-border-width-default))}
   .wd-alloc-incomplete td{background:var(--semantics-warning-background-light)}
   .wd-alloc-incomplete-cell{color:var(--semantics-warning-text);font-weight:var(--typography-font-weight-bold);text-align:left!important}
   .wd-alloc-incomplete-hint{
@@ -2352,12 +2352,12 @@ summary:focus-visible {
 .ui-select{position:relative;display:inline-block;width:100%}
 .ui-select-btn{
   display:flex;align-items:center;justify-content:space-between;gap:var(--core-space-2);width:100%;
-  min-height:var(--core-size-control-md);border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);background:var(--core-color-surface-default);
+  min-height:var(--core-size-control-md);border:1px solid var(--core-color-border-control);border-radius:var(--core-radius-sm);background:var(--neutral-surface-layer-01);
   padding:var(--core-space-2) var(--core-space-3);font:inherit;font-size:var(--typography-body-md-size);font-weight:var(--typography-font-weight-regular);
   color:var(--neutral-text-default);cursor:pointer;text-align:left;
   transition:border-color var(--core-motion-duration-base),box-shadow var(--core-motion-duration-base)}
 .ui-select-btn:focus-visible{outline:none;border-color:var(--cds-focus-color);box-shadow:var(--cds-focus-glow)}
-.ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--core-color-surface-default))}
+.ui-select-btn:hover{border-color:var(--neutral-border-strong);background:color-mix(in srgb,black 8%,var(--neutral-surface-layer-01))}
 .ui-select.disabled .ui-select-btn{
   background:var(--semantics-disabled-background);color:var(--semantics-disabled-text);
   border-color:var(--semantics-disabled-border);cursor:not-allowed;opacity:1}
@@ -2371,7 +2371,7 @@ summary:focus-visible {
 .ui-select-menu{
   position:fixed;top:var(--sel-top);left:var(--sel-left);width:var(--sel-width);
   z-index:120;max-height:var(--sel-max-h,280px);overflow-y:auto;
-  background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-3);
+  background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-3);
   padding:var(--core-space-1);margin:0;list-style:none}
 .ui-select-opt{
   display:block;width:100%;text-align:left;background:none;border:none;border-radius:var(--core-radius-sm);cursor:pointer;
@@ -2393,7 +2393,7 @@ summary:focus-visible {
 .ui-datepicker-btn{gap:var(--core-space-2)}
 .ui-datepicker-panel{
   position:absolute;top:calc(100% + 4px);left:0;z-index:20;width:280px;
-  background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-3);
+  background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-3);
   padding:var(--core-space-3)}
 .ui-datepicker-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--core-space-3)}
 .ui-datepicker-head span{font-size:var(--typography-body-sm-size);font-weight:var(--typography-font-weight-bold);color:var(--neutral-text-default)}
@@ -2460,7 +2460,7 @@ summary:focus-visible {
    ========================================================================== */
 
 .rr3 {
-  background:var(--core-color-surface-default);
+  background:var(--neutral-surface-layer-01);
   border: 1px solid var(--neutral-border-light);
   border-radius:var(--core-radius-sm);
   padding:var(--core-space-4);
@@ -2707,12 +2707,12 @@ summary:focus-visible {
   min-width: 0;
   box-sizing: border-box;
   border-radius:var(--core-radius-sm);
-  color: var(--rgs-ink);
+  color: var(--neutral-text-default);
   background:
     radial-gradient(120% 100% at 100% 0%, color-mix(in srgb, var(--brand-text-primary-default) calc(var(--rgs-glow-a) * 100%), transparent), transparent 62%),
     radial-gradient(90% 80% at 0% 100%, color-mix(in srgb, var(--semantics-success-text) calc(var(--rgs-glow-b) * 100%), transparent), transparent 68%),
-    linear-gradient(168deg, var(--rgs-base-1) 0%, var(--rgs-base-2) 58%, var(--rgs-base-3) 100%);
-  border: 1px solid var(--rgs-border);
+    linear-gradient(168deg, var(--neutral-surface-layer-01) 0%, var(--neutral-surface-layer-01) 58%, var(--neutral-background) 100%);
+  border: 1px solid var(--theme-neutral-border-primary-default);
   box-shadow: var(--core-elevation-1);
 }
 /* Atmosphere is dark-mode only — in light mode these read as dirt on an
@@ -2722,7 +2722,7 @@ summary:focus-visible {
   inset: 0;
   pointer-events: none;
   opacity: var(--rgs-decor, 0);
-  background-image: radial-gradient(color-mix(in srgb, var(--rgs-ink) 12%, transparent) 1px, transparent 1.4px);
+  background-image: radial-gradient(color-mix(in srgb, var(--neutral-text-default) 12%, transparent) 1px, transparent 1.4px);
   background-size: 16px 16px;
   /* #000 here is a mask luminance channel, not a rendered color -- CSS
      masks read black/transparent as opacity stops, so this isn't a
@@ -2780,14 +2780,14 @@ summary:focus-visible {
   line-height:var(--typography-eyebrow-line-height);
   font-weight: var(--typography-eyebrow-weight);
   
-  color: var(--rgs-muted);
+  color: var(--neutral-text-subtle-light);
 }
 .rgs-headline {
   margin:var(--core-space-0);
   font-size: var(--typography-heading-h5-size);
   font-weight: var(--typography-font-weight-bold);
   letter-spacing: var(--typography-heading-h5-letter-spacing);
-  color: var(--rgs-ink);
+  color: var(--neutral-text-default);
   line-height: var(--typography-heading-h5-line-height);
   overflow-wrap: anywhere;
 }
@@ -2861,7 +2861,7 @@ summary:focus-visible {
   font-size: var(--typography-heading-h3-size);   /* CORE H3 — "100%" still fits inside the 116px ring */
   font-weight: var(--typography-font-weight-bold);
   line-height: var(--typography-heading-h3-line-height);
-  color: var(--rgs-ink);
+  color: var(--neutral-text-default);
   font-variant-numeric: tabular-nums;
 }
 /* Label moved outside the ring, sits centered below the orbit */
@@ -2870,7 +2870,7 @@ summary:focus-visible {
   font-size:var(--typography-font-size-xs);
   font-weight: var(--typography-font-weight-semibold);
   
-  color: var(--rgs-muted);
+  color: var(--neutral-text-subtle-light);
   text-align: center;
   text-transform: lowercase;
 }
@@ -2897,7 +2897,7 @@ summary:focus-visible {
   gap:var(--core-space-1) var(--core-space-3);
   padding:var(--core-space-3) var(--core-space-0);
 }
-.rgs-snap-row + .rgs-snap-row { border-top: 1px solid var(--rgs-glass-border); }
+.rgs-snap-row + .rgs-snap-row { border-top: 1px solid var(--theme-neutral-border-primary-default); }
 .rgs-snap-label {
   display: inline-flex;
   align-items: center;
@@ -2906,29 +2906,29 @@ summary:focus-visible {
   margin:var(--core-space-0);
   font-size:var(--typography-font-size-xs);
   font-weight: var(--typography-font-weight-semibold);
-  color: var(--rgs-ink-soft);
+  color: var(--neutral-text-subtle);
   white-space: nowrap;
 }
 .rgs-snap-row.expense .rgs-snap-label {
   
   font-size:var(--typography-font-size-xs);
   font-weight: var(--typography-font-weight-bold);
-  color: var(--rgs-muted);
+  color: var(--neutral-text-subtle-light);
 }
 .rgs-dot { width: var(--core-space-2); height: var(--core-space-2); border-radius: var(--core-radius-full); flex: 0 0 auto; background: currentColor; }
-.rgs-snap-row.income .rgs-snap-label { color: var(--rgs-success); }
-.rgs-snap-row.shortfall .rgs-snap-label { color: var(--rgs-danger); }
+.rgs-snap-row.income .rgs-snap-label { color: var(--semantics-success-text); }
+.rgs-snap-row.shortfall .rgs-snap-label { color: var(--semantics-critical-text); }
 .rgs-snap-row dd { margin:var(--core-space-0) var(--core-space-0) var(--core-space-0) auto; min-width: 0; }
 .rgs-snap-row b {
   font-size: var(--typography-body-lg-size);
   font-weight: var(--typography-font-weight-bold);
   
-  color: var(--rgs-ink);
+  color: var(--neutral-text-default);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.rgs-snap-row.income b { color: var(--rgs-success); }
-.rgs-snap-row.shortfall b { color: var(--rgs-danger); }
+.rgs-snap-row.income b { color: var(--semantics-success-text); }
+.rgs-snap-row.shortfall b { color: var(--semantics-critical-text); }
 /* The explicit divider element is redundant now that rows self-divide. */
 .rgs-snap-div { display: none; }
 
@@ -2941,8 +2941,8 @@ summary:focus-visible {
   gap:var(--core-space-3);
   padding:var(--core-space-3) var(--core-space-4);
   border-radius:var(--core-radius-sm);
-  background: var(--rgs-glass);
-  border: 1px solid var(--rgs-glass-border);
+  background: var(--neutral-background);
+  border: 1px solid var(--theme-neutral-border-primary-default);
 }
 .rgs-status-ico {
   width: 30px;
@@ -2951,25 +2951,25 @@ summary:focus-visible {
   border-radius:var(--core-radius-sm);
   display: grid;
   place-items: center;
-  background: var(--core-color-surface-sunken);
-  color: var(--rgs-ink);
+  background: var(--neutral-surface-layer-03);
+  color: var(--neutral-text-default);
 }
-.rgs-status.ok, .rgs-status.warn { background: var(--rgs-glass); }
-.rgs-status.ok .rgs-status-ico, .rgs-status.warn .rgs-status-ico { background: var(--core-color-surface-sunken); color: var(--rgs-ink); }
+.rgs-status.ok, .rgs-status.warn { background: var(--neutral-background); }
+.rgs-status.ok .rgs-status-ico, .rgs-status.warn .rgs-status-ico { background: var(--neutral-surface-layer-03); color: var(--neutral-text-default); }
 .rgs-status-copy { min-width: 0; }
-.rgs-status-copy b { display: block; font-size:var(--typography-body-sm-size); font-weight: var(--typography-font-weight-bold); color: var(--rgs-ink); }
-.rgs-status.ok .rgs-status-copy b { color: var(--rgs-ink); }
-.rgs-status.warn .rgs-status-copy b { color: var(--rgs-ink); }
+.rgs-status-copy b { display: block; font-size:var(--typography-body-sm-size); font-weight: var(--typography-font-weight-bold); color: var(--neutral-text-default); }
+.rgs-status.ok .rgs-status-copy b { color: var(--neutral-text-default); }
+.rgs-status.warn .rgs-status-copy b { color: var(--neutral-text-default); }
 .rgs-status-copy span {
   display: block;
   margin-top:var(--core-space-1);
   font-size:var(--typography-font-size-xs);
   line-height:var(--typography-body-xs-line-height);
-  color: var(--rgs-ink-soft);
+  color: var(--neutral-text-subtle);
 }
 
 .rgs-intro { display: flex; flex-direction: column; align-items: flex-start; gap:var(--core-space-3); margin-bottom:var(--core-space-5); }
-.rgs-intro p { margin:var(--core-space-0); font-size: var(--typography-caption-size); line-height:var(--typography-caption-line-height); color: var(--rgs-ink-soft); }
+.rgs-intro p { margin:var(--core-space-0); font-size: var(--typography-caption-size); line-height:var(--typography-caption-line-height); color: var(--neutral-text-subtle); }
 .rgs-primary-cta {
   display: inline-flex; align-items: center; gap: var(--core-space-1); min-height: var(--core-size-control-md);
   padding: var(--core-space-2) var(--core-space-3); border-radius: var(--core-radius-sm); border: 1px solid var(--brand-border-primary-default);
@@ -2988,15 +2988,15 @@ summary:focus-visible {
 .rgs-foot {
   display: flex; flex-direction: column; gap:var(--core-space-3);
   margin:var(--core-space-4) var(--core-space-0) var(--core-space-0); padding-top:var(--core-space-4);
-  border-top: 1px solid var(--rgs-glass-border);
-  font-size:var(--typography-font-size-xs);
+  border-top: 1px solid var(--theme-neutral-border-primary-default);
+  font-size:var(--typography-body-md-size);
 }
 .rgs-foot-link {
   /* Padding + matching negative margin lift the click target to the WCAG
      2.5.8 24px minimum without moving the visible text. */
   display: inline-flex; align-items: center; gap:var(--core-space-2); align-self: flex-start;
   font: inherit; font-size:var(--typography-font-size-xs); font-weight: var(--typography-font-weight-bold);
-  color: var(--rgs-ink); text-decoration: none; white-space: nowrap;
+  color: var(--neutral-text-default); text-decoration: none; white-space: nowrap;
   padding:var(--core-space-2) var(--core-space-1); margin:calc(-1 * var(--core-space-2)) calc(-1 * var(--core-space-1)); border-radius:var(--core-radius-sm);
 }
 .rgs-foot-link:hover { text-decoration: underline; }
@@ -3006,7 +3006,7 @@ summary:focus-visible {
    actions row -- Disclaimer is an inline text button, not a second CTA. */
 .rgs-foot-note {
   display: flex; align-items: baseline; gap:var(--core-space-2);
-  margin:var(--core-space-0); color: var(--rgs-muted); line-height:var(--typography-body-xs-line-height);
+  margin:var(--core-space-0); color: var(--neutral-text-subtle-light); line-height:var(--typography-body-md-line-height);
 }
 .rgs-foot-note svg { flex: 0 0 auto; align-self: center; }
 .rgs-disclaimer-link {
@@ -3029,7 +3029,7 @@ summary:focus-visible {
   box-sizing: border-box;
   border-radius:var(--core-radius-sm);
   padding:var(--core-space-4);
-  background: linear-gradient(135deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 52%, var(--learn-surface-2) 100%);
+  background: linear-gradient(135deg, var(--neutral-surface-layer-01) 0%, var(--neutral-surface-layer-01) 52%, var(--brand-background-primary-light) 100%);
   border: 1px solid var(--neutral-border-light);
   box-shadow: var(--core-elevation-1);
   min-height: 176px;
@@ -3072,7 +3072,7 @@ summary:focus-visible {
   font-size:var(--typography-font-size-xl);
   font-weight: var(--typography-font-weight-bold);
   
-  color: var(--learn-ink);
+  color: var(--neutral-text-default);
   line-height: var(--typography-heading-h3-line-height);
   overflow-wrap: anywhere;
 }
@@ -3080,7 +3080,7 @@ summary:focus-visible {
   margin:var(--core-space-0) var(--core-space-0) var(--core-space-4);
   font-size: var(--typography-caption-size);
   line-height:var(--typography-caption-line-height);
-  color: var(--learn-desc);
+  color: var(--neutral-text-subtle);
 }
 .learn2-link {
   display: inline-flex;
@@ -3110,7 +3110,7 @@ summary:focus-visible {
    different kind of control. Actions stay one colour app-wide; the
    variant expresses itself through the tag and the wash instead. */
 .learn2-enrich {
-  background: linear-gradient(135deg, var(--learn-surface-1) 0%, var(--learn-surface-1) 52%, var(--theme-tertiary-background-primary-light) 100%);
+  background: linear-gradient(135deg, var(--neutral-surface-layer-01) 0%, var(--neutral-surface-layer-01) 52%, var(--theme-tertiary-background-primary-light) 100%);
 }
 .learn2-enrich .learn2-tag { color: var(--theme-tertiary-text-primary-active); background: var(--theme-tertiary-background-primary-subtle); }
 /* The supplied Enrich illustration has a denser, more square bounding
@@ -3144,7 +3144,7 @@ summary:focus-visible {
   box-sizing: border-box;
   border-radius:var(--core-radius-sm);
   padding:var(--core-space-4);
-  background: linear-gradient(150deg, var(--inv-surface-1) 0%, var(--inv-surface-1) 55%, var(--inv-surface-2) 100%);
+  background: linear-gradient(150deg, var(--neutral-surface-layer-01) 0%, var(--neutral-surface-layer-01) 55%, var(--semantics-success-background-light) 100%);
   border: 1px solid var(--neutral-border-light);
   box-shadow: var(--core-elevation-1);
 }
@@ -3180,7 +3180,7 @@ summary:focus-visible {
   font-size:var(--typography-font-size-xs);
   font-weight: var(--typography-font-weight-bold);
   
-  color: var(--inv-desc);
+  color: var(--neutral-text-subtle);
 }
 .risk3-badge {
   flex: 0 0 auto;
@@ -3206,7 +3206,7 @@ summary:focus-visible {
   margin:var(--core-space-0);
   font-size: var(--typography-body-xs-relaxed-size);
   line-height:var(--typography-body-xs-relaxed-line-height);
-  color: var(--inv-desc);
+  color: var(--neutral-text-subtle);
 }
 .risk3-desc + .risk3-desc { margin-top:var(--core-space-2); }
 
@@ -3264,13 +3264,13 @@ summary:focus-visible {
 .demo-switcher{position:fixed;right:20px;bottom:calc(var(--core-layout-footer-minHeight) + 20px);z-index:40}
 .demo-switcher-toggle{
   display:inline-flex;align-items:center;gap:var(--core-space-2);padding:var(--core-space-2) var(--core-space-4);border-radius:var(--core-radius-full);
-  border:1px solid var(--neutral-border-light);background:var(--core-color-surface-default);color:var(--neutral-text-subtle);
+  border:1px solid var(--neutral-border-light);background:var(--neutral-surface-layer-01);color:var(--neutral-text-subtle);
   font:inherit;font-size:var(--typography-caption-size);font-weight:var(--typography-font-weight-semibold);cursor:pointer;box-shadow:var(--core-elevation-2)
 }
 .demo-switcher-toggle:hover,.demo-switcher-toggle.open{border-color:var(--brand-text-primary-default);color:var(--brand-text-primary-default)}
 .demo-switcher-menu{
   position:absolute;right:0;bottom:calc(100% + 8px);width:250px;max-height:320px;overflow-y:auto;
-  background:var(--core-color-surface-default);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-3);
+  background:var(--neutral-surface-layer-01);border:1px solid var(--neutral-border-light);border-radius:var(--core-radius-sm);box-shadow:var(--core-elevation-3);
   padding:var(--core-space-2);display:flex;flex-direction:column;gap:var(--core-border-width-hairline)
 }
 .demo-switcher-label{
