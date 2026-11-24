@@ -7,6 +7,7 @@ import { LOCATIONS, PREFS_KEY, hydratePrefs, writeMap } from '../lib/retirementG
 import { getRiskAnswers, getRiskLevel, scoreQuestionnaire, setRiskAnswers, setRiskProfileId } from '../lib/riskProfile'
 import RiskJourneyScene from '../components/questionnaire/RiskJourneyScene.jsx'
 import '../styles/riskQuestionnaire.css'
+import Footer from '../components/layout/Footer.jsx'
 
 const LEVEL_ICON = { conservative: ShieldCheck, moderate: Scale, aggressive: Rocket }
 
@@ -83,6 +84,7 @@ export default function RiskQuestionnaire() {
   const ResultIcon = level ? LEVEL_ICON[level.id] : null
 
   return (
+    <>
     <div className="rqp-page">
       <aside className="rqp-side" aria-hidden="true">
         <RiskJourneyScene />
@@ -230,5 +232,7 @@ export default function RiskQuestionnaire() {
         </div>
       </main>
     </div>
+    <Footer full />
+    </>
   )
 }
