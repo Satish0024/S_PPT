@@ -3099,3 +3099,5 @@ summary:focus-visible {
   .demo-switcher{right:12px;bottom:12px}
   .demo-switcher-menu{width:calc(100vw - 24px);right:-12px}
 }
+
+.app-footer.app-footer--full{margin-left:0;width:100%}
